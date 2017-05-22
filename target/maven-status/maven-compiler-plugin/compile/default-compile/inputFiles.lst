@@ -1,0 +1,16 @@
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/server/AbstractServer.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/socketServer/SocketServer.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/rmiServer/RmiPlayer.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/socketServer/SocketRequestHandler.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/rmiServer/RmiServerInterface.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/server/ServerInterface.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/model/Player.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/rmiClient/RmiClient.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/rmiServer/RmiServer.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/socketServer/SocketCommunicationRulesInterface.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/socketServer/SocketPlayer.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/rmiClient/RmiClientInterface.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/server/AbstractPlayer.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/gameServer/Room.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/socketServer/SocketCommunicationRules.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/controller/server/Server.java

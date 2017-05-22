@@ -1,0 +1,8 @@
+it/polimi/ingsw/controller/socketServer/SocketRequestHandler.class
+it/polimi/ingsw/controller/server/AbstractServer.class
+it/polimi/ingsw/controller/model/Player.class
+it/polimi/ingsw/controller/rmiClient/RmiClientInterface.class
+it/polimi/ingsw/controller/socketServer/SocketServer.class
+it/polimi/ingsw/controller/rmiServer/RmiPlayer.class
+it/polimi/ingsw/controller/server/AbstractPlayer.class
+it/polimi/ingsw/controller/server/ServerInterface.class
