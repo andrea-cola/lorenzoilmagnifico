@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.rmiServer;
 
+import it.polimi.ingsw.controller.exceptions.LoginException;
 import it.polimi.ingsw.controller.rmiClient.RmiClientInterface;
 import it.polimi.ingsw.controller.server.AbstractServer;
 import it.polimi.ingsw.controller.server.ServerInterface;
@@ -77,7 +78,7 @@ public class RmiServer extends AbstractServer implements RmiServerInterface {
      * @param password
      * @param rmiPlayer
      */
-    public void login(String username, String password, RmiPlayer rmiPlayer){
+    public void login(String username, String password, RmiPlayer rmiPlayer) throws LoginException{
         getServer().login(username, password, rmiPlayer);
     }
 

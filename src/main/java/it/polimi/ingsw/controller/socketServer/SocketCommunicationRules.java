@@ -69,7 +69,7 @@ public class SocketCommunicationRules {
             handler.handle();
         }
     }
-    
+
     private void loginPlayer(){
         try{
             String username = (String)input.readObject();
