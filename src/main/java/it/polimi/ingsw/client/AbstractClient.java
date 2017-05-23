@@ -39,7 +39,4 @@ public abstract class AbstractClient {
     protected int getPort(){
         return this.port;
     }
-
-    protected
-
 }
