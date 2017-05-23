@@ -1,6 +1,6 @@
-package it.polimi.ingsw.controller.server;
+package it.polimi.ingsw;
 
-import it.polimi.ingsw.controller.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.LoginException;
 
 public interface ServerInterface {
 

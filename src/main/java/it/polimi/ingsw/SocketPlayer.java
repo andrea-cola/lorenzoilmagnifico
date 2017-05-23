@@ -1,8 +1,6 @@
-package it.polimi.ingsw.controller.socketServer;
+package it.polimi.ingsw;
 
-import it.polimi.ingsw.controller.server.AbstractPlayer;
-import it.polimi.ingsw.controller.server.ServerInterface;
-import it.polimi.ingsw.controller.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.LoginException;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

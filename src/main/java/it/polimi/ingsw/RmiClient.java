@@ -1,12 +1,10 @@
-package it.polimi.ingsw.controller.rmiClient;
+package it.polimi.ingsw;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-
-import it.polimi.ingsw.controller.rmiServer.RmiServerInterface;
 
 public class RmiClient implements RmiClientInterface {
 

@@ -1,7 +1,4 @@
-package it.polimi.ingsw.controller.rmiServer;
-
-import it.polimi.ingsw.controller.rmiClient.RmiClientInterface;
-import it.polimi.ingsw.controller.server.AbstractPlayer;
+package it.polimi.ingsw;
 
 public class RmiPlayer extends AbstractPlayer {
 

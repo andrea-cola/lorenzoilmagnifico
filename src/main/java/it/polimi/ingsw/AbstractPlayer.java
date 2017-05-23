@@ -1,7 +1,7 @@
-package it.polimi.ingsw.controller.server;
+package it.polimi.ingsw;
 
-import it.polimi.ingsw.controller.gameServer.Room;
-import it.polimi.ingsw.controller.model.Player;
+import it.polimi.ingsw.gameServer.Room;
+import it.polimi.ingsw.model.Player;
 
 public abstract class AbstractPlayer extends Player{
 

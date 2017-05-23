@@ -1,9 +1,8 @@
-package it.polimi.ingsw.controller.rmiServer;
+package it.polimi.ingsw;
 
-import it.polimi.ingsw.controller.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.LoginException;
 
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 
 public interface RmiServerInterface extends Remote{
 

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.controller.gameServer;
+package it.polimi.ingsw.gameServer;
 
 /**
  * Created by andrea on 21/05/17.

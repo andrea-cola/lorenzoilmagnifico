@@ -1,6 +1,6 @@
-package it.polimi.ingsw.controller.socketServer;
+package it.polimi.ingsw;
 
-import it.polimi.ingsw.controller.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.LoginException;
 
 /**
  * Created by andrea on 22/05/17.

@@ -1,16 +1,11 @@
-package it.polimi.ingsw.controller.rmiServer;
+package it.polimi.ingsw;
 
-import it.polimi.ingsw.controller.exceptions.LoginException;
-import it.polimi.ingsw.controller.rmiClient.RmiClientInterface;
-import it.polimi.ingsw.controller.server.AbstractServer;
-import it.polimi.ingsw.controller.server.ServerInterface;
+import it.polimi.ingsw.exceptions.LoginException;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class RmiServer extends AbstractServer implements RmiServerInterface {
 

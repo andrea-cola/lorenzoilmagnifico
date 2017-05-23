@@ -1,15 +1,11 @@
-package it.polimi.ingsw.controller.server;
+package it.polimi.ingsw;
 
-import it.polimi.ingsw.controller.rmiServer.RmiServer;
-import it.polimi.ingsw.controller.socketServer.SocketServer;
-import it.polimi.ingsw.controller.gameServer.Room;
-import it.polimi.ingsw.controller.exceptions.LoginException;
+import it.polimi.ingsw.gameServer.Room;
+import it.polimi.ingsw.exceptions.LoginException;
 
 import java.sql.*;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 
 public class Server implements ServerInterface{
