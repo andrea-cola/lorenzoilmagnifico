@@ -9,12 +9,12 @@ import java.io.Serializable;
 public class Player implements Serializable{
 
     /**
-     * Player nickname.
+     * SocketPlayer nickname.
      */
     private String nickname;
 
     /**
-     * Player color.
+     * SocketPlayer color.
      */
     private Color color;
 
