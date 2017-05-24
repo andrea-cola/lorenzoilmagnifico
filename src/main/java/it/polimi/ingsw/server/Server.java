@@ -91,7 +91,7 @@ public class Server implements ServerInterface{
     }
 
     /**
-     * Main method to launch server side game
+     * Main method to launch server side Game
      * @param args
      */
     public static void main(String[] args){

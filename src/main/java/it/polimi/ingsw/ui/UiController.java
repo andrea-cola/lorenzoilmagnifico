@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ui;
 
 /**
- * Interface created implemented by the game class, contains all functions related to the game that need to
+ * Interface created implemented by the Game class, contains all functions related to the Game that need to
  * be updated in real time and notified for every change.
  */
-public interface uiController {
+public interface UiController {
 
     void setNetworkSetting();
 
