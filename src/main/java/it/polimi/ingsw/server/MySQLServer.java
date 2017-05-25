@@ -102,7 +102,7 @@ public class MySQLServer{
      * @return
      * @throws LoginException
      */
-\    boolean isAlreadyRegistered(String username) throws LoginException{
+    boolean isAlreadyRegistered(String username) throws LoginException{
         String query = "SELECT COUNT(*) AS number FROM users WHERE username=?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
