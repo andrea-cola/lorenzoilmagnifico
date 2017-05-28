@@ -5,7 +5,7 @@ package it.polimi.ingsw.ui;
  * This class represents the abstraction of an user interface. It will be extended by every user interface
  */
 public abstract class AbstractUI {
-
+    
     private final UiController controller;
 
     public void abstractUI(UiController controller){ }
