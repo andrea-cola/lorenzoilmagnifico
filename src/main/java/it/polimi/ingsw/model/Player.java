@@ -8,26 +8,14 @@ import java.io.Serializable;
  */
 public class Player implements Serializable{
 
-    /**
-     * Player nickname.
-     */
     private String nickname;
 
-    /**
-     * Player color.
-     */
-    private Color color;
+    private PlayerColor color;
 
-    /**
-     * Online flag show if the player is online or not.
-     */
     private boolean onlineFlag;
 
-    /**
-     * Class constructor.
-     */
     protected Player(){
-        super();
+
     }
 
     /**
@@ -48,19 +36,11 @@ public class Player implements Serializable{
     }
 
     /**
-     * Method to set player color.
-     * @param color
-     */
-    public void setColor(Color color){
-        this.color = color;
-    }
-
-    /**
      * Method to get player color.
      * @return
      */
-    public Color getColor(){
-        return color;
+    public PlayerColor getColor(){
+        return this.color;
     }
 
     /**

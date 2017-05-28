@@ -21,7 +21,7 @@ public class RmiClient implements RmiClientInterface {
             server = (RmiServerInterface) registry.lookup("RmiServerInterface");
             UnicastRemoteObject.exportObject(this, 0);
             registry.rebind("RmiClientInterface", this);
-            server.clientConnected();
+            //server.clientConnected();
         }catch(RemoteException e){
             System.out.println("Cannot connect the server - RemoteException");
         }catch(NotBoundException e) {

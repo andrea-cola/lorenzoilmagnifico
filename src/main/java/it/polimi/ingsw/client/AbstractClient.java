@@ -40,6 +40,4 @@ public abstract class AbstractClient {
         return this.port;
     }
 
-    protected
-
 }

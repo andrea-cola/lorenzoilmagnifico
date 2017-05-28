@@ -2,6 +2,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.gameServer.Room;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerColor;
 
 public abstract class AbstractPlayer extends Player{
 
