@@ -20,4 +20,12 @@ public class LoginException extends IOException{
         super(message);
     }
 
+    /**
+     * Class exception constructor.
+     * @param message
+     */
+    public LoginException(LoginEnum message){
+        super(message.toString());
+    }
+
 }

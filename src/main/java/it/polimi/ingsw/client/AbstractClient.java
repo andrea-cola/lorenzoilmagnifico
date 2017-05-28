@@ -1,8 +1,5 @@
 package it.polimi.ingsw.client;
 
-/**
- * Created by andrea on 22/05/17.
- */
 public abstract class AbstractClient {
 
     /**
@@ -32,12 +29,30 @@ public abstract class AbstractClient {
         this.port = port;
     }
 
+    /**
+     * Method to get the server ip address.
+     * @return
+     */
     protected String getAddress(){
         return this.address;
     }
 
+    /**
+     * Method to get the server port.
+     * @return
+     */
     protected int getPort(){
         return this.port;
     }
+
+    protected ClientInterface getController() {
+        return clientInterface;
+    }
+
+    public abstract void connect();
+
+    public abstract void login(String username, String password);
+
+    public abstract void signin(String username, String password);
 
 }
