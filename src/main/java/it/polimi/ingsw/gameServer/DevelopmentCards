@@ -1,92 +1,47 @@
-[
+
   {
     "name": "Knight",
-    "id": "52",
-    "cardType": "character",
-    "period": "1",
+    "id": 52,
+    "color": "GREEN",
+    "period": 1,
     "cost": {
-      "coin": "0",
-      "wood": "0",
-      "stone": "0",
-      "slave": "0"
+      "coin": 0,
+      "wood": 0,
+      "stone": 0,
+      "slave": 0
     },
     "immediateEffect": {
       "immediateEffectType": "immediateEffectSimple",
       "effect": {
         "resource": {
-          "coin": "3",
+          "coin": 3,
           "wood": 2,
-          "slave": "0",
-          "stone": "0"
+          "slave": 0,
+          "stone": 0
         },
         "point": {
-          "military": "0",
-          "faith": "0",
-          "victory": "0"
+          "military": 0,
+          "faith": 0,
+          "victory": 0
         },
-        "council": "0"
+        "council": 0
       }
     },
     "permanentEffect": {
       "permanentEffectType": "permanentEffectHarvestProductionSimple",
       "effect": {
         "resource": {
-          "coin": "3",
+          "coin": 3,
           "wood": 2,
-          "slave": "0",
-          "stone": "0"
+          "slave": 0,
+          "stone": 0
         },
         "point": {
-          "military": "0",
-          "faith": "0",
-          "victory": "0"
-        }
-      }
-    }
-  },
-  {
-    "name": "Knight",
-    "id": "52",
-    "cardType": "character",
-    "period": "2",
-    "cost": {
-      "coin": "0",
-      "wood": "0",
-      "stone": "0",
-      "slave": "0"
-    },
-    "immediateEffect": {
-      "immediateEffectType": "immediateEffectSimple",
-      "effect": {
-        "resource": {
-          "coin": "3",
-          "wood": 2,
-          "slave": "0",
-          "stone": "0"
-        },
-        "point": {
-          "military": "0",
-          "faith": "0",
-          "victory": "0"
-        },
-        "council": "0"
-      }
-    },
-    "permanentEffect": {
-      "permanentEffectType": "permanentEffectHarvestProductionSimple",
-      "effect": {
-        "resource": {
-          "coin": "3",
-          "wood": 2,
-          "slave": "0",
-          "stone": "0"
-        },
-        "point": {
-          "military": "0",
-          "faith": "0",
-          "victory": "0"
+          "military": 0,
+          "faith": 0,
+          "victory": 0
         }
       }
     }
   }
-]
+

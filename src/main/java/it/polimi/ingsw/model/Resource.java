@@ -5,16 +5,14 @@ package it.polimi.ingsw.model;
  */
 public class Resource {
 
-    private enum ResourceType{
-        WOOD,
-        STONE,
-        COIN,
-        SERVANT
-    }
-
     private ResourceType type;
 
     private Integer amount;
+
+    public Resource(ResourceType type, Integer amount){
+        this.type = type;
+        this.amount = amount;
+    }
 
     public void setAmount(Integer amount){
         this.amount = amount;

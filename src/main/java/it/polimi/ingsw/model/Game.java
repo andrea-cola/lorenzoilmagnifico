@@ -2,9 +2,6 @@ package it.polimi.ingsw.model;
 
 import java.util.*;
 
-/**
- * Created by lorenzo on 23/05/17.
- */
 public class Game {
 
     private MainBoard mainBoard;
@@ -15,25 +12,23 @@ public class Game {
 
     private FamilyMember[] familyMembers = new FamilyMember[FamilyMemberColor.values().length];
 
-    private ArrayList<DevelopmentCard> developmentCardsDeck = new ArrayList<DevelopmentCard>();
+    private ArrayList<DevelopmentCard> deck = new ArrayList<>();
 
     private static Game game;
 
     /**
      * Class constructor, note that this method gets called once due to the Singleton pattern
      */
-    private Game(Integer numberOfPlayers){
-        this.setupMainBoard();
-        this.setupPlayers(numberOfPlayers);
+    private Game(){
         this.setupFamilyMembers();
     }
 
     /**
      *  Lazy instantiation of the game
      */
-    public static Game setupGame(Integer numberOfPlayers){
+    public static Game setupGame(){
         if(game == null){
-            game = new Game(numberOfPlayers);
+            game = new Game();
         }
         return game;
     }
@@ -42,7 +37,7 @@ public class Game {
      * This method instantiates the Players of the game
      * @param numberOfPlayers
      */
-    private void setupPlayers(Integer numberOfPlayers){
+    public void setupPlayers(Integer numberOfPlayers){
         this.players = new Player[numberOfPlayers];
 
         for (int i = 0; i < numberOfPlayers; i++){
@@ -53,7 +48,7 @@ public class Game {
     /**
      * This method instantiates the mainBoard if it has not been initialized yet
      */
-    private void setupMainBoard(){
+    public void setupMainBoard(){
         this.mainBoard = MainBoard.setupMainBoard();
     }
 
@@ -69,18 +64,44 @@ public class Game {
     }
 
     /**
-     * This method instantiates the development cards decks
+     * This method instantiates 4 development cards decks (one for each color)
      */
     public void setupDevelopmentCardsDeck(ArrayList<DevelopmentCard> deck){
-        this.developmentCardsDeck = deck;
+        this.deck = deck;
     }
+
 
     /**
      * This method sets the board for a new round (for example it puts new cards inside every tower)
      */
-    public void setNewRound(){
+    public void setNewRound(int period){
         this.setNewFamilyMembersValue();
-        this.setNewCardsForTowers();
+
+        int towerIndex = 0;
+        for (DevelopmentCardColor cardColor: DevelopmentCardColor.values()){
+            this.mainBoard.setTower(towerIndex, chooseCards(this.deck, cardColor, period, towerIndex));
+            towerIndex++;
+        }
+
+    }
+
+
+    private ArrayList<DevelopmentCard> chooseCards(ArrayList<DevelopmentCard> deck, DevelopmentCardColor color, int period, int towerIndex){
+        ArrayList<DevelopmentCard> cards = new ArrayList<>();
+
+        for (DevelopmentCard card: deck){
+            if (card.getColor() == color && card.getPeriod() == period){
+                //add the card to an array list of cards that will be send to a tower
+                cards.add(card);
+                //remove from the deck the cards you have already added to the towers
+                deck.remove(card);
+            }
+
+            if(cards.size() == this.mainBoard.getTower(towerIndex).getNumberOfTowerCells()){
+                break;
+            }
+        }
+        return cards;
     }
 
      /**
@@ -95,12 +116,7 @@ public class Game {
         }
     }
 
-    /**
-     * This method sets new cards for the towers
-     */
-    private void setNewCardsForTowers(){
 
-    }
 
     public FamilyMember getFamilyMember(int index){
         return this.familyMembers[index];

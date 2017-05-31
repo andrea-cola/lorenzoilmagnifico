@@ -11,10 +11,12 @@ public class TowerCell {
 
     private Integer minFamilyMemberValue;
 
+    private DevelopmentCardColor towerCellColor;
+
     private boolean empty = true;
 
-    public TowerCell(){
-
+    public TowerCell(DevelopmentCardColor color){
+        this.towerCellColor = color;
     }
 
     public boolean isEmpty(){
@@ -37,5 +39,8 @@ public class TowerCell {
         return this.minFamilyMemberValue;
     }
 
+    public DevelopmentCardColor getTowerCellColor(){
+        return this.towerCellColor;
+    }
 
 }

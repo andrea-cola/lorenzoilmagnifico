@@ -36,6 +36,7 @@ public class Configurator {
         RuntimeTypeAdapterFactory<ImmediateEffect> immediateEffectFactory = RuntimeTypeAdapterFactory.of(ImmediateEffect.class, "immediateEffectType");
         immediateEffectFactory.registerSubtype(ImmediateEffectSimple.class, "immediateEffectSimple");
 
+
         RuntimeTypeAdapterFactory<PermanentEffect> permanentEffectFactory = RuntimeTypeAdapterFactory.of(PermanentEffect.class, "permanentEffectType");
         permanentEffectFactory.registerSubtype(PermanentEffectHarvestProductionSimple.class, "permanentEffectHarvestProductionSimple");
 
@@ -50,5 +51,6 @@ public class Configurator {
         ArrayList<DevelopmentCard> developmentCards = gson.fromJson(reader, new TypeToken<List<DevelopmentCard>>(){}.getType());
 
         return developmentCards;
+
     }
 }

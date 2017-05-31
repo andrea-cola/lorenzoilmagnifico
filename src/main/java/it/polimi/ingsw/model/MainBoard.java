@@ -1,8 +1,10 @@
 package it.polimi.ingsw.model;
 
 import sun.applet.Main;
+import sun.jvm.hotspot.oops.Array;
 import sun.jvm.hotspot.oops.Mark;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -62,6 +64,18 @@ public class MainBoard {
         return mainBoard;
     }
 
+
+    /**
+     * This method sets new cards for the towers
+     */
+    public void setTower(int index, ArrayList<DevelopmentCard> cards){
+        int cell = 0;
+        for (DevelopmentCard card : cards){
+            this.towers[index].setTowerCell(cell, card);
+            cell++;
+        }
+    }
+
     /**
      * This method returns a specific tower of the mainBoard
      * @param index
@@ -99,6 +113,7 @@ public class MainBoard {
     public Market getMarket(){
         return this.market;
     }
+
 
 
 }

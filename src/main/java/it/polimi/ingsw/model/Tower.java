@@ -1,31 +1,32 @@
 package it.polimi.ingsw.model;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by lorenzo on 23/05/17.
  */
 public class Tower {
 
+    private static final int NUMBER_OF_TOWER_CELLS = 4;
+
     /**
      * Constant value to indicate the number of cells for each tower
      */
-    private static final int NUMBER_OF_CELLS = 4;
 
-    private TowerCell towerCells[];
+    private TowerCell[] towerCells = new TowerCell[NUMBER_OF_TOWER_CELLS];
 
-    private DevelopmentCardColor cardColor;
+    private DevelopmentCardColor towerColor;
 
     /**
      * Class constructor
-     * @param color
      */
-    public Tower(DevelopmentCardColor color){
-        this.cardColor = color;
-
-        this.towerCells = new TowerCell[NUMBER_OF_CELLS];
-        for(int i = 0; i < NUMBER_OF_CELLS; i++){
-            this.towerCells[i] = new TowerCell();
+    public Tower(DevelopmentCardColor towerColor){
+        this.towerColor = towerColor;
+        for (int i = 0; i < NUMBER_OF_TOWER_CELLS; i++){
+            this.towerCells[i] = new TowerCell(towerColor);
         }
     }
 
@@ -34,8 +35,8 @@ public class Tower {
      * @return
      */
     public boolean isFree(){
-        for(int i = 0; i < NUMBER_OF_CELLS; i++){
-            if(!this.towerCells[i].isEmpty()){
+        for(TowerCell cell : this.towerCells){
+            if (!cell.isEmpty()){
                 return false;
             }
         }
@@ -51,20 +52,19 @@ public class Tower {
 
     /**
      * This method gets the content of the cell
-     * @param atIndex
+     * @param index
      * @return
      */
-    public TowerCell getTowerCell(Integer atIndex){
-        return this.towerCells[atIndex];
+    public TowerCell getTowerCell(Integer index){
+        return this.towerCells[index];
     }
 
-    /**
-     * This method identifies which type of cards the tower manages
-     * @return
-     */
-    public DevelopmentCardColor getDevelopmentCardType(){
-        return this.cardColor;
+    public int getNumberOfTowerCells(){
+        return NUMBER_OF_TOWER_CELLS;
     }
 
+    public DevelopmentCardColor getTowerColor(){
+        return this.towerColor;
+    }
 
 }
