@@ -7,7 +7,7 @@ public class TowerCell {
 
     private DevelopmentCard developmentCard;
 
-    private ImmediateEffect towerCellImmediateEffect;
+    private Effect towerCellImmediateEffect;
 
     private Integer minFamilyMemberValue;
 

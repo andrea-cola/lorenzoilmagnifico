@@ -5,11 +5,6 @@ package it.polimi.ingsw.model;
  */
 public class Action {
 
-    private enum ActionType{
-        PRODUCTION,
-        HERVEST
-    }
-
     private ActionType type;
 
     private Integer amount;

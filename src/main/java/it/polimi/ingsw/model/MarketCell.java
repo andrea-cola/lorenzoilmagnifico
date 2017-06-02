@@ -5,7 +5,7 @@ package it.polimi.ingsw.model;
  */
 public class MarketCell {
 
-    private ImmediateEffect marketCellImmediateEffect;
+    private Effect marketCellImmediateEffect;
 
     private Integer minFamilyMemberValue;
 
@@ -17,7 +17,7 @@ public class MarketCell {
     public MarketCell(){
         this.empty = true;
         this.minFamilyMemberValue = 1;
-        this.marketCellImmediateEffect = new ImmediateEffectSimple();
+        this.marketCellImmediateEffect = new EffectSimple();
     }
 
     /**
@@ -32,7 +32,7 @@ public class MarketCell {
      * This method returns the immediate effect of the market cell selected
      * @return
      */
-    public ImmediateEffect getImmediateEffect(){
+    public Effect getImmediateEffect(){
         return this.marketCellImmediateEffect;
     }
 

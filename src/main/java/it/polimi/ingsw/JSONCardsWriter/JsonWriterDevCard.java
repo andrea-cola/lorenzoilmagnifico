@@ -50,36 +50,70 @@ public class JsonWriterDevCard {
         writer.beginObject();
 
         writer.name("multipleRequisiteSelectionEnabled").value(card.getMultipleRequisiteSelectionEnabled());
-        writer.name("wood").value(card.getRequisite().getResources().get(0).getAmount());
-        writer.name("coin").value(card.getRequisite().getResources().get(1).getAmount());
-        writer.name("stone").value(card.getRequisite().getResources().get(2).getAmount());
-        writer.name("servant").value(card.getRequisite().getResources().get(3).getAmount());
-
-        writer.name("militaryPointsRequired").value(card.getRequisite().getPoints().get(0).getAmount());
-        writer.name("militaryPointsCost").value(card.getRequisite().getPoints().get(1).getAmount());
+        writer.name("militaryPointsRequired").value(card.getMilitaryPointsRequired());
+        writer.name("wood").value(card.getCost().getResources().get(ResourceType.WOOD));
+        writer.name("coin").value(card.getCost().getResources().get(ResourceType.COIN));
+        writer.name("stone").value(card.getCost().getResources().get(ResourceType.STONE));
+        writer.name("servant").value(card.getCost().getResources().get(ResourceType.SERVANT));
+        writer.name("military").value(card.getCost().getPoints().get(PointType.MILITARY));
 
         writer.endObject();
     }
 
-    private void writeImmediateEffect(JsonWriter writer, ImmediateEffect immediateEffect) throws IOException{
+    private void writeImmediateEffect(JsonWriter writer, EffectSimple immediateEffect) throws IOException{
 
         writer.beginObject();
 
         writer.name("immediateEffectType").value(immediateEffect.getClass().getSimpleName());
+        writer.name("effect");
+        writeEffect(writer, immediateEffect);
 
         writer.endObject();
-
     }
 
-    private void writePermanentEffect(JsonWriter writer, PermanentEffect permanentEffect) throws IOException{
+    private void writeEffect(JsonWriter writer, EffectSimple immediateEffect) throws IOException {
+        writer.beginObject();
+        writer.name("resources");
+        writeBonusResources(writer, immediateEffect);
+        writer.name("numberOfCouncilPrivileges").value(immediateEffect.getCouncilPrivilege().getNumberOfCouncilPrivileges());
+        writer.endObject();
+    }
+
+
+    private void writeBonusResources(JsonWriter writer, EffectSimple immediateEffect) throws IOException{
+        writer.beginObject();
+        writer.name("wood").value(immediateEffect.getValuable().getResources().get(ResourceType.WOOD));
+        writer.name("coin").value(immediateEffect.getValuable().getResources().get(ResourceType.COIN));
+        writer.name("stone").value(immediateEffect.getValuable().getResources().get(ResourceType.STONE));
+        writer.name("servant").value(immediateEffect.getValuable().getResources().get(ResourceType.SERVANT));
+        writer.name("faith").value(immediateEffect.getValuable().getPoints().get(PointType.FAITH));
+        writer.name("military").value(immediateEffect.getValuable().getPoints().get(PointType.MILITARY));
+        writer.name("victory").value(immediateEffect.getValuable().getPoints().get(PointType.VICTORY));
+        writer.endObject();
+    }
+
+    private void writePermanentEffect(JsonWriter writer, EffectFinalPoints permanentEffect) throws IOException{
         String permanentEffectType = permanentEffect.getClass().getSimpleName();
 
         writer.beginObject();
 
         writer.name("permanentEffectType").value(permanentEffectType);
+        writer.name("effect");
+        writeEffect(writer, permanentEffect);
 
         writer.endObject();
     }
 
+    private void writeEffect(JsonWriter writer, EffectFinalPoints permanentEffect) throws IOException{
+        writer.beginObject();
+        writer.name("resources");
+        writeBonusResources(writer, permanentEffect);
+        writer.endObject();
+    }
 
+    private void writeBonusResources(JsonWriter writer, EffectFinalPoints permanentEffect) throws IOException{
+        writer.beginObject();
+        writer.name("victory").value(permanentEffect.getFinalVictoryPoints().getPoints().get(PointType.VICTORY));
+        writer.endObject();
+    }
 }

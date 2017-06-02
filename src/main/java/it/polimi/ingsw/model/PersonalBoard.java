@@ -2,13 +2,14 @@ package it.polimi.ingsw.model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by lorenzo on 23/05/17.
  */
 public class PersonalBoard {
 
-    private ArrayList<Resource> resources;
+    private PointsAndResources valuables;
 
     private ArrayList<DevelopmentCard> territoryCards;
 
@@ -18,16 +19,17 @@ public class PersonalBoard {
 
     private ArrayList<DevelopmentCard> ventureCards;
 
+    public PersonalBoard(){
+        this.valuables = new PointsAndResources();
+    }
+
     public boolean isFull(){
         return true;
     }
 
-    public void setResource(int atIndex, Resource withResource){
-        this.resources.set(atIndex, withResource);
-    }
 
-    public Resource getResource(int atIndex){
-        return this.resources.get(atIndex);
+    public PointsAndResources getValuables(){
+        return this.valuables;
     }
 
     public void setTerritoryCards(int atIndex, DevelopmentCard withCard){
@@ -41,6 +43,8 @@ public class PersonalBoard {
     public void setBuildingCards(int atIndex, DevelopmentCard withCard){
         this.buildingCards.set(atIndex, withCard);
     }
+
+
 
     public DevelopmentCard getBuildingCard(int atIndex){
         return this.buildingCards.get(atIndex);

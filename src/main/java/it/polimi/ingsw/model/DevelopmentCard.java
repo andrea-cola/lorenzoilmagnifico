@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.awt.*;
+import java.util.Map;
 
 /**
  * Created by lorenzo on 23/05/17.
@@ -15,13 +16,15 @@ public class DevelopmentCard {
 
     private DevelopmentCardColor cardColor;
 
-    private Requisite requisite;
+    private PointsAndResources cost;
 
     private boolean multipleRequisiteSelectionEnabled;
 
-    private ImmediateEffect immediateEffect;
+    private Integer militaryPointsRequired;
 
-    private PermanentEffect permanentEffect;
+    private EffectSimple immediateEffect;
+
+    private EffectFinalPoints permanentEffect;
 
     public DevelopmentCard(){ }
 
@@ -43,24 +46,30 @@ public class DevelopmentCard {
         this.cardColor = color;
     }
 
-    public void setImmediateEffect(ImmediateEffect effect){
+    public void setImmediateEffect(EffectSimple effect){
         this.immediateEffect = effect;
     }
 
-    public void setPermanentEffect(PermanentEffect effect){
+    public void setPermanentEffect(EffectFinalPoints effect){
         this.permanentEffect = effect;
     }
 
-    public void setRequisite(Requisite requisite){
-        this.requisite = requisite;
+    public void setCost(PointsAndResources cost){
+        this.cost = cost;
+    }
+
+    public void setCost(PointType type, Integer value){
+        this.cost.increase(type, value);
     }
 
     public void setMultipleRequisiteSelectionEnabled(boolean flag){
         this.multipleRequisiteSelectionEnabled = flag;
     }
+
+    public void setMilitaryPointsRequired(Integer pointsRequired){
+        this.militaryPointsRequired = pointsRequired;
+    }
     ///////
-
-
 
     public Integer getId(){
         return this.id;
@@ -78,19 +87,23 @@ public class DevelopmentCard {
         return  this.cardColor;
     }
 
-    public Requisite getRequisite(){
-        return this.requisite;
+    public PointsAndResources getCost(){
+        return this.cost;
     }
 
-    public ImmediateEffect getImmediateEffect(){
+    public EffectSimple getImmediateEffect(){
         return this.immediateEffect;
     }
 
-    public PermanentEffect getPermanentEffect(){
+    public EffectFinalPoints getPermanentEffect(){
         return this.permanentEffect;
     }
 
     public boolean getMultipleRequisiteSelectionEnabled(){
         return this.multipleRequisiteSelectionEnabled;
+    }
+
+    public Integer getMilitaryPointsRequired(){
+        return this.militaryPointsRequired;
     }
 }

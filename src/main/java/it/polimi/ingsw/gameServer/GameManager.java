@@ -2,6 +2,7 @@ package it.polimi.ingsw.gameServer;
 
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.PointType;
 import it.polimi.ingsw.server.AbstractPlayer;
 
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ public class GameManager {
     }
 
     protected void setupDevelopmentCards(ArrayList<DevelopmentCard> cards){
+        //for(DevelopmentCard card: cards){
+         //   System.out.print(card.getImmediateEffect().getCouncilPrivilege());
+        //}
         this.game.setupDevelopmentCardsDeck(cards);
     }
 

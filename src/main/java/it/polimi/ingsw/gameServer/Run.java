@@ -9,7 +9,6 @@ public class Run {
 
         room.setupGameConfiguration();
 
-
         room.newRound(1);
     }
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class CardGenerator {
 
-    private static final String OUTPUT_FILE = "../Documents/Card.json";
+    private static final String CARD_OUTPUT_FILE = "../Documents/Card.json";
 
     public static void main(String[] args){
         JsonWriterDevCard writerDevCard = new JsonWriterDevCard();
@@ -22,47 +22,60 @@ public class CardGenerator {
         DevelopmentCard card = new DevelopmentCard();
 
         //standard attributes
-        card.setName("Sostegno al vescovo");
-        card.setId(80);
+        card.setName("Support to the pope");
+        card.setId(96);
         card.setCardColor(DevelopmentCardColor.PURPLE);
-        card.setPeriod(1);
+        card.setPeriod(3);
 
         //requisite
-        card.setMultipleRequisiteSelectionEnabled(false);
+        card.setMultipleRequisiteSelectionEnabled(true);
+        card.setMilitaryPointsRequired(10);
 
-        Requisite requisite = new Requisite();
+        PointsAndResources valuables = new PointsAndResources();
+        valuables.increase(ResourceType.WOOD, 3);
+        valuables.increase(ResourceType.COIN, 4);
+        valuables.increase(ResourceType.STONE, 3);
+        valuables.increase(ResourceType.SERVANT, 0);
+        valuables.increase(PointType.MILITARY, 5);
+        card.setCost(valuables);
 
-        ArrayList<Resource> resources = new ArrayList<>();
-        Resource wood = new Resource(ResourceType.WOOD, 0);
-        resources.add(wood);
-        Resource coin = new Resource(ResourceType.COIN, 0);
-        resources.add(coin);
-        Resource stone = new Resource(ResourceType.STONE, 0);
-        resources.add(stone);
-        Resource servant = new Resource(ResourceType.SERVANT, 0);
-        resources.add(servant);
-        requisite.setResources(resources);
 
-        ArrayList<Point> points = new ArrayList<>();
-        Point militaryPointsRequired = new Point(PointType.MILITARY, 0);
-        points.add(militaryPointsRequired);
-        Point militaryPointsCost = new Point(PointType.MILITARY, 0);
-        points.add(militaryPointsCost);
-        requisite.setPoints(points);
-
-        card.setRequisite(requisite);
 
 
         //effects
-        ImmediateEffect immediateEffect = new ImmediateEffectSimple();
+        //IMMEDIATE
+        EffectSimple immediateEffect = new EffectSimple();
+
+        PointsAndResources immediateValuablesBonus = new PointsAndResources();
+        immediateValuablesBonus.increase(ResourceType.WOOD, 0);
+        immediateValuablesBonus.increase(ResourceType.COIN, 0);
+        immediateValuablesBonus.increase(ResourceType.STONE, 0);
+        immediateValuablesBonus.increase(ResourceType.SERVANT, 0);
+        immediateValuablesBonus.increase(PointType.FAITH, 2);
+        immediateValuablesBonus.increase(PointType.MILITARY, 0);
+        immediateValuablesBonus.increase(PointType.VICTORY, 0);
+        immediateEffect.setValuable(immediateValuablesBonus);
         card.setImmediateEffect(immediateEffect);
 
-        PermanentEffect permanentEffect = new PermanentEffectHarvestProductionSimple();
+        CouncilPrivilege councilPrivilege = new CouncilPrivilege();
+        councilPrivilege.setNumberOfCouncilPrivileges(0);
+        immediateEffect.setCouncilPrivilege(councilPrivilege);
+
+
+
+
+        //PERMANENT
+        EffectFinalPoints permanentEffect = new EffectFinalPoints();
+
+        PointsAndResources victoryPoints = new PointsAndResources();
+        victoryPoints.increase(PointType.VICTORY, 10);
+        permanentEffect.setFinalVictoryPoints(victoryPoints);
         card.setPermanentEffect(permanentEffect);
 
+
         try {
-            OutputStream outputFile = new FileOutputStream(OUTPUT_FILE);
-            writerDevCard.writeJsonStream(outputFile, card);
+            OutputStream outputFileCard = new FileOutputStream(CARD_OUTPUT_FILE);
+            writerDevCard.writeJsonStream(outputFileCard, card);
         }catch (IOException e){
             System.out.print(e.getMessage());
         }

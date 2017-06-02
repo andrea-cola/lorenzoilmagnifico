@@ -33,16 +33,14 @@ public class Configurator {
     }
 
     public ArrayList<DevelopmentCard> parseDevelopmentCard() throws FileNotFoundException{
-        RuntimeTypeAdapterFactory<ImmediateEffect> immediateEffectFactory = RuntimeTypeAdapterFactory.of(ImmediateEffect.class, "immediateEffectType");
-        immediateEffectFactory.registerSubtype(ImmediateEffectSimple.class, "immediateEffectSimple");
+        RuntimeTypeAdapterFactory<Effect> effectFactory = RuntimeTypeAdapterFactory.of(Effect.class, "effectType");
+        effectFactory.registerSubtype(EffectSimple.class, "EffectSimple");
+        effectFactory.registerSubtype(EffectFinalPoints.class, "EffectFinalPoints");
+        effectFactory.registerSubtype(EffectHarvestProductionSimple.class, "EffectHarvestProductionSimple");
 
-
-        RuntimeTypeAdapterFactory<PermanentEffect> permanentEffectFactory = RuntimeTypeAdapterFactory.of(PermanentEffect.class, "permanentEffectType");
-        permanentEffectFactory.registerSubtype(PermanentEffectHarvestProductionSimple.class, "permanentEffectHarvestProductionSimple");
 
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapterFactory(immediateEffectFactory);
-        builder.registerTypeAdapterFactory(permanentEffectFactory);
+        builder.registerTypeAdapterFactory(effectFactory);
 
         Gson gson = builder.create();
 
