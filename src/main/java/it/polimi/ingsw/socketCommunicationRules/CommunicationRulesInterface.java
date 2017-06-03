@@ -1,18 +1,23 @@
-package it.polimi.ingsw.socketServer;
+package it.polimi.ingsw.socketCommunicationRules;
 
 import it.polimi.ingsw.exceptions.LoginException;
 
-/**
- * Created by andrea on 22/05/17.
- */
 public interface CommunicationRulesInterface {
 
     /**
-     * Method to handle user login.
+     * Method to handle user login request.
      * @param username
      * @param password
      */
-    void login(String username, String password) throws LoginException; //gestire exception
+    void login(String username, String password) throws LoginException;
+
+    /**
+     * Method to handle user sign in request.
+     * @param username
+     * @param password
+     * @throws LoginException
+     */
+    void signin(String username, String password) throws LoginException;
 
     /**
      * Method to join in a room.

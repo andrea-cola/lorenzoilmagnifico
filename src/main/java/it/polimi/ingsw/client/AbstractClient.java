@@ -1,5 +1,10 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.exceptions.ConnectionException;
+import it.polimi.ingsw.exceptions.LoginException;
+
+import java.rmi.RemoteException;
+
 public abstract class AbstractClient {
 
     /**
@@ -49,10 +54,10 @@ public abstract class AbstractClient {
         return clientInterface;
     }
 
-    public abstract void connect();
+    public abstract void connectToServer() throws ConnectionException;
 
-    public abstract void login(String username, String password);
+    public abstract void login(String username, String password) throws LoginException;
 
-    public abstract void signin(String username, String password);
+    public abstract void signin(String username, String password) throws LoginException;
 
 }

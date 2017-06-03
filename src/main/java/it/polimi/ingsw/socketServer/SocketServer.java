@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 public class SocketServer extends AbstractServer {
 
     /**
-     * Socket server.
+     * SocketClient server.
      */
     private ServerSocket server;
 

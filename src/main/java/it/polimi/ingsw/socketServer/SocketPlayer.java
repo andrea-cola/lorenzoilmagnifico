@@ -3,6 +3,8 @@ package it.polimi.ingsw.socketServer;
 import it.polimi.ingsw.server.AbstractPlayer;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.server.ServerInterface;
+import it.polimi.ingsw.socketCommunicationRules.CommunicationRules;
+import it.polimi.ingsw.socketCommunicationRules.CommunicationRulesInterface;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,7 +36,7 @@ public class SocketPlayer extends AbstractPlayer implements Runnable, Communicat
     /**
      * Server protocol.
      */
-    private final transient CommunicationRules socketProtocol;
+    private final transient CommunicationRules socketCommunicationProtocol;
 
     /**
      * Class constructor that initialize input and output streams
@@ -47,7 +49,7 @@ public class SocketPlayer extends AbstractPlayer implements Runnable, Communicat
         objectInputStream = new ObjectInputStream(socketClient.getInputStream());
         objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
         objectOutputStream.flush();
-        socketProtocol = new CommunicationRules(objectInputStream, objectOutputStream, this);
+        socketCommunicationProtocol = new CommunicationRules(objectInputStream, objectOutputStream, this);
     }
 
     /**
@@ -57,7 +59,7 @@ public class SocketPlayer extends AbstractPlayer implements Runnable, Communicat
         try{
             while(true) {
                 Object input = objectInputStream.readObject();
-                socketProtocol.clientRequestHandler(input);
+                socketCommunicationProtocol.clientRequestHandler(input);
             }
         }catch(IOException e){
             // da gestire
@@ -117,13 +119,25 @@ public class SocketPlayer extends AbstractPlayer implements Runnable, Communicat
     }
 
     /**
-     * Method to handle user login.
+     * Method to handle user login request.
      * @param username
      * @param password
      */
     @Override
     public void login(String username, String password) throws LoginException {
         serverInterface.login(username, password, this);
+    }
+
+    /**
+     * Method to handle user sign in request.
+     *
+     * @param username
+     * @param password
+     * @throws LoginException
+     */
+    @Override
+    public void signin(String username, String password) throws LoginException {
+        serverInterface.signin(username, password);
     }
 
     /**

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.socketServer;
+package it.polimi.ingsw.socketCommunicationRules;
 
 import it.polimi.ingsw.exceptions.LoginException;
 
@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class CommunicationRules {
 
     /**
-     * Socket interface to communicate with Abstract SocketPlayer.
+     * SocketClient interface to communicate with Abstract SocketPlayer.
      */
     private final CommunicationRulesInterface communicationRulesInterface;
 
@@ -39,8 +39,8 @@ public class CommunicationRules {
         this.input = objectInputStream;
         this.output = objectOutputStream;
         this.communicationRulesInterface = communicationRulesInterface;
-        requestsTable = new HashMap<Object, Handler>();
-        setupTypeRequests();
+        requestsTable = new HashMap<>();
+        setupRequestsTable();
     }
 
     /**
@@ -54,56 +54,60 @@ public class CommunicationRules {
     /**
      * Method to add all request type in cache.
      */
-    private void setupTypeRequests(){
+    private void setupRequestsTable(){
         requestsTable.put(CommunicationConstants.LOGIN_REQUEST, this::loginPlayer);
-        requestsTable.put(CommunicationConstants.END_TURN, this::endTurn);
+        requestsTable.put(CommunicationConstants.SIGNIN_REQUEST, this::signinPlayer);
     }
 
     /**
      * Method to handle client request.
      * @param object request from the client.
      */
-    public synchronized void clientRequestHandler(Object object){
+    /*package-local*/ synchronized void clientRequestHandler(Object object){
         Handler handler = requestsTable.get(object);
         if (handler != null) {
             handler.handle();
         }
     }
 
+    /**
+     * Method to get username and password from client and call the signin method on the server interface.
+     */
+    private void signinPlayer(){
+        try{
+            String username = (String)input.readObject();
+            String password = (String)input.readObject();
+            try{
+                communicationRulesInterface.signin(username, password);
+                output.writeObject(CommunicationConstants.CODE_OK);
+            }catch(LoginException e){
+                // segnalare errore in locale, qua sul server.
+                output.writeObject(CommunicationConstants.CODE_ALREADY_EXISTS);
+            }
+            output.flush();
+        } catch(IOException | ClassCastException | ClassNotFoundException e){
+            // segnalare errore in locale, qua sul server.
+        }
+    }
+
+    /**
+     * Method to get username and password from client and call the login method on the server interface.
+     */
     private void loginPlayer(){
         try{
             String username = (String)input.readObject();
             String password = (String)input.readObject();
             try{
                 communicationRulesInterface.login(username, password);
-                output.writeObject("200");
+                output.writeObject(CommunicationConstants.CODE_OK);
             }catch(LoginException e){
-                //gestire con un response code
-                output.writeObject("400");
+                // segnalare errore in locale, qua sul server.
+                output.writeObject(CommunicationConstants.CODE_LOGIN_FAILED);
             }
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
-            //gestire exception.
+            // segnalare errore in locale, qua sul server.
         }
     }
-
-    private void endTurn(){
-        System.out.println("Fine turno.");
-    }
-
-
-
-}
-
-/**
- * Class to list all client requests.
- */
-class CommunicationConstants{
-
-    static final String LOGIN_REQUEST = "loginRequest";
-    static final String JOIN_ROOM_REQUEST = "joinRequest";
-    static final String CREATE_ROOM_REQUEST = "createRoomRequest";
-    static final String APPLY_CONFIGURATION_REQUEST = "applyConfigurationRequest";
-    static final String END_TURN = "endTurn";
 
 }

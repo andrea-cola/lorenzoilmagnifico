@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Server implements ServerInterface{
 
     /**
-     * Socket port.
+     * SocketClient port.
      */
     private static final int SOCKET_PORT = 3031;
 
@@ -54,7 +54,7 @@ public class Server implements ServerInterface{
     private RmiServer rmiServer;
 
     /**
-     * Socket server.
+     * SocketClient server.
      */
     private SocketServer socketServer;
 
@@ -100,7 +100,7 @@ public class Server implements ServerInterface{
     }
 
     /**
-     * Start RMI server and Socket Server.
+     * Start RMI server and SocketClient Server.
      * @param rmiPort
      * @param socketPort
      */
@@ -113,7 +113,6 @@ public class Server implements ServerInterface{
      * Method to signup a new user.
      * @param username
      * @param password
-     * @param player
      */
     public void signin(String username, String password) throws LoginException{
         synchronized (LOGIN_MUTEX) {
