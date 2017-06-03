@@ -120,32 +120,32 @@ public abstract class AbstractUI {
      * Called when ui should show a Tower
      * @param update the current state of a Tower
      */
-    public abstract void showTower(Stato update);
+    public abstract void showTower(Status update);
 
     /**
      * Called when ui should show the Council Palace
      */
-    public abstract void showCouncilPalace(Stato update);
+    public abstract void showCouncilPalace(Status update);
 
     /**
      * Called when ui should show the Market
      */
-    public abstract void showMarket(Stato update);
+    public abstract void showMarket(Status update);
 
     /**
      * Called when ui should show the Production Area
      */
-    public abstract void showProductionArea(Stato update);
+    public abstract void showProductionArea(Status update);
 
     /**
      * Called when ui should show the Harvest Area
      */
-    public abstract void showHarvestArea(Stato update);
+    public abstract void showHarvestArea(Status update);
 
     /**
      * Called when ui should show the value of the dices
      */
-    public abstract void showDices(Stato update);
+    public abstract void showDices(Status update);
 
     /**
      * Called when ui should show the immediate effect of an action space
@@ -185,7 +185,7 @@ public abstract class AbstractUI {
     /**
      * Called when ui should show all points of a player
      */
-    public abstract void showPoints(String nickname, Stato update);
+    public abstract void showPoints(String nickname, Status update);
 
     /**
      * Called when ui should notify the immediate effect of a chosen card or an action space
