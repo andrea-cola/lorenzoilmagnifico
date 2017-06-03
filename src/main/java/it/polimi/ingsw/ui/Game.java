@@ -1,8 +1,5 @@
 package it.polimi.ingsw.ui;
 
-/**
- * Created by matteodaccordo on 23/05/17.
- */
 public class Game implements UiController {
 
     public static void main(String args[]){

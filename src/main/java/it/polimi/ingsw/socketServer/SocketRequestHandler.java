@@ -9,7 +9,7 @@ import java.net.Socket;
 /* package-local */class SocketRequestHandler extends Thread{
 
     /**
-     * Socket Server
+     * SocketClient Server
      */
     private ServerSocket serverSocket;
 

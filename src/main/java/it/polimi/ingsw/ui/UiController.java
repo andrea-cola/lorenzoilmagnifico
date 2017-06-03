@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ui;
 
 /**
- * Interface created implemented by the Game class, contains all functions related to the Game that need to
+ * Interface implemented by the Game class, contains all functions related to the Game that need to
  * be updated in real time and notified for every change.
  */
 public interface UiController {

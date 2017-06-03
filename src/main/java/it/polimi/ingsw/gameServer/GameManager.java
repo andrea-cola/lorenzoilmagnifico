@@ -8,21 +8,29 @@ import it.polimi.ingsw.server.AbstractPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by lorenzo on 27/05/17.
- */
 public class GameManager {
 
+    /**
+     * Array of all development cards.
+     */
     private ArrayList<DevelopmentCard> developmentCards;
 
+    /**
+     * Array of players.
+     */
     private ArrayList<AbstractPlayer> players;
 
+    /**
+     * Game instance.
+     */
     private Game game;
 
+    /**
+     * Class constructor.
+     */
     public GameManager(){
         this.game = Game.setupGame();
     }
-
 
     protected void setupPlayers(ArrayList<AbstractPlayer> players){
         this.game.setupPlayers(players.size());
