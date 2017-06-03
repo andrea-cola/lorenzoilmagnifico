@@ -8,6 +8,8 @@ import java.io.Serializable;
  */
 public class Player implements Serializable{
 
+    private PersonalBoard personalBoard;
+
     /**
      * SocketPlayer nickname.
      */
@@ -28,6 +30,15 @@ public class Player implements Serializable{
      */
     protected Player(){
         super();
+        this.personalBoard = new PersonalBoard();
+    }
+
+    public void setPersonalBoard(){
+
+    }
+
+    public PersonalBoard getPersonalBoard(){
+        return this.personalBoard;
     }
 
     /**
