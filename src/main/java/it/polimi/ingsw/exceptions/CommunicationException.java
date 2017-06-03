@@ -16,4 +16,8 @@ public class CommunicationException extends IOException{
         super(cause);
     }
 
+    public CommunicationException(String message, Throwable cause){
+        super(message, cause);
+    }
+
 }

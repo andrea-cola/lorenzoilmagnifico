@@ -51,14 +51,34 @@ public abstract class AbstractClient {
         return this.port;
     }
 
+    /**
+     * Method to get the ClientInterface.
+     * @return
+     */
     protected ClientInterface getController() {
         return clientInterface;
     }
 
+    /**
+     * Abstract method to connect client to a server.
+     * @throws ConnectionException
+     */
     public abstract void connectToServer() throws ConnectionException;
 
+    /**
+     * Abstract method to login user on a server.
+     * @param username
+     * @param password
+     * @throws CommunicationException
+     */
     public abstract void login(String username, String password) throws CommunicationException;
 
+    /**
+     * Abstract method to sign in a user on a server.
+     * @param username
+     * @param password
+     * @throws CommunicationException
+     */
     public abstract void signin(String username, String password) throws CommunicationException;
 
 }

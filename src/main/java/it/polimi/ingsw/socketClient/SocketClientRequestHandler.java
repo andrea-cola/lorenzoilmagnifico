@@ -1,5 +1,9 @@
 package it.polimi.ingsw.socketClient;
 
+import it.polimi.ingsw.cli.CLIOutputWriter;
+import it.polimi.ingsw.client.ClientInterface;
+import sun.security.ssl.Debug;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,7 +30,7 @@ import java.net.Socket;
            try{
                 Object object = objectInputStream.readObject();
            } catch (IOException | ClassNotFoundException e){
-               // segnale errore nella lettura della risposta dal server.
+               CLIOutputWriter.printDebugMessage("[SocketClientRequestHandler.java] : Cannot read response.", e);
                flag = false;
            }
        }
@@ -41,7 +45,7 @@ import java.net.Socket;
         try {
             connection.close();
         }catch(IOException e){
-            // segnale errore nella chiusura dello streaming.
+            CLIOutputWriter.printDebugMessage("[SocketClientRequestHandler.java] : Error while closing connections.", e);
         }
     }
 

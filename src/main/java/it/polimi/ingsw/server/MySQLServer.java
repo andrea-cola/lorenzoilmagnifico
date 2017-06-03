@@ -1,10 +1,9 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.exceptions.LoginEnum;
+import it.polimi.ingsw.exceptions.ExceptionsEnum;
 import it.polimi.ingsw.exceptions.LoginException;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class MySQLServer{
 
@@ -42,7 +41,7 @@ public class MySQLServer{
             statement.executeUpdate(query);
             System.out.println("Inizializzazione finita.");
         } catch(SQLException e){
-            throw new LoginException(LoginEnum.CANNOT_CONNECT_TO_DATABASE);
+            throw new LoginException(ExceptionsEnum.CANNOT_CONNECT_TO_DATABASE);
         }
     }
 
@@ -61,11 +60,11 @@ public class MySQLServer{
                 preparedStatement.setString(2, password);
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                throw new LoginException(LoginEnum.SQL_PROBLEM);
+                throw new LoginException(ExceptionsEnum.SQL_PROBLEM);
             }
         }
         else {
-            throw new LoginException(LoginEnum.USER_ALREADY_REGISTERED);
+            throw new LoginException(ExceptionsEnum.USER_ALREADY_REGISTERED);
         }
     }
 
@@ -86,12 +85,12 @@ public class MySQLServer{
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next())
                     if (resultSet.getInt("number") == 0)
-                        throw new LoginException(LoginEnum.WRONG_PASSWORD);
+                        throw new LoginException(ExceptionsEnum.WRONG_PASSWORD);
             } catch (SQLException e) {
-                throw new LoginException(LoginEnum.SQL_PROBLEM);
+                throw new LoginException(ExceptionsEnum.SQL_PROBLEM);
             }
         }else{
-            throw new LoginException(LoginEnum.USER_NOT_REGISTERED);
+            throw new LoginException(ExceptionsEnum.USER_NOT_REGISTERED);
         }
 
     }
@@ -113,7 +112,7 @@ public class MySQLServer{
                     return true;
             return false;
         }catch(SQLException e){
-            throw new LoginException(LoginEnum.SQL_PROBLEM);
+            throw new LoginException(ExceptionsEnum.SQL_PROBLEM);
         }
     }
 

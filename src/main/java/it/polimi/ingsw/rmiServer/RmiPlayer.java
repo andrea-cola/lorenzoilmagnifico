@@ -14,7 +14,7 @@ public class RmiPlayer extends AbstractPlayer {
      * Class constructor, allow to get rmiClientInterface from client.
      * @param rmiClientInterface
      */
-    RmiPlayer(RmiClientInterface rmiClientInterface){
+    /*package-local*/ RmiPlayer(RmiClientInterface rmiClientInterface){
         this.rmiClientInterface = rmiClientInterface;
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.socketCommunicationRules;
 
+import it.polimi.ingsw.cli.CLIOutputWriter;
 import it.polimi.ingsw.exceptions.LoginException;
 
 import java.io.IOException;
@@ -74,19 +75,21 @@ public class ServerCommunication {
      * Method to get username and password from client and call the signin method on the server interface.
      */
     private void signinPlayer(){
+        int code;
         try{
             String username = (String)input.readObject();
             String password = (String)input.readObject();
             try{
                 serverCommunicationInterface.signin(username, password);
-                output.writeObject(CommunicationConstants.CODE_OK);
+                code = CommunicationConstants.CODE_OK;
             }catch(LoginException e){
-                // segnalare errore in locale, qua sul server.
-                output.writeObject(CommunicationConstants.CODE_ALREADY_EXISTS);
+                CLIOutputWriter.printDebugMessage("[ServerCommunication.java] : Error while sigin request.", e);
+                code = CommunicationConstants.CODE_ALREADY_EXISTS;
             }
+            output.writeObject(code);
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
-            // segnalare errore in locale, qua sul server.
+            CLIOutputWriter.printDebugMessage("[ServerCommunication.java] : Error while handling sigin request.", e);
         }
     }
 
@@ -94,19 +97,21 @@ public class ServerCommunication {
      * Method to get username and password from client and call the login method on the server interface.
      */
     private void loginPlayer(){
+        int code;
         try{
             String username = (String)input.readObject();
             String password = (String)input.readObject();
             try{
                 serverCommunicationInterface.login(username, password);
-                output.writeObject(CommunicationConstants.CODE_OK);
+                code = CommunicationConstants.CODE_OK;
             }catch(LoginException e){
-                // segnalare errore in locale, qua sul server.
-                output.writeObject(CommunicationConstants.CODE_LOGIN_FAILED);
+                CLIOutputWriter.printDebugMessage("[ServerCommunication.java] : Error while loggin in the user.", e);
+                code = CommunicationConstants.CODE_LOGIN_FAILED;
             }
+            output.writeObject(code);
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
-            // segnalare errore in locale, qua sul server.
+            CLIOutputWriter.printDebugMessage("[ServerCommunication.java] : Error while handling login request.", e);
         }
     }
 

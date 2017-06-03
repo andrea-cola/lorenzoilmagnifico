@@ -1,8 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.server.ServerInterface;
-
-import java.rmi.ServerException;
+import java.io.IOException;
 
 public abstract class AbstractServer {
 
@@ -30,8 +28,8 @@ public abstract class AbstractServer {
     /**
      * Method to start server.
      * @param port
-     * @throws ServerException
+     * @throws IOException
      */
-    public abstract void startServer(int port) throws ServerException;
+    public abstract void startServer(int port) throws IOException;
 
 }

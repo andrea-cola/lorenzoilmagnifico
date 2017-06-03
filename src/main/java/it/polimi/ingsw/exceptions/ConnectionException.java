@@ -16,4 +16,8 @@ public class ConnectionException extends CommunicationException{
         super(cause);
     }
 
+    public ConnectionException(String message, Throwable cause){
+        super(message, cause);
+    }
+
 }

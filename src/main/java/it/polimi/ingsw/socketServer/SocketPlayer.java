@@ -1,5 +1,6 @@
 package it.polimi.ingsw.socketServer;
 
+import it.polimi.ingsw.cli.CLIOutputWriter;
 import it.polimi.ingsw.server.AbstractPlayer;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.server.ServerInterface;
@@ -91,7 +92,7 @@ public class SocketPlayer extends AbstractPlayer implements Runnable, ServerComm
         try {
             connection.close();
         }catch(IOException e){
-            // segnale errore nella chiusura dello streaming.
+            CLIOutputWriter.printDebugMessage("[SocketPlayer.java] : Error while closing connections.", e);
         }
     }
 

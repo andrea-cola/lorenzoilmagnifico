@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
+import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.rmiServer.RmiServerInterface;
 
@@ -27,7 +28,7 @@ public class RmiClient extends AbstractClient implements RmiClientInterface {
     /**
      * Unique player id.
      */
-    private UUID playerID;
+    private String playerID;
 
     /**
      * Class constructor.
@@ -44,16 +45,14 @@ public class RmiClient extends AbstractClient implements RmiClientInterface {
      * @throws RemoteException
      */
     @Override
-    public void connectToServer() throws RemoteException{
+    public void connectToServer() throws ConnectionException{
         try {
             registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
             server = (RmiServerInterface) registry.lookup("RmiServerInterface");
             UnicastRemoteObject.exportObject(this, 0);
             registry.rebind("RmiClientInterface", this);
-        }catch(RemoteException e){
-            // Remote exception
-        }catch(NotBoundException e) {
-            // Remote exception
+        }catch(RemoteException | NotBoundException e){
+            throw new ConnectionException("Error while connecting RMI Server.", e);
         }
     }
 
@@ -65,7 +64,7 @@ public class RmiClient extends AbstractClient implements RmiClientInterface {
      */
     @Override
     public void login(String username, String password) throws LoginException{
-        server.login(username, password, this);
+        playerID = server.login(username, password, this);
     }
 
     /**

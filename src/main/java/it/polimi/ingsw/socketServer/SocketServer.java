@@ -1,6 +1,7 @@
 package it.polimi.ingsw.socketServer;
 
 import it.polimi.ingsw.server.AbstractServer;
+import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerInterface;
 
 import java.io.IOException;
@@ -30,13 +31,13 @@ public class SocketServer extends AbstractServer {
      * Method to initialize new ServerSocket and new SocketServerRequestHandler
      * @param port
      */
-    public void startServer(int port){
+    public void startServer(int port) throws IOException{
         try{
             server = new ServerSocket(port);
             socketRequest = new SocketServerRequestHandler(server, getServer());
             socketRequest.start();
         }catch(IOException e){
-            // da gestire
+            throw new IOException("Problem while starting the server", e);
         }
     }
 

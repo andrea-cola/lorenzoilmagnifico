@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.exceptions.LoginEnum;
+import it.polimi.ingsw.exceptions.ExceptionsEnum;
 import it.polimi.ingsw.socketServer.SocketServer;
 import it.polimi.ingsw.gameServer.Room;
 import it.polimi.ingsw.exceptions.LoginException;
@@ -116,9 +116,14 @@ public class Server implements ServerInterface{
      */
     public void signin(String username, String password) throws LoginException{
         synchronized (LOGIN_MUTEX) {
-            mySQLServer.connectAndCreate();
-            mySQLServer.signin(username, password);
-            mySQLServer.closeSafely();
+            if(!players.containsKey(username)) {
+                mySQLServer.connectAndCreate();
+                mySQLServer.signin(username, password);
+                mySQLServer.closeSafely();
+            }
+            else{
+                throw new LoginException(ExceptionsEnum.USER_ALREADY_LOGGEDIN);
+            }
         }
     }
 
@@ -130,11 +135,16 @@ public class Server implements ServerInterface{
      */
     public void login(String username, String password, AbstractPlayer player) throws LoginException{
         synchronized (LOGIN_MUTEX) {
-            mySQLServer.connectAndCreate();
-            mySQLServer.login(username, password);
-            player.setNickname(username);
-            players.put(username, player);
-            mySQLServer.closeSafely();
+            if(!players.containsKey(username)) {
+                mySQLServer.connectAndCreate();
+                mySQLServer.login(username, password);
+                player.setNickname(username);
+                players.put(username, player);
+                mySQLServer.closeSafely();
+            }
+            else{
+                throw new LoginException(ExceptionsEnum.USER_ALREADY_LOGGEDIN);
+            }
         }
     }
 

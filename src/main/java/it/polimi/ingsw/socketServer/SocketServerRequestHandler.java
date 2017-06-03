@@ -1,5 +1,6 @@
 package it.polimi.ingsw.socketServer;
 
+import it.polimi.ingsw.cli.CLIOutputWriter;
 import it.polimi.ingsw.server.ServerInterface;
 
 import java.io.IOException;
@@ -40,7 +41,8 @@ import java.net.Socket;
                 SocketPlayer socketSocketPlayer = new SocketPlayer(socket, serverInterface);
                 new Thread(socketSocketPlayer).start();
             } catch (IOException e) {
-                // da gestire
+                CLIOutputWriter.printDebugMessage("Error while listening for new clients.", e);
+                break;
             }
         }
     }
