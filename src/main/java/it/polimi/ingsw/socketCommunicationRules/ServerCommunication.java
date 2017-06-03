@@ -7,12 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class CommunicationRules {
+public class ServerCommunication {
 
     /**
      * SocketClient interface to communicate with Abstract SocketPlayer.
      */
-    private final CommunicationRulesInterface communicationRulesInterface;
+    private final ServerCommunicationInterface serverCommunicationInterface;
 
     /**
      * Input stream.
@@ -33,12 +33,12 @@ public class CommunicationRules {
      * Class constructor.
      * @param objectInputStream
      * @param objectOutputStream
-     * @param communicationRulesInterface
+     * @param serverCommunicationInterface
      */
-    public CommunicationRules(ObjectInputStream objectInputStream, ObjectOutputStream objectOutputStream, CommunicationRulesInterface communicationRulesInterface){
+    public ServerCommunication(ObjectInputStream objectInputStream, ObjectOutputStream objectOutputStream, ServerCommunicationInterface serverCommunicationInterface){
         this.input = objectInputStream;
         this.output = objectOutputStream;
-        this.communicationRulesInterface = communicationRulesInterface;
+        this.serverCommunicationInterface = serverCommunicationInterface;
         requestsTable = new HashMap<>();
         setupRequestsTable();
     }
@@ -63,7 +63,7 @@ public class CommunicationRules {
      * Method to handle client request.
      * @param object request from the client.
      */
-    /*package-local*/ synchronized void clientRequestHandler(Object object){
+    public synchronized void clientRequestHandler(Object object){
         Handler handler = requestsTable.get(object);
         if (handler != null) {
             handler.handle();
@@ -78,7 +78,7 @@ public class CommunicationRules {
             String username = (String)input.readObject();
             String password = (String)input.readObject();
             try{
-                communicationRulesInterface.signin(username, password);
+                serverCommunicationInterface.signin(username, password);
                 output.writeObject(CommunicationConstants.CODE_OK);
             }catch(LoginException e){
                 // segnalare errore in locale, qua sul server.
@@ -98,7 +98,7 @@ public class CommunicationRules {
             String username = (String)input.readObject();
             String password = (String)input.readObject();
             try{
-                communicationRulesInterface.login(username, password);
+                serverCommunicationInterface.login(username, password);
                 output.writeObject(CommunicationConstants.CODE_OK);
             }catch(LoginException e){
                 // segnalare errore in locale, qua sul server.

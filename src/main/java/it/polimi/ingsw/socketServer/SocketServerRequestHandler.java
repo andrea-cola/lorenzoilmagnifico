@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/* package-local */class SocketRequestHandler extends Thread{
+/* package-local */class SocketServerRequestHandler extends Thread{
 
     /**
      * SocketClient Server
@@ -23,7 +23,7 @@ import java.net.Socket;
      * @param serverSocket
      * @param controller
      */
-    SocketRequestHandler(ServerSocket serverSocket, ServerInterface controller){
+    SocketServerRequestHandler(ServerSocket serverSocket, ServerInterface controller){
         this.serverSocket = serverSocket;
         this.serverInterface = controller;
     }

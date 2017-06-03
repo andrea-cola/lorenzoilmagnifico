@@ -3,15 +3,16 @@ package it.polimi.ingsw.socketServer;
 import it.polimi.ingsw.server.AbstractPlayer;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.server.ServerInterface;
-import it.polimi.ingsw.socketCommunicationRules.CommunicationRules;
-import it.polimi.ingsw.socketCommunicationRules.CommunicationRulesInterface;
+import it.polimi.ingsw.socketCommunicationRules.ServerCommunication;
+import it.polimi.ingsw.socketCommunicationRules.ServerCommunicationInterface;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class SocketPlayer extends AbstractPlayer implements Runnable, CommunicationRulesInterface {
+public class SocketPlayer extends AbstractPlayer implements Runnable, ServerCommunicationInterface {
 
     /**
      * Remote socket client.
@@ -36,7 +37,7 @@ public class SocketPlayer extends AbstractPlayer implements Runnable, Communicat
     /**
      * Server protocol.
      */
-    private final transient CommunicationRules socketCommunicationProtocol;
+    private final transient ServerCommunication socketCommunicationProtocol;
 
     /**
      * Class constructor that initialize input and output streams
@@ -49,7 +50,7 @@ public class SocketPlayer extends AbstractPlayer implements Runnable, Communicat
         objectInputStream = new ObjectInputStream(socketClient.getInputStream());
         objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
         objectOutputStream.flush();
-        socketCommunicationProtocol = new CommunicationRules(objectInputStream, objectOutputStream, this);
+        socketCommunicationProtocol = new ServerCommunication(objectInputStream, objectOutputStream, this);
     }
 
     /**
@@ -83,38 +84,14 @@ public class SocketPlayer extends AbstractPlayer implements Runnable, Communicat
     }
 
     /**
-     * Method to close output stream
-     * @param objectOutputStream
+     * Method to close the stream passed as argument.
+     * @param connection
      */
-    private void closeConnection(ObjectOutputStream objectOutputStream){
+    private void closeConnection(Closeable connection){
         try {
-            objectOutputStream.close();
+            connection.close();
         }catch(IOException e){
-            System.out.println("Error occours while closing output stream");
-        }
-    }
-
-    /**
-     * Method to close input stream
-     * @param objectInputStream
-     */
-    private void closeConnection(ObjectInputStream objectInputStream){
-        try {
-            objectInputStream.close();
-        }catch(IOException e){
-            System.out.println("Error occours while closing input stream");
-        }
-    }
-
-    /**
-     * Method to close client socket
-     * @param socket
-     */
-    private void closeConnection(Socket socket){
-        try {
-            socket.close();
-        }catch(IOException e){
-            System.out.println("Error occours while closing socket stream");
+            // segnale errore nella chiusura dello streaming.
         }
     }
 

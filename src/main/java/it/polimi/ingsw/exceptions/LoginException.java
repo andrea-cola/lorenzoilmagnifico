@@ -3,7 +3,7 @@ package it.polimi.ingsw.exceptions;
 import java.io.IOException;
 
 
-public class LoginException extends IOException{
+public class LoginException extends ConnectionException{
 
     /**
      * Class exception constructor.

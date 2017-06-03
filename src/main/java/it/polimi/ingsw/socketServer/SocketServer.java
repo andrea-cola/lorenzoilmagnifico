@@ -16,7 +16,7 @@ public class SocketServer extends AbstractServer {
     /**
      * Method to handle socket client request. Create a new thread for each request.
      */
-    private SocketRequestHandler socketRequest;
+    private SocketServerRequestHandler socketRequest;
 
     /**
      * Class constructor
@@ -27,13 +27,13 @@ public class SocketServer extends AbstractServer {
     }
 
     /**
-     * Method to initialize new ServerSocket and new SocketRequestHandler
+     * Method to initialize new ServerSocket and new SocketServerRequestHandler
      * @param port
      */
     public void startServer(int port){
         try{
             server = new ServerSocket(port);
-            socketRequest = new SocketRequestHandler(server, getServer());
+            socketRequest = new SocketServerRequestHandler(server, getServer());
             socketRequest.start();
         }catch(IOException e){
             // da gestire

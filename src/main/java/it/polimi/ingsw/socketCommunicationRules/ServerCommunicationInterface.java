@@ -2,7 +2,7 @@ package it.polimi.ingsw.socketCommunicationRules;
 
 import it.polimi.ingsw.exceptions.LoginException;
 
-public interface CommunicationRulesInterface {
+public interface ServerCommunicationInterface {
 
     /**
      * Method to handle user login request.

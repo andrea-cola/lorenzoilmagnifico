@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.exceptions.CommunicationException;
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 
@@ -56,8 +57,8 @@ public abstract class AbstractClient {
 
     public abstract void connectToServer() throws ConnectionException;
 
-    public abstract void login(String username, String password) throws LoginException;
+    public abstract void login(String username, String password) throws CommunicationException;
 
-    public abstract void signin(String username, String password) throws LoginException;
+    public abstract void signin(String username, String password) throws CommunicationException;
 
 }
