@@ -1,17 +1,16 @@
 package it.polimi.ingsw.socketServer;
 
+import it.polimi.ingsw.cli.Debugger;
 import it.polimi.ingsw.server.AbstractPlayer;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.server.ServerInterface;
-import it.polimi.ingsw.socketCommunicationRules.CommunicationRules;
-import it.polimi.ingsw.socketCommunicationRules.CommunicationRulesInterface;
+import it.polimi.ingsw.socketCommunicationProtocol.ServerCommunicationProtocol;
+import it.polimi.ingsw.socketCommunicationProtocol.ServerCommunicationProtocolInterface;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
-public class SocketPlayer extends AbstractPlayer implements Runnable, CommunicationRulesInterface {
+public class SocketPlayer extends AbstractPlayer implements Runnable, ServerCommunicationProtocolInterface {
 
     /**
      * Remote socket client.
@@ -36,131 +35,61 @@ public class SocketPlayer extends AbstractPlayer implements Runnable, Communicat
     /**
      * Server protocol.
      */
-    private final transient CommunicationRules socketCommunicationProtocol;
+    private final transient ServerCommunicationProtocol socketCommunicationProtocol;
 
     /**
-     * Class constructor that initialize input and output streams
-     * @param socketClient : client socket obtained by server.accept()
-     * @param serverInterface : server controller interface
+     * Class constructor that initialize input and output streams.
+     * @param socketClient obtained from the server accept.
+     * @param serverInterface to communicate with the server.
      */
     /* package-local */SocketPlayer(Socket socketClient, ServerInterface serverInterface) throws IOException{
         this.socketClient = socketClient;
         this.serverInterface = serverInterface;
-        objectInputStream = new ObjectInputStream(socketClient.getInputStream());
-        objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
+        objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(socketClient.getOutputStream()));
         objectOutputStream.flush();
-        socketCommunicationProtocol = new CommunicationRules(objectInputStream, objectOutputStream, this);
+        objectInputStream = new ObjectInputStream(new BufferedInputStream(socketClient.getInputStream()));
+        socketCommunicationProtocol = new ServerCommunicationProtocol(objectInputStream, objectOutputStream, this);
     }
 
     /**
      * Listen input stream.
      */
+    @SuppressWarnings("InfiniteLoopStatement")
+    @Override
     public void run(){
         try{
             while(true) {
                 Object input = objectInputStream.readObject();
                 socketCommunicationProtocol.clientRequestHandler(input);
             }
-        }catch(IOException e){
-            // da gestire
-        }catch(ClassNotFoundException e){
-            // da gestire
+        }catch(IOException | ClassNotFoundException e){
+            Debugger.printDebugMessage("[" + this.getClass().getName() + "] : communication error. Connection is down.");
         }finally{
             closeConnections(objectInputStream, objectOutputStream, socketClient);
         }
     }
 
-    /**
-     * It calls all method necessary to close streams passed as arguments.
-     * @param objectInputStream
-     * @param objectOutputStream
-     * @param socketClient
-     */
+    @Override
+    public void loginPlayer(String username, String password) throws LoginException {
+        serverInterface.loginPlayer(this, username, password);
+    }
+
+    @Override
+    public void signInPlayer(String username, String password) throws LoginException {
+        serverInterface.signInPlayer(username, password);
+    }
+
     private void closeConnections(ObjectInputStream objectInputStream, ObjectOutputStream objectOutputStream, Socket socketClient){
         closeConnection(objectInputStream);
         closeConnection(objectOutputStream);
         closeConnection(socketClient);
     }
 
-    /**
-     * Method to close output stream
-     * @param objectOutputStream
-     */
-    private void closeConnection(ObjectOutputStream objectOutputStream){
+    private void closeConnection(Closeable connection){
         try {
-            objectOutputStream.close();
+            connection.close();
         }catch(IOException e){
-            System.out.println("Error occours while closing output stream");
+            Debugger.printDebugMessage("[" + this.getClass().getName() + "] : Error while closing connections.", e);
         }
-    }
-
-    /**
-     * Method to close input stream
-     * @param objectInputStream
-     */
-    private void closeConnection(ObjectInputStream objectInputStream){
-        try {
-            objectInputStream.close();
-        }catch(IOException e){
-            System.out.println("Error occours while closing input stream");
-        }
-    }
-
-    /**
-     * Method to close client socket
-     * @param socket
-     */
-    private void closeConnection(Socket socket){
-        try {
-            socket.close();
-        }catch(IOException e){
-            System.out.println("Error occours while closing socket stream");
-        }
-    }
-
-    /**
-     * Method to handle user login request.
-     * @param username
-     * @param password
-     */
-    @Override
-    public void login(String username, String password) throws LoginException {
-        serverInterface.login(username, password, this);
-    }
-
-    /**
-     * Method to handle user sign in request.
-     *
-     * @param username
-     * @param password
-     * @throws LoginException
-     */
-    @Override
-    public void signin(String username, String password) throws LoginException {
-        serverInterface.signin(username, password);
-    }
-
-    /**
-     * Method to join in a room.
-     */
-    @Override
-    public void joinGame() {
-
-    }
-
-    /**
-     * Place family member on the main board
-     */
-    @Override
-    public void placeFamilyMember() {
-
-    }
-
-    /**
-     * End turn.
-     */
-    @Override
-    public void endTurn() {
-
     }
 }

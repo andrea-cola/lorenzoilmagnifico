@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public abstract class AbstractUI {
 
-    private final UiController controller;
+    private UiController controller;
 
     /**
      * This is the contructor implemented by each interface
@@ -27,17 +27,17 @@ public abstract class AbstractUI {
     public abstract void showNewtworkMenu();
 
     /**
-     * Called when ui should show the login menu to the user
+     * Called when ui should show the loginPlayer menu to the user
      */
     public abstract void showLoginMenu() throws IOException;
 
     /**
-     * Called when ui should show a "login error" message
+     * Called when ui should show a "loginPlayer error" message
      */
     public abstract void notifyLoginError();
 
     /**
-     * Called when ui should show a "login successful" message
+     * Called when ui should show a "loginPlayer successful" message
      */
     public abstract void notifyLoginSuccess();
 
@@ -102,14 +102,14 @@ public abstract class AbstractUI {
      * Called when ui should show to all users the mainboard
      * @param update the current state of the session
      */
-    public abstract void showMainBoard(Stato update);
+    //public abstract void showMainBoard(Stato update);
 
     /**
      * Called when ui should show the personal board
      * @param nickname of the player
      * @param update the current state of the personal board
      */
-    public abstract void showPersonalBoard(String nickname, Stato update);
+    //public abstract void showPersonalBoard(String nickname, Stato update);
 
     /**
      * Called when ui should show the personal bonus tile
@@ -126,32 +126,32 @@ public abstract class AbstractUI {
      * Called when ui should show a Tower
      * @param update the current state of a Tower
      */
-    public abstract void showTower(Status update);
+    //public abstract void showTower(Status update);
 
     /**
      * Called when ui should show the Council Palace
      */
-    public abstract void showCouncilPalace(Status update);
+    //public abstract void showCouncilPalace(Status update);
 
     /**
      * Called when ui should show the Market
      */
-    public abstract void showMarket(Status update);
+    //public abstract void showMarket(Status update);
 
     /**
      * Called when ui should show the Production Area
      */
-    public abstract void showProductionArea(Status update);
+    //public abstract void showProductionArea(Status update);
 
     /**
      * Called when ui should show the Harvest Area
      */
-    public abstract void showHarvestArea(Status update);
+    //public abstract void showHarvestArea(Status update);
 
     /**
      * Called when ui should show the value of the dices
      */
-    public abstract void showDices(Status update);
+    //public abstract void showDices(Status update);
 
     /**
      * Called when ui should show the immediate effect of an action space
@@ -191,7 +191,7 @@ public abstract class AbstractUI {
     /**
      * Called when ui should show all points of a player
      */
-    public abstract void showPoints(String nickname, Status update);
+    // public abstract void showPoints(String nickname, Status update);
 
     /**
      * Called when ui should notify the immediate effect of a chosen card or an action space

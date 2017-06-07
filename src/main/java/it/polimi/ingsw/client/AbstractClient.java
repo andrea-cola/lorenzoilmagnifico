@@ -1,9 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.ConnectionException;
-import it.polimi.ingsw.exceptions.LoginException;
-
-import java.rmi.RemoteException;
 
 public abstract class AbstractClient {
 
@@ -50,14 +48,34 @@ public abstract class AbstractClient {
         return this.port;
     }
 
+    /**
+     * Method to get the ClientInterface.
+     * @return
+     */
     protected ClientInterface getController() {
         return clientInterface;
     }
 
+    /**
+     * Abstract method to connect client to a server.
+     * @throws ConnectionException
+     */
     public abstract void connectToServer() throws ConnectionException;
 
-    public abstract void login(String username, String password) throws LoginException;
+    /**
+     * Abstract method to loginPlayer user on a server.
+     * @param username
+     * @param password
+     * @throws NetworkException
+     */
+    public abstract void loginPlayer(String username, String password) throws NetworkException;
 
-    public abstract void signin(String username, String password) throws LoginException;
+    /**
+     * Abstract method to sign in a user on a server.
+     * @param username
+     * @param password
+     * @throws NetworkException
+     */
+    public abstract void signInPlayer(String username, String password) throws NetworkException;
 
 }

@@ -1,31 +1,46 @@
 package it.polimi.ingsw.exceptions;
 
-import java.io.IOException;
-
-
-public class LoginException extends IOException{
+/**
+ * This exception class is thrown when loginPlayer error occurs.
+ */
+public class LoginException extends NetworkException {
 
     /**
-     * Class exception constructor.
+     * Login error type.
+     */
+    private LoginErrorType loginErrorType;
+
+    /**
+     * Class constructor.
      */
     public LoginException(){
         super();
     }
 
     /**
-     * Class exception constructor.
-     * @param message about error.
+     * Class constructor.
+     * @param loginErrorType loginPlayer error type enumeration.
      */
-    public LoginException(String message){
-        super(message);
+    public LoginException(LoginErrorType loginErrorType){
+        super();
+        this.loginErrorType = loginErrorType;
     }
 
     /**
-     * Class exception constructor.
-     * @param message
+     * Class constructor.
+     * @param message alternative error message.
      */
-    public LoginException(LoginEnum message){
-        super(message.toString());
+    public LoginException(LoginErrorType loginErrorType, String message){
+        super(message);
+        this.loginErrorType = loginErrorType;
+    }
+
+    /**
+     * Method that return LoginErrorType.
+     * @return return the loginPlayer error type.
+     */
+    public LoginErrorType getError(){
+        return this.loginErrorType;
     }
 
 }
