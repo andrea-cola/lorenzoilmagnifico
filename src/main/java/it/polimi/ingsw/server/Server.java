@@ -1,11 +1,13 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.exceptions.ExceptionsEnum;
+import it.polimi.ingsw.cli.Debugger;
+import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.socketServer.SocketServer;
 import it.polimi.ingsw.gameServer.Room;
 import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.rmiServer.RmiServer;
+import it.polimi.ingsw.rmiServer.RMIServer;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class Server implements ServerInterface{
     private static final int RMI_PORT = 3032;
 
     /**
-     * Mutex object to handle concurrency between users during login.
+     * Mutex object to handle concurrency between users during loginPlayer.
      */
     private static final Object LOGIN_MUTEX = new Object();
 
@@ -34,24 +36,9 @@ public class Server implements ServerInterface{
     private static final Object ROOM_MUTEX = new Object();
 
     /**
-     * SQL database url
-     */
-    private static final String SQL_SERVER_URL = "jdbc:mysql://217.112.92.105:3306/lorenzo";
-
-    /**
-     * SQL database username
-     */
-    private static final String SQL_USERNAME = "lorenzo";
-
-    /**
-     * SQL database password
-     */
-    private static final String SQL_PASSWORD = "lorenzo900";
-
-    /**
      * RMI server.
      */
-    private RmiServer rmiServer;
+    private RMIServer rmiServer;
 
     /**
      * SocketClient server.
@@ -61,7 +48,7 @@ public class Server implements ServerInterface{
     /**
      * MySQL server.
      */
-    private MySQLServer mySQLServer;
+    private DBServer dbServer;
 
     /**
      * Map of all logged in players
@@ -78,90 +65,61 @@ public class Server implements ServerInterface{
      */
     private Connection connection;
 
-    /**
-     * Create a new instance of Server class.
-     */
     public Server(){
-        rmiServer = new RmiServer(this);
+        rmiServer = new RMIServer(this);
         socketServer = new SocketServer(this);
         players = new HashMap<String, AbstractPlayer>();
         rooms = new ArrayList<Room>();
-        mySQLServer = new MySQLServer();
-        getAndLoadConfiguration();
+        dbServer = new DBServer();
     }
 
-    /**
-     * Main method to launch server side Game
-     * @param args
-     */
+
     public static void main(String[] args){
         Server server = new Server();
-        server.startServer(RMI_PORT, SOCKET_PORT);
-    }
-
-    /**
-     * Start RMI server and SocketClient Server.
-     * @param rmiPort
-     * @param socketPort
-     */
-    private void startServer(int rmiPort, int socketPort){
-        rmiServer.startServer(rmiPort);
-        socketServer.startServer(socketPort);
-    }
-
-    /**
-     * Method to signup a new user.
-     * @param username
-     * @param password
-     */
-    public void signin(String username, String password) throws LoginException{
-        synchronized (LOGIN_MUTEX) {
-            if(!players.containsKey(username)) {
-                mySQLServer.connectAndCreate();
-                mySQLServer.signin(username, password);
-                mySQLServer.closeSafely();
-            }
-            else{
-                throw new LoginException(ExceptionsEnum.USER_ALREADY_LOGGEDIN);
-            }
+        try {
+            server.startSocketRMIServer(SOCKET_PORT, RMI_PORT);
+            server.startDatabase();
+            Debugger.printStandardMessage("[ing.polimi.ingsw.server.Server] : Socket server ready. RMI server ready. SQL server ready.");
+        } catch (IOException e){
+            Debugger.printDebugMessage("[ing.polimi.ingsw.server.Server] : Error while starting communication server.", e);
+        } catch (SQLException e){
+            Debugger.printDebugMessage("[ing.polimi.ingsw.server.Server] : Error while starting database server.", e);
         }
     }
 
-    /**
-     * Method to login users. It validate credentials and log in.
-     * @param username
-     * @param password
-     * @param player
-     */
-    public void login(String username, String password, AbstractPlayer player) throws LoginException{
+    private void startSocketRMIServer(int socketPort, int rmiPort) throws IOException{
+        socketServer.startServer(socketPort);
+        rmiServer.startServer(rmiPort);
+    }
+
+    private void startDatabase() throws SQLException{
+        dbServer.connectToDatabase();
+    }
+
+    public void signInPlayer(String username, String password) throws LoginException{
+        synchronized (LOGIN_MUTEX) {
+            if(!players.containsKey(username))
+                dbServer.signInPlayer(username, password);
+            else
+                throw new LoginException(LoginErrorType.USER_ALREADY_EXISTS);
+        }
+    }
+
+    public void loginPlayer(AbstractPlayer player, String username, String password) throws LoginException{
         synchronized (LOGIN_MUTEX) {
             if(!players.containsKey(username)) {
-                mySQLServer.connectAndCreate();
-                mySQLServer.login(username, password);
+                dbServer.loginPlayer(username, password);
                 player.setNickname(username);
                 players.put(username, player);
-                mySQLServer.closeSafely();
             }
-            else{
-                throw new LoginException(ExceptionsEnum.USER_ALREADY_LOGGEDIN);
-            }
+            else
+                throw new LoginException(LoginErrorType.USER_ALREADY_LOGGEDIN);
+
         }
     }
 
-    /**
-     * Return the abstract player related to given username.
-     * @param username
-     * @return
-     */
     public AbstractPlayer getUser(String username){
         return players.get(username);
-    }
-
-    /**
-     * Method to load configurations from file path.
-     */
-    private void getAndLoadConfiguration(){
-        // TODO
     }
 
 

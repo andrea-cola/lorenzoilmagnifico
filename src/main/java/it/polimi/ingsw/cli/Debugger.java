@@ -3,7 +3,7 @@ package it.polimi.ingsw.cli;
 /**
  * Class used to format a message and print it on the standard output.
  */
-public class CLIOutputWriter {
+public class Debugger {
 
     /**
      * Print a standard communciation.
@@ -27,15 +27,6 @@ public class CLIOutputWriter {
      */
     public static void printDebugMessage(String message, Throwable throwable){
         System.out.println("[Debug] > " + message + " " + throwable.getMessage());
-    }
-
-    /**
-     * Print a message and the cause after an exception.
-     * @param message
-     * @param throwable
-     */
-    public static void printExceptionMessage(String message, Throwable throwable){
-        System.out.println("[Exception] > " + message + " " + throwable.getMessage());
     }
 
 }

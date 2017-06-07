@@ -1,17 +1,13 @@
 package it.polimi.ingsw.exceptions;
 
 /**
- * Enumation of all login exception errors.
+ * Enumation of all loginPlayer exception errors.
  */
 public enum ExceptionsEnum {
 
     /**
-     * List of all login errors.
+     * List of all loginPlayer errors.
      */
-    USER_NOT_REGISTERED("User is not registered."),
-    USER_ALREADY_REGISTERED("User already registered."),
-    USER_ALREADY_LOGGEDIN("User already logged in."),
-    WRONG_PASSWORD("Password is incorrect."),
     CANNOT_CONNECT_TO_DATABASE("Cannot connect to database."),
     SQL_PROBLEM("SQL query problem.")
     ;

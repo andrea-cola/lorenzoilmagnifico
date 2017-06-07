@@ -17,7 +17,7 @@ public class Game implements UiController {
     }
 
     @Override
-    public void loginPlayer(String nickname) {
+    public void loginPlayer(String username, String password) {
 
     }
 

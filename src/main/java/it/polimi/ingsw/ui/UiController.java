@@ -10,7 +10,7 @@ public interface UiController {
 
     boolean socket();
 
-    void loginPlayer(String nickname);
+    void loginPlayer(String username, String password);
 
     String getNickname();
 

@@ -2,7 +2,7 @@ package it.polimi.ingsw.exceptions;
 
 import java.io.IOException;
 
-public class ConnectionException extends CommunicationException{
+public class ConnectionException extends IOException{
 
     public ConnectionException(){
         super();
