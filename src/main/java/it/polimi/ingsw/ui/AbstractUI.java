@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui;
 
+import java.io.IOException;
 
 /**
  * This class represents the abstraction of an user interface. It will be extended by every user interface
@@ -8,10 +9,15 @@ public abstract class AbstractUI {
 
     private final UiController controller;
 
-    public void abstractUI(UiController controller){ }
+    /**
+     * This is the contructor implemented by each interface
+     * @param controller is the callback interface
+     */
+    public AbstractUI(UiController controller){
+        this.controller=controller;
+    }
 
     protected UiController getController(){
-
         return controller;
     }
 
@@ -23,7 +29,7 @@ public abstract class AbstractUI {
     /**
      * Called when ui should show the login menu to the user
      */
-    public abstract void showLoginMenu();
+    public abstract void showLoginMenu() throws IOException;
 
     /**
      * Called when ui should show a "login error" message

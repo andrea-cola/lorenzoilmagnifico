@@ -1,24 +1,59 @@
 package it.polimi.ingsw.ui;
 
-public class Game implements UiController {
+import it.polimi.ingsw.client.ClientInterface;
 
-    public static void main(String args[]){
+import java.io.*;
+
+/**
+ * This is the basic game class that runs the main function; it implements the two interfaces UiController and
+ * ClientInterface which contains respectively the game related functions and the client actions
+ */
+public class Game implements UiController, ClientInterface {
+
+    private AbstractUI userInterface;
+    private BufferedReader keyboard= new BufferedReader(new InputStreamReader(System.in));
+    private PrintWriter console=new PrintWriter(new OutputStreamWriter(System.out));
+
+    /**
+     * This is the main method; after choosing the interface, it will start the game
+     * @throws IOException if the reading fails
+     */
+    public void Game(){
+        console.println("Before beginning choose the user interface which you prefer play with");
+        while(true) {
+            console.println("CLI-> Command Line Interface");
+            console.println("GUI-> Graphic User Interface");
+            try {
+                String choice = keyboard.readLine();
+                if (choice.equals("CLI")) {
+                    userInterface = new CommandLineInterface(this);
+                } else if (choice.equals("GUI")) {
+                    userInterface = new GraphicUserInterface(this);
+                } else {
+                    throw new IllegalArgumentException("The interface chosen is not valid");
+                }
+                userInterface.showNewtworkMenu();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Override
+    public void setNetworkSetting(NetworkType networkType, String address, int port) throws IOException {
+        userInterface.showLoginMenu();
 
     }
 
     @Override
-    public void setNetworkSetting() {
-
+    public void loginPlayer(String nickname){
+        console.println("We are trying to log you, mr. " +nickname);
     }
 
     @Override
     public boolean socket() {
         return false;
-    }
-
-    @Override
-    public void loginPlayer(String nickname) {
-
     }
 
     @Override
@@ -32,9 +67,7 @@ public class Game implements UiController {
     }
 
     @Override
-    public void setRoom() {
-
-    }
+    public void setRoom(){}
 
     @Override
     public void joinRoom() {
@@ -116,3 +149,11 @@ public class Game implements UiController {
         return false;
     }
 }
+
+
+class Starter{
+    public static void main(String args[]) throws IOException {
+       Game myGame=new Game();
+    }
+}
+

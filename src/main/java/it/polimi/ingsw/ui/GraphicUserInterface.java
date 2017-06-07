@@ -1,55 +1,22 @@
 package it.polimi.ingsw.ui;
 
-import java.io.*;
-
 /**
- * This class manages the command line interface of the game.
+ * Created by matteodaccordo on 04/06/17.
  */
+public class GraphicUserInterface extends AbstractUI {
 
-public class CommandLineInterface extends AbstractUI {
-
-
-    private static final String TITLE=  "     __     _____     ______     ________  __      ___ _________  ______\n" +
-                                        "    /  /   /     \\   /  _   \\   /  ______//  \\    /  //_____  _/ /      \\ \n" +
-                                        "   /  /   /   _   \\ /  (_)  /  /  /___   /    \\  /  / _____/ /  /   _    \\ \n" +
-                                        "  /  /   /   (_)  //  __   /  /   ___/  /  /\\  \\/  / /_  ___/  /   (_)   / \n" +
-                                        " /  /___ \\       //  /  \\ \\  /   /____ /  /  \\    /   / /______\\        / \n" +
-                                        " \\______/ \\_____//__/    \\_\\/________//__/    \\__/   /________/ \\______/ \n" +
-                                        "                                                                              \n" +
-                                        "                         _  _     _   __           __    __  __             \n" +
-                                        "                 / /    / \\/ \\   /_\\ / __ /\\  / / /_  / /   /  \\              \n"+
-                                        "                / /__  /      \\ /   \\__//  \\/ / /   /  \\__ \\__/              \n";
-
-
-
-    private PrintWriter console= new PrintWriter(new OutputStreamWriter(System.out));
-    private BufferedReader keyboard= new BufferedReader(new InputStreamReader(System.in));
-    private ContxtInterface contxtInterface;
-
-    private BaseContxt context;
-
-    public CommandLineInterface(UiController controller){
-        super(controller);
-        console.println(TITLE);
+    public GraphicUserInterface(UiController controller){
+        super();
     }
 
     @Override
-    public void showNewtworkMenu(){
-        console.println("Loading Network Menu");
+    public void showNewtworkMenu() {
 
-        context= new NetworkContext(contxtInterface, getController()::setNetworkSetting);
     }
 
     @Override
-    public void showLoginMenu() throws IOException {
-        try {
-            console.println("You need to enter 'login' before start playing");
-            String line =keyboard.readLine();
-            context.handle(line);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        context= new LoginContxt(contxtInterface, getController()::loginPlayer);
+    public void showLoginMenu() {
+
     }
 
     @Override
@@ -241,5 +208,4 @@ public class CommandLineInterface extends AbstractUI {
     public void notifyVaticanAction() {
 
     }
-
 }
