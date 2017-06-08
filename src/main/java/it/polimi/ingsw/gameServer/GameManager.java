@@ -2,11 +2,9 @@ package it.polimi.ingsw.gameServer;
 
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.PointType;
-import it.polimi.ingsw.server.AbstractPlayer;
+import it.polimi.ingsw.server.ServerPlayer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GameManager {
 
@@ -18,7 +16,7 @@ public class GameManager {
     /**
      * Array of players.
      */
-    private ArrayList<AbstractPlayer> players;
+    private ArrayList<ServerPlayer> players;
 
     /**
      * Game instance.
@@ -32,7 +30,7 @@ public class GameManager {
         this.game = Game.setupGame();
     }
 
-    protected void setupPlayers(ArrayList<AbstractPlayer> players){
+    protected void setupPlayers(ArrayList<ServerPlayer> players){
         this.game.setupPlayers(players.size());
     }
 

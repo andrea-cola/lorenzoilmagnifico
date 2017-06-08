@@ -1,5 +1,8 @@
 package it.polimi.ingsw.exceptions;
 
+/**
+ * Enumerations of possible login errors.
+ */
 public enum LoginErrorType {
 
     /**

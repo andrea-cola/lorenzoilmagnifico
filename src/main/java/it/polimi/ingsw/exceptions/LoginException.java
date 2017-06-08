@@ -28,7 +28,7 @@ public class LoginException extends NetworkException {
 
     /**
      * Class constructor.
-     * @param message alternative error message.
+     * @param message of the error.
      */
     public LoginException(LoginErrorType loginErrorType, String message){
         super(message);

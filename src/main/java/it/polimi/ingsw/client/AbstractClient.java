@@ -3,6 +3,10 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.ConnectionException;
 
+/**
+ * This class the abstraction of the server.
+ * It contains all methods shared beetween concrete communication classes.
+ */
 public abstract class AbstractClient {
 
     /**
@@ -22,9 +26,9 @@ public abstract class AbstractClient {
 
     /**
      * Class constructor.
-     * @param clientInterface
-     * @param address
-     * @param port
+     * @param clientInterface client controller.
+     * @param address of the server.
+     * @param port of the server.
      */
     public AbstractClient(ClientInterface clientInterface, String address, int port){
         this.clientInterface = clientInterface;
@@ -34,7 +38,7 @@ public abstract class AbstractClient {
 
     /**
      * Method to get the server ip address.
-     * @return
+     * @return the server address.
      */
     protected String getAddress(){
         return this.address;
@@ -42,7 +46,7 @@ public abstract class AbstractClient {
 
     /**
      * Method to get the server port.
-     * @return
+     * @return the server port.
      */
     protected int getPort(){
         return this.port;
@@ -50,7 +54,7 @@ public abstract class AbstractClient {
 
     /**
      * Method to get the ClientInterface.
-     * @return
+     * @return the client controller.
      */
     protected ClientInterface getController() {
         return clientInterface;
@@ -58,23 +62,23 @@ public abstract class AbstractClient {
 
     /**
      * Abstract method to connect client to a server.
-     * @throws ConnectionException
+     * @throws ConnectionException if errors occur during connection to the server.
      */
     public abstract void connectToServer() throws ConnectionException;
 
     /**
      * Abstract method to loginPlayer user on a server.
-     * @param username
-     * @param password
-     * @throws NetworkException
+     * @param username for the login.
+     * @param password for the login.
+     * @throws NetworkException if errors occur during login.
      */
     public abstract void loginPlayer(String username, String password) throws NetworkException;
 
     /**
      * Abstract method to sign in a user on a server.
-     * @param username
-     * @param password
-     * @throws NetworkException
+     * @param username for the sign in.
+     * @param password for the sign in.
+     * @throws NetworkException if errors occur during sign in.
      */
     public abstract void signInPlayer(String username, String password) throws NetworkException;
 

@@ -1,5 +1,8 @@
 package it.polimi.ingsw.socketCommunicationProtocol;
 
+/**
+ * This class is used to define all costants needed for communication protocol.
+ */
 /*package-local*/ class CommunicationProtocolConstants {
 
     /**

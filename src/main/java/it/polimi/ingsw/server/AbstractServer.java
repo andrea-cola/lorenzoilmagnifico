@@ -2,6 +2,10 @@ package it.polimi.ingsw.server;
 
 import java.io.IOException;
 
+/**
+ * This class is the abstraction of communication server.
+ * This class will be extended to obatin common method to communicate.
+ */
 public abstract class AbstractServer {
 
     /**
