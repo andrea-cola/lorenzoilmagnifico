@@ -6,10 +6,27 @@ import it.polimi.ingsw.rmiClient.RMIClientInterface;
 import java.io.IOException;
 import java.rmi.Remote;
 
+/**
+ * RMI server interface used for remote method invocation from client to server.
+ */
 public interface RMIServerInterface extends Remote{
 
+    /**
+     * Player login method.
+     * @param username provided by the client to login.
+     * @param password provided by the client to login.
+     * @param rmiPlayer is trying to login.
+     * @return a unique identifier of the player.
+     * @throws IOException if errors occur during login proceedings.
+     */
     String loginPlayer(String username, String password, RMIClientInterface rmiPlayer) throws IOException;
 
+    /**
+     * Player sign in method.
+     * @param username provided by the client to sign in.
+     * @param password provided by the client to sign in.
+     * @throws IOException
+     */
     void signInPlayer(String username, String password) throws IOException;
 
 }

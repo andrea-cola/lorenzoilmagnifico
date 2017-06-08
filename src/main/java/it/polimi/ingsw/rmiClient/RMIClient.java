@@ -13,14 +13,21 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.rmiServer.RMIServerInterface;
-import sun.nio.ch.Net;
 
+/**
+ * This class extends {@link AbstractClient} class to create a network connection based on RMI.
+ */
 public class RMIClient extends AbstractClient implements RMIClientInterface {
 
     /**
-     * RMI registry.
+     * Name of RMI client interface.
      */
-    private Registry registry;
+    private static final String RMI_CLIENT_INTERFACE_NAME = "RMIClientInterface";
+
+    /**
+     * Name of RMI server interface.
+     */
+    private static final String RMI_SERVER_INTERFACE_NAME = "RMIServerInterface";
 
     /**
      * RMI server interface.
@@ -32,41 +39,40 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
      */
     private String playerID;
 
-    private static final String RMIClientInterfaceName = "RMIClientInterface";
-
-    private static final String RMIServerInterfaceName = "RMIServerInterface";
-
     /**
      * Class constructor.
-     * @param clientInterface
-     * @param address
-     * @param port
+     * @param clientInterface client controller.
+     * @param address of the server.
+     * @param port of the server.
      */
     public RMIClient(ClientInterface clientInterface, String address, int port){
         super(clientInterface, address, port);
     }
 
     /**
-     * Method to obtain the rmi server interface reference from the registry.
-     * @throws RemoteException
+     * This method locates the RMI registry created or loaded by the RMI server,
+     * then gets the RMI server interface reference and in the end RMI client
+     * interface is published on the registry.
+     * @throws ConnectionException if errors occur during connection initialization.
      */
     @Override
     public void connectToServer() throws ConnectionException{
+        Registry registry;
         try {
             registry = LocateRegistry.getRegistry(getAddress(), getPort());
-            server = (RMIServerInterface) registry.lookup("RMIServerInterface");
+            server = (RMIServerInterface) registry.lookup(RMI_SERVER_INTERFACE_NAME);
             UnicastRemoteObject.exportObject(this, 0);
-            registry.rebind(RMIClientInterfaceName, this);
+            registry.rebind(RMI_CLIENT_INTERFACE_NAME, this);
         }catch(RemoteException | NotBoundException e){
             throw new ConnectionException(e);
         }
     }
 
     /**
-     * Method to loginPlayer user on server.
-     * @param username
-     * @param password
-     * @throws LoginException
+     * Abstract method to loginPlayer user on a server.
+     * @param username for the login.
+     * @param password for the login.
+     * @throws NetworkException if errors occur during login.
      */
     @Override
     public void loginPlayer(String username, String password) throws NetworkException{
@@ -80,10 +86,10 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     /**
-     * Method to sign in user on server.
-     * @param username
-     * @param password
-     * @throws LoginException
+     * Abstract method to sign in a user on a server.
+     * @param username for the sign in.
+     * @param password for the sign in.
+     * @throws NetworkException if errors occur during sign in.
      */
     @Override
     public void signInPlayer(String username, String password) throws NetworkException{

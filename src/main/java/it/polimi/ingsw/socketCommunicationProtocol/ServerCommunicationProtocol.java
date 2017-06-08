@@ -53,11 +53,18 @@ public class ServerCommunicationProtocol {
         void handle();
     }
 
+    /**
+     * Put in the hash map all possible requests from the client and their associated method.
+     */
     private void setupRequestsTable(){
         requestsTable.put(CommunicationProtocolConstants.LOGIN_REQUEST, this::loginPlayer);
         requestsTable.put(CommunicationProtocolConstants.SIGNIN_REQUEST, this::signInPlayer);
     }
 
+    /**
+     * Client requests handler.
+     * @param object of the request.
+     */
     public synchronized void clientRequestHandler(Object object){
         Handler handler = requestsTable.get(object);
         if (handler != null) {
@@ -65,6 +72,11 @@ public class ServerCommunicationProtocol {
         }
     }
 
+    /**
+     * Sign in the player. Read username and password from the input stream and
+     * call server sign in method. If errors occur a LoginException is thrown with
+     * an error attribute that describe the type of problem.
+     */
     private void signInPlayer(){
         int response;
         try{
@@ -75,7 +87,7 @@ public class ServerCommunicationProtocol {
                 serverCommunicationProtocolInterface.signInPlayer(username, password);
                 response = CommunicationProtocolConstants.USER_LOGIN_SIGNIN_OK;
             }catch(LoginException e){
-                Debugger.printDebugMessage("[ServerCommunicationProtocol.java] : Error while signInPlayer request.");
+                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while signing in player request.");
                 if(e.getError().equals(LoginErrorType.USER_ALREADY_EXISTS))
                     response = CommunicationProtocolConstants.USER_ALREADY_EXISTS;
                 else
@@ -84,10 +96,15 @@ public class ServerCommunicationProtocol {
             output.writeObject(response);
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
-            Debugger.printDebugMessage("[ServerCommunicationProtocol.java] : Error while handling sigin request.");
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while handling sign in player request.");
         }
     }
 
+    /**
+     * Login the player. Read username and password from the input stream and
+     * call server login method. If errors occur a LoginException is thrown with
+     * an error attribute that describe the type of problem.
+     */
     private void loginPlayer(){
         int response;
         try{
@@ -97,7 +114,7 @@ public class ServerCommunicationProtocol {
                 serverCommunicationProtocolInterface.loginPlayer(username, password);
                 response = CommunicationProtocolConstants.USER_LOGIN_SIGNIN_OK;
             }catch(LoginException e){
-                Debugger.printDebugMessage("[ServerCommunicationProtocol.java] : Error while loginPlayer in the user. " + e.getError());
+                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while loginPlayer in the user: " + e.getError());
                 if(e.getError().equals(LoginErrorType.USER_ALREADY_LOGGEDIN))
                     response = CommunicationProtocolConstants.USER_ALREADY_LOGGEDIN;
                 else if(e.getError().equals(LoginErrorType.USER_WRONG_PASSWORD))
@@ -111,7 +128,7 @@ public class ServerCommunicationProtocol {
             output.writeObject(response);
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
-            Debugger.printDebugMessage("[ServerCommunicationProtocol.java] : Error while handling loginPlayer request.");
+            Debugger.printDebugMessage(this.getClass().getSimpleName(),"Error while handling loginPlayer request.");
         }
     }
 

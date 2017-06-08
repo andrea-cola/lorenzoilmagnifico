@@ -9,17 +9,15 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * This class extends {@link AbstractServer} to implements socket server architecture.
+ */
 public class SocketServer extends AbstractServer {
 
     /**
      * SocketClient server.
      */
     private ServerSocket serverSocket;
-
-    /**
-     * Manager of all clients requests.
-     */
-    private RequestManager requestManager;
 
     /**
      * Class constructor.
@@ -35,6 +33,7 @@ public class SocketServer extends AbstractServer {
      */
     @Override
     public void startServer(int port) throws ServerException{
+        RequestManager requestManager;
         try{
             serverSocket = new ServerSocket(port);
             requestManager = new RequestManager();
@@ -58,9 +57,9 @@ public class SocketServer extends AbstractServer {
                     Socket socket = serverSocket.accept();
                     SocketPlayer socketPlayer = new SocketPlayer(socket, getServer());
                     new Thread(socketPlayer).start();
-                    Debugger.printStandardMessage("[" + this.getClass().getName() + "] : new player @ "  + socket.getInetAddress());
+                    Debugger.printStandardMessage("New player @ " + socket.getInetAddress());
                 } catch (IOException e) {
-                    Debugger.printDebugMessage("[" + this.getClass().getName() + "] : Problem during socket accepting.");
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Problem while socket accepting.");
                     break;
                 }
             }

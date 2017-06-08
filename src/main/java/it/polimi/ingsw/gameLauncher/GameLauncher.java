@@ -13,26 +13,40 @@ import it.polimi.ingsw.ui.UiController;
 
 public class GameLauncher implements ClientInterface, UiController {
 
+    /**
+     * Abstract ui controller.
+     */
     private AbstractUI ui;
 
+    /**
+     * Abstract communication client controller.
+     */
     private AbstractClient client;
 
+    /**
+     * Player username.
+     */
     private String playerUsername;
 
+    /**
+     * Player password.
+     */
     private String playerPassword;
 
+    /**
+     * Class constructor.
+     * @param ui controller type.
+     */
     GameLauncher(String ui){
-
         if(ui.equals("cli")){
-
+            // ui = new CLI();
         }
         else if(ui.equals("gui")){
-            // abstractUI = new GUI();
+            // ui = new GUI();
         }
         else{
             // throw exception
         }
-
     }
 
     @Override
@@ -47,6 +61,7 @@ public class GameLauncher implements ClientInterface, UiController {
 
     @Override
     public void loginPlayer(String username, String password) {
+
     }
 
     @Override

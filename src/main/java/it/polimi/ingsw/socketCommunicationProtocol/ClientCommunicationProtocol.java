@@ -11,6 +11,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
+/**
+ * This class is used to define the communication socket protocol. Used by the client to interact
+ * with {@link ServerCommunicationProtocol}.
+ */
 public class ClientCommunicationProtocol {
 
     /**
@@ -29,7 +33,7 @@ public class ClientCommunicationProtocol {
     private ClientInterface clientInterface;
 
     /**
-     * Hashmap cointaining all responses codes from the server.
+     * Hash map containing all responses codes from the server.
      */
     private HashMap<Object, ResponseHandler> responseTable;
 
@@ -47,10 +51,19 @@ public class ClientCommunicationProtocol {
         setupResponsesTable();
     }
 
+    /**
+     * Put in the hash map all possible responses and associate method handler.
+     */
     private void setupResponsesTable() {
 
     }
 
+    /**
+     * Method to sign in the player to server. This method is blocking.
+     * @param username to sign in.
+     * @param password to sign in.
+     * @throws NetworkException if communication or sign in errors occur.
+     */
     public void playerSignIn(String username, String password) throws NetworkException {
         int response;
         try{
@@ -68,6 +81,12 @@ public class ClientCommunicationProtocol {
             throw new LoginException(LoginErrorType.USER_ALREADY_EXISTS);
     }
 
+    /**
+     * Method to login the player to server. This method is blocking.
+     * @param username to login.
+     * @param password to login.
+     * @throws NetworkException if communication or login errors occur.
+     */
     public void playerLogin(String username, String password) throws NetworkException {
         int response;
         try{
@@ -90,6 +109,10 @@ public class ClientCommunicationProtocol {
             throw new LoginException(LoginErrorType.USER_WRONG_PASSWORD);
     }
 
+    /**
+     * Handle server response and execute the associated method.
+     * @param object of the response.
+     */
     public void handleResponse(Object object) {
         ResponseHandler handler = responseTable.get(object);
         if (handler != null) {

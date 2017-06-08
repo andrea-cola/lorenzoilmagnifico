@@ -12,7 +12,7 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * This class implements the socket client architecture.
+ * This class implements socket client communication. Extends {@link AbstractClient}.
  */
 public class SocketClient extends AbstractClient{
 
@@ -41,6 +41,12 @@ public class SocketClient extends AbstractClient{
      */
     private ResponseManager responseManager;
 
+    /**
+     * Class constructor.
+     * @param clientInterface controller of the client.
+     * @param address of the server.
+     * @param port of the server.
+     */
     public SocketClient(ClientInterface clientInterface, String address, int port){
         super(clientInterface, address, port);
     }
@@ -58,16 +64,31 @@ public class SocketClient extends AbstractClient{
         }
     }
 
+    /**
+     * Start server response handler thread.
+     */
     private void startServerResponseManager(){
         responseManager = new ResponseManager();
         responseManager.start();
     }
 
+    /**
+     * Abstract method to loginPlayer user on a server.
+     * @param username for the login.
+     * @param password for the login.
+     * @throws NetworkException if errors occur during login.
+     */
     @Override
     public void loginPlayer(String username, String password) throws NetworkException {
         clientCommunicationProtocol.playerLogin(username, password);
     }
 
+    /**
+     * Abstract method to sign in a user on a server.
+     * @param username for the sign in.
+     * @param password for the sign in.
+     * @throws NetworkException if errors occur during sign in.
+     */
     @Override
     public void signInPlayer(String username, String password) throws NetworkException {
         clientCommunicationProtocol.playerSignIn(username, password);
@@ -79,6 +100,9 @@ public class SocketClient extends AbstractClient{
     }
     */
 
+    /**
+     * Thread of the server response handler.
+     */
     private class ResponseManager extends Thread{
         boolean flag = true;
 
@@ -90,7 +114,7 @@ public class SocketClient extends AbstractClient{
                     clientCommunicationProtocol.handleResponse(object);
                 } catch (IOException | ClassNotFoundException e){
                     flag = false;
-                    Debugger.printDebugMessage("Errors occur while reading server response.", e);
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Errors occur while reading server response.", e);
                 }
             }
             closeConnections(objectInputStream, objectOutputStream, socket);
@@ -106,7 +130,7 @@ public class SocketClient extends AbstractClient{
             try {
                 connection.close();
             }catch(IOException e){
-                Debugger.printDebugMessage("[SocketPlayer.java] : Error while closing connections.", e);
+                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while closing connections.", e);
             }
         }
     }

@@ -4,8 +4,16 @@ import it.polimi.ingsw.cli.Debugger;
 
 import java.util.Scanner;
 
+/**
+ * Main client class. This class is used to run the game on client side.
+ * A new game launcher is created and let the user to choose user interface type.
+ */
 public class MainClass {
 
+    /**
+     * Main method.
+     * @param args passed to the client.
+     */
     public static void main(String[] args){
         GameLauncher gameLauncher = new GameLauncher(chooseInterface());
     }
@@ -23,7 +31,7 @@ public class MainClass {
             else if(choise.equals("2"))
                 return new String("gui");
             else
-                Debugger.printDebugMessage("[MainClass.java] : You typed a not valid option. Retry.");
+                Debugger.printDebugMessage("MainClass.java", "You typed a not valid option. Retry.");
         }
     }
 

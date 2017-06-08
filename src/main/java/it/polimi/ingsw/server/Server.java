@@ -12,7 +12,11 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-
+/**
+ * Main server class that extends {@link ServerInterface}.
+ * This class contains the main method to launch the server.
+ * It represent the game server.
+ */
 public class Server implements ServerInterface{
 
     /**
@@ -53,7 +57,7 @@ public class Server implements ServerInterface{
     /**
      * Map of all logged in players
      */
-    private HashMap<String, AbstractPlayer> players;
+    private HashMap<String, ServerPlayer> players;
 
     /**
      * Room list.
@@ -65,37 +69,60 @@ public class Server implements ServerInterface{
      */
     private Connection connection;
 
+    /**
+     * Class constructor.
+     */
     public Server(){
         rmiServer = new RMIServer(this);
         socketServer = new SocketServer(this);
-        players = new HashMap<String, AbstractPlayer>();
+        players = new HashMap<String, ServerPlayer>();
         rooms = new ArrayList<Room>();
         dbServer = new DBServer();
     }
 
-
+    /**
+     * Main method to launch the server.
+     * @param args passed to server.
+     */
     public static void main(String[] args){
         Server server = new Server();
         try {
             server.startSocketRMIServer(SOCKET_PORT, RMI_PORT);
             server.startDatabase();
-            Debugger.printStandardMessage("[ing.polimi.ingsw.server.Server] : Socket server ready. RMI server ready. SQL server ready.");
+            Debugger.printStandardMessage("Socket server ready.\nRMI server ready.\nSQL server ready.");
         } catch (IOException e){
-            Debugger.printDebugMessage("[ing.polimi.ingsw.server.Server] : Error while starting communication server.", e);
+            Debugger.printDebugMessage("Server.java" , "Error while starting communication server.", e);
         } catch (SQLException e){
-            Debugger.printDebugMessage("[ing.polimi.ingsw.server.Server] : Error while starting database server.", e);
+            Debugger.printDebugMessage("Server.java", "Error while starting database server.", e);
         }
     }
 
+    /**
+     * Method to initialize and start socket server and RMI server.
+     * @param socketPort of socket server.
+     * @param rmiPort of RMI server.
+     * @throws IOException if errors occur during initialization.
+     */
     private void startSocketRMIServer(int socketPort, int rmiPort) throws IOException{
         socketServer.startServer(socketPort);
         rmiServer.startServer(rmiPort);
     }
 
+    /**
+     * Method to initialize and start database server.
+     * @throws SQLException if errors occur during initialization.
+     */
     private void startDatabase() throws SQLException{
         dbServer.connectToDatabase();
     }
 
+    /**
+     * Sign in the player to server.
+     * @param username of the player is trying to sign in.
+     * @param password of the player is trying to sign in.
+     * @throws LoginException if errors occur during sign in.
+     */
+    @Override
     public void signInPlayer(String username, String password) throws LoginException{
         synchronized (LOGIN_MUTEX) {
             if(!players.containsKey(username))
@@ -105,7 +132,15 @@ public class Server implements ServerInterface{
         }
     }
 
-    public void loginPlayer(AbstractPlayer player, String username, String password) throws LoginException{
+    /**
+     * Login the player to server then put username and remote player reference in the user cache (Hashmap).
+     * @param player is trying to login.
+     * @param username of the player is trying to login.
+     * @param password of the player is trying to login.
+     * @throws LoginException if errors occur during login.
+     */
+    @Override
+    public void loginPlayer(ServerPlayer player, String username, String password) throws LoginException{
         synchronized (LOGIN_MUTEX) {
             if(!players.containsKey(username)) {
                 dbServer.loginPlayer(username, password);
@@ -118,7 +153,13 @@ public class Server implements ServerInterface{
         }
     }
 
-    public AbstractPlayer getUser(String username){
+    /**
+     * Method to get remote player reference from the user cache.
+     * @param username of the remote player.
+     * @return remote player that corresponds to username provided.
+     */
+    @Override
+    public ServerPlayer getUser(String username){
         return players.get(username);
     }
 

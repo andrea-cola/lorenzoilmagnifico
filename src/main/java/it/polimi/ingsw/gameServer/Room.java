@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gameServer;
 
 import it.polimi.ingsw.model.DevelopmentCard;
-import it.polimi.ingsw.server.AbstractPlayer;
+import it.polimi.ingsw.server.ServerPlayer;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class Room {
 
     private GameManager gameManager = new GameManager();
 
-    private ArrayList<AbstractPlayer> players = new ArrayList<AbstractPlayer>();
+    private ArrayList<ServerPlayer> players = new ArrayList<ServerPlayer>();
 
     public Room(){
 
