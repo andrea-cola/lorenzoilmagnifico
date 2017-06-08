@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ui;
 
+import com.sun.xml.internal.rngom.parse.host.Base;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -7,12 +9,12 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class BaseContxt {
+public class BaseContext {
 
     /**
      * Callback interfaces will contain the main context functions
      */
-    private final ContxtInterface callback;
+    private final ContextInterface callback;
 
     protected BufferedReader keyboard= new BufferedReader((new InputStreamReader(System.in)));
 
@@ -24,7 +26,7 @@ public class BaseContxt {
      * Construct
      * @param contextInterface with the callback
      */
-    BaseContxt(ContxtInterface contextInterface){
+    BaseContext(ContextInterface contextInterface){
         callback=contextInterface;
         commands= new HashMap<>();
     }
@@ -33,7 +35,7 @@ public class BaseContxt {
      * Get the context
      * @return the context needed
      */
-    ContxtInterface getContxt(){
+    ContextInterface getContext(){
         return callback;
     }
 
@@ -46,6 +48,9 @@ public class BaseContxt {
         return commands.get(key);
     }
 
+    void printCommands(BaseContext currentContext){
+        commands.
+    }
     /**
      * Print the command
      * @param key associated

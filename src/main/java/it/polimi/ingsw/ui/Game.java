@@ -32,7 +32,7 @@ public class Game implements UiController, ClientInterface {
                 } else {
                     throw new IllegalArgumentException("The interface chosen is not valid");
                 }
-                userInterface.showNewtworkMenu();
+                userInterface.showNetworkMenu();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -41,13 +41,12 @@ public class Game implements UiController, ClientInterface {
 
 
     @Override
-    public void setNetworkSetting(NetworkType networkType, String address, int port) throws IOException {
+    public void setNetworkSettings(NetworkType networkType, String address, int port) throws IOException {
         userInterface.showLoginMenu();
-
     }
 
     @Override
-    public void loginPlayer(String nickname){
+    public void loginPlayer(String nickname, String password){
         console.println("We are trying to log you, mr. " +nickname);
     }
 

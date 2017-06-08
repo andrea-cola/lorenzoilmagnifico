@@ -7,7 +7,7 @@ package it.polimi.ingsw.ui;
 /*
 It has to have visibility only in the current package
  */
- interface ContxtInterface {
+ interface ContextInterface {
     /**
      * Print something on the display
      * @param message to print

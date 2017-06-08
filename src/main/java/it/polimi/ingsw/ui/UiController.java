@@ -7,13 +7,19 @@ import java.io.IOException;
  * be updated in real time and notified for every change.
  */
 public interface UiController {
-
-    void setNetworkSetting( ) throws IOException;
+    /**
+     * It allows the user to set network options
+     * @param networkType
+     * @param address
+     * @param port
+     */
+    void setNetworkSetting(NetworkType networkType, String address, int port);
 
     /**
+     * It allows the user to login to the game
      * @param nickname
      */
-    void loginPlayer(String nickname);
+    void loginPlayer(String nickname, String password);
 
     boolean socket();
 

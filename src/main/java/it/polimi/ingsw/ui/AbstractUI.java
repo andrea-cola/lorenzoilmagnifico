@@ -24,7 +24,7 @@ public abstract class AbstractUI {
     /**
      * Called when ui should show a form to let the user decide the network settings
      */
-    public abstract void showNewtworkMenu();
+    public abstract void showNetworkMenu();
 
     /**
      * Called when ui should show the loginPlayer menu to the user

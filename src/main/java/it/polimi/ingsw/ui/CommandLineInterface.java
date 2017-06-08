@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ui;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.io.*;
 
 /**
@@ -24,32 +26,41 @@ public class CommandLineInterface extends AbstractUI {
 
     private PrintWriter console= new PrintWriter(new OutputStreamWriter(System.out));
     private BufferedReader keyboard= new BufferedReader(new InputStreamReader(System.in));
-    private ContxtInterface contxtInterface;
+    private ContextInterface contextInterface;
 
-    private BaseContxt context;
+    private BaseContext context;
 
     public CommandLineInterface(UiController controller){
         super(controller);
         console.println(TITLE);
     }
 
-    @Override
-    public void showNewtworkMenu(){
-        console.println("Loading Network Menu");
-
-        context= new NetworkContext(contxtInterface, getController()::setNetworkSetting);
+    private void read(){
+        try {
+            String line = keyboard.readLine();
+            if (context != null) {
+                context.handle(line);
+            }
+        } catch (UnknownCommandException e) {
+            e.printStackTrace();
+        } catch (IOException g) {
+            g.printStackTrace();
+        }
     }
 
     @Override
-    public void showLoginMenu() throws IOException {
-        try {
-            console.println("You need to enter 'login' before start playing");
-            String line =keyboard.readLine();
-            context.handle(line);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        context= new LoginContxt(contxtInterface, getController()::loginPlayer);
+    public void showNetworkMenu(){
+        console.println("Loading Network Menu");
+        read();
+        context= new NetworkContext(contextInterface, ((networkType, address, port) -> getController().setNetworkSetting(networkType, address, port)));
+    }
+
+
+    @Override
+    public void showLoginMenu() {
+        console.println("You need to enter 'login' before start playing");
+        read();
+        context= new LoginContext(contextInterface, (nickname, password) -> getController().loginPlayer(nickname, password));
     }
 
     @Override
@@ -119,11 +130,12 @@ public class CommandLineInterface extends AbstractUI {
 
     @Override
     public void showMainBoard(Stato update) {
-
+    // public void showMainBoard(Stato update) {
     }
 
     @Override
     public void showPersonalBoard(String nickname, Stato update) {
+    // public void showPersonalBoard(String nickname, Stato update) {
 
     }
 
@@ -139,31 +151,36 @@ public class CommandLineInterface extends AbstractUI {
 
     @Override
     public void showTower(Status update) {
+    //  public void showTower(Status update) {
 
     }
 
     @Override
     public void showCouncilPalace(Status update) {
-
+    // public void showCouncilPalace(Status update) {
     }
 
     @Override
     public void showMarket(Status update) {
+    // public void showMarket(Status update) {
 
     }
 
     @Override
     public void showProductionArea(Status update) {
+    // public void showProductionArea(Status update) {
 
     }
 
     @Override
     public void showHarvestArea(Status update) {
+    // public void showHarvestArea(Status update) {
 
     }
 
     @Override
     public void showDices(Status update) {
+    // public void showDices(Status update) {
 
     }
 
