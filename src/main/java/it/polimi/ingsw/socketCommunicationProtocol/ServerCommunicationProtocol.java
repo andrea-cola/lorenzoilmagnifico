@@ -15,6 +15,11 @@ import java.util.HashMap;
 public class ServerCommunicationProtocol {
 
     /**
+     * Mutex to synchronized output.
+     */
+    private static final Object OUTPUT_MUTEX = new Object();
+
+    /**
      * SocketClient interface to communicate with Abstract SocketPlayer.
      */
     private final ServerCommunicationProtocolInterface serverCommunicationProtocolInterface;
@@ -65,10 +70,12 @@ public class ServerCommunicationProtocol {
      * Client requests handler.
      * @param object of the request.
      */
-    public synchronized void clientRequestHandler(Object object){
+    public void clientRequestHandler(Object object){
         Handler handler = requestsTable.get(object);
-        if (handler != null) {
-            handler.handle();
+        synchronized (OUTPUT_MUTEX) {
+            if (handler != null) {
+                handler.handle();
+            }
         }
     }
 
