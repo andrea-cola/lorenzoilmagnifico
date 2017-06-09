@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ui;
 
+import it.polimi.ingsw.ui.cli.NetworkType;
+
 import java.io.IOException;
 
 /**
@@ -13,7 +15,7 @@ public interface UiController {
      * @param address
      * @param port
      */
-    void setNetworkSetting(NetworkType networkType, String address, int port);
+    void setNetworkSettings(NetworkType networkType, String address, int port) throws IOException;
 
     /**
      * It allows the user to login to the game

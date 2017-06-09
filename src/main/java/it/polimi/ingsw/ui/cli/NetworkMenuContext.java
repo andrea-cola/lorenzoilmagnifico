@@ -1,11 +1,13 @@
-package it.polimi.ingsw.ui;
+package it.polimi.ingsw.ui.cli;
+
+import it.polimi.ingsw.cli.Debugger;
 
 import java.io.IOException;
 
 /**
  * This class represents the network context used by the command line user interface
  */
-public class NetworkContext extends BaseContext{
+public class NetworkMenuContext extends BaseContext{
 
     private final NetworkCallback callback;
     private NetworkType networkType;
@@ -13,29 +15,31 @@ public class NetworkContext extends BaseContext{
     private int port;
 
     /**
-     * Constructor for NetworkContext
-     * @param contextInterface passed in Command Line Interface
+     * Constructor for NetworkMenuContext
+     * @param contextInterface passed from Command Line Interface class
      * @param callback for setting network options
      */
 
-    NetworkContext(ContextInterface contextInterface, NetworkCallback callback){
+    NetworkMenuContext(ContextInterface contextInterface, NetworkCallback callback){
         super(contextInterface);
         this.callback=callback;
         this.networkType=NetworkType.SOCKET;
         this.address= "localhost";
         this.port=3031;
-        addCommand("show-configuration", arguments -> printConfig());
-        addCommand("set-networktype", arguments ->setNetworkType(arguments));
-        addCommand("set-address", arguments -> setAddress(arguments));
-        addCommand("set-port", arguments -> setPort(arguments));
-        addCommand("connect", arguments -> connect());
+        printConfig();
+        addPrintCommand("show-configuration", arguments -> printConfig());
+        addPrintCommand("set-networkType", arguments ->setNetworkType(arguments));
+        addPrintCommand("set-address", arguments -> setAddress(arguments));
+        addPrintCommand("set-port", arguments -> setPort(arguments));
+        addPrintCommand("connect", arguments -> connect());
+        read();
     }
 
     /**
      * It prints the network configuration
      */
     private void printConfig(){
-        console.println("You are now connected to "+ address +" a the port " + port);
+        console.println("You are now connected to "+ address +" at port " + port);
     }
 
     /**
@@ -45,14 +49,17 @@ public class NetworkContext extends BaseContext{
      */
     private void setNetworkType(String[] arguments) throws CommandNotValid {
         if(arguments.length==1){
-            if(arguments[0]=="socket"){
-                networkType= NetworkType.SOCKET;
-                port=3031;
-            }else if(arguments[0]== "rmi"){
-                networkType= NetworkType.RMI;
-                port=3032;
-            }else {
-                throw new CommandNotValid();
+            switch (arguments[0]){
+                case "socket":
+                        networkType= NetworkType.SOCKET;
+                        port=3031;
+                        break;
+                case "rmi":
+                    networkType= NetworkType.RMI;
+                    port=3032;
+                    break;
+                default:
+                    throw new CommandNotValid("The network type is not valid");
             }
         }else {
             throw new CommandNotValid();
@@ -70,7 +77,7 @@ public class NetworkContext extends BaseContext{
             address=arguments[0];
             printConfig();
         }else{
-            throw new CommandNotValid();
+            throw new CommandNotValid("The network address is not valid");
         }
     }
 
@@ -86,7 +93,7 @@ public class NetworkContext extends BaseContext{
                 this.port=p;
                 printConfig();
             }else{
-                throw new CommandNotValid();
+                throw new CommandNotValid("The network port is not valid");
             }
         }else{
             throw new CommandNotValid();
@@ -94,28 +101,28 @@ public class NetworkContext extends BaseContext{
     }
 
     /**
-     * Connect function calls the callback setNetworkSettings funcion
+     * Connect function calls the callback setNetworkSettings function
      * @throws IOException
      */
     private void connect() {
         try {
             this.callback.setNetworkSettings(networkType, address, port);
         } catch (IOException e) {
-            e.printStackTrace();
+            Debugger.printDebugMessage(this.getClass().getName(), e);
         }
     }
 }
 
 /**
- * This callback interface represents the main network context functions
+ * This callback interface represents the main network context function
  */
 @FunctionalInterface
 interface NetworkCallback{
     /**
-     * Let the user to set the network settings
-     * @param networkType
-     * @param address
-     * @param port
+     * It set the network settings previously decided by the user
+     * @param networkType is the type of network
+     * @param address is the network address
+     * @param port is the network port
      */
     void setNetworkSettings(NetworkType networkType, String address, int port) throws IOException;
 }

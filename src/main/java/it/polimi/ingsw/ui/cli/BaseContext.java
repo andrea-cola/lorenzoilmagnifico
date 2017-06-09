@@ -1,11 +1,8 @@
-package it.polimi.ingsw.ui;
+package it.polimi.ingsw.ui.cli;
 
-import com.sun.xml.internal.rngom.parse.host.Base;
+import it.polimi.ingsw.cli.Debugger;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -48,9 +45,6 @@ public class BaseContext {
         return commands.get(key);
     }
 
-    void printCommands(BaseContext currentContext){
-        commands.
-    }
     /**
      * Print the command
      * @param key associated
@@ -58,15 +52,29 @@ public class BaseContext {
     void printCommandKey(String key){
         console.println(key);
     }
+
     /**
      * Add a command to the commands hash map
      * @param key of the command
      * @param command what is going to be execute
      */
-    void addCommand(String key, Command command){
+    void addPrintCommand(String key, Command command){
         commands.put(key, command);
+        printCommandKey(key);
     }
 
+    protected void read(){
+        try {
+            String line = keyboard.readLine();
+            if (this != null) {
+                this.handle(line);
+            }
+        } catch (UnknownCommandException e) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), e);
+        } catch (IOException g) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), g);
+        }
+    }
     /**
      * After having read the command line, the command has to be caught and then execute
      * @param line from the scanner

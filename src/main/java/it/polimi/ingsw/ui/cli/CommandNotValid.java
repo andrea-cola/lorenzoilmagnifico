@@ -1,9 +1,10 @@
-package it.polimi.ingsw.ui;
+package it.polimi.ingsw.ui.cli;
 
 /**
  * This Exception is thrown if the commands are not valid
  */
 class CommandNotValid extends Exception{
+
     /**
      * Contructor
      */

@@ -1,16 +1,34 @@
-package it.polimi.ingsw.ui;
+package it.polimi.ingsw.ui.gui;
+
+import it.polimi.ingsw.ui.AbstractUI;
+import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.ui.gui.StartingBoard.StartingBoard;
+import javafx.application.Application;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.awt.*;
+
+import static javafx.application.Application.launch;
 
 /**
- * Created by matteodaccordo on 04/06/17.
+ * This class manage the graphic user interface of the game
  */
-public class GraphicUserInterface extends AbstractUI {
+public class GraphicUserInterface extends AbstractUI{
+
 
     public GraphicUserInterface(UiController controller){
-        super();
+        super(controller);
+        new Thread(()->Application.launch(StartingBoard.class)).start();
+        StartingBoard.waitFor();
     }
 
     @Override
-    public void showNewtworkMenu() {
+    public void showNetworkMenu(){
+
 
     }
 
@@ -208,4 +226,6 @@ public class GraphicUserInterface extends AbstractUI {
     public void notifyVaticanAction() {
 
     }
+
+
 }

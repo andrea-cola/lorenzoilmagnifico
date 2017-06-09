@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ui;
+package it.polimi.ingsw.ui.cli;
 
 import java.io.IOException;
 

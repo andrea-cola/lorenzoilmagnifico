@@ -1,6 +1,7 @@
-package it.polimi.ingsw.ui;
+package it.polimi.ingsw.ui.cli;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import it.polimi.ingsw.ui.AbstractUI;
+import it.polimi.ingsw.ui.UiController;
 
 import java.io.*;
 
@@ -25,7 +26,9 @@ public class CommandLineInterface extends AbstractUI {
 
 
     private PrintWriter console= new PrintWriter(new OutputStreamWriter(System.out));
+
     private BufferedReader keyboard= new BufferedReader(new InputStreamReader(System.in));
+
     private ContextInterface contextInterface;
 
     private BaseContext context;
@@ -35,33 +38,24 @@ public class CommandLineInterface extends AbstractUI {
         console.println(TITLE);
     }
 
-    private void read(){
-        try {
-            String line = keyboard.readLine();
-            if (context != null) {
-                context.handle(line);
-            }
-        } catch (UnknownCommandException e) {
-            e.printStackTrace();
-        } catch (IOException g) {
-            g.printStackTrace();
-        }
+    @Override
+    public void showLoginMenu() {
+        console.println("You need to enter 'login' before start playing");
+        context= new LoginMenuContext(contextInterface, (nickname, password) -> getController().loginPlayer(nickname, password));
     }
 
     @Override
     public void showNetworkMenu(){
         console.println("Loading Network Menu");
-        read();
-        context= new NetworkContext(contextInterface, ((networkType, address, port) -> getController().setNetworkSetting(networkType, address, port)));
+        context= new NetworkMenuContext(contextInterface, (networkType, address, port) -> getController().setNetworkSettings(networkType, address, port));
     }
-
 
     @Override
-    public void showLoginMenu() {
-        console.println("You need to enter 'login' before start playing");
-        read();
-        context= new LoginContext(contextInterface, (nickname, password) -> getController().loginPlayer(nickname, password));
+    public void showRoomMenu() {
+        console.println("Loading Room Menu");
+        context= new RoomMenuContext(contextInterface,  maxPlayer -> getController().setRoom(maxPlayer));
     }
+
 
     @Override
     public void notifyLoginError() {
@@ -73,10 +67,6 @@ public class CommandLineInterface extends AbstractUI {
 
     }
 
-    @Override
-    public void showRoomMenu() {
-
-    }
 
     @Override
     public void notifyCreatingRoomSuccess() {
@@ -135,7 +125,7 @@ public class CommandLineInterface extends AbstractUI {
 
     @Override
     public void showPersonalBoard(String nickname, Stato update) {
-    // public void showPersonalBoard(String nickname, Stato update) {
+    // public void showPersonalBoard(String username, Stato update) {
 
     }
 

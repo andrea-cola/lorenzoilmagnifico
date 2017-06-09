@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class CardGenerator {
 
-    private static final String CARD_OUTPUT_FILE = "../Documents/Card.json";
+    private static final String CARD_OUTPUT_FILE = "src/main/resources/Card.json";
 
     public static void main(String[] args){
         JsonWriterDevCard writerDevCard = new JsonWriterDevCard();

@@ -75,7 +75,7 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     /**
      * Method to handle user loginPlayer request.
      * @param username provided by the client.
-     * @param password provided by the cluent.
+     * @param password provided by the client.
      * @throws LoginException if loginPlayer error occurs.
      */
     @Override

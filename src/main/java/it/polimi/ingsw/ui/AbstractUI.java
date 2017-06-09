@@ -106,10 +106,10 @@ public abstract class AbstractUI {
 
     /**
      * Called when ui should show the personal board
-     * @param nickname of the player
+     * @param username of the player
      * @param update the current state of the personal board
      */
-    //public abstract void showPersonalBoard(String nickname, Stato update);
+    //public abstract void showPersonalBoard(String username, Stato update);
 
     /**
      * Called when ui should show the personal bonus tile
@@ -191,7 +191,7 @@ public abstract class AbstractUI {
     /**
      * Called when ui should show all points of a player
      */
-    // public abstract void showPoints(String nickname, Status update);
+    // public abstract void showPoints(String username, Status update);
 
     /**
      * Called when ui should notify the immediate effect of a chosen card or an action space
