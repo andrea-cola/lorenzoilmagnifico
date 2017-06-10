@@ -1,6 +1,7 @@
 package it.polimi.ingsw.socketServer;
 
 import it.polimi.ingsw.cli.Debugger;
+import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.server.ServerInterface;
@@ -92,6 +93,16 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     @Override
     public void signInPlayer(String username, String password) throws LoginException {
         serverInterface.signInPlayer(username, password);
+    }
+
+    /**
+     * Try to join a room.
+     *
+     * @throws RoomException if errors occur during the access.
+     */
+    @Override
+    public void joinRoom() throws RoomException {
+
     }
 
     /**

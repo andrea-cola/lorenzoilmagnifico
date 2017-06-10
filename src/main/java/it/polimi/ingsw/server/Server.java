@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.cli.Debugger;
 import it.polimi.ingsw.exceptions.LoginErrorType;
+import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.socketServer.SocketServer;
 import it.polimi.ingsw.gameServer.Room;
 import it.polimi.ingsw.exceptions.LoginException;
@@ -32,12 +33,12 @@ public class Server implements ServerInterface{
     /**
      * Mutex object to handle concurrency between users during loginPlayer.
      */
-    private static final Object LOGIN_MUTEX = new Object();
+    private static final Object LOGIN_SIGNIN_MUTEX = new Object();
 
     /**
      * Mutex object to handle concurrency during room create.
      */
-    private static final Object ROOM_MUTEX = new Object();
+    private static final Object JOIN_ROOM_MUTEX = new Object();
 
     /**
      * RMI server.
@@ -78,6 +79,7 @@ public class Server implements ServerInterface{
         players = new HashMap<String, ServerPlayer>();
         rooms = new ArrayList<Room>();
         dbServer = new DBServer();
+        configureGameServer();
     }
 
     /**
@@ -95,6 +97,13 @@ public class Server implements ServerInterface{
         } catch (SQLException e){
             Debugger.printDebugMessage("Server.java", "Error while starting database server.", e);
         }
+    }
+
+    /**
+     * Method to load and set configuration from file.
+     */
+    private void configureGameServer() {
+
     }
 
     /**
@@ -124,7 +133,7 @@ public class Server implements ServerInterface{
      */
     @Override
     public void signInPlayer(String username, String password) throws LoginException{
-        synchronized (LOGIN_MUTEX) {
+        synchronized (LOGIN_SIGNIN_MUTEX) {
             if(!players.containsKey(username))
                 dbServer.signInPlayer(username, password);
             else
@@ -141,7 +150,7 @@ public class Server implements ServerInterface{
      */
     @Override
     public void loginPlayer(ServerPlayer player, String username, String password) throws LoginException{
-        synchronized (LOGIN_MUTEX) {
+        synchronized (LOGIN_SIGNIN_MUTEX) {
             if(!players.containsKey(username)) {
                 dbServer.loginPlayer(username, password);
                 player.setNickname(username);
@@ -161,6 +170,26 @@ public class Server implements ServerInterface{
     @Override
     public ServerPlayer getUser(String username){
         return players.get(username);
+    }
+
+    /**
+     * Method used to join a player into a room.
+     * @param serverPlayer who would join in a room.
+     * @throws RoomException if error occurs.
+     */
+    @Override
+    public void joinRoom(ServerPlayer serverPlayer) throws RoomException{
+        synchronized (JOIN_ROOM_MUTEX){
+            Room room;
+            if(!rooms.isEmpty()){
+                room = rooms.get(rooms.size() - 1);
+                room.joinRoom(serverPlayer);
+                serverPlayer.setRoom(room);
+            }
+            else {
+                throw new RoomException("There are no rooms!");
+            }
+        }
     }
 
 

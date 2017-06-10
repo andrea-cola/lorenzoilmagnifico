@@ -4,9 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import it.polimi.ingsw.cli.Debugger;
 import it.polimi.ingsw.model.*;
-import sun.misc.Perf;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,21 +16,96 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by lorenzo on 27/05/17.
+ * This class is a singleton. It loads configurations from the file.
  */
 public class Configurator {
 
+    /**
+     * Configurator instance. Singleton.
+     */
     private static Configurator configurator;
 
+    /**
+     * Players colors.
+     */
+    private String[] playerColors;
+
+    /**
+     * Game main board.
+     */
+    private MainBoard mainBoard;
+
+    /**
+     * Array of all personal boards available.
+     */
+    private ArrayList<PersonalBoard> personalBoards;
+
+    /**
+     * Dice colors.
+     */
+    private ArrayList<String> diceColors;
+
+    /**
+     * Development cards deck.
+     */
+    private ArrayList<DevelopmentCard> developmentCards;
+
+    /**
+     * Gson object reference.
+     */
+    private Gson gson;
+
+    /**
+     * Class constructor.
+     */
     private Configurator(){
+        Debugger.printDebugMessage("Loading configuration files...");
+        try {
+            parse();
+        } catch(FileNotFoundException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error during parsing proceedings.", e);
+        }
+    }
+
+    /**
+     * Main parsing method. This method calls all needed method to parse the file.
+     */
+    private void parse() throws FileNotFoundException{
+        gson = new Gson();
+        parseColor();
+        parseTimeConfiguration();
+        parseMainBoard();
+        parsePersonalBoards();
+        parseDevelopmentCard();
+        parseLeaderCards();
+        parseExcommunicationCards();
+    }
+
+    /**
+     * Method to parse colors from configuration file.
+     */
+    private void parseColor() throws FileNotFoundException{
+        playerColors = gson.fromJson(new FileReader("src/main/resources/configFiles/colors.json"), String[].class);
+    }
+
+    private void parseTimeConfiguration(){
 
     }
 
-    public static Configurator setupConfigurator(){
-        if (configurator == null){
-            configurator = new Configurator();
-        }
-        return configurator;
+    private void parseMainBoard(){
+
+    }
+
+    private void parsePersonalBoards(){
+
+    }
+
+    private void parseLeaderCards(){
+
+    }
+
+    private void parseExcommunicationCards(){
+
     }
 
     public ArrayList<DevelopmentCard> parseDevelopmentCard() throws FileNotFoundException{
@@ -42,7 +118,7 @@ public class Configurator {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapterFactory(effectFactory);
 
-        Gson gson = builder.create();
+        gson = builder.create();
 
         JsonReader reader = new JsonReader(new FileReader("../git/src/main/java/it/polimi/ingsw/gameServer/DevelopmentCards"));
 

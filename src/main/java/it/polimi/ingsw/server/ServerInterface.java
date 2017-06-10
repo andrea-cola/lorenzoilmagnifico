@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.RoomException;
 
 public interface ServerInterface {
 
@@ -27,5 +28,12 @@ public interface ServerInterface {
      * @return remote player that corresponds to username provided.
      */
     ServerPlayer getUser(String username);
+
+    /**
+     * Method used to join a player into a room.
+     * @param serverPlayer who would join in a room.
+     * @throws RoomException if error occurs.
+     */
+    void joinRoom(ServerPlayer serverPlayer) throws RoomException;
 
 }
