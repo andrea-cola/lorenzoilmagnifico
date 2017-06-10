@@ -3,8 +3,8 @@ package it.polimi.ingsw.cli;
 /**
  * Class used to print messages on the standard output in order to debug.
  * Two type of debug message:
- * standard: used to communicate simple informations, often successful ones.
- * debug: used to communicate important informations, like error or particular exceptions.
+ * standard: used to communicate simple information, often successful ones.
+ * debug: used to communicate important information, like error or particular exceptions.
  */
 public class Debugger {
 

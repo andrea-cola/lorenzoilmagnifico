@@ -1,16 +1,29 @@
 package it.polimi.ingsw.ui;
 
+import it.polimi.ingsw.ui.cli.NetworkType;
+
+import java.io.IOException;
+
 /**
  * Interface implemented by the Game class, contains all functions related to the Game that need to
  * be updated in real time and notified for every change.
  */
 public interface UiController {
+    /**
+     * It allows the user to set network options
+     * @param networkType
+     * @param address
+     * @param port
+     */
+    void setNetworkSettings(NetworkType networkType, String address, int port) throws IOException;
 
-    void setNetworkSetting();
+    /**
+     * It allows the user to login to the game
+     * @param nickname
+     */
+    void loginPlayer(String nickname, String password);
 
     boolean socket();
-
-    void loginPlayer(String username, String password);
 
     String getNickname();
 

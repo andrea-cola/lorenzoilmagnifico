@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui;
 
+import java.io.IOException;
 
 /**
  * This class represents the abstraction of an user interface. It will be extended by every user interface
@@ -8,22 +9,27 @@ public abstract class AbstractUI {
 
     private UiController controller;
 
-    public void abstractUI(UiController controller){ }
+    /**
+     * This is the contructor implemented by each interface
+     * @param controller is the callback interface
+     */
+    public AbstractUI(UiController controller){
+        this.controller=controller;
+    }
 
     protected UiController getController(){
-
         return controller;
     }
 
     /**
      * Called when ui should show a form to let the user decide the network settings
      */
-    public abstract void showNewtworkMenu();
+    public abstract void showNetworkMenu();
 
     /**
      * Called when ui should show the loginPlayer menu to the user
      */
-    public abstract void showLoginMenu();
+    public abstract void showLoginMenu() throws IOException;
 
     /**
      * Called when ui should show a "loginPlayer error" message
@@ -100,10 +106,10 @@ public abstract class AbstractUI {
 
     /**
      * Called when ui should show the personal board
-     * @param nickname of the player
+     * @param username of the player
      * @param update the current state of the personal board
      */
-    //public abstract void showPersonalBoard(String nickname, Stato update);
+    //public abstract void showPersonalBoard(String username, Stato update);
 
     /**
      * Called when ui should show the personal bonus tile
@@ -185,7 +191,7 @@ public abstract class AbstractUI {
     /**
      * Called when ui should show all points of a player
      */
-    // public abstract void showPoints(String nickname, Status update);
+    // public abstract void showPoints(String username, Status update);
 
     /**
      * Called when ui should notify the immediate effect of a chosen card or an action space
