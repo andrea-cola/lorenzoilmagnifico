@@ -51,9 +51,9 @@ public class NetworkMenuContext extends BaseContext{
         if(arguments.length==1){
             switch (arguments[0]){
                 case "socket":
-                        networkType= NetworkType.SOCKET;
-                        port=3031;
-                        break;
+                    networkType= NetworkType.SOCKET;
+                    port=3031;
+                    break;
                 case "rmi":
                     networkType= NetworkType.RMI;
                     port=3032;
@@ -102,14 +102,9 @@ public class NetworkMenuContext extends BaseContext{
 
     /**
      * Connect function calls the callback setNetworkSettings function
-     * @throws IOException
      */
     private void connect() {
-        try {
-            this.callback.setNetworkSettings(networkType, address, port);
-        } catch (IOException e) {
-            Debugger.printDebugMessage(this.getClass().getName(), e);
-        }
+        this.callback.setNetworkSettings(networkType, address, port);
     }
 }
 
@@ -124,5 +119,5 @@ interface NetworkCallback{
      * @param address is the network address
      * @param port is the network port
      */
-    void setNetworkSettings(NetworkType networkType, String address, int port) throws IOException;
+    void setNetworkSettings(NetworkType networkType, String address, int port);
 }

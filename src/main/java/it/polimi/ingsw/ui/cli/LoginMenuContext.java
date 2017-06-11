@@ -29,14 +29,10 @@ public class LoginMenuContext extends BaseContext{
 
     /**
      * Login function calls the callback loginPlayer function
-     * @throws CommandNotValid if the command is not valid
      */
     private void login(){
-        try {
-            this.callback.loginPlayer(username, password);
-        } catch (IOException e) {
-            Debugger.printDebugMessage(this.getClass().getName(), e);
-        }
+        this.callback.loginPlayer(username, password);
+
     }
 }
 
@@ -48,6 +44,7 @@ public class LoginMenuContext extends BaseContext{
     /**
      * Let the player login to the game
      * @param username to use
+     * @param password set by the player
      */
-    void loginPlayer(String username, String password) throws IOException;
+    void loginPlayer(String username, String password);
 }

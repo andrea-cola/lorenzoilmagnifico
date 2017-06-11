@@ -29,7 +29,7 @@ public abstract class AbstractUI {
     /**
      * Called when ui should show the loginPlayer menu to the user
      */
-    public abstract void showLoginMenu() throws IOException;
+    public abstract void showLoginMenu();
 
     /**
      * Called when ui should show a "loginPlayer error" message

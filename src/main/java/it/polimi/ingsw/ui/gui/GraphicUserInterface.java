@@ -2,15 +2,7 @@ package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
-import it.polimi.ingsw.ui.gui.StartingBoard.StartingBoard;
 import javafx.application.Application;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-import javax.swing.*;
-import java.awt.*;
 
 import static javafx.application.Application.launch;
 
@@ -20,6 +12,7 @@ import static javafx.application.Application.launch;
 public class GraphicUserInterface extends AbstractUI{
 
 
+
     public GraphicUserInterface(UiController controller){
         super(controller);
         new Thread(()->Application.launch(StartingBoard.class)).start();
@@ -27,14 +20,17 @@ public class GraphicUserInterface extends AbstractUI{
     }
 
     @Override
-    public void showNetworkMenu(){
-
-
+    public void showNetworkMenu() {
+        NetworkBoard networkBoard= new NetworkBoard((networkType, address, port)->getController().setNetworkSettings(networkType, address, port));
+        new Thread(()-> Application.launch(NetworkBoard.class)).start();
+        networkBoard.waitFor();
     }
 
     @Override
     public void showLoginMenu() {
-
+        LoginBoard loginBoard= new LoginBoard(((username, password) -> getController().loginPlayer(username, password)));
+        new Thread(()-> Application.launch(LoginBoard.class)).start();
+        loginBoard.waitFor();
     }
 
     @Override
