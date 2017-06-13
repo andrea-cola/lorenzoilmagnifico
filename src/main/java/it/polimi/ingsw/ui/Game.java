@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 /**
  * This is the basic game class that runs the main function; it implements the two interfaces UiController and
- * ClientInterface which contains respectively the game related functions and the client actions
+ * ClientInterface which contains respectively the game related functions and the client actions.
  */
 public class Game implements UiController, ClientInterface {
 
@@ -30,7 +30,7 @@ public class Game implements UiController, ClientInterface {
     private AbstractClient client;
 
     /**
-     * This is the main method; after choosing the interface, it will start the game
+     * This is the main method; after choosing the interface, it will start the game.
      * @throws IOException if the reading fails
      */
     public  Game(String ui) throws IllegalAccessException {
@@ -78,8 +78,7 @@ public class Game implements UiController, ClientInterface {
     }
 
     @Override
-    public void joinRoom(){
-    }
+    public void joinRoom(){    }
 
     @Override
     public void setRoom(int maxPlayer){
