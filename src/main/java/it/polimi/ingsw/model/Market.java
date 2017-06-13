@@ -1,20 +1,25 @@
 package it.polimi.ingsw.model;
 
 /**
- * Created by lorenzo on 23/05/17.
+ * This class represent market abstraction.
  */
 public class Market {
 
+    /**
+     * Market cells.
+     */
     private MarketCell[] marketCells;
 
-    public Market(){
-        this.marketCells = new MarketCell[4];
-        for(int i = 0; i < this.marketCells.length; i++){
-            this.marketCells[i] = new MarketCell();
-        }
-    }
-
+    /**
+     * Get a specific market cell.
+     * @param index of the cell.
+     * @return a market cell.
+     */
     public MarketCell getMarketCell(int index){
         return this.marketCells[index];
+    }
+
+    public void setMarketCells(MarketCell[] cells){
+        this.marketCells = cells;
     }
 }

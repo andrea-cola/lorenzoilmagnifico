@@ -10,6 +10,11 @@ import java.util.ArrayList;
 public class TowerCell {
 
     /**
+     * Min dice value to place a family member in the cell.
+     */
+    private int minFamilyMemberValue;
+
+    /**
      * Development card assigned to this cell.
      */
     private DevelopmentCard developmentCard;
@@ -25,9 +30,20 @@ public class TowerCell {
     private ArrayList<FamilyMember> familyMembers;
 
     /**
-     * Min dice value to place a family member in the cell.
+     * Set immediate effect of the cell.
+     * @param effect
      */
-    private int minFamilyMemberValue;
+    public void setTowerCellImmediateEffect(Effect effect){
+        this.towerCellImmediateEffect = effect;
+    }
+
+    /**
+     * Get immediate effect of the cell.
+     * @return
+     */
+    public Effect getTowerCellImmediateEffect(){
+        return this.towerCellImmediateEffect;
+    }
 
     public void setMinFamilyMemberValue(Integer value){
         this.minFamilyMemberValue = value;

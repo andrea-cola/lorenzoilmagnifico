@@ -1,19 +1,33 @@
 package it.polimi.ingsw.model;
 
 /**
- * Created by lorenzo on 30/05/17.
+ * This class represent a council privilege.
  */
 public class CouncilPrivilege {
 
-    private Integer numberOfCouncilPrivileges;
+    /**
+     * Number of council privileges.
+     */
+    private int numberOfCouncilPrivileges;
 
-    public CouncilPrivilege(){}
+    /**
+     * Array of benefits.
+     */
+    private PointsAndResources[] options;
 
-    public void setNumberOfCouncilPrivileges(int value){
-        this.numberOfCouncilPrivileges = value;
+    /**
+     * Set number of council privileges.
+     * @param amount of council privileges.
+     */
+    public void setNumberOfCouncilPrivileges(int amount){
+        this.numberOfCouncilPrivileges = amount;
     }
 
-    public Integer getNumberOfCouncilPrivileges(){
+    /**
+     * Get number of pribileges.
+     * @return number of privileges.
+     */
+    public int getNumberOfCouncilPrivileges(){
         return this.numberOfCouncilPrivileges;
     }
 

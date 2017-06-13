@@ -1,13 +1,9 @@
 package it.polimi.ingsw.model;
 
-import sun.applet.Main;
-import sun.jvm.hotspot.oops.Array;
-import sun.jvm.hotspot.oops.Mark;
+import it.polimi.ingsw.model.effects.EffectHarvestProductionSimple;
+import it.polimi.ingsw.model.effects.EffectSimple;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * This class represents the main board abstraction.
@@ -15,7 +11,7 @@ import java.util.Random;
 public class MainBoard {
 
     /**
-     *  Array of towers.
+     * Array of towers.
      */
     private Tower[] towers;
 
@@ -24,41 +20,40 @@ public class MainBoard {
      */
     private Vatican vatican;
 
+    /**
+     * Council palace reference.
+     */
     private CouncilPalace councilPalace;
 
-    private WorkArea harvest;
-
-    private WorkArea production;
-
-    private WorkAreaExtended harvestExtended;
-
-    private WorkAreaExtended productionExtended;
-
+    /**
+     * Market reference.
+     */
     private Market market;
 
-    private static MainBoard mainBoard;
-
     /**
-     * Class constructor.
+     * Harvest reference.
      */
-    private MainBoard(){
-        //instantiates the 4 towers
-        int i = 0;
-        towers = new Tower[4];
-        towers[1] = new1
-
-        //instantiates the vatican area
-        this.vatican = new Vatican();
-
-        //instantiates the councilPalace area
-        this.councilPalace = new CouncilPalace();
-
-        //instantiates the market area
-        this.market = new Market();
-    }
+    private ActionSpace harvest;
 
     /**
-     * This method sets new cards for the towers
+     * Production reference.
+     */
+    private ActionSpace production;
+
+    /**
+     * Harvest extended reference.
+     */
+    private ActionSpaceExtended harvestExtended;
+
+    /**
+     * Production extended reference.
+     */
+    private ActionSpaceExtended productionExtended;
+
+    /**
+     * Set card in the tower. This method is used at the beginning of all ages.
+     * @param index of the tower.
+     * @param cards to be set.
      */
     public void setTower(int index, ArrayList<DevelopmentCard> cards){
         int cell = 0;
@@ -70,13 +65,12 @@ public class MainBoard {
 
     /**
      * This method returns a specific tower of the mainBoard
-     * @param index
-     * @return
+     * @param index of the tower.
+     * @return a specific tower.
      */
     public Tower getTower(int index){
         return this.towers[index];
     }
-
 
     public Vatican getVatican(){
         return this.vatican;
@@ -86,19 +80,19 @@ public class MainBoard {
         return this.councilPalace;
     }
 
-    public WorkArea getHarvest(){
+    public ActionSpace getHarvest(){
         return this.harvest;
     }
 
-    public WorkArea getProduction(){
+    public ActionSpace getProduction(){
         return this.production;
     }
 
-    public WorkAreaExtended getHarvestExtended(){
+    public ActionSpaceExtended getHarvestExtended(){
         return this.harvestExtended;
     }
 
-    public WorkAreaExtended getProductionExtended(){
+    public ActionSpaceExtended getProductionExtended(){
         return this.productionExtended;
     }
 

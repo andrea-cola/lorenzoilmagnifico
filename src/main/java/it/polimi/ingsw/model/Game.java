@@ -49,7 +49,6 @@ public class Game {
      * This method instantiates the mainBoard if it has not been initialized yet
      */
     public void setupMainBoard(){
-        this.mainBoard = MainBoard.setupMainBoard();
     }
 
     /**
@@ -87,21 +86,7 @@ public class Game {
 
 
     private ArrayList<DevelopmentCard> chooseCards(ArrayList<DevelopmentCard> deck, DevelopmentCardColor color, int period, int towerIndex){
-        ArrayList<DevelopmentCard> cards = new ArrayList<>();
-
-        for (DevelopmentCard card: deck){
-            if (card.getColor() == color && card.getPeriod() == period){
-                //add the card to an array list of cards that will be send to a tower
-                cards.add(card);
-                //remove from the deck the cards you have already added to the towers
-                deck.remove(card);
-            }
-
-            if(cards.size() == this.mainBoard.getTower(towerIndex).getNumberOfTowerCells()){
-                break;
-            }
-        }
-        return cards;
+        return null;
     }
 
      /**

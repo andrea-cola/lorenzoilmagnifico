@@ -102,7 +102,6 @@ public class Game implements UiController, ClientInterface {
         return false;
     }
 
-    @Override
     public void setRoom() {
 
     }
