@@ -80,7 +80,6 @@ public class Game implements UiController, ClientInterface {
     @Override
     public void joinRoom(){    }
 
-    @Override
     public void setRoom(int maxPlayer){
 
 
@@ -102,7 +101,10 @@ public class Game implements UiController, ClientInterface {
         return false;
     }
 
+    @Override
+    public void setRoom() {
 
+    }
 
 
     @Override

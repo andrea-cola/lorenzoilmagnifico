@@ -1,33 +1,66 @@
 package it.polimi.ingsw.model;
 
-import java.awt.*;
-import java.util.Map;
+import it.polimi.ingsw.model.effects.Effect;
+import it.polimi.ingsw.model.effects.EffectFinalPoints;
+import it.polimi.ingsw.model.effects.EffectSimple;
 
 /**
- * Created by lorenzo on 23/05/17.
+ * This class represent the abstraction of the development card.
  */
 public class DevelopmentCard {
 
+    /**
+     * Name of the card.
+     */
     private String name;
 
-    private Integer id;
+    /**
+     * Card ID.
+     */
+    private int id;
 
-    private Integer period;
+    /**
+     * Game period of the card.
+     */
+    private int period;
 
+    /**
+     * Color of the card. The color specifies also the type.
+     */
     private DevelopmentCardColor cardColor;
 
+    /**
+     * Cost of the card in points and resources.
+     */
     private PointsAndResources cost;
 
+    /**
+     * This flag indicates if the player have to choose one requisite
+     * among those available.
+     */
     private boolean multipleRequisiteSelectionEnabled;
 
-    private Integer militaryPointsRequired;
+    /**
+     * Amount of military points required.
+     */
+    private int militaryPointsRequired;
 
-    private EffectSimple immediateEffect;
+    /**
+     * Immediate effect of the card.
+     */
+    private Effect immediateEffect;
 
-    private EffectFinalPoints permanentEffect;
+    /**
+     * Permanent effect of the card.
+     */
+    private Effect permanentEffect;
 
-    public DevelopmentCard(){ }
+    /**
+     * Class constructor.
+     */
+    public DevelopmentCard(){
 
+    }
 
     ///////WARNING: These methods are used just to create the cards for JSON, delete them after their creation
     public void setId(Integer id){
@@ -46,11 +79,11 @@ public class DevelopmentCard {
         this.cardColor = color;
     }
 
-    public void setImmediateEffect(EffectSimple effect){
+    public void setImmediateEffect(Effect effect){
         this.immediateEffect = effect;
     }
 
-    public void setPermanentEffect(EffectFinalPoints effect){
+    public void setPermanentEffect(Effect effect){
         this.permanentEffect = effect;
     }
 
@@ -71,39 +104,75 @@ public class DevelopmentCard {
     }
     ///////
 
-    public Integer getId(){
+    /**
+     * Get the card ID.
+     * @return the id.
+     */
+    public int getId(){
         return this.id;
     }
 
-    public Integer getPeriod(){
+    /**
+     * Get the period.
+     * @return the period.
+     */
+    public int getPeriod(){
         return this.period;
     }
 
+    /**
+     * Get the effectType of the card.
+     * @return the effectType.
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     * Get the color of the card.
+     * @return the color.
+     */
     public DevelopmentCardColor getColor(){
         return  this.cardColor;
     }
 
+    /**
+     * Get the cost to pick up the card.
+     * @return the cost.
+     */
     public PointsAndResources getCost(){
         return this.cost;
     }
 
-    public EffectSimple getImmediateEffect(){
+    /**
+     * Get the immediate effect of the card.
+     * @return the immediate effect.
+     */
+    public Effect getImmediateEffect(){
         return this.immediateEffect;
     }
 
-    public EffectFinalPoints getPermanentEffect(){
+    /**
+     * Get the permanent effect of the card.
+     * @return
+     */
+    public Effect getPermanentEffect(){
         return this.permanentEffect;
     }
 
+    /**
+     * Get the flag of multiple requisite selection.
+     * @return a boolean flag.
+     */
     public boolean getMultipleRequisiteSelectionEnabled(){
         return this.multipleRequisiteSelectionEnabled;
     }
 
-    public Integer getMilitaryPointsRequired(){
+    /**
+     * Get the military points required.
+     * @return amount of military points.
+     */
+    public int getMilitaryPointsRequired(){
         return this.militaryPointsRequired;
     }
 }

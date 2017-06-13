@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.effects.Effect;
+import it.polimi.ingsw.model.effects.EffectSimple;
+
 /**
  * Created by lorenzo on 24/05/17.
  */

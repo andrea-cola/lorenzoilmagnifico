@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui.cli;
 
+import it.polimi.ingsw.model.Status;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 
@@ -53,7 +54,7 @@ public class CommandLineInterface extends AbstractUI {
     @Override
     public void showRoomMenu() {
         console.println("Loading Room Menu");
-        context= new RoomMenuContext(contextInterface,  maxPlayer -> getController().setRoom(maxPlayer));
+        context= new RoomMenuContext(contextInterface,  maxPlayer -> getController().setRoom());
     }
 
 
@@ -118,13 +119,11 @@ public class CommandLineInterface extends AbstractUI {
 
     }
 
-    @Override
-    public void showMainBoard(Stato update) {
+    public void showMainBoard(Status update) {
     // public void showMainBoard(Stato update) {
     }
 
-    @Override
-    public void showPersonalBoard(String nickname, Stato update) {
+    public void showPersonalBoard(String nickname, Status update) {
     // public void showPersonalBoard(String username, Stato update) {
 
     }
@@ -139,36 +138,30 @@ public class CommandLineInterface extends AbstractUI {
 
     }
 
-    @Override
     public void showTower(Status update) {
     //  public void showTower(Status update) {
 
     }
 
-    @Override
     public void showCouncilPalace(Status update) {
     // public void showCouncilPalace(Status update) {
     }
 
-    @Override
     public void showMarket(Status update) {
     // public void showMarket(Status update) {
 
     }
 
-    @Override
     public void showProductionArea(Status update) {
     // public void showProductionArea(Status update) {
 
     }
 
-    @Override
     public void showHarvestArea(Status update) {
     // public void showHarvestArea(Status update) {
 
     }
 
-    @Override
     public void showDices(Status update) {
     // public void showDices(Status update) {
 
@@ -209,7 +202,6 @@ public class CommandLineInterface extends AbstractUI {
 
     }
 
-    @Override
     public void showPoints(String nickname, Status update) {
 
     }
