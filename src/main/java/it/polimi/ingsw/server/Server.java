@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.cli.Debugger;
+import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.socketServer.SocketServer;

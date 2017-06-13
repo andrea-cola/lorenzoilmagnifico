@@ -1,6 +1,5 @@
 package it.polimi.ingsw.socketCommunicationProtocol;
 
-import it.polimi.ingsw.cli.Debugger;
 import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;

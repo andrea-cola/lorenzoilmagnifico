@@ -1,9 +1,5 @@
 package it.polimi.ingsw.ui.cli;
 
-import it.polimi.ingsw.cli.Debugger;
-
-import java.io.IOException;
-
 /**
  * This class represents the login context used by the command line user interface
  */

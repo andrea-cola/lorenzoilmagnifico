@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ui.cli;
 
 /**
- * This is the callback interface for every cli context
+ * This is the callback interface for every utility context
  */
 
 /*

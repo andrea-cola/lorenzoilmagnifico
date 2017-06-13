@@ -1,6 +1,6 @@
 package it.polimi.ingsw.rmiServer;
 
-import it.polimi.ingsw.cli.Debugger;
+import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.ServerException;
 import it.polimi.ingsw.rmiClient.RMIClientInterface;
 import it.polimi.ingsw.server.ServerPlayer;

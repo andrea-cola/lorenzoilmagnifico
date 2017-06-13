@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ui.cli;
 
-import it.polimi.ingsw.cli.Debugger;
+import it.polimi.ingsw.utility.Debugger;
 
 import java.io.IOException;
 
