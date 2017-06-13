@@ -10,12 +10,18 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created by lorenzo on 23/05/17.
+ * This class represents the main board abstraction.
  */
 public class MainBoard {
 
+    /**
+     *  Array of towers.
+     */
     private Tower[] towers;
 
+    /**
+     * Vatican reference.
+     */
     private Vatican vatican;
 
     private CouncilPalace councilPalace;
@@ -33,16 +39,13 @@ public class MainBoard {
     private static MainBoard mainBoard;
 
     /**
-     * Class constructor, note that this method gets called once due to the Singleton pattern
+     * Class constructor.
      */
     private MainBoard(){
         //instantiates the 4 towers
         int i = 0;
-        this.towers = new Tower[DevelopmentCardColor.values().length];
-        for(DevelopmentCardColor cardColor: DevelopmentCardColor.values()){
-            this.towers[i] = new Tower(cardColor);
-            i++;
-        }
+        towers = new Tower[4];
+        towers[1] = new1
 
         //instantiates the vatican area
         this.vatican = new Vatican();
@@ -53,17 +56,6 @@ public class MainBoard {
         //instantiates the market area
         this.market = new Market();
     }
-
-    /**
-     *  Lazy instantiation of the mainBoard
-     */
-    public static MainBoard setupMainBoard(){
-        if(mainBoard == null){
-            mainBoard = new MainBoard();
-        }
-        return mainBoard;
-    }
-
 
     /**
      * This method sets new cards for the towers

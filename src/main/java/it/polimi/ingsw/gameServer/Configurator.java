@@ -6,19 +6,25 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.cli.Debugger;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.effects.*;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * This class is a singleton. It loads configurations from the file.
  */
 public class Configurator {
+
+    /**
+     * Path strings constants.
+     */
+    private final String DEVELOPMENT_CARDS_FILE_PATH = "src/main/resources/configFiles/developmentCards.json";
+    private final String PLAYER_COLORS_FILE_PATH = "src/main/resources/configFiles/colors.json";
+    private final String TIMES_FILE_PATH = "src/main/resources/configFiles/times.json";
 
     /**
      * Configurator instance. Singleton.
@@ -51,6 +57,11 @@ public class Configurator {
     private ArrayList<DevelopmentCard> developmentCards;
 
     /**
+     * Array of times.
+     */
+    private long[] times;
+
+    /**
      * Gson object reference.
      */
     private Gson gson;
@@ -73,23 +84,27 @@ public class Configurator {
     private void parse() throws FileNotFoundException{
         gson = new Gson();
         parseColor();
+        parseDevelopmentCard();
         parseTimeConfiguration();
         parseMainBoard();
         parsePersonalBoards();
-        parseDevelopmentCard();
         parseLeaderCards();
         parseExcommunicationCards();
     }
 
     /**
-     * Method to parse colors from configuration file.
+     * Parse colors from configuration file.
      */
     private void parseColor() throws FileNotFoundException{
-        playerColors = gson.fromJson(new FileReader("src/main/resources/configFiles/colors.json"), String[].class);
+        playerColors = gson.fromJson(new FileReader(PLAYER_COLORS_FILE_PATH), String[].class);
     }
 
-    private void parseTimeConfiguration(){
-
+    /**
+     * Parse times from configuration file.
+     * @throws FileNotFoundException
+     */
+    private void parseTimeConfiguration() throws FileNotFoundException{
+        times = gson.fromJson(new FileReader(TIMES_FILE_PATH), long[].class);
     }
 
     private void parseMainBoard(){
@@ -108,23 +123,31 @@ public class Configurator {
 
     }
 
-    public ArrayList<DevelopmentCard> parseDevelopmentCard() throws FileNotFoundException{
-        RuntimeTypeAdapterFactory<Effect> effectFactory = RuntimeTypeAdapterFactory.of(Effect.class, "effectType");
-        effectFactory.registerSubtype(EffectSimple.class, "EffectSimple");
-        effectFactory.registerSubtype(EffectFinalPoints.class, "EffectFinalPoints");
-        effectFactory.registerSubtype(EffectHarvestProductionSimple.class, "EffectHarvestProductionSimple");
+    /**
+     * Parse development cards from appropriate json file.
+     * @return array of cards.
+     * @throws FileNotFoundException if file is not found.
+     */
+    private ArrayList<DevelopmentCard> parseDevelopmentCard() throws FileNotFoundException{
 
+        RuntimeTypeAdapterFactory<Effect> effectFactory = RuntimeTypeAdapterFactory.of(Effect.class, "effectType")
+                    .registerSubtype(EffectSimple.class, "EffectSimple")
+                    .registerSubtype(EffectCardBonus.class, "EffectCardBonus")
+                    .registerSubtype(EffectChooseCard.class, "EffectChooseCard")
+                    .registerSubtype(EffectFinalPoints.class, "EffectFinalPoints")
+                    .registerSubtype(EffectHarvestProductionBonus.class, "EffectHarvestProductionBonus")
+                    .registerSubtype(EffectHarvestProductionExchange.class, "EffectHarvestProductionExchange")
+                    .registerSubtype(EffectHarvestProductionSimple.class, "EffectHarvestProductionSimple")
+                    .registerSubtype(EffectMultiplicator.class, "EffectMultiplicator")
+                    .registerSubtype(EffectNoBonus.class, "EffectNoBonus");
 
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapterFactory(effectFactory);
-
+        GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(effectFactory);;
         gson = builder.create();
-
-        JsonReader reader = new JsonReader(new FileReader("../git/src/main/java/it/polimi/ingsw/gameServer/DevelopmentCards"));
-
-        ArrayList<DevelopmentCard> developmentCards = gson.fromJson(reader, new TypeToken<List<DevelopmentCard>>(){}.getType());
+        JsonReader reader = new JsonReader(new FileReader(DEVELOPMENT_CARDS_FILE_PATH));
+        developmentCards = gson.fromJson(reader, new TypeToken<List<DevelopmentCard>>(){}.getType());
 
         return developmentCards;
 
     }
+
 }

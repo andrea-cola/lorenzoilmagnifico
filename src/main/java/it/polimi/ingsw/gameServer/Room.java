@@ -37,11 +37,6 @@ public class Room {
     private Timer startGameTimer;
 
     /**
-     * Timer for player move.
-     */
-    private Timer moveTimer;
-
-    /**
      * Configurator.
      */
     private Configurator roomConfigurator;
@@ -49,7 +44,7 @@ public class Room {
     /**
      * Maximum time before game starts.
      */
-    private static long maxWaitingTimeBeforeStart;
+    private long maxWaitingTimeBeforeStart;
 
     /**
      * Player max time to make a move.
@@ -70,7 +65,7 @@ public class Room {
     /**
      * List of all players that have joined the room.
      */
-    private ArrayList<ServerPlayer> players = new ArrayList<ServerPlayer>();
+    private ArrayList<ServerPlayer> players = new ArrayList();
 
     /**
      * Class constructor. The max number of players is passed as argument
@@ -121,15 +116,6 @@ public class Room {
     private void resetTimer(){
         startGameTimer.cancel();
         startGameTimer.purge();
-    }
-
-    public void configureGame(){
-        try {
-            ArrayList<DevelopmentCard> developmentCardsDeck = this.roomConfigurator.parseDevelopmentCard();
-            this.gameManager.setupDevelopmentCards(developmentCardsDeck);
-        }catch (FileNotFoundException e){
-            System.err.println(e.getMessage());
-        }
     }
 
     /**

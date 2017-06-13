@@ -5,7 +5,7 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 
 /**
  * This class the abstraction of the server.
- * It contains all methods shared beetween concrete communication classes.
+ * It contains all methods shared between concrete communication classes.
  */
 public abstract class AbstractClient {
 

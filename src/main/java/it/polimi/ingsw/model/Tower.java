@@ -6,28 +6,50 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by lorenzo on 23/05/17.
+ * This class represents tower abstraction.
  */
 public class Tower {
 
-    private static final int NUMBER_OF_TOWER_CELLS = 4;
+    /**
+     * Array of tower cells.
+     */
+    private TowerCell[] towerCells;
 
     /**
-     * Constant value to indicate the number of cells for each tower
+     * Color of the tower. It specifies the type of the contained.
      */
-
-    private TowerCell[] towerCells = new TowerCell[NUMBER_OF_TOWER_CELLS];
-
     private DevelopmentCardColor towerColor;
 
     /**
-     * Class constructor
+     * Set the color of the tower.
+     * @param color of the tower.
      */
-    public Tower(DevelopmentCardColor towerColor){
-        this.towerColor = towerColor;
-        for (int i = 0; i < NUMBER_OF_TOWER_CELLS; i++){
-            this.towerCells[i] = new TowerCell(towerColor);
-        }
+    private void setTowerColor(DevelopmentCardColor color){
+        this.towerColor = color;
+    }
+
+    /**
+     * Get tower color.
+     * @return tower color.
+     */
+    private DevelopmentCardColor getTowerColor(){
+        return this.towerColor;
+    }
+
+    /**
+     * Set tower cells.
+     * @param towerCells of the tower.
+     */
+    private void setTowerCells(TowerCell[] towerCells){
+        this.towerCells = towerCells;
+    }
+
+    /**
+     * Get tower cells.
+     * @return TowerCell array.
+     */
+    private TowerCell[] getTowerCells(){
+        return this.towerCells;
     }
 
     /**
@@ -35,36 +57,26 @@ public class Tower {
      * @return
      */
     public boolean isFree(){
-        for(TowerCell cell : this.towerCells){
-            if (!cell.isEmpty()){
+        for(TowerCell cell : this.towerCells)
+            if (!cell.isEmpty())
                 return false;
-            }
-        }
         return true;
     }
 
     /**
-     * This method sets the content of the cell (put a card inside the cell)
+     * This method sets the content of the cell (put a card inside the cell).
      */
     public void setTowerCell(int index, DevelopmentCard card){
         this.towerCells[index].setDevelopmentCard(card);
     }
 
     /**
-     * This method gets the content of the cell
-     * @param index
-     * @return
+     * This method gets the content of the cell (get the card contained in the cell).
+     * @param index of the cells.
+     * @return TowerCell object.
      */
     public TowerCell getTowerCell(Integer index){
         return this.towerCells[index];
-    }
-
-    public int getNumberOfTowerCells(){
-        return NUMBER_OF_TOWER_CELLS;
-    }
-
-    public DevelopmentCardColor getTowerColor(){
-        return this.towerColor;
     }
 
 }
