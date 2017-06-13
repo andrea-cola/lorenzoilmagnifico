@@ -1,7 +1,6 @@
-package it.polimi.ingsw.ui.gui.StartingBoard;
+package it.polimi.ingsw.ui.gui;
 
 
-import it.polimi.ingsw.cli.Debugger;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -15,11 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.text.Normalizer;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * This is the board which the game will start with
+ * This is the board which the game starts with
  */
 public class StartingBoard extends Application {
 
@@ -48,7 +46,7 @@ public class StartingBoard extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Welcome Board");
+        primaryStage.setTitle("StartingBoard");
         VBox vBox= new VBox(10);
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(20);
@@ -61,15 +59,15 @@ public class StartingBoard extends Application {
                         new KeyValue(bar.progressProperty(), 0)
                 ),
                 new KeyFrame(
-                        Duration.seconds(5),
+                        Duration.seconds(8),
                         new KeyValue(bar.progressProperty(),1)
                 ));
 
-        Button button= new Button("CONTINUE");
+        Button button= new Button("START");
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                primaryStage.close();
+                task.playFromStart();
             }
         });
 
@@ -81,9 +79,5 @@ public class StartingBoard extends Application {
         scene.getStylesheets().add(StartingBoard.class.getResource("StartingBoard").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
-        task.playFromStart();
     }
-
-
-    public static void main(String[] args) { launch(args); }
 }

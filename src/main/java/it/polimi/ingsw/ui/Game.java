@@ -51,8 +51,7 @@ public class Game implements UiController, ClientInterface {
     }
 
     @Override
-    public void setNetworkSettings(NetworkType networkType, String address, int port) throws IOException {
-        console.println("You can now decide the connection you prefer to play with");
+    public void setNetworkSettings(NetworkType networkType, String address, int port) {
         switch (networkType){
             case SOCKET:
                 client= new SocketClient(this, address, port);
@@ -64,7 +63,6 @@ public class Game implements UiController, ClientInterface {
                 throw new IllegalArgumentException();
         }
         userInterface.showLoginMenu();
-
     }
 
     @Override

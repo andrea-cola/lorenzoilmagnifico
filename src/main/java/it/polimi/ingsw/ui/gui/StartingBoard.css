@@ -16,8 +16,8 @@
 }
 
 #loading{
-    -fx-font-size: 25;
-    -fx-font-style: "Arial";
+    -fx-font-size: 30;
+    -fx-font-style: "Arial" italic;
     -fx-text-fill: mistyrose;
     -fx-font-weight: normal;
 }

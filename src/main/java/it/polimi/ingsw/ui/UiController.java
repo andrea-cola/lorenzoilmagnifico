@@ -15,7 +15,7 @@ public interface UiController {
      * @param address
      * @param port
      */
-    void setNetworkSettings(NetworkType networkType, String address, int port) throws IOException;
+    void setNetworkSettings(NetworkType networkType, String address, int port);
 
     /**
      * It allows the user to login to the game
@@ -29,7 +29,7 @@ public interface UiController {
 
     boolean existPlayer();
 
-    void setRoom();
+    void setRoom(int maxPlayer);
 
     void joinRoom();
 
