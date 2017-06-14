@@ -10,6 +10,8 @@ package it.polimi.ingsw.socketCommunicationProtocol;
      */
     /*package-local*/ static final String LOGIN_REQUEST = "LoginRequest";
     /*package-local*/ static final String SIGNIN_REQUEST = "SigninRequest";
+    /*package-local*/ static final String JOIN_ROOM_REQUEST= "JoinRoomRequest";
+    /*package-local*/ static final String CREATE_ROOM_REQUEST= "JoinRoomRequest";
 
     /**
      * Responses from server to client.
@@ -20,6 +22,11 @@ package it.polimi.ingsw.socketCommunicationProtocol;
     /*package-local*/ static final int USER_NOT_EXISTS = 4;
     /*package-local*/ static final int USER_ALREADY_EXISTS = 5;
     /*package-local*/ static final int USER_FAIL_GENERIC = 6;
+
+    /*package-local*/ static final int RESPONSE_NO_ROOM_AVAILABLE = 402;
+    /*package-local*/ static final int RESPONSE_FORCE_JOIN_ROOM= 403;
+
+
 
 
 }

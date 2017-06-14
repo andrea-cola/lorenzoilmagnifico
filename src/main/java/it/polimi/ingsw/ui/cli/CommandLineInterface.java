@@ -12,7 +12,9 @@ import java.io.*;
 
 public class CommandLineInterface extends AbstractUI {
 
-
+    /**
+     * Title printed on the shell
+     */
     private static final String TITLE=  "     __     _____     ______     ________  __      ___ _________  ______\n" +
                                         "    /  /   /     \\   /  _   \\   /  ______//  \\    /  //_____  _/ /      \\ \n" +
                                         "   /  /   /   _   \\ /  (_)  /  /  /___   /    \\  /  / _____/ /  /   _    \\ \n" +
@@ -25,15 +27,30 @@ public class CommandLineInterface extends AbstractUI {
                                         "                / /__  /      \\ /   \\__//  \\/ / /   /  \\__ \\__/              \n";
 
 
-
+    /**
+     * Print writer for writing on the shell
+     */
     private PrintWriter console= new PrintWriter(new OutputStreamWriter(System.out));
 
+    /**
+     * Buffer reader for reading from the input
+     */
     private BufferedReader keyboard= new BufferedReader(new InputStreamReader(System.in));
 
+    /**
+     *
+     */
     private ContextInterface contextInterface;
 
+    /**
+     *
+     */
     private BaseContext context;
 
+    /**
+     * Constructor for the command line interface
+     * @param controller
+     */
     public CommandLineInterface(UiController controller){
         super(controller);
         console.println(TITLE);

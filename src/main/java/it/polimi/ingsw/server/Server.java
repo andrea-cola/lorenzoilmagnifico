@@ -192,5 +192,20 @@ public class Server implements ServerInterface{
         }
     }
 
+    /**
+     *
+     * @param username
+     * @param maxPlayer
+     * @return
+     */
+    @Override
+    public Configuration createRoom(String username, int maxPlayer){
+        try {
+            return 
+        }catch{
+
+        }
+
+    }
 
 }

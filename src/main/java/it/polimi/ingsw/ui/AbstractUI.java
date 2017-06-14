@@ -7,6 +7,9 @@ import java.io.IOException;
  */
 public abstract class AbstractUI {
 
+    /**
+     * Controller of the user interface
+     */
     private UiController controller;
 
     /**
@@ -17,6 +20,10 @@ public abstract class AbstractUI {
         this.controller=controller;
     }
 
+    /**
+     * This method returns the controller
+     * @return the controller
+     */
     protected UiController getController(){
         return controller;
     }

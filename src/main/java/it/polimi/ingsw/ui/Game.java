@@ -21,6 +21,8 @@ public class Game implements UiController, ClientInterface {
 
     private String username;
 
+    private UiHandler uiHandler;
+
     private AbstractUI userInterface;
 
     private BufferedReader keyboard= new BufferedReader(new InputStreamReader(System.in));
@@ -46,10 +48,19 @@ public class Game implements UiController, ClientInterface {
         }
     }
 
+    /**
+     * The start function initializes the network menu
+     */
     public void start(){
         userInterface.showNetworkMenu();
     }
 
+    /**
+     * It sets the network settings
+     * @param networkType remote method interface or socket
+     * @param address network address
+     * @param port network port
+     */
     @Override
     public void setNetworkSettings(NetworkType networkType, String address, int port) {
         switch (networkType){

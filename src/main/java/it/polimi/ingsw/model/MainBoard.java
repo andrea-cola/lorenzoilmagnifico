@@ -15,7 +15,7 @@ import java.util.Random;
 public class MainBoard {
 
     /**
-     *  Array of towers.
+     * Array of towers.
      */
     private Tower[] towers;
 
@@ -45,7 +45,6 @@ public class MainBoard {
         //instantiates the 4 towers
         int i = 0;
         towers = new Tower[4];
-        towers[1] = new1
 
         //instantiates the vatican area
         this.vatican = new Vatican();

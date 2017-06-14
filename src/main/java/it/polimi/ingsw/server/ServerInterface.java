@@ -36,4 +36,12 @@ public interface ServerInterface {
      */
     void joinRoom(ServerPlayer serverPlayer) throws RoomException;
 
+    /**
+     *
+     * @param serverPlayer
+     * @param maxPlayer
+     * @return
+     */
+    Configuration createRoom(ServerPlayer serverPlayer, int maxPlayer);
+
 }
