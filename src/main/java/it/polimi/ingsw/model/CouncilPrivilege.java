@@ -1,11 +1,8 @@
 package it.polimi.ingsw.model;
 
-<<<<<<< HEAD
-=======
 /**
  * This class represent a council privilege.
  */
->>>>>>> c942eee6c0968bf3dbcf79534b020de9956d2bf4
 public class CouncilPrivilege {
 
     /**
@@ -27,7 +24,7 @@ public class CouncilPrivilege {
     }
 
     /**
-     * Get number of pribileges.
+     * Get number of privileges.
      * @return number of privileges.
      */
     public int getNumberOfCouncilPrivileges(){

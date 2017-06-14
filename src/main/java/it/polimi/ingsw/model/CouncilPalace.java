@@ -1,16 +1,13 @@
 package it.polimi.ingsw.model;
 
-<<<<<<< HEAD
-
-=======
 import it.polimi.ingsw.model.effects.Effect;
-
+import java.util.LinkedList;
+import it.polimi.ingsw.model.effects.Effect;
 import java.util.LinkedList;
 
 /**
  * This class represents the council palace abstraction.
  */
->>>>>>> c942eee6c0968bf3dbcf79534b020de9956d2bf4
 public class CouncilPalace {
 
     /**

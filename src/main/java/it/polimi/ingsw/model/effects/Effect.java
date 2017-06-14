@@ -7,6 +7,9 @@ import it.polimi.ingsw.model.Player;
  */
 public abstract class Effect {
 
+    /**
+     * Effect type
+     */
     public String effectType;
 
     /**

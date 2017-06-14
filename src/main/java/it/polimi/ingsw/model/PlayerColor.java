@@ -1,11 +1,27 @@
 package it.polimi.ingsw.model;
 
 /**
- * Created by lorenzo on 25/05/17.
+ * This enumeration represents the possible colors of the player board
  */
 public enum  PlayerColor {
+
+    /**
+     * Green
+     */
     GREEN,
+
+    /**
+     * Blue
+     */
     BLUE,
+
+    /**
+     * Yellow
+     */
     YELLOW,
+
+    /**
+     * Red
+     */
     RED
 }

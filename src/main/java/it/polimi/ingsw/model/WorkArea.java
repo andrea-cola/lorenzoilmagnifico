@@ -8,7 +8,8 @@ public class WorkArea {
     /**
      * The type of action
      */
-    private  ActionType actionType;
+    private ActionType actionType;
+
     /**
      *
      */

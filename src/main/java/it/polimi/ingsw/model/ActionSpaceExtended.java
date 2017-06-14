@@ -29,18 +29,34 @@ public class ActionSpaceExtended {
      */
     private ArrayList<FamilyMember> familyMembers;
 
+    /**
+     * Set the effect of the action space
+     * @param effect involved
+     */
     public void setEffect(Effect effect){
         this.effect = effect;
     }
 
+    /**
+     * Set the value of malus which will affect the dice value
+     * @param value of malus
+     */
     public void setDiceValueMalus(int value){
         this.diceValueMalus = value;
     }
 
+    /**
+     * Add a family member to the space
+     * @param familyMember
+     */
     public void addFamilyMember(FamilyMember familyMember){
         this.familyMembers.add(familyMember);
     }
 
+    /**
+     * Set the action type to the space
+     * @param actionSpaceType
+     */
     public void setActionSpaceType(ActionType actionSpaceType){
         this.actionSpaceType = actionSpaceType;
     }

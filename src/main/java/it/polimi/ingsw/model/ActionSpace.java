@@ -32,7 +32,7 @@ public class ActionSpace {
 
     /**
      * Get the action type of the action area.
-     * @return
+     * @return the action type
      */
     public ActionType getActionSpaceType(){
         return this.actionSpaceType;

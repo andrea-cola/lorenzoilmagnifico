@@ -8,6 +8,9 @@ import java.io.Serializable;
  */
 public class Player implements Serializable{
 
+    /**
+     * Personal board object
+     */
     private PersonalBoard personalBoard;
 
     /**
@@ -33,10 +36,18 @@ public class Player implements Serializable{
         this.personalBoard = new PersonalBoard();
     }
 
-    public void setPersonalBoard(){
-
+    /**
+     * Set the personal board object for the player
+     * @param personalBoard
+     */
+    public void setPersonalBoard(PersonalBoard personalBoard){
+        this.personalBoard=personalBoard;
     }
 
+    /**
+     * Get the personal board from the player
+     * @return
+     */
     public PersonalBoard getPersonalBoard(){
         return this.personalBoard;
     }
