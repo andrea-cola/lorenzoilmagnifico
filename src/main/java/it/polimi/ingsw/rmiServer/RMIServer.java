@@ -1,7 +1,11 @@
 package it.polimi.ingsw.rmiServer;
 
+<<<<<<< HEAD
 import it.polimi.ingsw.cli.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
+=======
+import it.polimi.ingsw.utility.Debugger;
+>>>>>>> c942eee6c0968bf3dbcf79534b020de9956d2bf4
 import it.polimi.ingsw.exceptions.ServerException;
 import it.polimi.ingsw.rmiClient.RMIClientInterface;
 import it.polimi.ingsw.server.ServerPlayer;
@@ -55,7 +59,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
      * @param port to use for the communication.
      * @throws IOException if errors occur during starting proceedings.
      */
-    public void startServer(int port) throws IOException{
+    public void startServer(int port) throws ServerException{
         registry = createOrLoadRegistry(port);
         publishObject(port);
     }
@@ -85,7 +89,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
      * @param port to use.
      * @throws IOException if errors occur.
      */
-    private void publishObject(int port) throws IOException{
+    private void publishObject(int port) throws ServerException{
         try {
             registry.rebind(RMI_SERVER_INTERFACE_NAME, this);
             UnicastRemoteObject.exportObject(this, port);

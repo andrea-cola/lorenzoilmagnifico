@@ -11,20 +11,20 @@ import java.util.ArrayList;
 public class Tower {
 
     /**
-     * Array of tower cells.
-     */
-    private TowerCell[] towerCells;
-
-    /**
      * Color of the tower. It specifies the type of the contained.
      */
     private DevelopmentCardColor towerColor;
 
     /**
+     * Array of tower cells.
+     */
+    private TowerCell[] towerCells;
+
+    /**
      * Set the color of the tower.
      * @param color of the tower.
      */
-    private void setTowerColor(DevelopmentCardColor color){
+    public void setTowerColor(DevelopmentCardColor color){
         this.towerColor = color;
     }
 
@@ -32,7 +32,7 @@ public class Tower {
      * Get tower color.
      * @return tower color.
      */
-    private DevelopmentCardColor getTowerColor(){
+    public DevelopmentCardColor getTowerColor(){
         return this.towerColor;
     }
 
@@ -40,7 +40,7 @@ public class Tower {
      * Set tower cells.
      * @param towerCells of the tower.
      */
-    private void setTowerCells(TowerCell[] towerCells){
+    public void setTowerCells(TowerCell[] towerCells){
         this.towerCells = towerCells;
     }
 
@@ -48,7 +48,7 @@ public class Tower {
      * Get tower cells.
      * @return TowerCell array.
      */
-    private TowerCell[] getTowerCells(){
+    public TowerCell[] getTowerCells(){
         return this.towerCells;
     }
 

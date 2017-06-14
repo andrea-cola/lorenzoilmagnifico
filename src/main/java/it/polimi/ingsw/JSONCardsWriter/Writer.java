@@ -3,6 +3,7 @@ package it.polimi.ingsw.JSONCardsWriter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw.model.MainBoard;
 
 import java.io.*;
 import java.util.Timer;
@@ -12,12 +13,12 @@ public class Writer {
     public static void main(String[] args){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        String[] time = new String[]{"red", "yellow", "green", "blue"};
+        MainBoard mainBoard = new MainBoard();
 
-        String tmp = gson.toJson(time);
+        String tmp = gson.toJson(mainBoard);
 
         try{
-            FileOutputStream os=new FileOutputStream("src/main/resources/configFiles/colors.json",true);
+            FileOutputStream os=new FileOutputStream("src/main/resources/configFiles/mainboard.json",true);
             BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(os));
             bw.append(tmp);
             bw.close();

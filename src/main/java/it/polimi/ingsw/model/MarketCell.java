@@ -4,36 +4,42 @@ import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.EffectSimple;
 
 /**
- * Created by lorenzo on 24/05/17.
+ * This class represents a cell abstracion in the market.
  */
 public class MarketCell {
 
+    /**
+     * Cell effect.
+     */
     private Effect marketCellImmediateEffect;
 
+    /**
+     * Min value of the family member to join the cell.
+     */
     private Integer minFamilyMemberValue;
 
-    private boolean empty;
-
     /**
-     * Class constructor
+     * Family member that has joined the cell.
      */
-    public MarketCell(){
-        this.empty = true;
-        this.minFamilyMemberValue = 1;
-        this.marketCellImmediateEffect = new EffectSimple();
-    }
+    private FamilyMember familyMember;
 
     /**
-     * This method checks if the cell is empty
+     * This method checks if the cell is empty.
      * @return
      */
     public boolean isEmpty() {
-        return this.empty;
+        if(familyMember == null)
+            return true;
+        return false;
+    }
+
+    public void setMarketCellImmediateEffect(Effect effect){
+        this.marketCellImmediateEffect = effect;
     }
 
     /**
-     * This method returns the immediate effect of the market cell selected
-     * @return
+     * This method returns the immediate effect of the market cell selected.
+     * @return the immediate effect.
      */
     public Effect getImmediateEffect(){
         return this.marketCellImmediateEffect;

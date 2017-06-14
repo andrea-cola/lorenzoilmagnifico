@@ -1,0 +1,456 @@
+{
+  "towers": [
+    {
+      "towerColor": "GREEN",
+      "towerCells": [
+        {
+          "minFamilyMemberValue": 1
+        },
+        {
+          "minFamilyMemberValue": 3
+        },
+        {
+          "minFamilyMemberValue": 5,
+          "towerCellImmediateEffect": {
+            "valuable": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 1,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0
+            },
+            "effectType": "EffectSimple"
+          }
+        },
+        {
+          "minFamilyMemberValue": 7,
+          "towerCellImmediateEffect": {
+            "valuable": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 2,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0
+            },
+            "effectType": "EffectSimple"
+          }
+        }
+      ]
+    },
+    {
+      "towerColor": "BLUE",
+      "towerCells": [
+        {
+          "minFamilyMemberValue": 1
+        },
+        {
+          "minFamilyMemberValue": 3
+        },
+        {
+          "minFamilyMemberValue": 5,
+          "towerCellImmediateEffect": {
+            "valuable": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 1,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0
+            },
+            "effectType": "EffectSimple"
+          }
+        },
+        {
+          "minFamilyMemberValue": 7,
+          "towerCellImmediateEffect": {
+            "valuable": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 2,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0
+            },
+            "effectType": "EffectSimple"
+          }
+        }
+      ]
+    },
+    {
+      "towerColor": "YELLOW",
+      "towerCells": [
+        {
+          "minFamilyMemberValue": 1
+        },
+        {
+          "minFamilyMemberValue": 3
+        },
+        {
+          "minFamilyMemberValue": 5,
+          "towerCellImmediateEffect": {
+            "valuable": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 1
+              }
+            },
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0
+            },
+            "effectType": "EffectSimple"
+          }
+        },
+        {
+          "minFamilyMemberValue": 7,
+          "towerCellImmediateEffect": {
+            "valuable": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 2
+              }
+            },
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0
+            },
+            "effectType": "EffectSimple"
+          }
+        }
+      ]
+    },
+    {
+      "towerColor": "PURPLE",
+      "towerCells": [
+        {
+          "minFamilyMemberValue": 1
+        },
+        {
+          "minFamilyMemberValue": 3
+        },
+        {
+          "minFamilyMemberValue": 5,
+          "towerCellImmediateEffect": {
+            "valuable": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 1
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0
+            },
+            "effectType": "EffectSimple"
+          }
+        },
+        {
+          "minFamilyMemberValue": 7,
+          "towerCellImmediateEffect": {
+            "valuable": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 1,
+                "WOOD": 0,
+                "COIN": 2
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0
+            },
+            "effectType": "EffectSimple"
+          }
+        }
+      ]
+    }
+  ],
+  "vatican": {
+    "victoryPointsBonus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      22,
+      25,
+      30
+    ]
+  },
+  "councilPalace": {
+    "minFamilyMemberDiceValue": 1,
+    "immediateEffect": {
+      "valuable": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 1
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 1
+      },
+      "effectType": "EffectSimple"
+    }
+  },
+  "market": {
+    "marketCells": [
+      {
+        "marketCellImmediateEffect": {
+          "valuable": {
+            "resources": {
+              "SERVANT": 0,
+              "STONE": 0,
+              "WOOD": 0,
+              "COIN": 5
+            },
+            "points": {
+              "FAITH": 0,
+              "VICTORY": 0,
+              "MILITARY": 0
+            }
+          },
+          "councilPrivilege": {
+            "numberOfCouncilPrivileges": 0
+          },
+          "effectType": "EffectSimple"
+        },
+        "minFamilyMemberValue": 1
+      },
+      {
+        "marketCellImmediateEffect": {
+          "valuable": {
+            "resources": {
+              "SERVANT": 5,
+              "STONE": 0,
+              "WOOD": 0,
+              "COIN": 0
+            },
+            "points": {
+              "FAITH": 0,
+              "VICTORY": 0,
+              "MILITARY": 0
+            }
+          },
+          "councilPrivilege": {
+            "numberOfCouncilPrivileges": 0
+          },
+          "effectType": "EffectSimple"
+        },
+        "minFamilyMemberValue": 1
+      },
+      {
+        "marketCellImmediateEffect": {
+          "valuable": {
+            "resources": {
+              "SERVANT": 0,
+              "STONE": 0,
+              "WOOD": 0,
+              "COIN": 2
+            },
+            "points": {
+              "FAITH": 0,
+              "VICTORY": 0,
+              "MILITARY": 3
+            }
+          },
+          "councilPrivilege": {
+            "numberOfCouncilPrivileges": 0
+          },
+          "effectType": "EffectSimple"
+        },
+        "minFamilyMemberValue": 1
+      },
+      {
+        "marketCellImmediateEffect": {
+          "valuable": {
+            "resources": {
+              "SERVANT": 0,
+              "STONE": 0,
+              "WOOD": 0,
+              "COIN": 0
+            },
+            "points": {
+              "FAITH": 0,
+              "VICTORY": 0,
+              "MILITARY": 0
+            }
+          },
+          "councilPrivilege": {
+            "numberOfCouncilPrivileges": 2
+          },
+          "effectType": "EffectSimple"
+        },
+        "minFamilyMemberValue": 1
+      }
+    ]
+  },
+  "harvest": {
+    "actionSpaceType": "HARVEST",
+    "actionSpaceEffect": {
+      "diceActionValue": 1,
+      "actionType": "HARVEST",
+      "valuable": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0
+      },
+      "effectType": "EffectHarvestProductionSimple"
+    }
+  },
+  "production": {
+    "actionSpaceType": "PRODUCTION",
+    "actionSpaceEffect": {
+      "diceActionValue": 1,
+      "actionType": "PRODUCTION",
+      "valuable": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0
+      },
+      "effectType": "EffectHarvestProductionSimple"
+    }
+  },
+  "harvestExtended": {
+    "actionSpaceType": "HARVEST",
+    "effect": {
+      "diceActionValue": 1,
+      "actionType": "HARVEST",
+      "valuable": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0
+      },
+      "effectType": "EffectHarvestProductionSimple"
+    },
+    "diceValueMalus": 3
+  },
+  "productionExtended": {
+    "actionSpaceType": "PRODUCTION",
+    "effect": {
+      "diceActionValue": 1,
+      "actionType": "PRODUCTION",
+      "valuable": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0
+      },
+      "effectType": "EffectHarvestProductionSimple"
+    },
+    "diceValueMalus": 3
+  }
+}

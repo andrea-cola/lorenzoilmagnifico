@@ -71,7 +71,7 @@ public class CommandLineInterface extends AbstractUI {
     @Override
     public void showRoomMenu() {
         console.println("Loading Room Menu");
-        context= new RoomMenuContext(contextInterface,  maxPlayer -> getController().setRoom());
+        // context= new RoomMenuContext(contextInterface,  maxPlayer -> getController().setRoom());
     }
 
 

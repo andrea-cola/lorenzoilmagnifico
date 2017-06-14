@@ -1,7 +1,7 @@
 package it.polimi.ingsw.socketClient;
 
 
-import it.polimi.ingsw.cli.Debugger;
+import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.exceptions.NetworkException;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cli;
+package it.polimi.ingsw.utility;
 
 /**
  * Class used to print messages on the standard output in order to debug.
