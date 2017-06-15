@@ -13,6 +13,11 @@ public class PersonalBoard {
     private PointsAndResources valuables;
 
     /**
+     * Array of available familyMembers;
+     */
+    private FamilyMember[] familyMembers;
+
+    /**
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
      */
     private static int[] greenCardsMilitaryPointsRequirements = new int[MAX_NUMER_OF_CARD_PER_TYPE];
@@ -26,14 +31,10 @@ public class PersonalBoard {
     private DevelopmentCard[] ventureCards = new DevelopmentCard[MAX_NUMER_OF_CARD_PER_TYPE];
 
     /**
-     * Personal board tile chosen by the player.
+     * Personal board tile choosen by the player.
      */
     private PersonalBoardTile personalBoardTile;
 
-    /**
-     * Set military points needed to place a card in a specific position.
-     * @param array
-     */
     public void setGreenCardsMilitaryPointsRequirements(int[] array){
         greenCardsMilitaryPointsRequirements = array;
     }
@@ -45,6 +46,10 @@ public class PersonalBoard {
      */
     public int getCardsMilitaryPointsRequirements(int index){
         return greenCardsMilitaryPointsRequirements[index];
+    }
+
+    public void setValuables(PointsAndResources pointsAndResources){
+        this.valuables = pointsAndResources;
     }
 
     /**

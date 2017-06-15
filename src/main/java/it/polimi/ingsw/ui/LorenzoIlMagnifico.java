@@ -21,7 +21,7 @@ public class LorenzoIlMagnifico implements UiController, ClientInterface {
 
     private String username;
 
-    private UiHandler uiHandler;
+    //private UiHandler uiHandler;
 
     private AbstractUI userInterface;
 
@@ -192,27 +192,3 @@ public class LorenzoIlMagnifico implements UiController, ClientInterface {
         return false;
     }
 }
-
-
-class Starter{
-    public static void main(String args[]) throws IOException, IllegalAccessException {
-        LorenzoIlMagnifico myGame = new LorenzoIlMagnifico(chooseInterface());
-        myGame.start();
-    }
-
-    private static String chooseInterface(){
-        Scanner scanner = new Scanner(System.in);
-        while(true){
-            Debugger.printStandardMessage("Select the user interface you would like to play Lorenzo Il Magnifico:");
-            Debugger.printStandardMessage("--> Type '1' to use CLI");
-            Debugger.printStandardMessage("--> Type '2' to use GUI");
-            int choice = scanner.nextInt();
-            switch (choice){
-                case 1: return new String("CLI");
-                case 2: return new String("GUI");
-                default: Debugger.printDebugMessage("MainClass.java", "You typed a not valid option. Retry.");
-            }
-        }
-    }
-}
-
