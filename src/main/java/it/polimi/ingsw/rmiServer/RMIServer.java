@@ -1,11 +1,8 @@
 package it.polimi.ingsw.rmiServer;
 
-<<<<<<< HEAD
-import it.polimi.ingsw.cli.Debugger;
-import it.polimi.ingsw.exceptions.RoomException;
-=======
+import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
->>>>>>> c942eee6c0968bf3dbcf79534b020de9956d2bf4
+import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.exceptions.ServerException;
 import it.polimi.ingsw.rmiClient.RMIClientInterface;
 import it.polimi.ingsw.server.ServerPlayer;
@@ -18,6 +15,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -144,12 +142,16 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
     public void joinFirstRoom(String username) throws RoomException {
         getServer().joinRoom(getPlayer(username));
     }
+
     /**
-     *
+     * Create a new room.
+     * @param id to get the player from the cache.
+     * @param maxPlayersNumber allowed in the room.
+     * @return the configuration number.
      */
     @Override
-    public void Configuration createNewRoom(String username, int maxPlayer){
-        return getServer().
+    public Configuration createNewRoom(String id, int maxPlayersNumber){
+        return getServer().createNewRoom(getPlayer(id), maxPlayersNumber);
     }
 
 }
