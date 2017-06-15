@@ -8,9 +8,6 @@ import java.io.Serializable;
  */
 public class Player implements Serializable{
 
-    /**
-     * Player personal board.
-     */
     private PersonalBoard personalBoard;
 
     /**
@@ -36,6 +33,10 @@ public class Player implements Serializable{
         this.personalBoard = new PersonalBoard();
     }
 
+    public void setPersonalBoard(){
+
+    }
+
     public PersonalBoard getPersonalBoard(){
         return this.personalBoard;
     }
@@ -50,9 +51,10 @@ public class Player implements Serializable{
 
     /**
      * Method to get player nickname.
+     * @param nickname
      * @return
      */
-    public String getNickname(){
+    public String getNickname(String nickname){
         return nickname;
     }
 

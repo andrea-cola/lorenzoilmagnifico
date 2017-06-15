@@ -5,7 +5,7 @@ import it.polimi.ingsw.ui.cli.NetworkType;
 import java.io.IOException;
 
 /**
- * Interface implemented by the LorenzoIlMagnifico class, contains all functions related to the LorenzoIlMagnifico that need to
+ * Interface implemented by the Game class, contains all functions related to the Game that need to
  * be updated in real time and notified for every change.
  */
 public interface UiController {

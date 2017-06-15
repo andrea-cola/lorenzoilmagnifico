@@ -33,9 +33,7 @@ public class MainBoard {
     /**
      * Harvest reference.
      */
-
     private ActionSpace harvest;
-
 
     /**
      * Production reference.
@@ -56,8 +54,6 @@ public class MainBoard {
      * Constructor for the main board
      */
     private MainBoard() {
-        //instantiates the 4 towers
-        int i = 0;
         towers = new Tower[4];
     }
 
