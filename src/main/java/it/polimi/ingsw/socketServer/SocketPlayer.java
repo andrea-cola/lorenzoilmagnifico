@@ -1,5 +1,6 @@
 package it.polimi.ingsw.socketServer;
 
+import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.server.ServerPlayer;
@@ -97,12 +98,21 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
 
     /**
      * Try to join a room.
-     *
      * @throws RoomException if errors occur during the access.
      */
     @Override
     public void joinRoom() throws RoomException {
+        serverInterface.joinRoom(this);
+    }
 
+    /**
+     * Create a new room and return a configuration bundle.
+     * @param maxPlayersNumber allowed in the room.
+     * @return configuration bundle.
+     */
+    @Override
+    public Configuration createNewRoom(int maxPlayersNumber){
+        return serverInterface.createNewRoom(this, maxPlayersNumber);
     }
 
     /**

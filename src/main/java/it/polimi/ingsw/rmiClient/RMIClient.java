@@ -12,7 +12,9 @@ import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.rmiServer.RMIServerInterface;
+import it.polimi.ingsw.utility.Configuration;
 
 /**
  * This class extends {@link AbstractClient} class to create a network connection based on RMI.
@@ -69,7 +71,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     /**
-     * Abstract method to loginPlayer user on a server.
+     * Method to loginPlayer user on a server.
      * @param username for the login.
      * @param password for the login.
      * @throws NetworkException if errors occur during login.
@@ -86,7 +88,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     /**
-     * Abstract method to sign in a user on a server.
+     * Method to sign in a user on a server.
      * @param username for the sign in.
      * @param password for the sign in.
      * @throws NetworkException if errors occur during sign in.
@@ -99,4 +101,29 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
             throw new NetworkException();
         }
     }
+
+    /**
+     * Method to join the first game room
+     * @throws NetworkException
+     */
+    @Override
+    public void joinRoom() throws NetworkException, RoomException {
+        try{
+            server.joinFirstRoom(playerID);
+        }catch(RoomException e){
+            throw e;
+        }
+    }
+
+    /**
+     * Try to create a new room on server side.
+     * @param maxPlayersNumber that should be accepted in this new room.
+     * @throws NetworkException if server is not reachable or something went wrong.
+     * @return configuration bundle that contains all default configurations.
+     */
+    @Override
+    public Configuration createNewRoom(int maxPlayersNumber) throws NetworkException {
+        return server.createNewRoom(playerID, maxPlayersNumber);
+    }
+
 }

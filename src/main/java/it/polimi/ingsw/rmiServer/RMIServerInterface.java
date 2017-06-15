@@ -1,7 +1,8 @@
 package it.polimi.ingsw.rmiServer;
 
-import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.rmiClient.RMIClientInterface;
+import it.polimi.ingsw.utility.Configuration;
 
 import java.io.IOException;
 import java.rmi.Remote;
@@ -28,5 +29,20 @@ public interface RMIServerInterface extends Remote{
      * @throws IOException
      */
     void signInPlayer(String username, String password) throws IOException;
+
+    /**
+     * Remote method to join the player to the first game room
+     * @param username which is making the request
+     * @throws RoomException if the server is not reachable
+     */
+    void joinFirstRoom(String username) throws RoomException;
+
+    /**
+     * Create a new room.
+     * @param id to get the player from the cache.
+     * @param maxPlayersNumber allowed in the room.
+     * @return the configuration number.
+     */
+    Configuration createNewRoom(String id, int maxPlayersNumber);
 
 }

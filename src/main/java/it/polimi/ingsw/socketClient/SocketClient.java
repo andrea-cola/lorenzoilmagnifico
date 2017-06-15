@@ -1,6 +1,8 @@
 package it.polimi.ingsw.socketClient;
 
 
+import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
@@ -94,11 +96,18 @@ public class SocketClient extends AbstractClient{
         clientCommunicationProtocol.playerSignIn(username, password);
     }
 
-    /*
-    public void joinRoom(){
+    @Override
+    public void joinRoom() throws NetworkException, RoomException {
+        clientCommunicationProtocol.playerJoinRoom();
         startServerResponseManager();
     }
-    */
+
+    @Override
+    public Configuration createNewRoom(int maxPlayersNumber) throws NetworkException{
+        Configuration configuration = clientCommunicationProtocol.createNewRoom(maxPlayersNumber);
+        startServerResponseManager();
+        return configuration;
+    }
 
     /**
      * Thread of the server response handler.

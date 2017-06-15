@@ -2,6 +2,10 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.ConnectionException;
+import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.utility.Configuration;
+
+import java.io.IOException;
 
 /**
  * This class the abstraction of the server.
@@ -81,5 +85,13 @@ public abstract class AbstractClient {
      * @throws NetworkException if errors occur during sign in.
      */
     public abstract void signInPlayer(String username, String password) throws NetworkException;
+
+    /**
+     * Abstract method to join the first game room
+     * @throws NetworkException
+     */
+    public abstract void joinRoom() throws IOException, RoomException;
+
+    public abstract Configuration createNewRoom(int maxPlayersNumber) throws NetworkException;
 
 }

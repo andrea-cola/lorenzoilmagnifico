@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.EffectSimple;
 
 /**
- * This class represents a cell abstracion in the market.
+ * This class represents a cell abstraction in the market.
  */
 public class MarketCell {
 
@@ -33,6 +33,10 @@ public class MarketCell {
         return false;
     }
 
+    /**
+     * Set the immediate effect of a market cell
+     * @param effect
+     */
     public void setMarketCellImmediateEffect(Effect effect){
         this.marketCellImmediateEffect = effect;
     }
@@ -62,4 +66,3 @@ public class MarketCell {
     }
 
 }
-

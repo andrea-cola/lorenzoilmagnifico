@@ -1,5 +1,6 @@
 package it.polimi.ingsw.socketCommunicationProtocol;
 
+import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
@@ -64,6 +65,8 @@ public class ServerCommunicationProtocol {
     private void setupRequestsTable(){
         requestsTable.put(CommunicationProtocolConstants.LOGIN_REQUEST, this::loginPlayer);
         requestsTable.put(CommunicationProtocolConstants.SIGNIN_REQUEST, this::signInPlayer);
+        requestsTable.put(CommunicationProtocolConstants.JOIN_ROOM_REQUEST, this::joinRoom);
+        requestsTable.put(CommunicationProtocolConstants.CREATE_ROOM_REQUEST, this::createNewRoom);
     }
 
     /**
@@ -136,6 +139,43 @@ public class ServerCommunicationProtocol {
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(),"Error while handling loginPlayer request.");
+        }
+    }
+
+    /**
+     * Try to join the last room on the server.
+     * If fails send a bad response.
+     */
+    public void joinRoom(){
+        int response;
+        try {
+            try {
+                serverCommunicationProtocolInterface.joinRoom();
+                response = CommunicationProtocolConstants.ROOM_JOINED;
+            } catch (RoomException e) {
+                response = CommunicationProtocolConstants.NO_ROOM_AVAILABLE;
+            }
+            output.writeObject(response);
+            output.flush();
+        } catch (IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while joining room.");
+        }
+    }
+
+    /**
+     * Create a new room calling server method.
+     * Response is a Configuration object.
+     */
+    private void createNewRoom(){
+        Object response;
+        int maxPlayersNumber;
+        try{
+            maxPlayersNumber = (int)input.readObject();
+            response = serverCommunicationProtocolInterface.createNewRoom(maxPlayersNumber);
+            output.writeObject(response);
+            output.flush();
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error in creation room proceedings.");
         }
     }
 

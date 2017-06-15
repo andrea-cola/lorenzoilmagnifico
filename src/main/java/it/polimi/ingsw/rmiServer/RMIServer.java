@@ -1,6 +1,8 @@
 package it.polimi.ingsw.rmiServer;
 
+import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.exceptions.ServerException;
 import it.polimi.ingsw.rmiClient.RMIClientInterface;
 import it.polimi.ingsw.server.ServerPlayer;
@@ -130,5 +132,25 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
         getServer().signInPlayer(username, password);
     }
 
+    /**
+     * Remote method to join the player to the first game room
+     * @param username which is making the request
+     * @throws RoomException if the server is not reachable
+     */
+    @Override
+    public void joinFirstRoom(String username) throws RoomException {
+        getServer().joinRoom(getPlayer(username));
+    }
+
+    /**
+     * Create a new room.
+     * @param id to get the player from the cache.
+     * @param maxPlayersNumber allowed in the room.
+     * @return the configuration number.
+     */
+    @Override
+    public Configuration createNewRoom(String id, int maxPlayersNumber){
+        return getServer().createNewRoom(getPlayer(id), maxPlayersNumber);
+    }
 
 }
