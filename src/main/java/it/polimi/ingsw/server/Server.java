@@ -1,11 +1,11 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.exceptions.*;
+import it.polimi.ingsw.gameServer.Configurator;
+import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
-import it.polimi.ingsw.exceptions.LoginErrorType;
-import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.socketServer.SocketServer;
 import it.polimi.ingsw.gameServer.Room;
-import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.rmiServer.RMIServer;
 
 import java.io.IOException;
@@ -73,13 +73,13 @@ public class Server implements ServerInterface{
     /**
      * Class constructor.
      */
-    public Server(){
+    public Server() throws ServerException{
         rmiServer = new RMIServer(this);
         socketServer = new SocketServer(this);
         players = new HashMap<String, ServerPlayer>();
         rooms = new ArrayList<Room>();
         dbServer = new DBServer();
-        configureGameServer();
+        configure();
     }
 
     /**
@@ -87,23 +87,25 @@ public class Server implements ServerInterface{
      * @param args passed to server.
      */
     public static void main(String[] args){
-        Server server = new Server();
         try {
+            Server server = new Server();
             server.startSocketRMIServer(SOCKET_PORT, RMI_PORT);
             server.startDatabase();
             Debugger.printStandardMessage("Socket server ready.\nRMI server ready.\nSQL server ready.");
-        } catch (IOException e){
-            Debugger.printDebugMessage("Server.java" , "Error while starting communication server.", e);
-        } catch (SQLException e){
-            Debugger.printDebugMessage("Server.java", "Error while starting database server.", e);
+        } catch(ServerException | SQLException e){
+            Debugger.printDebugMessage("Server.java", "Error while starting the server.", e);
         }
     }
 
     /**
-     * Method to load and set configuration from file.
+     * Load and set configurations from file.
      */
-    private void configureGameServer() {
-
+    private void configure() throws ServerException{
+        try{
+            Configurator.loadConfigurations();
+        }catch(ConfigurationException e){
+            throw new ServerException("Error in game configuration and parsing proceedings.", e);
+        }
     }
 
     /**
@@ -112,7 +114,7 @@ public class Server implements ServerInterface{
      * @param rmiPort of RMI server.
      * @throws IOException if errors occur during initialization.
      */
-    private void startSocketRMIServer(int socketPort, int rmiPort) throws IOException{
+    private void startSocketRMIServer(int socketPort, int rmiPort) throws ServerException{
         socketServer.startServer(socketPort);
         rmiServer.startServer(rmiPort);
     }
@@ -192,5 +194,21 @@ public class Server implements ServerInterface{
         }
     }
 
+    /**
+     * Create a new room and return the configuration bundle.
+     * @param serverPlayer is creating new room.
+     * @param maxPlayers allowed in the room.
+     * @return configuration bundle.
+     */
+    @Override
+    public Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers) {
+        synchronized (JOIN_ROOM_MUTEX){
+            Configuration configuration = Configurator.getConfiguration();
+            Room room = new Room(serverPlayer, maxPlayers, configuration);
+            rooms.add(room);
+            serverPlayer.setRoom(room);
+            return configuration;
+        }
+    }
 
 }

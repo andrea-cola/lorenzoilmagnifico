@@ -20,7 +20,7 @@ public class DevelopmentCard {
     private int id;
 
     /**
-     * Game period of the card.
+     * LorenzoIlMagnifico period of the card.
      */
     private int period;
 

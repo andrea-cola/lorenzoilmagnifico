@@ -67,7 +67,7 @@ public abstract class AbstractUI {
     public abstract void notifyJoinRoomFailed();
 
     /**
-     * Called when ui should show a form to let the user decide the Game settings
+     * Called when ui should show a form to let the user decide the LorenzoIlMagnifico settings
      */
     public abstract void showGameConfigurationMenu();
 
@@ -82,7 +82,7 @@ public abstract class AbstractUI {
     public abstract void notifyGameConfigurationError();
 
     /**
-     * Called when ui should notify the begining of the Game
+     * Called when ui should notify the begining of the LorenzoIlMagnifico
      */
     public abstract void notifyGameBeginning();
 

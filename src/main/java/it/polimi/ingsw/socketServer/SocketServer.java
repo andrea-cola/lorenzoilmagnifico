@@ -28,15 +28,15 @@ public class SocketServer extends AbstractServer {
     }
 
     /**
-     * Method to initialize new ServerSocket and new RequestManager.
+     * Method to initialize new ServerSocket and new SocketManager.
      * @param port used to communicate.
      */
     @Override
     public void startServer(int port) throws ServerException{
-        RequestManager requestManager;
+        SocketManager requestManager;
         try{
             serverSocket = new ServerSocket(port);
-            requestManager = new RequestManager();
+            requestManager = new SocketManager();
             requestManager.start();
         }catch(IOException e){
             throw new ServerException("I/O stream error during initialization.", e);
@@ -46,7 +46,7 @@ public class SocketServer extends AbstractServer {
     /**
      * Class used to handle the communication with clients.
      */
-    private class RequestManager extends Thread{
+    private class SocketManager extends Thread{
         /**
          * Listener method.
          */

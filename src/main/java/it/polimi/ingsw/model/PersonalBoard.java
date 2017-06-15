@@ -13,6 +13,11 @@ public class PersonalBoard {
     private PointsAndResources valuables;
 
     /**
+     * Array of available familyMembers;
+     */
+    private FamilyMember[] familyMembers;
+
+    /**
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
      */
     private static int[] greenCardsMilitaryPointsRequirements = new int[MAX_NUMER_OF_CARD_PER_TYPE];
@@ -41,6 +46,10 @@ public class PersonalBoard {
      */
     public int getCardsMilitaryPointsRequirements(int index){
         return greenCardsMilitaryPointsRequirements[index];
+    }
+
+    public void setValuables(PointsAndResources pointsAndResources){
+        this.valuables = pointsAndResources;
     }
 
     /**

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gameServer;
 
+import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.server.ServerPlayer;
@@ -7,6 +8,7 @@ import it.polimi.ingsw.server.ServerPlayer;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * This class represent a game room.
@@ -17,6 +19,11 @@ public class Room {
      * Minimum number of player before game can start.
      */
     private static final int MIN_PLAYER_TO_START = 2;
+
+    /**
+     * Constant that indicate the time to start immediately the game.
+     */
+    private static final long IMMEDIATE_START_TIME = 0L;
 
     /**
      * Mutex object to synchronize room access.
@@ -36,7 +43,7 @@ public class Room {
     /**
      * Configurator.
      */
-    private Configurator roomConfigurator;
+    private Configuration roomConfiguration;
 
     /**
      * Maximum time before game starts.
@@ -46,7 +53,7 @@ public class Room {
     /**
      * Player max time to make a move.
      */
-    private int maxMoveWaitingTime;
+    private long maxMoveWaitingTime;
 
     /**
      * Flag that indicates if the room is open.
@@ -57,7 +64,7 @@ public class Room {
     /**
      * Instance of the server game.
      */
-    private GameManager gameManager = new GameManager();
+    private GameManager gameManager;
 
     /**
      * List of all players that have joined the room.
@@ -65,15 +72,46 @@ public class Room {
     private ArrayList<ServerPlayer> players = new ArrayList();
 
     /**
-     * Class constructor. The max number of players is passed as argument
-     * in order to allow in future a game with more than usual number of players.
+     * Class constructor.
+     * Set max number of player in the room.
+     * Set the room in open state.
+     * Add player in the list.
+     * Set room configuration.
      */
-    public Room(ServerPlayer admin, int mPlayerNumber){
+    public Room(ServerPlayer serverPlayer, int number, Configuration configuration){
         players = new ArrayList<>();
         roomOpen = true;
-        maxPlayerNumber = mPlayerNumber;
-        players.add(admin);
-        // bisogna assegnare i due max time da file.
+        maxPlayerNumber = number;
+        players.add(serverPlayer);
+        configureGame(configuration);
+    }
+
+    /**
+     * Get the configuration from the server and configure the room.
+     * @param configuration bundle.
+     */
+    private void configureGame(Configuration configuration){
+        this.roomConfiguration = configuration;
+        maxWaitingTimeBeforeStart = configuration.getWaitingTime();
+        maxMoveWaitingTime = configuration.getWaitingTime();
+    }
+
+    /**
+     * Method to start the timer. At the end of set time, a task is executed.
+     * @param time before execute the task.
+     */
+    private void startTimer(long time){
+        resetTimer();
+        startGameTimer = new Timer();
+        startGameTimer.schedule(new GameHandler(), time);
+    }
+
+    /**
+     * Method to reset start game timer.
+     */
+    private void resetTimer(){
+        startGameTimer.cancel();
+        startGameTimer.purge();
     }
 
     /**
@@ -87,8 +125,7 @@ public class Room {
                 players.add(serverPlayer);
                 if(players.size() == maxPlayerNumber){
                     roomOpen = false;
-                    resetTimer();
-                    startTimer(0L);
+                    startTimer(IMMEDIATE_START_TIME);
                 }
                 else if(players.size() == MIN_PLAYER_TO_START)
                     startTimer(maxWaitingTimeBeforeStart);
@@ -99,26 +136,9 @@ public class Room {
     }
 
     /**
-     * Method to start the timer. At the end of set time, a task is executed.
-     * @param time before execute the task.
-     */
-    private void startTimer(long time){
-        startGameTimer = new Timer();
-        startGameTimer.schedule(new RoomGameHandler(), time);
-    }
-
-    /**
-     * Method to reset start game timer.
-     */
-    private void resetTimer(){
-        startGameTimer.cancel();
-        startGameTimer.purge();
-    }
-
-    /**
      * This class is used to manage the room during the game.
      */
-    private class RoomGameHandler extends TimerTask {
+    private class GameHandler extends TimerTask {
 
         /**
          * This method is executed when the time is expired. At first, it closes the room.
@@ -126,11 +146,27 @@ public class Room {
          */
         @Override
         public void run(){
-            Debugger.printDebugMessage("Closing and starting the room.");
+            setupBeforeStartGame();
+            System.out.println("BRAVO ANDREA");
+        }
+
+        /**
+         * Close the room and get the game manager from configurator.
+         */
+        private void setupBeforeStartGame(){
+            lockRoom();
+            gameManager = Configurator.buildAndGetGame(players, roomConfiguration);
+            Debugger.printDebugMessage("[Room] : Room closed. Session created. Lorenzo Il Magnifico is starting...");
+        }
+
+        /**
+         * Close the room.
+         * Mutex is held to avoid concurrency problems.
+         */
+        private void lockRoom(){
             synchronized (MUTEX){
                 roomOpen = false;
             }
-            //gameManager = Configurator.getGameNewInstance(players);
         }
 
     }

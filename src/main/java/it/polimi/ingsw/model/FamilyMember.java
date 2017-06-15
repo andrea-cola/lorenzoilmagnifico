@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
 /**
- * Created by lorenzo on 23/05/17.
+ * This class represent family member abstraction.
  */
 public class FamilyMember {
+
+    private String player;
 
     private FamilyMemberColor familyMemberColor;
 

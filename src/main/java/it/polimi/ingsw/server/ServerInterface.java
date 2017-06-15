@@ -2,6 +2,8 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.utility.Configuration;
+import sun.security.krb5.Config;
 
 public interface ServerInterface {
 
@@ -35,5 +37,13 @@ public interface ServerInterface {
      * @throws RoomException if error occurs.
      */
     void joinRoom(ServerPlayer serverPlayer) throws RoomException;
+
+    /**
+     * Create a new room and return the configuration bundle.
+     * @param serverPlayer is creating new room.
+     * @param maxPlayers allowed in the room.
+     * @return configuration bundle.
+     */
+    Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers);
 
 }

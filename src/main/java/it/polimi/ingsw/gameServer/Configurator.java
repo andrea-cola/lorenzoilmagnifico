@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import it.polimi.ingsw.exceptions.ConfigurationException;
+import it.polimi.ingsw.server.ServerPlayer;
+import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.effects.*;
@@ -14,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is a singleton. It loads configurations from the file.
+ * This class is a singleton. It loads all configurations from the files.
  */
 public class Configurator {
 
@@ -22,8 +25,7 @@ public class Configurator {
      * Path strings constants.
      */
     private final String DEVELOPMENT_CARDS_FILE_PATH = "src/main/resources/configFiles/developmentCards.json";
-    private final String PLAYER_COLORS_FILE_PATH = "src/main/resources/configFiles/colors.json";
-    private final String TIMES_FILE_PATH = "src/main/resources/configFiles/times.json";
+    private final String CONFIGURATION_FILE_PATH = "src/main/resources/configFiles/configuration.json";
 
     /**
      * Configurator instance. Singleton.
@@ -31,34 +33,9 @@ public class Configurator {
     private static Configurator configurator;
 
     /**
-     * Players colors.
-     */
-    private String[] playerColors;
-
-    /**
-     * Game main board.
-     */
-    private MainBoard mainBoard;
-
-    /**
-     * Array of all personal boards available.
-     */
-    private ArrayList<PersonalBoard> personalBoards;
-
-    /**
-     * Dice colors.
-     */
-    private ArrayList<String> diceColors;
-
-    /**
      * Development cards deck.
      */
     private ArrayList<DevelopmentCard> developmentCards;
-
-    /**
-     * Array of times.
-     */
-    private long[] times;
 
     /**
      * Gson object reference.
@@ -66,60 +43,60 @@ public class Configurator {
     private Gson gson;
 
     /**
+     * Effect factory reference.
+     */
+    private RuntimeTypeAdapterFactory<Effect> effectFactory;
+
+    /**
+     * Configuration bundle.
+     */
+    private static Configuration configuration;
+
+    /**
      * Class constructor.
      */
-    private Configurator(){
+    private Configurator() throws ConfigurationException{
         Debugger.printDebugMessage("Loading configuration files...");
         try {
-            parse();
+            gson = new Gson();
+            loadRuntimeTypeAdapterFactory();
+            parseConfiguration();
         } catch(FileNotFoundException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error during parsing proceedings.", e);
+            throw new ConfigurationException(e);
         }
     }
 
     /**
-     * Main parsing method. This method calls all needed method to parse the file.
+     * Load all types of effect.
      */
-    private void parse() throws FileNotFoundException{
-        gson = new Gson();
-        parseColor();
-        parseDevelopmentCard();
-        parseTimeConfiguration();
-        parseMainBoard();
-        parsePersonalBoards();
-        parseLeaderCards();
-        parseExcommunicationCards();
+    private void loadRuntimeTypeAdapterFactory(){
+        effectFactory = RuntimeTypeAdapterFactory.of(Effect.class, "effectType")
+                .registerSubtype(EffectSimple.class, "EffectSimple")
+                .registerSubtype(EffectCardBonus.class, "EffectCardBonus")
+                .registerSubtype(EffectChooseCard.class, "EffectChooseCard")
+                .registerSubtype(EffectFinalPoints.class, "EffectFinalPoints")
+                .registerSubtype(EffectHarvestProductionBonus.class, "EffectHarvestProductionBonus")
+                .registerSubtype(EffectHarvestProductionExchange.class, "EffectHarvestProductionExchange")
+                .registerSubtype(EffectHarvestProductionSimple.class, "EffectHarvestProductionSimple")
+                .registerSubtype(EffectMultiplicator.class, "EffectMultiplicator")
+                .registerSubtype(EffectNoBonus.class, "EffectNoBonus");
     }
 
     /**
-     * Parse colors from configuration file.
+     * This method is called from server to instantiate the singleton.
      */
-    private void parseColor() throws FileNotFoundException{
-        playerColors = gson.fromJson(new FileReader(PLAYER_COLORS_FILE_PATH), String[].class);
+    public static void loadConfigurations() throws ConfigurationException{
+        configurator = new Configurator();
     }
 
     /**
-     * Parse times from configuration file.
-     * @throws FileNotFoundException
+     * Main parsing method. This method calls all needed method to parseConfiguration the file.
      */
-    private void parseTimeConfiguration() throws FileNotFoundException{
-        times = gson.fromJson(new FileReader(TIMES_FILE_PATH), long[].class);
-    }
-
-    private void parseMainBoard(){
-
-    }
-
-    private void parsePersonalBoards(){
-
-    }
-
-    private void parseLeaderCards(){
-
-    }
-
-    private void parseExcommunicationCards(){
-
+    private void parseConfiguration() throws FileNotFoundException {
+        GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(effectFactory);
+        gson = builder.create();
+        JsonReader reader = new JsonReader(new FileReader(CONFIGURATION_FILE_PATH));
+        configuration = gson.fromJson(reader, Configuration.class);
     }
 
     /**
@@ -128,25 +105,23 @@ public class Configurator {
      * @throws FileNotFoundException if file is not found.
      */
     private ArrayList<DevelopmentCard> parseDevelopmentCard() throws FileNotFoundException{
-
-        RuntimeTypeAdapterFactory<Effect> effectFactory = RuntimeTypeAdapterFactory.of(Effect.class, "effectType")
-                    .registerSubtype(EffectSimple.class, "EffectSimple")
-                    .registerSubtype(EffectCardBonus.class, "EffectCardBonus")
-                    .registerSubtype(EffectChooseCard.class, "EffectChooseCard")
-                    .registerSubtype(EffectFinalPoints.class, "EffectFinalPoints")
-                    .registerSubtype(EffectHarvestProductionBonus.class, "EffectHarvestProductionBonus")
-                    .registerSubtype(EffectHarvestProductionExchange.class, "EffectHarvestProductionExchange")
-                    .registerSubtype(EffectHarvestProductionSimple.class, "EffectHarvestProductionSimple")
-                    .registerSubtype(EffectMultiplicator.class, "EffectMultiplicator")
-                    .registerSubtype(EffectNoBonus.class, "EffectNoBonus");
-
         GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(effectFactory);;
         gson = builder.create();
         JsonReader reader = new JsonReader(new FileReader(DEVELOPMENT_CARDS_FILE_PATH));
         developmentCards = gson.fromJson(reader, new TypeToken<List<DevelopmentCard>>(){}.getType());
-
         return developmentCards;
+    }
 
+    /**
+     * Return a configuration bundle with all configurations got from configuration files.
+     * @return configuration bundle.
+     */
+    public static Configuration getConfiguration(){
+        return configuration;
+    }
+
+    public static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
+        return null;
     }
 
 }
