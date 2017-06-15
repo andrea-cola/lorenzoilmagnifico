@@ -24,7 +24,7 @@ public class CouncilPrivilege {
     }
 
     /**
-     * Get number of pribileges.
+     * Get number of privileges.
      * @return number of privileges.
      */
     public int getNumberOfCouncilPrivileges(){

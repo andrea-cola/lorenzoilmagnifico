@@ -1,11 +1,26 @@
 package it.polimi.ingsw.model;
 
 /**
- * Created by lorenzo on 23/05/17.
+ * This enum represents the possible color of the family member
  */
 public enum FamilyMemberColor {
+    /**
+     * Black
+     */
     BLACK,
+
+    /**
+     * White
+     */
     WHITE,
+
+    /**
+     * Orange
+     */
     ORANGE,
+
+    /**
+     * Neutral
+     */
     NEUTRAL
 }

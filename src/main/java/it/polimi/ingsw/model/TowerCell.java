@@ -45,6 +45,10 @@ public class TowerCell {
         return this.towerCellImmediateEffect;
     }
 
+    /**
+     * Set the minimum value to let a family member access on the cell
+     * @param value minimum value
+     */
     public void setMinFamilyMemberValue(Integer value){
         this.minFamilyMemberValue = value;
     }

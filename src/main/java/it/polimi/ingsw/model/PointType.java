@@ -1,10 +1,22 @@
 package it.polimi.ingsw.model;
 
 /**
- * Created by lorenzo on 29/05/17.
+ * This enumeration represents the type of point that the layer could gain
  */
 public enum PointType{
+
+    /**
+     * Victory points
+     */
     VICTORY,
+
+    /**
+     * Military points
+     */
     MILITARY,
+
+    /**
+     * Faith points
+     */
     FAITH
 }

@@ -1,22 +1,40 @@
 package it.polimi.ingsw.model;
 
 /**
- * Created by lorenzo on 23/05/17.
+ * This class represents the action itself
  */
 public class Action {
 
+    /**
+     * Type of action
+     */
     private ActionType type;
 
+    /**
+     * Action amount
+     */
     private Integer amount;
 
+    /**
+     * This method returns an amount of the action
+     * @return
+     */
     public Integer getAmount(){
         return this.amount;
     }
 
+    /**
+     * This method set an amount of the action
+     * @param amount of the action
+     */
     public void setAmount(Integer amount){
         this.amount = amount;
     }
 
+    /**
+     * This method return the type of an action
+     * @return action type
+     */
     public ActionType getType(){
         return this.type;
     }

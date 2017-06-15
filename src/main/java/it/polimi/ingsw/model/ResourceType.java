@@ -1,11 +1,27 @@
 package it.polimi.ingsw.model;
 
 /**
- * Created by lorenzo on 29/05/17.
+ * This enumeration represents a resource type that the player could gain
  */
 public enum ResourceType{
+
+    /**
+     * Woods
+     */
     WOOD,
+
+    /**
+     * Stones
+     */
     STONE,
+
+    /**
+     * Coins
+     */
     COIN,
+
+    /**
+     * Servants
+     */
     SERVANT
 }

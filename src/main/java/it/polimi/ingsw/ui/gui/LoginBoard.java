@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -51,7 +52,6 @@ public class LoginBoard extends Application {
         this.callback=callback;
     }
 
-
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("LoginBoard");
@@ -62,6 +62,7 @@ public class LoginBoard extends Application {
         final Label message= new Label("");
         message.setAlignment(Pos.CENTER);
         GridPane grid= new GridPane();
+        grid.setAlignment(Pos.CENTER);
         Label userLabel= new Label("USERNAME");
         userLabel.setAlignment(Pos.CENTER);
         grid.add(userLabel, 0, 0);
@@ -85,6 +86,9 @@ public class LoginBoard extends Application {
         enter.setAlignment(Pos.CENTER);
         enter.setOnAction(event -> this.login());
         vBox.getChildren().addAll(login, grid, message, enter);
+        Scene scene= new Scene(vBox);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public void login(){

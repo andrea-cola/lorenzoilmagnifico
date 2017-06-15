@@ -13,14 +13,23 @@ public class BaseContext {
      */
     private final ContextInterface callback;
 
+    /**
+     * Buffer reader for reading input
+     */
     protected BufferedReader keyboard= new BufferedReader((new InputStreamReader(System.in)));
 
+    /**
+     * Print writer for writing on the shell
+     */
     protected PrintWriter console= new PrintWriter(new OutputStreamWriter(System.out));
 
+    /**
+     * Hash map associates the commands to a string value
+     */
     private final HashMap<String, Command> commands;
 
     /**
-     * Construct
+     * Construct of the class
      * @param contextInterface with the callback
      */
     BaseContext(ContextInterface contextInterface){
