@@ -25,6 +25,9 @@ public class EffectCardBonus extends Effect{
      */
     private PointsAndResources[] pickUpDiscounts;
 
+    /**
+     * Constructor
+     */
     public EffectCardBonus(){
         super.effectType = this.getClass().getSimpleName();
     }
@@ -53,14 +56,26 @@ public class EffectCardBonus extends Effect{
         this.diceValueBonus = value;
     }
 
+    /**
+     * Get the bonus value which will affect the dice value
+     * @return
+     */
     public int getDiceValueBonus(){
         return this.diceValueBonus;
     }
 
+    /**
+     * Set the discount on the card
+     * @param pickUpDiscounts
+     */
     public void setPickUpDiscounts(PointsAndResources[] pickUpDiscounts){
         this.pickUpDiscounts = pickUpDiscounts;
     }
 
+    /**
+     *
+     * @return
+     */
     public PointsAndResources[] getPickUpDiscounts(){
         return this.pickUpDiscounts;
     }

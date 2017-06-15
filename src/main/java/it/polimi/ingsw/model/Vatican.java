@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 import java.util.ArrayList;
 
 /**
- * This class represent the vatican abstaction.
+ * This class represent the vatican abstraction.
  */
 public class Vatican {
 

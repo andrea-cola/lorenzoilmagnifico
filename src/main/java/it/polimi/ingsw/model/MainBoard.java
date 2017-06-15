@@ -33,7 +33,9 @@ public class MainBoard {
     /**
      * Harvest reference.
      */
+
     private ActionSpace harvest;
+
 
     /**
      * Production reference.
@@ -49,6 +51,15 @@ public class MainBoard {
      * Production extended reference.
      */
     private ActionSpaceExtended productionExtended;
+
+    /**
+     * Constructor for the main board
+     */
+    private MainBoard() {
+        //instantiates the 4 towers
+        int i = 0;
+        towers = new Tower[4];
+    }
 
     /**
      * Set card in the tower. This method is used at the beginning of all ages.

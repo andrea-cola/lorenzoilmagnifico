@@ -15,11 +15,13 @@ import java.util.Scanner;
 
 /**
  * This is the basic game class that runs the main function; it implements the two interfaces UiController and
- * ClientInterface which contains respectively the game related functions and the client actions
+ * ClientInterface which contains respectively the game related functions and the client actions.
  */
 public class LorenzoIlMagnifico implements UiController, ClientInterface {
 
     private String username;
+
+    private UiHandler uiHandler;
 
     private AbstractUI userInterface;
 
@@ -30,7 +32,7 @@ public class LorenzoIlMagnifico implements UiController, ClientInterface {
     private AbstractClient client;
 
     /**
-     * This is the main method; after choosing the interface, it will start the game
+     * This is the main method; after choosing the interface, it will start the game.
      * @throws IOException if the reading fails
      */
     public LorenzoIlMagnifico(String ui) throws IllegalAccessException {
@@ -46,10 +48,19 @@ public class LorenzoIlMagnifico implements UiController, ClientInterface {
         }
     }
 
+    /**
+     * The start function initializes the network menu
+     */
     public void start(){
         userInterface.showNetworkMenu();
     }
 
+    /**
+     * It sets the network settings
+     * @param networkType remote method interface or socket
+     * @param address network address
+     * @param port network port
+     */
     @Override
     public void setNetworkSettings(NetworkType networkType, String address, int port) {
         switch (networkType){
@@ -78,8 +89,7 @@ public class LorenzoIlMagnifico implements UiController, ClientInterface {
     }
 
     @Override
-    public void joinRoom(){
-    }
+    public void joinRoom(){    }
 
     public void setRoom(int maxPlayer){
 

@@ -12,6 +12,7 @@ import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.rmiServer.RMIServerInterface;
 
 /**
@@ -69,7 +70,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     /**
-     * Abstract method to loginPlayer user on a server.
+     * Method to loginPlayer user on a server.
      * @param username for the login.
      * @param password for the login.
      * @throws NetworkException if errors occur during login.
@@ -86,7 +87,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     /**
-     * Abstract method to sign in a user on a server.
+     * Method to sign in a user on a server.
      * @param username for the sign in.
      * @param password for the sign in.
      * @throws NetworkException if errors occur during sign in.
@@ -99,4 +100,37 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
             throw new NetworkException();
         }
     }
+
+    /**
+     * Method to join the first game room
+     * @throws NetworkException
+     */
+    @Override
+    public void joinRoom() throws NetworkException, RoomException {
+        try{
+            server.joinFirstRoom(playerID);
+        }catch(RoomException e){
+            throw e;
+        }
+    }
+
+    /**
+     * Method to create a new game room
+     * @param username of the player
+     * @param maxPlayer max number of player
+     * @throws NetworkException
+     * @return the configuration bundle
+     */
+    @Override
+    public Configuration createRoom(String username, int maxPlayer) throws NetworkException {
+        try {
+            return server.createRoom(String username, int maxPlayer);
+        }catch(RoomException e){
+            throw e;
+        }catch (IOException e){
+            throw new NetworkException(e);
+        }
+    }
+
+
 }
