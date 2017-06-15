@@ -14,6 +14,7 @@ import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.rmiServer.RMIServerInterface;
+import it.polimi.ingsw.utility.Configuration;
 
 /**
  * This class extends {@link AbstractClient} class to create a network connection based on RMI.
@@ -115,22 +116,14 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     /**
-     * Method to create a new game room
-     * @param username of the player
-     * @param maxPlayer max number of player
-     * @throws NetworkException
-     * @return the configuration bundle
+     * Try to create a new room on server side.
+     * @param maxPlayersNumber that should be accepted in this new room.
+     * @throws NetworkException if server is not reachable or something went wrong.
+     * @return configuration bundle that contains all default configurations.
      */
     @Override
-    public Configuration createRoom(String username, int maxPlayer) throws NetworkException {
-        try {
-            return server.createRoom(String username, int maxPlayer);
-        }catch(RoomException e){
-            throw e;
-        }catch (IOException e){
-            throw new NetworkException(e);
-        }
+    public Configuration createNewRoom(int maxPlayersNumber) throws NetworkException {
+        return server.createNewRoom(playerID, maxPlayersNumber);
     }
-
 
 }

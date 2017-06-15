@@ -5,6 +5,7 @@ import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.utility.Configuration;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -110,6 +111,43 @@ public class ClientCommunicationProtocol {
     }
 
     /**
+     * Manage the request to the server or join user in the first game room
+     * @throws RoomException if there are no game room available
+     * @throws NetworkException if the server doesn't work or something happened
+     */
+    public void playerJoinRoom() throws NetworkException, RoomException{
+        int responseCode;
+        try {
+            objectOutputStream.writeObject(CommunicationProtocolConstants.JOIN_ROOM_REQUEST);
+            objectOutputStream.flush();
+            responseCode = (int) objectInputStream.readObject();
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            throw new NetworkException(e);
+        }
+        if (responseCode == CommunicationProtocolConstants.NO_ROOM_AVAILABLE)
+            throw new RoomException();
+    }
+
+    /**
+     * Requires the server to create a new room.
+     * @param maxPlayersNumber allowed in the room.
+     * @return configuration bundle.
+     * @throws NetworkException if errors occur during room creation or network communication.
+     */
+    public Configuration createNewRoom(int maxPlayersNumber) throws NetworkException{
+        Configuration response;
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.CREATE_ROOM_REQUEST);
+            objectOutputStream.writeObject(maxPlayersNumber);
+            objectOutputStream.flush();
+            response = (Configuration)objectInputStream.readObject();
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            throw new NetworkException(e);
+        }
+        return response;
+    }
+
+    /**
      * Handle server response and execute the associated method.
      * @param object of the response.
      */
@@ -124,43 +162,5 @@ public class ClientCommunicationProtocol {
     private interface ResponseHandler {
         void handle();
     }
-
-    /**
-     * Manage the request to the server or join user in the first game room
-     * @throws RoomException if there are no game room available
-     * @throws NetworkException if the server doesn't work or something happened
-     */
-    public void playerJoinRoom() throws RoomException, NetworkException {
-        int responseCode;
-        try {
-            objectOutputStream.writeObject(CommunicationProtocolConstants.JOIN_ROOM_REQUEST);
-            objectOutputStream.flush();
-            responseCode= (int) objectInputStream.readObject();
-        } catch (IOException  | ClassNotFoundException e) {
-            throw new NetworkException(e);
-        }
-        if (responseCode == CommunicationProtocolConstants.RESPONSE_NO_ROOM_AVAILABLE) {
-            throw new RoomException();
-        }
-    }
-
-
-    public void Configuration playerCreateRoom(int maxPlayers) throws NetworkException{
-        Object response;
-        try{
-            objectOutputStream.writeObject(CommunicationProtocolConstants.CREATE_ROOM_REQUEST);
-            objectOutputStream.write(maxPlayers);
-            objectOutputStream.flush();
-            response= objectInputStream.readObject();
-        }catch (IOException |ClassNotFoundException e){
-            throw new NetworkException(e);
-        }
-        if(response instanceof Configuration){
-            return (Configuration)response;
-        }
-        throw new NetworkException("Unknown response");
-    }
-
-
 
 }

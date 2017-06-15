@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.utility.Configuration;
 
 import java.io.IOException;
 
@@ -91,9 +92,6 @@ public abstract class AbstractClient {
      */
     public abstract void joinRoom() throws IOException, RoomException;
 
-    /**
-     * Abstract method to create a game room
-     */
-    public abstract Configuration createRoom();
+    public abstract Configuration createNewRoom(int maxPlayersNumber) throws NetworkException;
 
 }

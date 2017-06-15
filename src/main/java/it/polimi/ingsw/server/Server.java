@@ -194,12 +194,6 @@ public class Server implements ServerInterface{
         }
     }
 
-    /**
-     * Create a new room and return the configuration bundle.
-     * @param serverPlayer is creating new room.
-     * @param maxPlayers allowed in the room.
-     * @return configuration bundle.
-     */
     @Override
     public Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers) {
         synchronized (JOIN_ROOM_MUTEX){

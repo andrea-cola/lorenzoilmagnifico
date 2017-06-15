@@ -2,6 +2,7 @@ package it.polimi.ingsw.socketCommunicationProtocol;
 
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.utility.Configuration;
 
 /**
  * Interface used as callback from clients.
@@ -29,5 +30,12 @@ public interface ServerCommunicationProtocolInterface {
      * @throws RoomException if errors occur during the access.
      */
     void joinRoom() throws RoomException;
+
+    /**
+     * Create a new room and return a configuration bundle.
+     * @param maxPlayersNumber allowed in the room.
+     * @return configuration bundle.
+     */
+    Configuration createNewRoom(int maxPlayersNumber);
 
 }
