@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * This class represents the configuration packet. Built by {@link it.polimi.ingsw.gameServer.Configurator}
+ * This class represents the configuration packet. Built by Configurator
  * and use by server and client to configure the game.
  */
 public class Configuration implements Serializable{

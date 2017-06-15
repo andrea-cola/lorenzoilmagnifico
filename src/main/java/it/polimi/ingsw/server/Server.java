@@ -189,11 +189,17 @@ public class Server implements ServerInterface{
                 serverPlayer.setRoom(room);
             }
             else {
-                throw new RoomException("There are no rooms!");
+                throw new RoomException("There are no rooms available!");
             }
         }
     }
 
+    /**
+     * Create a new room.
+     * @param serverPlayer is creating new room.
+     * @param maxPlayers allowed in the room.
+     * @return configuration object.
+     */
     @Override
     public Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers) {
         synchronized (JOIN_ROOM_MUTEX){

@@ -107,11 +107,11 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
      * @throws NetworkException
      */
     @Override
-    public void joinRoom() throws NetworkException, RoomException {
+    public void joinRoom() throws NetworkException {
         try{
             server.joinFirstRoom(playerID);
-        }catch(RoomException e){
-            throw e;
+        }catch(IOException | RoomException e) {
+            throw new NetworkException(e);
         }
     }
 
@@ -123,7 +123,11 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
      */
     @Override
     public Configuration createNewRoom(int maxPlayersNumber) throws NetworkException {
-        return server.createNewRoom(playerID, maxPlayersNumber);
+        try {
+            return server.createNewRoom(playerID, maxPlayersNumber);
+        } catch (IOException e){
+            throw new NetworkException();
+        }
     }
 
 }
