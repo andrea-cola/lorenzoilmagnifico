@@ -44,6 +44,6 @@ public interface ServerInterface {
      * @param maxPlayers allowed in the room.
      * @return configuration bundle.
      */
-    Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers);
+    Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers) throws RoomException;
 
 }

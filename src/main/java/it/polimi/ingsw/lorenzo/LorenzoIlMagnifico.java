@@ -1,7 +1,10 @@
 package it.polimi.ingsw.lorenzo;
 
+import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
@@ -12,10 +15,7 @@ import it.polimi.ingsw.ui.cli.CommandLineInterface;
 import it.polimi.ingsw.ui.cli.ConnectionType;
 import it.polimi.ingsw.ui.gui.GraphicUserInterface;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 
 /**
  * This is the basic game class that runs the main function; it implements the two interfaces UiController and
@@ -34,6 +34,11 @@ import java.io.PrintWriter;
     private PrintWriter console=new PrintWriter(new OutputStreamWriter(System.out));
 
     private AbstractClient client;
+
+    /**
+     * Represent game model.
+     */
+    private Game game;
 
     /**
      * Class constructor. A new user interface is created.
@@ -91,7 +96,31 @@ import java.io.PrintWriter;
     }
 
     @Override
-    public void joinRoom(){    }
+    public void joinRoom(){
+        try{
+            client.joinRoom();
+        } catch (RoomException e) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Room is full. Please create new one.");
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+        }
+    }
+
+    @Override
+    public void createRoom(int maxPlayers) {
+        try {
+            Configuration configurations = client.createNewRoom(maxPlayers);
+        } catch (RoomException e) {
+            Debugger.printDebugMessage("You're added in another room created by other player meanwhile.");
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+        }
+    }
+
+    @Override
+    public void setGameModel(Game game) {
+        this.game = game;
+    }
 
     public void setRoom(int maxPlayer){
 
@@ -193,4 +222,5 @@ import java.io.PrintWriter;
     public boolean occupiedTower() {
         return false;
     }
+
 }

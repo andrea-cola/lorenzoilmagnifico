@@ -9,4 +9,6 @@ import java.rmi.RemoteException;
  */
 public interface RMIClientInterface extends Remote{
 
+    void setGameInfo() throws RemoteException;
+
 }

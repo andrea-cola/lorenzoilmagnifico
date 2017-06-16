@@ -90,8 +90,8 @@ public abstract class AbstractClient {
      * Abstract method to join the first game room
      * @throws NetworkException
      */
-    public abstract void joinRoom() throws IOException, RoomException;
+    public abstract void joinRoom() throws NetworkException, RoomException;
 
-    public abstract Configuration createNewRoom(int maxPlayersNumber) throws IOException;
+    public abstract Configuration createNewRoom(int maxPlayersNumber) throws NetworkException, RoomException;
 
 }

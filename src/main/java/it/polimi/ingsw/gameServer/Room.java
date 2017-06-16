@@ -173,12 +173,13 @@ public class Room {
          * Send to each player some information contained in the game manager.
          */
         private void sendGameSession(){
-            for(ServerPlayer player : players)
-                try{
+            for(ServerPlayer player : players) {
+                try {
                     player.sendGameInfo(gameManager);
-                } catch(NetworkException e){
+                } catch (NetworkException e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
                 }
+            }
         }
 
     }

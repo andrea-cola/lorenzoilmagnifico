@@ -201,13 +201,19 @@ public class Server implements ServerInterface{
      * @return configuration object.
      */
     @Override
-    public Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers) {
+    public Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers) throws RoomException{
         synchronized (JOIN_ROOM_MUTEX){
-            Configuration configuration = Configurator.getConfiguration();
-            Room room = new Room(serverPlayer, maxPlayers, configuration);
-            rooms.add(room);
-            serverPlayer.setRoom(room);
-            return configuration;
+            try{
+                joinRoom(serverPlayer);
+            }
+            catch(RoomException e){
+                Configuration configuration = Configurator.getConfiguration();
+                Room room = new Room(serverPlayer, maxPlayers, configuration);
+                rooms.add(room);
+                serverPlayer.setRoom(room);
+                return configuration;
+            }
+            throw new RoomException();
         }
     }
 

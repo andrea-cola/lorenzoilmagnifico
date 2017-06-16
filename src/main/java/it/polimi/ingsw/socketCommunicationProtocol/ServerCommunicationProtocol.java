@@ -1,6 +1,8 @@
 package it.polimi.ingsw.socketCommunicationProtocol;
 
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
@@ -39,6 +41,11 @@ public class ServerCommunicationProtocol {
      * List of all type of request with their method.
      */
     private final HashMap<Object, Handler> requestsTable;
+
+    /**
+     * Mutex object.
+     */
+    private final Object object = new Object();
 
     /**
      * Class constructor.
@@ -174,8 +181,20 @@ public class ServerCommunicationProtocol {
             response = serverCommunicationProtocolInterface.createNewRoom(maxPlayersNumber);
             output.writeObject(response);
             output.flush();
-        } catch (ClassNotFoundException | ClassCastException | IOException e){
+        } catch (ClassNotFoundException | ClassCastException | RoomException | IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error in creation room proceedings.");
+        }
+    }
+
+    public void sendGameInfo(Game game) throws NetworkException{
+        synchronized (object){
+            try{
+                output.writeObject(CommunicationProtocolConstants.GAME_MODEL);
+                output.writeObject(game);
+                output.flush();
+            } catch (IOException e){
+                throw new NetworkException();
+            }
         }
     }
 

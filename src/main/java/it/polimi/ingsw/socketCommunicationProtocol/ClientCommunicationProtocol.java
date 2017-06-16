@@ -5,7 +5,9 @@ import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utility.Configuration;
+import it.polimi.ingsw.utility.Debugger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -56,7 +58,7 @@ public class ClientCommunicationProtocol {
      * Put in the hash map all possible responses and associate method handler.
      */
     private void setupResponsesTable() {
-
+        responseTable.put(CommunicationProtocolConstants.GAME_MODEL, this::receiveGameInfo);
     }
 
     /**
@@ -145,6 +147,15 @@ public class ClientCommunicationProtocol {
             throw new NetworkException(e);
         }
         return response;
+    }
+
+    private void receiveGameInfo() {
+        try {
+            Game game = (Game)objectInputStream.readObject();
+            clientInterface.setGameModel(game);
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle receive game info request.");
+        }
     }
 
     /**

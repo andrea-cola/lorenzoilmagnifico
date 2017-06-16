@@ -31,6 +31,8 @@ public interface UiController {
 
     void joinRoom();
 
+    void createRoom(int maxPlayers);
+
     boolean simpleGame();
 
     void setPlayers();

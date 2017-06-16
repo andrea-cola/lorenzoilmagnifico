@@ -18,7 +18,6 @@ public class Game implements Serializable{
     /**
      * Development card deck.
      */
-    protected DevelopmentCard[] deck;
 
     /**
      * Class constructor.
