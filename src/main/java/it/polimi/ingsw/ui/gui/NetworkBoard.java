@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ui.gui;
 
 
-import it.polimi.ingsw.ui.cli.NetworkType;
+import it.polimi.ingsw.ui.cli.ConnectionType;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
@@ -124,22 +124,22 @@ public class NetworkBoard extends Application {
     }
 
     public void doConnect() {
-        NetworkType networkType;
+        ConnectionType connectionType;
         switch (type) {
             case "RMI":
-                networkType = NetworkType.RMI;
+                connectionType = ConnectionType.RMI;
                 port = 3032;
                 break;
             case "SOCKET":
-                networkType = NetworkType.SOCKET;
+                connectionType = ConnectionType.SOCKET;
                 port = 3031;
                 break;
             default:
-                networkType = NetworkType.SOCKET;
+                connectionType = ConnectionType.SOCKET;
                 port = 3031;
                 break;
         }
-        this.callback.setNetworkSettings(networkType, address, port);
+        this.callback.setNetworkSettings(connectionType, address, port);
     }
 }
 
@@ -150,9 +150,9 @@ public class NetworkBoard extends Application {
 interface NetworkBoardCallback {
     /**
     * It set the network settings previously decided by the user
-    * @param networkType is the type of network
+    * @param connectionType is the type of network
     * @param address     is the network address
     * @param port        is the network port
     */
-    void setNetworkSettings(NetworkType networkType, String address, int port);
+    void setNetworkSettings(ConnectionType connectionType, String address, int port);
  }

@@ -3,7 +3,7 @@ package it.polimi.ingsw.ui.cli;
 /**
  * This enumeration represents all possible networks type
  */
-public enum NetworkType {
+public enum ConnectionType {
     /**
      * Remote Method Invocation
      */

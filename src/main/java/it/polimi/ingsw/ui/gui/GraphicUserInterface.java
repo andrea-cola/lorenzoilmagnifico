@@ -21,7 +21,7 @@ public class GraphicUserInterface extends AbstractUI{
     }
 
     @Override
-    public void showNetworkMenu() {
+    public void chooseConnectionType() {
         NetworkBoard networkBoard= new NetworkBoard((networkType, address, port)->getController().setNetworkSettings(networkType, address, port));
         new Thread(()-> Application.launch(NetworkBoard.class)).start();
         networkBoard.waitFor();

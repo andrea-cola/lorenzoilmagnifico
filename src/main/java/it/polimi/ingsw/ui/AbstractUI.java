@@ -31,7 +31,7 @@ public abstract class AbstractUI {
     /**
      * Called when ui should show a form to let the user decide the network settings
      */
-    public abstract void showNetworkMenu();
+    public abstract void chooseConnectionType();
 
     /**
      * Called when ui should show the loginPlayer menu to the user
@@ -234,9 +234,5 @@ public abstract class AbstractUI {
      * Called when should remember when Vatican takes action
      */
     public abstract void notifyVaticanAction();
-
-    /**
-     *
-     */
 
 }

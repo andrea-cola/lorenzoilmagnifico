@@ -63,7 +63,7 @@ public class CommandLineInterface extends AbstractUI {
     }
 
     @Override
-    public void showNetworkMenu(){
+    public void chooseConnectionType(){
         console.println("Loading Network Menu");
         context= new NetworkMenuContext(contextInterface, (networkType, address, port) -> getController().setNetworkSettings(networkType, address, port));
     }

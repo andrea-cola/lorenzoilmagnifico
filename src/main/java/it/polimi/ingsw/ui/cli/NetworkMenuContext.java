@@ -6,7 +6,7 @@ package it.polimi.ingsw.ui.cli;
 public class NetworkMenuContext extends BaseContext{
 
     private final NetworkCallback callback;
-    private NetworkType networkType;
+    private ConnectionType connectionType;
     private String address;
     private int port;
 
@@ -19,12 +19,12 @@ public class NetworkMenuContext extends BaseContext{
     NetworkMenuContext(ContextInterface contextInterface, NetworkCallback callback){
         super(contextInterface);
         this.callback=callback;
-        this.networkType=NetworkType.SOCKET;
+        this.connectionType = ConnectionType.SOCKET;
         this.address= "localhost";
         this.port=3031;
         printConfig();
         addPrintCommand("show-configuration", arguments -> printConfig());
-        addPrintCommand("set-networkType", arguments ->setNetworkType(arguments));
+        addPrintCommand("set-connectionType", arguments -> setConnectionType(arguments));
         addPrintCommand("set-address", arguments -> setAddress(arguments));
         addPrintCommand("set-port", arguments -> setPort(arguments));
         addPrintCommand("connect", arguments -> connect());
@@ -43,15 +43,15 @@ public class NetworkMenuContext extends BaseContext{
      * @param arguments network type
      * @throws CommandNotValid if the command is not valid
      */
-    private void setNetworkType(String[] arguments) throws CommandNotValid {
+    private void setConnectionType(String[] arguments) throws CommandNotValid {
         if(arguments.length==1){
             switch (arguments[0]){
                 case "socket":
-                    networkType= NetworkType.SOCKET;
+                    connectionType = ConnectionType.SOCKET;
                     port=3031;
                     break;
                 case "rmi":
-                    networkType= NetworkType.RMI;
+                    connectionType = ConnectionType.RMI;
                     port=3032;
                     break;
                 default:
@@ -100,7 +100,7 @@ public class NetworkMenuContext extends BaseContext{
      * Connect function calls the callback setNetworkSettings function
      */
     private void connect() {
-        this.callback.setNetworkSettings(networkType, address, port);
+        this.callback.setNetworkSettings(connectionType, address, port);
     }
 }
 
@@ -111,9 +111,9 @@ public class NetworkMenuContext extends BaseContext{
 interface NetworkCallback{
     /**
      * It set the network settings previously decided by the user
-     * @param networkType is the type of network
+     * @param connectionType is the type of network
      * @param address is the network address
      * @param port is the network port
      */
-    void setNetworkSettings(NetworkType networkType, String address, int port);
+    void setNetworkSettings(ConnectionType connectionType, String address, int port);
 }

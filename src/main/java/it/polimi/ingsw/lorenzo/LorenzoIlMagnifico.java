@@ -1,5 +1,7 @@
-package it.polimi.ingsw.ui;
+package it.polimi.ingsw.lorenzo;
 
+import it.polimi.ingsw.ui.AbstractUI;
+import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
@@ -7,17 +9,19 @@ import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.rmiClient.RMIClient;
 import it.polimi.ingsw.socketClient.SocketClient;
 import it.polimi.ingsw.ui.cli.CommandLineInterface;
-import it.polimi.ingsw.ui.cli.NetworkType;
+import it.polimi.ingsw.ui.cli.ConnectionType;
 import it.polimi.ingsw.ui.gui.GraphicUserInterface;
 
-import java.io.*;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 /**
  * This is the basic game class that runs the main function; it implements the two interfaces UiController and
  * ClientInterface which contains respectively the game related functions and the client actions.
  */
-public class LorenzoIlMagnifico implements UiController, ClientInterface {
+/*package-local*/ class LorenzoIlMagnifico implements UiController, ClientInterface {
 
     private String username;
 
@@ -32,19 +36,17 @@ public class LorenzoIlMagnifico implements UiController, ClientInterface {
     private AbstractClient client;
 
     /**
-     * This is the main method; after choosing the interface, it will start the game.
-     * @throws IOException if the reading fails
+     * Class constructor. A new user interface is created.
+     * @param ui index of the preferred interface.
      */
-    public LorenzoIlMagnifico(String ui) throws IllegalAccessException {
+    public LorenzoIlMagnifico(int ui) {
         switch (ui){
-            case "CLI":
-                userInterface= new CommandLineInterface(this);
+            case 1:
+                userInterface = new CommandLineInterface(this);
                 break;
-            case "GUI":
-                userInterface= new GraphicUserInterface(this);
+            case 2:
+                userInterface = new GraphicUserInterface(this);
                 break;
-            default:
-                throw new IllegalAccessException();
         }
     }
 
@@ -52,23 +54,23 @@ public class LorenzoIlMagnifico implements UiController, ClientInterface {
      * The start function initializes the network menu
      */
     public void start(){
-        userInterface.showNetworkMenu();
+        userInterface.chooseConnectionType();
     }
 
     /**
-     * It sets the network settings
-     * @param networkType remote method interface or socket
-     * @param address network address
-     * @param port network port
+     * It sets the network settings.
+     * @param connectionType remote method interface or socket.
+     * @param address network address.
+     * @param port network port.
      */
     @Override
-    public void setNetworkSettings(NetworkType networkType, String address, int port) {
-        switch (networkType){
+    public void setNetworkSettings(ConnectionType connectionType, String address, int port) {
+        switch (connectionType){
             case SOCKET:
-                client= new SocketClient(this, address, port);
+                client = new SocketClient(this, address, port);
                 break;
             case RMI:
-                client= new RMIClient(this, address, port);
+                client = new RMIClient(this, address, port);
                 break;
             default:
                 throw new IllegalArgumentException();

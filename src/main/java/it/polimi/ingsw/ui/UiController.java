@@ -1,8 +1,6 @@
 package it.polimi.ingsw.ui;
 
-import it.polimi.ingsw.ui.cli.NetworkType;
-
-import java.io.IOException;
+import it.polimi.ingsw.ui.cli.ConnectionType;
 
 /**
  * Interface implemented by the Game class, contains all functions related to the Game that need to
@@ -11,11 +9,11 @@ import java.io.IOException;
 public interface UiController {
     /**
      * It allows the user to set network options
-     * @param networkType
+     * @param connectionType
      * @param address
      * @param port
      */
-    void setNetworkSettings(NetworkType networkType, String address, int port);
+    void setNetworkSettings(ConnectionType connectionType, String address, int port);
 
     /**
      * It allows the user to login to the game
