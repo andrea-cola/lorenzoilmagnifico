@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gameServer;
 
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -8,7 +9,6 @@ import it.polimi.ingsw.server.ServerPlayer;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * This class represent a game room.
@@ -147,7 +147,7 @@ public class Room {
         @Override
         public void run(){
             setupBeforeStartGame();
-            System.out.println("BRAVO ANDREA");
+            sendGameSession();
         }
 
         /**
@@ -167,6 +167,18 @@ public class Room {
             synchronized (MUTEX){
                 roomOpen = false;
             }
+        }
+
+        /**
+         * Send to each player some information contained in the game manager.
+         */
+        private void sendGameSession(){
+            for(ServerPlayer player : players)
+                try{
+                    player.sendGameInfo(gameManager);
+                } catch(NetworkException e){
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
+                }
         }
 
     }

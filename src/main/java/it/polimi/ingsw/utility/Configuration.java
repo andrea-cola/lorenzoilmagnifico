@@ -39,11 +39,6 @@ public class Configuration implements Serializable{
     private List<PersonalBoardTile> personalBoardTiles;
 
     /**
-     * Color palette.
-     */
-    private List<String> colors;
-
-    /**
      * Class constructor.
      * @param waitingTime before start game.
      * @param moveWaitingTime before change turn.

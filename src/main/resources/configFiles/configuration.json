@@ -681,11 +681,5 @@
         "effectType": "EffectHarvestProductionSimple"
       }
     }
-  ],
-  "colors" : [
-    "red",
-    "yellow",
-    "green",
-    "blue"
   ]
 }

@@ -35,7 +35,7 @@ public class Configurator {
     /**
      * Development cards deck.
      */
-    private ArrayList<DevelopmentCard> developmentCards;
+    private static ArrayList<DevelopmentCard> developmentCards;
 
     /**
      * Gson object reference.
@@ -61,9 +61,17 @@ public class Configurator {
             gson = new Gson();
             loadRuntimeTypeAdapterFactory();
             parseConfiguration();
+            parseDevelopmentCard();
         } catch(FileNotFoundException e){
             throw new ConfigurationException(e);
         }
+    }
+
+    /**
+     * This method is called from server to instantiate the singleton.
+     */
+    public static void loadConfigurations() throws ConfigurationException{
+        configurator = new Configurator();
     }
 
     /**
@@ -83,13 +91,6 @@ public class Configurator {
     }
 
     /**
-     * This method is called from server to instantiate the singleton.
-     */
-    public static void loadConfigurations() throws ConfigurationException{
-        configurator = new Configurator();
-    }
-
-    /**
      * Main parsing method. This method calls all needed method to parseConfiguration the file.
      */
     private void parseConfiguration() throws FileNotFoundException {
@@ -104,12 +105,11 @@ public class Configurator {
      * @return array of cards.
      * @throws FileNotFoundException if file is not found.
      */
-    private ArrayList<DevelopmentCard> parseDevelopmentCard() throws FileNotFoundException{
+    private void parseDevelopmentCard() throws FileNotFoundException{
         GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(effectFactory);;
         gson = builder.create();
         JsonReader reader = new JsonReader(new FileReader(DEVELOPMENT_CARDS_FILE_PATH));
         developmentCards = gson.fromJson(reader, new TypeToken<List<DevelopmentCard>>(){}.getType());
-        return developmentCards;
     }
 
     /**
@@ -120,8 +120,9 @@ public class Configurator {
         return configuration;
     }
 
-    public static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
-        return null;
+    /*package-local*/ static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
+        GameManager gameManager = new GameManager(roomPlayers, configuration, developmentCards);
+        return gameManager;
     }
 
 }
