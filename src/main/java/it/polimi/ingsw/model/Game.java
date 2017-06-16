@@ -13,7 +13,7 @@ public class Game implements Serializable{
     /**
      * Map of all players.
      */
-    protected Map<String, Player> playersMap;
+    private Map<String, Player> playersMap;
 
     /**
      * Development card deck.
@@ -22,8 +22,8 @@ public class Game implements Serializable{
     /**
      * Class constructor.
      */
-    protected Game(){
-        playersMap = new LinkedHashMap<>();
+    public Game(){
+        this.playersMap = new LinkedHashMap<>();
     }
 
     /**
@@ -32,7 +32,7 @@ public class Game implements Serializable{
      * @return a player.
      */
     public Player getPlayer(String username){
-        return playersMap.get(username);
+        return this.playersMap.get(username);
     }
 
     /**
@@ -41,8 +41,12 @@ public class Game implements Serializable{
      */
     public ArrayList<Player> getAllPlayers(){
         ArrayList players = new ArrayList();
-        players.addAll(playersMap.values());
+        players.addAll(this.playersMap.values());
         return players;
+    }
+
+    public Map<String, Player> getPlayersMap(){
+        return this.playersMap;
     }
 
 }
