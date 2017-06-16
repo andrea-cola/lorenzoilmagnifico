@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gameServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -175,7 +176,7 @@ public class Room {
         private void sendGameSession(){
             for(ServerPlayer player : players) {
                 try {
-                    player.sendGameInfo(gameManager);
+                    player.sendGameInfo(new Game());
                 } catch (NetworkException e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
                 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.rmiClient;
 
+import it.polimi.ingsw.model.Game;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -9,6 +11,6 @@ import java.rmi.RemoteException;
  */
 public interface RMIClientInterface extends Remote{
 
-    void setGameInfo() throws RemoteException;
+    void setGameInfo(Game game) throws RemoteException;
 
 }

@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.rmiClient.RMIClientInterface;
 
+import java.rmi.RemoteException;
+
 /**
  * This class extends {@link ServerPlayer} (server side abstraction of the player).
  * This class is built to communicate with the client.
@@ -26,6 +28,10 @@ import it.polimi.ingsw.rmiClient.RMIClientInterface;
 
     @Override
     public void sendGameInfo(Game game) throws NetworkException {
-        
+        try {
+            rmiClientInterface.setGameInfo(game);
+        } catch(RemoteException e){
+            throw new NetworkException(e);
+        }
     }
 }

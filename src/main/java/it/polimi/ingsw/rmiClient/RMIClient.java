@@ -13,6 +13,7 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.rmiServer.RMIServerInterface;
 import it.polimi.ingsw.utility.Configuration;
 
@@ -135,7 +136,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     @Override
-    public void setGameInfo() throws RemoteException {
-        //getController().....
+    public void setGameInfo(Game game) throws RemoteException {
+        getController().setGameModel(game);
     }
 }
