@@ -59,7 +59,7 @@ public class Tower implements Serializable{
      */
     public boolean isFree(){
         for(TowerCell cell : this.towerCells)
-            if (!cell.isEmpty())
+            if (!cell.getEmpty())
                 return false;
         return true;
     }
