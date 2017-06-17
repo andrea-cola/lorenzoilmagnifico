@@ -1,13 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * Created by lorenzo on 16/06/17.
- */
-public class Dice {
+public class Dice implements Serializable{
 
     /**
      * Map of all dices and relative random values

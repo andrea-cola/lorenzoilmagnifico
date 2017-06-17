@@ -46,6 +46,6 @@ public interface RMIServerInterface extends Remote{
      * @param maxPlayersNumber allowed in the room.
      * @return the configuration number.
      */
-    Configuration createNewRoom(String id, int maxPlayersNumber) throws RoomException, IOException;
+    void createNewRoom(String id, int maxPlayersNumber) throws RoomException, IOException;
 
 }

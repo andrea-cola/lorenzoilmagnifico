@@ -7,10 +7,7 @@ import it.polimi.ingsw.utility.Configuration;
 import sun.applet.Main;
 import sun.security.krb5.Config;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*package-local*/ class GameManager{
 
@@ -19,32 +16,27 @@ import java.util.Map;
     /**
      * Game instance
      */
-    protected Game game;
-
-    /**
-     * MainBoard instance
-     */
-    protected MainBoard mainBoard;
+    private Game game;
 
     /**
      * Development cards yellow deck
      */
-    protected ArrayList<DevelopmentCard> yellowDeck;
+    private ArrayList<DevelopmentCard> yellowDeck;
 
     /**
      * Development cards green deck
      */
-    protected ArrayList<DevelopmentCard> greenDeck;
+    private ArrayList<DevelopmentCard> greenDeck;
 
     /**
      * Development cards blue deck
      */
-    protected ArrayList<DevelopmentCard> blueDeck;
+    private ArrayList<DevelopmentCard> blueDeck;
 
     /**
      * Development cards purple deck
      */
-    protected ArrayList<DevelopmentCard> purpleDeck;
+    private ArrayList<DevelopmentCard> purpleDeck;
 
     /**
      * Player of the game.
@@ -63,12 +55,9 @@ import java.util.Map;
      * @param developmentCards deck.
      */
     /*package-local*/ GameManager(ArrayList<ServerPlayer> players, Configuration configuration, ArrayList<DevelopmentCard> developmentCards){
-        this.game = new Game();
-        this.mainBoard = new MainBoard();
-
         this.players = players;
         this.configuration = configuration;
-
+        game = new Game(configuration.getMainBoard());
         setupPlayers();
         setupDecks(developmentCards);
     }
@@ -112,14 +101,10 @@ import java.util.Map;
      * @return
      */
     private ArrayList<DevelopmentCard> deckForPeriod(ArrayList<DevelopmentCard> deck, int period){
-
         ArrayList<DevelopmentCard> deckPeriod = new ArrayList<>();
-        for (DevelopmentCard card : deck){
-            if (card.getPeriod() == period){
+        for (DevelopmentCard card : deck)
+            if (card.getPeriod() == period)
                 deckPeriod.add(card);
-            }
-        }
-
         return deckPeriod;
     }
 
@@ -140,10 +125,10 @@ import java.util.Map;
      * @param turn
      */
     public void setupMainBoard(int period, int turn){
-        this.mainBoard.setTower(0, deckForTurn(deckForPeriod(this.greenDeck, period), turn));
-        this.mainBoard.setTower(1, deckForTurn(deckForPeriod(this.blueDeck, period), turn));
-        this.mainBoard.setTower(2, deckForTurn(deckForPeriod(this.yellowDeck, period), turn));
-        this.mainBoard.setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
+        this.game.getMainBoard().setTower(0, deckForTurn(deckForPeriod(this.greenDeck, period), turn));
+        this.game.getMainBoard().setTower(1, deckForTurn(deckForPeriod(this.blueDeck, period), turn));
+        this.game.getMainBoard().setTower(2, deckForTurn(deckForPeriod(this.yellowDeck, period), turn));
+        this.game.getMainBoard().setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
     }
 
     /**
@@ -151,12 +136,14 @@ import java.util.Map;
      * Then the player is added to Game players map.
      */
     private void setupPlayers(){
-        randomPlayerSorting();
-        List<String> colors = PlayerColor.getValues();
         int i = 0;
+        randomPlayerSorting();
+        Map<String, PlayerColor> colors = PlayerColor.getHashMap();
+        Iterator iterator = colors.entrySet().iterator();
         for(ServerPlayer player : players){
+            Map.Entry pair = (Map.Entry) iterator.next();
             Player gamePlayer = player;
-            gamePlayer.setColor(PlayerColor.valueOf(colors.get(i)));
+            gamePlayer.setColor((PlayerColor)pair.getValue());
             gamePlayer.setPersonalBoard(configuration.getPersonalBoard());
             gamePlayer.getPersonalBoard().getValuables().increase(ResourceType.COIN, INITIAL_COINS + i);
             this.game.getPlayersMap().put(player.getNickname(), gamePlayer);
@@ -165,10 +152,22 @@ import java.util.Map;
     }
 
     /**
-     * This method sorts players randomly.
+     * This method sorts players randomly. This is the game order.
      */
     private void randomPlayerSorting(){
         Collections.shuffle(players);
     }
 
+    /**
+     * Get game instance.
+     * @return game instance.
+     */
+    public Game getGameInstance(){
+        setupMainBoard(1, 1);
+        return this.game;
+    }
+
+    public ArrayList<ServerPlayer> getStartOrder(){
+        return players;
+    }
 }

@@ -18,6 +18,8 @@ public class ChooseConnectionScreen extends BasicScreen {
 
     ChooseConnectionScreen(ScreenInterface screenInterface, ICallback callback){
         super(screenInterface);
+
+        System.out.println("[NETWORK CONFIGURATION]");
         this.callback = callback;
         this.connectionType = STD_CONN_TYPE;
         this.address = STD_ADDRESS;
@@ -29,12 +31,12 @@ public class ChooseConnectionScreen extends BasicScreen {
     }
 
     private void printHelps(){
-        System.out.println("set-conn [SOCKET | RMI] [address] [port]");
-        System.out.println("connect");
+        System.out.println("Helps: set-conn [SOCKET | RMI] [address] [port]");
+        System.out.println("Helps: connect");
     }
 
     private void printConfig(){
-        System.out.println("Type: " + connectionType.toString() + " @ " + address +":" + port);
+        System.out.println("New configuration: " + connectionType.toString() + " @ " + address +":" + port);
     }
 
     private void setConnection(String[] arguments) throws WrongCommandException {

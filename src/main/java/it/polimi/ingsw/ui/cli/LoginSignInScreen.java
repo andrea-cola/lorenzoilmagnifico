@@ -8,6 +8,8 @@ public class LoginSignInScreen extends BasicScreen {
 
     LoginSignInScreen(ScreenInterface screenInterface, ICallback callback){
         super(screenInterface);
+
+        System.out.println("\n\n[LOGIN & SIGN IN]");
         this.callback = callback;
         addPrintCommand("login", arguments->login(arguments));
         addPrintCommand("signin", arguments->signin(arguments));
@@ -16,8 +18,8 @@ public class LoginSignInScreen extends BasicScreen {
     }
 
     private void printHelps(){
-        System.out.println("login [username] [password]");
-        System.out.println("signin [username] [password]");
+        System.out.println("Helps: login [username] [password]");
+        System.out.println("Helps: signin [username] [password]");
     }
 
     private void login(String[] arguments) throws WrongCommandException{

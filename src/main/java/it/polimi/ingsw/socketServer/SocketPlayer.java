@@ -114,8 +114,8 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
      * @return configuration bundle.
      */
     @Override
-    public Configuration createNewRoom(int maxPlayersNumber) throws RoomException{
-        return serverInterface.createNewRoom(this, maxPlayersNumber);
+    public void createNewRoom(int maxPlayersNumber) throws RoomException{
+        serverInterface.createNewRoom(this, maxPlayersNumber);
     }
 
     @Override

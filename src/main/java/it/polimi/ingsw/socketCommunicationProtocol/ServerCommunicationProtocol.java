@@ -173,19 +173,20 @@ public class ServerCommunicationProtocol {
      * Response is a Configuration object.
      */
     private void createNewRoom(){
-        Object response;
         int maxPlayersNumber;
         try{
             maxPlayersNumber = (int)input.readObject();
-            response = serverCommunicationProtocolInterface.createNewRoom(maxPlayersNumber);
-            output.writeObject(response);
-            output.flush();
+            serverCommunicationProtocolInterface.createNewRoom(maxPlayersNumber);
         } catch (ClassNotFoundException | ClassCastException | RoomException | IOException e){
-            e.printStackTrace();
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error in creation room proceedings.");
         }
     }
 
+    /**
+     * Send to client the game bundle.
+     * @param game to send.
+     * @throws NetworkException if errors occur during communication.
+     */
     public void sendGameInfo(Game game) throws NetworkException{
         synchronized (object){
             try{

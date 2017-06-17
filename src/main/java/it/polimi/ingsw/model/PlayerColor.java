@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * This enumeration represents the possible colors of the player board
@@ -35,7 +32,6 @@ public enum PlayerColor {
      */
     private final String color;
 
-
     PlayerColor(String color) {
         this.color = color;
     }
@@ -44,10 +40,10 @@ public enum PlayerColor {
         return this.color;
     }
 
-    public static List<String> getValues() {
-        ArrayList<String> colors = new ArrayList<>();
+    public static HashMap<String, PlayerColor> getHashMap(){
+        HashMap<String, PlayerColor> colorHashMap = new HashMap<>();
         for(PlayerColor playerColor : PlayerColor.values())
-            colors.add(playerColor.toString());
-        return Collections.unmodifiableList(colors);
+            colorHashMap.put(playerColor.toString(), playerColor);
+        return colorHashMap;
     }
 }

@@ -16,7 +16,7 @@ public class CommandLineInterface extends AbstractUI {
     /**
      * Title printed on the shell
      */
-    private static final String TITLE = "     __     _____     ______     ________  __      ___ _________  ______\n" +
+    private static final String TITLE = "\n\n\n\n\n\n     __     _____     ______     ________  __      ___ _________  ______\n" +
                                         "    /  /   /     \\   /  _   \\   /  ______//  \\    /  //_____  _/ /      \\ \n" +
                                         "   /  /   /   _   \\ /  (_)  /  /  /___   /    \\  /  / _____/ /  /   _    \\ \n" +
                                         "  /  /   /   (_)  //  __   /  /   ___/  /  /\\  \\/  / /_  ___/  /   (_)   / \n" +
@@ -25,7 +25,7 @@ public class CommandLineInterface extends AbstractUI {
                                         "                                                                              \n" +
                                         "                         _  _     _   __           __    __  __             \n" +
                                         "                 / /    / \\/ \\   /_\\ / __ /\\  / / /_  / /   /  \\              \n"+
-                                        "                / /__  /      \\ /   \\__//  \\/ / /   /  \\__ \\__/              \n";
+                                        "                / /__  /      \\ /   \\__//  \\/ / /   /  \\__ \\__/              \n\n\n";
 
     /**
      * Buffer reader for reading from the input

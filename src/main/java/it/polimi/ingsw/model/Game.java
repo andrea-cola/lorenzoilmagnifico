@@ -23,8 +23,8 @@ public class Game implements Serializable{
     /**
      * Class constructor
      */
-    public Game(){
-        this.mainBoard = new MainBoard();
+    public Game(MainBoard mainBoard){
+        this.mainBoard = mainBoard;
         this.dices = new Dice();
         this.playersMap = new LinkedHashMap<>();
     }

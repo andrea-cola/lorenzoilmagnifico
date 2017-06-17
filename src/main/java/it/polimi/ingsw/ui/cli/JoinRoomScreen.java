@@ -6,6 +6,8 @@ public class JoinRoomScreen extends BasicScreen{
 
     JoinRoomScreen(ScreenInterface screenInterface, ICallback callback) {
         super(screenInterface);
+
+        System.out.println("\n\n[JOIN ROOM]");
         this.callback = callback;
         addPrintCommand("join-room", arguments->joinRoom());
         printHelps();
@@ -17,7 +19,7 @@ public class JoinRoomScreen extends BasicScreen{
     }
 
     private void printHelps(){
-        System.out.println("join-room");
+        System.out.println("Help: join-room");
     }
 
     @FunctionalInterface

@@ -27,8 +27,6 @@ import java.io.*;
 
     private AbstractUI userInterface;
 
-    private BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-
     private AbstractClient client;
 
     /**
@@ -41,6 +39,7 @@ import java.io.*;
      * @param ui index of the preferred interface.
      */
     public LorenzoIlMagnifico(int ui) {
+
         switch (ui){
             case 1:
                 userInterface = new CommandLineInterface(this);
@@ -101,6 +100,7 @@ import java.io.*;
         try{
             client.joinRoom();
         }catch (RoomException e) {
+            Debugger.printStandardMessage("No rooms available. Create new one.");
             userInterface.createRoomScreen();
         } catch (NetworkException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
@@ -110,7 +110,7 @@ import java.io.*;
     @Override
     public void createRoom(int maxPlayers) {
         try {
-            Configuration configurations = client.createNewRoom(maxPlayers);
+            client.createNewRoom(maxPlayers);
         } catch (RoomException e) {
             Debugger.printDebugMessage("You're added in another room created by other player meanwhile.");
         } catch (NetworkException e){
@@ -121,6 +121,20 @@ import java.io.*;
     @Override
     public void setGameModel(Game game) {
         this.game = game;
+        printGame();
+        Debugger.printDebugMessage("Game started.");
+    }
+
+    public void printGame(){
+        System.out.println("Mainboard");
+        try {
+            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(0).getDevelopmentCard().getName());
+            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(1).getDevelopmentCard().getName());
+            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(2).getDevelopmentCard().getName());
+            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(3).getDevelopmentCard().getName());
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
 }

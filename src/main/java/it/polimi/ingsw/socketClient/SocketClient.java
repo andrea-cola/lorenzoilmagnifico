@@ -103,10 +103,9 @@ public class SocketClient extends AbstractClient{
     }
 
     @Override
-    public Configuration createNewRoom(int maxPlayersNumber) throws NetworkException{
-        Configuration configuration = clientCommunicationProtocol.createNewRoom(maxPlayersNumber);
+    public void createNewRoom(int maxPlayersNumber) throws NetworkException{
+        clientCommunicationProtocol.createNewRoom(maxPlayersNumber);
         startServerResponseManager();
-        return configuration;
     }
 
     /**

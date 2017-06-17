@@ -212,11 +212,13 @@ public class Server implements ServerInterface{
             if(playerRoom != null) {
                 playerRoom.rejoinRoom(serverPlayer);
                 serverPlayer.setRoom(playerRoom);
+                Debugger.printDebugMessage(serverPlayer.getNickname() + " rejoined in room #" + playerRoom.getRoomID());
             }
             else if(!rooms.isEmpty()) {
                 playerRoom = rooms.get(rooms.size() - 1);
                 playerRoom.joinRoom(serverPlayer);
                 serverPlayer.setRoom(playerRoom);
+                Debugger.printDebugMessage(serverPlayer.getNickname() + " joined in room #" + playerRoom.getRoomID());
             } else
                 throw new RoomException("There are no rooms available!");
         }
@@ -229,7 +231,7 @@ public class Server implements ServerInterface{
      * @return configuration object.
      */
     @Override
-    public Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers) throws RoomException{
+    public void createNewRoom(ServerPlayer serverPlayer, int maxPlayers) throws RoomException{
         synchronized (JOIN_ROOM_MUTEX){
             boolean flag = false;
             try{
@@ -241,10 +243,9 @@ public class Server implements ServerInterface{
             }
             if(!flag){
                 Configuration configuration = Configurator.getConfiguration();
-                Room room = new Room(serverPlayer, maxPlayers, configuration);
+                Room room = new Room(rooms.size() + 1, serverPlayer, maxPlayers, configuration);
                 rooms.add(room);
                 serverPlayer.setRoom(room);
-                return configuration;
             }
             else {
                 throw new RoomException();

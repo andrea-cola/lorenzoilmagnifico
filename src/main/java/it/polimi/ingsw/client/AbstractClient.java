@@ -92,6 +92,6 @@ public abstract class AbstractClient {
      */
     public abstract void joinRoom() throws NetworkException, RoomException;
 
-    public abstract Configuration createNewRoom(int maxPlayersNumber) throws NetworkException, RoomException;
+    public abstract void createNewRoom(int maxPlayersNumber) throws NetworkException, RoomException;
 
 }

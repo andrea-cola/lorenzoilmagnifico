@@ -126,9 +126,9 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
      * @return configuration bundle that contains all default configurations.
      */
     @Override
-    public Configuration createNewRoom(int maxPlayersNumber) throws RoomException, NetworkException {
+    public void createNewRoom(int maxPlayersNumber) throws RoomException, NetworkException {
         try {
-            return server.createNewRoom(playerID, maxPlayersNumber);
+            server.createNewRoom(playerID, maxPlayersNumber);
         } catch (RoomException e){
             throw e;
         }catch (IOException e){

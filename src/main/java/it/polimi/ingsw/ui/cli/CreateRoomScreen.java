@@ -8,6 +8,8 @@ public class CreateRoomScreen extends BasicScreen{
 
     CreateRoomScreen(ScreenInterface screenInterface, ICallback callback){
         super(screenInterface);
+
+        System.out.println("\n\n[CREATE ROOM]");
         this.callback = callback;
         addPrintCommand("create-room", arguments->createRoom(arguments));
         printHelps();
@@ -15,7 +17,7 @@ public class CreateRoomScreen extends BasicScreen{
     }
 
     private void printHelps(){
-        System.out.println("create-room [max players number]");
+        System.out.println("Helps: create-room [max players number]");
     }
 
     private void createRoom(String[] arguments) throws WrongCommandException{
@@ -24,7 +26,6 @@ public class CreateRoomScreen extends BasicScreen{
         else
             throw new WrongCommandException();
     }
-
 
     @FunctionalInterface
     public interface ICallback{

@@ -134,22 +134,21 @@ public class ClientCommunicationProtocol {
      * @return configuration bundle.
      * @throws NetworkException if errors occur during room creation or network communication.
      */
-    public Configuration createNewRoom(int maxPlayersNumber) throws NetworkException{
+    public void createNewRoom(int maxPlayersNumber) throws NetworkException{
         Configuration response;
         try{
             objectOutputStream.writeObject(CommunicationProtocolConstants.CREATE_ROOM_REQUEST);
             objectOutputStream.writeObject(maxPlayersNumber);
             objectOutputStream.flush();
-            response = (Configuration)objectInputStream.readObject();
-        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+        } catch (IOException e) {
             throw new NetworkException(e);
         }
-        return response;
     }
 
     private void receiveGameInfo() {
         try {
             Game game = (Game)objectInputStream.readObject();
+            System.out.println(game.getMainBoard().getTower(1).getTowerCell(0).getDevelopmentCard().getName());
             clientInterface.setGameModel(game);
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle receive game info request.");

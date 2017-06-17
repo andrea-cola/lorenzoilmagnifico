@@ -173,8 +173,8 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
      * @return the configuration number.
      */
     @Override
-    public Configuration createNewRoom(String id, int maxPlayersNumber) throws RoomException{
-        return getServer().createNewRoom(getPlayer(id), maxPlayersNumber);
+    public void createNewRoom(String id, int maxPlayersNumber) throws RoomException{
+        getServer().createNewRoom(getPlayer(id), maxPlayersNumber);
     }
 
 }
