@@ -81,7 +81,7 @@ public class EffectCardBonus extends Effect{
     }
 
     /**
-     * Method to execute the effect of the card.
+     * Method to run the effect of the card.
      *
      * @param player
      */

@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PlayerColor;
 
+import java.rmi.RemoteException;
+
 /**
  * This class is the abstraction of the remote player.
  */
@@ -40,5 +42,9 @@ public abstract class ServerPlayer extends Player{
     }
 
     public abstract void sendGameInfo(Game game) throws NetworkException;
+
+    public void ping() throws RemoteException{
+
+    }
 
 }

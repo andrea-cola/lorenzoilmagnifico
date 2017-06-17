@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+
 /**
  * This class represents the action itself
  */
-public class Action {
+public class Action{
 
     /**
      * Type of action

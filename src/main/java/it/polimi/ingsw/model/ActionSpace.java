@@ -2,10 +2,12 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
 
+import java.io.Serializable;
+
 /**
  * This class represent action space abstraction.
  */
-public class ActionSpace {
+public class ActionSpace implements Serializable{
 
     /**
      * Type of the area.

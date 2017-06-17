@@ -2,6 +2,7 @@ package it.polimi.ingsw.gameServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -99,7 +100,7 @@ public class Room {
 
     /**
      * Method to start the timer. At the end of set time, a task is executed.
-     * @param time before execute the task.
+     * @param time before run the task.
      */
     private void startTimer(long time){
         resetTimer();
@@ -113,6 +114,16 @@ public class Room {
     private void resetTimer(){
         startGameTimer.cancel();
         startGameTimer.purge();
+    }
+
+    public void rejoinRoom(ServerPlayer serverPlayer){
+        for(ServerPlayer player : players){
+            if(player.getNickname().equals(serverPlayer.getNickname()))
+                player = serverPlayer;
+        }
+        Debugger.printDebugMessage(serverPlayer.getNickname() + " has rejoined the previous room.");
+        //serverPlayer.sendGameInfo(gameManager.game);
+        //__________________________________
     }
 
     /**
@@ -134,6 +145,13 @@ public class Room {
             else
                 throw new RoomException();
         }
+    }
+
+    public boolean userAlreadyJoined(ServerPlayer serverPlayer){
+        for(ServerPlayer player : players)
+            if(player.getNickname().equals(serverPlayer.getNickname()))
+                return true;
+        return false;
     }
 
     /**

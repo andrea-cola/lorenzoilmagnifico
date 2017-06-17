@@ -97,9 +97,7 @@ public class ClientCommunicationProtocol {
             objectOutputStream.writeObject(username);
             objectOutputStream.writeObject(password);
             objectOutputStream.flush();
-            System.out.println("Ciao");
             response = (int)objectInputStream.readObject();
-            System.out.println(response);
         }catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
             throw new NetworkException(e);
@@ -159,7 +157,7 @@ public class ClientCommunicationProtocol {
     }
 
     /**
-     * Handle server response and execute the associated method.
+     * Handle server response and run the associated method.
      * @param object of the response.
      */
     public void handleResponse(Object object) {

@@ -46,4 +46,6 @@ public interface ServerInterface {
      */
     Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers) throws RoomException;
 
+    void disableUser(ServerPlayer player);
+
 }

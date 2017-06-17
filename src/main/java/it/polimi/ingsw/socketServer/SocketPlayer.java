@@ -71,6 +71,7 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
             }
         }catch(IOException | ClassNotFoundException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Connection with the client is down.");
+            serverInterface.disableUser(this);
         }finally{
             closeConnections(objectInputStream, objectOutputStream, socketClient);
         }

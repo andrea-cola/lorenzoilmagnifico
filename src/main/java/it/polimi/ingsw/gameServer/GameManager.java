@@ -7,7 +7,10 @@ import it.polimi.ingsw.utility.Configuration;
 import sun.applet.Main;
 import sun.security.krb5.Config;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /*package-local*/ class GameManager{
 
@@ -17,6 +20,11 @@ import java.util.*;
      * Game instance
      */
     protected Game game;
+
+    /**
+     * MainBoard instance
+     */
+    protected MainBoard mainBoard;
 
     /**
      * Development cards yellow deck
@@ -38,14 +46,10 @@ import java.util.*;
      */
     protected ArrayList<DevelopmentCard> purpleDeck;
 
-
     /**
      * Player of the game.
      */
     private ArrayList<ServerPlayer> players;
-
-
-
 
     /**
      * Game configuration.
@@ -60,6 +64,7 @@ import java.util.*;
      */
     /*package-local*/ GameManager(ArrayList<ServerPlayer> players, Configuration configuration, ArrayList<DevelopmentCard> developmentCards){
         this.game = new Game();
+        this.mainBoard = new MainBoard();
 
         this.players = players;
         this.configuration = configuration;
@@ -107,12 +112,14 @@ import java.util.*;
      * @return
      */
     private ArrayList<DevelopmentCard> deckForPeriod(ArrayList<DevelopmentCard> deck, int period){
+
         ArrayList<DevelopmentCard> deckPeriod = new ArrayList<>();
         for (DevelopmentCard card : deck){
             if (card.getPeriod() == period){
                 deckPeriod.add(card);
             }
         }
+
         return deckPeriod;
     }
 
@@ -132,16 +139,11 @@ import java.util.*;
      * @param period
      * @param turn
      */
-    public void setupNewPeriod(Player player, int period, int turn){
-        this.game.getMainBoard().setTower(0, deckForTurn(deckForPeriod(this.greenDeck, period), turn));
-        this.game.getMainBoard().setTower(1, deckForTurn(deckForPeriod(this.blueDeck, period), turn));
-        this.game.getMainBoard().setTower(2, deckForTurn(deckForPeriod(this.yellowDeck, period), turn));
-        this.game.getMainBoard().setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
-
-        FamilyMember familyMember = new FamilyMember();
-        this.game.getDices().setValues();
-        familyMember.setMembers(this.game.getDices().getValues());
-        this.game.getPlayer(player.getNickname()).getPersonalBoard().setFamilyMembers(familyMember);
+    public void setupMainBoard(int period, int turn){
+        this.mainBoard.setTower(0, deckForTurn(deckForPeriod(this.greenDeck, period), turn));
+        this.mainBoard.setTower(1, deckForTurn(deckForPeriod(this.blueDeck, period), turn));
+        this.mainBoard.setTower(2, deckForTurn(deckForPeriod(this.yellowDeck, period), turn));
+        this.mainBoard.setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
     }
 
     /**
@@ -157,12 +159,10 @@ import java.util.*;
             gamePlayer.setColor(PlayerColor.valueOf(colors.get(i)));
             gamePlayer.setPersonalBoard(configuration.getPersonalBoard());
             gamePlayer.getPersonalBoard().getValuables().increase(ResourceType.COIN, INITIAL_COINS + i);
-
             this.game.getPlayersMap().put(player.getNickname(), gamePlayer);
             i++;
         }
     }
-
 
     /**
      * This method sorts players randomly.

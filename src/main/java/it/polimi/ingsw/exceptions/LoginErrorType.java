@@ -8,11 +8,11 @@ public enum LoginErrorType {
     /**
      * List of all loginPlayer errors.
      */
-    USER_NOT_EXISTS("User is not registered."),
+    GENERIC_SQL_ERROR("Errore SQL generico"),
     USER_ALREADY_EXISTS("User already registered."),
     USER_ALREADY_LOGGEDIN("User already logged in."),
     USER_WRONG_PASSWORD("Password is wrong."),
-    GENERIC_SQL_ERROR("Errore SQL generico")
+    USER_NOT_EXISTS("Password is wrong.")
     ;
 
     /**

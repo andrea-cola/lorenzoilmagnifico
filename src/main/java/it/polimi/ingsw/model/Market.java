@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+
 /**
  * This class represents the market zone on the main board
  */
-public class Market {
+public class Market implements Serializable{
 
     /**
      * Market cells

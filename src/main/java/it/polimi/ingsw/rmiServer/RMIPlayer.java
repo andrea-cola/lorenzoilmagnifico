@@ -26,6 +26,10 @@ import java.rmi.RemoteException;
         this.rmiClientInterface = rmiClientInterface;
     }
 
+    public void ping() throws RemoteException{
+        rmiClientInterface.ping();
+    }
+
     @Override
     public void sendGameInfo(Game game) throws NetworkException {
         try {

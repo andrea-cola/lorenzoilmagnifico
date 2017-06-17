@@ -1,14 +1,11 @@
 package it.polimi.ingsw.model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
 /**
  * This class represents the personal board abstraction.
  */
-public class PersonalBoard {
+public class PersonalBoard implements Serializable{
 
     private static final int MAX_NUMER_OF_CARD_PER_TYPE = 6;
 
@@ -18,15 +15,9 @@ public class PersonalBoard {
     private PointsAndResources valuables;
 
     /**
-     * bonus
-     */
-    private Map<ActionType, Integer> harvestProductionDiceValueBonus = new HashMap<>();
-    private Map<DevelopmentCardColor, Integer> developmentCardColorDiceValueBonus = new HashMap<>();
-
-    /**
      * Array of available familyMembers;
      */
-    private FamilyMember familyMember;
+    private FamilyMember[] familyMembers;
 
     /**
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
@@ -36,37 +27,16 @@ public class PersonalBoard {
     /**
      * Array of cards, divided per types.
      */
-    private ArrayList<DevelopmentCard> territoryCards = new ArrayList<>();
-    private ArrayList<DevelopmentCard> buildingCards = new ArrayList<>();
-    private ArrayList<DevelopmentCard> characterCards = new ArrayList<>();
-    private ArrayList<DevelopmentCard> ventureCards = new ArrayList<>();
+    private DevelopmentCard[] territoryCards = new DevelopmentCard[MAX_NUMER_OF_CARD_PER_TYPE];
+    private DevelopmentCard[] buildingCards = new DevelopmentCard[MAX_NUMER_OF_CARD_PER_TYPE];
+    private DevelopmentCard[] characterCards = new DevelopmentCard[MAX_NUMER_OF_CARD_PER_TYPE];
+    private DevelopmentCard[] ventureCards = new DevelopmentCard[MAX_NUMER_OF_CARD_PER_TYPE];
 
     /**
      * Personal board tile choosen by the player.
      */
     private PersonalBoardTile personalBoardTile;
 
-    /**
-     * Set family mamber
-     * @param member
-     */
-    public void setFamilyMembers(FamilyMember member){
-        this.familyMember = member;
-    }
-
-    /**
-     * Get family member
-     * @return
-     */
-    public FamilyMember getFamilyMember(){
-        return this.familyMember;
-    }
-
-
-    /**
-     * Set military points needed to place a card in a specific position.
-     * @param array
-     */
     public void setGreenCardsMilitaryPointsRequirements(int[] array){
         greenCardsMilitaryPointsRequirements = array;
     }
@@ -76,14 +46,10 @@ public class PersonalBoard {
      * @param index of position.
      * @return military points needed.
      */
-    public int getGreenCardsMilitaryPointsRequirements(int index){
+    public int getCardsMilitaryPointsRequirements(int index){
         return greenCardsMilitaryPointsRequirements[index];
     }
 
-    /**
-     * Set points and resources
-     * @param pointsAndResources
-     */
     public void setValuables(PointsAndResources pointsAndResources){
         this.valuables = pointsAndResources;
     }
@@ -102,15 +68,16 @@ public class PersonalBoard {
      * @param withCard to set.
      */
     public void setTerritoryCards(int atIndex, DevelopmentCard withCard){
-        this.territoryCards.set(atIndex, withCard);
+        this.territoryCards[atIndex] = withCard;
     }
 
     /**
      * Get a specific territory card from the array.
+     * @param atIndex of array.
      * @return a territory card.
      */
-    public ArrayList<DevelopmentCard> getTerritoryCards(){
-        return this.territoryCards;
+    public DevelopmentCard getTerritoryCard(int atIndex){
+        return this.territoryCards[atIndex];
     }
 
     /**
@@ -119,15 +86,16 @@ public class PersonalBoard {
      * @param withCard to set.
      */
     public void setBuildingCards(int atIndex, DevelopmentCard withCard){
-        this.buildingCards.set(atIndex, withCard);
+        this.buildingCards[atIndex] = withCard;
     }
 
     /**
      * Get a specific building card from the array.
+     * @param atIndex of array.
      * @return a building card.
      */
-    public ArrayList<DevelopmentCard> getBuildingCards(){
-        return this.buildingCards;
+    public DevelopmentCard getBuildingCard(int atIndex){
+        return this.buildingCards[atIndex];
     }
 
     /**
@@ -136,15 +104,16 @@ public class PersonalBoard {
      * @param withCard to set.
      */
     public void setCharacterCards(int atIndex, DevelopmentCard withCard){
-        this.characterCards.set(atIndex, withCard);
+        this.characterCards[atIndex] = withCard;
     }
 
     /**
      * Get a specific character card from the array.
+     * @param atIndex of array.
      * @return a character card.
      */
-    public ArrayList<DevelopmentCard> getCharacterCards(){
-        return this.characterCards;
+    public DevelopmentCard getCharacterCard(int atIndex){
+        return this.characterCards[atIndex];
     }
 
     /**
@@ -153,35 +122,16 @@ public class PersonalBoard {
      * @param withCard to set.
      */
     public void setVentureCards(int atIndex, DevelopmentCard withCard){
-        this.ventureCards.set(atIndex, withCard);
+        this.ventureCards[atIndex] = withCard;
     }
 
     /**
      * Get a specific venture card from the array.
+     * @param atIndex of array.
      * @return a venture card.
      */
-    public ArrayList<DevelopmentCard> getVentureCards(){
-        return this.ventureCards;
-    }
-
-
-    /**
-     *
-     */
-    public void setHarvestProductionDiceValueBonus(ActionType type, Integer value){
-        this.harvestProductionDiceValueBonus.put(type, this.harvestProductionDiceValueBonus.get(type) + value);
-    }
-
-    public Map<ActionType, Integer> getHarvestProductionDiceValueBonus(){
-        return this.harvestProductionDiceValueBonus;
-    }
-
-    public void setDevelopmentCardColorDiceValueBonus(DevelopmentCardColor cardColor, Integer value){
-        this.developmentCardColorDiceValueBonus.put(cardColor, value);
-    }
-
-    public Map<DevelopmentCardColor, Integer> getDevelopmentCardColorDiceValueBonus(){
-        return this.developmentCardColorDiceValueBonus;
+    public DevelopmentCard getVentureCard(int atIndex){
+        return this.ventureCards[atIndex];
     }
 
 }

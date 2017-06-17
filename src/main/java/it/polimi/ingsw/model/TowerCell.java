@@ -2,12 +2,13 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class represents tower cell abstraction.
  */
-public class TowerCell {
+public class TowerCell implements Serializable{
 
     /**
      * Min dice value to place a family member in the cell.

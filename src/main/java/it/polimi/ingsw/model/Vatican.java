@@ -1,11 +1,12 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class represent the vatican abstraction.
  */
-public class Vatican {
+public class Vatican implements Serializable{
 
     /**
      * Array of excommunication cards. Each card is used in only one age.

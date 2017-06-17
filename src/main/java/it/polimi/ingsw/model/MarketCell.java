@@ -3,10 +3,12 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.EffectSimple;
 
+import java.io.Serializable;
+
 /**
  * This class represents a cell abstraction in the market.
  */
-public class MarketCell {
+public class MarketCell implements Serializable{
 
     /**
      * Cell effect.
