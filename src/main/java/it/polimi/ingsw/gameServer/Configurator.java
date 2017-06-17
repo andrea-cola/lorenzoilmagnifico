@@ -61,6 +61,7 @@ public class Configurator {
             gson = new Gson();
             loadRuntimeTypeAdapterFactory();
             parseConfiguration();
+            parseDevelopmentCard();
         } catch(FileNotFoundException e){
             throw new ConfigurationException(e);
         }
@@ -104,12 +105,12 @@ public class Configurator {
      * @return array of cards.
      * @throws FileNotFoundException if file is not found.
      */
-    private ArrayList<DevelopmentCard> parseDevelopmentCard() throws FileNotFoundException{
+    private void parseDevelopmentCard() throws FileNotFoundException{
         GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(effectFactory);;
         gson = builder.create();
         JsonReader reader = new JsonReader(new FileReader(DEVELOPMENT_CARDS_FILE_PATH));
         developmentCards = gson.fromJson(reader, new TypeToken<List<DevelopmentCard>>(){}.getType());
-        return developmentCards;
+        return;
     }
 
     /**

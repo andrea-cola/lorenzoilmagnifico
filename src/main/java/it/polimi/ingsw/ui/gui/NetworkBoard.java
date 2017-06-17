@@ -49,8 +49,7 @@ public class NetworkBoard extends Application {
     }
 
     /**
-     * Contructor for the NetworkBoard
-     *
+     * Constructor for the NetworkBoard
      * @param callback
      */
     public NetworkBoard(NetworkBoardCallback callback) {
@@ -59,7 +58,6 @@ public class NetworkBoard extends Application {
 
     /**
      * The start function inherited by Application represents the structure of the Network board
-     *
      * @param primaryStage is the main container of the application
      * @throws Exception if the main method is not allocated
      */
