@@ -2,12 +2,13 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class represent an extension of action space. More family members can join this space and the effect has a malus to be activated.
  */
-public class ActionSpaceExtended {
+public class ActionSpaceExtended implements Serializable{
 
     /**
      * Type of the area.

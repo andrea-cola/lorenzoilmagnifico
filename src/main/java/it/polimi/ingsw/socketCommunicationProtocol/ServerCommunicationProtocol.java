@@ -99,7 +99,6 @@ public class ServerCommunicationProtocol {
         try{
             String username = (String)input.readObject();
             String password = (String)input.readObject();
-            System.out.println("eccociProtocol");
             try{
                 serverCommunicationProtocolInterface.signInPlayer(username, password);
                 response = CommunicationProtocolConstants.USER_LOGIN_SIGNIN_OK;
@@ -182,6 +181,7 @@ public class ServerCommunicationProtocol {
             output.writeObject(response);
             output.flush();
         } catch (ClassNotFoundException | ClassCastException | RoomException | IOException e){
+            e.printStackTrace();
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error in creation room proceedings.");
         }
     }

@@ -2,10 +2,12 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
 
+import java.io.Serializable;
+
 /**
  * This class represent the personal board tile astraction.
  */
-public class PersonalBoardTile {
+public class PersonalBoardTile implements Serializable{
 
     /**
      * Production immediate effect.

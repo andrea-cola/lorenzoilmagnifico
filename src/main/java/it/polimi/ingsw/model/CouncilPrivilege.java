@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+
 /**
  * This class represent a council privilege.
  */
-public class CouncilPrivilege {
+public class CouncilPrivilege implements Serializable{
 
     /**
      * Number of council privileges.

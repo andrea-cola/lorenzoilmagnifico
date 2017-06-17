@@ -15,8 +15,12 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class extends {@link AbstractServer} to create an RMI server.
@@ -52,6 +56,23 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
         userCache = new HashMap<>();
     }
 
+    private Runnable checkClientsConnection = new Runnable() {
+        public void run() {
+            Iterator iterator = userCache.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry pair = (Map.Entry) iterator.next();
+                ServerPlayer serverPlayer = getPlayer(pair.getKey().toString());
+                try {
+                    serverPlayer.ping();
+                } catch(RemoteException e){
+                    Debugger.printDebugMessage("RMIServer.java", "Connection with the client is down.");
+                    getServer().disableUser(serverPlayer);
+                    userCache.remove(pair.getKey());
+                }
+            }
+        }
+    };
+
     /**
      * Start the RMI Server.
      * @param port to use for the communication.
@@ -60,6 +81,8 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
     public void startServer(int port) throws ServerException{
         registry = createOrLoadRegistry(port);
         publishObject(port);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(checkClientsConnection, 0, 1, TimeUnit.SECONDS);
     }
 
     /**

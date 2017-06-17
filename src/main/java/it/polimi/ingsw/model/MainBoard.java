@@ -3,12 +3,13 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.effects.EffectHarvestProductionSimple;
 import it.polimi.ingsw.model.effects.EffectSimple;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class represents the main board abstraction.
  */
-public class MainBoard {
+public class MainBoard implements Serializable{
 
     /**
      * Array of towers.
@@ -56,8 +57,6 @@ public class MainBoard {
      * Constructor for the main board
      */
     public MainBoard() {
-        //instantiates the 4 towers
-        int i = 0;
         towers = new Tower[4];
     }
 

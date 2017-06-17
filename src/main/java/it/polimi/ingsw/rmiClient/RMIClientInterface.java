@@ -13,4 +13,5 @@ public interface RMIClientInterface extends Remote{
 
     void setGameInfo(Game game) throws RemoteException;
 
+    String ping() throws RemoteException;
 }

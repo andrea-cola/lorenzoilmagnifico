@@ -146,7 +146,6 @@ import java.util.Map;
         this.mainBoard.setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
     }
 
-
     /**
      * Method to setup player color, personal board and increase coin amount following game rules.
      * Then the player is added to Game players map.
@@ -164,8 +163,6 @@ import java.util.Map;
             i++;
         }
     }
-
-
 
     /**
      * This method sorts players randomly.

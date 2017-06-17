@@ -84,6 +84,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
         } catch(LoginException e) {
             throw e;
         } catch(IOException e){
+            e.printStackTrace();
             throw new NetworkException();
         }
     }
@@ -138,5 +139,10 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void setGameInfo(Game game) throws RemoteException {
         getController().setGameModel(game);
+    }
+
+    @Override
+    public String ping() throws RemoteException {
+        return playerID;
     }
 }

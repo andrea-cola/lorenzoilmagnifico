@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+
 /**
  * This class represents the personal board abstraction.
  */
-public class PersonalBoard {
+public class PersonalBoard implements Serializable{
 
     private static final int MAX_NUMER_OF_CARD_PER_TYPE = 6;
 
