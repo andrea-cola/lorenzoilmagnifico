@@ -103,7 +103,6 @@ public class Room {
      * @param time before run the task.
      */
     private void startTimer(long time){
-        resetTimer();
         startGameTimer = new Timer();
         startGameTimer.schedule(new GameHandler(), time);
     }
@@ -112,14 +111,16 @@ public class Room {
      * Method to reset start game timer.
      */
     private void resetTimer(){
-        startGameTimer.cancel();
-        startGameTimer.purge();
+        if(startGameTimer != null) {
+            startGameTimer.cancel();
+            startGameTimer.purge();
+        }
     }
 
     public void rejoinRoom(ServerPlayer serverPlayer){
-        for(ServerPlayer player : players){
-            if(player.getNickname().equals(serverPlayer.getNickname()))
-                player = serverPlayer;
+        for(int i = 0; i < players.size(); i++){
+            if(players.get(i).getNickname().equals(serverPlayer.getNickname()))
+                players.set(i, serverPlayer);
         }
         Debugger.printDebugMessage(serverPlayer.getNickname() + " has rejoined the previous room.");
         //serverPlayer.sendGameInfo(gameManager.game);
@@ -137,6 +138,7 @@ public class Room {
                 players.add(serverPlayer);
                 if(players.size() == maxPlayerNumber){
                     roomOpen = false;
+                    resetTimer();
                     startTimer(IMMEDIATE_START_TIME);
                 }
                 else if(players.size() == MIN_PLAYER_TO_START)
