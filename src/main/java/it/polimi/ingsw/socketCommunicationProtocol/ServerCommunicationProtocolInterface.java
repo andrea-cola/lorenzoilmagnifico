@@ -36,6 +36,6 @@ public interface ServerCommunicationProtocolInterface {
      * @param maxPlayersNumber allowed in the room.
      * @return configuration bundle.
      */
-    Configuration createNewRoom(int maxPlayersNumber);
+    void createNewRoom(int maxPlayersNumber) throws RoomException;
 
 }

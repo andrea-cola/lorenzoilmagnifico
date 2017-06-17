@@ -16,14 +16,15 @@ public class EffectCardBonus extends Effect{
     private DevelopmentCardColor[] colors;
 
     /**
+     * Pick up discount in points and resources.
+     */
+    private PointsAndResources[] pickUpDiscounts;
+
+    /**
      * Dice value bonus.
      */
     private int diceValueBonus;
 
-    /**
-     * Pick up discount in points and resources.
-     */
-    private PointsAndResources[] pickUpDiscounts;
 
     /**
      * Constructor
@@ -81,12 +82,19 @@ public class EffectCardBonus extends Effect{
     }
 
     /**
-     * Method to execute the effect of the card.
+     * Method to run the effect of the card.
      *
      * @param player
      */
     @Override
     public void runEffect(Player player) {
+        for (DevelopmentCardColor color : this.colors){
+            player.getPersonalBoard().setDevelopmentCardColorDiceValueBonus(color, diceValueBonus);
+
+            for (PointsAndResources discount : this.pickUpDiscounts){
+                player.getPersonalBoard().setCostDiscountForDevelopmentCard(color, discount);
+            }
+        }
 
     }
 }

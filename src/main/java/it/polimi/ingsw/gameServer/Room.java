@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gameServer;
 
+import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -8,12 +11,16 @@ import it.polimi.ingsw.server.ServerPlayer;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * This class represent a game room.
  */
 public class Room {
+
+    /**
+     * Room identifier.
+     */
+    private int roomID;
 
     /**
      * Minimum number of player before game can start.
@@ -71,6 +78,8 @@ public class Room {
      */
     private ArrayList<ServerPlayer> players = new ArrayList();
 
+    private Game game;
+
     /**
      * Class constructor.
      * Set max number of player in the room.
@@ -78,12 +87,21 @@ public class Room {
      * Add player in the list.
      * Set room configuration.
      */
-    public Room(ServerPlayer serverPlayer, int number, Configuration configuration){
+    public Room(int id, ServerPlayer serverPlayer, int number, Configuration configuration){
         players = new ArrayList<>();
         roomOpen = true;
         maxPlayerNumber = number;
         players.add(serverPlayer);
         configureGame(configuration);
+        roomID = id;
+    }
+
+    /**
+     * Get room id.
+     * @return room id.
+     */
+    public int getRoomID(){
+        return this.roomID;
     }
 
     /**
@@ -98,10 +116,9 @@ public class Room {
 
     /**
      * Method to start the timer. At the end of set time, a task is executed.
-     * @param time before execute the task.
+     * @param time before run the task.
      */
     private void startTimer(long time){
-        resetTimer();
         startGameTimer = new Timer();
         startGameTimer.schedule(new GameHandler(), time);
     }
@@ -110,8 +127,20 @@ public class Room {
      * Method to reset start game timer.
      */
     private void resetTimer(){
-        startGameTimer.cancel();
-        startGameTimer.purge();
+        if(startGameTimer != null) {
+            startGameTimer.cancel();
+            startGameTimer.purge();
+        }
+    }
+
+    public void rejoinRoom(ServerPlayer serverPlayer){
+        for(int i = 0; i < players.size(); i++){
+            if(players.get(i).getNickname().equals(serverPlayer.getNickname()))
+                players.set(i, serverPlayer);
+        }
+        Debugger.printDebugMessage(serverPlayer.getNickname() + " has rejoined the previous room.");
+        //serverPlayer.sendGameInfo(gameManager.game);
+        //__________________________________
     }
 
     /**
@@ -125,14 +154,25 @@ public class Room {
                 players.add(serverPlayer);
                 if(players.size() == maxPlayerNumber){
                     roomOpen = false;
+                    resetTimer();
                     startTimer(IMMEDIATE_START_TIME);
+                    Debugger.printDebugMessage("Room #" + this.roomID + " starts in " + IMMEDIATE_START_TIME + " seconds.");
                 }
-                else if(players.size() == MIN_PLAYER_TO_START)
+                else if(players.size() == MIN_PLAYER_TO_START) {
                     startTimer(maxWaitingTimeBeforeStart);
+                    Debugger.printDebugMessage("Room #" + this.roomID + " starts in " + maxWaitingTimeBeforeStart/1000 + " seconds.");
+                }
             }
             else
                 throw new RoomException();
         }
+    }
+
+    public boolean userAlreadyJoined(ServerPlayer serverPlayer){
+        for(ServerPlayer player : players)
+            if(player.getNickname().equals(serverPlayer.getNickname()))
+                return true;
+        return false;
     }
 
     /**
@@ -147,7 +187,8 @@ public class Room {
         @Override
         public void run(){
             setupBeforeStartGame();
-            System.out.println("BRAVO ANDREA");
+            sendGameSession();
+            Debugger.printDebugMessage("Game starts in room #" + getRoomID());
         }
 
         /**
@@ -156,6 +197,8 @@ public class Room {
         private void setupBeforeStartGame(){
             lockRoom();
             gameManager = Configurator.buildAndGetGame(players, roomConfiguration);
+            players = gameManager.getStartOrder();
+            game = gameManager.getGameInstance();
             Debugger.printDebugMessage("[Room] : Room closed. Session created. Lorenzo Il Magnifico is starting...");
         }
 
@@ -166,6 +209,19 @@ public class Room {
         private void lockRoom(){
             synchronized (MUTEX){
                 roomOpen = false;
+            }
+        }
+
+        /**
+         * Send to each player information contained in game model.
+         */
+        private void sendGameSession(){
+            for(ServerPlayer player : players) {
+                try {
+                    player.sendGameInfo(game);
+                } catch (NetworkException e) {
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
+                }
             }
         }
 

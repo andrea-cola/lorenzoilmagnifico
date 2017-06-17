@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.CouncilPrivilege;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointsAndResources;
+import it.polimi.ingsw.model.*;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This class represent the immediate simple effect.
@@ -26,18 +27,9 @@ public class EffectSimple extends Effect{
     public EffectSimple(){
         this.valuable = new PointsAndResources();
         this.councilPrivilege = new CouncilPrivilege();
+
         super.effectType = this.getClass().getSimpleName();
     }
-
-    ///////WARNING: These methods are used just to create the cards for JSON, delete them after their creation
-    public void setValuable(PointsAndResources valuable){
-        this.valuable = valuable;
-    }
-
-    public void setCouncilPrivilege(CouncilPrivilege privilege){
-        this.councilPrivilege = privilege;
-    }
-    ////////END WARNING
 
     /**
      * Return points and resources of the effect.
@@ -61,7 +53,15 @@ public class EffectSimple extends Effect{
      */
     @Override
     public void runEffect(Player player){
-        System.out.print("run immediate effect simple");
+        //updates player's resources
+        for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
+
+        //updates player's points
+        for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
     }
 
 }

@@ -5,7 +5,9 @@ import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utility.Configuration;
+import it.polimi.ingsw.utility.Debugger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -56,7 +58,7 @@ public class ClientCommunicationProtocol {
      * Put in the hash map all possible responses and associate method handler.
      */
     private void setupResponsesTable() {
-
+        responseTable.put(CommunicationProtocolConstants.GAME_MODEL, this::receiveGameInfo);
     }
 
     /**
@@ -95,9 +97,7 @@ public class ClientCommunicationProtocol {
             objectOutputStream.writeObject(username);
             objectOutputStream.writeObject(password);
             objectOutputStream.flush();
-            System.out.println("Ciao");
             response = (int)objectInputStream.readObject();
-            System.out.println(response);
         }catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
             throw new NetworkException(e);
@@ -134,21 +134,29 @@ public class ClientCommunicationProtocol {
      * @return configuration bundle.
      * @throws NetworkException if errors occur during room creation or network communication.
      */
-    public Configuration createNewRoom(int maxPlayersNumber) throws NetworkException{
+    public void createNewRoom(int maxPlayersNumber) throws NetworkException{
         Configuration response;
         try{
             objectOutputStream.writeObject(CommunicationProtocolConstants.CREATE_ROOM_REQUEST);
             objectOutputStream.writeObject(maxPlayersNumber);
             objectOutputStream.flush();
-            response = (Configuration)objectInputStream.readObject();
-        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+        } catch (IOException e) {
             throw new NetworkException(e);
         }
-        return response;
+    }
+
+    private void receiveGameInfo() {
+        try {
+            Game game = (Game)objectInputStream.readObject();
+            System.out.println(game.getMainBoard().getTower(1).getTowerCell(0).getDevelopmentCard().getName());
+            clientInterface.setGameModel(game);
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle receive game info request.");
+        }
     }
 
     /**
-     * Handle server response and execute the associated method.
+     * Handle server response and run the associated method.
      * @param object of the response.
      */
     public void handleResponse(Object object) {

@@ -35,7 +35,7 @@ public class Configurator {
     /**
      * Development cards deck.
      */
-    private ArrayList<DevelopmentCard> developmentCards;
+    private static ArrayList<DevelopmentCard> developmentCards;
 
     /**
      * Gson object reference.
@@ -68,6 +68,13 @@ public class Configurator {
     }
 
     /**
+     * This method is called from server to instantiate the singleton.
+     */
+    public static void loadConfigurations() throws ConfigurationException{
+        configurator = new Configurator();
+    }
+
+    /**
      * Load all types of effect.
      */
     private void loadRuntimeTypeAdapterFactory(){
@@ -81,13 +88,6 @@ public class Configurator {
                 .registerSubtype(EffectHarvestProductionSimple.class, "EffectHarvestProductionSimple")
                 .registerSubtype(EffectMultiplicator.class, "EffectMultiplicator")
                 .registerSubtype(EffectNoBonus.class, "EffectNoBonus");
-    }
-
-    /**
-     * This method is called from server to instantiate the singleton.
-     */
-    public static void loadConfigurations() throws ConfigurationException{
-        configurator = new Configurator();
     }
 
     /**
@@ -110,7 +110,6 @@ public class Configurator {
         gson = builder.create();
         JsonReader reader = new JsonReader(new FileReader(DEVELOPMENT_CARDS_FILE_PATH));
         developmentCards = gson.fromJson(reader, new TypeToken<List<DevelopmentCard>>(){}.getType());
-        return;
     }
 
     /**
@@ -121,8 +120,9 @@ public class Configurator {
         return configuration;
     }
 
-    public static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
-        return null;
+    /*package-local*/ static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
+        GameManager gameManager = new GameManager(roomPlayers, configuration, developmentCards);
+        return gameManager;
     }
 
 }

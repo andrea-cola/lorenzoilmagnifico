@@ -18,7 +18,7 @@ public class Player implements Serializable{
     /**
      * SocketPlayer color.
      */
-    private Color color;
+    private PlayerColor color;
 
     /**
      * Online flag show if the player is online or not.
@@ -29,21 +29,28 @@ public class Player implements Serializable{
      * Class constructor.
      */
     protected Player(){
-        super();
-        this.personalBoard = new PersonalBoard();
-    }
-
-    public void setPersonalBoard(){
 
     }
 
+    /**
+     * Set player personal board.
+     * @param personalBoard
+     */
+    public void setPersonalBoard(PersonalBoard personalBoard){
+        this.personalBoard = personalBoard;
+    }
+
+    /**
+     * Get player personal board.
+     * @return
+     */
     public PersonalBoard getPersonalBoard(){
         return this.personalBoard;
     }
 
     /**
      * Method to set player nickname.
-     * @param nickname
+     * @param nickname of the player
      */
     public void setNickname(String nickname){
         this.nickname = nickname;
@@ -51,10 +58,9 @@ public class Player implements Serializable{
 
     /**
      * Method to get player nickname.
-     * @param nickname
      * @return
      */
-    public String getNickname(String nickname){
+    public String getNickname(){
         return nickname;
     }
 
@@ -62,7 +68,7 @@ public class Player implements Serializable{
      * Method to set player color.
      * @param color
      */
-    public void setColor(Color color){
+    public void setColor(PlayerColor color){
         this.color = color;
     }
 
@@ -70,7 +76,7 @@ public class Player implements Serializable{
      * Method to get player color.
      * @return
      */
-    public Color getColor(){
+    public PlayerColor getColor(){
         return color;
     }
 

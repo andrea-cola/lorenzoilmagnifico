@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
+
+import java.io.Serializable;
 import java.util.LinkedList;
 import it.polimi.ingsw.model.effects.Effect;
 import java.util.LinkedList;
@@ -8,7 +10,7 @@ import java.util.LinkedList;
 /**
  * This class represents the council palace abstraction.
  */
-public class CouncilPalace {
+public class CouncilPalace implements Serializable{
 
     /**
      * Min dice value of family member to be placed in the council.

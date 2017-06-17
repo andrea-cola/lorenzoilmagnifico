@@ -60,8 +60,9 @@ import java.sql.*;
             } catch (SQLException e) {
                 throw new LoginException(LoginErrorType.GENERIC_SQL_ERROR);
             }
-        else
+        else {
             throw new LoginException(LoginErrorType.USER_ALREADY_EXISTS);
+        }
     }
 
     /**
@@ -109,6 +110,19 @@ import java.sql.*;
         }catch(SQLException e){
             throw new LoginException(LoginErrorType.GENERIC_SQL_ERROR);
         }
+    }
+
+    /*package-local*/ void showPlayers(){
+        String query = "SELECT * FROM users";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next())
+                System.out.println(resultSet.getString("username") + " " + resultSet.getString("password"));
+        } catch (SQLException e) {
+
+        }
+
     }
 
 }

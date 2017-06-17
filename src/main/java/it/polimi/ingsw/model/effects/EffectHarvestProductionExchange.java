@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.ActionType;
-import it.polimi.ingsw.model.CouncilPrivilege;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointsAndResources;
+import it.polimi.ingsw.model.*;
+
+import java.util.Map;
 
 /**
  * This class represent the effect that exchange resources and points with more options.
@@ -36,6 +35,7 @@ public class EffectHarvestProductionExchange extends Effect{
     private CouncilPrivilege councilPrivilege;
 
     public EffectHarvestProductionExchange(){
+
         super.effectType = this.getClass().getSimpleName();
     }
 
@@ -114,11 +114,36 @@ public class EffectHarvestProductionExchange extends Effect{
     }
 
     /**
-     * Method to execute the effect of the card.
+     * Method to run the effect of the card.
      * @param player that takes advatange of the effect.
      */
     @Override
     public void runEffect(Player player) {
+        //lancio notifica con observer il cui scopo è recepire la scelta dell'utente su quale effetto eseguire (intero)
+        int choice = 0;
 
+        //PAY
+        //updates player's resources
+        for (Map.Entry<ResourceType, Integer> entry: this.valuableToPay[choice].getResources().entrySet()) {
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), entry.getValue());
+        }
+
+        //updates player's points
+        for (Map.Entry<PointType, Integer> entry: this.valuableToPay[choice].getPoints().entrySet()) {
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), entry.getValue());
+        }
+
+        //EARN
+        //updates player's resources
+        for (Map.Entry<ResourceType, Integer> entry: this.valuableEarned[choice].getResources().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
+
+        //updates player's points
+        for (Map.Entry<PointType, Integer> entry: this.valuableEarned[choice].getPoints().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
     }
+
+
 }

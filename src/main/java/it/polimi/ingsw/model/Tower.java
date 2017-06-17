@@ -3,12 +3,13 @@ package it.polimi.ingsw.model;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class represents tower abstraction.
  */
-public class Tower {
+public class Tower implements Serializable{
 
     /**
      * Color of the tower. It specifies the type of the contained.
@@ -58,7 +59,7 @@ public class Tower {
      */
     public boolean isFree(){
         for(TowerCell cell : this.towerCells)
-            if (!cell.isEmpty())
+            if (!cell.getEmpty())
                 return false;
         return true;
     }

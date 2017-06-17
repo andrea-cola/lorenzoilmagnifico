@@ -86,8 +86,8 @@ public class Writer {
         String tmp = gson.toJson(configuration);
 
         try{
-            FileOutputStream os=new FileOutputStream("src/main/resources/configFiles/configuration.json",true);
-            BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(os));
+            FileOutputStream os = new FileOutputStream("src/main/resources/configFiles/configuration.json",true);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
             bw.append(tmp);
             bw.close();
         } catch(IOException e){

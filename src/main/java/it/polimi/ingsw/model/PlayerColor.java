@@ -1,27 +1,49 @@
 package it.polimi.ingsw.model;
 
+import java.util.*;
+
 /**
  * This enumeration represents the possible colors of the player board
  */
-public enum  PlayerColor {
+public enum PlayerColor {
 
     /**
      * Green
      */
-    GREEN,
+    GREEN("green"),
 
     /**
      * Blue
      */
-    BLUE,
+    BLUE("blue"),
 
     /**
      * Yellow
      */
-    YELLOW,
+    YELLOW("yellow"),
 
     /**
      * Red
      */
-    RED
+    RED("red");
+
+    /**
+     * Enumeration message.
+     */
+    private final String color;
+
+    PlayerColor(String color) {
+        this.color = color;
+    }
+
+    public String toString(){
+        return this.color;
+    }
+
+    public static HashMap<String, PlayerColor> getHashMap(){
+        HashMap<String, PlayerColor> colorHashMap = new HashMap<>();
+        for(PlayerColor playerColor : PlayerColor.values())
+            colorHashMap.put(playerColor.toString(), playerColor);
+        return colorHashMap;
+    }
 }

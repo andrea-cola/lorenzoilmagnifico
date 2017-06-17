@@ -25,4 +25,10 @@ package it.polimi.ingsw.socketCommunicationProtocol;
     /*package-local*/ static final int ROOM_JOINED = 7;
     /*package-local*/ static final int NO_ROOM_AVAILABLE = 8;
 
+
+    /**
+     * Requests from server to client.
+     */
+    /*package-local*/ static final String GAME_MODEL = "GameModel";
+
 }

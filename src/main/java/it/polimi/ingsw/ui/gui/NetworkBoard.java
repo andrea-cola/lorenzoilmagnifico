@@ -1,7 +1,9 @@
 package it.polimi.ingsw.ui.gui;
 
 
+import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.ui.cli.ConnectionType;
+import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
@@ -137,7 +139,11 @@ public class NetworkBoard extends Application {
                 port = 3031;
                 break;
         }
-        this.callback.setNetworkSettings(connectionType, address, port);
+        try {
+            this.callback.setNetworkSettings(connectionType, address, port);
+        } catch (ConnectionException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error during connection.");
+        }
     }
 }
 
@@ -152,5 +158,5 @@ interface NetworkBoardCallback {
     * @param address     is the network address
     * @param port        is the network port
     */
-    void setNetworkSettings(ConnectionType connectionType, String address, int port);
+    void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException;
  }

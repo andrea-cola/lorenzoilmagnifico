@@ -1,12 +1,13 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * This class is used to manage amounts of resources and points.
  */
-public class PointsAndResources {
+public class PointsAndResources implements Serializable{
 
     /**
      * Map of resources.
@@ -69,6 +70,7 @@ public class PointsAndResources {
     public void decrease(PointType type, Integer value){
         this.points.put(type, this.points.get(type) - value);
     }
+
 
     /**
      * Method to get the resources map.

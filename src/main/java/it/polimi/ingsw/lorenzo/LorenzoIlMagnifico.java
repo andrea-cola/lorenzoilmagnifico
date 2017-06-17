@@ -1,21 +1,21 @@
 package it.polimi.ingsw.lorenzo;
 
+import it.polimi.ingsw.exceptions.*;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.ui.cli.LoginSignInScreen;
+import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
-import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.rmiClient.RMIClient;
 import it.polimi.ingsw.socketClient.SocketClient;
 import it.polimi.ingsw.ui.cli.CommandLineInterface;
 import it.polimi.ingsw.ui.cli.ConnectionType;
 import it.polimi.ingsw.ui.gui.GraphicUserInterface;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 
 /**
  * This is the basic game class that runs the main function; it implements the two interfaces UiController and
@@ -25,21 +25,21 @@ import java.io.PrintWriter;
 
     private String username;
 
-    //private UiHandler uiHandler;
-
     private AbstractUI userInterface;
 
-    private BufferedReader keyboard= new BufferedReader(new InputStreamReader(System.in));
-
-    private PrintWriter console=new PrintWriter(new OutputStreamWriter(System.out));
-
     private AbstractClient client;
+
+    /**
+     * Represent game model.
+     */
+    private Game game;
 
     /**
      * Class constructor. A new user interface is created.
      * @param ui index of the preferred interface.
      */
     public LorenzoIlMagnifico(int ui) {
+
         switch (ui){
             case 1:
                 userInterface = new CommandLineInterface(this);
@@ -64,7 +64,7 @@ import java.io.PrintWriter;
      * @param port network port.
      */
     @Override
-    public void setNetworkSettings(ConnectionType connectionType, String address, int port) {
+    public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException{
         switch (connectionType){
             case SOCKET:
                 client = new SocketClient(this, address, port);
@@ -75,122 +75,66 @@ import java.io.PrintWriter;
             default:
                 throw new IllegalArgumentException();
         }
-        userInterface.showLoginMenu();
+        client.connectToServer();
+        userInterface.loginScreen();
     }
 
     @Override
-    public void loginPlayer(String username, String password) {
-        console.println("We are trying to log you, mr. " + username);
+    public void loginPlayer(String username, String password, boolean flag) {
         try{
+            if(flag)
+                client.signInPlayer(username, password);
             client.loginPlayer(username, password);
-            this.username=username;
-            joinRoom();
-        }catch (NetworkException e) {
-            Debugger.printDebugMessage(this.getClass().getName(), e);
+            this.username = username;
+            userInterface.joinRoomScreen();
+        }catch (LoginException e) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getError().toString());
+            userInterface.loginScreen();
+        }catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
         }
     }
 
     @Override
-    public void joinRoom(){    }
-
-    public void setRoom(int maxPlayer){
-
-
-    }
-
-
-    @Override
-    public boolean socket() {
-        return false;
-    }
-
-    @Override
-    public String getNickname() {
-        return username;
+    public void joinRoom(){
+        try{
+            client.joinRoom();
+        }catch (RoomException e) {
+            Debugger.printStandardMessage("No rooms available. Create new one.");
+            userInterface.createRoomScreen();
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+        }
     }
 
     @Override
-    public boolean existPlayer() {
-        return false;
-    }
-
-    public void setRoom() {
-
-    }
-
-
-    @Override
-    public boolean simpleGame() {
-        return false;
+    public void createRoom(int maxPlayers) {
+        try {
+            client.createNewRoom(maxPlayers);
+        } catch (RoomException e) {
+            Debugger.printDebugMessage("You're added in another room created by other player meanwhile.");
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+        }
     }
 
     @Override
-    public void setPlayers() {
-
+    public void setGameModel(Game game) {
+        this.game = game;
+        printGame();
+        Debugger.printDebugMessage("Game started.");
     }
 
-    @Override
-    public void setMainBoard() {
-
+    public void printGame(){
+        System.out.println("Mainboard");
+        try {
+            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(0).getDevelopmentCard().getName());
+            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(1).getDevelopmentCard().getName());
+            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(2).getDevelopmentCard().getName());
+            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(3).getDevelopmentCard().getName());
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public void setTower() {
-
-    }
-
-    @Override
-    public void setCouncilPalace() {
-
-    }
-
-    @Override
-    public void setMarket() {
-
-    }
-
-    @Override
-    public void setHarverst() {
-
-    }
-
-    @Override
-    public void setProduction() {
-
-    }
-
-    @Override
-    public void setDice() {
-
-    }
-
-    @Override
-    public void setPlayerBoard() {
-
-    }
-
-    @Override
-    public void setPersonalBonusTile() {
-
-    }
-
-    @Override
-    public void setDevelopmentCard() {
-
-    }
-
-    @Override
-    public void setLeaderCard() {
-
-    }
-
-    @Override
-    public boolean occupiedActionSpace() {
-        return false;
-    }
-
-    @Override
-    public boolean occupiedTower() {
-        return false;
-    }
 }

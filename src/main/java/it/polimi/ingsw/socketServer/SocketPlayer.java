@@ -1,5 +1,7 @@
 package it.polimi.ingsw.socketServer;
 
+import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -69,6 +71,7 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
             }
         }catch(IOException | ClassNotFoundException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Connection with the client is down.");
+            serverInterface.disableUser(this);
         }finally{
             closeConnections(objectInputStream, objectOutputStream, socketClient);
         }
@@ -111,8 +114,13 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
      * @return configuration bundle.
      */
     @Override
-    public Configuration createNewRoom(int maxPlayersNumber){
-        return serverInterface.createNewRoom(this, maxPlayersNumber);
+    public void createNewRoom(int maxPlayersNumber) throws RoomException{
+        serverInterface.createNewRoom(this, maxPlayersNumber);
+    }
+
+    @Override
+    public void sendGameInfo(Game game) throws NetworkException {
+        socketCommunicationProtocol.sendGameInfo(game);
     }
 
     /**

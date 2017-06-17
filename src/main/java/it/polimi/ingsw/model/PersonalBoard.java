@@ -1,9 +1,14 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class represents the personal board abstraction.
  */
-public class PersonalBoard {
+public class PersonalBoard implements Serializable{
 
     private static final int MAX_NUMER_OF_CARD_PER_TYPE = 6;
 
@@ -13,9 +18,20 @@ public class PersonalBoard {
     private PointsAndResources valuables;
 
     /**
+     * bonus: save the bonus dice values for harvest, production, cards
+     */
+    private Map<ActionType, Integer> harvestProductionDiceValueBonus = new HashMap<>();
+    private Map<DevelopmentCardColor, Integer> developmentCardColorDiceValueBonus = new HashMap<>();
+
+    /**
+     * discounts: save the discount cost for development cards
+     */
+    private Map<DevelopmentCardColor, PointsAndResources> costDiscountForDevelopmentCard = new HashMap<>();
+
+    /**
      * Array of available familyMembers;
      */
-    private FamilyMember[] familyMembers;
+    private FamilyMember familyMember;
 
     /**
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
@@ -25,16 +41,37 @@ public class PersonalBoard {
     /**
      * Array of cards, divided per types.
      */
-    private DevelopmentCard[] territoryCards = new DevelopmentCard[MAX_NUMER_OF_CARD_PER_TYPE];
-    private DevelopmentCard[] buildingCards = new DevelopmentCard[MAX_NUMER_OF_CARD_PER_TYPE];
-    private DevelopmentCard[] characterCards = new DevelopmentCard[MAX_NUMER_OF_CARD_PER_TYPE];
-    private DevelopmentCard[] ventureCards = new DevelopmentCard[MAX_NUMER_OF_CARD_PER_TYPE];
+    private ArrayList<DevelopmentCard> territoryCards = new ArrayList<>();
+    private ArrayList<DevelopmentCard> buildingCards = new ArrayList<>();
+    private ArrayList<DevelopmentCard> characterCards = new ArrayList<>();
+    private ArrayList<DevelopmentCard> ventureCards = new ArrayList<>();
 
     /**
      * Personal board tile choosen by the player.
      */
     private PersonalBoardTile personalBoardTile;
 
+    /**
+     * Set family mamber
+     * @param member
+     */
+    public void setFamilyMembers(FamilyMember member){
+        this.familyMember = member;
+    }
+
+    /**
+     * Get family member
+     * @return
+     */
+    public FamilyMember getFamilyMember(){
+        return this.familyMember;
+    }
+
+
+    /**
+     * Set military points needed to place a card in a specific position.
+     * @param array
+     */
     public void setGreenCardsMilitaryPointsRequirements(int[] array){
         greenCardsMilitaryPointsRequirements = array;
     }
@@ -44,10 +81,32 @@ public class PersonalBoard {
      * @param index of position.
      * @return military points needed.
      */
-    public int getCardsMilitaryPointsRequirements(int index){
+    public int getGreenCardsMilitaryPointsRequirements(int index){
         return greenCardsMilitaryPointsRequirements[index];
     }
 
+
+    public void addCard(DevelopmentCard card){
+        switch (card.getColor()){
+            case GREEN:
+                this.territoryCards.add(card);
+                break;
+            case YELLOW:
+                this.buildingCards.add(card);
+                break;
+            case BLUE:
+                this.characterCards.add(card);
+                break;
+            case PURPLE:
+                this.ventureCards.add(card);
+                break;
+        }
+    }
+
+    /**
+     * Set points and resources
+     * @param pointsAndResources
+     */
     public void setValuables(PointsAndResources pointsAndResources){
         this.valuables = pointsAndResources;
     }
@@ -61,75 +120,116 @@ public class PersonalBoard {
     }
 
     /**
-     * Set territory card.
-     * @param atIndex of array.
-     * @param withCard to set.
+     * Add territory card
+     * @param card
      */
-    public void setTerritoryCards(int atIndex, DevelopmentCard withCard){
-        this.territoryCards[atIndex] = withCard;
+    public void addTerritoryCard(DevelopmentCard card){
+        this.territoryCards.add(card);
     }
 
     /**
      * Get a specific territory card from the array.
-     * @param atIndex of array.
      * @return a territory card.
      */
-    public DevelopmentCard getTerritoryCard(int atIndex){
-        return this.territoryCards[atIndex];
+    public ArrayList<DevelopmentCard> getTerritoryCards(){
+        return this.territoryCards;
     }
 
     /**
-     * Set a building card.
-     * @param atIndex of array.
-     * @param withCard to set.
+     * Add building card
+     * @param card
      */
-    public void setBuildingCards(int atIndex, DevelopmentCard withCard){
-        this.buildingCards[atIndex] = withCard;
+    public void addBuildingCard(DevelopmentCard card){
+        this.buildingCards.add(card);
     }
 
     /**
      * Get a specific building card from the array.
-     * @param atIndex of array.
      * @return a building card.
      */
-    public DevelopmentCard getBuildingCard(int atIndex){
-        return this.buildingCards[atIndex];
+    public ArrayList<DevelopmentCard> getBuildingCards(){
+        return this.buildingCards;
     }
 
     /**
-     * Set a character card.
-     * @param atIndex of array.
-     * @param withCard to set.
+     * Add character card
+     * @param card
      */
-    public void setCharacterCards(int atIndex, DevelopmentCard withCard){
-        this.characterCards[atIndex] = withCard;
+    public void addCharacterCard(DevelopmentCard card){
+        this.characterCards.add(card);
     }
 
     /**
      * Get a specific character card from the array.
-     * @param atIndex of array.
      * @return a character card.
      */
-    public DevelopmentCard getCharacterCard(int atIndex){
-        return this.characterCards[atIndex];
+    public ArrayList<DevelopmentCard> getCharacterCards(){
+        return this.characterCards;
     }
 
     /**
-     * Set a venture card.
-     * @param atIndex of array.
-     * @param withCard to set.
+     * Add venture card
+     * @param card
      */
-    public void setVentureCards(int atIndex, DevelopmentCard withCard){
-        this.ventureCards[atIndex] = withCard;
+    public void addVentureCard(DevelopmentCard card){
+        this.ventureCards.add(card);
     }
 
     /**
      * Get a specific venture card from the array.
-     * @param atIndex of array.
      * @return a venture card.
      */
-    public DevelopmentCard getVentureCard(int atIndex){
-        return this.ventureCards[atIndex];
+    public ArrayList<DevelopmentCard> getVentureCards(){
+        return this.ventureCards;
     }
 
+
+    /**
+     * Set the dice bonus value for harvest and production zones
+     */
+    public void setHarvestProductionDiceValueBonus(ActionType type, Integer value){
+        this.harvestProductionDiceValueBonus.put(type, this.harvestProductionDiceValueBonus.get(type) + value);
+    }
+
+    /**
+     * Get the dice bonus value for harvest and production zones
+     * @return
+     */
+    public Map<ActionType, Integer> getHarvestProductionDiceValueBonus(){
+        return this.harvestProductionDiceValueBonus;
+    }
+
+    /**
+     * Set the dice development card bonus value based on card's color
+     * @param cardColor
+     * @param value
+     */
+    public void setDevelopmentCardColorDiceValueBonus(DevelopmentCardColor cardColor, Integer value){
+        this.developmentCardColorDiceValueBonus.put(cardColor, this.developmentCardColorDiceValueBonus.get(cardColor) + value);
+    }
+
+    /**
+     * Get the dice development card bonus value based on card's color
+     * @return
+     */
+    public Map<DevelopmentCardColor, Integer> getDevelopmentCardColorDiceValueBonus(){
+        return this.developmentCardColorDiceValueBonus;
+    }
+
+    /**
+     * Set the cost discount value for a particular type of development cards
+     * @param cardColor
+     * @param valuables
+     */
+    public void setCostDiscountForDevelopmentCard(DevelopmentCardColor cardColor, PointsAndResources valuables){
+        this.costDiscountForDevelopmentCard.put(cardColor, valuables);
+    }
+
+    /**
+     * Get the cost discount value for a particular type of development cards
+     * @return
+     */
+    public Map<DevelopmentCardColor, PointsAndResources> getCostDiscountForDevelopmentCard(){
+        return this.costDiscountForDevelopmentCard;
+    }
 }

@@ -13,6 +13,7 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.rmiServer.RMIServerInterface;
 import it.polimi.ingsw.utility.Configuration;
 
@@ -83,6 +84,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
         } catch(LoginException e) {
             throw e;
         } catch(IOException e){
+            e.printStackTrace();
             throw new NetworkException();
         }
     }
@@ -107,11 +109,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
      * @throws NetworkException
      */
     @Override
-    public void joinRoom() throws NetworkException {
+    public void joinRoom() throws RoomException, NetworkException {
         try{
             server.joinFirstRoom(playerID);
-        }catch(IOException | RoomException e) {
-            throw new NetworkException(e);
+        }catch(RoomException e) {
+            throw new RoomException();
+        }catch(IOException e){
+            throw new NetworkException();
         }
     }
 
@@ -122,12 +126,23 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
      * @return configuration bundle that contains all default configurations.
      */
     @Override
-    public Configuration createNewRoom(int maxPlayersNumber) throws NetworkException {
+    public void createNewRoom(int maxPlayersNumber) throws RoomException, NetworkException {
         try {
-            return server.createNewRoom(playerID, maxPlayersNumber);
-        } catch (IOException e){
+            server.createNewRoom(playerID, maxPlayersNumber);
+        } catch (RoomException e){
+            throw e;
+        }catch (IOException e){
             throw new NetworkException();
         }
     }
 
+    @Override
+    public void setGameInfo(Game game) throws RemoteException {
+        getController().setGameModel(game);
+    }
+
+    @Override
+    public String ping() throws RemoteException {
+        return playerID;
+    }
 }

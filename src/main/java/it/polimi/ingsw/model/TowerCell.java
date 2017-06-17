@@ -2,12 +2,13 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * This class represents tower cell abstraction.
  */
-public class TowerCell {
+public class TowerCell implements Serializable{
 
     /**
      * Min dice value to place a family member in the cell.
@@ -27,7 +28,12 @@ public class TowerCell {
     /**
      * Family member that could be placed in the cell.
      */
-    private ArrayList<FamilyMember> familyMembers;
+    private FamilyMember familyMember;
+
+    /**
+     * Boolean value that checks if the cell is empty
+     */
+    private Boolean empty = true;
 
     /**
      * Set immediate effect of the cell.
@@ -66,17 +72,7 @@ public class TowerCell {
      * @param familyMember to be placed.
      */
     public void setFamilyMember(FamilyMember familyMember){
-        this.familyMembers.add(familyMember);
-    }
-
-    /**
-     * Check if there is another family member placed in the cell.
-     * @return a boolean.
-     */
-    public boolean isEmpty(){
-        if(familyMembers.isEmpty())
-            return true;
-        return false;
+        this.familyMember = familyMember;
     }
 
     /**
@@ -95,4 +91,30 @@ public class TowerCell {
         return this.minFamilyMemberValue;
     }
 
+
+    public Boolean getEmpty(){
+        return this.empty;
+    }
+
+    public void setEmpty(Boolean updatedValue){
+        this.empty = updatedValue;
+    }
+
+
+    public Boolean familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor){
+        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) > this.minFamilyMemberValue){
+            return true;
+        }
+        return false;
+    }
+
+
+    public Boolean developmentCardCanBeBuyedBy(Player player){
+        for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
+            if (this.developmentCard.getCost().getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())){
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -56,9 +56,14 @@ public class Server implements ServerInterface{
     private DBServer dbServer;
 
     /**
-     * Map of all logged in players
+     * Map of all logged in players.
      */
     private HashMap<String, ServerPlayer> players;
+
+    /**
+     * Map of all logged and active players.
+     */
+    private HashMap<String, Boolean> activePlayer;
 
     /**
      * Room list.
@@ -77,6 +82,7 @@ public class Server implements ServerInterface{
         rmiServer = new RMIServer(this);
         socketServer = new SocketServer(this);
         players = new HashMap<String, ServerPlayer>();
+        activePlayer = new HashMap<String, Boolean>();
         rooms = new ArrayList<Room>();
         dbServer = new DBServer();
         configure();
@@ -91,7 +97,10 @@ public class Server implements ServerInterface{
             Server server = new Server();
             server.startSocketRMIServer(SOCKET_PORT, RMI_PORT);
             server.startDatabase();
-            Debugger.printStandardMessage("Socket server ready.\nRMI server ready.\nSQL server ready.");
+            Debugger.printStandardMessage("Socket server ready.");
+            Debugger.printStandardMessage("RMI server ready.");
+            Debugger.printStandardMessage("SQL server ready.");
+            server.dbServer.showPlayers();
         } catch(ServerException | SQLException e){
             Debugger.printDebugMessage("Server.java", "Error while starting the server.", e);
         }
@@ -153,15 +162,27 @@ public class Server implements ServerInterface{
     @Override
     public void loginPlayer(ServerPlayer player, String username, String password) throws LoginException{
         synchronized (LOGIN_SIGNIN_MUTEX) {
-            if(!players.containsKey(username)) {
+            if(!players.containsKey(username) || (players.containsKey(username) && !activePlayer.get(username))) {
                 dbServer.loginPlayer(username, password);
                 player.setNickname(username);
                 players.put(username, player);
+                activePlayer.put(username, true);
             }
             else
                 throw new LoginException(LoginErrorType.USER_ALREADY_LOGGEDIN);
 
         }
+    }
+
+    /**
+     * This function disable the user when he goes down.
+     * @param player that goes down.
+     */
+    @Override
+    public void disableUser(ServerPlayer player){
+        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getNickname() + " is disabled.");
+        if(activePlayer.containsKey(player.getNickname()))
+            this.activePlayer.put(player.getNickname(), false);
     }
 
     /**
@@ -180,17 +201,26 @@ public class Server implements ServerInterface{
      * @throws RoomException if error occurs.
      */
     @Override
-    public void joinRoom(ServerPlayer serverPlayer) throws RoomException{
+    public void joinRoom(ServerPlayer serverPlayer) throws RoomException {
+        Room playerRoom = null;
+        for (Room room : rooms){
+            if (room.userAlreadyJoined(serverPlayer)) {
+                playerRoom = room;
+            }
+        }
         synchronized (JOIN_ROOM_MUTEX){
-            Room room;
-            if(!rooms.isEmpty()){
-                room = rooms.get(rooms.size() - 1);
-                room.joinRoom(serverPlayer);
-                serverPlayer.setRoom(room);
+            if(playerRoom != null) {
+                playerRoom.rejoinRoom(serverPlayer);
+                serverPlayer.setRoom(playerRoom);
+                Debugger.printDebugMessage(serverPlayer.getNickname() + " rejoined in room #" + playerRoom.getRoomID());
             }
-            else {
+            else if(!rooms.isEmpty()) {
+                playerRoom = rooms.get(rooms.size() - 1);
+                playerRoom.joinRoom(serverPlayer);
+                serverPlayer.setRoom(playerRoom);
+                Debugger.printDebugMessage(serverPlayer.getNickname() + " joined in room #" + playerRoom.getRoomID());
+            } else
                 throw new RoomException("There are no rooms available!");
-            }
         }
     }
 
@@ -201,13 +231,25 @@ public class Server implements ServerInterface{
      * @return configuration object.
      */
     @Override
-    public Configuration createNewRoom(ServerPlayer serverPlayer, int maxPlayers) {
+    public void createNewRoom(ServerPlayer serverPlayer, int maxPlayers) throws RoomException{
         synchronized (JOIN_ROOM_MUTEX){
-            Configuration configuration = Configurator.getConfiguration();
-            Room room = new Room(serverPlayer, maxPlayers, configuration);
-            rooms.add(room);
-            serverPlayer.setRoom(room);
-            return configuration;
+            boolean flag = false;
+            try{
+                joinRoom(serverPlayer);
+                flag = true;
+            }
+            catch(RoomException e) {
+                Debugger.printStandardMessage(serverPlayer.getNickname() + " is creating a new room.");
+            }
+            if(!flag){
+                Configuration configuration = Configurator.getConfiguration();
+                Room room = new Room(rooms.size() + 1, serverPlayer, maxPlayers, configuration);
+                rooms.add(room);
+                serverPlayer.setRoom(room);
+            }
+            else {
+                throw new RoomException();
+            }
         }
     }
 

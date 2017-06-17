@@ -4,10 +4,12 @@ import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.EffectFinalPoints;
 import it.polimi.ingsw.model.effects.EffectSimple;
 
+import java.io.Serializable;
+
 /**
  * This class represent the abstraction of the development card.
  */
-public class DevelopmentCard {
+public class DevelopmentCard implements Serializable{
 
     /**
      * Name of the card.

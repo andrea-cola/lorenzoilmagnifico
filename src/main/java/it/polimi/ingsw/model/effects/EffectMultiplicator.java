@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.ActionType;
-import it.polimi.ingsw.model.DevelopmentCardColor;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointsAndResources;
+import it.polimi.ingsw.model.*;
+
+import java.util.Map;
 
 /**
  * This class represent a multiplicator effect. This type of method allow the player
@@ -148,11 +147,47 @@ public class EffectMultiplicator extends Effect{
 
 
     /**
-     * Method to execute the effect of the card.
+     * Method to run the effect of the card.
      * @param player that takes advantage of the effect.
      */
     @Override
     public void runEffect(Player player) {
+
+        //Set multiplicator value
+        Integer multiplicatorValue = new Integer(0);
+
+        //check if the multiplicator object is a card or a resource/point
+        if (this.cardOrResources){
+            //card
+            switch (this.cardColorRequisite){
+                case GREEN:
+                    multiplicatorValue = player.getPersonalBoard().getTerritoryCards().size();
+                    break;
+                case YELLOW:
+                    multiplicatorValue = player.getPersonalBoard().getBuildingCards().size();
+                    break;
+                case BLUE:
+                    multiplicatorValue = player.getPersonalBoard().getCharacterCards().size();
+                    break;
+                case PURPLE:
+                    multiplicatorValue = player.getPersonalBoard().getVentureCards().size();
+                    break;
+            }
+        }else{
+            //resource
+
+        }
+
+        //run effect
+        //updates player's resources
+        for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
+        }
+
+        //updates player's points
+        for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()){
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
+        }
 
     }
 }
