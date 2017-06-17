@@ -18,10 +18,15 @@ public class PersonalBoard implements Serializable{
     private PointsAndResources valuables;
 
     /**
-     * bonus
+     * bonus: save the bonus dice values for harvest, production, cards
      */
     private Map<ActionType, Integer> harvestProductionDiceValueBonus = new HashMap<>();
     private Map<DevelopmentCardColor, Integer> developmentCardColorDiceValueBonus = new HashMap<>();
+
+    /**
+     * discounts: save the discount cost for development cards
+     */
+    private Map<DevelopmentCardColor, PointsAndResources> costDiscountForDevelopmentCard = new HashMap<>();
 
     /**
      * Array of available familyMembers;
@@ -80,6 +85,24 @@ public class PersonalBoard implements Serializable{
         return greenCardsMilitaryPointsRequirements[index];
     }
 
+
+    public void addCard(DevelopmentCard card){
+        switch (card.getColor()){
+            case GREEN:
+                this.territoryCards.add(card);
+                break;
+            case YELLOW:
+                this.buildingCards.add(card);
+                break;
+            case BLUE:
+                this.characterCards.add(card);
+                break;
+            case PURPLE:
+                this.ventureCards.add(card);
+                break;
+        }
+    }
+
     /**
      * Set points and resources
      * @param pointsAndResources
@@ -97,12 +120,11 @@ public class PersonalBoard implements Serializable{
     }
 
     /**
-     * Set territory card.
-     * @param atIndex of array.
-     * @param withCard to set.
+     * Add territory card
+     * @param card
      */
-    public void setTerritoryCards(int atIndex, DevelopmentCard withCard){
-        this.territoryCards.set(atIndex, withCard);
+    public void addTerritoryCard(DevelopmentCard card){
+        this.territoryCards.add(card);
     }
 
     /**
@@ -114,12 +136,11 @@ public class PersonalBoard implements Serializable{
     }
 
     /**
-     * Set a building card.
-     * @param atIndex of array.
-     * @param withCard to set.
+     * Add building card
+     * @param card
      */
-    public void setBuildingCards(int atIndex, DevelopmentCard withCard){
-        this.buildingCards.set(atIndex, withCard);
+    public void addBuildingCard(DevelopmentCard card){
+        this.buildingCards.add(card);
     }
 
     /**
@@ -131,12 +152,11 @@ public class PersonalBoard implements Serializable{
     }
 
     /**
-     * Set a character card.
-     * @param atIndex of array.
-     * @param withCard to set.
+     * Add character card
+     * @param card
      */
-    public void setCharacterCards(int atIndex, DevelopmentCard withCard){
-        this.characterCards.set(atIndex, withCard);
+    public void addCharacterCard(DevelopmentCard card){
+        this.characterCards.add(card);
     }
 
     /**
@@ -148,12 +168,11 @@ public class PersonalBoard implements Serializable{
     }
 
     /**
-     * Set a venture card.
-     * @param atIndex of array.
-     * @param withCard to set.
+     * Add venture card
+     * @param card
      */
-    public void setVentureCards(int atIndex, DevelopmentCard withCard){
-        this.ventureCards.set(atIndex, withCard);
+    public void addVentureCard(DevelopmentCard card){
+        this.ventureCards.add(card);
     }
 
     /**
@@ -166,22 +185,51 @@ public class PersonalBoard implements Serializable{
 
 
     /**
-     *
+     * Set the dice bonus value for harvest and production zones
      */
     public void setHarvestProductionDiceValueBonus(ActionType type, Integer value){
         this.harvestProductionDiceValueBonus.put(type, this.harvestProductionDiceValueBonus.get(type) + value);
     }
 
+    /**
+     * Get the dice bonus value for harvest and production zones
+     * @return
+     */
     public Map<ActionType, Integer> getHarvestProductionDiceValueBonus(){
         return this.harvestProductionDiceValueBonus;
     }
 
+    /**
+     * Set the dice development card bonus value based on card's color
+     * @param cardColor
+     * @param value
+     */
     public void setDevelopmentCardColorDiceValueBonus(DevelopmentCardColor cardColor, Integer value){
-        this.developmentCardColorDiceValueBonus.put(cardColor, value);
+        this.developmentCardColorDiceValueBonus.put(cardColor, this.developmentCardColorDiceValueBonus.get(cardColor) + value);
     }
 
+    /**
+     * Get the dice development card bonus value based on card's color
+     * @return
+     */
     public Map<DevelopmentCardColor, Integer> getDevelopmentCardColorDiceValueBonus(){
         return this.developmentCardColorDiceValueBonus;
     }
 
+    /**
+     * Set the cost discount value for a particular type of development cards
+     * @param cardColor
+     * @param valuables
+     */
+    public void setCostDiscountForDevelopmentCard(DevelopmentCardColor cardColor, PointsAndResources valuables){
+        this.costDiscountForDevelopmentCard.put(cardColor, valuables);
+    }
+
+    /**
+     * Get the cost discount value for a particular type of development cards
+     * @return
+     */
+    public Map<DevelopmentCardColor, PointsAndResources> getCostDiscountForDevelopmentCard(){
+        return this.costDiscountForDevelopmentCard;
+    }
 }
