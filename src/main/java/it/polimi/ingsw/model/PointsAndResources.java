@@ -70,6 +70,7 @@ public class PointsAndResources {
         this.points.put(type, this.points.get(type) - value);
     }
 
+
     /**
      * Method to get the resources map.
      * @return the resources map.

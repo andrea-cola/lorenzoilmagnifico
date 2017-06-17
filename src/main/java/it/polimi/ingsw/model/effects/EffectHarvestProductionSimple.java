@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.ActionType;
-import it.polimi.ingsw.model.CouncilPrivilege;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointsAndResources;
+import it.polimi.ingsw.model.*;
+
+import java.util.Map;
 
 /**
  * This class represent a simple effect. This type of effect allows
@@ -37,6 +36,7 @@ public class EffectHarvestProductionSimple extends Effect{
     public EffectHarvestProductionSimple(){
         this.valuable = new PointsAndResources();
         this.councilPrivilege = new CouncilPrivilege();
+
         super.effectType = this.getClass().getSimpleName();
     }
 
@@ -112,7 +112,16 @@ public class EffectHarvestProductionSimple extends Effect{
      */
     @Override
     public void runEffect(Player player){
-        System.out.print("run permanent effect harvest/production simple");
+        //updates player's resources
+        for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
+
+        //updates player's points
+        for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
+
     }
 
 

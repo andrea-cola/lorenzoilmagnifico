@@ -1,29 +1,33 @@
 package it.polimi.ingsw.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by lorenzo on 23/05/17.
  */
 public class FamilyMember {
 
-    private FamilyMemberColor familyMemberColor;
+    private Map<FamilyMemberColor, Integer> members;
 
-    private Integer familyMemberValue;
-
-    public FamilyMember(FamilyMemberColor color){
-        this.familyMemberColor = color;
-        this.familyMemberValue = new Integer(0);
+    public FamilyMember(){
+        this.members = new HashMap<>();
     }
 
-    public FamilyMemberColor getFamilyMemberColor(){
-        return this.familyMemberColor;
+    public void setMembers(Map<FamilyMemberColor, Integer> members){
+        this.members = members;
     }
 
-    public Integer getFamilyMemberValue(){
-        return this.familyMemberValue;
+    public Map<FamilyMemberColor, Integer> getMembers(){
+        return this.members;
     }
 
-    public void setFamilyMemberValue(int value){
-        this.familyMemberValue = value;
+    public void increaseFamilyMemberValue(FamilyMemberColor color, Integer value){
+        this.members.put(color, this.members.get(color) + value);
+    }
+
+    public void decreaseFamilyMemberValue(FamilyMemberColor color, Integer value){
+        this.members.put(color, this.members.get(color) - value);
     }
 
 }

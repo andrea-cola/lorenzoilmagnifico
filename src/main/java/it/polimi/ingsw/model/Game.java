@@ -11,19 +11,38 @@ public class Game implements Serializable{
     protected MainBoard mainBoard;
 
     /**
+     * Dice
+     */
+    private Dice dices;
+
+    /**
      * Map of all players.
      */
     private Map<String, Player> playersMap;
 
     /**
-     * Development card deck.
-     */
-
-    /**
-     * Class constructor.
+     * Class constructor
      */
     public Game(){
+        this.mainBoard = new MainBoard();
+        this.dices = new Dice();
         this.playersMap = new LinkedHashMap<>();
+    }
+
+    /**
+     * Get the mainBoard
+     * @return
+     */
+    public MainBoard getMainBoard(){
+        return this.mainBoard;
+    }
+
+    /**
+     * Get the dices
+     * @return
+     */
+    public Dice getDices(){
+        return this.dices;
     }
 
     /**
@@ -36,15 +55,9 @@ public class Game implements Serializable{
     }
 
     /**
-     * Get a list of all players.
-     * @return a players list.
+     * Get all the players
+     * @return
      */
-    public ArrayList<Player> getAllPlayers(){
-        ArrayList players = new ArrayList();
-        players.addAll(this.playersMap.values());
-        return players;
-    }
-
     public Map<String, Player> getPlayersMap(){
         return this.playersMap;
     }
