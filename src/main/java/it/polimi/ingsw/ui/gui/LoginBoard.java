@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * This is the board where the login parameters are taken and passed to the main game class
+ * This is the Graphic User Interface login board
  */
 public class LoginBoard extends Application {
 
@@ -29,6 +29,7 @@ public class LoginBoard extends Application {
     private TextField username;
 
     private PasswordField password;
+
     /**
      * It is called by the graphic user interface to wait and then continue its functions
      * after the end of start function
@@ -45,68 +46,68 @@ public class LoginBoard extends Application {
     }
 
     /**
-     *
      * @param callback
      */
-    public LoginBoard(LoginBoardInterface callback){
-        this.callback=callback;
+    public LoginBoard(LoginBoardInterface callback) {
+        this.callback = callback;
     }
 
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("LoginBoard");
-        VBox vBox= new VBox(10);
+        VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
-        Label login= new Label("LOGIN");
+        Label login = new Label("LOGIN");
         login.setAlignment(Pos.CENTER);
-        final Label message= new Label("");
+        final Label message = new Label("");
         message.setAlignment(Pos.CENTER);
-        GridPane grid= new GridPane();
+        GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        Label userLabel= new Label("USERNAME");
+        Label userLabel = new Label("USERNAME");
         userLabel.setAlignment(Pos.CENTER);
         grid.add(userLabel, 0, 0);
-        username= new TextField();
+        username = new TextField();
         username.setAlignment(Pos.CENTER);
         grid.add(username, 1, 0);
-        Label passLabel= new Label("PASSWORD");
+        Label passLabel = new Label("PASSWORD");
         passLabel.setAlignment(Pos.CENTER);
         grid.add(passLabel, 0, 1);
-        password= new PasswordField();
+        password = new PasswordField();
         password.setAlignment(Pos.CENTER);
         password.setOnAction(event -> {
-                if(passLabel.getText().isEmpty()){
-                    message.setText("Your password is incorrect");
-                }else{
-                    message.setText("Your password is valid");
-                }
-            });
+            if (passLabel.getText().isEmpty()) {
+                message.setText("Your password is incorrect");
+            } else {
+                message.setText("Your password is valid");
+            }
+        });
         grid.add(password, 1, 1);
-        Button enter= new Button("ENTER");
+        Button enter = new Button("ENTER");
         enter.setAlignment(Pos.CENTER);
         enter.setOnAction(event -> this.login());
         vBox.getChildren().addAll(login, grid, message, enter);
-        Scene scene= new Scene(vBox);
+        Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void login(){
-        String username= this.username.getText();
-        String password= this.password.getText();
+    public void login() {
+        String username = this.username.getText();
+        String password = this.password.getText();
         this.callback.loginPlayer(username, password);
     }
-}
 
-/**
- * This interface represents the login main function
- */
-@FunctionalInterface
-interface LoginBoardInterface{
     /**
-     * It pass the parameters for the main game login function
-     * @param username to use
-     * @param password set by the player
+     * This interface represents the login main function
      */
-    void loginPlayer(String username, String password);
+    @FunctionalInterface
+    interface LoginBoardInterface {
+        /**
+         * It pass the parameters for the main game login function
+         *
+         * @param username to use
+         * @param password set by the player
+         */
+        void loginPlayer(String username, String password);
+    }
 }

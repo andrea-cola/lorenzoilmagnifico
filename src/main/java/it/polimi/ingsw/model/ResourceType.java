@@ -6,7 +6,7 @@ package it.polimi.ingsw.model;
 public enum ResourceType{
 
     /**
-     * Woods
+     * Wood
      */
     WOOD,
 

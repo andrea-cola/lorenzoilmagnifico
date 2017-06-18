@@ -21,7 +21,7 @@ import javafx.scene.image.ImageView;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * This is the board where the network options are taken and then passed to the main game class
+ * This is the Graphic User Interface board for network settings
  */
 public class NetworkBoard extends Application {
 
@@ -52,6 +52,7 @@ public class NetworkBoard extends Application {
 
     /**
      * Constructor for the NetworkBoard
+     *
      * @param callback
      */
     public NetworkBoard(NetworkBoardCallback callback) {
@@ -60,6 +61,7 @@ public class NetworkBoard extends Application {
 
     /**
      * The start function inherited by Application represents the structure of the Network board
+     *
      * @param primaryStage is the main container of the application
      * @throws Exception if the main method is not allocated
      */
@@ -96,7 +98,7 @@ public class NetworkBoard extends Application {
         text.setAlignment(Pos.CENTER);
         address = text.getText();
 
-        ImageView imageView = new ImageView(new Image("cover2.png"));
+        ImageView imageView = new ImageView(new Image("images/NetworkBoardCover.jpg"));
         Button connect = new Button("CONNECT");
         connect.setOnAction(event -> doConnect());
 
@@ -141,22 +143,24 @@ public class NetworkBoard extends Application {
         }
         try {
             this.callback.setNetworkSettings(connectionType, address, port);
-        } catch (ConnectionException e){
+        } catch (ConnectionException e) {
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error during connection.");
         }
     }
-}
 
-/**
-* This callback interface represents the main network context function
-*/
-@FunctionalInterface
-interface NetworkBoardCallback {
+
     /**
-    * It set the network settings previously decided by the user
-    * @param connectionType is the type of network
-    * @param address     is the network address
-    * @param port        is the network port
-    */
-    void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException;
- }
+     * This callback interface represents the main network context function
+     */
+    @FunctionalInterface
+    interface NetworkBoardCallback {
+        /**
+         * It set the network settings previously decided by the user
+         *
+         * @param connectionType is the type of network
+         * @param address        is the network address
+         * @param port           is the network port
+         */
+        void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException;
+    }
+}
