@@ -1,33 +1,34 @@
 package it.polimi.ingsw.ui.gui;
 
-import it.polimi.ingsw.model.Status;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import javafx.application.Application;
-
-import static javafx.application.Application.launch;
 
 /**
  * This class manage the graphic user interface of the game
  */
 public class GraphicUserInterface extends AbstractUI{
 
-    public GraphicUserInterface(UiController controller){
+    public GraphicUserInterface(UiController controller) throws InterruptedException {
         super(controller);
-        new Thread(()->Application.launch(StartingBoard.class)).start();
-        StartingBoard.waitFor();
+        Thread thread =new Thread(()->Application.launch(StartingBoardScreen.class));
+        thread.start();
+        thread.join();
     }
 
     @Override
-    public void chooseConnectionType() {
-        NetworkBoard networkBoard= new NetworkBoard((networkType, address, port)->getController().setNetworkSettings(networkType, address, port));
-        new Thread(()-> Application.launch(NetworkBoard.class)).start();
-        networkBoard.waitFor();
+    public void chooseConnectionType() throws InterruptedException {
+        NetworkBoardScreen networkBoardScreen = new NetworkBoardScreen((networkType, address, port)->getController().setNetworkSettings(networkType, address, port));
+        Thread thread = new Thread(()-> Application.launch(NetworkBoardScreen.class));
+        thread.start();
+        thread.join();
     }
 
     @Override
-    public void loginScreen() {
-        new Thread(()-> Application.launch(LoginBoard.class)).start();
+    public void loginScreen() throws InterruptedException {
+        Thread thread = new Thread(()-> Application.launch(LoginBoardScreen.class));
+        thread.start();
+        thread.join();
     }
 
     @Override

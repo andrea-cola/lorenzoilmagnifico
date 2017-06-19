@@ -10,7 +10,19 @@ import javafx.stage.Stage;
 /**
  * This is the Graphic User Interface personal tile board
  */
-public class PersonalTileBoard extends Application{
+public class PersonalTileBoardScreen extends Application{
+
+    private String username;
+
+    /**
+     * Constructor
+     * @param username player
+     */
+    public PersonalTileBoardScreen(String username){
+        this.username = username;
+    }
+
+
 
     /**
      * The main entry point for all JavaFX applications
@@ -18,15 +30,14 @@ public class PersonalTileBoard extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("PersonalTileBoard");
+        primaryStage.setTitle("PersonalTileBoardScreen");
 
         Group root = new Group();
 
-        root.getChildren().addAll(new ImageView(new Image()));
+        root.getChildren().addAll(new ImageView(new Image("")));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-
     }
 }

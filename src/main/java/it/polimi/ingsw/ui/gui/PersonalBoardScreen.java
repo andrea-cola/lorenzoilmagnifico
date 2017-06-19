@@ -1,12 +1,9 @@
 package it.polimi.ingsw.ui.gui;
 
 import javafx.application.Application;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -16,7 +13,7 @@ import javafx.stage.Stage;
 /**
  * This is the Graphic User Interface Personal Board class
  */
-public class PersonalBoard extends Application{
+public class PersonalBoardScreen extends Application{
     /**
      * Constants
      */
@@ -33,9 +30,24 @@ public class PersonalBoard extends Application{
     private int servantsValue;
 
     /**
-     * Main gui PersonalBoard objects
+     * Main gui PersonalBoardScreen objects
      */
     private BackgroundImage background;
+
+    /**
+     * Constructor
+     * @param username
+     */
+    public PersonalBoardScreen(String username){
+        this.username = username;
+    }
+
+    public void setData(int coinsValue, int woodValue, int stonesValue, int servantsValue){
+        this.coinsValue = coinsValue;
+        this.woodValue = woodValue;
+        this.stonesValue = stonesValue;
+        this.servantsValue = servantsValue;
+    }
 
     /**
      * The main entry point for all JavaFX applications
@@ -43,7 +55,7 @@ public class PersonalBoard extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("PersonalBoard");
+        primaryStage.setTitle("PersonalBoardScreen");
         Group root = new Group();
         GridPane gridPane = new GridPane();
         BackgroundSize size = new BackgroundSize(BACK_WIDTH, BACK_WIDTH, false, false, true, false);

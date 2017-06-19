@@ -64,7 +64,7 @@ public class Game implements Serializable{
     }
 
     /**
-     * This method gets a DevelopmentCard from TowerCell and add it to PersonalBoard
+     * This method gets a DevelopmentCard from TowerCell and add it to PersonalBoardScreen
      * @param player
      * @param indexTower
      * @param indexCell

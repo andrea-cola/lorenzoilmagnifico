@@ -1,12 +1,13 @@
 package it.polimi.ingsw.ui.gui;
 
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
 /**
  * This is the Graphic User Interface main board class
  */
-public class MainBoard extends Application {
+public class MainBoardScreen extends Application{
     /**
      * Family member related values
      */
@@ -63,7 +64,7 @@ public class MainBoard extends Application {
     private static final int FAMILY_RADIUS = 20;
 
     /**
-     * Main gui MainBoard objects
+     * Main gui MainBoardScreen objects
      */
     private VBox rightPane;
     private BackgroundImage background;
@@ -73,6 +74,27 @@ public class MainBoard extends Application {
     private GridPane gridTower;
     private Scene scene;
 
+    /**
+     * Constructor for Main Board class
+     */
+    public MainBoardScreen(){
+
+    }
+
+    /**
+     * Setting parameters
+     * @param username
+     * @param militaryPoints
+     * @param victoryPoints
+     * @param faithPoints
+     */
+    public void setPlayerData(String username, int militaryPoints, int victoryPoints, int faithPoints){
+        this.username = username;
+        this.militaryPoints = militaryPoints;
+        this.victoryPoints = victoryPoints;
+        this.faithPoints = faithPoints;
+    }
+
 
     /**
      * The main entry point for all JavaFX applications
@@ -80,7 +102,7 @@ public class MainBoard extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("MainBoard");
+        primaryStage.setTitle("MainBoardScreen");
 
         SplitPane splitPane = new SplitPane();
         leftPane = createLeftPane();
@@ -202,13 +224,30 @@ public class MainBoard extends Application {
         rightPane= new VBox(VBOX_SPACING);
         personalBoardButton = new Button("View Personal Board");
         personalBoardButton.setAlignment(Pos.CENTER);
-        personalBoardButton.addEventHandler(event->{
-            new Thread((username)->Application.launch(PersonalBoard.class)).start();
+        personalBoardButton.setOnAction(event -> {
+            Application personalBoardScreen = new PersonalBoardScreen(username);
+            Thread thread = new Thread(()->Application.launch(personalBoardScreen.getClass()));
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
+
 
         personalTileButton = new Button("View Personal Tile");
         personalTileButton.setAlignment(Pos.CENTER);
-        //personalTileButton.addEventHandler();
+        personalTileButton.setOnAction(event -> {
+            Application personalBoardTileScreen = new PersonalTileBoardScreen(username);
+            Thread thread = new Thread(()->Application.launch(personalBoardTileScreen.getClass()));
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        });
 
         Circle redMember= new Circle(FAMILY_RADIUS);
         redMember.setFill(Color.RED);

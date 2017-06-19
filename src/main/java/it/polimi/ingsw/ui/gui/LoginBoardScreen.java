@@ -1,8 +1,6 @@
 package it.polimi.ingsw.ui.gui;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,13 +16,13 @@ import java.util.concurrent.CountDownLatch;
 /**
  * This is the Graphic User Interface login board
  */
-public class LoginBoard extends Application {
+public class LoginBoardScreen extends Application {
 
     private LoginBoardInterface callback;
 
     private static final CountDownLatch latch = new CountDownLatch(1);
 
-    private static LoginBoard loginBoard = null;
+    private static LoginBoardScreen loginBoardScreen = null;
 
     private TextField username;
 
@@ -36,25 +34,25 @@ public class LoginBoard extends Application {
      *
      * @return the network board
      */
-    public static LoginBoard waitFor() {
+    public static LoginBoardScreen waitFor() {
         try {
             latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return loginBoard;
+        return loginBoardScreen;
     }
 
     /**
      * @param callback
      */
-    public LoginBoard(LoginBoardInterface callback) {
+    public LoginBoardScreen(LoginBoardInterface callback) {
         this.callback = callback;
     }
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("LoginBoard");
+        primaryStage.setTitle("LoginBoardScreen");
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
         Label login = new Label("LOGIN");

@@ -18,44 +18,27 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.concurrent.CountDownLatch;
-
 /**
  * This is the Graphic User Interface board for network settings
  */
-public class NetworkBoard extends Application {
+public class NetworkBoardScreen extends Application {
 
     private NetworkBoardCallback callback;
 
-    private static final CountDownLatch latch = new CountDownLatch(1);
-
-    private static NetworkBoard networkBoard = null;
-
+    private static NetworkBoardScreen networkBoardScreen = null;
+    /**
+     * Connection data
+     */
     private String type;
     private int port;
     private String address;
 
     /**
-     * It is called by the graphic user interface to wait and then continue its functions
-     * after the end of start function
-     *
-     * @return the network board
-     */
-    public static NetworkBoard waitFor() {
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return networkBoard;
-    }
-
-    /**
-     * Constructor for the NetworkBoard
+     * Constructor for the NetworkBoardScreen
      *
      * @param callback
      */
-    public NetworkBoard(NetworkBoardCallback callback) {
+    public NetworkBoardScreen(NetworkBoardCallback callback) {
         this.callback = callback;
     }
 
@@ -67,7 +50,7 @@ public class NetworkBoard extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("NetworkBoard");
+        primaryStage.setTitle("NetworkBoardScreen");
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
         Label choose = new Label("NETWORK PREFERENCES");
