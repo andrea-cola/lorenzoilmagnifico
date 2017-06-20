@@ -101,7 +101,10 @@ public class NetworkBoardScreen extends Application {
                 address = text.getText();
                 System.out.print("ADDRESS: " + address + " & TYPE: " + type + "\n");
                 doConnect();
+<<<<<<< HEAD
                 primaryStage.close();
+=======
+>>>>>>> 4eb158d37bfba5efefd68a15e33edacfa0871c2a
             }
         });
 

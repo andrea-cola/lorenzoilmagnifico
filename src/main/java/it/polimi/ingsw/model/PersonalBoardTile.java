@@ -10,6 +10,11 @@ import java.io.Serializable;
 public class PersonalBoardTile implements Serializable{
 
     /**
+     * Personal board identifier.
+     */
+    private int personalBoardID;
+
+    /**
      * Production immediate effect.
      */
     private Effect productionEffect;
@@ -41,6 +46,10 @@ public class PersonalBoardTile implements Serializable{
      */
     public Effect getHarvestEffect(){
         return this.harvestEffect;
+    }
+
+    public int getPersonalBoardID(){
+        return this.personalBoardID;
     }
 
 }

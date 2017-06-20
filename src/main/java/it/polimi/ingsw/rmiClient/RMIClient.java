@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
@@ -14,6 +15,7 @@ import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.rmiServer.RMIServerInterface;
 import it.polimi.ingsw.utility.Configuration;
 
@@ -137,7 +139,21 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     @Override
-    public void setGameInfo(Game game) throws RemoteException {
+    public void sendPersonalBoardTileChoise(PersonalBoardTile personalBoardTile) throws NetworkException{
+        try {
+            server.setPersonalBoardChoise(playerID, personalBoardTile);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void sendPersonalTiles(List<PersonalBoardTile> personalBoardTileList) throws RemoteException {
+        getController().choosePersonalBoardTile(personalBoardTileList);
+    }
+
+    @Override
+    public void sendGame(Game game) throws RemoteException {
         getController().setGameModel(game);
     }
 

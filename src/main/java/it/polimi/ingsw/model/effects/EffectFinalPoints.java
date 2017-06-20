@@ -1,7 +1,11 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PointsAndResources;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This class represent the permanent effect that is activated at the end of the game.
@@ -41,6 +45,17 @@ public class EffectFinalPoints extends Effect {
     @Override
     public void runEffect(Player player){
 
+    }
+
+    /**
+     * Get a description of the current effect.
+     */
+    @Override
+    public String getDescription() {
+        String description = this.effectType + "\n";
+        description.concat("Final points earned:");
+        finalVictoryPoints.toString();
+        return description;
     }
 
 }

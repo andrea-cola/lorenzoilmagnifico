@@ -2,6 +2,7 @@ package it.polimi.ingsw.socketClient;
 
 
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
@@ -106,6 +107,11 @@ public class SocketClient extends AbstractClient{
     public void createNewRoom(int maxPlayersNumber) throws NetworkException{
         clientCommunicationProtocol.createNewRoom(maxPlayersNumber);
         startServerResponseManager();
+    }
+
+    @Override
+    public void sendPersonalBoardTileChoise(PersonalBoardTile personalBoardTile) throws NetworkException {
+        clientCommunicationProtocol.sendPersonalTile(personalBoardTile);
     }
 
     /**

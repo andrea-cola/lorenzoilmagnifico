@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
+import javafx.util.Pair;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -62,6 +63,18 @@ public class EffectSimple extends Effect{
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
+
+
     }
 
+    /**
+     * Get a description of the current effect.
+     */
+    @Override
+    public String getDescription() {
+        String header = this.effectType + "\n";
+        String resources = "Resources:\n" + valuable.toString();
+        String privilege = councilPrivilege.toString();
+        return new StringBuilder(header).append(resources).append(privilege).toString();
+    }
 }

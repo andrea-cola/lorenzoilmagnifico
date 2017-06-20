@@ -1,11 +1,16 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameErrorType;
+import it.polimi.ingsw.exceptions.GameException;
+
 import java.io.Serializable;
 
 /**
  * This class represents the market zone on the main board
  */
 public class Market implements Serializable{
+
+    private static final int MIN_FAMILY_MEMBER_VALUE = 1;
 
     /**
      * Market cells
@@ -16,10 +21,10 @@ public class Market implements Serializable{
 
      * Constructor of the markets
      */
-    public Market(){
-        this.marketCells = new MarketCell[4];
-        for(int i = 0; i < this.marketCells.length; i++){
-            this.marketCells[i] = new MarketCell();
+    public Market(int numberOfCells){
+        this.marketCells = new MarketCell[numberOfCells];
+        for(int i = 0; i < numberOfCells; i++){
+            this.marketCells[i] = new MarketCell(MIN_FAMILY_MEMBER_VALUE);
         }
     }
 
@@ -39,4 +44,5 @@ public class Market implements Serializable{
     public void setMarketCells(MarketCell[] cells){
         this.marketCells = cells;
     }
+
 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameErrorType;
+import it.polimi.ingsw.exceptions.GameException;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.awt.*;
@@ -12,45 +14,16 @@ import java.util.ArrayList;
 public class Tower implements Serializable{
 
     /**
-     * Color of the tower. It specifies the type of the contained.
-     */
-    private DevelopmentCardColor towerColor;
-
-    /**
      * Array of tower cells.
      */
     private TowerCell[] towerCells;
 
-    /**
-     * Set the color of the tower.
-     * @param color of the tower.
-     */
-    public void setTowerColor(DevelopmentCardColor color){
-        this.towerColor = color;
-    }
 
-    /**
-     * Get tower color.
-     * @return tower color.
-     */
-    public DevelopmentCardColor getTowerColor(){
-        return this.towerColor;
-    }
-
-    /**
-     * Set tower cells.
-     * @param towerCells of the tower.
-     */
-    public void setTowerCells(TowerCell[] towerCells){
-        this.towerCells = towerCells;
-    }
-
-    /**
-     * Get tower cells.
-     * @return TowerCell array.
-     */
-    public TowerCell[] getTowerCells(){
-        return this.towerCells;
+    public Tower(int numberOfCells){
+        this.towerCells = new TowerCell[numberOfCells];
+        for (int i = 0; i < numberOfCells; i++){
+            this.towerCells[i] = new TowerCell((i * 2) + 1);
+        }
     }
 
     /**
@@ -59,7 +32,7 @@ public class Tower implements Serializable{
      */
     public boolean isFree(){
         for(TowerCell cell : this.towerCells)
-            if (!cell.getEmpty())
+            if (cell.getPlayerNicknameInTheCell() != null)
                 return false;
         return true;
     }
@@ -80,6 +53,24 @@ public class Tower implements Serializable{
         return this.towerCells[index];
     }
 
+    /**
+     * This method checks if already exists a cell occupied by the player in the tower
+     * @param player
+     * @throws GameException
+     */
+    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
 
-
+        //check that the family member used has not been already used
+        for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed()){
+            if (familyMemberColor.equals(color)){
+                throw new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_USED);
+            }
+        }
+        //check if the player has not already placed a family member inside the tower
+        for (TowerCell cell : this.towerCells){
+            if (player.getNickname().equals(cell.getPlayerNicknameInTheCell())){
+                throw new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_PLACED);
+            }
+        }
+    }
 }

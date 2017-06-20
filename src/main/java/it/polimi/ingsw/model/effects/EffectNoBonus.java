@@ -27,4 +27,14 @@ public class EffectNoBonus extends Effect{
     public void runEffect(Player player) {
 
     }
+
+    /**
+     * Get a description of the current effect.
+     */
+    @Override
+    public String getDescription() {
+        String description = this.effectType + "\n";
+        description.concat("Resources to pay: da finire di implementare.\n");
+        return description;
+    }
 }

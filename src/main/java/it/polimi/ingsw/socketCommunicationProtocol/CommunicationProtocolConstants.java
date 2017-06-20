@@ -30,5 +30,6 @@ package it.polimi.ingsw.socketCommunicationProtocol;
      * Requests from server to client.
      */
     /*package-local*/ static final String GAME_MODEL = "GameModel";
+    /*package-local*/ static final String PERSONAL_TILES = "GameModel";
 
 }

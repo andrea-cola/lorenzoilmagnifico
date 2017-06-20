@@ -1,11 +1,12 @@
 package it.polimi.ingsw.ui.cli;
 
-import it.polimi.ingsw.model.Status;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
 
 import java.io.*;
+import java.util.List;
 
 /**
  * This class manages the command line interface of the game.
@@ -67,6 +68,11 @@ public class CommandLineInterface extends AbstractUI {
         screen = new CreateRoomScreen(screenInterface, getController()::createRoom);
         Debugger.printStandardMessage("Room creation OK.");
         screen = null;
+    }
+
+    @Override
+    public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
+        screen = new ChoosePersonalBoardTileScreen(screenInterface, getController()::sendPersonalBoardTileChoice, personalBoardTileList);
     }
 
 }

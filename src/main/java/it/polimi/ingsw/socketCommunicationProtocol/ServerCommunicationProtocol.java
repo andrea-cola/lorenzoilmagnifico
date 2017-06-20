@@ -3,6 +3,7 @@ package it.polimi.ingsw.socketCommunicationProtocol;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Class to provide to the server all needed methods to communicate with clients.
@@ -74,6 +76,7 @@ public class ServerCommunicationProtocol {
         requestsTable.put(CommunicationProtocolConstants.SIGNIN_REQUEST, this::signInPlayer);
         requestsTable.put(CommunicationProtocolConstants.JOIN_ROOM_REQUEST, this::joinRoom);
         requestsTable.put(CommunicationProtocolConstants.CREATE_ROOM_REQUEST, this::createNewRoom);
+        requestsTable.put(CommunicationProtocolConstants.PERSONAL_TILES, this::setPlayerPersonalBoardTile);
     }
 
     /**
@@ -196,6 +199,27 @@ public class ServerCommunicationProtocol {
             } catch (IOException e){
                 throw new NetworkException();
             }
+        }
+    }
+
+    public void sendPersonalBoardTile(List<PersonalBoardTile> personalBoardTileList) throws NetworkException{
+        synchronized (object){
+            try{
+                output.writeObject(CommunicationProtocolConstants.PERSONAL_TILES);
+                output.writeObject(personalBoardTileList);
+                output.flush();
+            } catch (IOException e){
+                throw new NetworkException();
+            }
+        }
+    }
+
+    public void setPlayerPersonalBoardTile(){
+        try {
+            PersonalBoardTile personalBoardTile = (PersonalBoardTile)input.readObject();
+            serverCommunicationProtocolInterface.setPlayerPersonalBoardTile(personalBoardTile);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+
         }
     }
 

@@ -2,7 +2,10 @@ package it.polimi.ingsw.ui;
 
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.ui.cli.ConnectionType;
+
+import java.util.List;
 
 /**
  * Interface implemented by the Game class, contains all functions related to the Game that need to
@@ -17,5 +20,7 @@ public interface UiController {
     void joinRoom();
 
     void createRoom(int maxPlayers);
+
+    void sendPersonalBoardTileChoice(PersonalBoardTile personalBoardTile);
 
 }

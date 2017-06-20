@@ -2,6 +2,7 @@ package it.polimi.ingsw.rmiServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.rmiClient.RMIClientInterface;
 import it.polimi.ingsw.utility.Configuration;
 import sun.nio.ch.Net;
@@ -47,5 +48,7 @@ public interface RMIServerInterface extends Remote{
      * @return the configuration number.
      */
     void createNewRoom(String id, int maxPlayersNumber) throws RoomException, IOException;
+
+    void setPersonalBoardChoise(String playerID, PersonalBoardTile personalBoardTile) throws RemoteException;
 
 }

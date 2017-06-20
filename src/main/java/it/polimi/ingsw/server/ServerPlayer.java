@@ -3,10 +3,11 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.gameServer.Room;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PlayerColor;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * This class is the abstraction of the remote player.
@@ -47,4 +48,5 @@ public abstract class ServerPlayer extends Player{
 
     }
 
+    public abstract void sendPersonalTile(List<PersonalBoardTile> personalBoardTiles) throws NetworkException;
 }

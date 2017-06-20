@@ -18,9 +18,13 @@ public class PersonalBoard implements Serializable{
     private PointsAndResources valuables;
 
     /**
-     * bonus: save the bonus dice values for harvest, production, cards
+     * bonus: save the bonus dice values for harvest/production
      */
     private Map<ActionType, Integer> harvestProductionDiceValueBonus = new HashMap<>();
+
+    /**
+     * bonus: save the bonus dice values for cards
+     */
     private Map<DevelopmentCardColor, Integer> developmentCardColorDiceValueBonus = new HashMap<>();
 
     /**
@@ -29,9 +33,15 @@ public class PersonalBoard implements Serializable{
     private Map<DevelopmentCardColor, PointsAndResources> costDiscountForDevelopmentCard = new HashMap<>();
 
     /**
-     * Array of available familyMembers;
+     * FamilyMembers;
      */
     private FamilyMember familyMember;
+
+    /**
+     * Array of family members already used by the player
+     */
+    private ArrayList<FamilyMemberColor> familyMembersUsed = new ArrayList<>();
+
 
     /**
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
@@ -51,11 +61,23 @@ public class PersonalBoard implements Serializable{
      */
     private PersonalBoardTile personalBoardTile;
 
+    public void setPersonalBoardTile(PersonalBoardTile personalBoardTile){
+        this.personalBoardTile = personalBoardTile;
+    }
+
+    public PersonalBoardTile getPersonalBoardTile() {
+        return this.personalBoardTile;
+    }
+
+    public PersonalBoard(){
+
+    }
+
     /**
      * Set family mamber
      * @param member
      */
-    public void setFamilyMembers(FamilyMember member){
+    public void setFamilyMember(FamilyMember member){
         this.familyMember = member;
     }
 
@@ -67,6 +89,21 @@ public class PersonalBoard implements Serializable{
         return this.familyMember;
     }
 
+    /**
+     * Set the array of family members already used by the player
+     * @param familyMember
+     */
+    public void setFamilyMembersUsed(FamilyMemberColor familyMember){
+        this.familyMembersUsed.add(familyMember);
+    }
+
+    /**
+     * Get the array of family members already used by the player
+     * @return
+     */
+    public ArrayList<FamilyMemberColor> getFamilyMembersUsed(){
+        return this.familyMembersUsed;
+    }
 
     /**
      * Set military points needed to place a card in a specific position.
@@ -85,7 +122,10 @@ public class PersonalBoard implements Serializable{
         return greenCardsMilitaryPointsRequirements[index];
     }
 
-
+    /**
+     * Add a new card to the player's personal board
+     * @param card
+     */
     public void addCard(DevelopmentCard card){
         switch (card.getColor()){
             case GREEN:

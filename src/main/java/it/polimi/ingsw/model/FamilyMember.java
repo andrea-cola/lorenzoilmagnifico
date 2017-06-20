@@ -1,12 +1,10 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by lorenzo on 23/05/17.
- */
-public class FamilyMember {
+public class FamilyMember implements Serializable{
 
     private Map<FamilyMemberColor, Integer> members;
 

@@ -20,4 +20,9 @@ public abstract class Effect implements Serializable{
      */
     abstract public void runEffect(Player player);
 
+    /**
+     * Get a description of the current effect.
+     */
+    abstract public String getDescription();
+
 }

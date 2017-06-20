@@ -2,10 +2,12 @@ package it.polimi.ingsw.rmiServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.rmiClient.RMIClientInterface;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * This class extends {@link ServerPlayer} (server side abstraction of the player).
@@ -31,9 +33,18 @@ import java.rmi.RemoteException;
     }
 
     @Override
+    public void sendPersonalTile(List<PersonalBoardTile> personalBoardTiles) throws NetworkException{
+        try{
+            rmiClientInterface.sendPersonalTiles(personalBoardTiles);
+        } catch (RemoteException e){
+            throw new NetworkException(e);
+        }
+    }
+
+    @Override
     public void sendGameInfo(Game game) throws NetworkException {
         try {
-            rmiClientInterface.setGameInfo(game);
+            rmiClientInterface.sendGame(game);
         } catch(RemoteException e){
             throw new NetworkException(e);
         }

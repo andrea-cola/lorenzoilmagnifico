@@ -1,0 +1,1028 @@
+[
+  {
+    "leaderCardName": "Giovanni delle Bande Nere",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 12
+      }
+    },
+    "effect": {
+      "valuable": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 1,
+          "WOOD": 1,
+          "COIN": 1
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0,
+        "privileges": [
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 1,
+                "WOOD": 1,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 2,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 2
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 2
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 1,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          }
+        ]
+      },
+      "effectType": "LESimple"
+    }
+  },
+  {
+    "leaderCardName": "Bartolomeo Colleoni",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "GREEN": 4,
+      "PURPLE": 2
+    },
+    "effect": {
+      "valuable": {
+        "resources": {
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0,
+          "SERVANT": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "MILITARY": 0,
+          "VICTORY": 4
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0,
+        "privileges": [
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 1,
+                "WOOD": 1,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 2,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 2
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 2
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 1,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          }
+        ]
+      },
+      "effectType": "LESimple"
+    }
+  },
+  {
+    "leaderCardName": "Michelangelo Buonarroti",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 10,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "effect": {
+      "valuable": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 3
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0,
+        "privileges": [
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 1,
+                "WOOD": 1,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 2,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 2
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 2
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 1,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          }
+        ]
+      },
+      "effectType": "LESimple"
+    }
+  },
+  {
+    "leaderCardName": "Girolamo Savonarola",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 18
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "effect": {
+      "valuable": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 1,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0,
+        "privileges": [
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 1,
+                "WOOD": 1,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 2,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 2
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 2
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 1,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          }
+        ]
+      },
+      "effectType": "LESimple"
+    }
+  },
+  {
+    "leaderCardName": "Sandro Botticelli",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 10,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "effect": {
+      "valuable": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 1,
+          "MILITARY": 2
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0,
+        "privileges": [
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 1,
+                "WOOD": 1,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 2,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 2
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 2
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 1,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          }
+        ]
+      },
+      "effectType": "LESimple"
+    }
+  },
+  {
+    "leaderCardName": "Cosimo de\u0027 Medici",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "YELLOW": 4,
+      "BLUE": 2
+    },
+    "effect": {
+      "valuable": {
+        "resources": {
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0,
+          "SERVANT": 3
+        },
+        "points": {
+          "FAITH": 0,
+          "MILITARY": 0,
+          "VICTORY": 1
+        }
+      },
+      "councilPrivilege": {
+        "numberOfCouncilPrivileges": 0,
+        "privileges": [
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 1,
+                "WOOD": 1,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 2,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 2
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 0,
+                "VICTORY": 0,
+                "MILITARY": 2
+              }
+            },
+            "isAvailablePrivilege": true
+          },
+          {
+            "valuables": {
+              "resources": {
+                "SERVANT": 0,
+                "STONE": 0,
+                "WOOD": 0,
+                "COIN": 0
+              },
+              "points": {
+                "FAITH": 1,
+                "VICTORY": 0,
+                "MILITARY": 0
+              }
+            },
+            "isAvailablePrivilege": true
+          }
+        ]
+      },
+      "effectType": "LESimple"
+    }
+  },
+  {
+    "leaderCardName": "Leonardo da Vinci",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "GREEN": 2,
+      "BLUE": 4
+    },
+    "effect": {
+      "diceActionValue": 0,
+      "actionType": "PRODUCTION",
+      "effectType": "LEHarvestProductionSimple"
+    }
+  },
+  {
+    "leaderCardName": "Francesco Sforza",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "PURPLE": 5
+    },
+    "effect": {
+      "diceActionValue": 1,
+      "actionType": "HARVEST",
+      "effectType": "LEHarvestProductionSimple"
+    }
+  },
+  {
+    "leaderCardName": "Pico della Mirandola",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "YELLOW": 2,
+      "PURPLE": 4
+    },
+    "effect": {
+      "moneyDiscount": 3,
+      "effectType": "LEPicoDellaMirandola"
+    }
+  },
+  {
+    "leaderCardName": "Filippo Brunelleschi",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "YELLOW": 5
+    },
+    "effect": {
+      "moneyDiscount": 3,
+      "effectType": "LEFilippoBrunelleschi"
+    }
+  },
+  {
+    "leaderCardName": "Ludovico Ariosto",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "BLUE": 4
+    },
+    "effect": {
+      "effectType": "LELudovicoAriosto"
+    }
+  },
+  {
+    "leaderCardName": "Cesare Borgia",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 12
+      },
+      "points": {
+        "FAITH": 2,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "YELLOW": 3
+    },
+    "effect": {
+      "effectType": "LELudovicoAriosto"
+    }
+  },
+  {
+    "leaderCardName": "Federico da Montefeltro",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "GREEN": 5
+    },
+    "effect": {
+      "bonus": 6,
+      "effectType": "LEFamilyMemberBonus"
+    }
+  },
+  {
+    "leaderCardName": "Sigismondo Malatesta",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 10
+      }
+    },
+    "effect": {
+      "bonus": 3,
+      "effectType": "LENeutralBonus"
+    }
+  },
+  {
+    "leaderCardName": "Ludovico il Moro",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorMapRequisites": {
+      "BLUE": 2,
+      "PURPLE": 2,
+      "GREEN": 2,
+      "YELLOW": 2
+    },
+    "effect": {
+      "whiteDice": 5,
+      "blackDice": 5,
+      "orangeDice": 5,
+      "effectType": "LEDiceValueSet"
+    }
+  },
+  {
+    "leaderCardName": "Lucrezia Borgia",
+    "leaderCardDescription": "shalala",
+    "cardColorMapRequisites": {
+      "BLUE": 6,
+      "PURPLE": 6,
+      "GREEN": 6,
+      "YELLOW": 6
+    },
+    "effect": {
+      "whiteDice": 2,
+      "blackDice": 2,
+      "orangeDice": 2,
+      "effectType": "LEDiceBonus"
+    }
+  },
+  {
+    "leaderCardName": "Lorenzo de\u0027 Medici",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 35,
+        "MILITARY": 0
+      }
+    },
+    "effect": {
+      "effectType": "LELorenzoDeMedici"
+    }
+  },
+  {
+    "leaderCardName": "Santa Rita",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 8,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "effect": {
+      "multiplicator": 2,
+      "effectType": "LEMultiplicator"
+    }
+  },
+  {
+    "leaderCardName": "Sisto IV",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "SERVANT": 6,
+        "STONE": 6,
+        "WOOD": 6,
+        "COIN": 6
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "effect": {
+      "valuableEarned": {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 5,
+          "MILITARY": 0
+        }
+      },
+      "effectType": "LESistoIV"
+    }
+  }
+]

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameErrorType;
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.Effect;
 
 import java.io.Serializable;
@@ -26,14 +28,14 @@ public class TowerCell implements Serializable{
     private Effect towerCellImmediateEffect;
 
     /**
-     * Family member that could be placed in the cell.
+     * The nickname of the player whose one of his familiar is inside the cell
      */
-    private FamilyMember familyMember;
+    private String playerNicknameInTheCell;
 
-    /**
-     * Boolean value that checks if the cell is empty
-     */
-    private Boolean empty = true;
+
+    public TowerCell(int minFamilyMemberValue){
+        this.minFamilyMemberValue = minFamilyMemberValue;
+    }
 
     /**
      * Set immediate effect of the cell.
@@ -68,14 +70,6 @@ public class TowerCell implements Serializable{
     }
 
     /**
-     * Place a family member in the cell.
-     * @param familyMember to be placed.
-     */
-    public void setFamilyMember(FamilyMember familyMember){
-        this.familyMember = familyMember;
-    }
-
-    /**
      * Return the development card assigned to the cell.
      * @return a development card.
      */
@@ -92,29 +86,44 @@ public class TowerCell implements Serializable{
     }
 
 
-    public Boolean getEmpty(){
-        return this.empty;
+    /**
+     * Assign the cell to the user that occupied it
+     * @param playerNicknameInTheCell
+     */
+    public void setPlayerNicknameInTheCell(String playerNicknameInTheCell){
+        this.playerNicknameInTheCell = playerNicknameInTheCell;
     }
 
-    public void setEmpty(Boolean updatedValue){
-        this.empty = updatedValue;
+    /**
+     * Get the username of the player inside a particular cell
+     * @return
+     */
+    public String getPlayerNicknameInTheCell(){
+        return this.playerNicknameInTheCell;
     }
 
-
-    public Boolean familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor){
-        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) > this.minFamilyMemberValue){
-            return true;
+    /**
+     * Checks if the value is enough to place the family member inside the cell
+     * @param player
+     * @param familyMemberColor
+     * @throws GameException
+     */
+    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.minFamilyMemberValue){
+            throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
         }
-        return false;
     }
 
-
-    public Boolean developmentCardCanBeBuyedBy(Player player){
+    /**
+     * Checks if the player has enough resources to buy the development card
+      * @param player
+     * @throws GameException
+     */
+    public void developmentCardCanBeBuyedBy(Player player) throws GameException{
         for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
-            if (this.developmentCard.getCost().getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())){
-                return false;
+            if (this.developmentCard.getCost().getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
             }
         }
-        return true;
     }
 }

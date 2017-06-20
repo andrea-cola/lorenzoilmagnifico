@@ -12,8 +12,7 @@ public enum LoginErrorType {
     USER_ALREADY_EXISTS("User already registered."),
     USER_ALREADY_LOGGEDIN("User already logged in."),
     USER_WRONG_PASSWORD("Password is wrong."),
-    USER_NOT_EXISTS("Password is wrong.")
-    ;
+    USER_NOT_EXISTS("Password is wrong.");
 
     /**
      * Enumeration message.
