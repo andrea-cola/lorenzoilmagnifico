@@ -1,36 +1,71 @@
 package it.polimi.ingsw.ui.gui;
 
-import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.model.Status;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.stage.Stage;
+import sun.awt.Mutex;
 
-import java.util.List;
-
-import static javafx.application.Application.launch;
+import java.util.Queue;
+import java.util.concurrent.Semaphore;
 
 /**
  * This class manage the graphic user interface of the game
  */
 public class GraphicUserInterface extends AbstractUI{
 
-    public GraphicUserInterface(UiController controller){
+    private Task<Void> task;
+
+    /**
+     * Constructor
+     * @param controller
+     * @throws InterruptedException
+     */
+    public GraphicUserInterface(UiController controller) throws InterruptedException {
         super(controller);
-        new Thread(()->Application.launch(StartingBoard.class)).start();
-        StartingBoard.waitFor();
+        welcomeBoard();
+    }
+
+    /**
+     *
+     */
+    public void welcomeBoard(){
+        Thread thread = new Thread(() -> Application.launch(StartingBoardScreen.class));
+        thread.start();
+        return;
+
+    }
+
+    /**
+     *
+     * @throws InterruptedException
+     */
+    @Override
+    public void chooseConnectionType(){
+        NetworkBoardScreen networkBoardScreen = new NetworkBoardScreen(getController():: setNetworkSettings);
+        Platform.runLater(() -> {
+            try {
+                networkBoardScreen.start(new Stage());
+            } catch (Exception e) {
+                Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
+            }
+        });
+
     }
 
     @Override
-    public void chooseConnectionType() {
-        NetworkBoard networkBoard= new NetworkBoard((networkType, address, port)->getController().setNetworkSettings(networkType, address, port));
-        new Thread(()-> Application.launch(NetworkBoard.class)).start();
-        networkBoard.waitFor();
-    }
-
-    @Override
-    public void loginScreen() {
-        new Thread(()-> Application.launch(LoginBoard.class)).start();
+    public void loginScreen(){
+        LoginBoardScreen loginBoardScreen = new LoginBoardScreen(getController()::loginPlayer);
+        Platform.runLater(()->{
+            try {
+                loginBoardScreen.start(new Stage());
+            }catch (Exception e){
+                Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
+            }
+        });
     }
 
     @Override
@@ -40,11 +75,6 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void createRoomScreen() {
-
-    }
-
-    @Override
-    public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
 
     }
 

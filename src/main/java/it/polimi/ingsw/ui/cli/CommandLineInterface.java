@@ -26,7 +26,7 @@ public class CommandLineInterface extends AbstractUI {
                                         "                                                                              \n" +
                                         "                         _  _     _   __           __    __  __             \n" +
                                         "                 / /    / \\/ \\   /_\\ / __ /\\  / / /_  / /   /  \\              \n"+
-                                        "                / /__  /      \\ /   \\__//  \\/ / /   /  \\__ \\__/              \n\n\n";
+                                        "                / /__  /      \\ /   \\\\__//  \\/ / /   /  \\__ \\__/              \n\n\n";
 
     /**
      * Buffer reader for reading from the input
@@ -37,6 +37,10 @@ public class CommandLineInterface extends AbstractUI {
 
     private BasicScreen screen;
 
+    /**
+     * Contructor
+     * @param controller
+     */
     public CommandLineInterface(UiController controller){
         super(controller);
         System.out.println(TITLE);

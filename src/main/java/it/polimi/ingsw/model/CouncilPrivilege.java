@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,9 +20,7 @@ public class CouncilPrivilege implements Serializable{
      */
     private Privilege[] privileges = new Privilege[5];
 
-
     public CouncilPrivilege(){
-
         PointsAndResources valuables1 = new PointsAndResources();
         valuables1.increase(ResourceType.STONE, 1);
         valuables1.increase(ResourceType.WOOD, 1);
@@ -42,7 +41,6 @@ public class CouncilPrivilege implements Serializable{
         PointsAndResources valuables5 = new PointsAndResources();
         valuables5.increase(PointType.FAITH, 1);
         this.privileges[4] = new Privilege(valuables5, true);
-
     }
 
     /**
@@ -83,33 +81,5 @@ public class CouncilPrivilege implements Serializable{
         return false;
     }
 
-    @Override
-    public String toString(){
-        return "COUNCIL PRIVILEGE: " + numberOfCouncilPrivileges;
-    }
 
-    class Privilege implements Serializable {
-
-        private PointsAndResources valuables;
-
-        private Boolean isAvailablePrivilege;
-
-        public Privilege(PointsAndResources valuables, Boolean isAvailablePrivilege){
-            this.isAvailablePrivilege = isAvailablePrivilege;
-            this.valuables = valuables;
-        }
-
-        public PointsAndResources getValuables(){
-            return this.valuables;
-        }
-
-        public void setIsAvailablePrivilege(Boolean updatedValue){
-            this.isAvailablePrivilege = updatedValue;
-        }
-
-        public Boolean getIsAvailablePrivilege(){
-            return this.isAvailablePrivilege;
-        }
-
-    }
 }

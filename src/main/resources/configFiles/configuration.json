@@ -779,7 +779,7 @@
               "valuable": {
                 "resources": {
                   "SERVANT": 0,
-                  "STONE": 1,
+                  "STONE": 0,
                   "WOOD": 0,
                   "COIN": 2
                 },
