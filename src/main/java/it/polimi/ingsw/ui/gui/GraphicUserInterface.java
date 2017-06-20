@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
@@ -9,6 +10,7 @@ import javafx.concurrent.Task;
 import javafx.stage.Stage;
 import sun.awt.Mutex;
 
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 
@@ -75,6 +77,11 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void createRoomScreen() {
+
+    }
+
+    @Override
+    public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
 
     }
 
