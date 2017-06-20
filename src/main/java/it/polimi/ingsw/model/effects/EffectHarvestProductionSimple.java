@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -112,9 +113,15 @@ public class EffectHarvestProductionSimple extends Effect{
      */
     @Override
     public void runEffect(Player player){
+        //get the family member used to run this effect
+        ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
+        FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
+
         //updates player's resources
         for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
-            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) >= this.diceActionValue){
+                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            }
         }
 
         //updates player's points

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.EffectHarvestProductionSimple;
 import it.polimi.ingsw.model.effects.EffectSimple;
+import org.omg.PortableServer.THREAD_POLICY_ID;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +11,11 @@ import java.util.ArrayList;
  * This class represents the main board abstraction.
  */
 public class MainBoard implements Serializable{
+
+    private static final int NUMBER_OF_TOWERS = 4;
+    private static final int NUMBER_OF_TOWER_CELLS = 4;
+    private static final int NUMBER_OF_MARKET_CELLS = 4;
+
 
     /**
      * Array of towers.
@@ -37,7 +43,6 @@ public class MainBoard implements Serializable{
 
     private ActionSpace harvest;
 
-
     /**
      * Production reference.
      */
@@ -53,11 +58,21 @@ public class MainBoard implements Serializable{
      */
     private ActionSpaceExtended productionExtended;
 
+
     /**
      * Constructor for the main board
      */
     public MainBoard() {
-        towers = new Tower[4];
+        this.towers = new Tower[NUMBER_OF_TOWERS];
+        for (int i = 0; i < NUMBER_OF_TOWERS; i++){
+            this.towers[i] = new Tower(NUMBER_OF_TOWER_CELLS);
+        }
+
+        this.harvest = new ActionSpace(ActionType.HARVEST, 1);
+
+        this.councilPalace = new CouncilPalace(1);
+
+        this.market = new Market(NUMBER_OF_MARKET_CELLS);
     }
 
     /**
@@ -89,6 +104,7 @@ public class MainBoard implements Serializable{
     public CouncilPalace getCouncilPalace(){
         return this.councilPalace;
     }
+
 
     public ActionSpace getHarvest(){
         return this.harvest;

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameErrorType;
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.Effect;
 
 import java.io.Serializable;
@@ -24,12 +26,20 @@ public class ActionSpace implements Serializable{
      */
     private FamilyMember familyMember;
 
-    public void setActionSpaceEffect(Effect effect){
-        this.actionSpaceEffect = effect;
-    }
+    /**
+     * Min dice value to place a family member in the action space.
+     */
+    private int minFamilyMemberValue;
 
-    public void setActionSpaceType(ActionType actionSpaceType){
+    /**
+     * Boolean value that checks if the action space is empty
+     */
+    private Boolean empty = true;
+
+
+    public ActionSpace(ActionType actionSpaceType, int minFamilyMemberValue){
         this.actionSpaceType = actionSpaceType;
+        this.minFamilyMemberValue = minFamilyMemberValue;
     }
 
     /**
@@ -46,6 +56,40 @@ public class ActionSpace implements Serializable{
      */
     public Effect getActionSpaceEffect(){
         return this.actionSpaceEffect;
+    }
+
+    public Boolean getEmpty(){
+        return this.empty;
+    }
+
+    public void setEmpty(Boolean updatedValue){
+        this.empty = updatedValue;
+    }
+
+    /**
+     * Checks if the value is enough to place the family member inside the cell
+     * @param player
+     * @param familyMemberColor
+     * @throws GameException
+     */
+    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+
+        //check that the family member used has not been already used
+        for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed()){
+            if (familyMemberColor.equals(color)){
+                throw new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_USED);
+            }
+        }
+
+        //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
+        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.minFamilyMemberValue){
+            throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
+        }
+
+
+        //if the family member can be placed, add it to the family members used and set this zone as not empty
+        player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
+        this.empty = false;
     }
 
 }

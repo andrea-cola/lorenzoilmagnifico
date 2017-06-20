@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameErrorType;
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.EffectSimple;
 
@@ -21,18 +23,26 @@ public class MarketCell implements Serializable{
     private Integer minFamilyMemberValue;
 
     /**
-     * Family member that has joined the cell.
+     * Check if the cell is empty
+     * @param minFamilyMemberValue
      */
-    private FamilyMember familyMember;
+    private Boolean empty = true;
+
+
+    public MarketCell(int minFamilyMemberValue){
+        this.minFamilyMemberValue = minFamilyMemberValue;
+    }
 
     /**
      * This method checks if the cell is empty.
      * @return
      */
-    public boolean isEmpty() {
-        if(familyMember == null)
-            return true;
-        return false;
+    public Boolean getEmpty() {
+        return this.empty;
+    }
+
+    public void setEmpty(Boolean updatedValue){
+        this.empty = updatedValue;
     }
 
     /**
@@ -66,5 +76,26 @@ public class MarketCell implements Serializable{
     public Integer getMinFamilyMemberValue(){
         return this.minFamilyMemberValue;
     }
+
+    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+
+        //check that the family member used has not been already used
+        for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed()){
+            if (familyMemberColor.equals(color)){
+                throw new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_USED);
+            }
+        }
+
+        //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
+        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.minFamilyMemberValue){
+            throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
+        }
+
+
+        //if the family member can be placed, add it to the family members used and set this zone as not empty
+        player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
+        this.empty = false;
+    }
+
 
 }

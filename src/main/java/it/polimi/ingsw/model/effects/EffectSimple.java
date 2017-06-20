@@ -62,6 +62,8 @@ public class EffectSimple extends Effect{
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
+
+
     }
 
 }

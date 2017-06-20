@@ -3,9 +3,7 @@ package it.polimi.ingsw.model;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by lorenzo on 23/05/17.
- */
+
 public class FamilyMember {
 
     private Map<FamilyMemberColor, Integer> members;
