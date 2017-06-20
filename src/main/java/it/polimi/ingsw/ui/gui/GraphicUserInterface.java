@@ -17,8 +17,6 @@ import java.util.concurrent.Semaphore;
  */
 public class GraphicUserInterface extends AbstractUI{
 
-    private Task<Void> task;
-
     /**
      * Constructor
      * @param controller

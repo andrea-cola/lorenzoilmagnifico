@@ -37,7 +37,7 @@ public class CommandLineInterface extends AbstractUI {
     private BasicScreen screen;
 
     /**
-     * Contructor
+     * Constructor
      * @param controller
      */
     public CommandLineInterface(UiController controller){
