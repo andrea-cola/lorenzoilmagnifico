@@ -5,21 +5,38 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+
+import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * This is the board which the game starts with
  */
 public class StartingBoardScreen extends Application{
-
-    public static StartingBoardScreen startingBoardScreen =null;
-
-
+    /**
+     * Constants
+     */
+    private final static int VBOX_SPACING = 20;
+    private final static int BACK_WIDTH = 100;
+    private final static int BACK_HEIGHT = 150;
+    private final static int LOADING_FONT = 20;
+    private final static int WELCOME_FONT = 40;
 
     /**
      * The start function inherited by Application represents the structure of the Starting board
@@ -29,10 +46,12 @@ public class StartingBoardScreen extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("StartingBoardScreen");
-        VBox vBox= new VBox(10);
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(20);
-        Scene scene= new Scene(vBox, 300, 500);
+        Group root = new Group();
+
+        VBox vBoxStart = new VBox(VBOX_SPACING);
+        vBoxStart.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(vBoxStart);
+        Scene scene= new Scene(root);
 
         ProgressBar bar= new ProgressBar();
         Timeline task= new Timeline(
@@ -41,20 +60,36 @@ public class StartingBoardScreen extends Application{
                         new KeyValue(bar.progressProperty(), 0)
                 ),
                 new KeyFrame(
-                        Duration.seconds(8),
+                        Duration.seconds(3),
                         new KeyValue(bar.progressProperty(),1)
                 ));
 
+        Label loading= new Label("Loading");
+        loading.setTextFill(Color.DARKBLUE);
+        loading.setFont(new Font(LOADING_FONT));
+
+        loading.setVisible(false);
         Button button= new Button("START");
-        button.setOnAction(event -> task.playFromStart());
+        button.setOnAction(event -> {
+            task.playFromStart();
+            loading.setVisible(true);
+            task.setOnFinished(event1 -> {
+                primaryStage.close();
+            });
+        });
+
 
         Label welcome= new Label("WELCOME");
-        welcome.setId("welcome");
-        Label loading= new Label("Loading");
-        loading.setId("loading");
-        vBox.getChildren().addAll(welcome, loading, bar, button);
-        scene.getStylesheets().add(StartingBoardScreen.class.getResource("StartingBoardScreen").toExternalForm());
+        welcome.setFont(new Font(WELCOME_FONT));
+
+        ImageView image = new ImageView(new Image("images/StartingBoardCover.jpg"));
+        vBoxStart.getChildren().addAll(welcome, image,  loading, bar, button);
+
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
+
+
+
 }

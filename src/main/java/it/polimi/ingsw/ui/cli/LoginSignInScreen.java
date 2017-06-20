@@ -12,7 +12,7 @@ public class LoginSignInScreen extends BasicScreen {
         System.out.println("\n\n[LOGIN & SIGN IN]");
         this.callback = callback;
         addPrintCommand("login", arguments->login(arguments));
-        addPrintCommand("signin", arguments->signin(arguments));
+        addPrintCommand("signin", arguments->signIn(arguments));
         printHelps();
         readCommand();
     }
@@ -29,7 +29,7 @@ public class LoginSignInScreen extends BasicScreen {
             throw new WrongCommandException();
     }
 
-    private void signin(String[] arguments) throws WrongCommandException {
+    private void signIn(String[] arguments) throws WrongCommandException {
         if(arguments.length == 2)
             this.callback.loginPlayer(arguments[0], arguments[1], true);
         else

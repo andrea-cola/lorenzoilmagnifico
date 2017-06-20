@@ -5,7 +5,10 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.ui.cli.ConnectionType;
 import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
@@ -13,19 +16,31 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.WindowEvent;
+
+import java.util.concurrent.CountDownLatch;
 
 /**
  * This is the Graphic User Interface board for network settings
  */
 public class NetworkBoardScreen extends Application {
+    /**
+     * Constants
+     */
+    private final static int VBOX_SPACING = 10;
+    private final static int STAGE_WIDTH = 800;
+    private final static int STAGE_HEIGHT = 800;
+    private final static int GRID_H_GAP = 10;
+    private final static int GRID_V_GAP = 10;
+    private final static int HBOX_SPACING = 10;
 
     private NetworkBoardCallback callback;
 
-    private static NetworkBoardScreen networkBoardScreen = null;
     /**
      * Connection data
      */
@@ -35,7 +50,6 @@ public class NetworkBoardScreen extends Application {
 
     /**
      * Constructor for the NetworkBoardScreen
-     *
      * @param callback
      */
     public NetworkBoardScreen(NetworkBoardCallback callback) {
@@ -44,50 +58,59 @@ public class NetworkBoardScreen extends Application {
 
     /**
      * The start function inherited by Application represents the structure of the Network board
-     *
      * @param primaryStage is the main container of the application
      * @throws Exception if the main method is not allocated
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("NetworkBoardScreen");
-        VBox vBox = new VBox(10);
+        VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
-        Label choose = new Label("NETWORK PREFERENCES");
-        choose.setAlignment(Pos.CENTER);
-        choose.setStyle("Ubuntu");
-        choose.setMaxSize(20, 10);
+        Label title = new Label("NETWORK PREFERENCES");
+        title.setAlignment(Pos.CENTER);
+        title.setStyle("Ubuntu");
 
-        HBox hBox1 = new HBox(10);
+        HBox hBox1 = new HBox(HBOX_SPACING);
         hBox1.setAlignment(Pos.CENTER);
-        HBox hBox2 = new HBox(10);
+        HBox hBox2 = new HBox(HBOX_SPACING);
         hBox2.setAlignment(Pos.CENTER);
         GridPane grid = new GridPane();
-        grid.setVgap(15);
-        grid.setHgap(15);
-        grid.setAlignment(Pos.CENTER);
+        grid.setVgap(GRID_V_GAP);
+        grid.setHgap(GRID_H_GAP);
 
         Label labelNetwork = new Label("Network Type");
         labelNetwork.setAlignment(Pos.CENTER);
         ChoiceBox choiceBox = new ChoiceBox();
         choiceBox.getItems().add("RMI");
         choiceBox.getItems().add("SOCKET");
-        type = (String) choiceBox.getValue();
+
 
         Label labelAddr = new Label("Address");
         labelAddr.setAlignment(Pos.CENTER);
         labelAddr.setStyle("Ubuntu");
+
         TextField text = new TextField();
         text.setAlignment(Pos.CENTER);
-        address = text.getText();
 
-        ImageView imageView = new ImageView(new Image("images/NetworkBoardCover.jpg"));
+        ImageView imageView = new ImageView(new Image("images/NetworkBoardCover.png"));
+
         Button connect = new Button("CONNECT");
-        connect.setOnAction(event -> doConnect());
-
-        if (address.isEmpty()) {
-            connect.setDisable(true);
-        }
+        connect.setOnAction(event -> {
+            if(text.getText()!= null && choiceBox.getValue()!=null){
+                type = (String) choiceBox.getValue();
+                address = text.getText();
+                System.out.print("ADDRESS: " + address + " & TYPE: " + type + "\n");
+                doConnect();
+                Platform.runLater(() -> {
+                    try {
+                        networkBoardScreen.start(new Stage());
+                    } catch (Exception e) {
+                        Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
+                    }
+                });
+                primaryStage.close();
+            }
+        });
 
         Button exit = new Button("EXIT");
         exit.setOnAction(event -> primaryStage.close());
@@ -96,16 +119,21 @@ public class NetworkBoardScreen extends Application {
         grid.add(choiceBox, 1, 0);
         grid.add(labelAddr, 0, 1);
         grid.add(text, 1, 1);
-
+        grid.setAlignment(Pos.CENTER_LEFT);
 
         hBox1.getChildren().addAll(imageView, grid);
         hBox2.getChildren().addAll(connect, exit);
-        vBox.getChildren().addAll(choose, hBox1, hBox2);
-        Scene scene = new Scene(vBox);
 
+        vBox.getChildren().addAll(title, hBox1, hBox2);
+        vBox.autosize();
+        Group root = new Group();
+        root.getChildren().addAll(vBox);
+        Scene scene = new Scene(root);
+        primaryStage.setResizable(false);
+        primaryStage.setMinWidth(STAGE_WIDTH);
+        primaryStage.setMinHeight(STAGE_HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
     public void doConnect() {
@@ -130,7 +158,6 @@ public class NetworkBoardScreen extends Application {
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error during connection.");
         }
     }
-
 
     /**
      * This callback interface represents the main network context function

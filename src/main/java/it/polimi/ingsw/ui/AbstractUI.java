@@ -15,9 +15,9 @@ public abstract class AbstractUI {
         return controller;
     }
 
-    public abstract void chooseConnectionType() throws InterruptedException;
+    public abstract void chooseConnectionType();
 
-    public abstract void loginScreen() throws InterruptedException;
+    public abstract void loginScreen();
 
     public abstract void joinRoomScreen();
 

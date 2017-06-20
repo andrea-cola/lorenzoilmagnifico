@@ -38,8 +38,7 @@ import java.io.*;
      * Class constructor. A new user interface is created.
      * @param ui index of the preferred interface.
      */
-    public LorenzoIlMagnifico(int ui) {
-
+    public LorenzoIlMagnifico(int ui) throws InterruptedException {
         switch (ui){
             case 1:
                 userInterface = new CommandLineInterface(this);
@@ -64,7 +63,8 @@ import java.io.*;
      * @param port network port.
      */
     @Override
-    public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException{
+    public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException {
+        System.out.print("CIAONE");
         switch (connectionType){
             case SOCKET:
                 client = new SocketClient(this, address, port);
@@ -78,6 +78,7 @@ import java.io.*;
         client.connectToServer();
         userInterface.loginScreen();
     }
+
 
     @Override
     public void loginPlayer(String username, String password, boolean flag) {

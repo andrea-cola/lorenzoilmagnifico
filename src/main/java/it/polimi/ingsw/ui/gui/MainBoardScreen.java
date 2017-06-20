@@ -131,6 +131,7 @@ public class MainBoardScreen extends Application{
         Image image2 = new Image("/images/MainBoardCover.jpg");
         background = new BackgroundImage(image2, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
         leftPane.setBackground(new Background(background));
+
         gridTower = new GridPane();
         gridTower.relocate(GRID_TOWER_X, GRID_TOWER_Y);
         gridTower.setVgap(GRID_TOWER_VGAP);
