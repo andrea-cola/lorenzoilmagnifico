@@ -3,6 +3,7 @@ package it.polimi.ingsw.socketCommunicationProtocol;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.LoginErrorType;
@@ -76,7 +77,8 @@ public class ServerCommunicationProtocol {
         requestsTable.put(CommunicationProtocolConstants.SIGNIN_REQUEST, this::signInPlayer);
         requestsTable.put(CommunicationProtocolConstants.JOIN_ROOM_REQUEST, this::joinRoom);
         requestsTable.put(CommunicationProtocolConstants.CREATE_ROOM_REQUEST, this::createNewRoom);
-        requestsTable.put(CommunicationProtocolConstants.PERSONAL_TILES, this::setPlayerPersonalBoardTile);
+        requestsTable.put(CommunicationProtocolConstants.PERSONAL_TILES, this::notifyPlayerPersonalBoardTileChoice);
+        requestsTable.put(CommunicationProtocolConstants.LEADER_CARDS, this::notifyLeaderCardChoice);
     }
 
     /**
@@ -214,12 +216,35 @@ public class ServerCommunicationProtocol {
         }
     }
 
-    public void setPlayerPersonalBoardTile(){
+    public void notifyPlayerPersonalBoardTileChoice(){
         try {
+            System.out.println("Ciaone");
             PersonalBoardTile personalBoardTile = (PersonalBoardTile)input.readObject();
-            serverCommunicationProtocolInterface.setPlayerPersonalBoardTile(personalBoardTile);
+            serverCommunicationProtocolInterface.notifyPlayerPersonalBoardTileChoice(personalBoardTile);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
+            e.printStackTrace();
+        }
+    }
 
+    public void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException{
+        synchronized (object){
+            try {
+                output.writeObject(CommunicationProtocolConstants.LEADER_CARDS);
+                output.writeObject(leaderCards);
+                output.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new NetworkException();
+            }
+        }
+    }
+
+    public void notifyLeaderCardChoice(){
+        try{
+            LeaderCard leaderCard = (LeaderCard)input.readObject();
+            serverCommunicationProtocolInterface.notifyPlayerLeaderCardChoice(leaderCard);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            // -----------------------------
         }
     }
 

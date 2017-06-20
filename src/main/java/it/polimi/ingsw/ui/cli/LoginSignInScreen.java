@@ -1,39 +1,65 @@
 package it.polimi.ingsw.ui.cli;
 
-import it.polimi.ingsw.exceptions.WrongCommandException;
+import it.polimi.ingsw.utility.Debugger;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginSignInScreen extends BasicScreen {
 
     private final ICallback callback;
 
-    LoginSignInScreen(ScreenInterface screenInterface, ICallback callback){
-        super(screenInterface);
+    private List<CLIMessages> cliMessages = new ArrayList<>();
 
-        System.out.println("\n\n[LOGIN & SIGN IN]");
+    LoginSignInScreen(ICallback callback){
         this.callback = callback;
-        addPrintCommand("login", arguments->login(arguments));
-        addPrintCommand("signin", arguments->signIn(arguments));
-        printHelps();
+
+        cliMessages.add(CLIMessages.LOGIN);
+        cliMessages.add(CLIMessages.SIGNIN);
+        printScreenTitle("LOGIN | SIGN IN");
+        print(cliMessages);
         readCommand();
     }
 
-    private void printHelps(){
-        System.out.println("Helps: login [username] [password]");
-        System.out.println("Helps: signin [username] [password]");
+    private void readCommand(){
+        try {
+            int key;
+            do {
+                key = Integer.parseInt(keyboardReader.readLine());
+            } while (key < 1 || key > cliMessages.size());
+            if (key == 1) {
+                login();
+            } else {
+                signIn();
+            }
+        } catch (ClassCastException e) {
+            readCommand();
+        } catch (IOException e){
+            Debugger.printDebugMessage("Error while reading from keyboard.");
+        }
     }
 
-    private void login(String[] arguments) throws WrongCommandException{
-        if(arguments.length == 2)
-            this.callback.loginPlayer(arguments[0], arguments[1], false);
+    private void login() throws IOException{
+        print("Username");
+        String username = keyboardReader.readLine();
+        print("Password");
+        String password = keyboardReader.readLine();
+        if(username.equals("") || password.equals(""))
+            login();
         else
-            throw new WrongCommandException();
+            this.callback.loginPlayer(username, password, false);
     }
 
-    private void signIn(String[] arguments) throws WrongCommandException {
-        if(arguments.length == 2)
-            this.callback.loginPlayer(arguments[0], arguments[1], true);
+    private void signIn() throws IOException {
+        print("Username");
+        String username = keyboardReader.readLine();
+        print("Password");
+        String password = keyboardReader.readLine();
+        if(username.equals("") || password.equals(""))
+            login();
         else
-            throw new WrongCommandException();
+            this.callback.loginPlayer(username, password, true);
     }
 
     @FunctionalInterface

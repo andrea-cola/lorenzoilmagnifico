@@ -1,5 +1,6 @@
 package it.polimi.ingsw.rmiServer;
 
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
@@ -179,8 +180,13 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
     }
 
     @Override
-    public void setPersonalBoardChoise(String playerID, PersonalBoardTile personalBoardTile) {
+    public void notifyPersonalBoardChoice(String playerID, PersonalBoardTile personalBoardTile) {
         getServer().setPlayerPersonalBoardTile(getPlayer(playerID), personalBoardTile);
+    }
+
+    @Override
+    public void notifyLeaderCardChoice(String playerID, LeaderCard leaderCard) {
+        getServer().setPlayerLeaderCard(getPlayer(playerID), leaderCard);
     }
 
 }

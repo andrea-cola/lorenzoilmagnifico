@@ -1,11 +1,8 @@
 package it.polimi.ingsw.gameServer;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
-import sun.applet.Main;
-import sun.security.krb5.Config;
 
 import java.util.*;
 
@@ -144,13 +141,16 @@ import java.util.*;
     private void setupPlayers(){
         int i = 0;
         randomPlayerSorting();
+
         Map<String, PlayerColor> colors = PlayerColor.getHashMap();
+
         Iterator iterator = colors.entrySet().iterator();
+
         for(ServerPlayer player : players){
             Map.Entry pair = (Map.Entry) iterator.next();
             Player gamePlayer = player;
             gamePlayer.setColor((PlayerColor)pair.getValue());
-            gamePlayer.setPersonalBoard(configuration.getPersonalBoard());
+            gamePlayer.setPersonalBoard(createNewPersonalBoard());
             gamePlayer.getPersonalBoard().getValuables().increase(ResourceType.COIN, INITIAL_COINS + i);
             this.game.getPlayersMap().put(player.getNickname(), gamePlayer);
             i++;
@@ -175,5 +175,13 @@ import java.util.*;
 
     public ArrayList<ServerPlayer> getStartOrder(){
         return players;
+    }
+
+    private PersonalBoard createNewPersonalBoard(){
+        PersonalBoard personalBoard = new PersonalBoard();
+        personalBoard.setGreenCardsMilitaryPointsRequirements(configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
+        FamilyMember familyMember = new FamilyMember();
+        personalBoard.setFamilyMember(familyMember);
+        return personalBoard;
     }
 }

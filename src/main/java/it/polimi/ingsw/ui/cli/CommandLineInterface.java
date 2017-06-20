@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui.cli;
 
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
@@ -33,8 +34,6 @@ public class CommandLineInterface extends AbstractUI {
      */
     private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-    private ScreenInterface screenInterface;
-
     private BasicScreen screen;
 
     /**
@@ -48,31 +47,36 @@ public class CommandLineInterface extends AbstractUI {
 
     @Override
     public void chooseConnectionType(){
-        screen = new ChooseConnectionScreen(screenInterface, getController()::setNetworkSettings);
+        screen = new ChooseConnectionScreen(getController()::setNetworkSettings);
     }
 
     @Override
     public void loginScreen() {
-        screen = new LoginSignInScreen(screenInterface, getController()::loginPlayer);
+        screen = new LoginSignInScreen(getController()::loginPlayer);
     }
 
     @Override
     public void joinRoomScreen() {
-        screen = new JoinRoomScreen(screenInterface, getController()::joinRoom);
+        screen = new JoinRoomScreen(getController()::joinRoom);
         Debugger.printStandardMessage("Room join OK.");
         screen = null;
     }
 
     @Override
     public void createRoomScreen(){
-        screen = new CreateRoomScreen(screenInterface, getController()::createRoom);
+        screen = new CreateRoomScreen(getController()::createRoom);
         Debugger.printStandardMessage("Room creation OK.");
         screen = null;
     }
 
     @Override
     public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
-        screen = new ChoosePersonalBoardTileScreen(screenInterface, getController()::sendPersonalBoardTileChoice, personalBoardTileList);
+        screen = new ChoosePersonalBoardTileScreen(getController()::sendPersonalBoardTileChoice, personalBoardTileList);
+    }
+
+    @Override
+    public void chooseLeaderCards(List<LeaderCard> leaderCards) {
+        screen = new ChooseLeaderCardsScreen(getController()::notifyLeaderCardChoice, leaderCards);
     }
 
 }

@@ -1,30 +1,42 @@
 package it.polimi.ingsw.ui.cli;
 
-import it.polimi.ingsw.exceptions.WrongCommandException;
+import it.polimi.ingsw.utility.Debugger;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateRoomScreen extends BasicScreen{
 
     private ICallback callback;
 
-    CreateRoomScreen(ScreenInterface screenInterface, ICallback callback){
-        super(screenInterface);
+    private List<CLIMessages> cliMessages = new ArrayList<>();
 
-        System.out.println("\n\n[CREATE ROOM]");
+
+    CreateRoomScreen(ICallback callback){
         this.callback = callback;
-        addPrintCommand("create-room", arguments->createRoom(arguments));
-        printHelps();
-        readCommand();
+
+        cliMessages.add(CLIMessages.CREATE_ROOM);
+        printScreenTitle("CREATE ROOM");
+        print(cliMessages);
+        createRoom();
     }
 
-    private void printHelps(){
-        System.out.println("Helps: create-room [max players number]");
-    }
-
-    private void createRoom(String[] arguments) throws WrongCommandException{
-        if(arguments.length == 1)
-            this.callback.createRoom(Integer.parseInt(arguments[0]));
-        else
-            throw new WrongCommandException();
+    private void createRoom(){
+        print("Number of player allowed in the room");
+        try{
+            int key;
+            do{
+                key = Integer.parseInt(keyboardReader.readLine());
+            } while (key < 2 || key > 4);
+            print("Creating new room. Please wait...");
+            Thread.sleep(2000);
+            this.callback.createRoom(key);
+        } catch (InterruptedException | ClassCastException e){
+            createRoom();
+        } catch (IOException e){
+            Debugger.printDebugMessage("Error while reading from keyboard.");
+        }
     }
 
     @FunctionalInterface

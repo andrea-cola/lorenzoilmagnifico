@@ -1,5 +1,7 @@
 package it.polimi.ingsw.lorenzo;
 
+import it.polimi.ingsw.ui.cli.CLIMessages;
+
 import java.util.Scanner;
 
 /**
@@ -20,11 +22,11 @@ public class GameLauncher {
         int choise;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("LORENZO IL MAGNIFICO");
+        System.out.println(CLIMessages.STARTING_ALERT.toString() + "\n");
         do{
-            System.out.println("Choose your user interface to play:");
-            System.out.println("Type 1 to use COMMAND LINE INTERFACE");
-            System.out.println("Type 2 to use  INTERFACE");
+            System.out.println("Choose your user interface:");
+            System.out.println("(1) COMMAND LINE INTERFACE");
+            System.out.println("(2) GRAPHICAL INTERFACE");
             choise = Integer.parseInt(scanner.nextLine());
         }while(choise != 1 && choise != 2);
         return choise;

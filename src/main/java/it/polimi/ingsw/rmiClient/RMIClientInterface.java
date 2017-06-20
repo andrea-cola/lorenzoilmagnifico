@@ -1,6 +1,7 @@
 package it.polimi.ingsw.rmiClient;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 
 import java.rmi.Remote;
@@ -13,9 +14,11 @@ import java.util.List;
  */
 public interface RMIClientInterface extends Remote{
 
-    void sendPersonalTiles(List<PersonalBoardTile> personalBoardTileList) throws RemoteException;
+    String ping() throws RemoteException;
 
     void sendGame(Game game) throws RemoteException;
 
-    String ping() throws RemoteException;
+    void sendPersonalTiles(List<PersonalBoardTile> personalBoardTileList) throws RemoteException;
+
+    void sendLeaderCards(List<LeaderCard> leaderCards) throws RemoteException;
 }

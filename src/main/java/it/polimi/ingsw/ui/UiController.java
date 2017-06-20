@@ -2,6 +2,7 @@ package it.polimi.ingsw.ui;
 
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.ui.cli.ConnectionType;
 
@@ -22,5 +23,7 @@ public interface UiController {
     void createRoom(int maxPlayers);
 
     void sendPersonalBoardTileChoice(PersonalBoardTile personalBoardTile);
+
+    void notifyLeaderCardChoice(LeaderCard leaderCard);
 
 }

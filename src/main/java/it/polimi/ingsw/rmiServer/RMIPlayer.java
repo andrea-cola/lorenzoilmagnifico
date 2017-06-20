@@ -2,6 +2,7 @@ package it.polimi.ingsw.rmiServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.rmiClient.RMIClientInterface;
@@ -33,6 +34,15 @@ import java.util.List;
     }
 
     @Override
+    public void sendGameInfo(Game game) throws NetworkException {
+        try {
+            rmiClientInterface.sendGame(game);
+        } catch(RemoteException e){
+            throw new NetworkException(e);
+        }
+    }
+
+    @Override
     public void sendPersonalTile(List<PersonalBoardTile> personalBoardTiles) throws NetworkException{
         try{
             rmiClientInterface.sendPersonalTiles(personalBoardTiles);
@@ -42,11 +52,11 @@ import java.util.List;
     }
 
     @Override
-    public void sendGameInfo(Game game) throws NetworkException {
-        try {
-            rmiClientInterface.sendGame(game);
+    public void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException {
+        try{
+            rmiClientInterface.sendLeaderCards(leaderCards);
         } catch(RemoteException e){
-            throw new NetworkException(e);
+            throw new NetworkException();
         }
     }
 }

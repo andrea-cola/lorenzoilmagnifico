@@ -1,10 +1,7 @@
 package it.polimi.ingsw.gameServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -176,6 +173,10 @@ public class Room {
         countDownLatch.countDown();
     }
 
+    public void onLeaderCardChosen() {
+        countDownLatch.countDown();
+    }
+
     /**
      * This class is used to manage the room during the game.
      */
@@ -204,45 +205,89 @@ public class Room {
 
             Debugger.printStandardMessage("[Room #" + roomID + "] : Players are choosing personal tiles.");
             personalTilesChoice(roomConfiguration.getPersonalBoardTiles());
+            stampa1();
 
             Debugger.printStandardMessage("[Room #" + roomID + "] : Players are choosing leader cardss.");
-            //leaderCardsChoice(Configurator.getLeaderCards());
+            leaderCardsChoice(Configurator.getLeaderCards());
 
             //game = gameManager.getGameInstance();
         }
 
+        public void stampa1(){
+            for(ServerPlayer player : players)
+                System.out.println(player.getNickname() + " " + player.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN));
+        }
+
+        public void stampa2() {
+            for (ServerPlayer player : players)
+                for (LeaderCard leaderCard : player.getPersonalBoard().getLeaderCards())
+                    System.out.println(player.getNickname() + " " + leaderCard.getLeaderCardName());
+        }
+
         private void leaderCardsChoice(ArrayList<LeaderCard> leaderCards){
+            countDownLatch = new CountDownLatch(players.size());
+            ArrayList<ServerPlayer> playersOrder = new ArrayList<>();
+            playersOrder.addAll(players);
             ArrayList<LeaderCard> cards = new ArrayList<>();
             cards.addAll(leaderCards);
+            Collections.shuffle(cards);
+            cards = new ArrayList<>(cards.subList(0, (players.size() * LEADER_CARD_PER_PLAYER)));
 
+            for(int i = 0; i < LEADER_CARD_PER_PLAYER; i++) {
+                try {
+                    sendArrays(cards, playersOrder);
+                    countDownLatch.await();
+                    removeChosenLeaderCards(cards);
+                    stampa2();
+                } catch (NetworkException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                playersOrder.add(playersOrder.remove(0));
+                countDownLatch = new CountDownLatch(players.size());
+            }
+        }
 
-            Collections.shuffle(leaderCards);
-            for(int i = 0; i < LEADER_CARD_PER_PLAYER; i++){
+        private void sendArrays(List<LeaderCard> leaderCards, List<ServerPlayer> serverPlayers) throws NetworkException{
+            int cardNumberPerPlayer = leaderCards.size() / serverPlayers.size();
+            int index = 0;
 
+            for(ServerPlayer player : serverPlayers){
+                player.sendLeaderCards(new ArrayList<>(leaderCards.subList(index * cardNumberPerPlayer, index * cardNumberPerPlayer + cardNumberPerPlayer)));
+                index++;
+            }
+        }
+
+        private void removeChosenLeaderCards(ArrayList<LeaderCard> leaderCards){
+            for(ServerPlayer player : players){
+                int i = player.getPersonalBoard().getLeaderCards().size() - 1;
+                System.out.println("Ultima posizione:" + i);
+                LeaderCard lc = player.getPersonalBoard().getLeaderCards().get(i);
+                for(int j = 0; j < leaderCards.size(); j++)
+                    if(leaderCards.get(j).getLeaderCardName().equals(lc.getLeaderCardName()))
+                        leaderCards.remove(j);
             }
         }
 
         private void personalTilesChoice(ArrayList<PersonalBoardTile> personalBoardTileList){
-            ArrayList<PersonalBoardTile> tmp = new ArrayList<>();
-            tmp.addAll(personalBoardTileList);
+            ArrayList<PersonalBoardTile> personalBoardtiles = new ArrayList<>();
+            personalBoardtiles.addAll(personalBoardTileList);
 
             for(int i = players.size() - 1; i >= 0; i--) {
                 countDownLatch = new CountDownLatch(1);
                 try {
-                    players.get(i).sendPersonalTile(tmp);
+                    players.get(i).sendPersonalTile(personalBoardtiles);
                     countDownLatch.await();
-                    for(int j = 0; j < tmp.size(); j++)
-                        if (tmp.get(j).getPersonalBoardID() == players.get(i).getPersonalBoard().getPersonalBoardTile().getPersonalBoardID())
-                            tmp.remove(j);
+                    for(int j = 0; j < personalBoardtiles.size(); j++)
+                        if (personalBoardtiles.get(j).getPersonalBoardID() == players.get(i).getPersonalBoard().getPersonalBoardTile().getPersonalBoardID())
+                            personalBoardtiles.remove(j);
                 } catch (NetworkException | InterruptedException e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
                 }
             }
         }
 
-        /**
-         * Send to each player information contained in game model.
-         */
         private void sendGameSession(){
             for(ServerPlayer player : players) {
                 try {
@@ -253,10 +298,6 @@ public class Room {
             }
         }
 
-        /**
-         * Close the room.
-         * Mutex is held to avoid concurrency problems.
-         */
         private void lockRoom(){
             synchronized (MUTEX){
                 roomOpen = false;

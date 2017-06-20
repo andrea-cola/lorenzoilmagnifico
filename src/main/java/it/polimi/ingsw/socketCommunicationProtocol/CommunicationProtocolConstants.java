@@ -31,5 +31,6 @@ package it.polimi.ingsw.socketCommunicationProtocol;
      */
     /*package-local*/ static final String GAME_MODEL = "GameModel";
     /*package-local*/ static final String PERSONAL_TILES = "GameModel";
+    /*package-local*/ static final String LEADER_CARDS = "LeaderCards";
 
 }
