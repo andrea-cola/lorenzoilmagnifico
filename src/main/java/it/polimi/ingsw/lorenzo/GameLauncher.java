@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class GameLauncher {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
         LorenzoIlMagnifico game = new LorenzoIlMagnifico(chooseUI());
         game.start();
     }
@@ -27,7 +27,6 @@ public class GameLauncher {
             System.out.println("Type 2 to use  INTERFACE");
             choise = Integer.parseInt(scanner.nextLine());
         }while(choise != 1 && choise != 2);
-
         return choise;
     }
 

@@ -12,7 +12,7 @@ public interface ServerCommunicationProtocolInterface {
     /**
      * Method to handle user loginPlayer request.
      * @param username provided by the client.
-     * @param password provided by the cluent.
+     * @param password provided by the client.
      * @throws LoginException if loginPlayer error occurs.
      */
     void loginPlayer(String username, String password) throws LoginException;
