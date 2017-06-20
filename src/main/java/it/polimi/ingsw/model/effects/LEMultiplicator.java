@@ -1,21 +1,24 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.ResourceType;
 
-public class EffectNoBonus extends Effect{
+import java.util.Map;
 
-    int[] floors;
+public class LEMultiplicator extends LeaderEffect{
 
-    public EffectNoBonus(){
+    private int multiplicator;
+
+    public LEMultiplicator(){
         super.effectType = this.getClass().getSimpleName();
     }
 
-    public void setFloors(int[] floors){
-        this.floors = floors;
+    public void setMultiplicator(int value){
+        this.multiplicator = value;
     }
 
-    public int[] getFloors(){
-        return this.floors;
+    public int getMultiplicator(){
+        return this.multiplicator;
     }
 
     /**
@@ -33,8 +36,6 @@ public class EffectNoBonus extends Effect{
      */
     @Override
     public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Resources to pay: da finire di implementare.\n");
-        return description;
+        return "Moltiplica tutte le risorse per " + multiplicator + ", DA SISTEMARE";
     }
 }

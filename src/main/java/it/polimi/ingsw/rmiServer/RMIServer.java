@@ -1,5 +1,6 @@
 package it.polimi.ingsw.rmiServer;
 
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -175,6 +176,11 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
     @Override
     public void createNewRoom(String id, int maxPlayersNumber) throws RoomException{
         getServer().createNewRoom(getPlayer(id), maxPlayersNumber);
+    }
+
+    @Override
+    public void setPersonalBoardChoise(String playerID, PersonalBoardTile personalBoardTile) {
+        getServer().setPlayerPersonalBoardTile(getPlayer(playerID), personalBoardTile);
     }
 
 }

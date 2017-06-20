@@ -3,6 +3,8 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.PersonalBoard;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 
 import java.io.IOException;
@@ -93,5 +95,7 @@ public abstract class AbstractClient {
     public abstract void joinRoom() throws NetworkException, RoomException;
 
     public abstract void createNewRoom(int maxPlayersNumber) throws NetworkException, RoomException;
+
+    public abstract void sendPersonalBoardTileChoise(PersonalBoardTile personalBoardTile) throws NetworkException;
 
 }

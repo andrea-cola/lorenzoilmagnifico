@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import sun.security.krb5.Config;
 
@@ -45,6 +46,8 @@ public interface ServerInterface {
      * @return configuration bundle.
      */
     void createNewRoom(ServerPlayer serverPlayer, int maxPlayers) throws RoomException;
+
+    void setPlayerPersonalBoardTile(ServerPlayer serverPlayer, PersonalBoardTile personalBoardTile);
 
     void disableUser(ServerPlayer player);
 

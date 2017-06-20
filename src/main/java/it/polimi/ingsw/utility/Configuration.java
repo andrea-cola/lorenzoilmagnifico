@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.PersonalBoard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class Configuration implements Serializable{
     /**
      * Array of all possibile configuration fo personal board tile.
      */
-    private List<PersonalBoardTile> personalBoardTiles;
+    private ArrayList<PersonalBoardTile> personalBoardTiles;
 
     /**
      * Class constructor.
@@ -45,7 +46,7 @@ public class Configuration implements Serializable{
      */
     public Configuration(long waitingTime, long moveWaitingTime,
                          MainBoard mainBoard, PersonalBoard personalBoard,
-                         List<PersonalBoardTile> personalBoardTiles) {
+                         ArrayList<PersonalBoardTile> personalBoardTiles) {
         this.waitingTime = waitingTime;
         this.moveWaitingTime = moveWaitingTime;
         this.mainBoard = mainBoard;
@@ -89,7 +90,7 @@ public class Configuration implements Serializable{
      * Get all possibile personal board setup from configuration file.
      * @return list of possibile personal board.
      */
-    public List<PersonalBoardTile> getPersonalBoardTiles(){
+    public ArrayList<PersonalBoardTile> getPersonalBoardTiles(){
         return this.personalBoardTiles;
     }
 }

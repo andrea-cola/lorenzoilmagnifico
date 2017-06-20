@@ -2,6 +2,9 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
 
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * This class represent the effect that allows the player to choose another card.
  */
@@ -82,5 +85,23 @@ public class EffectChooseCard extends Effect{
     @Override
     public void runEffect(Player player) {
 
+    }
+
+    /**
+     * Get a description of the current effect.
+     */
+    @Override
+    public String getDescription() {
+        String description = this.effectType;
+        description.concat("Dice value: " + diceValue + "\n");
+        description.concat("\nColors:\n");
+        for(DevelopmentCardColor developmentCardColor : developmentCardColors)
+            description.concat(developmentCardColor + "\n");
+        description.concat("Resources earnead:\n");
+        pointsAndResources.toString();
+        councilPrivilege.toString();
+        description.concat("Resources discount:\n");
+        pickUpBonus.toString();
+        return description;
     }
 }

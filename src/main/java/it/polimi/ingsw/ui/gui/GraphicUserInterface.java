@@ -1,9 +1,12 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.model.Status;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import javafx.application.Application;
+
+import java.util.List;
 
 import static javafx.application.Application.launch;
 
@@ -37,6 +40,11 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void createRoomScreen() {
+
+    }
+
+    @Override
+    public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
 
     }
 

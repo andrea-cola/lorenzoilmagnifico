@@ -2,6 +2,7 @@ package it.polimi.ingsw.lorenzo;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.ui.cli.LoginSignInScreen;
@@ -16,6 +17,7 @@ import it.polimi.ingsw.ui.cli.ConnectionType;
 import it.polimi.ingsw.ui.gui.GraphicUserInterface;
 
 import java.io.*;
+import java.util.List;
 
 /**
  * This is the basic game class that runs the main function; it implements the two interfaces UiController and
@@ -119,22 +121,23 @@ import java.io.*;
     }
 
     @Override
+    public void sendPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) {
+        try{
+            client.sendPersonalBoardTileChoise(personalBoardTile);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+        }
+    }
+
+    @Override
     public void setGameModel(Game game) {
         this.game = game;
-        printGame();
         Debugger.printDebugMessage("Game started.");
     }
 
-    public void printGame(){
-        System.out.println("Mainboard");
-        try {
-            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(0).getDevelopmentCard().getName());
-            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(1).getDevelopmentCard().getName());
-            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(2).getDevelopmentCard().getName());
-            System.out.println(this.game.getMainBoard().getTower(1).getTowerCell(3).getDevelopmentCard().getName());
-        } catch (NullPointerException e){
-            e.printStackTrace();
-        }
+    @Override
+    public void choosePersonalBoardTile(List<PersonalBoardTile> personalBoardTileList) {
+        userInterface.choosePersonalTile(personalBoardTileList);
     }
 
 }

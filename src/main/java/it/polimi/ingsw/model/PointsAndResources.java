@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -86,5 +87,27 @@ public class PointsAndResources implements Serializable{
      */
     public Map<PointType, Integer> getPoints(){
         return this.points;
+    }
+
+    /**
+     * Return a string with resources and points status.
+     * @return a string.
+     */
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        Iterator it = resources.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            if((int)pair.getValue() > 0)
+                stringBuilder.append(pair.getKey().toString() + ": " + pair.getValue().toString() + "\n");
+        }
+        it = points.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            if((int)pair.getValue() > 0)
+                stringBuilder.append(pair.getKey().toString() + ": " + pair.getValue().toString() + "\n");
+        }
+        return stringBuilder.toString();
     }
 }

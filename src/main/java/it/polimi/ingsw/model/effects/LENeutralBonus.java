@@ -2,20 +2,20 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
 
-public class EffectNoBonus extends Effect{
+public class LENeutralBonus extends LeaderEffect{
 
-    int[] floors;
+    private int bonus;
 
-    public EffectNoBonus(){
+    public LENeutralBonus(){
         super.effectType = this.getClass().getSimpleName();
     }
 
-    public void setFloors(int[] floors){
-        this.floors = floors;
+    public void setBonus(int value){
+        this.bonus = value;
     }
 
-    public int[] getFloors(){
-        return this.floors;
+    public int getBonus(){
+        return this.bonus;
     }
 
     /**
@@ -33,8 +33,6 @@ public class EffectNoBonus extends Effect{
      */
     @Override
     public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Resources to pay: da finire di implementare.\n");
-        return description;
+        return "Neutral family member value increased by " + bonus;
     }
 }

@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PointsAndResources;
 
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * This class represent the effect that allow the user to pick up another card with a defined max dice value.
  */
@@ -96,5 +99,21 @@ public class EffectCardBonus extends Effect{
             }
         }
 
+    }
+
+    /**
+     * Get a description of the current effect.
+     */
+    @Override
+    public String getDescription() {
+        String description = this.effectType + "\n";
+        description.concat("Dice value: " + diceValueBonus + "\n");
+        description.concat("\nColors:\n");
+        for(DevelopmentCardColor developmentCardColor : colors)
+            description.concat(developmentCardColor + "\n");
+        description.concat("Resources discounts:\n");
+        for(PointsAndResources pointsAndResources : pickUpDiscounts)
+            pointsAndResources.toString();
+        return description;
     }
 }

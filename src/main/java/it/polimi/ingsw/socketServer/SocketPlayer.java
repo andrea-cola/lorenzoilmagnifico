@@ -2,6 +2,7 @@ package it.polimi.ingsw.socketServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -13,6 +14,7 @@ import it.polimi.ingsw.socketCommunicationProtocol.ServerCommunicationProtocolIn
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 /**
  * This class extends Server player for socket communication.
@@ -119,8 +121,18 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     }
 
     @Override
+    public void setPlayerPersonalBoardTile(PersonalBoardTile personalBoardTile) {
+        serverInterface.setPlayerPersonalBoardTile(this, personalBoardTile);
+    }
+
+    @Override
     public void sendGameInfo(Game game) throws NetworkException {
         socketCommunicationProtocol.sendGameInfo(game);
+    }
+
+    @Override
+    public void sendPersonalTile(List<PersonalBoardTile> personalBoardTiles) throws NetworkException {
+        socketCommunicationProtocol.sendPersonalBoardTile(personalBoardTiles);
     }
 
     /**

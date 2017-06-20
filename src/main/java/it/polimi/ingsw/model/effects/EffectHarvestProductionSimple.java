@@ -34,10 +34,9 @@ public class EffectHarvestProductionSimple extends Effect{
      * Class constructor.
      */
     public EffectHarvestProductionSimple(){
+        super.effectType = this.getClass().getSimpleName();
         this.valuable = new PointsAndResources();
         this.councilPrivilege = new CouncilPrivilege();
-
-        super.effectType = this.getClass().getSimpleName();
     }
 
     /**
@@ -122,6 +121,18 @@ public class EffectHarvestProductionSimple extends Effect{
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
 
+    }
+
+    /**
+     * Get a description of the current effect.
+     */
+    @Override
+    public String getDescription() {
+        String header = this.effectType + "\n";
+        String actionTypeAndValue = "Action type: " + actionType + "\nValue: " + diceActionValue + "\n";
+        String resources = "Resources earned:\n" + valuable.toString();
+        String privilege = councilPrivilege.toString();
+        return new StringBuilder(header).append(actionTypeAndValue).append(resources).append(privilege).toString();
     }
 
 

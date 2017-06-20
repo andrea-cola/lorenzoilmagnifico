@@ -14,29 +14,34 @@ import java.util.*;
     private static final int INITIAL_COINS = 5;
 
     /**
-     * Game instance
+     * Game instance.
      */
     private Game game;
 
     /**
-     * Development cards yellow deck
+     * Development cards yellow deck.
      */
     private ArrayList<DevelopmentCard> yellowDeck;
 
     /**
-     * Development cards green deck
+     * Development cards green deck.
      */
     private ArrayList<DevelopmentCard> greenDeck;
 
     /**
-     * Development cards blue deck
+     * Development cards blue deck.
      */
     private ArrayList<DevelopmentCard> blueDeck;
 
     /**
-     * Development cards purple deck
+     * Development cards purple deck.
      */
     private ArrayList<DevelopmentCard> purpleDeck;
+
+    /**
+     * Leader cards deck.
+     */
+    private ArrayList<LeaderCard> leaderCards;
 
     /**
      * Player of the game.
@@ -54,9 +59,10 @@ import java.util.*;
      * @param configuration of the game.
      * @param developmentCards deck.
      */
-    /*package-local*/ GameManager(ArrayList<ServerPlayer> players, Configuration configuration, ArrayList<DevelopmentCard> developmentCards){
+    /*package-local*/ GameManager(ArrayList<ServerPlayer> players, Configuration configuration, ArrayList<DevelopmentCard> developmentCards, ArrayList<LeaderCard> leaderCards){
         this.players = players;
         this.configuration = configuration;
+        this.leaderCards = leaderCards;
         game = new Game(configuration.getMainBoard());
         setupPlayers();
         setupDecks(developmentCards);

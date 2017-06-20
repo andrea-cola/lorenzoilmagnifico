@@ -2,35 +2,30 @@ package it.polimi.ingsw.gameServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.server.ServerPlayer;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * This class represent a game room.
  */
 public class Room {
 
+    private static final int MIN_PLAYER_TO_START = 2;
+    private static final long IMMEDIATE_START_TIME = 0L;
+    private static final int LEADER_CARD_PER_PLAYER = 4;
+
     /**
      * Room identifier.
      */
     private int roomID;
-
-    /**
-     * Minimum number of player before game can start.
-     */
-    private static final int MIN_PLAYER_TO_START = 2;
-
-    /**
-     * Constant that indicate the time to start immediately the game.
-     */
-    private static final long IMMEDIATE_START_TIME = 0L;
 
     /**
      * Mutex object to synchronize room access.
@@ -79,6 +74,8 @@ public class Room {
     private ArrayList<ServerPlayer> players = new ArrayList();
 
     private Game game;
+
+    private CountDownLatch countDownLatch;
 
     /**
      * Class constructor.
@@ -139,7 +136,7 @@ public class Room {
                 players.set(i, serverPlayer);
         }
         Debugger.printDebugMessage(serverPlayer.getNickname() + " has rejoined the previous room.");
-        //serverPlayer.sendGameInfo(gameManager.game);
+        //serverPlayer.sendGame(gameManager.game);
         //__________________________________
     }
 
@@ -175,6 +172,10 @@ public class Room {
         return false;
     }
 
+    public void onPersonalTilesChosen(){
+        countDownLatch.countDown();
+    }
+
     /**
      * This class is used to manage the room during the game.
      */
@@ -187,8 +188,8 @@ public class Room {
         @Override
         public void run(){
             setupBeforeStartGame();
-            sendGameSession();
-            Debugger.printDebugMessage("Game starts in room #" + getRoomID());
+            //sendGameSession();
+            //Debugger.printDebugMessage("Game starts in room #" + getRoomID());
         }
 
         /**
@@ -196,19 +197,46 @@ public class Room {
          */
         private void setupBeforeStartGame(){
             lockRoom();
+
+            Debugger.printDebugMessage("[Room #" + roomID + "] : Room closed.");
             gameManager = Configurator.buildAndGetGame(players, roomConfiguration);
             players = gameManager.getStartOrder();
-            game = gameManager.getGameInstance();
-            Debugger.printDebugMessage("[Room] : Room closed. Session created. Lorenzo Il Magnifico is starting...");
+
+            Debugger.printStandardMessage("[Room #" + roomID + "] : Players are choosing personal tiles.");
+            personalTilesChoice(roomConfiguration.getPersonalBoardTiles());
+
+            Debugger.printStandardMessage("[Room #" + roomID + "] : Players are choosing leader cardss.");
+            //leaderCardsChoice(Configurator.getLeaderCards());
+
+            //game = gameManager.getGameInstance();
         }
 
-        /**
-         * Close the room.
-         * Mutex is held to avoid concurrency problems.
-         */
-        private void lockRoom(){
-            synchronized (MUTEX){
-                roomOpen = false;
+        private void leaderCardsChoice(ArrayList<LeaderCard> leaderCards){
+            ArrayList<LeaderCard> cards = new ArrayList<>();
+            cards.addAll(leaderCards);
+
+
+            Collections.shuffle(leaderCards);
+            for(int i = 0; i < LEADER_CARD_PER_PLAYER; i++){
+
+            }
+        }
+
+        private void personalTilesChoice(ArrayList<PersonalBoardTile> personalBoardTileList){
+            ArrayList<PersonalBoardTile> tmp = new ArrayList<>();
+            tmp.addAll(personalBoardTileList);
+
+            for(int i = players.size() - 1; i >= 0; i--) {
+                countDownLatch = new CountDownLatch(1);
+                try {
+                    players.get(i).sendPersonalTile(tmp);
+                    countDownLatch.await();
+                    for(int j = 0; j < tmp.size(); j++)
+                        if (tmp.get(j).getPersonalBoardID() == players.get(i).getPersonalBoard().getPersonalBoardTile().getPersonalBoardID())
+                            tmp.remove(j);
+                } catch (NetworkException | InterruptedException e) {
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
+                }
             }
         }
 
@@ -222,6 +250,16 @@ public class Room {
                 } catch (NetworkException e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
                 }
+            }
+        }
+
+        /**
+         * Close the room.
+         * Mutex is held to avoid concurrency problems.
+         */
+        private void lockRoom(){
+            synchronized (MUTEX){
+                roomOpen = false;
             }
         }
 

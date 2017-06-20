@@ -1,16 +1,13 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
-import javafx.util.Pair;
-
-import java.util.Iterator;
 import java.util.Map;
 
 /**
  * This class represent the immediate simple effect.
  * A immediate simple effect allow the player to get resources and points.
  */
-public class EffectSimple extends Effect{
+public class LESimple extends LeaderEffect{
 
     /**
      * Points and resources that user obtain.
@@ -25,11 +22,10 @@ public class EffectSimple extends Effect{
     /**
      * Class constructor.
      */
-    public EffectSimple(){
+    public LESimple(){
+        super.effectType = this.getClass().getSimpleName();
         this.valuable = new PointsAndResources();
         this.councilPrivilege = new CouncilPrivilege();
-
-        super.effectType = this.getClass().getSimpleName();
     }
 
     /**

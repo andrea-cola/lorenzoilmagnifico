@@ -5,9 +5,9 @@ import it.polimi.ingsw.model.Player;
 import java.io.Serializable;
 
 /**
- * This class is the abstraction of all effects.
+ * This class represents leader card effect.
  */
-public abstract class Effect implements Serializable{
+public abstract class LeaderEffect implements Serializable{
 
     /**
      * Effect type

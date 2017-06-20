@@ -51,6 +51,14 @@ public class PersonalBoard implements Serializable{
      */
     private PersonalBoardTile personalBoardTile;
 
+    public void setPersonalBoardTile(PersonalBoardTile personalBoardTile){
+        this.personalBoardTile = personalBoardTile;
+    }
+
+    public PersonalBoardTile getPersonalBoardTile(){
+        return this.personalBoardTile;
+    }
+
     /**
      * Set family mamber
      * @param member

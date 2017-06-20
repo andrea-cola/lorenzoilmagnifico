@@ -2,22 +2,11 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
 
-public class EffectNoBonus extends Effect{
+public class LELudovicoAriosto extends LeaderEffect {
 
-    int[] floors;
-
-    public EffectNoBonus(){
+    public LELudovicoAriosto(){
         super.effectType = this.getClass().getSimpleName();
     }
-
-    public void setFloors(int[] floors){
-        this.floors = floors;
-    }
-
-    public int[] getFloors(){
-        return this.floors;
-    }
-
     /**
      * Method to run the effect of the card.
      *
@@ -33,8 +22,6 @@ public class EffectNoBonus extends Effect{
      */
     @Override
     public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Resources to pay: da finire di implementare.\n");
-        return description;
+        return "You can place your family members in busy action spaces.";
     }
 }

@@ -25,6 +25,7 @@ public class Configurator {
      * Path strings constants.
      */
     private final String DEVELOPMENT_CARDS_FILE_PATH = "src/main/resources/configFiles/developmentCards.json";
+    private final String LEADER_CARDS_FILE_PATH = "src/main/resources/configFiles/leaderCards.json";
     private final String CONFIGURATION_FILE_PATH = "src/main/resources/configFiles/configuration.json";
 
     /**
@@ -38,6 +39,11 @@ public class Configurator {
     private static ArrayList<DevelopmentCard> developmentCards;
 
     /**
+     * Development cards deck.
+     */
+    private static ArrayList<LeaderCard> leaderCards;
+
+    /**
      * Gson object reference.
      */
     private Gson gson;
@@ -46,6 +52,11 @@ public class Configurator {
      * Effect factory reference.
      */
     private RuntimeTypeAdapterFactory<Effect> effectFactory;
+
+    /**
+     * Effect factory reference.
+     */
+    private RuntimeTypeAdapterFactory<LeaderEffect> leaderEffectFactory;
 
     /**
      * Configuration bundle.
@@ -62,6 +73,7 @@ public class Configurator {
             loadRuntimeTypeAdapterFactory();
             parseConfiguration();
             parseDevelopmentCard();
+            parseLeaderCard();
         } catch(FileNotFoundException e){
             throw new ConfigurationException(e);
         }
@@ -88,6 +100,22 @@ public class Configurator {
                 .registerSubtype(EffectHarvestProductionSimple.class, "EffectHarvestProductionSimple")
                 .registerSubtype(EffectMultiplicator.class, "EffectMultiplicator")
                 .registerSubtype(EffectNoBonus.class, "EffectNoBonus");
+
+        leaderEffectFactory = RuntimeTypeAdapterFactory.of(LeaderEffect.class, "effectType")
+                .registerSubtype(LECesareBorgia.class, "LECesareBorgia")
+                .registerSubtype(LEDiceBonus.class, "LEDiceBonus")
+                .registerSubtype(LEDiceValueSet.class, "LEDiceValueSet")
+                .registerSubtype(LEFamilyMemberBonus.class, "LEFamilyMemberBonus")
+                .registerSubtype(LEFilippoBrunelleschi.class, "LEFilippoBrunelleschi")
+                .registerSubtype(LEHarvestProductionSimple.class, "LEHarvestProductionSimple")
+                .registerSubtype(LELorenzoDeMedici.class, "LELorenzoDeMedici")
+                .registerSubtype(LELudovicoAriosto.class, "LELudovicoAriosto")
+                .registerSubtype(LEMultiplicator.class, "LEMultiplicator")
+                .registerSubtype(LENeutralBonus.class, "LENeutralBonus")
+                .registerSubtype(LEPicoDellaMirandola.class, "LEPicoDellaMirandola")
+                .registerSubtype(LESimple.class, "LESimple")
+                .registerSubtype(LESistoIV.class, "LESistoIV");
+
     }
 
     /**
@@ -112,6 +140,13 @@ public class Configurator {
         developmentCards = gson.fromJson(reader, new TypeToken<List<DevelopmentCard>>(){}.getType());
     }
 
+    private void parseLeaderCard() throws FileNotFoundException{
+        GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(leaderEffectFactory);
+        gson = builder.create();
+        JsonReader reader = new JsonReader(new FileReader(LEADER_CARDS_FILE_PATH));
+        leaderCards = gson.fromJson(reader, new TypeToken<List<LeaderCard>>(){}.getType());
+    }
+
     /**
      * Return a configuration bundle with all configurations got from configuration files.
      * @return configuration bundle.
@@ -120,8 +155,16 @@ public class Configurator {
         return configuration;
     }
 
+    /**
+     * Return all leader cards.
+     * @return array list of leader cards.
+     */
+    public static ArrayList<LeaderCard> getLeaderCards(){
+        return leaderCards;
+    }
+
     /*package-local*/ static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
-        GameManager gameManager = new GameManager(roomPlayers, configuration, developmentCards);
+        GameManager gameManager = new GameManager(roomPlayers, configuration, developmentCards, leaderCards);
         return gameManager;
     }
 

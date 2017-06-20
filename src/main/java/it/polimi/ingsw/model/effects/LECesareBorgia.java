@@ -2,20 +2,10 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
 
-public class EffectNoBonus extends Effect{
+public class LECesareBorgia extends LeaderEffect{
 
-    int[] floors;
-
-    public EffectNoBonus(){
+    public LECesareBorgia(){
         super.effectType = this.getClass().getSimpleName();
-    }
-
-    public void setFloors(int[] floors){
-        this.floors = floors;
-    }
-
-    public int[] getFloors(){
-        return this.floors;
     }
 
     /**
@@ -33,8 +23,6 @@ public class EffectNoBonus extends Effect{
      */
     @Override
     public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Resources to pay: da finire di implementare.\n");
-        return description;
+        return "You do not have to meet the requirement of military points when you pick up land cards.";
     }
 }

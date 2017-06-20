@@ -1,8 +1,12 @@
 package it.polimi.ingsw.socketCommunicationProtocol;
 
 import it.polimi.ingsw.exceptions.LoginException;
+import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
+
+import java.util.List;
 
 /**
  * Interface used as callback from clients.
@@ -38,4 +42,5 @@ public interface ServerCommunicationProtocolInterface {
      */
     void createNewRoom(int maxPlayersNumber) throws RoomException;
 
+    void setPlayerPersonalBoardTile(PersonalBoardTile personalBoardTile);
 }

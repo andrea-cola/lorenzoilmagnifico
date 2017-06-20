@@ -190,4 +190,15 @@ public class EffectMultiplicator extends Effect{
         }
 
     }
+
+    /**
+     * Get a description of the current effect.
+     */
+    @Override
+    public String getDescription() {
+        String description = this.effectType + "\n";
+        description.concat("Action type: " + actionType + "\n Value: " + diceActionValue + "\n");
+        description.concat("Resources to pay: da finire di implementare.\n");
+        return description;
+    }
 }

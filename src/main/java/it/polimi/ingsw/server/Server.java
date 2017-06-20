@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gameServer.Configurator;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.socketServer.SocketServer;
@@ -70,10 +71,6 @@ public class Server implements ServerInterface{
      */
     private ArrayList<Room> rooms;
 
-    /**
-     * SQL connection object
-     */
-    private Connection connection;
 
     /**
      * Class constructor.
@@ -251,6 +248,18 @@ public class Server implements ServerInterface{
                 throw new RoomException();
             }
         }
+    }
+
+    /**
+     * Set personal board tile to the server player who invoke this method. Then notifies
+     * the choice to the room.
+     * @param serverPlayer of the choice.
+     * @param personalBoardTile to be set.
+     */
+    @Override
+    public void setPlayerPersonalBoardTile(ServerPlayer serverPlayer, PersonalBoardTile personalBoardTile) {
+        serverPlayer.getPersonalBoard().setPersonalBoardTile(personalBoardTile);
+        serverPlayer.getRoom().onPersonalTilesChosen();
     }
 
 }

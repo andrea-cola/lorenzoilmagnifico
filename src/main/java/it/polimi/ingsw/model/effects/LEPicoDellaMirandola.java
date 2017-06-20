@@ -2,20 +2,20 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
 
-public class EffectNoBonus extends Effect{
+public class LEPicoDellaMirandola extends LeaderEffect {
 
-    int[] floors;
+    private int moneyDiscount;
 
-    public EffectNoBonus(){
+    public LEPicoDellaMirandola(){
         super.effectType = this.getClass().getSimpleName();
     }
 
-    public void setFloors(int[] floors){
-        this.floors = floors;
+    public void setMoneyDiscount(int value){
+        this.moneyDiscount = value;
     }
 
-    public int[] getFloors(){
-        return this.floors;
+    public int getMoneyDiscount(){
+        return this.moneyDiscount;
     }
 
     /**
@@ -33,8 +33,6 @@ public class EffectNoBonus extends Effect{
      */
     @Override
     public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Resources to pay: da finire di implementare.\n");
-        return description;
+        return "When you buy development cards, you get a 3-coin discount on their cost (if they cost coins).";
     }
 }

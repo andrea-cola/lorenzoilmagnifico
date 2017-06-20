@@ -6,6 +6,8 @@ import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.PersonalBoard;
+import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class is used to define the communication socket protocol. Used by the client to interact
@@ -59,6 +62,7 @@ public class ClientCommunicationProtocol {
      */
     private void setupResponsesTable() {
         responseTable.put(CommunicationProtocolConstants.GAME_MODEL, this::receiveGameInfo);
+        responseTable.put(CommunicationProtocolConstants.PERSONAL_TILES, this::getPersonalTile);
     }
 
     /**
@@ -151,6 +155,25 @@ public class ClientCommunicationProtocol {
             System.out.println(game.getMainBoard().getTower(1).getTowerCell(0).getDevelopmentCard().getName());
             clientInterface.setGameModel(game);
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle receive game info request.");
+        }
+    }
+
+    private void getPersonalTile() {
+        try {
+            List<PersonalBoardTile> personalBoardTileList= (List<PersonalBoardTile>)objectInputStream.readObject();
+            clientInterface.choosePersonalBoardTile(personalBoardTileList);
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle receive game info request.");
+        }
+    }
+
+    public void sendPersonalTile(PersonalBoardTile personalBoardTile){
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.PERSONAL_TILES);
+            objectOutputStream.writeObject(personalBoardTile);
+            objectOutputStream.flush();
+        } catch (IOException e) {
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle receive game info request.");
         }
     }

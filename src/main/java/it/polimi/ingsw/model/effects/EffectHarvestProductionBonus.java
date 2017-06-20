@@ -1,7 +1,12 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.ActionType;
+import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PointsAndResources;
+
+import java.util.Iterator;
+import java.util.Map;
 
 public class EffectHarvestProductionBonus extends Effect{
 
@@ -36,5 +41,15 @@ public class EffectHarvestProductionBonus extends Effect{
     @Override
     public void runEffect(Player player) {
         player.getPersonalBoard().setHarvestProductionDiceValueBonus(this.actionType, diceValueBonus);
+    }
+
+    /**
+     * Get a description of the current effect.
+     */
+    @Override
+    public String getDescription() {
+        String description = this.effectType + "\n";
+        description.concat("Action type: " + actionType + "\n Value: " + diceValueBonus + "\n");
+        return description;
     }
 }

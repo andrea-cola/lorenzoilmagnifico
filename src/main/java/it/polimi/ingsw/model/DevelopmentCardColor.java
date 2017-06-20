@@ -23,5 +23,6 @@ public enum DevelopmentCardColor {
      * Ventures cards
      */
     PURPLE
+
 }
 

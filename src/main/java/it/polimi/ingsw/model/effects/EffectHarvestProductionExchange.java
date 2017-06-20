@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
 
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -143,6 +144,17 @@ public class EffectHarvestProductionExchange extends Effect{
         for (Map.Entry<PointType, Integer> entry: this.valuableEarned[choice].getPoints().entrySet()) {
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
+    }
+
+    /**
+     * Get a description of the current effect.
+     */
+    @Override
+    public String getDescription() {
+        String description = this.effectType + "\n";
+        description.concat("Action type: " + actionType + "\n Value: " + diceActionValue + "\n");
+        description.concat("Resources to pay:\n");
+        return description;
     }
 
 
