@@ -66,7 +66,6 @@ import java.util.List;
      */
     @Override
     public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException {
-        System.out.print("CIAONE");
         switch (connectionType){
             case SOCKET:
                 client = new SocketClient(this, address, port);

@@ -2,7 +2,9 @@ package it.polimi.ingsw.ui.gui;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -29,6 +31,9 @@ public class LoginBoardScreen extends Application {
      */
     private final static int HBOX_SPACING = 10;
     private final static int VBOX_SPACING = 10;
+    private final static int GROUP_HEIGHT = 300;
+    private final static int GROUP_WIDTH = 300;
+    private static boolean finished = false;
 
 
     /**
@@ -47,6 +52,7 @@ public class LoginBoardScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
         primaryStage.setTitle("LoginBoardScreen");
 
         Label login = new Label("LOGIN");
@@ -68,6 +74,8 @@ public class LoginBoardScreen extends Application {
         passwordField.setAlignment(Pos.CENTER);
 
         grid.add(passwordField, 1, 1);
+
+
         Button loginButton = new Button("LOGIN");
         loginButton.setAlignment(Pos.CENTER);
 
@@ -75,42 +83,85 @@ public class LoginBoardScreen extends Application {
             if (userField.getText() != null && passwordField.getText() != null){
                 username = userField.getText();
                 password = passwordField.getText();
+                System.out.println("USER = " +username+ "PASS = " +password);
                 login(username, password, true);
-            }else{
-                message.setText("Your data are invalid");
-            }
-        });
-        Button signInButton = new Button("SIGN IN");
-        signInButton.setAlignment(Pos.CENTER);
-        signInButton.setOnAction(event ->{
-            if (userField.getText() != null && passwordField.getText() != null){
-                username = userField.getText();
-                password = passwordField.getText();
-                login(username, password, false);
                 message.setText("Checking your data");
             }else{
                 message.setText("Your data are invalid");
             }
         });
 
-        HBox hBox = new HBox(10);
+        Button signInButton = new Button("SIGN IN");
+        signInButton.setAlignment(Pos.CENTER);
+        signInButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (userField.getText() != null && passwordField.getText() != null) {
+                    username = userField.getText();
+                    password = passwordField.getText();
+                    System.out.println("USER = " + username + "PASS = " + password);
+                    LoginBoardScreen.this.login(username, password, false);
+                    message.setText("Checking your data");
+                } else {
+                    message.setText("Your data are invalid");
+                }
+            }
+        });
+
+        EventHandler handler = new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                setFinished(true);
+                synchronized (this){
+                    try {
+                        wait(1002);
+                        primaryStage.close();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        loginButton.setOnAction(handler);
+        signInButton.setOnAction(handler);
+
+
+
+        HBox hBox = new HBox(HBOX_SPACING);
         hBox.getChildren().addAll(loginButton, signInButton);
         hBox.autosize();
-        VBox vBox = new VBox(10);
+        VBox vBox = new VBox(VBOX_SPACING);
         vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(login, grid, message, hBox);
         vBox.autosize();
 
         Group root = new Group();
+        root.prefHeight(GROUP_HEIGHT);
+        root.prefWidth(GROUP_WIDTH);
         root.getChildren().addAll(vBox);
+        root.autosize();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
-    public void login(String username, String password, boolean flag) {
+
+
+    private void login(String username, String password, boolean flag) {
         this.callback.loginPlayer(username, password, flag);
     }
+
+
+    public static boolean getFinished(){
+        return finished;
+    }
+
+    public static void setFinished(boolean flag){
+        finished=flag;
+    }
+
+
 
     /**
      * This interface represents the login main function

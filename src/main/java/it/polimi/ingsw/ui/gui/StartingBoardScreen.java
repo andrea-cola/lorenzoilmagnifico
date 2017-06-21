@@ -9,8 +9,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -21,22 +24,23 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * This is the board which the game starts with
  */
-public class StartingBoardScreen extends Application{
+public class StartingBoardScreen extends Application {
     /**
      * Constants
      */
     private final static int VBOX_SPACING = 20;
     private final static int BACK_WIDTH = 100;
     private final static int BACK_HEIGHT = 150;
-    private final static int LOADING_FONT = 20;
-    private final static int WELCOME_FONT = 40;
+    private final static int LOADING_FONT_DIM = 20;
+    private final static int WELCOME_FONT_DIM = 40;
+
+    private Stage stage;
+    private static boolean finished = false;
+
 
     /**
      * The start function inherited by Application represents the structure of the Starting board
@@ -45,7 +49,8 @@ public class StartingBoardScreen extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("StartingBoardScreen");
+        stage=primaryStage;
+        stage.setTitle("StartingBoardScreen");
         Group root = new Group();
 
         VBox vBoxStart = new VBox(VBOX_SPACING);
@@ -66,7 +71,7 @@ public class StartingBoardScreen extends Application{
 
         Label loading= new Label("Loading");
         loading.setTextFill(Color.DARKBLUE);
-        loading.setFont(new Font(LOADING_FONT));
+        loading.setFont(new Font(LOADING_FONT_DIM));
 
         loading.setVisible(false);
         Button button= new Button("START");
@@ -74,13 +79,21 @@ public class StartingBoardScreen extends Application{
             task.playFromStart();
             loading.setVisible(true);
             task.setOnFinished(event1 -> {
-                primaryStage.close();
+                setFinished(true);
+                synchronized (this) {
+                    try {
+                        primaryStage.close();
+                        wait(1000);
+                        System.out.println("CIAONE");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             });
         });
 
-
         Label welcome= new Label("WELCOME");
-        welcome.setFont(new Font(WELCOME_FONT));
+        welcome.setFont(new Font(WELCOME_FONT_DIM));
 
         ImageView image = new ImageView(new Image("images/StartingBoardCover.jpg"));
         vBoxStart.getChildren().addAll(welcome, image,  loading, bar, button);
@@ -90,6 +103,11 @@ public class StartingBoardScreen extends Application{
         primaryStage.show();
     }
 
+    public static boolean getFinished(){
+        return finished;
+    }
 
-
+    public static void setFinished(boolean flag){
+        finished=flag;
+    }
 }
