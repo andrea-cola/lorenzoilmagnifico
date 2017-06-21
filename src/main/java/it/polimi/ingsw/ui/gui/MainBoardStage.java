@@ -5,9 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -26,7 +23,7 @@ import javafx.stage.Stage;
 /**
  * This is the Graphic User Interface main board class
  */
-public class MainBoardScreen extends Application{
+public class MainBoardStage extends Application{
     /**
      * Family member related values
      */
@@ -64,7 +61,7 @@ public class MainBoardScreen extends Application{
     private static final int FAMILY_RADIUS = 20;
 
     /**
-     * Main gui MainBoardScreen objects
+     * Main gui MainBoardStage objects
      */
     private VBox rightPane;
     private BackgroundImage background;
@@ -77,7 +74,7 @@ public class MainBoardScreen extends Application{
     /**
      * Constructor for Main Board class
      */
-    public MainBoardScreen(){
+    public MainBoardStage(){
 
     }
 
@@ -102,7 +99,7 @@ public class MainBoardScreen extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("MainBoardScreen");
+        primaryStage.setTitle("MainBoardStage");
 
         SplitPane splitPane = new SplitPane();
         leftPane = createLeftPane();
@@ -226,7 +223,7 @@ public class MainBoardScreen extends Application{
         personalBoardButton = new Button("View Personal Board");
         personalBoardButton.setAlignment(Pos.CENTER);
         personalBoardButton.setOnAction(event -> {
-            Application personalBoardScreen = new PersonalBoardScreen(username);
+            Application personalBoardScreen = new PersonalBoardStage(username);
             Thread thread = new Thread(()->Application.launch(personalBoardScreen.getClass()));
             thread.start();
             try {
@@ -240,7 +237,7 @@ public class MainBoardScreen extends Application{
         personalTileButton = new Button("View Personal Tile");
         personalTileButton.setAlignment(Pos.CENTER);
         personalTileButton.setOnAction(event -> {
-            Application personalBoardTileScreen = new PersonalTileBoardScreen(username);
+            Application personalBoardTileScreen = new PersonalTileBoardStage(username);
             Thread thread = new Thread(()->Application.launch(personalBoardTileScreen.getClass()));
             thread.start();
             try {

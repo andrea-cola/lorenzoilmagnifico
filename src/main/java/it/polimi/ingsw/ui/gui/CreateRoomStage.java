@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class CreateRoomBoardScreen extends Application{
+public class CreateRoomStage extends Application{
 
     private final static int HBOX_SPACING = 30;
     private final static int VBOX_SPACING = 30;
@@ -26,9 +26,9 @@ public class CreateRoomBoardScreen extends Application{
 
     private int nPlayers;
 
-    private CreateRoomBoardInterface callback;
+    private  CallbackInterface callback;
 
-    CreateRoomBoardScreen(CreateRoomBoardInterface callback){
+    CreateRoomStage(CallbackInterface callback){
         this.callback = callback;
     }
 
@@ -94,7 +94,7 @@ public class CreateRoomBoardScreen extends Application{
 
 
     @FunctionalInterface
-    interface CreateRoomBoardInterface{
+    interface CallbackInterface{
        public void createRoom(int maxPlayer);
     }
 

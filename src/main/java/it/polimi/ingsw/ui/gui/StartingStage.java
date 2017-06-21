@@ -29,7 +29,7 @@ import javafx.util.Duration;
 /**
  * This is the board which the game starts with
  */
-public class StartingBoardScreen extends Application {
+public class StartingStage extends Application {
     /**
      * Constants
      */
@@ -48,7 +48,7 @@ public class StartingBoardScreen extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("StartingBoardScreen");
+        primaryStage.setTitle("StartingStage");
         BorderPane root = new BorderPane();
         VBox vBoxStart = new VBox(VBOX_SPACING);
         vBoxStart.setAlignment(Pos.CENTER);

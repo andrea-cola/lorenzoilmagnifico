@@ -1,12 +1,8 @@
 package it.polimi.ingsw.ui.gui;
 
-import it.polimi.ingsw.model.Action;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -21,15 +17,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.concurrent.CountDownLatch;
-
 /**
  * This is the Graphic User Interface login board
  */
-public class LoginBoardScreen extends Application {
+public class LoginStage extends Application {
 
 
-    private LoginBoardInterface callback;
+    private CallbackInterface callback;
     /**
      * Data player
      */
@@ -50,14 +44,14 @@ public class LoginBoardScreen extends Application {
      * Constructor
      * @param callback
      */
-    LoginBoardScreen(LoginBoardInterface callback) {
+    LoginStage(CallbackInterface callback) {
         this.callback = callback;
     }
 
     @Override
     public void start(Stage primaryStage) {
 
-        primaryStage.setTitle("LoginBoardScreen");
+        primaryStage.setTitle("LoginStage");
 
         Label login = new Label("LOGIN");
         login.setAlignment(Pos.CENTER);
@@ -159,7 +153,7 @@ public class LoginBoardScreen extends Application {
      * This interface represents the login main function
      */
     @FunctionalInterface
-    interface LoginBoardInterface {
+    interface CallbackInterface {
         /**
          * It pass the parameters for the main game login function
          * @param username to use

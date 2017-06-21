@@ -22,7 +22,7 @@ import javafx.scene.image.ImageView;
 /**
  * This is the Graphic User Interface board for network settings
  */
-public class ChooseConnectionBoardScreen extends Application {
+public class ChooseConnectionStage extends Application {
     /**
      * Constants
      */
@@ -37,7 +37,7 @@ public class ChooseConnectionBoardScreen extends Application {
     private static boolean finished = false;
 
 
-    private NetworkBoardCallback callback;
+    private CallbackInterface callback;
 
     /**
      * Connection data
@@ -47,11 +47,11 @@ public class ChooseConnectionBoardScreen extends Application {
     private String address;
 
     /**
-     * Constructor for the ChooseConnectionBoardScreen
+     * Constructor for the ChooseConnectionStage
      *
      * @param callback
      */
-    ChooseConnectionBoardScreen(NetworkBoardCallback callback) {
+    ChooseConnectionStage(CallbackInterface callback) {
         this.callback = callback;
     }
 
@@ -63,7 +63,7 @@ public class ChooseConnectionBoardScreen extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("ChooseConnectionBoardScreen");
+        primaryStage.setTitle("ChooseConnectionStage");
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
 
@@ -100,9 +100,9 @@ public class ChooseConnectionBoardScreen extends Application {
                 doConnect();
                 setFinished(true);
                 primaryStage.close();
-                synchronized (ChooseConnectionBoardScreen.this) {
+                synchronized (ChooseConnectionStage.this) {
                     try {
-                        ChooseConnectionBoardScreen.this.wait(1001);
+                        ChooseConnectionStage.this.wait(1001);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -189,7 +189,7 @@ public class ChooseConnectionBoardScreen extends Application {
      * This callback interface represents the main network context function
      */
     @FunctionalInterface
-    interface NetworkBoardCallback {
+    interface CallbackInterface {
         /**
          * It set the network settings previously decided by the user
          *

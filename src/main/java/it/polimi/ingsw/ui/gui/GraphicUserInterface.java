@@ -33,12 +33,12 @@ public class GraphicUserInterface extends AbstractUI{
     }
 
     public void welcomeBoard(){
-        StartingBoardScreen startingBoardScreen = new StartingBoardScreen();
-        Thread thread = new Thread(() -> Application.launch(startingBoardScreen.getClass()));
+        StartingStage startingStage = new StartingStage();
+        Thread thread = new Thread(() -> Application.launch(startingStage.getClass()));
         thread.start();
         do {
             lock.lock();
-        }while(startingBoardScreen.getFinished()!=true);
+        }while(startingStage.getFinished()!=true);
         lock.unlock();
         return;
     }
@@ -49,16 +49,16 @@ public class GraphicUserInterface extends AbstractUI{
     @Override
     public void chooseConnectionType() {
         lock.lock();
-        ChooseConnectionBoardScreen chooseConnectionBoardScreen = new ChooseConnectionBoardScreen(getController()::setNetworkSettings);
+        ChooseConnectionStage chooseConnectionStage = new ChooseConnectionStage(getController()::setNetworkSettings);
         Runnable thread = () -> {
             try {
-                chooseConnectionBoardScreen.start(new Stage());
+                chooseConnectionStage.start(new Stage());
             } catch (Exception e) {
                 Debugger.printDebugMessage(GraphicUserInterface.this.getClass().getSimpleName(), e.getMessage());
             }
         };
         Platform.runLater(thread);
-        if (chooseConnectionBoardScreen.getFinished() == true) {
+        if (chooseConnectionStage.getFinished() == true) {
             lock.unlock();
             loginScreen();
         }
@@ -66,12 +66,12 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void loginScreen(){
-        LoginBoardScreen loginBoardScreen = new LoginBoardScreen(getController()::loginPlayer);
+        LoginStage loginStage = new LoginStage(getController()::loginPlayer);
         Platform.runLater(new Runnable(){
             @Override
             public void run() {
                 try {
-                    loginBoardScreen.start(new Stage());
+                    loginStage.start(new Stage());
                 } catch (Exception e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
                 }
@@ -81,12 +81,12 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void joinRoomScreen() {
-        JoinRoomBoardScreen joinRoomBoardScreen = new JoinRoomBoardScreen(getController()::joinRoom);
+        JoinRoomStage joinRoomStage = new JoinRoomStage(getController()::joinRoom);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 try {
-                    joinRoomBoardScreen.start(new Stage());
+                    joinRoomStage.start(new Stage());
                 } catch (Exception e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
                 }
@@ -96,12 +96,12 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void createRoomScreen() {
-        CreateRoomBoardScreen createRoomBoardScreen = new CreateRoomBoardScreen(getController()::createRoom);
+        CreateRoomStage createRoomStage = new CreateRoomStage(getController()::createRoom);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 try {
-                    createRoomBoardScreen.start(new Stage());
+                    createRoomStage.start(new Stage());
                 } catch (Exception e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
                 }
@@ -111,7 +111,17 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
-
+        ChoosePersonalBoardTileStage choosePersonalBoardTileStage = new ChoosePersonalBoardTileStage(getController()::sendPersonalBoardTileChoice, personalBoardTileList);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    choosePersonalBoardTileStage.start( new Stage());
+                } catch (Exception e ){
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
+                }
+            }
+        });
     }
 
 

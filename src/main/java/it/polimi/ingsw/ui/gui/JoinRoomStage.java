@@ -1,29 +1,25 @@
 package it.polimi.ingsw.ui.gui;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
  *
  */
-public class JoinRoomBoardScreen extends Application{
+public class JoinRoomStage extends Application{
 
-    private JoinRoomBoardCallback callback;
+    private CallbackInterface callback;
 
     private final static int HBOX_SPACING = 20;
     private final static int INSETS = 20;
 
-    JoinRoomBoardScreen(JoinRoomBoardCallback callback){
+    JoinRoomStage(CallbackInterface callback){
         this.callback = callback;
     }
 
@@ -62,7 +58,7 @@ public class JoinRoomBoardScreen extends Application{
     }
 
     @FunctionalInterface
-    interface JoinRoomBoardCallback{
+    interface CallbackInterface {
         void joinRoom();
     }
 }
