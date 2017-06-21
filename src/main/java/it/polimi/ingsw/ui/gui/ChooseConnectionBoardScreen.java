@@ -5,44 +5,34 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.ui.cli.ConnectionType;
 import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.*;
-import javafx.event.Event;
-import javafx.geometry.Pos;
+import javafx.geometry.*;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.WindowEvent;
-
-import java.awt.*;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * This is the Graphic User Interface board for network settings
  */
-public class NetworkBoardScreen extends Application {
+public class ChooseConnectionBoardScreen extends Application {
     /**
      * Constants
      */
     private final static int VBOX_SPACING = 10;
-    private final static int STAGE_WIDTH = 800;
-    private final static int STAGE_HEIGHT = 800;
     private final static int GRID_H_GAP = 10;
     private final static int GRID_V_GAP = 10;
     private final static int HBOX_SPACING = 10;
-    private final static int IMAGE_WIDTH = 300;
-    private final static int IMAGE_HEIGHT = 400;
+    private final static int IMAGE_WIDTH = 450;
+    private final static int IMAGE_HEIGHT = 500;
+    private final static int INSETS = 20;
     private final static String FONT = "Arial : arial";
     private static boolean finished = false;
 
@@ -57,11 +47,11 @@ public class NetworkBoardScreen extends Application {
     private String address;
 
     /**
-     * Constructor for the NetworkBoardScreen
+     * Constructor for the ChooseConnectionBoardScreen
      *
      * @param callback
      */
-    public NetworkBoardScreen(NetworkBoardCallback callback) {
+    ChooseConnectionBoardScreen(NetworkBoardCallback callback) {
         this.callback = callback;
     }
 
@@ -73,15 +63,9 @@ public class NetworkBoardScreen extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("NetworkBoardScreen");
+        primaryStage.setTitle("ChooseConnectionBoardScreen");
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
-<<<<<<< HEAD
-
-=======
-        Label title = new Label("NETWORK PREFERENCES");
-        title.setAlignment(Pos.CENTER);
->>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
 
         HBox hBox1 = new HBox(HBOX_SPACING);
         hBox1.setAlignment(Pos.CENTER);
@@ -97,41 +81,50 @@ public class NetworkBoardScreen extends Application {
         choiceBox.getItems().add("RMI");
         choiceBox.getItems().add("SOCKET");
 
+        Label messagge = new Label("Your data are not valid");
+        messagge.setVisible(false);
 
         Label labelAddr = new Label("Address");
         labelAddr.setAlignment(Pos.CENTER);
-<<<<<<< HEAD
         labelAddr.setStyle(FONT);
-=======
->>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
 
+        Button connect = new Button("CONNECT");
         TextField text = new TextField();
         text.setAlignment(Pos.CENTER);
 
-        ImageView imageView = new ImageView(new Image("images/NetworkBoardCover.png"));
-        imageView.setFitHeight(IMAGE_HEIGHT);
-        imageView.setFitWidth(IMAGE_WIDTH);
-
-        Button connect = new Button("CONNECT");
-        connect.setOnAction((ActionEvent event) -> {
-            if (text.getText() != null && choiceBox.getValue() != null) {
+        connect.setOnAction(event -> {
+            if (!text.getText().equals("") && choiceBox.getValue()!= null) {
                 type = (String) choiceBox.getValue();
                 address = text.getText();
                 System.out.print("ADDRESS: " + address + " & TYPE: " + type + "\n");
                 doConnect();
-<<<<<<< HEAD
                 setFinished(true);
-                synchronized (this) {
+                primaryStage.close();
+                synchronized (ChooseConnectionBoardScreen.this) {
                     try {
-                        wait(1001);
-                        primaryStage.close();
+                        ChooseConnectionBoardScreen.this.wait(1001);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-=======
-                primaryStage.close();
->>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
+            }else{
+                messagge.setVisible(true);
+            }
+        });
+
+
+        ImageView imageView = new ImageView(new Image("images/NetworkBoardCover.png"));
+        imageView.setFitHeight(IMAGE_HEIGHT);
+        imageView.setFitWidth(IMAGE_WIDTH);
+        imageView.autosize();
+
+        Button clear = new Button("CLEAR");
+        clear.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                text.clear();
+                choiceBox.setValue(null);
+                messagge.setVisible(false);
             }
         });
 
@@ -144,18 +137,22 @@ public class NetworkBoardScreen extends Application {
         grid.add(text, 1, 1);
         grid.setAlignment(Pos.CENTER_LEFT);
 
-        hBox1.getChildren().addAll(imageView, grid);
-        hBox2.getChildren().addAll(connect, exit);
+        BorderPane pane = new BorderPane();
+        pane.setCenter(grid);
+        pane.setMargin(grid, new Insets(INSETS));
+        pane.autosize();
+        hBox1.getChildren().addAll(imageView, pane);
+        hBox2.getChildren().addAll(connect, exit, clear);
 
-        vBox.getChildren().addAll(hBox1, hBox2);
-        vBox.autosize();
+        vBox.getChildren().addAll(hBox1, hBox2, messagge);
         Group root = new Group();
         root.getChildren().addAll(vBox);
+        root.autosize();
         Scene scene = new Scene(root);
-        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 
     private void doConnect() {
         ConnectionType connectionType;

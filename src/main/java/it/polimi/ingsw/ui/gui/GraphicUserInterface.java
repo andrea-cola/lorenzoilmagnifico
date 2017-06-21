@@ -7,26 +7,13 @@ import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
 import javafx.application.Platform;
-<<<<<<< HEAD
-import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-=======
->>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
+
 import javafx.stage.Stage;
 import java.util.List;
-<<<<<<< HEAD
-import java.util.Queue;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Condition;
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
-=======
->>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
+
 
 /**
  * This class manage the graphic user interface of the game
@@ -46,7 +33,6 @@ public class GraphicUserInterface extends AbstractUI{
     }
 
     public void welcomeBoard(){
-
         StartingBoardScreen startingBoardScreen = new StartingBoardScreen();
         Thread thread = new Thread(() -> Application.launch(startingBoardScreen.getClass()));
         thread.start();
@@ -54,7 +40,6 @@ public class GraphicUserInterface extends AbstractUI{
             lock.lock();
         }while(startingBoardScreen.getFinished()!=true);
         lock.unlock();
-        thread.stop();
         return;
     }
 
@@ -64,25 +49,25 @@ public class GraphicUserInterface extends AbstractUI{
     @Override
     public void chooseConnectionType() {
         lock.lock();
-        NetworkBoardScreen networkBoardScreen = new NetworkBoardScreen(getController()::setNetworkSettings);
-        Platform.runLater(() -> {
+        ChooseConnectionBoardScreen chooseConnectionBoardScreen = new ChooseConnectionBoardScreen(getController()::setNetworkSettings);
+        Runnable thread = () -> {
             try {
-                networkBoardScreen.start(new Stage());
+                chooseConnectionBoardScreen.start(new Stage());
             } catch (Exception e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
+                Debugger.printDebugMessage(GraphicUserInterface.this.getClass().getSimpleName(), e.getMessage());
             }
-        });
-        do{
+        };
+        Platform.runLater(thread);
+        if (chooseConnectionBoardScreen.getFinished() == true) {
             lock.unlock();
-        }while(!networkBoardScreen.getFinished());
-        loginScreen();
+            loginScreen();
+        }
     }
 
     @Override
     public void loginScreen(){
-        lock.lock();
         LoginBoardScreen loginBoardScreen = new LoginBoardScreen(getController()::loginPlayer);
-        Platform.runLater(new Runnable() {
+        Platform.runLater(new Runnable(){
             @Override
             public void run() {
                 try {
@@ -92,14 +77,10 @@ public class GraphicUserInterface extends AbstractUI{
                 }
             }
         });
-        do{
-            lock.unlock();
-        }while(!loginBoardScreen.getFinished());
     }
 
     @Override
     public void joinRoomScreen() {
-        lock.lock();
         JoinRoomBoardScreen joinRoomBoardScreen = new JoinRoomBoardScreen(getController()::joinRoom);
         Platform.runLater(new Runnable() {
             @Override
@@ -111,14 +92,21 @@ public class GraphicUserInterface extends AbstractUI{
                 }
             }
         });
-        do{
-
-        }while(!joinRoomBoardScreen.getFinished());
     }
 
     @Override
     public void createRoomScreen() {
-
+        CreateRoomBoardScreen createRoomBoardScreen = new CreateRoomBoardScreen(getController()::createRoom);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    createRoomBoardScreen.start(new Stage());
+                } catch (Exception e) {
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
+                }
+            }
+        });
     }
 
     @Override
@@ -126,13 +114,10 @@ public class GraphicUserInterface extends AbstractUI{
 
     }
 
-<<<<<<< HEAD
 
-=======
+
     @Override
     public void chooseLeaderCards(List<LeaderCard> leaderCards) {
 
     }
->>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
-
 }

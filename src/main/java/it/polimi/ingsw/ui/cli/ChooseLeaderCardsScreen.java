@@ -52,7 +52,6 @@ public class ChooseLeaderCardsScreen extends BasicScreen{
 
     @FunctionalInterface
     public interface ICallback{
-
         void sendLeaderCardsChoose(LeaderCard leaderCard);
 
     }
