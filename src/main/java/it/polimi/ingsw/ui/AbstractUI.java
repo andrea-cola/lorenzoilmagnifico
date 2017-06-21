@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui;
 
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 
 import java.util.List;
@@ -28,5 +29,7 @@ public abstract class AbstractUI {
     public abstract void createRoomScreen();
 
     public abstract void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList);
+
+    public abstract void chooseLeaderCards(List<LeaderCard> leaderCards);
 
 }

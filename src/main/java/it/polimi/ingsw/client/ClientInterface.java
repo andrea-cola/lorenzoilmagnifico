@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 
 import java.util.List;
@@ -14,5 +15,7 @@ public interface ClientInterface {
     void setGameModel(Game game);
 
     void choosePersonalBoardTile(List<PersonalBoardTile> personalBoardTileList);
+
+    void chooseLeaderCards(List<LeaderCard> leaderCards);
 
 }

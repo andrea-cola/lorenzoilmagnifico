@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.effects.Effect;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,10 +59,25 @@ public class PersonalBoard implements Serializable{
     private ArrayList<DevelopmentCard> characterCards = new ArrayList<>();
     private ArrayList<DevelopmentCard> ventureCards = new ArrayList<>();
 
+    private ArrayList<LeaderCard> leaderCards;
+
     /**
      * Personal board tile choosen by the player.
      */
     private PersonalBoardTile personalBoardTile;
+
+    public PersonalBoard(){
+        valuables = new PointsAndResources();
+        for(ActionType type : ActionType.values())
+            harvestProductionDiceValueBonus.put(type, 0);
+
+        for(DevelopmentCardColor color : DevelopmentCardColor.values()) {
+            costDiscountForDevelopmentCard.put(color, new PointsAndResources());
+            developmentCardColorDiceValueBonus.put(color, 0);
+        }
+        familyMembersUsed = new ArrayList<>();
+        leaderCards = new ArrayList<>();
+    }
 
     public void setPersonalBoardTile(PersonalBoardTile personalBoardTile){
         this.personalBoardTile = personalBoardTile;
@@ -67,10 +85,6 @@ public class PersonalBoard implements Serializable{
 
     public PersonalBoardTile getPersonalBoardTile() {
         return this.personalBoardTile;
-    }
-
-    public PersonalBoard(){
-
     }
 
     /**
@@ -120,6 +134,10 @@ public class PersonalBoard implements Serializable{
      */
     public int getGreenCardsMilitaryPointsRequirements(int index){
         return greenCardsMilitaryPointsRequirements[index];
+    }
+
+    public int[] getGreenCardsMilitaryPointsRequirements(){
+        return greenCardsMilitaryPointsRequirements;
     }
 
     /**
@@ -272,4 +290,13 @@ public class PersonalBoard implements Serializable{
     public Map<DevelopmentCardColor, PointsAndResources> getCostDiscountForDevelopmentCard(){
         return this.costDiscountForDevelopmentCard;
     }
+
+    public List<LeaderCard> getLeaderCards(){
+        return this.leaderCards;
+    }
+
+    public void setLeaderCard(LeaderCard leaderCard){
+        this.leaderCards.add(leaderCard);
+    }
+
 }

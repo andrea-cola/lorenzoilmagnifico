@@ -2,8 +2,8 @@ package it.polimi.ingsw.socketClient;
 
 
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
@@ -110,8 +110,13 @@ public class SocketClient extends AbstractClient{
     }
 
     @Override
-    public void sendPersonalBoardTileChoise(PersonalBoardTile personalBoardTile) throws NetworkException {
-        clientCommunicationProtocol.sendPersonalTile(personalBoardTile);
+    public void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException {
+        clientCommunicationProtocol.notifyPersonalBoardTileChoice(personalBoardTile);
+    }
+
+    @Override
+    public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException {
+        clientCommunicationProtocol.notifyLeaderCardChoice(leaderCard);
     }
 
     /**

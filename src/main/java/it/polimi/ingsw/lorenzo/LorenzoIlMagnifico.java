@@ -2,11 +2,10 @@ package it.polimi.ingsw.lorenzo;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
-import it.polimi.ingsw.ui.cli.LoginSignInScreen;
-import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
@@ -16,7 +15,6 @@ import it.polimi.ingsw.ui.cli.CommandLineInterface;
 import it.polimi.ingsw.ui.cli.ConnectionType;
 import it.polimi.ingsw.ui.gui.GraphicUserInterface;
 
-import java.io.*;
 import java.util.List;
 
 /**
@@ -121,9 +119,14 @@ import java.util.List;
     }
 
     @Override
+    public void choosePersonalBoardTile(List<PersonalBoardTile> personalBoardTileList) {
+        userInterface.choosePersonalTile(personalBoardTileList);
+    }
+
+    @Override
     public void sendPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) {
         try{
-            client.sendPersonalBoardTileChoise(personalBoardTile);
+            client.notifyPersonalBoardTileChoice(personalBoardTile);
         } catch (NetworkException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
         }
@@ -136,8 +139,17 @@ import java.util.List;
     }
 
     @Override
-    public void choosePersonalBoardTile(List<PersonalBoardTile> personalBoardTileList) {
-        userInterface.choosePersonalTile(personalBoardTileList);
+    public void chooseLeaderCards(List<LeaderCard> leaderCards) {
+        userInterface.chooseLeaderCards(leaderCards);
+    }
+
+    @Override
+    public void notifyLeaderCardChoice(LeaderCard leaderCard){
+        try{
+            client.notifyLeaderCardChoice(leaderCard);
+        } catch(NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+        }
     }
 
 }

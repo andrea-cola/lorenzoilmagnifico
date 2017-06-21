@@ -76,7 +76,12 @@ public class NetworkBoardScreen extends Application {
         primaryStage.setTitle("NetworkBoardScreen");
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
+<<<<<<< HEAD
 
+=======
+        Label title = new Label("NETWORK PREFERENCES");
+        title.setAlignment(Pos.CENTER);
+>>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
 
         HBox hBox1 = new HBox(HBOX_SPACING);
         hBox1.setAlignment(Pos.CENTER);
@@ -95,7 +100,10 @@ public class NetworkBoardScreen extends Application {
 
         Label labelAddr = new Label("Address");
         labelAddr.setAlignment(Pos.CENTER);
+<<<<<<< HEAD
         labelAddr.setStyle(FONT);
+=======
+>>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
 
         TextField text = new TextField();
         text.setAlignment(Pos.CENTER);
@@ -111,6 +119,7 @@ public class NetworkBoardScreen extends Application {
                 address = text.getText();
                 System.out.print("ADDRESS: " + address + " & TYPE: " + type + "\n");
                 doConnect();
+<<<<<<< HEAD
                 setFinished(true);
                 synchronized (this) {
                     try {
@@ -120,6 +129,9 @@ public class NetworkBoardScreen extends Application {
                         e.printStackTrace();
                     }
                 }
+=======
+                primaryStage.close();
+>>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
             }
         });
 

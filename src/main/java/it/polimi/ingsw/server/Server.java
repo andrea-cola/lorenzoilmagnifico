@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gameServer.Configurator;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
@@ -97,7 +98,6 @@ public class Server implements ServerInterface{
             Debugger.printStandardMessage("Socket server ready.");
             Debugger.printStandardMessage("RMI server ready.");
             Debugger.printStandardMessage("SQL server ready.");
-            server.dbServer.showPlayers();
         } catch(ServerException | SQLException e){
             Debugger.printDebugMessage("Server.java", "Error while starting the server.", e);
         }
@@ -260,6 +260,13 @@ public class Server implements ServerInterface{
     public void setPlayerPersonalBoardTile(ServerPlayer serverPlayer, PersonalBoardTile personalBoardTile) {
         serverPlayer.getPersonalBoard().setPersonalBoardTile(personalBoardTile);
         serverPlayer.getRoom().onPersonalTilesChosen();
+    }
+
+    @Override
+    public void setPlayerLeaderCard(ServerPlayer serverPlayer, LeaderCard leaderCard) {
+        System.out.println("Received card from " + serverPlayer.getNickname() + ": " + leaderCard.getLeaderCardName());
+        serverPlayer.getPersonalBoard().setLeaderCard(leaderCard);
+        serverPlayer.getRoom().onLeaderCardChosen();
     }
 
 }

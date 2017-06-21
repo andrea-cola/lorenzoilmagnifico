@@ -67,7 +67,6 @@ public class Configurator {
      * Class constructor.
      */
     private Configurator() throws ConfigurationException{
-        Debugger.printDebugMessage("Loading configuration files...");
         try {
             gson = new Gson();
             loadRuntimeTypeAdapterFactory();

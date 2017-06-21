@@ -1,20 +1,23 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
 import javafx.application.Platform;
+<<<<<<< HEAD
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+=======
+>>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
 import javafx.stage.Stage;
-import sun.awt.Mutex;
-
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
@@ -22,6 +25,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
+=======
+>>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
 
 /**
  * This class manage the graphic user interface of the game
@@ -40,9 +45,6 @@ public class GraphicUserInterface extends AbstractUI{
         welcomeBoard();
     }
 
-    /**
-     *
-     */
     public void welcomeBoard(){
 
         StartingBoardScreen startingBoardScreen = new StartingBoardScreen();
@@ -124,6 +126,13 @@ public class GraphicUserInterface extends AbstractUI{
 
     }
 
+<<<<<<< HEAD
 
+=======
+    @Override
+    public void chooseLeaderCards(List<LeaderCard> leaderCards) {
+
+    }
+>>>>>>> 48c2795dd788cf5186c06f8be77dae49d78a096b
 
 }

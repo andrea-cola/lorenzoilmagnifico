@@ -2,8 +2,8 @@ package it.polimi.ingsw.socketServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.server.ServerPlayer;
@@ -121,8 +121,13 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     }
 
     @Override
-    public void setPlayerPersonalBoardTile(PersonalBoardTile personalBoardTile) {
+    public void notifyPlayerPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) {
         serverInterface.setPlayerPersonalBoardTile(this, personalBoardTile);
+    }
+
+    @Override
+    public void notifyPlayerLeaderCardChoice(LeaderCard leaderCard) {
+        serverInterface.setPlayerLeaderCard(this, leaderCard);
     }
 
     @Override
@@ -133,6 +138,11 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     @Override
     public void sendPersonalTile(List<PersonalBoardTile> personalBoardTiles) throws NetworkException {
         socketCommunicationProtocol.sendPersonalBoardTile(personalBoardTiles);
+    }
+
+    @Override
+    public void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException {
+        socketCommunicationProtocol.sendLeaderCards(leaderCards);
     }
 
     /**
