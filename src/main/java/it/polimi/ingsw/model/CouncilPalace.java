@@ -2,12 +2,10 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
-import it.polimi.ingsw.model.effects.Effect;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import it.polimi.ingsw.model.effects.Effect;
-import java.util.LinkedList;
+import it.polimi.ingsw.model.effects.EffectSimple;
 
 /**
  * This class represents the council palace abstraction.
@@ -22,7 +20,7 @@ public class CouncilPalace implements Serializable{
     /**
      * Immediate effect when players place a family member in the council.
      */
-    private Effect immediateEffect;
+    private EffectSimple effectSimple;
 
     /**
      * FIFO queue, it represent the next turn player order.
@@ -30,41 +28,9 @@ public class CouncilPalace implements Serializable{
     private LinkedList<Player> nextTurnOrder;
 
 
-    public CouncilPalace(int minFamilyMemberDiceValue){
+    public CouncilPalace(int minFamilyMemberDiceValue, EffectSimple effectSimple){
         this.minFamilyMemberDiceValue = minFamilyMemberDiceValue;
-    }
-
-    /**
-     * Set immediate effect.
-     * @param effect of the council.
-     */
-    public void setImmediateEffect(Effect effect){
-        this.immediateEffect = effect;
-    }
-
-    /**
-     * Get immediate effect.
-     * @return immediate effect of the council.
-     */
-    public Effect getImmediateEffect(){
-        return this.immediateEffect;
-    }
-
-
-    /**
-     * Add player in queue.
-     * @param player to add in the queue.
-     */
-    public void fifoAddPlayer(Player player){
-        this.nextTurnOrder.add(player);
-    }
-
-    /**
-     * Remove player from the queue.
-     * @return the player on the top of the queue.
-     */
-    public Player fifoGetPlayer(){
-        return this.nextTurnOrder.poll();
+        this.effectSimple = effectSimple;
     }
 
     /**
@@ -73,6 +39,31 @@ public class CouncilPalace implements Serializable{
      */
     public int getMinFamilyMemberDiceValue(){
         return this.minFamilyMemberDiceValue;
+    }
+
+    /**
+     * Get immediate effect.
+     * @return immediate effect of the council.
+     */
+    public EffectSimple getImmediateEffect(){
+        return this.effectSimple;
+    }
+
+    /**
+     * Add player in queue.
+     * @param player to add in the queue.
+     */
+    public void fifoAddPlayer(Player player){
+        if(!nextTurnOrder.contains(player))
+            this.nextTurnOrder.add(player);
+    }
+
+    /**
+     * Remove player from the queue.
+     * @return the player on the top of the queue.
+     */
+    public Player fifoGetPlayer(){
+        return this.nextTurnOrder.poll();
     }
 
 
@@ -92,7 +83,7 @@ public class CouncilPalace implements Serializable{
 
         //check that another family member of the player is not inside the council palace
         for (Player p : this.nextTurnOrder){
-            if (p.getNickname().equals(player.getNickname())){
+            if (p.getUsername().equals(player.getUsername())){
                 throw  new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_PLACED);
             }
         }

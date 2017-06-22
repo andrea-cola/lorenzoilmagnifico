@@ -61,7 +61,7 @@ public class SocketClient extends AbstractClient{
             objectInputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
             objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             objectOutputStream.flush();
-            clientCommunicationProtocol = new ClientCommunicationProtocol(objectInputStream, objectOutputStream, getController());
+            clientCommunicationProtocol = new ClientCommunicationProtocol(objectInputStream, objectOutputStream, getClient());
         }catch (IOException e){
             throw new ConnectionException(e);
         }
@@ -117,6 +117,11 @@ public class SocketClient extends AbstractClient{
     @Override
     public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException {
         clientCommunicationProtocol.notifyLeaderCardChoice(leaderCard);
+    }
+
+    @Override
+    public void endTurn() {
+        clientCommunicationProtocol.endTurn();
     }
 
     /**

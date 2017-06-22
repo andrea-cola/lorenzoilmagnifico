@@ -51,4 +51,5 @@ public interface RMIServerInterface extends Remote{
 
     void notifyLeaderCardChoice(String playerID, LeaderCard leaderCard) throws RemoteException;
 
+    void endTurn(String playerID) throws RemoteException;
 }

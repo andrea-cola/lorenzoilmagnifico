@@ -163,8 +163,7 @@ public class Configurator {
     }
 
     /*package-local*/ static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
-        GameManager gameManager = new GameManager(roomPlayers, configuration, developmentCards, leaderCards);
-        return gameManager;
+        return new GameManager(roomPlayers, configuration, developmentCards, leaderCards);
     }
 
 }

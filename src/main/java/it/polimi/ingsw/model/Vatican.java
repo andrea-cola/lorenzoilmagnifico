@@ -19,12 +19,9 @@ public class Vatican implements Serializable{
      */
     private int[] victoryPointsBonus;
 
-    /**
-     * Set excommunication cards.
-     * @param excommunicationCards to set.
-     */
-    public void setExcommunicationCards(ExcommunicationCard[] excommunicationCards){
-        this.excommunicationCards = excommunicationCards;
+    public Vatican(ExcommunicationCard[] card, int[] victoryPointsBonus){
+        this.excommunicationCards = card;
+        this.victoryPointsBonus = victoryPointsBonus;
     }
 
     /**
@@ -37,19 +34,19 @@ public class Vatican implements Serializable{
     }
 
     /**
-     * Set the array of victory points bonus.
-     * @param victoryPointsBonus to set.
-     */
-    public void setVictoryPointsBonus(int[] victoryPointsBonus){
-        this.victoryPointsBonus = victoryPointsBonus;
-    }
-
-    /**
      * Get the bonus correspondents to faith points.
      * @param faithPoints accumulated.
      * @return amount of victory points.
      */
     public int getVictoryPointsBonus(int faithPoints){
         return victoryPointsBonus[faithPoints];
+    }
+
+    public int[] getVictoryPointsBonusArray(){
+        return this.victoryPointsBonus;
+    }
+
+    public ExcommunicationCard[] getExcommunicationCards(){
+        return this.excommunicationCards;
     }
 }

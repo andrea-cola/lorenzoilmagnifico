@@ -1,8 +1,12 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.ActionType;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PointType;
+import it.polimi.ingsw.model.PointsAndResources;
+import it.polimi.ingsw.model.ResourceType;
+import it.polimi.ingsw.model.InformationCallback;
 
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -33,19 +37,21 @@ public class EffectHarvestProductionExchange extends Effect{
     /**
      * Council privilege earned.
      */
-    private CouncilPrivilege councilPrivilege;
+    private int numberOfCouncilPrivileges;
 
+    /**
+     * Class constructor.
+     */
     public EffectHarvestProductionExchange(){
-
         super.effectType = this.getClass().getSimpleName();
     }
 
-    public void setCouncilPrivilege(CouncilPrivilege privilege){
-        this.councilPrivilege = privilege;
+    public void setCouncilPrivilege(int privilege){
+        this.numberOfCouncilPrivileges = privilege;
     }
 
-    public CouncilPrivilege getCouncilPrivilege(){
-        return this.councilPrivilege;
+    public int getCouncilPrivilege(){
+        return this.numberOfCouncilPrivileges;
     }
 
     /**
@@ -119,7 +125,7 @@ public class EffectHarvestProductionExchange extends Effect{
      * @param player that takes advatange of the effect.
      */
     @Override
-    public void runEffect(Player player) {
+    public void runEffect(Player player, InformationCallback informationCallback) {
         //lancio notifica con observer il cui scopo è recepire la scelta dell'utente su quale effetto eseguire (intero)
         int choice = 0;
 
@@ -150,12 +156,28 @@ public class EffectHarvestProductionExchange extends Effect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Action type: " + actionType + "\n Value: " + diceActionValue + "\n");
-        description.concat("Resources to pay:\n");
-        return description;
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.effectType + ": ");
+        stringBuilder.append(actionType.toString() + " dice: " + diceActionValue + " ");
+        stringBuilder.append("resources to pay: ");
+        int i = 0;
+        for(PointsAndResources p : valuableToPay) {
+            if(valuableToPay.length > 1 && i > 0)
+                stringBuilder.append("or ");
+            stringBuilder.append(p.toString() + " ");
+            i++;
+        }
+        stringBuilder.append("resources earned: ");
+        i = 0;
+        for(PointsAndResources p : valuableEarned) {
+            if(valuableToPay.length > 1 && i > 0)
+                stringBuilder.append("or ");
+            stringBuilder.append(p.toString() + " ");
+            i++;
+        }
+        stringBuilder.append(" council privileges: " + numberOfCouncilPrivileges);
+        return stringBuilder.toString();
     }
-
 
 }

@@ -1,17 +1,19 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PointsAndResources;
-
-import java.util.Iterator;
-import java.util.Map;
+import it.polimi.ingsw.model.InformationCallback;
 
 /**
  * This class represent the effect that allow the user to pick up another card with a defined max dice value.
  */
 public class EffectCardBonus extends Effect{
+
+    /**
+     * Dice value bonus.
+     */
+    private int diceValueBonus;
 
     /**
      * Color of card that has the dice value bonus.
@@ -24,12 +26,6 @@ public class EffectCardBonus extends Effect{
     private PointsAndResources[] pickUpDiscounts;
 
     /**
-     * Dice value bonus.
-     */
-    private int diceValueBonus;
-
-
-    /**
      * Constructor
      */
     public EffectCardBonus(){
@@ -38,10 +34,10 @@ public class EffectCardBonus extends Effect{
 
     /**
      * Set development card colors that can be chosen.
-     * @param developmentCardColors
+     * @param colors
      */
-    public void setColors(DevelopmentCardColor[] developmentCardColors){
-        this.colors = developmentCardColors;
+    public void setColors(DevelopmentCardColor[] colors){
+        this.colors = colors;
     }
 
     /**
@@ -90,7 +86,7 @@ public class EffectCardBonus extends Effect{
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
+    public void runEffect(Player player, InformationCallback informationCallback) {
         for (DevelopmentCardColor color : this.colors){
             player.getPersonalBoard().setDevelopmentCardColorDiceValueBonus(color, diceValueBonus);
 
@@ -105,15 +101,15 @@ public class EffectCardBonus extends Effect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Dice value: " + diceValueBonus + "\n");
-        description.concat("\nColors:\n");
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.effectType + ": ");
+        stringBuilder.append("dice: " + diceValueBonus + " ");
         for(DevelopmentCardColor developmentCardColor : colors)
-            description.concat(developmentCardColor + "\n");
-        description.concat("Resources discounts:\n");
+            stringBuilder.append(developmentCardColor + "+");
+        stringBuilder.append("discounts: ");
         for(PointsAndResources pointsAndResources : pickUpDiscounts)
-            pointsAndResources.toString();
-        return description;
+            stringBuilder.append(pointsAndResources.toString());
+        return stringBuilder.toString();
     }
 }

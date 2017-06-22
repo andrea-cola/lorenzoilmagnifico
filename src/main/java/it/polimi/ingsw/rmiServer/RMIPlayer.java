@@ -55,7 +55,16 @@ import java.util.List;
     public void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException {
         try{
             rmiClientInterface.sendLeaderCards(leaderCards);
-        } catch(RemoteException e){
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void notifyTurnStarted(String username, long seconds) throws NetworkException{
+        try{
+            rmiClientInterface.notifyTurnStarted(username, seconds);
+        } catch (RemoteException e){
             throw new NetworkException();
         }
     }

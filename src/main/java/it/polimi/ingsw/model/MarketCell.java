@@ -13,31 +13,47 @@ import java.io.Serializable;
 public class MarketCell implements Serializable{
 
     /**
-     * Cell effect.
-     */
-    private Effect marketCellImmediateEffect;
-
-    /**
      * Min value of the family member to join the cell.
      */
-    private Integer minFamilyMemberValue;
+    private int minFamilyMemberValue;
+
+    /**
+     * Cell effect.
+     */
+    private EffectSimple immediateEffect;
 
     /**
      * Check if the cell is empty
-     * @param minFamilyMemberValue
      */
-    private Boolean empty = true;
+    private boolean empty;
 
+    private boolean accessible;
 
-    public MarketCell(int minFamilyMemberValue){
+    /**
+     * Class constructor.
+     * @param minFamilyMemberValue
+     * @param effectSimple
+     */
+    public MarketCell(int minFamilyMemberValue, EffectSimple effectSimple){
         this.minFamilyMemberValue = minFamilyMemberValue;
+        this.immediateEffect = effectSimple;
+        empty = true;
+        accessible = true;
+    }
+
+    public void setNotAccessible(){
+        this.accessible = false;
+    }
+
+    public boolean isAccessible(){
+        return this.accessible;
     }
 
     /**
      * This method checks if the cell is empty.
      * @return
      */
-    public Boolean getEmpty() {
+    public boolean getEmpty() {
         return this.empty;
     }
 
@@ -46,34 +62,18 @@ public class MarketCell implements Serializable{
     }
 
     /**
-     * Set the immediate effect of a market cell
-     * @param effect
-     */
-    public void setMarketCellImmediateEffect(Effect effect){
-        this.marketCellImmediateEffect = effect;
-    }
-
-    /**
      * This method returns the immediate effect of the market cell selected.
      * @return the immediate effect.
      */
-    public Effect getImmediateEffect(){
-        return this.marketCellImmediateEffect;
-    }
-
-    /**
-     * This method sets the minimum value to access the cell (default = 1 but in case of bonus it may be changed)
-     * @param value
-     */
-    public void setMinFamilyMemberValue(Integer value){
-        this.minFamilyMemberValue = value;
+    public EffectSimple getImmediateEffect(){
+        return this.immediateEffect;
     }
 
     /**
      * This method gets the minimum value to access the cell
      * @return
      */
-    public Integer getMinFamilyMemberValue(){
+    public int getMinFamilyMemberValue(){
         return this.minFamilyMemberValue;
     }
 

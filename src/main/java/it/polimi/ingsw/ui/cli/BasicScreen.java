@@ -1,13 +1,8 @@
 package it.polimi.ingsw.ui.cli;
 
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.List;
 
 public class BasicScreen {
-
-    protected BufferedReader keyboardReader = new BufferedReader((new InputStreamReader(System.in)));
 
     /*package-local*/ void printScreenTitle(String title){
         System.out.println("\n[ " + title + " ]");
@@ -17,9 +12,9 @@ public class BasicScreen {
         System.out.println("-> " + message);
     }
 
-    /*package-local*/ void print(List<CLIMessages> messagesList){
+    /*package-local*/ void print(List<String> messagesList){
         int i = 1;
-        for(CLIMessages message : messagesList){
+        for(String message : messagesList){
             System.out.println("(" + i + ") " + message.toString());
             i++;
         }

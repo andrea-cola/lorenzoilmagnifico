@@ -3,10 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.effects.Effect;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class represents the personal board abstraction.
@@ -36,7 +33,7 @@ public class PersonalBoard implements Serializable{
     private Map<DevelopmentCardColor, PointsAndResources> costDiscountForDevelopmentCard = new HashMap<>();
 
     /**
-     * FamilyMembers;
+     * Family members;
      */
     private FamilyMember familyMember;
 
@@ -44,7 +41,6 @@ public class PersonalBoard implements Serializable{
      * Array of family members already used by the player
      */
     private ArrayList<FamilyMemberColor> familyMembersUsed = new ArrayList<>();
-
 
     /**
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
@@ -58,7 +54,6 @@ public class PersonalBoard implements Serializable{
     private ArrayList<DevelopmentCard> buildingCards = new ArrayList<>();
     private ArrayList<DevelopmentCard> characterCards = new ArrayList<>();
     private ArrayList<DevelopmentCard> ventureCards = new ArrayList<>();
-
     private ArrayList<LeaderCard> leaderCards;
 
     /**
@@ -79,17 +74,25 @@ public class PersonalBoard implements Serializable{
         leaderCards = new ArrayList<>();
     }
 
+    /**
+     * Set personal board tile.
+     * @param personalBoardTile to set.
+     */
     public void setPersonalBoardTile(PersonalBoardTile personalBoardTile){
         this.personalBoardTile = personalBoardTile;
     }
 
+    /**
+     * Get personal board tile.
+     * @return personal board tile.
+     */
     public PersonalBoardTile getPersonalBoardTile() {
         return this.personalBoardTile;
     }
 
     /**
-     * Set family mamber
-     * @param member
+     * Set family member
+     * @param member to be set.
      */
     public void setFamilyMember(FamilyMember member){
         this.familyMember = member;
@@ -117,6 +120,18 @@ public class PersonalBoard implements Serializable{
      */
     public ArrayList<FamilyMemberColor> getFamilyMembersUsed(){
         return this.familyMembersUsed;
+    }
+
+    /**
+     * Return true if a family member is already used.
+     * @param familyMemberColor to check.
+     * @return boolean.
+     */
+    public boolean familyMemberIsUsed(FamilyMemberColor familyMemberColor){
+        for(FamilyMemberColor color : familyMembersUsed)
+            if(familyMemberColor.equals(color))
+                return true;
+        return false;
     }
 
     /**
@@ -297,6 +312,36 @@ public class PersonalBoard implements Serializable{
 
     public void setLeaderCard(LeaderCard leaderCard){
         this.leaderCards.add(leaderCard);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("RESOURCES\n");
+        stringBuilder.append(valuables.toString());
+
+        stringBuilder.append("FAMILY MEMBERS AVAILABLE\n");
+        Iterator it = familyMember.getMembers().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            if(!familyMemberIsUsed((FamilyMemberColor)pair.getKey()))
+                stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
+        }
+
+        stringBuilder.append("<TERRITORY CARDS>\n");
+        for(DevelopmentCard card : territoryCards)
+            stringBuilder.append(card.toString());
+        stringBuilder.append("<BUILDING CARDS>\n");
+        for(DevelopmentCard card : buildingCards)
+            stringBuilder.append(card.toString());
+        stringBuilder.append("<CHARACTERS CARDS>\n");
+        for(DevelopmentCard card : characterCards)
+            stringBuilder.append(card.toString());
+        stringBuilder.append("<VENTURE CARDS>\n");
+        for(DevelopmentCard card : ventureCards)
+            stringBuilder.append(card.toString());
+
+        return stringBuilder.toString();
     }
 
 }

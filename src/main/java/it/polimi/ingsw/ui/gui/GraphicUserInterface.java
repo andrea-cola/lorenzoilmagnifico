@@ -37,7 +37,7 @@ public class GraphicUserInterface extends AbstractUI{
      */
     @Override
     public void chooseConnectionType(){
-        NetworkBoardScreen networkBoardScreen = new NetworkBoardScreen(getController():: setNetworkSettings);
+        NetworkBoardScreen networkBoardScreen = new NetworkBoardScreen(getClient():: setNetworkSettings);
         Platform.runLater(() -> {
             try {
                 networkBoardScreen.start(new Stage());
@@ -50,7 +50,7 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void loginScreen(){
-        LoginBoardScreen loginBoardScreen = new LoginBoardScreen(getController()::loginPlayer);
+        LoginBoardScreen loginBoardScreen = new LoginBoardScreen(getClient()::loginPlayer);
         Platform.runLater(()->{
             try {
                 loginBoardScreen.start(new Stage());
@@ -77,6 +77,16 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void chooseLeaderCards(List<LeaderCard> leaderCards) {
+
+    }
+
+    @Override
+    public void notifyGameStarted() {
+
+    }
+
+    @Override
+    public void turnScreen(String username, long seconds) {
 
     }
 

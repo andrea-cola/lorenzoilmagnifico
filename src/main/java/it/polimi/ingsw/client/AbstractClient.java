@@ -59,7 +59,7 @@ public abstract class AbstractClient {
      * Method to get the ClientInterface.
      * @return the client controller.
      */
-    protected ClientInterface getController() {
+    protected ClientInterface getClient() {
         return clientInterface;
     }
 
@@ -97,4 +97,5 @@ public abstract class AbstractClient {
 
     public abstract void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException;
 
+    public abstract void endTurn() throws NetworkException;
 }

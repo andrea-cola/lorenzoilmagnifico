@@ -81,5 +81,9 @@ public class CouncilPrivilege implements Serializable{
         return false;
     }
 
+    @Override
+    public String toString(){
+        return "Council privilege number: " + numberOfCouncilPrivileges + "\n";
+    }
 
 }

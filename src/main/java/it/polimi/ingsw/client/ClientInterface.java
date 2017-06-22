@@ -18,4 +18,5 @@ public interface ClientInterface {
 
     void chooseLeaderCards(List<LeaderCard> leaderCards);
 
+    void notifyTurnStarted(String username, long seconds);
 }
