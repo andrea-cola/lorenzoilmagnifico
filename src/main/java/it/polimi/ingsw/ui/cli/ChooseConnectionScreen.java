@@ -4,63 +4,74 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.WrongCommandException;
 import it.polimi.ingsw.utility.Debugger;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 public class ChooseConnectionScreen extends BasicScreen {
 
-    private static final String STD_ADDRESS = "127.0.0.1";
     private static final int STD_PORT_SOCKET = 3031;
     private static final int STD_PORT_RMI = 3032;
-    private static final ConnectionType STD_CONN_TYPE = ConnectionType.SOCKET;
+    private static final Pattern PATTERN = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+
+    private List<String> cliMessages = new ArrayList<>();
 
     private final ICallback callback;
     private ConnectionType connectionType;
     private String address;
     private int port;
+    private BufferedReader keyboardReader = new BufferedReader((new InputStreamReader(System.in)));
 
-    ChooseConnectionScreen(ScreenInterface screenInterface, ICallback callback){
-        super(screenInterface);
-
-        System.out.println("[NETWORK CONFIGURATION]");
+    ChooseConnectionScreen(ICallback callback){
         this.callback = callback;
-        this.connectionType = STD_CONN_TYPE;
-        this.address = STD_ADDRESS;
-        this.port = STD_PORT_SOCKET;
-        addPrintCommand("set-conn", arguments -> setConnection(arguments));
-        addPrintCommand("connect", arguments -> connect());
-        printHelps();
+
+        cliMessages.add("Connection based on Sockets.");
+        cliMessages.add("Connection based on RMI.");
+
+        printScreenTitle("NETWORK CONFIGURATION");
+        print(cliMessages);
         readCommand();
-    }
-
-    private void printHelps(){
-        System.out.println("Helps: set-conn [SOCKET | RMI] [address] [port]");
-        System.out.println("Helps: connect");
-    }
-
-    private void printConfig(){
-        System.out.println("New configuration: " + connectionType.toString() + " @ " + address +":" + port);
-    }
-
-    private void setConnection(String[] arguments) throws WrongCommandException {
-        if(arguments.length == 3){
-            setConnectionType(arguments[0]);
-            this.address = arguments[1];
-            this.port = Integer.parseInt(arguments[2]);
-        }else
-            throw new WrongCommandException();
-        printConfig();
         connect();
     }
 
-    private void setConnectionType(String type) throws WrongCommandException{
-        switch (type) {
-            case "socket":
-                connectionType = ConnectionType.SOCKET;
-                break;
-            case "rmi":
-                connectionType = ConnectionType.RMI;
-                break;
-            default:
-                throw new WrongCommandException();
+    private void readCommand(){
+        try {
+            int key;
+            do {
+                key = Integer.parseInt(keyboardReader.readLine());
+            } while (key < 1 || key > cliMessages.size());
+            if (key == 1) {
+                this.connectionType = ConnectionType.SOCKET;
+                this.port = STD_PORT_SOCKET;
+            } else {
+                this.connectionType = ConnectionType.RMI;
+                this.port = STD_PORT_RMI;
+            }
+            readAddress();
+        } catch (ClassCastException e) {
+            readCommand();
+        } catch (IOException e){
+            Debugger.printDebugMessage("Error while reading from keyboard.");
         }
+    }
+
+    private void readAddress() throws IOException{
+        print("Server IP address");
+        address = keyboardReader.readLine();
+        try {
+            validateIpAddress(address);
+        } catch (WrongCommandException e){
+            readAddress();
+        }
+    }
+
+    private void validateIpAddress(String address) throws WrongCommandException{
+        boolean flag = PATTERN.matcher(address).matches();
+        if(!flag)
+            throw new WrongCommandException();
     }
 
     private void connect() {

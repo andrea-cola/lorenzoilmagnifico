@@ -2,7 +2,10 @@ package it.polimi.ingsw.ui;
 
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.ui.cli.ConnectionType;
 
 import java.util.List;
@@ -12,6 +15,8 @@ import java.util.List;
  * be updated in real time and notified for every change.
  */
 public interface UiController {
+
+    String getUsername();
 
     void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException;
 
@@ -23,4 +28,11 @@ public interface UiController {
 
     void sendPersonalBoardTileChoice(PersonalBoardTile personalBoardTile);
 
+    void notifyLeaderCardChoice(LeaderCard leaderCard);
+
+    Game getGameModel();
+
+    Player getPlayer();
+
+    void endTurn();
 }

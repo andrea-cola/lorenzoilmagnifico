@@ -3,6 +3,7 @@ package it.polimi.ingsw.socketCommunicationProtocol;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 
@@ -42,5 +43,9 @@ public interface ServerCommunicationProtocolInterface {
      */
     void createNewRoom(int maxPlayersNumber) throws RoomException;
 
-    void setPlayerPersonalBoardTile(PersonalBoardTile personalBoardTile);
+    void notifyPlayerPersonalBoardTileChoice(PersonalBoardTile personalBoardTile);
+
+    void notifyPlayerLeaderCardChoice(LeaderCard leaderCard);
+
+    void endTurn();
 }

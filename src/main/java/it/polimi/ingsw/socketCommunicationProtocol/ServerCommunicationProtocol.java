@@ -3,6 +3,7 @@ package it.polimi.ingsw.socketCommunicationProtocol;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.LoginErrorType;
@@ -65,9 +66,9 @@ public class ServerCommunicationProtocol {
 
     @FunctionalInterface
     private interface Handler{
+
         void handle();
     }
-
     /**
      * Put in the hash map all possible requests from the client and their associated method.
      */
@@ -76,7 +77,10 @@ public class ServerCommunicationProtocol {
         requestsTable.put(CommunicationProtocolConstants.SIGNIN_REQUEST, this::signInPlayer);
         requestsTable.put(CommunicationProtocolConstants.JOIN_ROOM_REQUEST, this::joinRoom);
         requestsTable.put(CommunicationProtocolConstants.CREATE_ROOM_REQUEST, this::createNewRoom);
-        requestsTable.put(CommunicationProtocolConstants.PERSONAL_TILES, this::setPlayerPersonalBoardTile);
+        requestsTable.put(CommunicationProtocolConstants.PERSONAL_TILES, this::notifyPlayerPersonalBoardTileChoice);
+        requestsTable.put(CommunicationProtocolConstants.LEADER_CARDS, this::notifyLeaderCardChoice);
+        requestsTable.put(CommunicationProtocolConstants.LEADER_CARDS, this::notifyLeaderCardChoice);
+        requestsTable.put(CommunicationProtocolConstants.END_TURN, this::endTurn);
     }
 
     /**
@@ -214,13 +218,51 @@ public class ServerCommunicationProtocol {
         }
     }
 
-    public void setPlayerPersonalBoardTile(){
+    public void notifyPlayerPersonalBoardTileChoice(){
         try {
             PersonalBoardTile personalBoardTile = (PersonalBoardTile)input.readObject();
-            serverCommunicationProtocolInterface.setPlayerPersonalBoardTile(personalBoardTile);
+            serverCommunicationProtocolInterface.notifyPlayerPersonalBoardTileChoice(personalBoardTile);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
 
         }
+    }
+
+    public void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException{
+        synchronized (object){
+            try {
+                output.writeObject(CommunicationProtocolConstants.LEADER_CARDS);
+                output.writeObject(leaderCards);
+                output.flush();
+            } catch (IOException e) {
+                throw new NetworkException();
+            }
+        }
+    }
+
+    public void notifyLeaderCardChoice(){
+        try{
+            LeaderCard leaderCard = (LeaderCard)input.readObject();
+            serverCommunicationProtocolInterface.notifyPlayerLeaderCardChoice(leaderCard);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            // -----------------------------
+        }
+    }
+
+    public void notifyTurnStarted(String username, long seconds) throws NetworkException{
+        synchronized (object){
+            try{
+                output.writeObject(CommunicationProtocolConstants.TURN_STARTED);
+                output.writeObject(username);
+                output.writeObject(seconds);
+                output.flush();
+            } catch (IOException e){
+                throw new NetworkException();
+            }
+        }
+    }
+
+    public void endTurn(){
+        serverCommunicationProtocolInterface.endTurn();
     }
 
 }

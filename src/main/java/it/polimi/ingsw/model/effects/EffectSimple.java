@@ -1,9 +1,9 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
-import javafx.util.Pair;
+import it.polimi.ingsw.model.InformationCallback;
 
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,7 +18,7 @@ public class EffectSimple extends Effect{
     private PointsAndResources valuable;
 
     /**
-     * Number of council privileges
+     * Council privilege object.
      */
     private int numberOfCouncilPrivileges;
 
@@ -27,7 +27,6 @@ public class EffectSimple extends Effect{
      */
     public EffectSimple(){
         this.valuable = new PointsAndResources();
-
         super.effectType = this.getClass().getSimpleName();
     }
 
@@ -39,13 +38,20 @@ public class EffectSimple extends Effect{
         return this.valuable;
     }
 
+    /**
+     * Return council privilege object.
+     * @return council privilege object.
+     */
+    public int getCouncilPrivilege(){
+        return this.numberOfCouncilPrivileges;
+    }
 
     /**
      * Method to run the effect.
      * @param player that takes advantage of the effect.
      */
     @Override
-    public void runEffect(Player player){
+    public void runEffect(Player player, InformationCallback informationCallback) {
         //updates player's resources
         for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
@@ -60,21 +66,20 @@ public class EffectSimple extends Effect{
         if (this.numberOfCouncilPrivileges > 0){
             CouncilPrivilege councilPrivilege = new CouncilPrivilege();
             for (int i = 0; i < this.numberOfCouncilPrivileges; i++){
-                //TODO implementare logica di gestione della scelta dei privilegi
+                //informationCallback.chooseCouncilPrivilege();
 
             }
         }
-
     }
 
     /**
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
-        String header = this.effectType + "\n";
-        String resources = "Resources:\n" + valuable.toString();
-        String privilege = "Council privileges: " + numberOfCouncilPrivileges;
-        return new StringBuilder(header).append(resources).append(privilege).toString();
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.effectType + ": ");
+        stringBuilder.append("resources earned: " + valuable.toString() + " council privileges: " + numberOfCouncilPrivileges);
+        return stringBuilder.toString();
     }
 }

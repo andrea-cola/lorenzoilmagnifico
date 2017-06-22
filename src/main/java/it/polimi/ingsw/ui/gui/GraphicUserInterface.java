@@ -1,25 +1,19 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.stage.Stage;
-import sun.awt.Mutex;
-
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.Semaphore;
 
 /**
  * This class manage the graphic user interface of the game
  */
 public class GraphicUserInterface extends AbstractUI{
-
-    private Task<Void> task;
 
     /**
      * Constructor
@@ -31,14 +25,10 @@ public class GraphicUserInterface extends AbstractUI{
         welcomeBoard();
     }
 
-    /**
-     *
-     */
     public void welcomeBoard(){
         Thread thread = new Thread(() -> Application.launch(StartingBoardScreen.class));
         thread.start();
         return;
-
     }
 
     /**
@@ -47,7 +37,7 @@ public class GraphicUserInterface extends AbstractUI{
      */
     @Override
     public void chooseConnectionType(){
-        NetworkBoardScreen networkBoardScreen = new NetworkBoardScreen(getController():: setNetworkSettings);
+        NetworkBoardScreen networkBoardScreen = new NetworkBoardScreen(getClient():: setNetworkSettings);
         Platform.runLater(() -> {
             try {
                 networkBoardScreen.start(new Stage());
@@ -60,7 +50,7 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void loginScreen(){
-        LoginBoardScreen loginBoardScreen = new LoginBoardScreen(getController()::loginPlayer);
+        LoginBoardScreen loginBoardScreen = new LoginBoardScreen(getClient()::loginPlayer);
         Platform.runLater(()->{
             try {
                 loginBoardScreen.start(new Stage());
@@ -82,6 +72,21 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
+
+    }
+
+    @Override
+    public void chooseLeaderCards(List<LeaderCard> leaderCards) {
+
+    }
+
+    @Override
+    public void notifyGameStarted() {
+
+    }
+
+    @Override
+    public void turnScreen(String username, long seconds) {
 
     }
 

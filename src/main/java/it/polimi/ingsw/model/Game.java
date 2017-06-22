@@ -1,35 +1,63 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
+import it.polimi.ingsw.server.ServerPlayer;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class Game implements Serializable {
+public class Game implements Serializable{
+
     /**
      * Mainboard reference.
      */
-    protected MainBoard mainBoard;
+    private MainBoard mainBoard;
 
     /**
-     * Dice
+     * Dices.
      */
     private Dice dices;
 
     /**
-     * Map of all players. Each player is identified by its username (String)
+     * Map of all players. Each player is identified by its username (String).
      */
     private Map<String, Player> players;
 
     /**
      * Class constructor
      */
-    public Game(MainBoard mainBoard){
-        this.mainBoard = mainBoard;
+    public Game(MainBoard mainBoard, List<ServerPlayer> players){
+        buildMainBoard(mainBoard);
+        closeAreas(players.size());
         this.dices = new Dice();
         this.players = new LinkedHashMap<>();
     }
+
+    /**
+     * This method build a new main board object.
+     * @param mainBoardConfiguration configuration.
+     */
+    private void buildMainBoard(MainBoard mainBoardConfiguration){
+        this.mainBoard = new MainBoard(mainBoardConfiguration);
+    }
+
+    /**
+     * Close areas following game rules.
+     * @param numberOfPlayers in the room.
+     */
+    private void closeAreas(int numberOfPlayers){
+        if(numberOfPlayers < 3) {
+            this.mainBoard.getHarvestExtended().setNotAccessible();
+            this.mainBoard.getProductionExtended().setNotAccessible();
+        }
+        if(numberOfPlayers < 4){
+            for(int i = 0; i < this.mainBoard.getMarket().getMarketCells().length; i++){
+                if(i > 1)
+                    this.mainBoard.getMarket().getMarketCell(i).setNotAccessible();
+            }
+        }
+    }
+
 
     /**
      * Get the mainBoard
@@ -56,6 +84,18 @@ public class Game implements Serializable {
         return this.players.get(username);
     }
 
+    public String[] getPlayersUsername(){
+        String[] usernames = new String[players.size()];
+        Iterator it = players.entrySet().iterator();
+        int i = 0;
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            usernames[i] = (String)pair.getKey();
+            i++;
+        }
+        return usernames;
+    }
+
     /**
      * Get all the players
      * @return
@@ -64,6 +104,7 @@ public class Game implements Serializable {
         return this.players;
     }
 
+
     /**
      * This method gets a DevelopmentCard from TowerCell and adds it to the player's PersonalBoard
      * @param player
@@ -71,18 +112,18 @@ public class Game implements Serializable {
      * @param indexCell
      * @return
      */
-    public void pickupDevelopmentCardFromTower(Player player, FamilyMemberColor familyMemberColor, int indexTower, int indexCell){
+    public void pickupDevelopmentCardFromTower(Player player, FamilyMemberColor familyMemberColor, int indexTower, int indexCell, InformationCallback informationCallback){
         Tower tower = this.mainBoard.getTower(indexTower);
         TowerCell cell = tower.getTowerCell(indexCell);
 
         //check if the cell is empty
         if (cell.getPlayerNicknameInTheCell() == null){
             try {
-                //check if the family member is eligible to be placed inside the tower
+                //check if the family member has not been already used and if the player has not already placed a family member inside the tower
                 tower.familyMemberCanBePlaced(player, familyMemberColor);
 
                 try {
-                    //check if familyMember is eligible to be placed inside the towerCell
+                    //check if familyMember's value is enough to be placed inside the towerCell
                     cell.familyMemberCanBePlaced(player, familyMemberColor);
 
                     try {
@@ -92,20 +133,20 @@ public class Game implements Serializable {
                         }
 
                         //check if the user has resources enough to buy the card
-                        cell.developmentCardCanBePickedUp(player);
+                        cell.developmentCardCanBeBuyedBy(player);
 
                         //add the card to the player's personal board
                         DevelopmentCard card = cell.getDevelopmentCard();
-                        this.players.get(player.getNickname()).getPersonalBoard().addCard(card);
+                        this.players.get(player.getUsername()).getPersonalBoard().addCard(card);
 
                         //get the tower cell immediate effect
-                        cell.getTowerCellImmediateEffect().runEffect(player);
+                        cell.getTowerCellImmediateEffect().runEffect(player, informationCallback);
 
                         //set the family member as used
                         player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
 
                         //set the cell as used by a particular player
-                        cell.setPlayerNicknameInTheCell(player.getNickname());
+                        cell.setPlayerNicknameInTheCell(player.getUsername());
                     }catch (GameException e){
                         //if the player has no more resources to buy the card, it gets back his money in case of tower already occupied
                         if (!tower.isFree()){
@@ -132,44 +173,21 @@ public class Game implements Serializable {
      * @param player
      * @param familyMemberColor
      */
-    public void placeFamilyMemberInsideHarvestSimpleSpace(Player player, FamilyMemberColor familyMemberColor){
+    public void placeFamilyMemberInsideHarvestSimpleSpace(Player player, FamilyMemberColor familyMemberColor, InformationCallback informationCallback){
         ActionSpace actionSpace = this.mainBoard.getHarvest();
-        this.performSimpleAction(actionSpace, player, familyMemberColor);
-    }
 
-
-    /**
-     * This method manages the simple production action
-     * @param player
-     * @param familyMemberColor
-     */
-    public void placeFamilyMemberInsideProductionSimpleSpace(Player player, FamilyMemberColor familyMemberColor){
-        ActionSpace actionSpace = this.mainBoard.getProduction();
-        this.performSimpleAction(actionSpace, player, familyMemberColor);
-    }
-
-    /**
-     * This method performs the simple action based on the space selected
-     * @param actionSpace
-     * @param player
-     * @param familyMemberColor
-     */
-    private void performSimpleAction(ActionSpace actionSpace, Player player, FamilyMemberColor familyMemberColor){
         //check if the action space is empty
         if (actionSpace.getEmpty()){
             try {
                 ///check if familyMember is eligible to be placed inside the harvest zone
                 actionSpace.familyMemberCanBePlaced(player, familyMemberColor);
 
-                /////////////////////////////
                 //permanent effect
-                for (DevelopmentCard card : this.players.get(player.getNickname()).getPersonalBoard().getCards(DevelopmentCardColor.GREEN)){
-                    card.getPermanentEffect().runEffect(player);
+                for (DevelopmentCard card : this.players.get(player.getUsername()).getPersonalBoard().getTerritoryCards()){
+                    card.getPermanentEffect().runEffect(player, informationCallback);
                 }
 
                 //personal board tile
-                player.getPersonalBoard().getPersonalBoardTile().runEffect(player, actionSpace.getActionSpaceType());
-                ////////////////////////////
 
                 //action space is no more available
                 actionSpace.setEmpty(false);
@@ -181,11 +199,10 @@ public class Game implements Serializable {
         }
     }
 
-
     /**
      * This method manages the council palace events
      */
-    public void placeFamilyMemberInsideCouncilPalace(Player player, FamilyMemberColor familyMemberColor){
+    public void placeFamilyMemberInsideCouncilPalace(Player player, FamilyMemberColor familyMemberColor, InformationCallback informationCallback){
         CouncilPalace councilPalace = this.mainBoard.getCouncilPalace();
 
         try {
@@ -193,7 +210,7 @@ public class Game implements Serializable {
             councilPalace.familyMemberCanBePlaced(player, familyMemberColor);
 
             councilPalace.fifoAddPlayer(player);
-            councilPalace.getImmediateEffect().runEffect(player);
+            councilPalace.getImmediateEffect().runEffect(player, informationCallback);
         }catch (GameException e){
             System.out.print(e.getError());
         }
@@ -203,7 +220,7 @@ public class Game implements Serializable {
     /**
      * This method manages the market events
      */
-    public void placeFamilyMemberInsideMarket(Player player, FamilyMemberColor familyMemberColor, int indexMarket){
+    public void placeFamilyMemberInsideMarket(Player player, FamilyMemberColor familyMemberColor, int indexMarket, InformationCallback informationCallback){
         Market market = this.mainBoard.getMarket();
         MarketCell cell = market.getMarketCell(indexMarket);
 
@@ -212,7 +229,7 @@ public class Game implements Serializable {
                 //check if familyMember is eligible to be placed inside the market
                 cell.familyMemberCanBePlaced(player, familyMemberColor);
 
-                cell.getImmediateEffect().runEffect(player);
+                cell.getImmediateEffect().runEffect(player, informationCallback);
             }catch (GameException e){
                 System.out.print(e.getError());
             }
@@ -220,9 +237,5 @@ public class Game implements Serializable {
             System.out.print("This market cell is occupied");
         }
     }
-
-
-    
-
 
 }

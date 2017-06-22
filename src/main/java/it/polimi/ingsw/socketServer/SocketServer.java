@@ -57,7 +57,6 @@ public class SocketServer extends AbstractServer {
                     Socket socket = serverSocket.accept();
                     SocketPlayer socketPlayer = new SocketPlayer(socket, getServer());
                     new Thread(socketPlayer).start();
-                    Debugger.printStandardMessage("New player @ " + socket.getInetAddress());
                 } catch (IOException e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), "Problem while socket accepting.");
                     break;

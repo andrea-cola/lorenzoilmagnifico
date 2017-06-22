@@ -12,6 +12,7 @@ package it.polimi.ingsw.socketCommunicationProtocol;
     /*package-local*/ static final String SIGNIN_REQUEST = "SigninRequest";
     /*package-local*/ static final String JOIN_ROOM_REQUEST= "JoinRoomRequest";
     /*package-local*/ static final String CREATE_ROOM_REQUEST= "CreateRoomRequest";
+    /*package-local*/ static final String END_TURN = "endTurn";
 
     /**
      * Responses from server to client.
@@ -30,6 +31,8 @@ package it.polimi.ingsw.socketCommunicationProtocol;
      * Requests from server to client.
      */
     /*package-local*/ static final String GAME_MODEL = "GameModel";
-    /*package-local*/ static final String PERSONAL_TILES = "GameModel";
+    /*package-local*/ static final String PERSONAL_TILES = "PersonalTiles";
+    /*package-local*/ static final String LEADER_CARDS = "LeaderCards";
+    /*package-local*/ static final String TURN_STARTED = "TurnStarted";
 
 }

@@ -67,7 +67,6 @@ public class Configurator {
      * Class constructor.
      */
     private Configurator() throws ConfigurationException{
-        Debugger.printDebugMessage("Loading configuration files...");
         try {
             gson = new Gson();
             loadRuntimeTypeAdapterFactory();
@@ -163,8 +162,7 @@ public class Configurator {
     }
 
     /*package-local*/ static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
-        GameManager gameManager = new GameManager(roomPlayers, configuration, developmentCards, leaderCards);
-        return gameManager;
+        return new GameManager(roomPlayers, configuration, developmentCards, leaderCards);
     }
 
 }

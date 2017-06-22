@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gameServer.Configurator;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
@@ -97,7 +98,6 @@ public class Server implements ServerInterface{
             Debugger.printStandardMessage("Socket server ready.");
             Debugger.printStandardMessage("RMI server ready.");
             Debugger.printStandardMessage("SQL server ready.");
-            server.dbServer.showPlayers();
         } catch(ServerException | SQLException e){
             Debugger.printDebugMessage("Server.java", "Error while starting the server.", e);
         }
@@ -161,7 +161,7 @@ public class Server implements ServerInterface{
         synchronized (LOGIN_SIGNIN_MUTEX) {
             if(!players.containsKey(username) || (players.containsKey(username) && !activePlayer.get(username))) {
                 dbServer.loginPlayer(username, password);
-                player.setNickname(username);
+                player.setUsername(username);
                 players.put(username, player);
                 activePlayer.put(username, true);
             }
@@ -177,9 +177,9 @@ public class Server implements ServerInterface{
      */
     @Override
     public void disableUser(ServerPlayer player){
-        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getNickname() + " is disabled.");
-        if(activePlayer.containsKey(player.getNickname()))
-            this.activePlayer.put(player.getNickname(), false);
+        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " is disabled.");
+        if(activePlayer.containsKey(player.getUsername()))
+            this.activePlayer.put(player.getUsername(), false);
     }
 
     /**
@@ -209,13 +209,13 @@ public class Server implements ServerInterface{
             if(playerRoom != null) {
                 playerRoom.rejoinRoom(serverPlayer);
                 serverPlayer.setRoom(playerRoom);
-                Debugger.printDebugMessage(serverPlayer.getNickname() + " rejoined in room #" + playerRoom.getRoomID());
+                Debugger.printDebugMessage(serverPlayer.getUsername() + " rejoined in room #" + playerRoom.getRoomID());
             }
             else if(!rooms.isEmpty()) {
                 playerRoom = rooms.get(rooms.size() - 1);
                 playerRoom.joinRoom(serverPlayer);
                 serverPlayer.setRoom(playerRoom);
-                Debugger.printDebugMessage(serverPlayer.getNickname() + " joined in room #" + playerRoom.getRoomID());
+                Debugger.printDebugMessage(serverPlayer.getUsername() + " joined in room #" + playerRoom.getRoomID());
             } else
                 throw new RoomException("There are no rooms available!");
         }
@@ -236,7 +236,7 @@ public class Server implements ServerInterface{
                 flag = true;
             }
             catch(RoomException e) {
-                Debugger.printStandardMessage(serverPlayer.getNickname() + " is creating a new room.");
+                Debugger.printStandardMessage(serverPlayer.getUsername() + " is creating a new room.");
             }
             if(!flag){
                 Configuration configuration = Configurator.getConfiguration();
@@ -260,6 +260,12 @@ public class Server implements ServerInterface{
     public void setPlayerPersonalBoardTile(ServerPlayer serverPlayer, PersonalBoardTile personalBoardTile) {
         serverPlayer.getPersonalBoard().setPersonalBoardTile(personalBoardTile);
         serverPlayer.getRoom().onPersonalTilesChosen();
+    }
+
+    @Override
+    public void setPlayerLeaderCard(ServerPlayer serverPlayer, LeaderCard leaderCard) {
+        serverPlayer.getPersonalBoard().setLeaderCard(leaderCard);
+        serverPlayer.getRoom().onLeaderCardChosen();
     }
 
 }

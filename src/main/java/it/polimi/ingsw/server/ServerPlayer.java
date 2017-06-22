@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.gameServer.Room;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.model.Player;
 
@@ -49,4 +50,9 @@ public abstract class ServerPlayer extends Player{
     }
 
     public abstract void sendPersonalTile(List<PersonalBoardTile> personalBoardTiles) throws NetworkException;
+
+    public abstract void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException;
+
+    public abstract void notifyTurnStarted(String username, long seconds) throws NetworkException;
+
 }

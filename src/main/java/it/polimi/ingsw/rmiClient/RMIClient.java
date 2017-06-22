@@ -15,9 +15,9 @@ import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.rmiServer.RMIServerInterface;
-import it.polimi.ingsw.utility.Configuration;
 
 /**
  * This class extends {@link AbstractClient} class to create a network connection based on RMI.
@@ -139,26 +139,54 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     @Override
-    public void sendPersonalBoardTileChoise(PersonalBoardTile personalBoardTile) throws NetworkException{
+    public void sendPersonalTiles(List<PersonalBoardTile> personalBoardTileList) throws RemoteException {
+        getClient().choosePersonalBoardTile(personalBoardTileList);
+    }
+
+    @Override
+    public void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException{
         try {
-            server.setPersonalBoardChoise(playerID, personalBoardTile);
+            server.notifyPersonalBoardChoice(playerID, personalBoardTile);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void sendPersonalTiles(List<PersonalBoardTile> personalBoardTileList) throws RemoteException {
-        getController().choosePersonalBoardTile(personalBoardTileList);
+    public void sendLeaderCards(List<LeaderCard> leaderCards) throws RemoteException {
+        getClient().chooseLeaderCards(leaderCards);
+    }
+
+    @Override
+    public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException {
+        try {
+            server.notifyLeaderCardChoice(this.playerID, leaderCard);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
     }
 
     @Override
     public void sendGame(Game game) throws RemoteException {
-        getController().setGameModel(game);
+        getClient().setGameModel(game);
     }
 
     @Override
     public String ping() throws RemoteException {
         return playerID;
+    }
+
+    @Override
+    public void notifyTurnStarted(String username, long seconds) throws RemoteException {
+        getClient().notifyTurnStarted(username, seconds);
+    }
+
+    @Override
+    public void endTurn() throws NetworkException{
+        try {
+            server.endTurn(this.playerID);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
     }
 }

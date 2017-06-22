@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.Effect;
+import it.polimi.ingsw.model.effects.EffectHarvestProductionSimple;
 
 import java.io.Serializable;
 
@@ -19,7 +20,7 @@ public class ActionSpace implements Serializable{
     /**
      * Action space immediate effect.
      */
-    private Effect actionSpaceEffect;
+    private EffectHarvestProductionSimple actionSpaceEffect;
 
     /**
      * Family member has occupied the space.
@@ -27,19 +28,15 @@ public class ActionSpace implements Serializable{
     private FamilyMember familyMember;
 
     /**
-     * Min dice value to place a family member in the action space.
-     */
-    private int minFamilyMemberValue;
-
-    /**
      * Boolean value that checks if the action space is empty
      */
-    private Boolean empty = true;
+    private Boolean empty;
 
 
-    public ActionSpace(ActionType actionSpaceType, int minFamilyMemberValue){
+    public ActionSpace(ActionType actionSpaceType, EffectHarvestProductionSimple effect){
         this.actionSpaceType = actionSpaceType;
-        this.minFamilyMemberValue = minFamilyMemberValue;
+        this.actionSpaceEffect = effect;
+        empty = true;
     }
 
     /**
@@ -54,7 +51,7 @@ public class ActionSpace implements Serializable{
      * Get the effect of the action space.
      * @return effect of the action space.
      */
-    public Effect getActionSpaceEffect(){
+    public EffectHarvestProductionSimple getActionSpaceEffect(){
         return this.actionSpaceEffect;
     }
 
@@ -82,7 +79,7 @@ public class ActionSpace implements Serializable{
         }
 
         //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
-        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.minFamilyMemberValue){
+        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.actionSpaceEffect.getDiceActionValue()){
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
         }
 

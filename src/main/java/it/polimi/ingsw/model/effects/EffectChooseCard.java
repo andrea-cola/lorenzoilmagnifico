@@ -1,9 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
-
-import java.util.Iterator;
-import java.util.Map;
+import it.polimi.ingsw.model.InformationCallback;
 
 /**
  * This class represent the effect that allows the player to choose another card.
@@ -11,14 +9,14 @@ import java.util.Map;
 public class EffectChooseCard extends Effect{
 
     /**
-     * Colors of the card that can be pick up.
-     */
-    private DevelopmentCardColor[] developmentCardColors;
-
-    /**
      * Value of the dice to access the tower.
      */
     private int diceValue;
+
+    /**
+     * Colors of the card that can be pick up.
+     */
+    private DevelopmentCardColor[] developmentCardColors;
 
     /**
      * Resources and points earned when the effect is activated.
@@ -26,12 +24,18 @@ public class EffectChooseCard extends Effect{
     private PointsAndResources pointsAndResources;
 
     /**
-     * Number of council privileges
+     * Discount on the card picked up.
      */
     private PointsAndResources pickUpBonus;
 
-    private int numberOfCouncilPrivileges;
+    /**
+     * Number of council privilege.
+     */
+    private int numberOfCouncilPrivilege;
 
+    /**
+     * Class constructor.
+     */
     public EffectChooseCard(){
         super.effectType = this.getClass().getSimpleName();
     }
@@ -69,6 +73,13 @@ public class EffectChooseCard extends Effect{
         return this.pickUpBonus;
     }
 
+    public void setCouncilPrivilege(int councilPrivilege){
+        this.numberOfCouncilPrivilege = councilPrivilege;
+    }
+
+    public int getCouncilPrivilege(){
+        return this.numberOfCouncilPrivilege;
+    }
 
     /**
      * Method to run the effect of the card.
@@ -76,7 +87,7 @@ public class EffectChooseCard extends Effect{
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
+    public void runEffect(Player player, InformationCallback informationCallback) {
 
     }
 
@@ -84,16 +95,14 @@ public class EffectChooseCard extends Effect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
-        String description = this.effectType;
-        description.concat("Dice value: " + diceValue + "\n");
-        description.concat("\nColors:\n");
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.effectType + ": ");
+        stringBuilder.append("dice: " + diceValue + " ");
         for(DevelopmentCardColor developmentCardColor : developmentCardColors)
-            description.concat(developmentCardColor + "\n");
-        description.concat("Resources earnead:\n");
-        pointsAndResources.toString();
-        description.concat("Resources discount:\n");
-        pickUpBonus.toString();
-        return description;
+            stringBuilder.append(developmentCardColor + "+");
+        stringBuilder.append("discounts: " + pointsAndResources.toString());
+        stringBuilder.append("resources earned: " + pointsAndResources.toString() + "council privileges: " + numberOfCouncilPrivilege);
+        return stringBuilder.toString();
     }
 }

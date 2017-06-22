@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import java.io.Serializable;
 
-public class Privilege {
+public class Privilege implements Serializable{
 
     private PointsAndResources valuables;
 

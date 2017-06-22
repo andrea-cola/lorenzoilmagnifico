@@ -1,48 +1,62 @@
 package it.polimi.ingsw.ui.cli;
 
 import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.utility.Debugger;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChoosePersonalBoardTileScreen extends BasicScreen{
 
     private ICallback callback;
+
     private List<PersonalBoardTile> personalBoardTileList;
 
-    ChoosePersonalBoardTileScreen(ScreenInterface screenInterface, ICallback callback, List<PersonalBoardTile> personalBoardTileList){
-        super(screenInterface);
+    private List<String> cliMessages = new ArrayList<>();
 
-        System.out.println("\n\n[CHOOSE PERSONAL BOARD TILE]");
+    private BufferedReader keyboardReader = new BufferedReader((new InputStreamReader(System.in)));
+
+
+    ChoosePersonalBoardTileScreen(ICallback callback, List<PersonalBoardTile> personalBoardTileList){
         this.callback = callback;
+
+        cliMessages.add("Choose your personal board tile.");
+        printScreenTitle("PERSONAL BOARD CHOICE");
         this.personalBoardTileList = personalBoardTileList;
-        addPrintCommand("personal-tile", arguments->choosePersonalBoardTile(arguments));
-        printHelps();
-        readCommand();
+        print(cliMessages);
+        choosePersonalBoardTile();
     }
 
-    private void printHelps(){
+    private void printTiles(){
         int i = 1;
-        System.out.println("Helps: personal-tile [number]\n");
         for(PersonalBoardTile personalBoardTile : personalBoardTileList){
-            System.out.println("<" + i + ">");
-            System.out.println(personalBoardTile.getProductionEffect().getDescription());
-            System.out.println(personalBoardTile.getHarvestEffect().getDescription());
+            print("[" + i + "] " + personalBoardTile.getProductionEffect().toString() + " " + personalBoardTile.getHarvestEffect().toString());
             i++;
         }
     }
 
-    private void choosePersonalBoardTile(String[] arguments){
-        if(arguments.length == 1){
-            int index = Integer.parseInt(arguments[0]) - 1;
-            this.callback.sendPersonalBoardTileChoise(personalBoardTileList.get(index));
+    private void choosePersonalBoardTile(){
+        try {
+            int key;
+            do {
+                printTiles();
+                key = Integer.parseInt(keyboardReader.readLine());
+            } while (key < 1 || key > personalBoardTileList.size());
+            key = key - 1;
+            this.callback.sendPersonalBoardTileChoice(personalBoardTileList.get(key));
+        } catch (ClassCastException e) {
+            choosePersonalBoardTile();
+        } catch (IOException e){
+            Debugger.printDebugMessage("Error while reading from keyboard.");
         }
-        else
-            throw new IllegalArgumentException();
     }
 
     @FunctionalInterface
     public interface ICallback{
-        void sendPersonalBoardTileChoise(PersonalBoardTile personalBoardTile);
+        void sendPersonalBoardTileChoice(PersonalBoardTile personalBoardTile);
     }
 
 }

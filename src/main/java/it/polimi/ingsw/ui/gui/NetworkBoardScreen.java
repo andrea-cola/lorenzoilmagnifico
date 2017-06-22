@@ -68,7 +68,6 @@ public class NetworkBoardScreen extends Application {
         vBox.setAlignment(Pos.CENTER);
         Label title = new Label("NETWORK PREFERENCES");
         title.setAlignment(Pos.CENTER);
-        title.setStyle("Ubuntu");
 
         HBox hBox1 = new HBox(HBOX_SPACING);
         hBox1.setAlignment(Pos.CENTER);
@@ -87,7 +86,6 @@ public class NetworkBoardScreen extends Application {
 
         Label labelAddr = new Label("Address");
         labelAddr.setAlignment(Pos.CENTER);
-        labelAddr.setStyle("Ubuntu");
 
         TextField text = new TextField();
         text.setAlignment(Pos.CENTER);
@@ -101,6 +99,7 @@ public class NetworkBoardScreen extends Application {
                 address = text.getText();
                 System.out.print("ADDRESS: " + address + " & TYPE: " + type + "\n");
                 doConnect();
+                primaryStage.close();
             }
         });
 

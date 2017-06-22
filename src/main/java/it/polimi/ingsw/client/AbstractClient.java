@@ -3,11 +3,8 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.RoomException;
-import it.polimi.ingsw.model.PersonalBoard;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.utility.Configuration;
-
-import java.io.IOException;
 
 /**
  * This class the abstraction of the server.
@@ -62,7 +59,7 @@ public abstract class AbstractClient {
      * Method to get the ClientInterface.
      * @return the client controller.
      */
-    protected ClientInterface getController() {
+    protected ClientInterface getClient() {
         return clientInterface;
     }
 
@@ -96,6 +93,9 @@ public abstract class AbstractClient {
 
     public abstract void createNewRoom(int maxPlayersNumber) throws NetworkException, RoomException;
 
-    public abstract void sendPersonalBoardTileChoise(PersonalBoardTile personalBoardTile) throws NetworkException;
+    public abstract void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException;
 
+    public abstract void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException;
+
+    public abstract void endTurn() throws NetworkException;
 }

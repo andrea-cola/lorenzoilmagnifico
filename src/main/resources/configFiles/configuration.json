@@ -1,6 +1,6 @@
 {
   "waitingTime": 10000,
-  "moveWaitingTime": 30000,
+  "moveWaitingTime": 60000,
   "mainBoard": {
     "towers": [
       {

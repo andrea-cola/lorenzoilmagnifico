@@ -1,10 +1,7 @@
 package it.polimi.ingsw.gameServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -21,6 +18,8 @@ public class Room {
     private static final int MIN_PLAYER_TO_START = 2;
     private static final long IMMEDIATE_START_TIME = 0L;
     private static final int LEADER_CARD_PER_PLAYER = 4;
+    private static final int AGES = 3;
+    private static final int TURNS_PER_AGE = 2;
 
     /**
      * Room identifier.
@@ -73,9 +72,14 @@ public class Room {
      */
     private ArrayList<ServerPlayer> players = new ArrayList();
 
+    /**
+     * Countdown latch used as semaphore.
+     */
+    private CountDownLatch countDownLatch;
+
     private Game game;
 
-    private CountDownLatch countDownLatch;
+    private PlayerTurn playerTurn;
 
     /**
      * Class constructor.
@@ -108,7 +112,7 @@ public class Room {
     private void configureGame(Configuration configuration){
         this.roomConfiguration = configuration;
         maxWaitingTimeBeforeStart = configuration.getWaitingTime();
-        maxMoveWaitingTime = configuration.getWaitingTime();
+        maxMoveWaitingTime = configuration.getMoveWaitingTime();
     }
 
     /**
@@ -132,10 +136,10 @@ public class Room {
 
     public void rejoinRoom(ServerPlayer serverPlayer){
         for(int i = 0; i < players.size(); i++){
-            if(players.get(i).getNickname().equals(serverPlayer.getNickname()))
+            if(players.get(i).getUsername().equals(serverPlayer.getUsername()))
                 players.set(i, serverPlayer);
         }
-        Debugger.printDebugMessage(serverPlayer.getNickname() + " has rejoined the previous room.");
+        Debugger.printDebugMessage(serverPlayer.getUsername() + " has rejoined the previous room.");
         //serverPlayer.sendGame(gameManager.game);
         //__________________________________
     }
@@ -167,7 +171,7 @@ public class Room {
 
     public boolean userAlreadyJoined(ServerPlayer serverPlayer){
         for(ServerPlayer player : players)
-            if(player.getNickname().equals(serverPlayer.getNickname()))
+            if(player.getUsername().equals(serverPlayer.getUsername()))
                 return true;
         return false;
     }
@@ -176,10 +180,21 @@ public class Room {
         countDownLatch.countDown();
     }
 
+    public void onLeaderCardChosen() {
+        countDownLatch.countDown();
+    }
+
+    public void endTurn(ServerPlayer player) {
+        if(playerTurn.currentPlayer().getUsername().equals(player.getUsername()))
+            playerTurn.stopTimer();
+    }
+
     /**
      * This class is used to manage the room during the game.
      */
     private class GameHandler extends TimerTask {
+
+
 
         /**
          * This method is executed when the time is expired. At first, it closes the room.
@@ -188,61 +203,113 @@ public class Room {
         @Override
         public void run(){
             setupBeforeStartGame();
-            //sendGameSession();
-            //Debugger.printDebugMessage("Game starts in room #" + getRoomID());
+            sendGameSession();
+            Debugger.printDebugMessage("Game starts in room #" + getRoomID());
+            startGameSession();
+        }
+
+        private void startGameSession(){
+            for(int age = 1; age <= AGES; age++){
+                for(int turn = 1; turn <= TURNS_PER_AGE; turn++){
+                    for(ServerPlayer player : players){
+                        System.out.println(player.getUsername());
+                        playerTurn = new PlayerTurn(player);
+                        notifyTurnStarted(player);
+                        playerTurn.startTimer(maxMoveWaitingTime);
+                    }
+                }
+            }
+        }
+
+        private void notifyTurnStarted(ServerPlayer player){
+            for(ServerPlayer p : players)
+                try {
+                    p.notifyTurnStarted(player.getUsername(), maxMoveWaitingTime);
+                } catch (NetworkException e){
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
+                }
         }
 
         /**
          * Close the room and get the game manager from configurator.
          */
         private void setupBeforeStartGame(){
-            lockRoom();
-
+            synchronized (MUTEX){
+                roomOpen = false;
+            }
             Debugger.printDebugMessage("[Room #" + roomID + "] : Room closed.");
+
             gameManager = Configurator.buildAndGetGame(players, roomConfiguration);
             players = gameManager.getStartOrder();
 
-            Debugger.printStandardMessage("[Room #" + roomID + "] : Players are choosing personal tiles.");
             personalTilesChoice(roomConfiguration.getPersonalBoardTiles());
+            leaderCardsChoice(Configurator.getLeaderCards());
 
-            Debugger.printStandardMessage("[Room #" + roomID + "] : Players are choosing leader cardss.");
-            //leaderCardsChoice(Configurator.getLeaderCards());
-
-            //game = gameManager.getGameInstance();
-        }
-
-        private void leaderCardsChoice(ArrayList<LeaderCard> leaderCards){
-            ArrayList<LeaderCard> cards = new ArrayList<>();
-            cards.addAll(leaderCards);
-
-
-            Collections.shuffle(leaderCards);
-            for(int i = 0; i < LEADER_CARD_PER_PLAYER; i++){
-
-            }
+            game = gameManager.getGameInstance();
         }
 
         private void personalTilesChoice(ArrayList<PersonalBoardTile> personalBoardTileList){
-            ArrayList<PersonalBoardTile> tmp = new ArrayList<>();
-            tmp.addAll(personalBoardTileList);
+            ArrayList<PersonalBoardTile> personalBoardtiles = new ArrayList<>();
+            personalBoardtiles.addAll(personalBoardTileList);
 
             for(int i = players.size() - 1; i >= 0; i--) {
                 countDownLatch = new CountDownLatch(1);
                 try {
-                    players.get(i).sendPersonalTile(tmp);
+                    players.get(i).sendPersonalTile(personalBoardtiles);
                     countDownLatch.await();
-                    for(int j = 0; j < tmp.size(); j++)
-                        if (tmp.get(j).getPersonalBoardID() == players.get(i).getPersonalBoard().getPersonalBoardTile().getPersonalBoardID())
-                            tmp.remove(j);
+                    for(int j = 0; j < personalBoardtiles.size(); j++)
+                        if (personalBoardtiles.get(j).getPersonalBoardID() == players.get(i).getPersonalBoard().getPersonalBoardTile().getPersonalBoardID())
+                            personalBoardtiles.remove(j);
                 } catch (NetworkException | InterruptedException e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
                 }
             }
         }
 
-        /**
-         * Send to each player information contained in game model.
-         */
+        private void leaderCardsChoice(ArrayList<LeaderCard> leaderCards){
+            countDownLatch = new CountDownLatch(players.size());
+            ArrayList<ServerPlayer> playersOrder = new ArrayList<>();
+            playersOrder.addAll(players);
+            ArrayList<LeaderCard> cards = new ArrayList<>();
+            cards.addAll(leaderCards);
+            Collections.shuffle(cards);
+            cards = new ArrayList<>(cards.subList(0, (players.size() * LEADER_CARD_PER_PLAYER)));
+
+            for(int i = 0; i < LEADER_CARD_PER_PLAYER; i++) {
+                try {
+                    sendArrays(cards, playersOrder);
+                    countDownLatch.await();
+                    removeChosenLeaderCards(cards);
+                } catch (NetworkException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                playersOrder.add(playersOrder.remove(0));
+                countDownLatch = new CountDownLatch(players.size());
+            }
+        }
+
+        private void removeChosenLeaderCards(ArrayList<LeaderCard> leaderCards){
+            for(ServerPlayer player : players){
+                int i = player.getPersonalBoard().getLeaderCards().size() - 1;
+                LeaderCard lc = player.getPersonalBoard().getLeaderCards().get(i);
+                for(int j = 0; j < leaderCards.size(); j++)
+                    if(leaderCards.get(j).getLeaderCardName().equals(lc.getLeaderCardName()))
+                        leaderCards.remove(j);
+            }
+        }
+
+        private void sendArrays(List<LeaderCard> leaderCards, List<ServerPlayer> serverPlayers) throws NetworkException{
+            int cardNumberPerPlayer = leaderCards.size() / serverPlayers.size();
+            int index = 0;
+
+            for(ServerPlayer player : serverPlayers){
+                player.sendLeaderCards(new ArrayList<>(leaderCards.subList(index * cardNumberPerPlayer, index * cardNumberPerPlayer + cardNumberPerPlayer)));
+                index++;
+            }
+        }
+
         private void sendGameSession(){
             for(ServerPlayer player : players) {
                 try {
@@ -250,16 +317,6 @@ public class Room {
                 } catch (NetworkException e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
                 }
-            }
-        }
-
-        /**
-         * Close the room.
-         * Mutex is held to avoid concurrency problems.
-         */
-        private void lockRoom(){
-            synchronized (MUTEX){
-                roomOpen = false;
             }
         }
 

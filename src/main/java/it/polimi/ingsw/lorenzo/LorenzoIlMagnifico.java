@@ -1,12 +1,9 @@
 package it.polimi.ingsw.lorenzo;
 
 import it.polimi.ingsw.exceptions.*;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
-import it.polimi.ingsw.ui.cli.LoginSignInScreen;
-import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
@@ -16,7 +13,6 @@ import it.polimi.ingsw.ui.cli.CommandLineInterface;
 import it.polimi.ingsw.ui.cli.ConnectionType;
 import it.polimi.ingsw.ui.gui.GraphicUserInterface;
 
-import java.io.*;
 import java.util.List;
 
 /**
@@ -51,22 +47,17 @@ import java.util.List;
         }
     }
 
-    /**
-     * The start function initializes the network menu
-     */
     public void start(){
         userInterface.chooseConnectionType();
     }
 
-    /**
-     * It sets the network settings.
-     * @param connectionType remote method interface or socket.
-     * @param address network address.
-     * @param port network port.
-     */
+    @Override
+    public String getUsername(){
+        return this.username;
+    }
+
     @Override
     public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException {
-        System.out.print("CIAONE");
         switch (connectionType){
             case SOCKET:
                 client = new SocketClient(this, address, port);
@@ -80,7 +71,6 @@ import java.util.List;
         client.connectToServer();
         userInterface.loginScreen();
     }
-
 
     @Override
     public void loginPlayer(String username, String password, boolean flag) {
@@ -106,7 +96,7 @@ import java.util.List;
             Debugger.printStandardMessage("No rooms available. Create new one.");
             userInterface.createRoomScreen();
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send join room request.");
         }
     }
 
@@ -117,15 +107,34 @@ import java.util.List;
         } catch (RoomException e) {
             Debugger.printDebugMessage("You're added in another room created by other player meanwhile.");
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send create room request.");
         }
+    }
+
+    @Override
+    public void choosePersonalBoardTile(List<PersonalBoardTile> personalBoardTileList) {
+        userInterface.choosePersonalTile(personalBoardTileList);
     }
 
     @Override
     public void sendPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) {
         try{
-            client.sendPersonalBoardTileChoise(personalBoardTile);
+            client.notifyPersonalBoardTileChoice(personalBoardTile);
         } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+        }
+    }
+
+    @Override
+    public void chooseLeaderCards(List<LeaderCard> leaderCards) {
+        userInterface.chooseLeaderCards(leaderCards);
+    }
+
+    @Override
+    public void notifyLeaderCardChoice(LeaderCard leaderCard){
+        try{
+            client.notifyLeaderCardChoice(leaderCard);
+        } catch(NetworkException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
         }
     }
@@ -133,12 +142,31 @@ import java.util.List;
     @Override
     public void setGameModel(Game game) {
         this.game = game;
-        Debugger.printDebugMessage("Game started.");
+        userInterface.notifyGameStarted();
     }
 
     @Override
-    public void choosePersonalBoardTile(List<PersonalBoardTile> personalBoardTileList) {
-        userInterface.choosePersonalTile(personalBoardTileList);
+    public Game getGameModel(){
+        return this.game;
+    }
+
+    @Override
+    public Player getPlayer() {
+        return this.game.getPlayer(username);
+    }
+
+    @Override
+    public void notifyTurnStarted(String username, long seconds) {
+        userInterface.turnScreen(username, seconds);
+    }
+
+    @Override
+    public void endTurn() {
+        try {
+            client.endTurn();
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot end turn send request.");
+        }
     }
 
 }

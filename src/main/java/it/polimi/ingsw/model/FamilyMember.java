@@ -10,6 +10,8 @@ public class FamilyMember implements Serializable{
 
     public FamilyMember(){
         this.members = new HashMap<>();
+        for(FamilyMemberColor familyMemberColor : FamilyMemberColor.values())
+            members.put(familyMemberColor, 0);
     }
 
     public void setMembers(Map<FamilyMemberColor, Integer> members){

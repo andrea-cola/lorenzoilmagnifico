@@ -1,25 +1,30 @@
 package it.polimi.ingsw.ui.cli;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JoinRoomScreen extends BasicScreen{
 
     private ICallback callback;
 
-    JoinRoomScreen(ScreenInterface screenInterface, ICallback callback) {
-        super(screenInterface);
+    private List<String> cliMessages = new ArrayList<>();
 
-        System.out.println("\n\n[JOIN ROOM]");
+    JoinRoomScreen(ICallback callback) {
         this.callback = callback;
-        addPrintCommand("join-room", arguments->joinRoom());
-        printHelps();
-        readCommand();
+
+        cliMessages.add("Joining first room available. Please wait...");
+        printScreenTitle("JOIN ROOM");
+        print(cliMessages);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e){
+            Thread.currentThread().interrupt();
+        }
+        joinRoom();
     }
 
     private void joinRoom(){
         this.callback.joinRoom();
-    }
-
-    private void printHelps(){
-        System.out.println("Help: join-room");
     }
 
     @FunctionalInterface

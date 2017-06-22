@@ -1,10 +1,10 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
-import it.polimi.ingsw.model.effects.EffectFinalPoints;
-import it.polimi.ingsw.model.effects.EffectSimple;
 
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This class represent the abstraction of the development card.
@@ -60,55 +60,19 @@ public class DevelopmentCard implements Serializable{
     /**
      * Class constructor.
      */
-    public DevelopmentCard(){
-
-    }
-
-    ///////WARNING: These methods are used just to create the cards for JSON, delete them after their creation
-    public void setId(Integer id){
-        this.id = id;
-    }
-
-    public void setPeriod(Integer period){
-        this.period = period;
-    }
-
-    public void setName(String name){
+    public DevelopmentCard(String name, int id, int period, DevelopmentCardColor developmentCardColor, PointsAndResources cost,
+                           boolean multipleRequisiteSelectionEnabled, int militaryPointsRequired,
+                           Effect immediateEffect, Effect permanentEffect){
         this.name = name;
-    }
-
-    public void setCardColor(DevelopmentCardColor color){
-        this.cardColor = color;
-    }
-
-    public void setImmediateEffect(Effect effect){
-        this.immediateEffect = effect;
-    }
-
-    public void setPermanentEffect(Effect effect){
-        this.permanentEffect = effect;
-    }
-
-    public void setCost(PointsAndResources cost){
+        this.id = id;
+        this.period = period;
+        this.cardColor = developmentCardColor;
         this.cost = cost;
+        this.multipleRequisiteSelectionEnabled = multipleRequisiteSelectionEnabled;
+        this.militaryPointsRequired =militaryPointsRequired;
+        this.immediateEffect = immediateEffect;
+        this.permanentEffect = permanentEffect;
     }
-
-    public void setCost(PointType type, Integer value){
-        this.cost.increase(type, value);
-    }
-
-    public void setCost(ResourceType type, Integer value){
-        this.cost.increase(type, value);
-    }
-
-    public void setMultipleRequisiteSelectionEnabled(boolean flag){
-        this.multipleRequisiteSelectionEnabled = flag;
-    }
-
-    public void setMilitaryPointsRequired(Integer pointsRequired){
-        this.militaryPointsRequired = pointsRequired;
-    }
-    ///////
 
     /**
      * Get the card ID.
@@ -180,5 +144,41 @@ public class DevelopmentCard implements Serializable{
      */
     public int getMilitaryPointsRequired(){
         return this.militaryPointsRequired;
+    }
+
+    public void payCost(Player player, InformationCallback informationCallback){
+        if(!multipleRequisiteSelectionEnabled) {
+            PointsAndResources playersValuable = player.getPersonalBoard().getValuables();
+
+            Map<ResourceType, Integer> costResources = cost.getResources();
+            Map<PointType, Integer> costPoints = cost.getPoints();
+
+            Iterator it = costResources.entrySet().iterator();
+            while(it.hasNext()){
+                Map.Entry pair = (Map.Entry)it.next();
+                playersValuable.decrease((ResourceType)pair.getKey(), (int)pair.getValue());
+            }
+            it = costPoints.entrySet().iterator();
+            while(it.hasNext()){
+                Map.Entry pair = (Map.Entry)it.next();
+                playersValuable.decrease((PointType) pair.getKey(), (int)pair.getValue());
+            }
+        } else{
+            informationCallback.chooseDoubleCost();
+        }
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(name.toUpperCase() + " (" + cardColor + ") " + id + "\n");
+        stringBuilder.append("[Requirements] -> " + cost.toString() + "\n");
+        if(militaryPointsRequired != 0)
+            stringBuilder.append(" [Military points required]: " + militaryPointsRequired + ")\n");
+        if(immediateEffect != null)
+            stringBuilder.append("[Immediate effect] " + immediateEffect.toString() + "\n");
+        if(permanentEffect != null)
+            stringBuilder.append("[Permanent effect] " + permanentEffect.toString() + "\n");
+        return stringBuilder.toString();
     }
 }

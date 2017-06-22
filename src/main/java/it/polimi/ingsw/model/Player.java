@@ -1,20 +1,16 @@
 package it.polimi.ingsw.model;
 
-import java.awt.*;
 import java.io.Serializable;
-import java.util.Map;
 
 /**
  * This class contains all data about every player and all methods to handle its operations.
  */
 public class Player implements Serializable{
 
-    private PersonalBoard personalBoard;
-
     /**
-     * SocketPlayer nickname.
+     * SocketPlayer username.
      */
-    private String nickname;
+    private String username;
 
     /**
      * SocketPlayer color.
@@ -22,48 +18,24 @@ public class Player implements Serializable{
     private PlayerColor color;
 
     /**
-     * Online flag show if the player is online or not.
+     * Player personal board.
      */
-    private boolean onlineFlag;
+    private PersonalBoard personalBoard;
 
     /**
-     * Class constructor.
+     * Method to set player username.
+     * @param username of the player
      */
-    protected Player(){
-        this.personalBoard = new PersonalBoard();
-
+    public void setUsername(String username){
+        this.username = username;
     }
 
     /**
-     * Set player personal board.
-     * @param personalBoard
-     */
-    public void setPersonalBoard(PersonalBoard personalBoard){
-        this.personalBoard = personalBoard;
-    }
-
-    /**
-     * Get player personal board.
+     * Method to get player username.
      * @return
      */
-    public PersonalBoard getPersonalBoard(){
-        return this.personalBoard;
-    }
-
-    /**
-     * Method to set player nickname.
-     * @param nickname of the player
-     */
-    public void setNickname(String nickname){
-        this.nickname = nickname;
-    }
-
-    /**
-     * Method to get player nickname.
-     * @return
-     */
-    public String getNickname(){
-        return nickname;
+    public String getUsername(){
+        return username;
     }
 
     /**
@@ -83,20 +55,19 @@ public class Player implements Serializable{
     }
 
     /**
-     * Method to set player online flag.
-     * @param onlineFlag
+     * Set player personal board.
+     * @param personalBoard
      */
-    public void setOnlineFlag(boolean onlineFlag){
-        this.onlineFlag = onlineFlag;
+    public void setPersonalBoard(PersonalBoard personalBoard){
+        this.personalBoard = personalBoard;
     }
 
     /**
-     * Method to get player online flag.
+     * Get player personal board.
      * @return
      */
-    public boolean getOnlineFlag(){
-        return onlineFlag;
+    public PersonalBoard getPersonalBoard(){
+        return this.personalBoard;
     }
-
 
 }

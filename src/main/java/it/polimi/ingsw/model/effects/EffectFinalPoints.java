@@ -1,11 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PointsAndResources;
-
-import java.util.Iterator;
-import java.util.Map;
+import it.polimi.ingsw.model.InformationCallback;
 
 /**
  * This class represent the permanent effect that is activated at the end of the game.
@@ -17,6 +14,13 @@ public class EffectFinalPoints extends Effect {
      * Amount of final victory points.
      */
     private PointsAndResources finalVictoryPoints;
+
+    /**
+     * Class constructor.
+     */
+    public EffectFinalPoints(){
+        super.effectType = this.getClass().getSimpleName();
+    }
 
     /**
      * Set the amount of victory points.
@@ -34,16 +38,12 @@ public class EffectFinalPoints extends Effect {
         return this.finalVictoryPoints;
     }
 
-    public EffectFinalPoints(){
-        super.effectType = this.getClass().getSimpleName();
-    }
-
     /**
      * Method to run the effect.
      * @param player that run the effect.
      */
     @Override
-    public void runEffect(Player player){
+    public void runEffect(Player player, InformationCallback informationCallback) {
 
     }
 
@@ -51,11 +51,11 @@ public class EffectFinalPoints extends Effect {
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Final points earned:");
-        finalVictoryPoints.toString();
-        return description;
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.effectType + ": ");
+        stringBuilder.append("Final points earned: " + finalVictoryPoints.toString());
+        return stringBuilder.toString();
     }
 
 }

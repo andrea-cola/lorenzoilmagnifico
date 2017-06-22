@@ -1,9 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.effects.EffectHarvestProductionSimple;
-import it.polimi.ingsw.model.effects.EffectSimple;
-import org.omg.PortableServer.THREAD_POLICY_ID;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,10 +7,6 @@ import java.util.ArrayList;
  * This class represents the main board abstraction.
  */
 public class MainBoard implements Serializable{
-
-    private static final int NUMBER_OF_TOWERS = 4;
-    private static final int NUMBER_OF_TOWER_CELLS = 4;
-    private static final int NUMBER_OF_MARKET_CELLS = 4;
 
     /**
      * Array of towers.
@@ -39,7 +31,6 @@ public class MainBoard implements Serializable{
     /**
      * Harvest reference.
      */
-
     private ActionSpace harvest;
 
     /**
@@ -61,19 +52,28 @@ public class MainBoard implements Serializable{
     /**
      * Constructor for the main board
      */
-    public MainBoard() {
-        this.towers = new Tower[NUMBER_OF_TOWERS];
-        for (int i = 0; i < NUMBER_OF_TOWERS; i++){
-            this.towers[i] = new Tower(NUMBER_OF_TOWER_CELLS);
+    public MainBoard(MainBoard configuration) {
+        this.towers = new Tower[configuration.towers.length];
+        for(int i = 0; i < configuration.towers.length; i++) {
+            int cellPerTower = configuration.towers[i].getTowerCells().length;
+            this.towers[i] = new Tower(cellPerTower);
+            for(int j = 0; j < cellPerTower; j++){
+                this.towers[i].getTowerCell(j).setMinFamilyMemberValue(configuration.towers[i].getTowerCell(j).getMinFamilyMemberValue());
+                this.towers[i].getTowerCell(j).setTowerCellImmediateEffect(configuration.towers[i].getTowerCell(j).getTowerCellImmediateEffect());
+            }
         }
 
-        this.harvest = new ActionSpace(ActionType.HARVEST, 1);
+        this.harvest = new ActionSpace(ActionType.HARVEST, configuration.getHarvest().getActionSpaceEffect());
+        this.production = new ActionSpace(ActionType.PRODUCTION, configuration.getProduction().getActionSpaceEffect());
 
-        this.production = new ActionSpace(ActionType.PRODUCTION, 1);
+        this.harvestExtended = new ActionSpaceExtended(ActionType.HARVEST, configuration.getHarvestExtended().getDiceValueMalus(), configuration.getHarvestExtended().getEffect());
+        this.productionExtended = new ActionSpaceExtended(ActionType.PRODUCTION, configuration.getProductionExtended().getDiceValueMalus(), configuration.getProductionExtended().getEffect());
 
-        this.councilPalace = new CouncilPalace(1);
+        this.councilPalace = new CouncilPalace(configuration.getCouncilPalace().getMinFamilyMemberDiceValue(), configuration.getCouncilPalace().getImmediateEffect());
 
-        this.market = new Market(NUMBER_OF_MARKET_CELLS);
+        this.market = new Market(configuration.getMarket().getMarketCells().length, configuration.getMarket().getMarketCells());
+        this.vatican = new Vatican(configuration.getVatican().getExcommunicationCards(), configuration.getVatican().getVictoryPointsBonusArray());
+
     }
 
     /**
@@ -98,6 +98,10 @@ public class MainBoard implements Serializable{
         return this.towers[index];
     }
 
+    public Tower[] getTowers(){
+        return this.towers;
+    }
+
     public Vatican getVatican(){
         return this.vatican;
     }
@@ -105,7 +109,6 @@ public class MainBoard implements Serializable{
     public CouncilPalace getCouncilPalace(){
         return this.councilPalace;
     }
-
 
     public ActionSpace getHarvest(){
         return this.harvest;
@@ -125,18 +128,6 @@ public class MainBoard implements Serializable{
 
     public Market getMarket(){
         return this.market;
-    }
-
-    public int getNumberOfTowers(){
-        return NUMBER_OF_TOWERS;
-    }
-
-    public int getNumberOfTowerCells(){
-        return NUMBER_OF_TOWER_CELLS;
-    }
-
-    public int getNumberOfMarketCells(){
-        return NUMBER_OF_MARKET_CELLS;
     }
 
 }

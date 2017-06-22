@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.InformationCallback;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class EffectHarvestProductionSimple extends Effect{
     private PointsAndResources valuable;
 
     /**
-     * Number of council privileges
+     * Council privilege earned by the player.
      */
     private int numberOfCouncilPrivileges;
 
@@ -89,13 +90,28 @@ public class EffectHarvestProductionSimple extends Effect{
         return this.valuable;
     }
 
+    /**
+     * Set council privilege.
+     * @param councilPrivilege to set.
+     */
+    public void setCouncilPrivilege(int councilPrivilege){
+        this.numberOfCouncilPrivileges = councilPrivilege;
+    }
+
+    /**
+     * Get council privilege of the effect.
+     * @return council privilege.
+     */
+    public int getCouncilPrivilege(){
+        return this.numberOfCouncilPrivileges;
+    }
 
     /**
      * Run the effect.
      * @param player
      */
     @Override
-    public void runEffect(Player player){
+    public void runEffect(Player player, InformationCallback informationCallback) {
         //get the family member used to run this effect
         ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
@@ -109,22 +125,21 @@ public class EffectHarvestProductionSimple extends Effect{
 
         //updates player's points
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
-            if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) >= this.diceActionValue){
-                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
-            }
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
+
     }
 
     /**
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
-        String header = this.effectType + "\n";
-        String actionTypeAndValue = "Action type: " + actionType + "\nValue: " + diceActionValue + "\n";
-        String resources = "Resources earned:\n" + valuable.toString();
-        String privilege = "Council privileges: " + numberOfCouncilPrivileges;
-        return new StringBuilder(header).append(actionTypeAndValue).append(resources).append(privilege).toString();
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.effectType + ": ");
+        stringBuilder.append(actionType.toString() + " dice value: " + diceActionValue + " ");
+        stringBuilder.append("resources earned " + valuable.toString() + " council privileges: " + numberOfCouncilPrivileges);
+        return stringBuilder.toString();
     }
 
 

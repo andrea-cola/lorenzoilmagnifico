@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.InformationCallback;
 
 import java.util.Map;
 
@@ -151,7 +152,7 @@ public class EffectMultiplicator extends Effect{
      * @param player that takes advantage of the effect.
      */
     @Override
-    public void runEffect(Player player) {
+    public void runEffect(Player player, InformationCallback informationCallback) {
 
         //Set multiplicator value
         Integer multiplicatorValue = new Integer(0);
@@ -181,10 +182,17 @@ public class EffectMultiplicator extends Effect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Action type: " + actionType + "\n Value: " + diceActionValue + "\n");
-        description.concat("Resources to pay: da finire di implementare.\n");
-        return description;
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.effectType + ": ");
+        if(actionType != null) {
+            stringBuilder.append(actionType.toString() + " ");
+            stringBuilder.append("dice: " + diceActionValue + " ");
+        }
+        if(cardOrResources)
+            stringBuilder.append("card color: " + cardColorRequisite + " ");
+        else
+            stringBuilder.append("resources to pay: " + valuableRequisite.toString());
+        return stringBuilder.toString();
     }
 }
