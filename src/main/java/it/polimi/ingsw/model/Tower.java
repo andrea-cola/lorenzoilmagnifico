@@ -54,7 +54,7 @@ public class Tower implements Serializable{
     }
 
     /**
-     * This method checks if already exists a cell occupied by the player in the tower
+     * This method checks if already exists a cell occupied by the player in the tower and if the family member has been already used
      * @param player
      * @throws GameException
      */

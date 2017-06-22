@@ -10,15 +10,31 @@ import java.util.Map;
  */
 public class LeaderCard implements Serializable{
 
+    /**
+     * Leader card name
+     */
     private String leaderCardName;
 
+    /**
+     * Leader card description
+     */
     private String leaderCardDescription;
 
+    /**
+     * Valuables requested to activate the leader effect
+     */
     private PointsAndResources pointsAndResourcesRequisites;
 
+    /**
+     * Cards requested to activate the leader effect
+     */
     private Map<DevelopmentCardColor, Integer> cardColorMapRequisites;
 
+    /**
+     * Leader effect instance
+     */
     private LeaderEffect effect;
+
 
     public void setLeaderCardName(String leaderCardName){
         this.leaderCardName = leaderCardName;

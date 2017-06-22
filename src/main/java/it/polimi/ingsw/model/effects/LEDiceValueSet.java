@@ -1,7 +1,12 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.FamilyMemberColor;
+import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 
+/**
+ * This class sets all dices to a particular value
+ */
 public class LEDiceValueSet extends LeaderEffect{
 
     private int whiteDice;
@@ -44,8 +49,10 @@ public class LEDiceValueSet extends LeaderEffect{
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
-
+    public void runEffect(Player player, MainBoard mainBoard) {
+        player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(FamilyMemberColor.WHITE, whiteDice);
+        player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(FamilyMemberColor.BLACK, blackDice);
+        player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(FamilyMemberColor.ORANGE, orangeDice);
     }
 
     /**

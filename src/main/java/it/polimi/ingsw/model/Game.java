@@ -6,8 +6,7 @@ import it.polimi.ingsw.exceptions.GameException;
 import java.io.Serializable;
 import java.util.*;
 
-public class Game implements Serializable{
-
+public class Game implements Serializable {
     /**
      * Mainboard reference.
      */
@@ -31,7 +30,6 @@ public class Game implements Serializable{
         this.dices = new Dice();
         this.players = new LinkedHashMap<>();
     }
-
 
     /**
      * Get the mainBoard
@@ -66,7 +64,6 @@ public class Game implements Serializable{
         return this.players;
     }
 
-
     /**
      * This method gets a DevelopmentCard from TowerCell and adds it to the player's PersonalBoard
      * @param player
@@ -81,11 +78,11 @@ public class Game implements Serializable{
         //check if the cell is empty
         if (cell.getPlayerNicknameInTheCell() == null){
             try {
-                //check if the family member has not been already used and if the player has not already placed a family member inside the tower
+                //check if the family member is eligible to be placed inside the tower
                 tower.familyMemberCanBePlaced(player, familyMemberColor);
 
                 try {
-                    //check if familyMember's value is enough to be placed inside the towerCell
+                    //check if familyMember is eligible to be placed inside the towerCell
                     cell.familyMemberCanBePlaced(player, familyMemberColor);
 
                     try {
@@ -95,7 +92,7 @@ public class Game implements Serializable{
                         }
 
                         //check if the user has resources enough to buy the card
-                        cell.developmentCardCanBeBuyedBy(player);
+                        cell.developmentCardCanBePickedUp(player);
 
                         //add the card to the player's personal board
                         DevelopmentCard card = cell.getDevelopmentCard();
@@ -137,19 +134,42 @@ public class Game implements Serializable{
      */
     public void placeFamilyMemberInsideHarvestSimpleSpace(Player player, FamilyMemberColor familyMemberColor){
         ActionSpace actionSpace = this.mainBoard.getHarvest();
+        this.performSimpleAction(actionSpace, player, familyMemberColor);
+    }
 
+
+    /**
+     * This method manages the simple production action
+     * @param player
+     * @param familyMemberColor
+     */
+    public void placeFamilyMemberInsideProductionSimpleSpace(Player player, FamilyMemberColor familyMemberColor){
+        ActionSpace actionSpace = this.mainBoard.getProduction();
+        this.performSimpleAction(actionSpace, player, familyMemberColor);
+    }
+
+    /**
+     * This method performs the simple action based on the space selected
+     * @param actionSpace
+     * @param player
+     * @param familyMemberColor
+     */
+    private void performSimpleAction(ActionSpace actionSpace, Player player, FamilyMemberColor familyMemberColor){
         //check if the action space is empty
         if (actionSpace.getEmpty()){
             try {
                 ///check if familyMember is eligible to be placed inside the harvest zone
                 actionSpace.familyMemberCanBePlaced(player, familyMemberColor);
 
+                /////////////////////////////
                 //permanent effect
-                for (DevelopmentCard card : this.players.get(player.getNickname()).getPersonalBoard().getTerritoryCards()){
+                for (DevelopmentCard card : this.players.get(player.getNickname()).getPersonalBoard().getCards(DevelopmentCardColor.GREEN)){
                     card.getPermanentEffect().runEffect(player);
                 }
 
                 //personal board tile
+                player.getPersonalBoard().getPersonalBoardTile().runEffect(player, actionSpace.getActionSpaceType());
+                ////////////////////////////
 
                 //action space is no more available
                 actionSpace.setEmpty(false);
@@ -160,6 +180,7 @@ public class Game implements Serializable{
             System.out.print("Action space has been already used");
         }
     }
+
 
     /**
      * This method manages the council palace events

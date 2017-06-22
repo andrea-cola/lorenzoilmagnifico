@@ -13,18 +13,17 @@ public class Writer {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         LeaderCard leaderCard = new LeaderCard();
-        leaderCard.setLeaderCardName("Sisto IV");
+        leaderCard.setLeaderCardName("Ludovico III Gonzaga");
         leaderCard.setLeaderCardDescription("shalala");
         PointsAndResources pointsAndResources = new PointsAndResources();
-        pointsAndResources.increase(ResourceType.COIN, 6);
-        pointsAndResources.increase(ResourceType.WOOD, 6);
-        pointsAndResources.increase(ResourceType.SERVANT, 6);
-        pointsAndResources.increase(ResourceType.STONE, 6);
+        pointsAndResources.increase(ResourceType.COIN, 0);
+        pointsAndResources.increase(ResourceType.WOOD, 0);
+        pointsAndResources.increase(ResourceType.SERVANT, 15);
+        pointsAndResources.increase(ResourceType.STONE, 0);
         leaderCard.setPointsAndResourcesRequisites(pointsAndResources);
         LESimple leSimple = new LESimple();
-        leSimple.getCouncilPrivilege().setNumberOfCouncilPrivileges(1);
+        leSimple.setNumberOfCouncilPrivileges(1);
         leaderCard.setEffect(leSimple);
-
 
         String tmp = gson.toJson(leaderCard);
 

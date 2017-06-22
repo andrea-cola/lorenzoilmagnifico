@@ -115,7 +115,6 @@ public class Configurator {
                 .registerSubtype(LEPicoDellaMirandola.class, "LEPicoDellaMirandola")
                 .registerSubtype(LESimple.class, "LESimple")
                 .registerSubtype(LESistoIV.class, "LESistoIV");
-
     }
 
     /**

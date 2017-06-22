@@ -18,16 +18,15 @@ public class EffectSimple extends Effect{
     private PointsAndResources valuable;
 
     /**
-     * Council privilege object.
+     * Number of council privileges
      */
-    private CouncilPrivilege councilPrivilege;
+    private int numberOfCouncilPrivileges;
 
     /**
      * Class constructor.
      */
     public EffectSimple(){
         this.valuable = new PointsAndResources();
-        this.councilPrivilege = new CouncilPrivilege();
 
         super.effectType = this.getClass().getSimpleName();
     }
@@ -40,13 +39,6 @@ public class EffectSimple extends Effect{
         return this.valuable;
     }
 
-    /**
-     * Return council privilege object.
-     * @return council privilege object.
-     */
-    public CouncilPrivilege getCouncilPrivilege(){
-        return this.councilPrivilege;
-    }
 
     /**
      * Method to run the effect.
@@ -64,6 +56,14 @@ public class EffectSimple extends Effect{
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
 
+        //logica di gestione del privilegio del consiglio
+        if (this.numberOfCouncilPrivileges > 0){
+            CouncilPrivilege councilPrivilege = new CouncilPrivilege();
+            for (int i = 0; i < this.numberOfCouncilPrivileges; i++){
+                //TODO implementare logica di gestione della scelta dei privilegi
+
+            }
+        }
 
     }
 
@@ -74,7 +74,7 @@ public class EffectSimple extends Effect{
     public String getDescription() {
         String header = this.effectType + "\n";
         String resources = "Resources:\n" + valuable.toString();
-        String privilege = councilPrivilege.toString();
+        String privilege = "Council privileges: " + numberOfCouncilPrivileges;
         return new StringBuilder(header).append(resources).append(privilege).toString();
     }
 }

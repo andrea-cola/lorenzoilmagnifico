@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * This class contains all data about every player and all methods to handle its operations.
@@ -29,6 +30,7 @@ public class Player implements Serializable{
      * Class constructor.
      */
     protected Player(){
+        this.personalBoard = new PersonalBoard();
 
     }
 
@@ -95,5 +97,6 @@ public class Player implements Serializable{
     public boolean getOnlineFlag(){
         return onlineFlag;
     }
+
 
 }

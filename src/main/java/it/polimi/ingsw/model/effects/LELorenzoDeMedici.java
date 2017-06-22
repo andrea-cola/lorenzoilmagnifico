@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 
 public class LELorenzoDeMedici extends LeaderEffect{
@@ -25,7 +26,7 @@ public class LELorenzoDeMedici extends LeaderEffect{
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
+    public void runEffect(Player player, MainBoard mainBoard) {
 
     }
 

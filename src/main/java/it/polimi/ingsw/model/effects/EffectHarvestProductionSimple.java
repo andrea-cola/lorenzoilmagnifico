@@ -27,9 +27,9 @@ public class EffectHarvestProductionSimple extends Effect{
     private PointsAndResources valuable;
 
     /**
-     * Council privilege earned by the player.
+     * Number of council privileges
      */
-    private CouncilPrivilege councilPrivilege;
+    private int numberOfCouncilPrivileges;
 
     /**
      * Class constructor.
@@ -37,7 +37,6 @@ public class EffectHarvestProductionSimple extends Effect{
     public EffectHarvestProductionSimple(){
         super.effectType = this.getClass().getSimpleName();
         this.valuable = new PointsAndResources();
-        this.councilPrivilege = new CouncilPrivilege();
     }
 
     /**
@@ -90,21 +89,6 @@ public class EffectHarvestProductionSimple extends Effect{
         return this.valuable;
     }
 
-    /**
-     * Set council privilege.
-     * @param councilPrivilege to set.
-     */
-    public void setCouncilPrivilege(CouncilPrivilege councilPrivilege){
-        this.councilPrivilege = councilPrivilege;
-    }
-
-    /**
-     * Get council privilege of the effect.
-     * @return council privilege.
-     */
-    public CouncilPrivilege getCouncilPrivilege(){
-        return this.councilPrivilege;
-    }
 
     /**
      * Run the effect.
@@ -125,9 +109,10 @@ public class EffectHarvestProductionSimple extends Effect{
 
         //updates player's points
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
-            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) >= this.diceActionValue){
+                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            }
         }
-
     }
 
     /**
@@ -138,7 +123,7 @@ public class EffectHarvestProductionSimple extends Effect{
         String header = this.effectType + "\n";
         String actionTypeAndValue = "Action type: " + actionType + "\nValue: " + diceActionValue + "\n";
         String resources = "Resources earned:\n" + valuable.toString();
-        String privilege = councilPrivilege.toString();
+        String privilege = "Council privileges: " + numberOfCouncilPrivileges;
         return new StringBuilder(header).append(actionTypeAndValue).append(resources).append(privilege).toString();
     }
 

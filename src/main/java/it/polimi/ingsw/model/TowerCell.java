@@ -103,27 +103,50 @@ public class TowerCell implements Serializable{
     }
 
     /**
-     * Checks if the value is enough to place the family member inside the cell
+     * Checks if the value is enough to place the family member inside the cell and if the user can pickup a territory card according to the military points required
      * @param player
      * @param familyMemberColor
      * @throws GameException
      */
     public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+        //check if the value is enough to place the family member inside the cell
         if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.minFamilyMemberValue){
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
         }
     }
 
     /**
-     * Checks if the player has enough resources to buy the development card
+     * Checks if the player can get the development card
       * @param player
      * @throws GameException
      */
-    public void developmentCardCanBeBuyedBy(Player player) throws GameException{
+    public void developmentCardCanBePickedUp(Player player) throws GameException{
+        //check if the user has less than six cards of this development card color inside the personal board
+        if (player.getPersonalBoard().getCards(this.developmentCard.getColor()).size() > 6){
+            throw new GameException(GameErrorType.PERSONAL_BOARD_MAX_CARD_LIMIT_REACHED);
+        }
+
+        //Check if the player has enough resources to buy the development card
         for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
             if (this.developmentCard.getCost().getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
                 throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
             }
         }
+
+        //check if the player has military points enough to get the territory card
+        if (this.developmentCard.getColor().equals(DevelopmentCardColor.GREEN)){
+            //amount of territory cards already owned by the user
+            int amount = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size();
+            //amount of military points owned by the player
+            int playerMilitaryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY);
+            //amount of military points requested to get this card
+            int militaryPointsRequired = player.getPersonalBoard().getGreenCardsMilitaryPointsRequirements(amount);
+
+            if (playerMilitaryPoints < militaryPointsRequired){
+                throw new GameException(GameErrorType.MILITARY_POINTS_REQUIRED);
+            }
+        }
+
+
     }
 }

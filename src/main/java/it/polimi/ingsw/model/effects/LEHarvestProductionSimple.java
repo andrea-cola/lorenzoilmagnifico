@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.ActionType;
+import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PointsAndResources;
 
@@ -62,7 +63,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      * @param player
      */
     @Override
-    public void runEffect(Player player){
+    public void runEffect(Player player, MainBoard mainBoard){
 
     }
 

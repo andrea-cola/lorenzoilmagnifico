@@ -10,12 +10,17 @@ import java.util.Map;
  */
 public class PersonalBoard implements Serializable{
 
-    private static final int MAX_NUMER_OF_CARD_PER_TYPE = 6;
+    private static final int MAX_NUMBER_OF_CARD_PER_TYPE = 6;
 
     /**
      * Contains all values of points and resources.
      */
     private PointsAndResources valuables;
+
+    /**
+     * Military points required to pick up a green card and place it in a specific position of the territory card array.
+     */
+    private static int[] greenCardsMilitaryPointsRequirements = new int[MAX_NUMBER_OF_CARD_PER_TYPE];
 
     /**
      * bonus: save the bonus dice values for harvest/production
@@ -40,26 +45,25 @@ public class PersonalBoard implements Serializable{
     /**
      * Array of family members already used by the player
      */
-    private ArrayList<FamilyMemberColor> familyMembersUsed = new ArrayList<>();
-
-
-    /**
-     * Military points required to pick up a green card and place it in a specific position of the territory card array.
-     */
-    private static int[] greenCardsMilitaryPointsRequirements = new int[MAX_NUMER_OF_CARD_PER_TYPE];
+    private ArrayList<FamilyMemberColor> familyMembersUsed;
 
     /**
      * Array of cards, divided per types.
      */
-    private ArrayList<DevelopmentCard> territoryCards = new ArrayList<>();
-    private ArrayList<DevelopmentCard> buildingCards = new ArrayList<>();
-    private ArrayList<DevelopmentCard> characterCards = new ArrayList<>();
-    private ArrayList<DevelopmentCard> ventureCards = new ArrayList<>();
+    private ArrayList<DevelopmentCard> territoryCards;
+    private ArrayList<DevelopmentCard> buildingCards;
+    private ArrayList<DevelopmentCard> characterCards;
+    private ArrayList<DevelopmentCard> ventureCards;
 
     /**
      * Personal board tile choosen by the player.
      */
     private PersonalBoardTile personalBoardTile;
+
+    /**
+     * Array of leader cards
+     */
+    private ArrayList<LeaderCard> leaderCards;
 
     public void setPersonalBoardTile(PersonalBoardTile personalBoardTile){
         this.personalBoardTile = personalBoardTile;
@@ -71,10 +75,51 @@ public class PersonalBoard implements Serializable{
 
     public PersonalBoard(){
 
+        this.valuables = new PointsAndResources();
+
+        for(ActionType type : ActionType.values())
+            this.harvestProductionDiceValueBonus.put(type, 0);
+
+        for(DevelopmentCardColor color : DevelopmentCardColor.values()) {
+            this.costDiscountForDevelopmentCard.put(color, new PointsAndResources());
+            this.developmentCardColorDiceValueBonus.put(color, 0);
+        }
+
+        this.territoryCards = new ArrayList<>();
+        this.buildingCards = new ArrayList<>();
+        this.characterCards = new ArrayList<>();
+        this.ventureCards = new ArrayList<>();
+
+        this.personalBoardTile = new PersonalBoardTile();
+        this.familyMember = new FamilyMember();
+        this.familyMembersUsed = new ArrayList<>();
+        this.leaderCards = new ArrayList<>();
+
+        //configure green cards military points requirements
+        for (int i = 0; i < MAX_NUMBER_OF_CARD_PER_TYPE; i++){
+            switch (i){
+                case 0:
+                case 1:
+                    greenCardsMilitaryPointsRequirements[i] = 0;
+                    break;
+                case 2:
+                    greenCardsMilitaryPointsRequirements[i] = 3;
+                    break;
+                case 3:
+                    greenCardsMilitaryPointsRequirements[i] = 7;
+                    break;
+                case 4:
+                    greenCardsMilitaryPointsRequirements[i] = 12;
+                    break;
+                case 5:
+                    greenCardsMilitaryPointsRequirements[i] = 18;
+                    break;
+            }
+        }
     }
 
     /**
-     * Set family mamber
+     * Set family member
      * @param member
      */
     public void setFamilyMember(FamilyMember member){
@@ -107,19 +152,26 @@ public class PersonalBoard implements Serializable{
 
     /**
      * Set military points needed to place a card in a specific position.
-     * @param array
      */
-    public void setGreenCardsMilitaryPointsRequirements(int[] array){
-        greenCardsMilitaryPointsRequirements = array;
+    public void setGreenCardsMilitaryPointsRequirements(int atIndex, int withValue){
+        greenCardsMilitaryPointsRequirements[atIndex] = withValue;
     }
 
     /**
      * Get military points needed to place a card in a specific position.
-     * @param index of position.
+     * @param atIndex of position.
      * @return military points needed.
      */
-    public int getGreenCardsMilitaryPointsRequirements(int index){
-        return greenCardsMilitaryPointsRequirements[index];
+    public int getGreenCardsMilitaryPointsRequirements(int atIndex){
+        return greenCardsMilitaryPointsRequirements[atIndex];
+    }
+
+    /**
+     * Get the max number of cards per type you can add to the player board
+     * @return
+     */
+    public int getMaxNumberOfCardPerType(){
+        return MAX_NUMBER_OF_CARD_PER_TYPE;
     }
 
     /**
@@ -143,6 +195,22 @@ public class PersonalBoard implements Serializable{
         }
     }
 
+    public ArrayList<DevelopmentCard> getCards(DevelopmentCardColor developmentCardColor){
+        switch (developmentCardColor){
+            case GREEN:
+                return this.territoryCards;
+            case YELLOW:
+                return this.buildingCards;
+            case PURPLE:
+                return this.ventureCards;
+            case BLUE:
+                return this.characterCards;
+            default:
+                break;
+        }
+        return null;
+    }
+
     /**
      * Set points and resources
      * @param pointsAndResources
@@ -158,71 +226,6 @@ public class PersonalBoard implements Serializable{
     public PointsAndResources getValuables(){
         return this.valuables;
     }
-
-    /**
-     * Add territory card
-     * @param card
-     */
-    public void addTerritoryCard(DevelopmentCard card){
-        this.territoryCards.add(card);
-    }
-
-    /**
-     * Get a specific territory card from the array.
-     * @return a territory card.
-     */
-    public ArrayList<DevelopmentCard> getTerritoryCards(){
-        return this.territoryCards;
-    }
-
-    /**
-     * Add building card
-     * @param card
-     */
-    public void addBuildingCard(DevelopmentCard card){
-        this.buildingCards.add(card);
-    }
-
-    /**
-     * Get a specific building card from the array.
-     * @return a building card.
-     */
-    public ArrayList<DevelopmentCard> getBuildingCards(){
-        return this.buildingCards;
-    }
-
-    /**
-     * Add character card
-     * @param card
-     */
-    public void addCharacterCard(DevelopmentCard card){
-        this.characterCards.add(card);
-    }
-
-    /**
-     * Get a specific character card from the array.
-     * @return a character card.
-     */
-    public ArrayList<DevelopmentCard> getCharacterCards(){
-        return this.characterCards;
-    }
-
-    /**
-     * Add venture card
-     * @param card
-     */
-    public void addVentureCard(DevelopmentCard card){
-        this.ventureCards.add(card);
-    }
-
-    /**
-     * Get a specific venture card from the array.
-     * @return a venture card.
-     */
-    public ArrayList<DevelopmentCard> getVentureCards(){
-        return this.ventureCards;
-    }
-
 
     /**
      * Set the dice bonus value for harvest and production zones
@@ -272,4 +275,5 @@ public class PersonalBoard implements Serializable{
     public Map<DevelopmentCardColor, PointsAndResources> getCostDiscountForDevelopmentCard(){
         return this.costDiscountForDevelopmentCard;
     }
+
 }

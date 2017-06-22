@@ -17,7 +17,7 @@ public class LESimple extends LeaderEffect{
     /**
      * Council privilege object.
      */
-    private CouncilPrivilege councilPrivilege;
+    private int numberOfCouncilPrivileges;
 
     /**
      * Class constructor.
@@ -25,7 +25,10 @@ public class LESimple extends LeaderEffect{
     public LESimple(){
         super.effectType = this.getClass().getSimpleName();
         this.valuable = new PointsAndResources();
-        this.councilPrivilege = new CouncilPrivilege();
+    }
+
+    public void setNumberOfCouncilPrivileges(int n){
+        this.numberOfCouncilPrivileges = n;
     }
 
     /**
@@ -37,19 +40,11 @@ public class LESimple extends LeaderEffect{
     }
 
     /**
-     * Return council privilege object.
-     * @return council privilege object.
-     */
-    public CouncilPrivilege getCouncilPrivilege(){
-        return this.councilPrivilege;
-    }
-
-    /**
      * Method to run the effect.
      * @param player that takes advantage of the effect.
      */
     @Override
-    public void runEffect(Player player){
+    public void runEffect(Player player, MainBoard mainBoard){
         //updates player's resources
         for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
@@ -59,6 +54,9 @@ public class LESimple extends LeaderEffect{
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
+
+        //logica di gestione del privilegio del consiglio
+        //TODO implementare logica di gestione del privilegio del consiglio
     }
 
     /**
@@ -68,7 +66,7 @@ public class LESimple extends LeaderEffect{
     public String getDescription() {
         String header = this.effectType + "\n";
         String resources = "Resources:\n" + valuable.toString();
-        String privilege = councilPrivilege.toString();
+        String privilege = "Council privileges: " + numberOfCouncilPrivileges;
         return new StringBuilder(header).append(resources).append(privilege).toString();
     }
 }

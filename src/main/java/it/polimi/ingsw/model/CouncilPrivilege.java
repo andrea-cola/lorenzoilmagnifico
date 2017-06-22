@@ -11,11 +11,6 @@ import java.util.Map;
 public class CouncilPrivilege implements Serializable{
 
     /**
-     * Number of council privileges the player has to choose.
-     */
-    private int numberOfCouncilPrivileges;
-
-    /**
      * Array of privileges.
      */
     private Privilege[] privileges = new Privilege[5];
@@ -41,22 +36,6 @@ public class CouncilPrivilege implements Serializable{
         PointsAndResources valuables5 = new PointsAndResources();
         valuables5.increase(PointType.FAITH, 1);
         this.privileges[4] = new Privilege(valuables5, true);
-    }
-
-    /**
-     * Set number of council privileges.
-     * @param amount of council privileges.
-     */
-    public void setNumberOfCouncilPrivileges(int amount){
-        this.numberOfCouncilPrivileges = amount;
-    }
-
-    /**
-     * Get number of privileges.
-     * @return number of privileges.
-     */
-    public int getNumberOfCouncilPrivileges(){
-        return this.numberOfCouncilPrivileges;
     }
 
     /**

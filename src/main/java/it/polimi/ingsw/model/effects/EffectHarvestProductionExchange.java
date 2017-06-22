@@ -31,22 +31,15 @@ public class EffectHarvestProductionExchange extends Effect{
     private PointsAndResources[] valuableEarned;
 
     /**
-     * Council privilege earned.
+     * Number of council privileges
      */
-    private CouncilPrivilege councilPrivilege;
+    private int numberOfCouncilPrivileges;
 
     public EffectHarvestProductionExchange(){
 
         super.effectType = this.getClass().getSimpleName();
     }
 
-    public void setCouncilPrivilege(CouncilPrivilege privilege){
-        this.councilPrivilege = privilege;
-    }
-
-    public CouncilPrivilege getCouncilPrivilege(){
-        return this.councilPrivilege;
-    }
 
     /**
      * Set the dice value to activate the action

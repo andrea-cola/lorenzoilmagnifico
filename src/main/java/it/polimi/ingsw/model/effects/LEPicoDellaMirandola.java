@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.ResourceType;
 
 public class LEPicoDellaMirandola extends LeaderEffect {
 
@@ -19,13 +21,17 @@ public class LEPicoDellaMirandola extends LeaderEffect {
     }
 
     /**
-     * Method to run the effect of the card.
+     * This method sets a cost discount for each development card inside the towers
      *
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
-
+    public void runEffect(Player player, MainBoard mainBoard) {
+        for (int i = 0; i < mainBoard.getNumberOfTowers(); i++){
+            for (int j = 0; j < mainBoard.getNumberOfTowerCells(); j++){
+                mainBoard.getTower(i).getTowerCell(j).getDevelopmentCard().getCost().decrease(ResourceType.COIN, moneyDiscount);
+            }
+        }
     }
 
     /**

@@ -158,21 +158,7 @@ public class EffectMultiplicator extends Effect{
 
         //check if the multiplicator object is a card or a resource/point
         if (this.cardOrResources){
-            //card
-            switch (this.cardColorRequisite){
-                case GREEN:
-                    multiplicatorValue = player.getPersonalBoard().getTerritoryCards().size();
-                    break;
-                case YELLOW:
-                    multiplicatorValue = player.getPersonalBoard().getBuildingCards().size();
-                    break;
-                case BLUE:
-                    multiplicatorValue = player.getPersonalBoard().getCharacterCards().size();
-                    break;
-                case PURPLE:
-                    multiplicatorValue = player.getPersonalBoard().getVentureCards().size();
-                    break;
-            }
+            multiplicatorValue = player.getPersonalBoard().getCards(this.cardColorRequisite).size();
         }else{
             //resource
 

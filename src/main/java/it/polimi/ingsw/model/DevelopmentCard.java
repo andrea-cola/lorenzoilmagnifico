@@ -97,6 +97,10 @@ public class DevelopmentCard implements Serializable{
         this.cost.increase(type, value);
     }
 
+    public void setCost(ResourceType type, Integer value){
+        this.cost.increase(type, value);
+    }
+
     public void setMultipleRequisiteSelectionEnabled(boolean flag){
         this.multipleRequisiteSelectionEnabled = flag;
     }

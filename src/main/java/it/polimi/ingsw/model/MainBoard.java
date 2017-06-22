@@ -16,7 +16,6 @@ public class MainBoard implements Serializable{
     private static final int NUMBER_OF_TOWER_CELLS = 4;
     private static final int NUMBER_OF_MARKET_CELLS = 4;
 
-
     /**
      * Array of towers.
      */
@@ -69,6 +68,8 @@ public class MainBoard implements Serializable{
         }
 
         this.harvest = new ActionSpace(ActionType.HARVEST, 1);
+
+        this.production = new ActionSpace(ActionType.PRODUCTION, 1);
 
         this.councilPalace = new CouncilPalace(1);
 
@@ -124,6 +125,18 @@ public class MainBoard implements Serializable{
 
     public Market getMarket(){
         return this.market;
+    }
+
+    public int getNumberOfTowers(){
+        return NUMBER_OF_TOWERS;
+    }
+
+    public int getNumberOfTowerCells(){
+        return NUMBER_OF_TOWER_CELLS;
+    }
+
+    public int getNumberOfMarketCells(){
+        return NUMBER_OF_MARKET_CELLS;
     }
 
 }

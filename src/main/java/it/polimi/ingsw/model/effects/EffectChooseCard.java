@@ -26,11 +26,11 @@ public class EffectChooseCard extends Effect{
     private PointsAndResources pointsAndResources;
 
     /**
-     * Discount on the card picked up.
+     * Number of council privileges
      */
     private PointsAndResources pickUpBonus;
 
-    private CouncilPrivilege councilPrivilege;
+    private int numberOfCouncilPrivileges;
 
     public EffectChooseCard(){
         super.effectType = this.getClass().getSimpleName();
@@ -69,13 +69,6 @@ public class EffectChooseCard extends Effect{
         return this.pickUpBonus;
     }
 
-    public void setCouncilPrivilege(CouncilPrivilege councilPrivilege){
-        this.councilPrivilege = councilPrivilege;
-    }
-
-    public CouncilPrivilege getCouncilPrivilege(){
-        return this.councilPrivilege;
-    }
 
     /**
      * Method to run the effect of the card.
@@ -99,7 +92,6 @@ public class EffectChooseCard extends Effect{
             description.concat(developmentCardColor + "\n");
         description.concat("Resources earnead:\n");
         pointsAndResources.toString();
-        councilPrivilege.toString();
         description.concat("Resources discount:\n");
         pickUpBonus.toString();
         return description;
