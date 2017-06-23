@@ -9,7 +9,10 @@ import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * This class manages the command line interface of the game.
@@ -61,6 +64,8 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
 
     private BasicGameScreen gameScreen;
 
+    private List<Privilege> privileges;
+
     /**
      * Constructor
      * @param controller
@@ -68,6 +73,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
     public CommandLineInterface(UiController controller){
         super(controller);
         System.out.println(TITLE);
+        privileges = new ArrayList<>();
     }
 
     @Override
@@ -122,13 +128,13 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         }
     }
 
-    public void chooseDoubleCost(){
-        System.out.println("Devi scegliere il costo.");
+    @Override
+    public void chooseCouncilPrivilege(CouncilPrivilege councilPrivilege) {
+        gameScreen = new ChooseCouncilPrivilegeScreen(this, councilPrivilege);
     }
 
-    @Override
-    public void chooseCouncilPrivilege(Player player, List<Effect> privilegeList) {
-        System.out.println("Devi scegliere il privilegio.");
+    public void chooseDoubleCost(){
+        System.out.println("Devi scegliere il costo.");
     }
 
     @Override
@@ -163,54 +169,37 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
 
     @Override
     public void setFamilyMemberInTower(int towerIndex, int cellIndex, FamilyMemberColor familyMemberColor) {
-        MainBoard mainBoard = getClient().getGameModel().getMainBoard();
         Player player = getClient().getPlayer();
-        try {
-            Tower tower = mainBoard.getTower(towerIndex);
-            TowerCell cell = tower.getTowerCell(cellIndex);
-            // verify tower can be used.
-            tower.familyMemberCanBePlaced(player, familyMemberColor);
-            // verify cell can be used.
-            cell.familyMemberCanBePlaced(player, familyMemberColor);
-            // verify player can buy the card
-            cell.developmentCardCanBeBuyedBy(player);
-            if(cell.getTowerCellImmediateEffect() != null)
-                cell.getTowerCellImmediateEffect().runEffect(player, this);
-            DevelopmentCard pickedUpCard = cell.getDevelopmentCard();
-            pickedUpCard.payCost(player, this);
-
-            if(pickedUpCard.getImmediateEffect() != null)
-                pickedUpCard.getImmediateEffect().runEffect(player, this);
-
-            cell.setPlayerNicknameInTheCell(player.getUsername());
-            player.getPersonalBoard().addCard(pickedUpCard);
-
-            Debugger.printDebugMessage("Card picked up with success!");
-            gameScreen = new TurnScreen(this, true);
+        try{
+            getClient().getGameModel().pickupDevelopmentCardFromTower(player, familyMemberColor, towerIndex, cellIndex, this);
         } catch (IndexOutOfBoundsException | GameException e) {
             Debugger.printDebugMessage("You can't place your familiar in this place. Please retry.");
         }
     }
 
     @Override
-    public void setFamilyMember(FamilyMemberColor familyMemberColor){
-        MainBoard mainBoard = getClient().getGameModel().getMainBoard();
-        CouncilPalace councilPalace = mainBoard.getCouncilPalace();
+    public void setFamilyMemberInCouncil(FamilyMemberColor familyMemberColor){
         Player player = getClient().getPlayer();
         try {
-            councilPalace.familyMemberCanBePlaced(player, familyMemberColor);
-            councilPalace.fifoAddPlayer(player);
-            councilPalace.getImmediateEffect().runEffect(player, this);
+            getClient().getGameModel().placeFamilyMemberInsideCouncilPalace(player, familyMemberColor, this);
         } catch (GameException e){
             Debugger.printDebugMessage("Error while placing your family member in council palace. Please retry.");
         }
-
+        System.out.println("Scelta chiusa");
     }
 
     @Override
     public void notifyEndTurn() {
+        for(Privilege privilege : privileges){
+            System.out.println(privilege.toString());
+        }
         getClient().endTurn();
     }
 
+    @Override
+    public void setPrivilege(List<Privilege> privilege) {
+        this.privileges = privilege;
+        gameScreen = new TurnScreen(this, true);
+    }
 
 }

@@ -64,11 +64,7 @@ public class EffectSimple extends Effect{
 
         //logica di gestione del privilegio del consiglio
         if (this.numberOfCouncilPrivileges > 0){
-            CouncilPrivilege councilPrivilege = new CouncilPrivilege();
-            for (int i = 0; i < this.numberOfCouncilPrivileges; i++){
-                //informationCallback.chooseCouncilPrivilege();
-
-            }
+            informationCallback.chooseCouncilPrivilege(new CouncilPrivilege(numberOfCouncilPrivileges));
         }
     }
 

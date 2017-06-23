@@ -17,7 +17,6 @@ public class TurnScreen extends GameScreen {
         if(!moveDone) {
             addOption("set-fam-tower", "'set-fam-tower [familiar color] [tower index] [cell index]' to place family member on the tower.", this::setFamilyMemberInTower);
             addOption("set-fam-council", "'set-fam-council [familiar color]' to place family member in the council.", this::setFamilyMemberInCouncil);
-
         }
         addOption("end-turn", "ends up your turn.", parameters -> callback.notifyEndTurn());
     }
@@ -46,7 +45,7 @@ public class TurnScreen extends GameScreen {
         if(parameters.length == 1){
             for(FamilyMemberColor color : FamilyMemberColor.values()){
                 if(color.toString().toLowerCase().equals(parameters[0].toLowerCase())){
-                    callback.setFamilyMember(color);
+                    callback.setFamilyMemberInCouncil(color);
                     flag = true;
                 }
             }

@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
-import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.EffectSimple;
 
 import java.io.Serializable;
@@ -20,7 +19,7 @@ public class MarketCell implements Serializable{
     /**
      * Cell effect.
      */
-    private EffectSimple immediateEffect;
+    private EffectSimple marketCellImmediateEffect;
 
     /**
      * Check if the cell is empty
@@ -36,7 +35,7 @@ public class MarketCell implements Serializable{
      */
     public MarketCell(int minFamilyMemberValue, EffectSimple effectSimple){
         this.minFamilyMemberValue = minFamilyMemberValue;
-        this.immediateEffect = effectSimple;
+        this.marketCellImmediateEffect = effectSimple;
         empty = true;
         accessible = true;
     }
@@ -65,8 +64,8 @@ public class MarketCell implements Serializable{
      * This method returns the immediate effect of the market cell selected.
      * @return the immediate effect.
      */
-    public EffectSimple getImmediateEffect(){
-        return this.immediateEffect;
+    public EffectSimple getMarketCellImmediateEffect(){
+        return this.marketCellImmediateEffect;
     }
 
     /**
