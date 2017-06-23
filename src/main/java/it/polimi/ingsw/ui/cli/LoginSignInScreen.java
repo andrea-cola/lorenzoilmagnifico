@@ -3,7 +3,9 @@ package it.polimi.ingsw.ui.cli;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.utility.Debugger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +13,16 @@ public class LoginSignInScreen extends BasicScreen {
 
     private final ICallback callback;
 
-    private List<CLIMessages> cliMessages = new ArrayList<>();
+    private List<String> cliMessages = new ArrayList<>();
+
+    private BufferedReader keyboardReader = new BufferedReader((new InputStreamReader(System.in)));
+
 
     LoginSignInScreen(ICallback callback){
         this.callback = callback;
 
-        cliMessages.add(CLIMessages.LOGIN);
-        cliMessages.add(CLIMessages.SIGNIN);
+        cliMessages.add("Login");
+        cliMessages.add("Sign in");
         printScreenTitle("LOGIN | SIGN IN");
         print(cliMessages);
         readCommand();

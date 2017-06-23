@@ -21,4 +21,7 @@ public interface RMIClientInterface extends Remote{
     void sendPersonalTiles(List<PersonalBoardTile> personalBoardTileList) throws RemoteException;
 
     void sendLeaderCards(List<LeaderCard> leaderCards) throws RemoteException;
+
+    void notifyTurnStarted(String username, long seconds) throws RemoteException;
+
 }

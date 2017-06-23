@@ -33,9 +33,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -54,9 +52,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -94,9 +90,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -115,9 +109,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -155,9 +147,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -176,9 +166,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },{
@@ -215,9 +203,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -236,9 +222,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -276,9 +260,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -297,9 +279,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -337,9 +317,7 @@
         "MILITARY": 2
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -358,9 +336,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -398,9 +374,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -419,9 +393,7 @@
         "MILITARY": 2
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -459,9 +431,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -480,9 +450,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -520,9 +488,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -541,9 +507,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -581,9 +545,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -602,9 +564,7 @@
         "MILITARY": 1
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -642,9 +602,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -663,9 +621,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -703,9 +659,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -724,9 +678,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -764,9 +716,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -785,9 +735,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -825,9 +773,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -846,9 +792,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -886,9 +830,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -907,9 +849,7 @@
         "MILITARY": 2
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -947,9 +887,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -968,9 +906,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -1008,9 +944,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1029,9 +963,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -1069,9 +1001,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1090,9 +1020,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -1130,9 +1058,7 @@
         "MILITARY": 2
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1151,9 +1077,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -1191,9 +1115,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1212,9 +1134,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -1252,9 +1172,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1273,9 +1191,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -1313,9 +1229,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1334,9 +1248,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -1374,9 +1286,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1395,9 +1305,7 @@
         "MILITARY": 3
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -1435,9 +1343,7 @@
         "MILITARY": 2
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1456,9 +1362,7 @@
         "MILITARY": 1
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -1496,9 +1400,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0 ,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1569,9 +1471,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1642,9 +1542,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1715,9 +1613,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1788,9 +1684,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1852,9 +1746,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -1892,9 +1784,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -1956,9 +1846,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -1996,9 +1884,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2034,9 +1920,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2074,9 +1958,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2112,9 +1994,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2152,9 +2032,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2190,9 +2068,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2230,9 +2106,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2294,9 +2168,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2334,9 +2206,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2398,9 +2268,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2438,9 +2306,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2502,9 +2368,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2542,9 +2406,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2580,9 +2442,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2620,9 +2480,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2658,9 +2516,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2698,9 +2554,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2736,9 +2590,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2776,9 +2628,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2797,9 +2647,7 @@
         "MILITARY": 2
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -2837,9 +2685,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2858,9 +2704,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -2898,9 +2742,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2936,9 +2778,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -2976,9 +2816,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -2997,9 +2835,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -3037,9 +2873,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3058,9 +2892,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -3098,9 +2930,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3136,9 +2966,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -3176,9 +3004,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3240,9 +3066,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -3280,9 +3104,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3318,9 +3140,7 @@
         }
       }
     ],
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionExchange"
   }
 },
@@ -3358,9 +3178,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3379,9 +3197,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -3419,9 +3235,7 @@
         "MILITARY": 3
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3481,9 +3295,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3556,9 +3368,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3618,9 +3428,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3680,9 +3488,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3725,9 +3531,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3770,9 +3574,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -3837,9 +3639,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectChooseCard"
   }
 },
@@ -3894,9 +3694,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectChooseCard"
   }
 },
@@ -3951,9 +3749,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectChooseCard"
   }
 },
@@ -4008,9 +3804,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectChooseCard"
   }
 },
@@ -4065,9 +3859,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectChooseCard"
   }
 },
@@ -4157,9 +3949,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   }
 },
@@ -4197,9 +3987,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 3
-    },
+    "numberOfCouncilPrivileges": 3,
     "effectType": "EffectSimple"
   }
 },
@@ -4451,9 +4239,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -4493,9 +4279,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectHarvestProductionSimple"
   }
 },
@@ -4605,9 +4389,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectChooseCard"
   }
 },
@@ -4645,9 +4427,7 @@
         "MILITARY": 5
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -4701,9 +4481,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -4757,9 +4535,7 @@
         "MILITARY": 2
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -4813,9 +4589,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 2
-    },
+    "numberOfCouncilPrivileges": 2,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -4869,9 +4643,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -4925,9 +4697,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -4982,9 +4752,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5038,9 +4806,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5094,9 +4860,7 @@
         "MILITARY": 6
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5150,9 +4914,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5206,9 +4968,7 @@
         "MILITARY": 3
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5262,9 +5022,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5360,9 +5118,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5416,9 +5172,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5472,9 +5226,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5528,9 +5280,7 @@
         "MILITARY": 7
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5604,9 +5354,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectChooseCard"
   },
   "permanentEffect": {
@@ -5660,9 +5408,7 @@
         "MILITARY": 4
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 1
-    },
+    "numberOfCouncilPrivileges": 1,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5716,9 +5462,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5772,9 +5516,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5870,9 +5612,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {
@@ -5926,9 +5666,7 @@
         "MILITARY": 0
       }
     },
-    "councilPrivilege": {
-      "numberOfCouncilPrivileges": 0
-    },
+    "numberOfCouncilPrivileges": 0,
     "effectType": "EffectSimple"
   },
   "permanentEffect": {

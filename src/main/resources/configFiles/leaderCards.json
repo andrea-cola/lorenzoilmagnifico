@@ -29,91 +29,7 @@
           "MILITARY": 0
         }
       },
-      "councilPrivilege": {
-        "numberOfCouncilPrivileges": 0,
-        "privileges": [
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 1,
-                "WOOD": 1,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 2,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 2
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 2
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 1,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          }
-        ]
-      },
+      "numberOfCouncilPrivileges": 0,
       "effectType": "LESimple"
     }
   },
@@ -151,91 +67,7 @@
           "VICTORY": 4
         }
       },
-      "councilPrivilege": {
-        "numberOfCouncilPrivileges": 0,
-        "privileges": [
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 1,
-                "WOOD": 1,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 2,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 2
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 2
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 1,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          }
-        ]
-      },
+      "numberOfCouncilPrivileges": 0,
       "effectType": "LESimple"
     }
   },
@@ -269,91 +101,7 @@
           "MILITARY": 0
         }
       },
-      "councilPrivilege": {
-        "numberOfCouncilPrivileges": 0,
-        "privileges": [
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 1,
-                "WOOD": 1,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 2,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 2
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 2
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 1,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          }
-        ]
-      },
+      "numberOfCouncilPrivileges": 0,
       "effectType": "LESimple"
     }
   },
@@ -387,91 +135,7 @@
           "MILITARY": 0
         }
       },
-      "councilPrivilege": {
-        "numberOfCouncilPrivileges": 0,
-        "privileges": [
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 1,
-                "WOOD": 1,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 2,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 2
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 2
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 1,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          }
-        ]
-      },
+      "numberOfCouncilPrivileges": 0,
       "effectType": "LESimple"
     }
   },
@@ -505,91 +169,7 @@
           "MILITARY": 2
         }
       },
-      "councilPrivilege": {
-        "numberOfCouncilPrivileges": 0,
-        "privileges": [
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 1,
-                "WOOD": 1,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 2,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 2
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 2
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 1,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          }
-        ]
-      },
+      "numberOfCouncilPrivileges": 0,
       "effectType": "LESimple"
     }
   },
@@ -627,91 +207,7 @@
           "VICTORY": 1
         }
       },
-      "councilPrivilege": {
-        "numberOfCouncilPrivileges": 0,
-        "privileges": [
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 1,
-                "WOOD": 1,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 2,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 2
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 0,
-                "VICTORY": 0,
-                "MILITARY": 2
-              }
-            },
-            "isAvailablePrivilege": true
-          },
-          {
-            "valuables": {
-              "resources": {
-                "SERVANT": 0,
-                "STONE": 0,
-                "WOOD": 0,
-                "COIN": 0
-              },
-              "points": {
-                "FAITH": 1,
-                "VICTORY": 0,
-                "MILITARY": 0
-              }
-            },
-            "isAvailablePrivilege": true
-          }
-        ]
-      },
+      "numberOfCouncilPrivileges": 0,
       "effectType": "LESimple"
     }
   },
@@ -1023,6 +519,40 @@
         }
       },
       "effectType": "LESistoIV"
+    }
+  },
+  {
+    "leaderCardName": "Ludovico III Gonzaga",
+    "leaderCardDescription": "shalala",
+    "pointsAndResourcesRequisites": {
+      "resources": {
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0,
+        "SERVANT": 15
+      },
+      "points": {
+        "FAITH": 0,
+        "MILITARY": 0,
+        "VICTORY": 0
+      }
+    },
+    "effect": {
+      "valuable": {
+        "resources": {
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0,
+          "SERVANT": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "MILITARY": 0,
+          "VICTORY": 0
+        }
+      },
+      "numberOfCouncilPrivileges": 1,
+      "effectType": "LESimple"
     }
   }
 ]

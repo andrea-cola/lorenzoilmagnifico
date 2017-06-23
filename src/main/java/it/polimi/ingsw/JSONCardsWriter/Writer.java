@@ -12,24 +12,11 @@ public class Writer {
     public static void main(String[] args){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        LeaderCard leaderCard = new LeaderCard();
-        leaderCard.setLeaderCardName("Sisto IV");
-        leaderCard.setLeaderCardDescription("shalala");
-        PointsAndResources pointsAndResources = new PointsAndResources();
-        pointsAndResources.increase(ResourceType.COIN, 6);
-        pointsAndResources.increase(ResourceType.WOOD, 6);
-        pointsAndResources.increase(ResourceType.SERVANT, 6);
-        pointsAndResources.increase(ResourceType.STONE, 6);
-        leaderCard.setPointsAndResourcesRequisites(pointsAndResources);
-        LESimple leSimple = new LESimple();
-        leSimple.getCouncilPrivilege().setNumberOfCouncilPrivileges(1);
-        leaderCard.setEffect(leSimple);
 
-
-        String tmp = gson.toJson(leaderCard);
+        String tmp = gson.toJson(null);
 
         try{
-            FileOutputStream os = new FileOutputStream("src/main/resources/configFiles/leaderCards.json",true);
+            FileOutputStream os = new FileOutputStream("src/main/resources/configFiles/gesù.json",true);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
             bw.append(tmp + ",\n");
             bw.close();

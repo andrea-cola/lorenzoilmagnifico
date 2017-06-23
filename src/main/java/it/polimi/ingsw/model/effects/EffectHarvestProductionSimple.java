@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.InformationCallback;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class EffectHarvestProductionSimple extends Effect{
     /**
      * Council privilege earned by the player.
      */
-    private CouncilPrivilege councilPrivilege;
+    private int numberOfCouncilPrivileges;
 
     /**
      * Class constructor.
@@ -37,7 +38,6 @@ public class EffectHarvestProductionSimple extends Effect{
     public EffectHarvestProductionSimple(){
         super.effectType = this.getClass().getSimpleName();
         this.valuable = new PointsAndResources();
-        this.councilPrivilege = new CouncilPrivilege();
     }
 
     /**
@@ -94,16 +94,16 @@ public class EffectHarvestProductionSimple extends Effect{
      * Set council privilege.
      * @param councilPrivilege to set.
      */
-    public void setCouncilPrivilege(CouncilPrivilege councilPrivilege){
-        this.councilPrivilege = councilPrivilege;
+    public void setCouncilPrivilege(int councilPrivilege){
+        this.numberOfCouncilPrivileges = councilPrivilege;
     }
 
     /**
      * Get council privilege of the effect.
      * @return council privilege.
      */
-    public CouncilPrivilege getCouncilPrivilege(){
-        return this.councilPrivilege;
+    public int getCouncilPrivilege(){
+        return this.numberOfCouncilPrivileges;
     }
 
     /**
@@ -111,7 +111,7 @@ public class EffectHarvestProductionSimple extends Effect{
      * @param player
      */
     @Override
-    public void runEffect(Player player){
+    public void runEffect(Player player, InformationCallback informationCallback) {
         //get the family member used to run this effect
         ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
@@ -134,12 +134,12 @@ public class EffectHarvestProductionSimple extends Effect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
-        String header = this.effectType + "\n";
-        String actionTypeAndValue = "Action type: " + actionType + "\nValue: " + diceActionValue + "\n";
-        String resources = "Resources earned:\n" + valuable.toString();
-        String privilege = councilPrivilege.toString();
-        return new StringBuilder(header).append(actionTypeAndValue).append(resources).append(privilege).toString();
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.effectType + ": ");
+        stringBuilder.append(actionType.toString() + " dice value: " + diceActionValue + " ");
+        stringBuilder.append("resources earned " + valuable.toString() + " council privileges: " + numberOfCouncilPrivileges);
+        return stringBuilder.toString();
     }
 
 

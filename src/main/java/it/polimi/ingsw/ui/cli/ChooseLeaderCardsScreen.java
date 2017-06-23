@@ -3,7 +3,9 @@ package it.polimi.ingsw.ui.cli;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.utility.Debugger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +15,16 @@ public class ChooseLeaderCardsScreen extends BasicScreen{
 
     private List<LeaderCard> leaderCards;
 
-    private List<CLIMessages> cliMessages;
+    private List<String> cliMessages;
+
+    private BufferedReader keyboardReader = new BufferedReader((new InputStreamReader(System.in)));
+
 
     ChooseLeaderCardsScreen(ICallback callback, List<LeaderCard> leaderCardList) {
         this.callback = callback;
 
         cliMessages = new ArrayList<>();
-        cliMessages.add(CLIMessages.LEADER_CARD_CHOICE);
+        cliMessages.add("Choose your leader card.");
         printScreenTitle("LEADER CARD CHOICE");
         this.leaderCards = leaderCardList;
         print(cliMessages);
@@ -43,7 +48,7 @@ public class ChooseLeaderCardsScreen extends BasicScreen{
             } while (key < 1 || key > leaderCards.size());
             key = key - 1;
             this.callback.sendLeaderCardsChoose(leaderCards.get(key));
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | NumberFormatException e) {
             chooseLeaderCard();
         } catch (IOException e){
             Debugger.printDebugMessage("Error while reading from keyboard.");

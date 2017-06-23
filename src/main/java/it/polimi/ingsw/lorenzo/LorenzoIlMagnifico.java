@@ -1,9 +1,7 @@
 package it.polimi.ingsw.lorenzo;
 
 import it.polimi.ingsw.exceptions.*;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
@@ -49,19 +47,15 @@ import java.util.List;
         }
     }
 
-    /**
-     * The start function initializes the network menu
-     */
     public void start(){
         userInterface.chooseConnectionType();
     }
 
-    /**
-     * It sets the network settings.
-     * @param connectionType remote method interface or socket.
-     * @param address network address.
-     * @param port network port.
-     */
+    @Override
+    public String getUsername(){
+        return this.username;
+    }
+
     @Override
     public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException {
         switch (connectionType){
@@ -77,7 +71,6 @@ import java.util.List;
         client.connectToServer();
         userInterface.loginScreen();
     }
-
 
     @Override
     public void loginPlayer(String username, String password, boolean flag) {
@@ -103,7 +96,7 @@ import java.util.List;
             Debugger.printStandardMessage("No rooms available. Create new one.");
             userInterface.createRoomScreen();
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send join room request.");
         }
     }
 
@@ -114,7 +107,7 @@ import java.util.List;
         } catch (RoomException e) {
             Debugger.printDebugMessage("You're added in another room created by other player meanwhile.");
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send create room request.");
         }
     }
 
@@ -133,12 +126,6 @@ import java.util.List;
     }
 
     @Override
-    public void setGameModel(Game game) {
-        this.game = game;
-        Debugger.printDebugMessage("Game started.");
-    }
-
-    @Override
     public void chooseLeaderCards(List<LeaderCard> leaderCards) {
         userInterface.chooseLeaderCards(leaderCards);
     }
@@ -149,6 +136,36 @@ import java.util.List;
             client.notifyLeaderCardChoice(leaderCard);
         } catch(NetworkException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+        }
+    }
+
+    @Override
+    public void setGameModel(Game game) {
+        this.game = game;
+        userInterface.notifyGameStarted();
+    }
+
+    @Override
+    public Game getGameModel(){
+        return this.game;
+    }
+
+    @Override
+    public Player getPlayer() {
+        return this.game.getPlayer(username);
+    }
+
+    @Override
+    public void notifyTurnStarted(String username, long seconds) {
+        userInterface.turnScreen(username, seconds);
+    }
+
+    @Override
+    public void endTurn() {
+        try {
+            client.endTurn();
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot end turn send request.");
         }
     }
 

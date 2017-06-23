@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.InformationCallback;
 
 public class EffectNoBonus extends Effect{
 
@@ -24,7 +25,7 @@ public class EffectNoBonus extends Effect{
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
+    public void runEffect(Player player, InformationCallback informationCallback) {
 
     }
 
@@ -32,9 +33,12 @@ public class EffectNoBonus extends Effect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
-        String description = this.effectType + "\n";
-        description.concat("Resources to pay: da finire di implementare.\n");
-        return description;
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.effectType + ": ");
+        stringBuilder.append("you won't receive bonus at these tower floors: ");
+        for(Integer floor : floors)
+            stringBuilder.append(floor + " ");
+        return stringBuilder.toString();
     }
 }

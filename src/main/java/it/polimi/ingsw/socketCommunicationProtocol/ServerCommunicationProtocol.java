@@ -66,9 +66,9 @@ public class ServerCommunicationProtocol {
 
     @FunctionalInterface
     private interface Handler{
+
         void handle();
     }
-
     /**
      * Put in the hash map all possible requests from the client and their associated method.
      */
@@ -79,6 +79,8 @@ public class ServerCommunicationProtocol {
         requestsTable.put(CommunicationProtocolConstants.CREATE_ROOM_REQUEST, this::createNewRoom);
         requestsTable.put(CommunicationProtocolConstants.PERSONAL_TILES, this::notifyPlayerPersonalBoardTileChoice);
         requestsTable.put(CommunicationProtocolConstants.LEADER_CARDS, this::notifyLeaderCardChoice);
+        requestsTable.put(CommunicationProtocolConstants.LEADER_CARDS, this::notifyLeaderCardChoice);
+        requestsTable.put(CommunicationProtocolConstants.END_TURN, this::endTurn);
     }
 
     /**
@@ -218,11 +220,10 @@ public class ServerCommunicationProtocol {
 
     public void notifyPlayerPersonalBoardTileChoice(){
         try {
-            System.out.println("Ciaone");
             PersonalBoardTile personalBoardTile = (PersonalBoardTile)input.readObject();
             serverCommunicationProtocolInterface.notifyPlayerPersonalBoardTileChoice(personalBoardTile);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            e.printStackTrace();
+
         }
     }
 
@@ -233,7 +234,6 @@ public class ServerCommunicationProtocol {
                 output.writeObject(leaderCards);
                 output.flush();
             } catch (IOException e) {
-                e.printStackTrace();
                 throw new NetworkException();
             }
         }
@@ -246,6 +246,23 @@ public class ServerCommunicationProtocol {
         } catch (ClassNotFoundException | ClassCastException | IOException e){
             // -----------------------------
         }
+    }
+
+    public void notifyTurnStarted(String username, long seconds) throws NetworkException{
+        synchronized (object){
+            try{
+                output.writeObject(CommunicationProtocolConstants.TURN_STARTED);
+                output.writeObject(username);
+                output.writeObject(seconds);
+                output.flush();
+            } catch (IOException e){
+                throw new NetworkException();
+            }
+        }
+    }
+
+    public void endTurn(){
+        serverCommunicationProtocolInterface.endTurn();
     }
 
 }

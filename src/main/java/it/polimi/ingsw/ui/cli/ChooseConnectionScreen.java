@@ -1,9 +1,12 @@
 package it.polimi.ingsw.ui.cli;
 
 import it.polimi.ingsw.exceptions.ConnectionException;
+import it.polimi.ingsw.exceptions.WrongCommandException;
 import it.polimi.ingsw.utility.Debugger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -14,20 +17,21 @@ public class ChooseConnectionScreen extends BasicScreen {
     private static final int STD_PORT_RMI = 3032;
     private static final Pattern PATTERN = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
 
-    private List<CLIMessages> cliMessages = new ArrayList<>();
+    private List<String> cliMessages = new ArrayList<>();
 
     private final ICallback callback;
     private ConnectionType connectionType;
     private String address;
     private int port;
+    private BufferedReader keyboardReader = new BufferedReader((new InputStreamReader(System.in)));
 
     ChooseConnectionScreen(ICallback callback){
         this.callback = callback;
 
-        cliMessages.add(CLIMessages.SOCKET_CONNECTION);
-        cliMessages.add(CLIMessages.RMI_CONNECTION);
+        cliMessages.add("Connection based on Sockets.");
+        cliMessages.add("Connection based on RMI.");
 
-        printScreenTitle(CLIMessages.NETWORK_TITLE.toString());
+        printScreenTitle("NETWORK CONFIGURATION");
         print(cliMessages);
         readCommand();
         connect();
@@ -57,12 +61,17 @@ public class ChooseConnectionScreen extends BasicScreen {
     private void readAddress() throws IOException{
         print("Server IP address");
         address = keyboardReader.readLine();
-        if(!validateIpAddress(address))
+        try {
+            validateIpAddress(address);
+        } catch (WrongCommandException e){
             readAddress();
+        }
     }
 
-    private boolean validateIpAddress(String address) {
-        return PATTERN.matcher(address).matches();
+    private void validateIpAddress(String address) throws WrongCommandException{
+        boolean flag = PATTERN.matcher(address).matches();
+        if(!flag)
+            throw new WrongCommandException();
     }
 
     private void connect() {

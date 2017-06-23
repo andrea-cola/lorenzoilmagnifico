@@ -46,4 +46,6 @@ public interface ServerCommunicationProtocolInterface {
     void notifyPlayerPersonalBoardTileChoice(PersonalBoardTile personalBoardTile);
 
     void notifyPlayerLeaderCardChoice(LeaderCard leaderCard);
+
+    void endTurn();
 }

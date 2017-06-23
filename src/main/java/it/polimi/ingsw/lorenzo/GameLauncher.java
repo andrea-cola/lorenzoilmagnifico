@@ -1,7 +1,5 @@
 package it.polimi.ingsw.lorenzo;
 
-import it.polimi.ingsw.ui.cli.CLIMessages;
-
 import java.util.Scanner;
 
 /**
@@ -19,17 +17,17 @@ public class GameLauncher {
      * @return user interface index.
      */
     private static int chooseUI(){
-        int choise;
+        int choice;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(CLIMessages.STARTING_ALERT.toString() + "\n");
+        System.out.println("To use the Command Line Interface you need to insert the number\ncorrespondent to command and follow the instructions.");
         do{
             System.out.println("Choose your user interface:");
             System.out.println("(1) COMMAND LINE INTERFACE");
             System.out.println("(2) GRAPHICAL INTERFACE");
-            choise = Integer.parseInt(scanner.nextLine());
-        }while(choise != 1 && choise != 2);
-        return choise;
+            choice = Integer.parseInt(scanner.nextLine());
+        }while(choice != 1 && choice != 2);
+        return choice;
     }
 
 }

@@ -20,7 +20,9 @@ public class CouncilPrivilege implements Serializable{
      */
     private Privilege[] privileges = new Privilege[5];
 
-    public CouncilPrivilege(){
+    public CouncilPrivilege(int numberOfCouncilPrivileges){
+        this.numberOfCouncilPrivileges = numberOfCouncilPrivileges;
+
         PointsAndResources valuables1 = new PointsAndResources();
         valuables1.increase(ResourceType.STONE, 1);
         valuables1.increase(ResourceType.WOOD, 1);
@@ -41,14 +43,6 @@ public class CouncilPrivilege implements Serializable{
         PointsAndResources valuables5 = new PointsAndResources();
         valuables5.increase(PointType.FAITH, 1);
         this.privileges[4] = new Privilege(valuables5, true);
-    }
-
-    /**
-     * Set number of council privileges.
-     * @param amount of council privileges.
-     */
-    public void setNumberOfCouncilPrivileges(int amount){
-        this.numberOfCouncilPrivileges = amount;
     }
 
     /**
@@ -81,5 +75,9 @@ public class CouncilPrivilege implements Serializable{
         return false;
     }
 
+    @Override
+    public String toString(){
+        return "Council privilege number: " + numberOfCouncilPrivileges + "\n";
+    }
 
 }

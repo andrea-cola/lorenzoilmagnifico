@@ -189,4 +189,9 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
         getServer().setPlayerLeaderCard(getPlayer(playerID), leaderCard);
     }
 
+    @Override
+    public void endTurn(String playerID) {
+        getPlayer(playerID).getRoom().endTurn(getPlayer(playerID));
+    }
+
 }

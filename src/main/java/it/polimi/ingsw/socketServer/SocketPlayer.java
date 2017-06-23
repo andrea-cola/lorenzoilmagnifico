@@ -145,6 +145,16 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
         socketCommunicationProtocol.sendLeaderCards(leaderCards);
     }
 
+    @Override
+    public void notifyTurnStarted(String username, long seconds) throws NetworkException {
+        socketCommunicationProtocol.notifyTurnStarted(username, seconds);
+    }
+
+    @Override
+    public void endTurn() {
+        this.getRoom().endTurn(this);
+    }
+
     /**
      * Close input/output streams and socket.
      * @param objectInputStream input stream.

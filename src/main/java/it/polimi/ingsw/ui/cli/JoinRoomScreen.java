@@ -7,12 +7,12 @@ public class JoinRoomScreen extends BasicScreen{
 
     private ICallback callback;
 
-    private List<CLIMessages> cliMessages = new ArrayList<>();
+    private List<String> cliMessages = new ArrayList<>();
 
     JoinRoomScreen(ICallback callback) {
         this.callback = callback;
 
-        cliMessages.add(CLIMessages.JOIN_ROOM);
+        cliMessages.add("Joining first room available. Please wait...");
         printScreenTitle("JOIN ROOM");
         print(cliMessages);
         try {

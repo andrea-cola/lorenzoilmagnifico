@@ -140,7 +140,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 
     @Override
     public void sendPersonalTiles(List<PersonalBoardTile> personalBoardTileList) throws RemoteException {
-        getController().choosePersonalBoardTile(personalBoardTileList);
+        getClient().choosePersonalBoardTile(personalBoardTileList);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 
     @Override
     public void sendLeaderCards(List<LeaderCard> leaderCards) throws RemoteException {
-        getController().chooseLeaderCards(leaderCards);
+        getClient().chooseLeaderCards(leaderCards);
     }
 
     @Override
@@ -168,11 +168,25 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 
     @Override
     public void sendGame(Game game) throws RemoteException {
-        getController().setGameModel(game);
+        getClient().setGameModel(game);
     }
 
     @Override
     public String ping() throws RemoteException {
         return playerID;
+    }
+
+    @Override
+    public void notifyTurnStarted(String username, long seconds) throws RemoteException {
+        getClient().notifyTurnStarted(username, seconds);
+    }
+
+    @Override
+    public void endTurn() throws NetworkException{
+        try {
+            server.endTurn(this.playerID);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
     }
 }

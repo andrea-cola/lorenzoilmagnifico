@@ -2,6 +2,7 @@ package it.polimi.ingsw.ui;
 
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
@@ -10,14 +11,14 @@ import java.util.List;
  */
 public abstract class AbstractUI {
 
-    private UiController controller;
+    private UiController client;
 
     public AbstractUI(UiController controller){
-        this.controller=controller;
+        this.client =controller;
     }
 
-    protected UiController getController(){
-        return controller;
+    protected UiController getClient(){
+        return client;
     }
 
     public abstract void chooseConnectionType();
@@ -32,4 +33,7 @@ public abstract class AbstractUI {
 
     public abstract void chooseLeaderCards(List<LeaderCard> leaderCards);
 
+    public abstract void notifyGameStarted();
+
+    public abstract void turnScreen(String username, long seconds);
 }

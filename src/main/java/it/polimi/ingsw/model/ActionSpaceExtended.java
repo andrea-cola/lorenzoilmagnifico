@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
+import it.polimi.ingsw.model.effects.EffectHarvestProductionSimple;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class ActionSpaceExtended implements Serializable{
     /**
      * Action space immediate effect.
      */
-    private Effect effect;
+    private EffectHarvestProductionSimple effect;
 
     /**
      * Malus value of the dice.
@@ -30,20 +31,43 @@ public class ActionSpaceExtended implements Serializable{
      */
     private ArrayList<FamilyMember> familyMembers;
 
+    private boolean accessible;
+
     /**
-     * Set the effect of the action space
-     * @param effect involved
+     * Class constructor.
+     * @param actionSpaceType of the action space.
+     * @param diceValueMalus of the action space.
+     * @param effect of the action space.
      */
-    public void setEffect(Effect effect){
+    public ActionSpaceExtended(ActionType actionSpaceType, int diceValueMalus, EffectHarvestProductionSimple effect){
+        this.actionSpaceType = actionSpaceType;
+        this.diceValueMalus = diceValueMalus;
         this.effect = effect;
+        this.accessible = true;
+    }
+
+    public void setNotAccessible(){
+        this.accessible = false;
+    }
+
+    public boolean isAccessible(){
+        return this.accessible;
     }
 
     /**
-     * Set the value of malus which will affect the dice value
-     * @param value of malus
+     * Get the action type of the action area.
+     * @return action type.
      */
-    public void setDiceValueMalus(int value){
-        this.diceValueMalus = value;
+    public ActionType getActionSpaceType(){
+        return this.actionSpaceType;
+    }
+
+    /**
+     * Get the malus value on the dice.
+     * @return value of malus.
+     */
+    public int getDiceValueMalus(){
+        return this.diceValueMalus;
     }
 
     /**
@@ -55,35 +79,11 @@ public class ActionSpaceExtended implements Serializable{
     }
 
     /**
-     * Set the action type to the space
-     * @param actionSpaceType
-     */
-    public void setActionSpaceType(ActionType actionSpaceType){
-        this.actionSpaceType = actionSpaceType;
-    }
-
-    /**
-     * Get the action type of the action area.
-     * @return
-     */
-    public ActionType getActionSpaceType(){
-        return this.actionSpaceType;
-    }
-
-    /**
      * Get action space effect.
      * @return effect of the space.
      */
-    public Effect getEffect(){
+    public EffectHarvestProductionSimple getEffect(){
         return this.effect;
-    }
-
-    /**
-     * Get the malus value on the dice.
-     * @return value of malus.
-     */
-    public int getDiceValueMalus(){
-        return this.diceValueMalus;
     }
 
 }

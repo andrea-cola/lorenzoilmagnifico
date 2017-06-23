@@ -25,7 +25,7 @@ public class LESimple extends LeaderEffect{
     public LESimple(){
         super.effectType = this.getClass().getSimpleName();
         this.valuable = new PointsAndResources();
-        this.councilPrivilege = new CouncilPrivilege();
+        this.councilPrivilege = new CouncilPrivilege(0);
     }
 
     /**

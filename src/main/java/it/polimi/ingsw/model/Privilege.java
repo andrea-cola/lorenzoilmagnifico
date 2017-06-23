@@ -25,4 +25,11 @@ public class Privilege implements Serializable{
         return this.isAvailablePrivilege;
     }
 
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(valuables.toString());
+        return stringBuilder.toString();
+    }
+
 }

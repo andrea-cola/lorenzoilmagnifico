@@ -53,4 +53,6 @@ public abstract class ServerPlayer extends Player{
 
     public abstract void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException;
 
+    public abstract void notifyTurnStarted(String username, long seconds) throws NetworkException;
+
 }

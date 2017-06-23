@@ -60,7 +60,7 @@ import java.util.*;
         this.players = players;
         this.configuration = configuration;
         this.leaderCards = leaderCards;
-        game = new Game(configuration.getMainBoard());
+        game = new Game(configuration.getMainBoard(), this.players);
         setupPlayers();
         setupDecks(developmentCards);
     }
@@ -140,19 +140,18 @@ import java.util.*;
      */
     private void setupPlayers(){
         int i = 0;
+
         randomPlayerSorting();
 
         Map<String, PlayerColor> colors = PlayerColor.getHashMap();
-
         Iterator iterator = colors.entrySet().iterator();
 
         for(ServerPlayer player : players){
             Map.Entry pair = (Map.Entry) iterator.next();
-            Player gamePlayer = player;
-            gamePlayer.setColor((PlayerColor)pair.getValue());
-            gamePlayer.setPersonalBoard(createNewPersonalBoard());
-            gamePlayer.getPersonalBoard().getValuables().increase(ResourceType.COIN, INITIAL_COINS + i);
-            this.game.getPlayersMap().put(player.getNickname(), gamePlayer);
+            player.setColor((PlayerColor)pair.getValue());
+            player.setPersonalBoard(createNewPersonalBoard());
+            player.getPersonalBoard().getValuables().increase(ResourceType.COIN, INITIAL_COINS + i);
+            this.game.getPlayersMap().put(player.getUsername(), player);
             i++;
         }
     }
@@ -168,20 +167,41 @@ import java.util.*;
      * Get game instance.
      * @return game instance.
      */
-    public Game getGameInstance(){
+    /*package-local*/ Game getGameInstance(){
         setupMainBoard(1, 1);
+        throwDices();
         return this.game;
     }
 
-    public ArrayList<ServerPlayer> getStartOrder(){
+    /**
+     * Get array list that represent order player.
+     * @return players array list.
+     */
+    /*package-local*/ ArrayList<ServerPlayer> getStartOrder(){
         return players;
     }
 
+    /**
+     * Method to initialize a new personal board.
+     * @return a personal board.
+     */
     private PersonalBoard createNewPersonalBoard(){
         PersonalBoard personalBoard = new PersonalBoard();
+        personalBoard.getValuables().increase(ResourceType.WOOD, 2);
+        personalBoard.getValuables().increase(ResourceType.STONE, 2);
+        personalBoard.getValuables().increase(ResourceType.SERVANT, 3);
         personalBoard.setGreenCardsMilitaryPointsRequirements(configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
         FamilyMember familyMember = new FamilyMember();
         personalBoard.setFamilyMember(familyMember);
         return personalBoard;
+    }
+
+    /**
+     * Throw dices and set value in each personal board.
+     */
+    public void throwDices(){
+        game.getDices().setValues();
+        for(Player player : players)
+            player.getPersonalBoard().getFamilyMember().setMembers(game.getDices().getValues());
     }
 }
