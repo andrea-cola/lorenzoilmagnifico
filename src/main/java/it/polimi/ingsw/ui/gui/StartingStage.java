@@ -6,14 +6,9 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 
-import javafx.application.Platform;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
+import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -25,11 +20,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.*;
+
 
 /**
  * This is the board which the game starts with
  */
-public class StartingStage extends Application {
+public class StartingStage extends JFXPanel {
     /**
      * Constants
      */
@@ -40,22 +37,12 @@ public class StartingStage extends Application {
 
     private static boolean finished = false;
 
-
-    /**
-     * The start function inherited by Application represents the structure of the Starting board
-     * @param primaryStage is the main container of the application
-     * @throws Exception if the main method is not allocated
-     */
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("StartingStage");
+    StartingStage(){
         BorderPane root = new BorderPane();
         VBox vBoxStart = new VBox(VBOX_SPACING);
         vBoxStart.setAlignment(Pos.CENTER);
-
         root.setCenter(vBoxStart);
         root.setMargin(vBoxStart, new Insets(INSETS));
-        root.autosize();
         Scene scene= new Scene(root);
         ProgressBar bar= new ProgressBar();
         Timeline task= new Timeline(
@@ -67,7 +54,6 @@ public class StartingStage extends Application {
                         Duration.seconds(2),
                         new KeyValue(bar.progressProperty(),1)
                 ));
-
         Label loading= new Label("Loading");
         loading.setTextFill(Color.DARKBLUE);
         loading.setFont(new Font(LOADING_FONT_DIM));
@@ -79,25 +65,17 @@ public class StartingStage extends Application {
             loading.setVisible(true);
             task.setOnFinished(event1 -> {
                 setFinished(true);
-                synchronized (this) {
-                    try {
-                        primaryStage.close();
-                        wait(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                setVisible(false);
             });
         });
 
         Label welcome= new Label("WELCOME");
         welcome.setFont(new Font(WELCOME_FONT_DIM));
-
-        ImageView image = new ImageView(new Image("images/StartingBoardCover.jpg"));
+        ImageView image = new ImageView(new Image("images/StartingStageCover.jpg"));
+        image.autosize();
         vBoxStart.getChildren().addAll(welcome, image, loading, bar, button);
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        root.autosize();
+        this.setScene(scene);
     }
 
     public static boolean getFinished(){
@@ -107,4 +85,5 @@ public class StartingStage extends Application {
     public static void setFinished(boolean flag){
         finished=flag;
     }
+
 }

@@ -5,6 +5,7 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.ui.cli.ConnectionType;
 import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
@@ -22,7 +23,7 @@ import javafx.scene.image.ImageView;
 /**
  * This is the Graphic User Interface board for network settings
  */
-public class ChooseConnectionStage extends Application {
+public class ChooseConnectionStage extends JFXPanel{
     /**
      * Constants
      */
@@ -35,6 +36,7 @@ public class ChooseConnectionStage extends Application {
     private final static int INSETS = 20;
     private final static String FONT = "Arial : arial";
     private static boolean finished = false;
+
 
 
     private CallbackInterface callback;
@@ -53,17 +55,7 @@ public class ChooseConnectionStage extends Application {
      */
     ChooseConnectionStage(CallbackInterface callback) {
         this.callback = callback;
-    }
 
-    /**
-     * The start function inherited by Application represents the structure of the Network board
-     *
-     * @param primaryStage is the main container of the application
-     * @throws Exception if the main method is not allocated
-     */
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("ChooseConnectionStage");
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
 
@@ -99,37 +91,27 @@ public class ChooseConnectionStage extends Application {
                 System.out.print("ADDRESS: " + address + " & TYPE: " + type + "\n");
                 doConnect();
                 setFinished(true);
-                primaryStage.close();
-                synchronized (ChooseConnectionStage.this) {
-                    try {
-                        ChooseConnectionStage.this.wait(1001);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                setVisible(false);
             }else{
                 messagge.setVisible(true);
             }
         });
 
 
-        ImageView imageView = new ImageView(new Image("images/NetworkBoardCover.png"));
+        ImageView imageView = new ImageView("images/ChooseConnectionStageCover.png");
         imageView.setFitHeight(IMAGE_HEIGHT);
         imageView.setFitWidth(IMAGE_WIDTH);
         imageView.autosize();
 
         Button clear = new Button("CLEAR");
-        clear.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                text.clear();
-                choiceBox.setValue(null);
-                messagge.setVisible(false);
-            }
+        clear.setOnAction(e -> {
+            text.clear();
+            choiceBox.setValue(null);
+            messagge.setVisible(false);
         });
 
         Button exit = new Button("EXIT");
-        exit.setOnAction(event -> primaryStage.close());
+        exit.setOnAction(event -> this.hide());
 
         grid.add(labelNetwork, 0, 0);
         grid.add(choiceBox, 1, 0);
@@ -149,8 +131,7 @@ public class ChooseConnectionStage extends Application {
         root.getChildren().addAll(vBox);
         root.autosize();
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.setScene(scene);
     }
 
 

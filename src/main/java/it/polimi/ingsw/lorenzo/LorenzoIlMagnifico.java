@@ -87,7 +87,6 @@ import java.util.List;
             client.loginPlayer(username, password);
             this.username = username;
             userInterface.joinRoomScreen();
-
         }catch (LoginException e) {
             Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getError().toString());
             userInterface.loginScreen();

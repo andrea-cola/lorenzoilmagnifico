@@ -8,7 +8,11 @@ import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
 import javafx.application.Platform;
 
+import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 import java.util.concurrent.locks.Lock;
@@ -20,7 +24,29 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class GraphicUserInterface extends AbstractUI{
 
+    private final static String START = "startinStage";
+    private final static String CONNECTION = "connnectionStage";
+    private final static String LOGIN = "loginStage";
+    private final static String JOIN_ROOM = "joinRoomStage";
+    private final static String CREATE_ROOM = "createRoomStage";
+    private final static String PERSONAL_TILE = "personalTileStage";
+    private final static String LEADER_CARD = "leaderCardStage";
+
+    private final static int FRAME_HEIGHT = 700;
+    private final static int FRAME_WIDTH = 700;
+
     private final Lock lock = new ReentrantLock();
+    private JFrame mainFrame;
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
+
+    private StartingStage startingStage;
+    private ChooseConnectionStage chooseConnectionStage;
+    private LoginStage loginStage;
+    private JoinRoomStage joinRoomStage;
+    private CreateRoomStage createRoomStage;
+    private ChoosePersonalBoardTileStage choosePersonalBoardTileStage;
+    private ChooseLeaderCardStage chooseLeaderCardStage;
 
     /**
      * Constructor
@@ -29,35 +55,50 @@ public class GraphicUserInterface extends AbstractUI{
      */
     public GraphicUserInterface(UiController controller) throws InterruptedException {
         super(controller);
-        welcomeBoard();
+        mainFrame = new JFrame("Lorenzo Il Magnifico");
+
+        mainFrame.setUndecorated(false);
+        mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+        mainPanel.setLocation(150, 150);
+        mainFrame.add(mainPanel);
+        showStartingStage();
     }
 
-    public void welcomeBoard(){
-        StartingStage startingStage = new StartingStage();
-        Thread thread = new Thread(() -> Application.launch(startingStage.getClass()));
-        thread.start();
-        do {
+    private void buildGUI() {
+        /*
+        chooseConnectionStage = new ChooseConnectionStage(getController()::setNetworkSettings);
+        System.out.println("building...");
+        mainPanel.add(chooseConnectionStage, CONNECTION);
+
+        mainPanel.add(loginStage, LOGIN);
+        mainPanel.add(joinRoomStage, CREATE_ROOM);
+        mainPanel.add(createRoomStage, JOIN_ROOM );
+        mainPanel.add(choosePersonalBoardTileStage, PERSONAL_TILE);
+        mainPanel.add(chooseLeaderCardStage, LEADER_CARD );
+        */
+    }
+
+    private void showStartingStage(){
+        startingStage = new StartingStage();
+        mainPanel.add(startingStage, START);
+        mainFrame.setVisible(true);
+        System.out.println("starting...");
+        cardLayout.show(mainPanel, START);
+        while(startingStage.getFinished() != true){
             lock.lock();
-        }while(startingStage.getFinished()!=true);
-        lock.unlock();
-        return;
+        }
     }
 
-    /**
-     * @throws InterruptedException
-     */
     @Override
     public void chooseConnectionType() {
         lock.lock();
-        ChooseConnectionStage chooseConnectionStage = new ChooseConnectionStage(getController()::setNetworkSettings);
-        Runnable thread = () -> {
-            try {
-                chooseConnectionStage.start(new Stage());
-            } catch (Exception e) {
-                Debugger.printDebugMessage(GraphicUserInterface.this.getClass().getSimpleName(), e.getMessage());
-            }
-        };
-        Platform.runLater(thread);
+        System.out.println("connection...");
+        chooseConnectionStage = new ChooseConnectionStage(getController()::setNetworkSettings);
+        mainPanel.add(chooseConnectionStage, CONNECTION);
+        cardLayout.show(mainPanel, CONNECTION);
         if (chooseConnectionStage.getFinished() == true) {
             lock.unlock();
             loginScreen();
@@ -66,68 +107,41 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void loginScreen(){
-        LoginStage loginStage = new LoginStage(getController()::loginPlayer);
-        Platform.runLater(new Runnable(){
-            @Override
-            public void run() {
-                try {
-                    loginStage.start(new Stage());
-                } catch (Exception e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
-                }
-            }
-        });
+        System.out.println("logging...");
+        loginStage = new LoginStage(getController()::loginPlayer);
+        mainPanel.add(loginStage, LOGIN);
+        cardLayout.show(mainPanel, LOGIN);
     }
 
     @Override
     public void joinRoomScreen() {
-        JoinRoomStage joinRoomStage = new JoinRoomStage(getController()::joinRoom);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    joinRoomStage.start(new Stage());
-                } catch (Exception e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
-                }
-            }
-        });
+        System.out.println("joining...");
+        joinRoomStage = new JoinRoomStage(getController()::joinRoom);
+        mainPanel.add(joinRoomStage, JOIN_ROOM);
+        cardLayout.show(mainPanel, JOIN_ROOM);
     }
 
     @Override
     public void createRoomScreen() {
-        CreateRoomStage createRoomStage = new CreateRoomStage(getController()::createRoom);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    createRoomStage.start(new Stage());
-                } catch (Exception e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
-                }
-            }
-        });
+        System.out.println("creating room...");
+        createRoomStage = new CreateRoomStage(getController()::createRoom);
+        mainPanel.add(createRoomStage, CREATE_ROOM);
+        cardLayout.show(mainPanel, CREATE_ROOM);
     }
 
     @Override
     public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
-        ChoosePersonalBoardTileStage choosePersonalBoardTileStage = new ChoosePersonalBoardTileStage(getController()::sendPersonalBoardTileChoice, personalBoardTileList);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    choosePersonalBoardTileStage.start( new Stage());
-                } catch (Exception e ){
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
-                }
-            }
-        });
+        System.out.println("choosing tile...");
+        choosePersonalBoardTileStage = new ChoosePersonalBoardTileStage(getController()::sendPersonalBoardTileChoice, personalBoardTileList);
+        mainPanel.add(choosePersonalBoardTileStage, PERSONAL_TILE);
+        cardLayout.show(mainPanel, PERSONAL_TILE);
     }
-
-
 
     @Override
     public void chooseLeaderCards(List<LeaderCard> leaderCards) {
-
+        System.out.println("choosing leader...");
+        chooseLeaderCardStage = new ChooseLeaderCardStage(getController()::notifyLeaderCardChoice, leaderCards);
+        mainPanel.add(chooseLeaderCardStage, LEADER_CARD);
+        cardLayout.show(mainPanel, LEADER_CARD);
     }
 }

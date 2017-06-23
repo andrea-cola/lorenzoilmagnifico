@@ -2,6 +2,8 @@ package it.polimi.ingsw.ui.gui;
 
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -18,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class CreateRoomStage extends Application{
+public class CreateRoomStage extends JFXPanel{
 
     private final static int HBOX_SPACING = 30;
     private final static int VBOX_SPACING = 30;
@@ -30,22 +32,15 @@ public class CreateRoomStage extends Application{
 
     CreateRoomStage(CallbackInterface callback){
         this.callback = callback;
-    }
-
-
-    /**
-     * The main entry point for all JavaFX applications.
-     * @param primaryStage the primary stage for this application
-     */
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Create Room");
         BorderPane root = new BorderPane();
-        Label head = new Label("There are no room avaible, create a new room");
+        Label head = new Label("There are no room available, create a new room");
+        head.setAlignment(Pos.CENTER);
         VBox vBox = new VBox(VBOX_SPACING);
         GridPane grid = new GridPane();
-        Label players = new Label("Number of Players :");
+        Label players = new Label("Number of Players: ");
         TextField numberText = new TextField();
         Label message = new Label("Your data are invalid");
+        message.setAlignment(Pos.CENTER);
         message.setVisible(false);
 
         Button create = new Button("CREATE ROOM");
@@ -54,7 +49,8 @@ public class CreateRoomStage extends Application{
                 nPlayers = Integer.parseInt(numberText.getText());
                 if(nPlayers<5 && nPlayers>1){
                     createNewRoom();
-                    primaryStage.close();
+                    Platform.setImplicitExit(false);
+                    setVisible(false);
                 }else {
                     message.setVisible(true);
                 }
@@ -70,7 +66,7 @@ public class CreateRoomStage extends Application{
         });
 
         Button exit = new Button("EXIT");
-        exit.setOnAction(event -> primaryStage.close());
+        exit.setOnAction(event -> this.hide());
 
         grid.add(players, 0,0);
         grid.add(numberText, 1, 0);
@@ -83,15 +79,13 @@ public class CreateRoomStage extends Application{
         root.setMargin(vBox, new Insets(INSETS));
         root.autosize();
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.setScene(scene);
     }
 
     private void createNewRoom(){
-        System.out.println(nPlayers);
+        System.out.println("N PLAYERS = " + nPlayers);
         this.callback.createRoom(nPlayers);
     }
-
 
     @FunctionalInterface
     interface CallbackInterface{

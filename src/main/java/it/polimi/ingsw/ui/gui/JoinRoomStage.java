@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ui.gui;
 
 import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,7 +14,7 @@ import javafx.stage.Stage;
 /**
  *
  */
-public class JoinRoomStage extends Application{
+public class JoinRoomStage extends JFXPanel{
 
     private CallbackInterface callback;
 
@@ -21,26 +23,17 @@ public class JoinRoomStage extends Application{
 
     JoinRoomStage(CallbackInterface callback){
         this.callback = callback;
-    }
-
-    /**
-     * The main entry point for all JavaFX applications.
-     * @param primaryStage the primary stage for this application, onto which
-     */
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("JoinRoom");
         BorderPane root = new BorderPane();
         HBox hBox = new HBox(HBOX_SPACING);
 
         Button join = new Button("JOIN ROOM");
-        join.setOnAction(event -> {
+        join.setOnAction((ActionEvent event) -> {
             joinRoom();
-            primaryStage.close();
+            setVisible(false);
         });
 
         Button exit = new Button("EXIT");
-        exit.setOnAction((event -> primaryStage.close()));
+        exit.setOnAction((event -> this.hide()));
 
         hBox.getChildren().addAll(join, exit);
         hBox.setAlignment(Pos.CENTER);
@@ -49,8 +42,7 @@ public class JoinRoomStage extends Application{
         root.setMargin(hBox, new Insets(INSETS));
         root.autosize();
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.setScene(scene);
     }
 
     private void joinRoom(){

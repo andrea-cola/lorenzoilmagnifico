@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.exceptions.LoginException;
 import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,7 +22,7 @@ import javafx.stage.Stage;
 /**
  * This is the Graphic User Interface login board
  */
-public class LoginStage extends Application {
+public class LoginStage extends JFXPanel {
 
 
     private CallbackInterface callback;
@@ -29,6 +31,7 @@ public class LoginStage extends Application {
      */
     private String username;
     private String password;
+    private Label message;
 
     /**
      * Constants
@@ -46,16 +49,10 @@ public class LoginStage extends Application {
      */
     LoginStage(CallbackInterface callback) {
         this.callback = callback;
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-
-        primaryStage.setTitle("LoginStage");
 
         Label login = new Label("LOGIN");
         login.setAlignment(Pos.CENTER);
-        Label message = new Label("Your data are not valid");
+        message = new Label("Your data are not valid");
         message.setVisible(false);
         message.setAlignment(Pos.CENTER);
         GridPane grid = new GridPane();
@@ -64,6 +61,7 @@ public class LoginStage extends Application {
         userLabel.setAlignment(Pos.CENTER);
         grid.add(userLabel, 0, 0);
         TextField userField = new TextField();
+
         userField.setAlignment(Pos.CENTER);
         grid.add(userField, 1, 0);
         Label passLabel = new Label("PASSWORD");
@@ -74,7 +72,6 @@ public class LoginStage extends Application {
 
         grid.add(passwordField, 1, 1);
 
-
         Button loginButton = new Button("LOGIN");
         loginButton.setAlignment(Pos.CENTER);
 
@@ -84,7 +81,7 @@ public class LoginStage extends Application {
                 username = userField.getText();
                 password = passwordField.getText();
                 login();
-                primaryStage.close();
+                this.hide();
             }else{
                 message.setVisible(true);
             }
@@ -98,7 +95,7 @@ public class LoginStage extends Application {
                 username = userField.getText();
                 password = passwordField.getText();
                 signIn();
-                primaryStage.close();
+                setVisible(false);
             }else {
                 message.setVisible(true);
             }
@@ -117,36 +114,36 @@ public class LoginStage extends Application {
         HBox hBox = new HBox(HBOX_SPACING);
         hBox.getChildren().addAll(loginButton, signInButton, clear);
         hBox.setAlignment(Pos.CENTER);
-        hBox.autosize();
         VBox vBox = new VBox(VBOX_SPACING);
         vBox.setAlignment(Pos.CENTER);
-        BorderPane pane = new BorderPane();
-        pane.setCenter(grid);
-        pane.setMargin(grid, new Insets(INSETS));
-        pane.autosize();
-        vBox.getChildren().addAll(login, pane, message, hBox);
-        vBox.autosize();
-        Group root = new Group();
-        root.prefHeight(GROUP_HEIGHT);
-        root.prefWidth(GROUP_WIDTH);
-        root.getChildren().addAll(vBox);
+        vBox.getChildren().addAll(login, grid, message, hBox);
+        BorderPane root = new BorderPane();
+        root.setCenter(vBox);
+        root.setMargin(vBox, new Insets(INSETS));
         root.autosize();
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        //primaryStage.setResizable(false);
-        primaryStage.show();
+        this.setScene(scene);
     }
 
 
     private void login() {
-        System.out.println(username + " " + password +"\n");
-        this.callback.loginPlayer(username, password, false);
+        System.out.println(username + " " + password );
+        try {
+            this.callback.loginPlayer(username, password, false);
+        } catch (LoginException e) {
+            message.setText("Your username or password are not correct");
+            message.setVisible(true);
+        }
     }
 
-    private void signIn(){
-        System.out.println(username + " " + password +"\n");
-        this.callback.loginPlayer(username, password, true);
-
+    private void signIn() {
+        System.out.println(username + " " + password );
+        try {
+            this.callback.loginPlayer(username, password, true);
+        } catch (LoginException e) {
+            message.setText("Your username or password are not correct");
+            message.setVisible(true);
+        }
     }
 
     /**
@@ -159,6 +156,6 @@ public class LoginStage extends Application {
          * @param username to use
          * @param password set by the player
          */
-        void loginPlayer(String username, String password, boolean flag);
+        void loginPlayer(String username, String password, boolean flag) throws LoginException;
     }
 }
