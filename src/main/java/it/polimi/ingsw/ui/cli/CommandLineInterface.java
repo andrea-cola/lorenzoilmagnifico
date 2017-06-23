@@ -185,14 +185,21 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         } catch (GameException e){
             Debugger.printDebugMessage("Error while placing your family member in council palace. Please retry.");
         }
-        System.out.println("Scelta chiusa");
+    }
+
+    @Override
+    public void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int marketIndex) {
+        Player player = getClient().getPlayer();
+        try{
+            getClient().getGameModel().placeFamilyMemberInsideMarket(player,familyMemberColor,marketIndex, this);
+        } catch (GameException e){
+            Debugger.printDebugMessage("Error while placing your family member in the market. Please retry.");
+        }
     }
 
     @Override
     public void notifyEndTurn() {
-        for(Privilege privilege : privileges){
-            System.out.println(privilege.toString());
-        }
+        getClient().getPlayer().getPersonalBoard().toString();
         getClient().endTurn();
     }
 

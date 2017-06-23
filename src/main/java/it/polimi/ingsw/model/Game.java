@@ -206,22 +206,25 @@ public class Game implements Serializable{
     /**
      * This method manages the market events
      */
-    public void placeFamilyMemberInsideMarket(Player player, FamilyMemberColor familyMemberColor, int indexMarket, InformationCallback informationCallback){
+    public void placeFamilyMemberInsideMarket(Player player, FamilyMemberColor familyMemberColor, int indexMarket, InformationCallback informationCallback) throws GameException{
         Market market = this.mainBoard.getMarket();
-        MarketCell cell = market.getMarketCell(indexMarket);
-
-        if(cell.getEmpty()){
-            try {
-                //check if familyMember is eligible to be placed inside the market
-                cell.familyMemberCanBePlaced(player, familyMemberColor);
-
-                cell.getMarketCellImmediateEffect().runEffect(player, informationCallback);
-            }catch (GameException e){
-                System.out.print(e.getError());
+        try {
+            MarketCell cell = market.getMarketCell(indexMarket);
+            if(cell.isEmpty()){
+                try {
+                    //check if familyMember is eligible to be placed inside the market
+                    cell.familyMemberCanBePlaced(player, familyMemberColor);
+                    cell.getMarketCellImmediateEffect().runEffect(player, informationCallback);
+                }catch (GameException e){
+                    System.out.print(e.getError());
+                }
+            }else{
+                System.out.print("This market cell is occupied");
             }
-        }else{
-            System.out.print("This market cell is occupied");
+        } catch (IndexOutOfBoundsException e){
+            throw new GameException();
         }
+
     }
 
 }

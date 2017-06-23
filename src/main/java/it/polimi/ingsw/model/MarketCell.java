@@ -52,7 +52,7 @@ public class MarketCell implements Serializable{
      * This method checks if the cell is empty.
      * @return
      */
-    public boolean getEmpty() {
+    public boolean isEmpty() {
         return this.empty;
     }
 

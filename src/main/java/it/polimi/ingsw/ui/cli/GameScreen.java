@@ -9,7 +9,7 @@ public class GameScreen extends BasicGameScreen {
 
     private GameCallback callback;
 
-    public GameScreen(GameCallback callback){
+    GameScreen(GameCallback callback){
         this.callback = callback;
         printScreenTitle("BASE MENU");
         addOption("show-mainboard", "show game main board", parameters -> callback.showMainBoard());
@@ -25,6 +25,8 @@ public class GameScreen extends BasicGameScreen {
         void setFamilyMemberInTower(int towerIndex, int cellIndex, FamilyMemberColor familyMemberColor);
 
         void setFamilyMemberInCouncil(FamilyMemberColor familyMember);
+
+        void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int marketIndex);
 
         void notifyEndTurn();
 
