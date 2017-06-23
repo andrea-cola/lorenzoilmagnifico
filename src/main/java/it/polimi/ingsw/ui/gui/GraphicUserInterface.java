@@ -96,7 +96,7 @@ public class GraphicUserInterface extends AbstractUI{
     public void chooseConnectionType() {
         lock.lock();
         System.out.println("connection...");
-        chooseConnectionStage = new ChooseConnectionStage(getController()::setNetworkSettings);
+        chooseConnectionStage = new ChooseConnectionStage(getClient()::setNetworkSettings);
         mainPanel.add(chooseConnectionStage, CONNECTION);
         cardLayout.show(mainPanel, CONNECTION);
         if (chooseConnectionStage.getFinished() == true) {
@@ -108,7 +108,7 @@ public class GraphicUserInterface extends AbstractUI{
     @Override
     public void loginScreen(){
         System.out.println("logging...");
-        loginStage = new LoginStage(getController()::loginPlayer);
+        loginStage = new LoginStage(getClient()::loginPlayer);
         mainPanel.add(loginStage, LOGIN);
         cardLayout.show(mainPanel, LOGIN);
     }
@@ -116,7 +116,7 @@ public class GraphicUserInterface extends AbstractUI{
     @Override
     public void joinRoomScreen() {
         System.out.println("joining...");
-        joinRoomStage = new JoinRoomStage(getController()::joinRoom);
+        joinRoomStage = new JoinRoomStage(getClient()::joinRoom);
         mainPanel.add(joinRoomStage, JOIN_ROOM);
         cardLayout.show(mainPanel, JOIN_ROOM);
     }
@@ -124,7 +124,7 @@ public class GraphicUserInterface extends AbstractUI{
     @Override
     public void createRoomScreen() {
         System.out.println("creating room...");
-        createRoomStage = new CreateRoomStage(getController()::createRoom);
+        createRoomStage = new CreateRoomStage(getClient()::createRoom);
         mainPanel.add(createRoomStage, CREATE_ROOM);
         cardLayout.show(mainPanel, CREATE_ROOM);
     }
@@ -132,7 +132,7 @@ public class GraphicUserInterface extends AbstractUI{
     @Override
     public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
         System.out.println("choosing tile...");
-        choosePersonalBoardTileStage = new ChoosePersonalBoardTileStage(getController()::sendPersonalBoardTileChoice, personalBoardTileList);
+        choosePersonalBoardTileStage = new ChoosePersonalBoardTileStage(getClient()::sendPersonalBoardTileChoice, personalBoardTileList);
         mainPanel.add(choosePersonalBoardTileStage, PERSONAL_TILE);
         cardLayout.show(mainPanel, PERSONAL_TILE);
     }
@@ -140,8 +140,18 @@ public class GraphicUserInterface extends AbstractUI{
     @Override
     public void chooseLeaderCards(List<LeaderCard> leaderCards) {
         System.out.println("choosing leader...");
-        chooseLeaderCardStage = new ChooseLeaderCardStage(getController()::notifyLeaderCardChoice, leaderCards);
+        chooseLeaderCardStage = new ChooseLeaderCardStage(getClient()::notifyLeaderCardChoice, leaderCards);
         mainPanel.add(chooseLeaderCardStage, LEADER_CARD);
         cardLayout.show(mainPanel, LEADER_CARD);
+    }
+
+    @Override
+    public void notifyGameStarted() {
+        
+    }
+
+    @Override
+    public void turnScreen(String username, long seconds) {
+
     }
 }

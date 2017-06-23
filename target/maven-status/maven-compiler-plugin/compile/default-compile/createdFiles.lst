@@ -1,2 +1,13 @@
-it/polimi/ingsw/ui/gui/CreateRoomBoardScreen$2.class
-it/polimi/ingsw/ui/gui/GraphicUserInterface$3.class
+it/polimi/ingsw/ui/cli/CommandLineInterface$ConsoleListener.class
+it/polimi/ingsw/ui/cli/GameScreen.class
+it/polimi/ingsw/ui/cli/BasicGameScreen.class
+it/polimi/ingsw/ui/cli/Function.class
+it/polimi/ingsw/ui/cli/TurnScreen.class
+it/polimi/ingsw/model/InformationChoicesHandler.class
+it/polimi/ingsw/ui/cli/GameScreen$GameCallback.class
+it/polimi/ingsw/gameServer/PlayerTurn$1.class
+it/polimi/ingsw/model/InformationCallback.class
+it/polimi/ingsw/gameServer/PlayerTurn$TimeCountDown.class
+it/polimi/ingsw/ui/cli/CommandLineInterface$1.class
+it/polimi/ingsw/ui/cli/ChooseCouncilPrivilegeScreen.class
+it/polimi/ingsw/gameServer/PlayerTurn.class
