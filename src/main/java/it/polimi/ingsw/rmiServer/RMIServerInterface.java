@@ -67,5 +67,9 @@ public interface RMIServerInterface extends Remote{
 
     void setFamilyMemberInProductionExtended(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException;
 
+    void activateLeaderCard(String playerID, int leaderCardIndex, Map<String, Object> playerChoices) throws RemoteException;
+
+    void discardLeader(String playerID, int leaderCardIndex, Map<String, Object> playerChoices) throws RemoteException;
+
     void endTurn(String playerID) throws RemoteException;
 }

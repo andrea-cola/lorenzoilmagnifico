@@ -157,7 +157,7 @@ public class Game implements Serializable{
                     card.getPermanentEffect().runEffect(player, informationCallback);
 
                 //get the tower cell immediate effect
-                if(cell.getTowerCellImmediateEffect() != null)
+                if(cell.getTowerCellImmediateEffect() != null && canRunTowerImmediateEffects(player, indexCell))
                     cell.getTowerCellImmediateEffect().runEffect(player, informationCallback);
 
                 //set the family member as used
@@ -390,7 +390,9 @@ public class Game implements Serializable{
     }
 
     public void discardLeaderCard(Player player, int leaderCardAtIndex, InformationCallback informationCallback){
-
+        player.getPersonalBoard().getLeaderCards().remove(leaderCardAtIndex);
+        CouncilPrivilege councilPrivilege = new CouncilPrivilege(1);
+        councilPrivilege.chooseCouncilPrivilege(player, informationCallback);
     }
 
     private void updateFamilyMemberValue(Player player, FamilyMemberColor familyMemberColor, int servantsValue){
@@ -403,4 +405,16 @@ public class Game implements Serializable{
         player.getPersonalBoard().getValuables().increase(ResourceType.SERVANT, servantsValue);
     }
 
+    private boolean canRunTowerImmediateEffects(Player player, int floor){
+        List<DevelopmentCard> developmentCards = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE);
+        for(DevelopmentCard developmentCard : developmentCards)
+            if (developmentCard.getPermanentEffect() instanceof EffectNoBonus){
+                EffectNoBonus effectNoBonus = (EffectNoBonus) developmentCard.getPermanentEffect();
+                for (Integer towerFloor : effectNoBonus.getFloors())
+                    if (towerFloor == floor)
+                        return true;
+
+            }
+        return false;
+    }
 }

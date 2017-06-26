@@ -85,6 +85,8 @@ public class ServerCommunicationProtocol {
         requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_HARVEST_EXTENDED, this::setFamilyMemberInHarvestExtended);
         requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_SIMPLE, this::setFamilyMemberInProductionSimple);
         requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_EXTENDED, this::setFamilyMemberInProductionExtended);
+        requestsTable.put(CommunicationProtocolConstants.ACTIVATAE_LEADER_CARD, this::activateLeader);
+        requestsTable.put(CommunicationProtocolConstants.ACTIVATAE_LEADER_CARD, this::discardLeader);
         requestsTable.put(CommunicationProtocolConstants.END_TURN, this::endTurn);
     }
 
@@ -364,6 +366,28 @@ public class ServerCommunicationProtocol {
             serverCommunicationProtocolInterface.setFamilyMemberInProductionExtended(familyMemberColor, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting production extended as client.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void activateLeader(){
+        try{
+            int leaderCardIndex = (int)input.readObject();
+            Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            serverCommunicationProtocolInterface.activateLeaderCard(leaderCardIndex, choices);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while activating the leader.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void discardLeader(){
+        try{
+            int leaderCardIndex = (int)input.readObject();
+            Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            serverCommunicationProtocolInterface.discardLeader(leaderCardIndex, choices);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while discarding the leader.");
         }
     }
 

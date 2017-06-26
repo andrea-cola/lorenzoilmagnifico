@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +63,10 @@ public interface ServerCommunicationProtocolInterface {
     void setFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices);
 
     void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices);
+
+    void activateLeaderCard(int leaderCardIndex, Map<String, Object> playerChoices);
+
+    void discardLeader(int leaderCardIndex, Map<String, Object> playerChoices);
 
     void endTurn();
 }

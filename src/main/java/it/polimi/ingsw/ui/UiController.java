@@ -48,6 +48,10 @@ public interface UiController {
 
     void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants);
 
+    void notifyActivateLeader(int leaderCardIndex);
+
+    void notifyDiscardLeader(int leaderCardIndex);
+
     Map<String, Object> getPlayerTurnChoices();
 
     void endTurn();
