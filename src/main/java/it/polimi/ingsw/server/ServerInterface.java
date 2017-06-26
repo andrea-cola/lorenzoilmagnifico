@@ -2,9 +2,12 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.socketServer.SocketPlayer;
+
+import java.util.Map;
 
 public interface ServerInterface {
 
@@ -57,5 +60,26 @@ public interface ServerInterface {
     void setPlayerLeaderCard(ServerPlayer serverPlayer, LeaderCard leaderCard);
 
     void disableUser(ServerPlayer player);
+
+    void setFamilyMemberInTower(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants,
+                                int towerIndex, int cellIndex, Map<String, Object> playerChoices);
+
+    void setFamilyMemberInCouncil(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants,
+                                  Map<String, Object> playerChoices);
+
+    void setFamilyMemberInMarket(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants,
+                                 int marketIndex, Map<String, Object> playerChoices);
+
+    void setFamilyMemberInHarvestSimple(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants,
+                                        Map<String, Object> playerChoices);
+
+    void setFamilyMemberInHarvestExtended(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants,
+                                          Map<String, Object> playerChoices);
+
+    void setFamilyMemberInProductionSimple(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants,
+                                           Map<String, Object> playerChoices);
+
+    void setFamilyMemberInProductionExtended(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants,
+                                             Map<String, Object> playerChoices);
 
 }

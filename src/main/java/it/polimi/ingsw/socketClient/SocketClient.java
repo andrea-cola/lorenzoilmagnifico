@@ -2,6 +2,7 @@ package it.polimi.ingsw.socketClient;
 
 
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Debugger;
@@ -13,6 +14,7 @@ import it.polimi.ingsw.socketCommunicationProtocol.ClientCommunicationProtocol;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Map;
 
 /**
  * This class implements socket client communication. Extends {@link AbstractClient}.
@@ -117,6 +119,41 @@ public class SocketClient extends AbstractClient{
     @Override
     public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException {
         clientCommunicationProtocol.notifyLeaderCardChoice(leaderCard);
+    }
+
+    @Override
+    public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) throws NetworkException {
+        clientCommunicationProtocol.notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
+    }
+
+    @Override
+    public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        clientCommunicationProtocol.notifySetFamilyMemberInCouncil(familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) throws NetworkException {
+        clientCommunicationProtocol.notifySetFamilyMemberInMarket(familyMemberColor, servants, marketIndex, playerChoices);
+    }
+
+    @Override
+    public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        clientCommunicationProtocol.notifySetFamilyMemberInHarvestSimple(familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        clientCommunicationProtocol.notifySetFamilyMemberInProductionSimple(familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        clientCommunicationProtocol.notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        clientCommunicationProtocol.notifySetFamilyMemberInProductionExtended(familyMemberColor, servants, playerChoices);
     }
 
     @Override

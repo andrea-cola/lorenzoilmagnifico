@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="it.polimi.ingsw.AppTest" time="0.002" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="it.polimi.ingsw.AppTest" time="0.003" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2017.1.3"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="10.12.4"/>
+    <property name="os.version" value="10.12.5"/>
     <property name="user.home" value="/Users/andrea"/>
     <property name="user.timezone" value="Europe/Rome"/>
     <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
@@ -60,5 +60,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="it.polimi.ingsw.AppTest" name="testApp" time="0.002"/>
+  <testcase classname="it.polimi.ingsw.AppTest" name="testApp" time="0.003"/>
 </testsuite>

@@ -28,7 +28,91 @@
                   "MILITARY": 0
                 }
               },
-              "numberOfCouncilPrivileges": 0,
+              "councilPrivilege": {
+                "numberOfCouncilPrivileges": 0,
+                "privileges": [
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 1,
+                        "WOOD": 1,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 2,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 2
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 2
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 1,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  }
+                ]
+              },
               "effectType": "EffectSimple"
             }
           },
@@ -48,7 +132,91 @@
                   "MILITARY": 0
                 }
               },
-              "numberOfCouncilPrivileges": 0,
+              "councilPrivilege": {
+                "numberOfCouncilPrivileges": 0,
+                "privileges": [
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 1,
+                        "WOOD": 1,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 2,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 2
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 2
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 1,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  }
+                ]
+              },
               "effectType": "EffectSimple"
             }
           }
@@ -79,7 +247,91 @@
                   "MILITARY": 0
                 }
               },
-              "numberOfCouncilPrivileges": 0,
+              "councilPrivilege": {
+                "numberOfCouncilPrivileges": 0,
+                "privileges": [
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 1,
+                        "WOOD": 1,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 2,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 2
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 2
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 1,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  }
+                ]
+              },
               "effectType": "EffectSimple"
             }
           },
@@ -99,7 +351,91 @@
                   "MILITARY": 0
                 }
               },
-              "numberOfCouncilPrivileges": 0,
+              "councilPrivilege": {
+                "numberOfCouncilPrivileges": 0,
+                "privileges": [
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 1,
+                        "WOOD": 1,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 2,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 2
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 2
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 1,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  }
+                ]
+              },
               "effectType": "EffectSimple"
             }
           }
@@ -130,7 +466,91 @@
                   "MILITARY": 1
                 }
               },
-              "numberOfCouncilPrivileges": 0,
+              "councilPrivilege": {
+                "numberOfCouncilPrivileges": 0,
+                "privileges": [
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 1,
+                        "WOOD": 1,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 2,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 2
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 2
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 1,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  }
+                ]
+              },
               "effectType": "EffectSimple"
             }
           },
@@ -150,7 +570,91 @@
                   "MILITARY": 2
                 }
               },
-              "numberOfCouncilPrivileges": 0,
+              "councilPrivilege": {
+                "numberOfCouncilPrivileges": 0,
+                "privileges": [
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 1,
+                        "WOOD": 1,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 2,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 2
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 2
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 1,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  }
+                ]
+              },
               "effectType": "EffectSimple"
             }
           }
@@ -181,7 +685,91 @@
                   "MILITARY": 0
                 }
               },
-              "numberOfCouncilPrivileges": 0,
+              "councilPrivilege": {
+                "numberOfCouncilPrivileges": 0,
+                "privileges": [
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 1,
+                        "WOOD": 1,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 2,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 2
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 2
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 1,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  }
+                ]
+              },
               "effectType": "EffectSimple"
             }
           },
@@ -201,7 +789,91 @@
                   "MILITARY": 0
                 }
               },
-              "numberOfCouncilPrivileges": 0,
+              "councilPrivilege": {
+                "numberOfCouncilPrivileges": 0,
+                "privileges": [
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 1,
+                        "WOOD": 1,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 2,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 2
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 0,
+                        "VICTORY": 0,
+                        "MILITARY": 2
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  },
+                  {
+                    "valuables": {
+                      "resources": {
+                        "SERVANT": 0,
+                        "STONE": 0,
+                        "WOOD": 0,
+                        "COIN": 0
+                      },
+                      "points": {
+                        "FAITH": 1,
+                        "VICTORY": 0,
+                        "MILITARY": 0
+                      }
+                    },
+                    "isAvailablePrivilege": true
+                  }
+                ]
+              },
               "effectType": "EffectSimple"
             }
           }
@@ -230,7 +902,7 @@
     },
     "councilPalace": {
       "minFamilyMemberDiceValue": 1,
-      "effectSimple": {
+      "immediateEffect": {
         "valuable": {
           "resources": {
             "SERVANT": 0,
@@ -244,7 +916,91 @@
             "MILITARY": 0
           }
         },
-        "numberOfCouncilPrivileges": 2,
+        "councilPrivilege": {
+          "numberOfCouncilPrivileges": 1,
+          "privileges": [
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 1,
+                  "WOOD": 1,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 2,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 2
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 2
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 1,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            }
+          ]
+        },
         "effectType": "EffectSimple"
       }
     },
@@ -265,7 +1021,91 @@
                 "MILITARY": 0
               }
             },
-            "numberOfCouncilPrivileges": 0,
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0,
+              "privileges": [
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 1,
+                      "WOOD": 1,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 2,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 2
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 2
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 1,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                }
+              ]
+            },
             "effectType": "EffectSimple"
           },
           "minFamilyMemberValue": 1
@@ -285,7 +1125,91 @@
                 "MILITARY": 0
               }
             },
-            "numberOfCouncilPrivileges": 0,
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0,
+              "privileges": [
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 1,
+                      "WOOD": 1,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 2,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 2
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 2
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 1,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                }
+              ]
+            },
             "effectType": "EffectSimple"
           },
           "minFamilyMemberValue": 1
@@ -305,7 +1229,91 @@
                 "MILITARY": 3
               }
             },
-            "numberOfCouncilPrivileges": 0,
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 0,
+              "privileges": [
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 1,
+                      "WOOD": 1,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 2,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 2
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 2
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 1,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                }
+              ]
+            },
             "effectType": "EffectSimple"
           },
           "minFamilyMemberValue": 1
@@ -325,7 +1333,91 @@
                 "MILITARY": 0
               }
             },
-            "numberOfCouncilPrivileges": 2,
+            "councilPrivilege": {
+              "numberOfCouncilPrivileges": 2,
+              "privileges": [
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 1,
+                      "WOOD": 1,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 2,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 2
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 0,
+                      "VICTORY": 0,
+                      "MILITARY": 2
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                },
+                {
+                  "valuables": {
+                    "resources": {
+                      "SERVANT": 0,
+                      "STONE": 0,
+                      "WOOD": 0,
+                      "COIN": 0
+                    },
+                    "points": {
+                      "FAITH": 1,
+                      "VICTORY": 0,
+                      "MILITARY": 0
+                    }
+                  },
+                  "isAvailablePrivilege": true
+                }
+              ]
+            },
             "effectType": "EffectSimple"
           },
           "minFamilyMemberValue": 1
@@ -350,7 +1442,91 @@
             "MILITARY": 0
           }
         },
-        "numberOfCouncilPrivileges": 0,
+        "councilPrivilege": {
+          "numberOfCouncilPrivileges": 0,
+          "privileges": [
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 1,
+                  "WOOD": 1,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 2,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 2
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 2
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 1,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            }
+          ]
+        },
         "effectType": "EffectHarvestProductionSimple"
       }
     },
@@ -372,7 +1548,91 @@
             "MILITARY": 0
           }
         },
-        "numberOfCouncilPrivileges": 0,
+        "councilPrivilege": {
+          "numberOfCouncilPrivileges": 0,
+          "privileges": [
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 1,
+                  "WOOD": 1,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 2,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 2
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 2
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 1,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            }
+          ]
+        },
         "effectType": "EffectHarvestProductionSimple"
       }
     },
@@ -394,7 +1654,91 @@
             "MILITARY": 0
           }
         },
-        "numberOfCouncilPrivileges": 0,
+        "councilPrivilege": {
+          "numberOfCouncilPrivileges": 0,
+          "privileges": [
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 1,
+                  "WOOD": 1,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 2,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 2
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 2
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 1,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            }
+          ]
+        },
         "effectType": "EffectHarvestProductionSimple"
       },
       "diceValueMalus": 3
@@ -417,7 +1761,91 @@
             "MILITARY": 0
           }
         },
-        "numberOfCouncilPrivileges": 0,
+        "councilPrivilege": {
+          "numberOfCouncilPrivileges": 0,
+          "privileges": [
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 1,
+                  "WOOD": 1,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 2,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 2
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 0,
+                  "VICTORY": 0,
+                  "MILITARY": 2
+                }
+              },
+              "isAvailablePrivilege": true
+            },
+            {
+              "valuables": {
+                "resources": {
+                  "SERVANT": 0,
+                  "STONE": 0,
+                  "WOOD": 0,
+                  "COIN": 0
+                },
+                "points": {
+                  "FAITH": 1,
+                  "VICTORY": 0,
+                  "MILITARY": 0
+                }
+              },
+              "isAvailablePrivilege": true
+            }
+          ]
+        },
         "effectType": "EffectHarvestProductionSimple"
       },
       "diceValueMalus": 3
@@ -468,14 +1896,13 @@
       null,
       null,
       null
-    ]
+    ],
+    "greenCardsMilitaryPointsRequirements": [0, 0, 1, 4, 10, 20]
   },
   "personalBoardTiles": [
     {
       "personalBoardID": 1,
       "productionEffect": {
-        "diceActionValue": 1,
-        "actionType": "PRODUCTION",
         "valuable": {
           "resources": {
             "SERVANT": 1,
@@ -490,11 +1917,9 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       },
       "harvestEffect": {
-        "diceActionValue": 1,
-        "actionType": "HARVEST",
         "valuable": {
           "resources": {
             "SERVANT": 0,
@@ -509,14 +1934,12 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       }
     },
     {
       "personalBoardID": 2,
       "productionEffect": {
-        "diceActionValue": 1,
-        "actionType": "PRODUCTION",
         "valuable": {
           "resources": {
             "SERVANT": 1,
@@ -531,11 +1954,9 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       },
       "harvestEffect": {
-        "diceActionValue": 1,
-        "actionType": "HARVEST",
         "valuable": {
           "resources": {
             "SERVANT": 0,
@@ -550,14 +1971,12 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       }
     },
     {
       "personalBoardID": 3,
       "productionEffect": {
-        "diceActionValue": 1,
-        "actionType": "PRODUCTION",
         "valuable": {
           "resources": {
             "SERVANT": 2,
@@ -572,11 +1991,9 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       },
       "harvestEffect": {
-        "diceActionValue": 1,
-        "actionType": "HARVEST",
         "valuable": {
           "resources": {
             "SERVANT": 0,
@@ -591,14 +2008,12 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       }
     },
     {
       "personalBoardID": 4,
       "productionEffect": {
-        "diceActionValue": 1,
-        "actionType": "PRODUCTION",
         "valuable": {
           "resources": {
             "SERVANT": 0,
@@ -613,11 +2028,9 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       },
       "harvestEffect": {
-        "diceActionValue": 1,
-        "actionType": "HARVEST",
         "valuable": {
           "resources": {
             "SERVANT": 1,
@@ -632,7 +2045,7 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       }
     }
   ]

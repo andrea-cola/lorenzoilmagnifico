@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gameServer.Configurator;
+import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Main server class that extends {@link ServerInterface}.
@@ -182,6 +184,41 @@ public class Server implements ServerInterface{
             this.activePlayer.put(player.getUsername(), false);
     }
 
+    @Override
+    public void setFamilyMemberInTower(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().setFamilyMemberInTower(serverPlayer, familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInCouncil(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().setFamilyMemberInCouncil(serverPlayer, familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInMarket(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().setFamilyMemberInMarket(serverPlayer, familyMemberColor, servants, marketIndex, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInHarvestSimple(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().setFamilyMemberInHarvestSimple(serverPlayer, familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInHarvestExtended(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().setFamilyMemberInHarvestExtended(serverPlayer, familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInProductionSimple(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().setFamilyMemberInProductionSimple(serverPlayer, familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInProductionExtended(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().setFamilyMemberInProductionExtended(serverPlayer, familyMemberColor, servants, playerChoices);
+    }
+
     /**
      * Method to get remote player reference from the user cache.
      * @param username of the remote player.
@@ -267,5 +304,5 @@ public class Server implements ServerInterface{
         serverPlayer.getPersonalBoard().setLeaderCard(leaderCard);
         serverPlayer.getRoom().onLeaderCardChosen();
     }
-
 }
+

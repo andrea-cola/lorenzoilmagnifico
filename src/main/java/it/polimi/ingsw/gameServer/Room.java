@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gameServer;
 
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.utility.Configuration;
@@ -70,16 +71,16 @@ public class Room {
     /**
      * List of all players that have joined the room.
      */
-    private ArrayList<ServerPlayer> players = new ArrayList();
+    private ArrayList<ServerPlayer> players;
 
     /**
      * Countdown latch used as semaphore.
      */
     private CountDownLatch countDownLatch;
 
-    private Game game;
-
     private PlayerTurn playerTurn;
+
+    private ClientUpdatePacket clientUpdatePacket;
 
     /**
      * Class constructor.
@@ -144,6 +145,93 @@ public class Room {
         //__________________________________
     }
 
+    public void setFamilyMemberInTower(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
+                                       int towerIndex, int cellIndex, Map<String, Object> playerChoices){
+        gameManager.setInformationChoicesHandler(playerChoices);
+        try {
+            Game game = gameManager.getGameModel();
+            game.pickupDevelopmentCardFromTower(player, familyMemberColor, servants, towerIndex, cellIndex, gameManager.getInformationChoicesHandler());
+            String message = player.getUsername() + " set a family member in " + game.getMainBoard().getTower(towerIndex).getColor().toString().toLowerCase()
+                    + " tower and picked up " + game.getMainBoard().getTower(towerIndex).getTowerCell(cellIndex).getDevelopmentCard().getName() + ".";
+            clientUpdatePacket = new ClientUpdatePacket(game, message);
+        } catch (GameException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set tower in the same way of the client.");
+        }
+    }
+
+    public void setFamilyMemberInCouncil(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
+                                         Map<String, Object> playerChoices){
+        gameManager.setInformationChoicesHandler(playerChoices);
+        try {
+            Game game = gameManager.getGameModel();
+            game.placeFamilyMemberInsideCouncilPalace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
+            String message = player.getUsername() + " set a family member in council palace and get one of its privileges.";
+            clientUpdatePacket = new ClientUpdatePacket(game, message);
+        } catch (GameException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set council palace in the same way of the client.");
+        }
+    }
+
+    public void setFamilyMemberInMarket(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
+                                        int marketCell, Map<String, Object> playerChoices){
+        gameManager.setInformationChoicesHandler(playerChoices);
+        try{
+            gameManager.getGameModel().placeFamilyMemberInsideMarket(player, familyMemberColor, servants, marketCell, gameManager.getInformationChoicesHandler());
+            String message = player.getUsername() + " set a family member in market cell #" + marketCell + " and get its benefits";
+            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+        } catch (GameException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set market in the same way of the client.");
+        }
+    }
+
+    public void setFamilyMemberInHarvestSimple(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
+                                               Map<String, Object> playerChoices){
+        gameManager.setInformationChoicesHandler(playerChoices);
+        try{
+            gameManager.getGameModel().placeFamilyMemberInsideHarvestSimpleSpace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
+            String message = player.getUsername() + " set a family member in harvest area simple.";
+            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+        } catch (GameException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set harvest simple area in the same way of the client.");
+        }
+    }
+
+    public void setFamilyMemberInProductionSimple(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
+                                                  Map<String, Object> playerChoices){
+        gameManager.setInformationChoicesHandler(playerChoices);
+        try{
+            gameManager.getGameModel().placeFamilyMemberInsideProductionSimpleSpace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
+            String message = player.getUsername() + " set a family member in production area simple.";
+            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+        } catch (GameException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set production simple area in the same way of the client.");
+        }
+    }
+
+    public void setFamilyMemberInHarvestExtended(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
+                                                 Map<String, Object> playerChoices){
+        gameManager.setInformationChoicesHandler(playerChoices);
+        try{
+            gameManager.getGameModel().placeFamilyMemberInsideHarvestExtendedSpace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
+            String message = player.getUsername() + " set a family member in harvest area extended.";
+            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+        } catch (GameException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set harvest extended area in the same way of the client.");
+        }
+    }
+
+    public void setFamilyMemberInProductionExtended(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
+                                                    Map<String, Object> playerChoices){
+        gameManager.setInformationChoicesHandler(playerChoices);
+        try{
+            gameManager.getGameModel().placeFamilyMemberInsideProductionExtendedSpace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
+            String message = player.getUsername() + " set a family member in production area extended.";
+            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+        } catch (GameException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set production extended area in the same way of the client.");
+        }
+    }
+
     /**
      * Join a player in the room. Using MUTEX concurrent access is managed.
      * @param serverPlayer who would access the room.
@@ -189,21 +277,35 @@ public class Room {
             playerTurn.stopTimer();
     }
 
+    private void updateAllClients(Player player){
+        if(player != null && clientUpdatePacket != null){
+            for(ServerPlayer serverPlayer : players){
+                if(!serverPlayer.getUsername().equals(player.getUsername())){
+                    try {
+                        serverPlayer.sendGameModelUpdate(clientUpdatePacket);
+                    } catch (NetworkException e){
+                        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " won't receive updates this turn.");
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * This class is used to manage the room during the game.
      */
     private class GameHandler extends TimerTask {
 
-
-
+        Player previousPlayer;
         /**
          * This method is executed when the time is expired. At first, it closes the room.
          * Then start the game.
          */
         @Override
         public void run(){
+            previousPlayer = null;
             setupBeforeStartGame();
-            sendGameSession();
+            sendGameModel();
             Debugger.printDebugMessage("Game starts in room #" + getRoomID());
             startGameSession();
         }
@@ -211,14 +313,53 @@ public class Room {
         private void startGameSession(){
             for(int age = 1; age <= AGES; age++){
                 for(int turn = 1; turn <= TURNS_PER_AGE; turn++){
-                    for(ServerPlayer player : players){
-                        System.out.println(player.getUsername());
-                        playerTurn = new PlayerTurn(player);
-                        notifyTurnStarted(player);
-                        playerTurn.startTimer(maxMoveWaitingTime);
+                    turnSetup(age, turn);
+                    checkExcommunication(age, turn);
+                    for(int move = 1; move <= FamilyMemberColor.values().length; move++) {
+                        System.out.println("Ages: " + age + " Turn: " + turn + " move: " + move);
+                        for (ServerPlayer player : players) {
+                            updateAllClients(previousPlayer);
+                            Debugger.printStandardMessage("Turn of: " + player.getUsername());
+                            playerTurn = new PlayerTurn(player);
+                            notifyTurnStarted(player);
+                            playerTurn.startTimer(maxMoveWaitingTime);
+                            previousPlayer = player;
+                        }
                     }
                 }
             }
+        }
+
+        private void turnSetup(int age, int turn){
+            if(!(turn == 1) && !(age == 1)) {
+                getNewOrder();
+                gameManager.personalBoardsTurnReset();
+                gameManager.mainboardTurnReset();
+                gameManager.setupMainBoard(age, turn);
+            }
+        }
+
+        private void checkExcommunication(int age, int turn){
+            if(turn % 2 == 0)
+                System.out.println("Dobbiamo controllare la scomunica.");
+        }
+
+        /**
+         * Get fifo list from council palace and set new order.
+         */
+        private void getNewOrder(){
+            List<Player> p = new ArrayList<>(gameManager.getGameModel().getMainBoard().getCouncilPalace().getNewOrder());
+            ArrayList<ServerPlayer> newOrder = new ArrayList<>();
+            for(Player player : p){
+                for(ServerPlayer serverPlayer : players){
+                    if(serverPlayer.getUsername().equals(player.getUsername()))
+                        newOrder.add(serverPlayer);
+                }
+            }
+            for(ServerPlayer serverPlayer : players)
+                if(!newOrder.contains(serverPlayer))
+                    newOrder.add(serverPlayer);
+            players = newOrder;
         }
 
         private void notifyTurnStarted(ServerPlayer player){
@@ -245,7 +386,7 @@ public class Room {
             personalTilesChoice(roomConfiguration.getPersonalBoardTiles());
             leaderCardsChoice(Configurator.getLeaderCards());
 
-            game = gameManager.getGameInstance();
+            gameManager.createGameInstance();
         }
 
         private void personalTilesChoice(ArrayList<PersonalBoardTile> personalBoardTileList){
@@ -277,12 +418,10 @@ public class Room {
 
             for(int i = 0; i < LEADER_CARD_PER_PLAYER; i++) {
                 try {
-                    sendArrays(cards, playersOrder);
+                    sendLeaderCards(cards, playersOrder);
                     countDownLatch.await();
                     removeChosenLeaderCards(cards);
-                } catch (NetworkException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (NetworkException | InterruptedException e) {
                     e.printStackTrace();
                 }
                 playersOrder.add(playersOrder.remove(0));
@@ -300,7 +439,7 @@ public class Room {
             }
         }
 
-        private void sendArrays(List<LeaderCard> leaderCards, List<ServerPlayer> serverPlayers) throws NetworkException{
+        private void sendLeaderCards(List<LeaderCard> leaderCards, List<ServerPlayer> serverPlayers) throws NetworkException{
             int cardNumberPerPlayer = leaderCards.size() / serverPlayers.size();
             int index = 0;
 
@@ -310,10 +449,10 @@ public class Room {
             }
         }
 
-        private void sendGameSession(){
+        private void sendGameModel(){
             for(ServerPlayer player : players) {
                 try {
-                    player.sendGameInfo(game);
+                    player.sendGameInfo(gameManager.getGameModel());
                 } catch (NetworkException e) {
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
                 }

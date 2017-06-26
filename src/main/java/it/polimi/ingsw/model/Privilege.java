@@ -6,9 +6,9 @@ public class Privilege implements Serializable{
 
     private PointsAndResources valuables;
 
-    private Boolean isAvailablePrivilege;
+    private boolean isAvailablePrivilege;
 
-    public Privilege(PointsAndResources valuables, Boolean isAvailablePrivilege){
+    public Privilege(PointsAndResources valuables, boolean isAvailablePrivilege){
         this.isAvailablePrivilege = isAvailablePrivilege;
         this.valuables = valuables;
     }
@@ -17,11 +17,11 @@ public class Privilege implements Serializable{
         return this.valuables;
     }
 
-    public void setIsAvailablePrivilege(Boolean updatedValue){
-        this.isAvailablePrivilege = updatedValue;
+    public void setNotAvailablePrivilege(){
+        this.isAvailablePrivilege = false;
     }
 
-    public Boolean getIsAvailablePrivilege(){
+    public boolean isAvailable(){
         return this.isAvailablePrivilege;
     }
 
@@ -33,3 +33,4 @@ public class Privilege implements Serializable{
     }
 
 }
+

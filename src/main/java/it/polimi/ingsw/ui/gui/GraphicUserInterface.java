@@ -90,4 +90,9 @@ public class GraphicUserInterface extends AbstractUI{
 
     }
 
+    @Override
+    public void notifyUpdate(String message) {
+
+    }
+
 }

@@ -10,14 +10,8 @@ import java.util.Map;
  */
 public class CouncilPrivilege implements Serializable{
 
-    /**
-     * Number of council privileges the player has to choose.
-     */
     private int numberOfCouncilPrivileges;
 
-    /**
-     * Array of privileges.
-     */
     private Privilege[] privileges = new Privilege[5];
 
     public CouncilPrivilege(int numberOfCouncilPrivileges){
@@ -45,34 +39,16 @@ public class CouncilPrivilege implements Serializable{
         this.privileges[4] = new Privilege(valuables5, true);
     }
 
-    /**
-     * Get number of privileges.
-     * @return number of privileges.
-     */
     public int getNumberOfCouncilPrivileges(){
         return this.numberOfCouncilPrivileges;
     }
 
-    /**
-     * Get privileges array
-     * @return
-     */
     public Privilege[] getPrivileges(){
         return this.privileges;
     }
 
-    /**
-     * Get a specific privilege based on its valuables. If the returned value is false, the user has to choose another privilege
-     * @param privilegeIndex
-     * @return
-     */
-    public Boolean privilegeAvailable(int privilegeIndex){
-        if (this.privileges[privilegeIndex].getIsAvailablePrivilege()){
-            //change council privilege flag inside the hashmap
-            this.privileges[privilegeIndex].setIsAvailablePrivilege(false);
-            return true;
-        }
-        return false;
+    public void setNotAvailable(int index){
+        privileges[index].setNotAvailablePrivilege();
     }
 
     @Override
@@ -80,4 +56,18 @@ public class CouncilPrivilege implements Serializable{
         return "Council privilege number: " + numberOfCouncilPrivileges + "\n";
     }
 
+
+    public void chooseCouncilPrivilege(Player player, InformationCallback informationCallback){
+        ArrayList<Privilege> choices = informationCallback.chooseCouncilPrivilege("council-privilege", this);
+        for(Privilege privilege : choices){
+            //updates player's resources
+            for (Map.Entry<ResourceType, Integer> entry: privilege.getValuables().getResources().entrySet()) {
+                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            }
+            //updates player's points
+            for (Map.Entry<PointType, Integer> entry: privilege.getValuables().getPoints().entrySet()) {
+                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            }
+        }
+    }
 }

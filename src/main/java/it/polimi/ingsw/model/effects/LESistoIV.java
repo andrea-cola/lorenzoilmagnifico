@@ -1,7 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointsAndResources;
+import it.polimi.ingsw.model.*;
+
+import java.util.Map;
 
 public class LESistoIV extends LeaderEffect{
 
@@ -20,13 +21,20 @@ public class LESistoIV extends LeaderEffect{
     }
 
     /**
-     * Method to run the effect of the card.
-     *
+     * This method gives you a bonus when you sustain the vatican at the end of each era
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
+    public void runEffect(Player player, InformationCallback informationCallback) {
+        //updates player's resources
+        for (Map.Entry<ResourceType, Integer> entry: this.valuableEarned.getResources().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
 
+        //updates player's points
+        for (Map.Entry<PointType, Integer> entry: this.valuableEarned.getPoints().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.InformationCallback;
+import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 
 public class LECesareBorgia extends LeaderEffect{
@@ -10,12 +12,17 @@ public class LECesareBorgia extends LeaderEffect{
 
     /**
      * Method to run the effect of the card.
-     *
+     * With this effect you don’t need to satisfy the Military Points requirement when you take Territory Cards.
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
-
+    public void runEffect(Player player, InformationCallback informationCallback) {
+        int maxCard = player.getPersonalBoard().getMaxNumberOfCardPerType();
+        int[] newMilitaryPointsRequirements = player.getPersonalBoard().getGreenCardsMilitaryPointsRequirements();
+        for (int i = 0; i < maxCard; i++){
+            newMilitaryPointsRequirements[i] = 0;
+        }
+        player.getPersonalBoard().setGreenCardsMilitaryPointsRequirements(newMilitaryPointsRequirements);
     }
 
     /**

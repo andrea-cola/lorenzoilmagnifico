@@ -39,9 +39,14 @@ public class Configurator {
     private static ArrayList<DevelopmentCard> developmentCards;
 
     /**
-     * Development cards deck.
+     * Leader cards deck.
      */
     private static ArrayList<LeaderCard> leaderCards;
+
+    /**
+     * Excommunication cards deck
+     */
+    private static ArrayList<ExcommunicationCard> excommunicationCards;
 
     /**
      * Gson object reference.
@@ -114,7 +119,6 @@ public class Configurator {
                 .registerSubtype(LEPicoDellaMirandola.class, "LEPicoDellaMirandola")
                 .registerSubtype(LESimple.class, "LESimple")
                 .registerSubtype(LESistoIV.class, "LESistoIV");
-
     }
 
     /**
@@ -163,7 +167,7 @@ public class Configurator {
     }
 
     /*package-local*/ static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
-        return new GameManager(roomPlayers, configuration, developmentCards, leaderCards);
+        return new GameManager(roomPlayers, configuration, developmentCards, leaderCards, excommunicationCards);
     }
 
 }

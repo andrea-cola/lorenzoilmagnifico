@@ -8,6 +8,10 @@ import java.util.ArrayList;
  */
 public class MainBoard implements Serializable{
 
+    private static final int NUMBER_OF_TOWERS = 4;
+    private static final int NUMBER_OF_TOWER_CELLS = 4;
+    private static final int NUMBER_OF_MARKET_CELLS = 4;
+
     /**
      * Array of towers.
      */
@@ -72,8 +76,7 @@ public class MainBoard implements Serializable{
         this.councilPalace = new CouncilPalace(configuration.getCouncilPalace().getMinFamilyMemberDiceValue(), configuration.getCouncilPalace().getImmediateEffect());
 
         this.market = new Market(configuration.getMarket().getMarketCells().length, configuration.getMarket().getMarketCells());
-        this.vatican = new Vatican(configuration.getVatican().getExcommunicationCards(), configuration.getVatican().getVictoryPointsBonusArray());
-
+        this.vatican = new Vatican(configuration.getVatican().getExcommunicationCard(), configuration.getVatican().getVictoryPointsBonusArray());
     }
 
     /**
@@ -87,6 +90,10 @@ public class MainBoard implements Serializable{
             this.towers[index].setTowerCell(cell, card);
             cell++;
         }
+    }
+
+    public void setVatican(ExcommunicationCard card){
+        this.vatican.setExcommunicationCard(card);
     }
 
     /**
@@ -128,6 +135,18 @@ public class MainBoard implements Serializable{
 
     public Market getMarket(){
         return this.market;
+    }
+
+    public int getNumberOfTowers(){
+        return NUMBER_OF_TOWERS;
+    }
+
+    public int getNumberOfTowerCells(){
+        return NUMBER_OF_TOWER_CELLS;
+    }
+
+    public int getNumberOfMarketCells(){
+        return NUMBER_OF_MARKET_CELLS;
     }
 
 }

@@ -3,6 +3,8 @@ package it.polimi.ingsw.ui.cli;
 import it.polimi.ingsw.exceptions.WrongCommandException;
 import it.polimi.ingsw.model.FamilyMemberColor;
 
+import java.util.Arrays;
+
 public class TurnScreen extends GameScreen {
 
     private GameCallback callback;
@@ -14,31 +16,41 @@ public class TurnScreen extends GameScreen {
         this.callback = callback;
         this.familiarPlaced = moveDone;
 
+        addOption("run-leader", "'run-leader [name]' to activate a leader card.", this::activateLeader);
+        addOption("discard-leader", "'discard-leader [name]' to discard a leader card.", this::discardLeader);
         if(!moveDone) {
-            addOption("set-fam-tower", "'set-fam-tower [familiar color] [tower index] [cell index]' to place family member on the tower.", this::setFamilyMemberInTower);
-            addOption("set-fam-council", "'set-fam-council [familiar color]' to place family member in the council.", this::setFamilyMemberInCouncil);
-            addOption("set-fam-market", "set-fam-market [familiar color] [market index] to place a family member in the market.", this::setFamilyMemberInMarket);
+            addOption("set-fam-tower", "'set-fam-tower [familiar color] [servants] [tower index] [cell index]' to place family member on the tower.", this::setFamilyMemberInTower);
+            addOption("set-fam-council", "'set-fam-council [familiar color] [servants]' to place family member in the council.", this::setFamilyMemberInCouncil);
+            addOption("set-fam-market", "'set-fam-market [familiar color] [servants] [market index]' to place a family member in the market.", this::setFamilyMemberInMarket);
+            addOption("set-fam-production-simple", "'set-fam-production-simple [familiar color] [servants]' to activate production.", this::setFamilyMemberProductionSimple);
+            addOption("set-fam-harvest-simple", "'set-fam-harvest-simple [familiar color] [servants]' to activate harvest.", this::setFamilyMemberInHarvestSimple);
+            addOption("set-fam-production-extended", "'set-fam-production-extended [familiar color] [servants]' to activate production extended.", this::setFamilyMemberInProductionExtended);
+            addOption("set-fam-harvest-extended", "'set-fam-harvest-extended [familiar color] [servants]' to activate production extended.", this::setFamilyMemberInHarvestExtended);
         }
         addOption("end-turn", "ends up your turn.", parameters -> callback.notifyEndTurn());
     }
 
     private void setFamilyMemberInTower(String[] parameters) throws WrongCommandException{
-        if(parameters.length == 3)
-            for(FamilyMemberColor color : FamilyMemberColor.values())
-                if(color.toString().toLowerCase().equals(parameters[0].toLowerCase())){
-                    int column = Integer.parseInt(parameters[1]) - 1;
-                    int row = Integer.parseInt(parameters[2]) - 1;
-                    callback.setFamilyMemberInTower(column, row, color);
+        if(parameters.length == 4) {
+            checkParameters(Arrays.copyOfRange(parameters, 1, parameters.length));
+            for (FamilyMemberColor color : FamilyMemberColor.values())
+                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                    int servants = Integer.parseInt(parameters[1]);
+                    int column = Integer.parseInt(parameters[2]) - 1;
+                    int row = Integer.parseInt(parameters[3]) - 1;
+                    callback.setFamilyMemberInTower(color, servants, column, row);
                     return;
                 }
+        }
         throw new WrongCommandException();
     }
 
     private void setFamilyMemberInCouncil(String[] parameters) throws WrongCommandException{
-        if(parameters.length == 1){
-            for(FamilyMemberColor color : FamilyMemberColor.values())
-                if(color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
-                    callback.setFamilyMemberInCouncil(color);
+        if(parameters.length == 2) {
+            checkParameters(Arrays.copyOfRange(parameters, 1, parameters.length));
+            for (FamilyMemberColor color : FamilyMemberColor.values())
+                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                    callback.setFamilyMemberInCouncil(color, Integer.parseInt(parameters[1]));
                     return;
                 }
         }
@@ -46,14 +58,84 @@ public class TurnScreen extends GameScreen {
     }
 
     private void setFamilyMemberInMarket(String[] parameters) throws WrongCommandException{
-        if(parameters.length == 2){
-            for(FamilyMemberColor color : FamilyMemberColor.values())
-                if(color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
-                    callback.setFamilyMemberInMarket(color, Integer.parseInt(parameters[1]));
+        if(parameters.length == 3) {
+            checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
+            for (FamilyMemberColor color : FamilyMemberColor.values())
+                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                    callback.setFamilyMemberInMarket(color, Integer.parseInt(parameters[1]), Integer.parseInt(parameters[2]));
                     return;
                 }
         }
         throw new WrongCommandException();
     }
 
+    private void setFamilyMemberProductionSimple(String[] parameters) throws WrongCommandException{
+        if(parameters.length == 2) {
+            checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
+            for (FamilyMemberColor color : FamilyMemberColor.values())
+                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                    callback.setFamilyMemberInProductionSimple(color, Integer.parseInt(parameters[1]));
+                    return;
+                }
+        }
+        throw new WrongCommandException();
+    }
+
+    private void setFamilyMemberInHarvestSimple(String[] parameters) throws WrongCommandException{
+        if(parameters.length == 2) {
+            checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
+            for (FamilyMemberColor color : FamilyMemberColor.values())
+                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                    callback.setFamilyMemberInHarvestSimple(color, Integer.parseInt(parameters[1]));
+                    return;
+                }
+        }
+        throw new WrongCommandException();
+    }
+
+    private void setFamilyMemberInProductionExtended(String[] parameters) throws WrongCommandException{
+        if(parameters.length == 2) {
+            checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
+            for (FamilyMemberColor color : FamilyMemberColor.values())
+                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                    callback.setFamilyMemberInProductionExtended(color, Integer.parseInt(parameters[1]));
+                    return;
+                }
+        }
+        throw new WrongCommandException();
+    }
+
+    private void setFamilyMemberInHarvestExtended(String[] parameters) throws WrongCommandException{
+        if(parameters.length == 1) {
+            checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
+            for (FamilyMemberColor color : FamilyMemberColor.values())
+                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                    callback.setFamilyMemberInHarvestExtended(color, Integer.parseInt(parameters[1]));
+                    return;
+                }
+        }
+        throw new WrongCommandException();
+    }
+
+    private void activateLeader(String[] parameters) throws WrongCommandException{
+        if(parameters.length == 1){
+            callback.activateLeader(parameters[0]);
+            return;
+        }
+        throw new WrongCommandException();
+    }
+
+    private void discardLeader(String[] parameters) throws WrongCommandException{
+        if(parameters.length == 1){
+            callback.discardLeader(parameters[0]);
+            return;
+        }
+        throw new WrongCommandException();
+    }
+
+    private void checkParameters(String[] parameters) throws WrongCommandException{
+        for(String s : parameters)
+            if(Integer.parseInt(s) < 0)
+                throw new WrongCommandException();
+    }
 }

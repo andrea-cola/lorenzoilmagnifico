@@ -4240,7 +4240,7 @@
       }
     },
     "numberOfCouncilPrivileges": 0,
-    "effectType": "EffectHarvestProductionSimple"
+    "effectType": "EffectSimple"
   }
 },
 {
@@ -4280,7 +4280,7 @@
       }
     },
     "numberOfCouncilPrivileges": 0,
-    "effectType": "EffectHarvestProductionSimple"
+    "effectType": "EffectSimple"
   }
 },
 {
@@ -5065,7 +5065,21 @@
   "immediateEffect": {
     "diceValueBonus": 4,
     "actionType": "HARVEST",
-    "effectType": "EffectHarvestProductionBonus"
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 3
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
   },
   "permanentEffect": {
     "finalVictoryPoints": {
@@ -5559,7 +5573,21 @@
   "immediateEffect": {
     "diceValueBonus": 3,
     "actionType": "PRODUCTION",
-    "effectType": "EffectHarvestProductionBonus"
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 3
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
   },
   "permanentEffect": {
     "finalVictoryPoints": {

@@ -103,25 +103,72 @@ public class TowerCell implements Serializable{
     }
 
     /**
-     * Checks if the value is enough to place the family member inside the cell
+     * Checks if the value is enough to place the family member inside the cell and if the user can pickup a territory card according to the military points required
      * @param player
      * @param familyMemberColor
      * @throws GameException
      */
     public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
-        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.minFamilyMemberValue){
+        int colorBonus = player.getPersonalBoard().getDevelopmentCardColorDiceValueBonus().get(developmentCard.getColor());
+        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + colorBonus < this.minFamilyMemberValue)
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
-        }
     }
 
     /**
-     * Checks if the player has enough resources to buy the development card
+     * Checks if the player can get the development card
       * @param player
      * @throws GameException
      */
-    public void developmentCardCanBeBuyedBy(Player player) throws GameException{
+    public void developmentCardCanBeBuyed(Player player, InformationCallback informationCallback) throws GameException{
+        //check if the user has less than six cards of this development card color inside the personal board
+        if (player.getPersonalBoard().getCards(this.developmentCard.getColor()).size() > 6){
+            throw new GameException(GameErrorType.PERSONAL_BOARD_MAX_CARD_LIMIT_REACHED);
+        }
+
+        PointsAndResources discount;
+        if(player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).size() == 1) {
+            discount = player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).get(0);
+        }
+        else if(player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).size() > 1){
+            int choice = informationCallback.choosePickUpDiscounts("discount", player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()));
+            discount = player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).get(choice);
+        }
+        else{
+            discount = new PointsAndResources();
+        }
+
+
+        //Check if the player has enough resources to buy the development card
         for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
-            if (this.developmentCard.getCost().getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+            if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
+                    > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        for(Map.Entry<ResourceType, Integer> entry : discount.getResources().entrySet()){
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
+
+        //check if the player has military points enough to get the territory card
+        if (this.developmentCard.getColor().equals(DevelopmentCardColor.GREEN)){
+            //amount of territory cards already owned by the user
+            int amount = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size();
+            //amount of military points owned by the player
+            int playerMilitaryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY);
+            //amount of military points requested to get this card
+            int militaryPointsRequired = player.getPersonalBoard().getGreenCardsMilitaryPointsRequirements(amount);
+
+            if (playerMilitaryPoints < militaryPointsRequired){
+                throw new GameException(GameErrorType.MILITARY_POINTS_REQUIRED);
+            }
+        }
+    }
+
+    public void developmentCardCanBeBuyed(Player player, PointsAndResources discount) throws GameException{
+        for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
+            if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
                 throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
             }
         }

@@ -26,8 +26,6 @@ public class MarketCell implements Serializable{
      */
     private boolean empty;
 
-    private boolean accessible;
-
     /**
      * Class constructor.
      * @param minFamilyMemberValue
@@ -37,15 +35,6 @@ public class MarketCell implements Serializable{
         this.minFamilyMemberValue = minFamilyMemberValue;
         this.marketCellImmediateEffect = effectSimple;
         empty = true;
-        accessible = true;
-    }
-
-    public void setNotAccessible(){
-        this.accessible = false;
-    }
-
-    public boolean isAccessible(){
-        return this.accessible;
     }
 
     /**
@@ -56,8 +45,12 @@ public class MarketCell implements Serializable{
         return this.empty;
     }
 
-    public void setEmpty(Boolean updatedValue){
-        this.empty = updatedValue;
+    public void setEmpty(){
+        this.empty = true;
+    }
+
+    public void setNotEmpty(){
+        this.empty = false;
     }
 
     /**
@@ -76,7 +69,12 @@ public class MarketCell implements Serializable{
         return this.minFamilyMemberValue;
     }
 
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
+
+        //if you have the excommunication effect
+        if (!player.getPersonalBoard().getExcommunicationValues().getMarketIsAvailable()){
+            throw new GameException(GameErrorType.EXCOMMUNICATION_EFFECT_MARKET);
+        }
 
         //check that the family member used has not been already used
         for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed()){
@@ -86,13 +84,15 @@ public class MarketCell implements Serializable{
         }
 
         //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
-        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.minFamilyMemberValue){
+        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + servants;
+        if (familyMemberValueTot < this.minFamilyMemberValue){
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
         }
 
 
         //if the family member can be placed, add it to the family members used and set this zone as not empty
         player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
+        player.getPersonalBoard().getValuables().decrease(ResourceType.SERVANT, servants);
         this.empty = false;
     }
 

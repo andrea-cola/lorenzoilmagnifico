@@ -3,11 +3,13 @@ package it.polimi.ingsw.socketCommunicationProtocol;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interface used as callback from clients.
@@ -46,6 +48,20 @@ public interface ServerCommunicationProtocolInterface {
     void notifyPlayerPersonalBoardTileChoice(PersonalBoardTile personalBoardTile);
 
     void notifyPlayerLeaderCardChoice(LeaderCard leaderCard);
+
+    void setFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices);
+
+    void setFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices);
+
+    void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices);
+
+    void setFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices);
+
+    void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices);
+
+    void setFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices);
+
+    void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices);
 
     void endTurn();
 }

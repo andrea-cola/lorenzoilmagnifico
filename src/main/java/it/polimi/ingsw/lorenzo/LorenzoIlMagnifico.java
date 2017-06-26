@@ -10,10 +10,12 @@ import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.rmiClient.RMIClient;
 import it.polimi.ingsw.socketClient.SocketClient;
 import it.polimi.ingsw.ui.cli.CommandLineInterface;
-import it.polimi.ingsw.ui.cli.ConnectionType;
+import it.polimi.ingsw.ui.ConnectionType;
 import it.polimi.ingsw.ui.gui.GraphicUserInterface;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is the basic game class that runs the main function; it implements the two interfaces UiController and
@@ -27,9 +29,8 @@ import java.util.List;
 
     private AbstractClient client;
 
-    /**
-     * Represent game model.
-     */
+    private Map<String, Object> playerTurnChoices;
+
     private Game game;
 
     /**
@@ -45,6 +46,7 @@ import java.util.List;
                 userInterface = new GraphicUserInterface(this);
                 break;
         }
+        playerTurnChoices = new HashMap<>();
     }
 
     public void start(){
@@ -54,6 +56,16 @@ import java.util.List;
     @Override
     public String getUsername(){
         return this.username;
+    }
+
+    @Override
+    public Map<String, Object> getPlayerTurnChoices(){
+        return this.playerTurnChoices;
+    }
+
+    @Override
+    public void setPlayerTurnChoices(String operation, Object choice) {
+        this.playerTurnChoices.put(operation, choice);
     }
 
     @Override
@@ -135,7 +147,70 @@ import java.util.List;
         try{
             client.notifyLeaderCardChoice(leaderCard);
         } catch(NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send leader card choice.");
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex) {
+        try {
+            client.notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex, playerTurnChoices);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move on tower.");
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants) {
+        try {
+            client.notifySetFamilyMemberInCouncil(familyMemberColor, servants, playerTurnChoices);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in council palace.");
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int cellIndex) {
+        try {
+            client.notifySetFamilyMemberInMarket(familyMemberColor, servants, cellIndex, playerTurnChoices);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in market.");
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants) {
+        try {
+            client.notifySetFamilyMemberInHarvestSimple(familyMemberColor, servants, playerTurnChoices);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in harvest simple.");
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants) {
+        try {
+            client.notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants, playerTurnChoices);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in harvest extended.");
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants) {
+        try {
+            client.notifySetFamilyMemberInProductionSimple(familyMemberColor, servants, playerTurnChoices);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in production simple.");
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants) {
+        try {
+            client.notifySetFamilyMemberInProductionExtended(familyMemberColor, servants, playerTurnChoices);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in production extended.");
         }
     }
 
@@ -158,6 +233,11 @@ import java.util.List;
     @Override
     public void notifyTurnStarted(String username, long seconds) {
         userInterface.turnScreen(username, seconds);
+    }
+
+    @Override
+    public void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket) {
+        this.game = clientUpdatePacket.getGame();
     }
 
     @Override

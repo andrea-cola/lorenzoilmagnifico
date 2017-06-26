@@ -39,7 +39,8 @@ public class EffectHarvestProductionBonus extends Effect{
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-        player.getPersonalBoard().setHarvestProductionDiceValueBonus(this.actionType, diceValueBonus);
+        int newValue = player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(this.actionType) + this.diceValueBonus;
+        player.getPersonalBoard().setHarvestProductionDiceValueBonus(this.actionType, newValue);
     }
 
     /**

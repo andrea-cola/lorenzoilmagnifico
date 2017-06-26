@@ -3,8 +3,11 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.RoomException;
+import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
+
+import java.util.Map;
 
 /**
  * This class the abstraction of the server.
@@ -96,6 +99,27 @@ public abstract class AbstractClient {
     public abstract void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException;
 
     public abstract void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException;
+
+    public abstract void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex,
+                                                      int cellIndex, Map<String, Object> playerChoices) throws NetworkException;
+
+    public abstract void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants,
+                                                        Map<String, Object> playerChoices) throws NetworkException;
+
+    public abstract void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex,
+                                                       Map<String, Object> playerChoices) throws NetworkException;
+
+    public abstract void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants,
+                                                              Map<String, Object> playerChoices) throws NetworkException;
+
+    public abstract void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants,
+                                                                 Map<String, Object> playerChoices) throws NetworkException;
+
+    public abstract void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants,
+                                                                Map<String, Object> playerChoices) throws NetworkException;
+
+    public abstract void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants,
+                                                                   Map<String, Object> playerChoices) throws NetworkException;
 
     public abstract void endTurn() throws NetworkException;
 }

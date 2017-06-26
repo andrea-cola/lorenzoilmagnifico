@@ -22,11 +22,11 @@ public class FamilyMember implements Serializable{
         return this.members;
     }
 
-    public void increaseFamilyMemberValue(FamilyMemberColor color, Integer value){
+    public void increaseFamilyMemberValue(FamilyMemberColor color, int value){
         this.members.put(color, this.members.get(color) + value);
     }
 
-    public void decreaseFamilyMemberValue(FamilyMemberColor color, Integer value){
+    public void decreaseFamilyMemberValue(FamilyMemberColor color, int value){
         this.members.put(color, this.members.get(color) - value);
     }
 

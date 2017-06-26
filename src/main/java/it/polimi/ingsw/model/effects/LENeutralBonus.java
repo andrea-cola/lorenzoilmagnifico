@@ -1,7 +1,13 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.FamilyMemberColor;
+import it.polimi.ingsw.model.InformationCallback;
+import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 
+/**
+ * This class gives a bonus to the neutral familiy member
+ */
 public class LENeutralBonus extends LeaderEffect{
 
     private int bonus;
@@ -24,8 +30,8 @@ public class LENeutralBonus extends LeaderEffect{
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
-
+    public void runEffect(Player player, InformationCallback informationCallback) {
+        player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(FamilyMemberColor.NEUTRAL, bonus);
     }
 
     /**

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ui.cli;
+package it.polimi.ingsw.ui;
 
 /**
  * This enumeration represents all possible networks type

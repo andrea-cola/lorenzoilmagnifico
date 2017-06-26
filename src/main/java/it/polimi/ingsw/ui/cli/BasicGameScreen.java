@@ -15,13 +15,14 @@ public class BasicGameScreen {
 
     /**
      * Receive parameters from keyboard handler.
-     * @param arguments of the command typed.
+     * @param parameters of the command typed.
      * @throws WrongCommandException if command is wrong.
      */
-    void sendParameters(String[] arguments) throws WrongCommandException{
-        if(options.containsKey(arguments[0])){
-            Function function = options.get(arguments[0]);
-            String[] subArray = Arrays.copyOfRange(arguments, 1, arguments.length);
+    void sendParameters(String[] parameters) throws WrongCommandException{
+        String option = parameters[0].toLowerCase();
+        if(options.containsKey(parameters[0])){
+            Function function = options.get(parameters[0]);
+            String[] subArray = Arrays.copyOfRange(parameters, 1, parameters.length);
             function.doAction(subArray);
         }
         else

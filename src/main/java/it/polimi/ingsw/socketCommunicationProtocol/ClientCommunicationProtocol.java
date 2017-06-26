@@ -5,10 +5,7 @@ import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoard;
-import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 
@@ -17,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is used to define the communication socket protocol. Used by the client to interact
@@ -66,6 +64,7 @@ public class ClientCommunicationProtocol {
         responseTable.put(CommunicationProtocolConstants.PERSONAL_TILES, this::getPersonalTile);
         responseTable.put(CommunicationProtocolConstants.LEADER_CARDS, this::getLeaderCards);
         responseTable.put(CommunicationProtocolConstants.TURN_STARTED, this::notifyTurnStarted);
+        responseTable.put(CommunicationProtocolConstants.MODEL_UPDATE, this::notifyModelUpdate);
     }
 
     /**
@@ -161,6 +160,7 @@ public class ClientCommunicationProtocol {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void getPersonalTile() {
         try {
             List<PersonalBoardTile> personalBoardTileList = (List<PersonalBoardTile>)objectInputStream.readObject();
@@ -170,16 +170,18 @@ public class ClientCommunicationProtocol {
         }
     }
 
-    public void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile){
+    @SuppressWarnings("Duplicates")
+    public void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException{
         try{
             objectOutputStream.writeObject(CommunicationProtocolConstants.PERSONAL_TILES);
             objectOutputStream.writeObject(personalBoardTile);
             objectOutputStream.flush();
         } catch (IOException e) {
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify the server about personal board tile choice.");
+            throw new NetworkException();
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void getLeaderCards(){
         try{
             List<LeaderCard> leaderCards = (List<LeaderCard>)objectInputStream.readObject();
@@ -189,13 +191,14 @@ public class ClientCommunicationProtocol {
         }
     }
 
-    public void notifyLeaderCardChoice(LeaderCard leaderCard){
+    @SuppressWarnings("Duplicates")
+    public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException{
         try{
             objectOutputStream.writeObject(CommunicationProtocolConstants.LEADER_CARDS);
             objectOutputStream.writeObject(leaderCard);
             objectOutputStream.flush();
         } catch (IOException e) {
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify the server about leader card choice.");
+            throw new NetworkException();
         }
     }
 
@@ -206,6 +209,109 @@ public class ClientCommunicationProtocol {
             clientInterface.notifyTurnStarted(username, seconds);
         } catch (ClassCastException | ClassNotFoundException | IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle notify turn started.");
+        }
+    }
+
+    public void notifyModelUpdate(){
+        try{
+            ClientUpdatePacket clientUpdatePacket = (ClientUpdatePacket)objectInputStream.readObject();
+            clientInterface.notifyModelUpdate(clientUpdatePacket);
+        } catch (ClassCastException | ClassNotFoundException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle new model update request.");
+        }
+    }
+
+    public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex,
+                                             int cellindex, Map<String, Object> playerTurnChoices) throws NetworkException{
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_TOWER);
+            objectOutputStream.writeObject(familyMemberColor);
+            objectOutputStream.writeObject(servants);
+            objectOutputStream.writeObject(towerIndex);
+            objectOutputStream.writeObject(cellindex);
+            objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
+        }
+    }
+
+    public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants,
+                                               Map<String, Object> playerTurnChoices) throws NetworkException{
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_COUNCIL);
+            objectOutputStream.writeObject(familyMemberColor);
+            objectOutputStream.writeObject(servants);
+            objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
+        }
+    }
+
+    public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex,
+                                              Map<String, Object> playerTurnChoices) throws NetworkException{
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_MARKET);
+            objectOutputStream.writeObject(familyMemberColor);
+            objectOutputStream.writeObject(servants);
+            objectOutputStream.writeObject(marketIndex);
+            objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
+        }
+    }
+
+    public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants,
+                                                     Map<String, Object> playerTurnChoices) throws NetworkException{
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_HARVEST_SIMPLE);
+            objectOutputStream.writeObject(familyMemberColor);
+            objectOutputStream.writeObject(servants);
+            objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
+        }
+    }
+
+    public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants,
+                                                        Map<String, Object> playerTurnChoices) throws NetworkException{
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_SIMPLE);
+            objectOutputStream.writeObject(familyMemberColor);
+            objectOutputStream.writeObject(servants);
+            objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
+        }
+    }
+
+    public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants,
+                                                       Map<String, Object> playerTurnChoices) throws NetworkException{
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_HARVEST_EXTENDED);
+            objectOutputStream.writeObject(familyMemberColor);
+            objectOutputStream.writeObject(servants);
+            objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
+        }
+    }
+
+    public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants,
+                                                          Map<String, Object> playerTurnChoices) throws NetworkException{
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_EXTENDED);
+            objectOutputStream.writeObject(familyMemberColor);
+            objectOutputStream.writeObject(servants);
+            objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
         }
     }
 
