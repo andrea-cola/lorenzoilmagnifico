@@ -47,7 +47,7 @@ public class PersonalBoard implements Serializable{
     /**
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
      */
-    private int[] greenCardsMilitaryPointsRequirements = new int[MAX_NUMBER_OF_CARD_PER_TYPE];
+    private int[] greenCardsMilitaryPointsRequirements = new int[6];
 
     /**
      * Array of cards, divided per types.

@@ -7,7 +7,6 @@ import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.exceptions.ConfigurationException;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
-import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.effects.*;
 
@@ -27,6 +26,7 @@ public class Configurator {
     private final String DEVELOPMENT_CARDS_FILE_PATH = "src/main/resources/configFiles/developmentCards.json";
     private final String LEADER_CARDS_FILE_PATH = "src/main/resources/configFiles/leaderCards.json";
     private final String CONFIGURATION_FILE_PATH = "src/main/resources/configFiles/configuration.json";
+    private final String EXCOMMUNICATION_CARDS_FILE_PATH ="src/main/resources/configFiles/excommunicationCards.json";
 
     /**
      * Configurator instance. Singleton.
@@ -64,6 +64,11 @@ public class Configurator {
     private RuntimeTypeAdapterFactory<LeaderEffect> leaderEffectFactory;
 
     /**
+     * Effect factory reference.
+     */
+    private RuntimeTypeAdapterFactory<ExcommunicationEffect> excommunicationEffectFactory;
+
+    /**
      * Configuration bundle.
      */
     private static Configuration configuration;
@@ -78,6 +83,7 @@ public class Configurator {
             parseConfiguration();
             parseDevelopmentCard();
             parseLeaderCard();
+            parseExcommunicationCard();
         } catch(FileNotFoundException e){
             throw new ConfigurationException(e);
         }
@@ -119,6 +125,18 @@ public class Configurator {
                 .registerSubtype(LEPicoDellaMirandola.class, "LEPicoDellaMirandola")
                 .registerSubtype(LESimple.class, "LESimple")
                 .registerSubtype(LESistoIV.class, "LESistoIV");
+
+        excommunicationEffectFactory = RuntimeTypeAdapterFactory.of(ExcommunicationEffect.class, "effectType")
+                .registerSubtype(ExcommunicationEffectDevCard.class, "ExcommunicationEffectDevCard")
+                .registerSubtype(ExcommunicationEffectDevCardLoseVictoryPoints.class, "ExcommunicationEffectDevCardLoseVictoryPoints")
+                .registerSubtype(ExcommunicationEffectDiceMalus.class, "ExcommunicationEffectDiceMalus")
+                .registerSubtype(ExcommunicationEffectHarvestProduction.class, "ExcommunicationEffectHarvestProduction")
+                .registerSubtype(ExcommunicationEffectLoseVictoryPoints.class, "ExcommunicationEffectLoseVictoryPoints")
+                .registerSubtype(ExcommunicationEffectMarket.class, "ExcommunicationEffectMarket")
+                .registerSubtype(ExcommunicationEffectNoVictoryPoints.class, "ExcommunicationEffectNoVictoryPoints")
+                .registerSubtype(ExcommunicationEffectNumberOfSlaves.class, "ExcommunicationEffectNumberOfSlaves")
+                .registerSubtype(ExcommunicationEffectSimple.class, "ExcommunicationEffectSimple")
+                .registerSubtype(ExcommunicationEffectSkipFirstTurn.class, "ExcommunicationEffectSkipFirstTurn");
     }
 
     /**
@@ -148,6 +166,13 @@ public class Configurator {
         gson = builder.create();
         JsonReader reader = new JsonReader(new FileReader(LEADER_CARDS_FILE_PATH));
         leaderCards = gson.fromJson(reader, new TypeToken<List<LeaderCard>>(){}.getType());
+    }
+
+    private void parseExcommunicationCard() throws FileNotFoundException{
+        GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(excommunicationEffectFactory);
+        gson = builder.create();
+        JsonReader reader = new JsonReader(new FileReader(EXCOMMUNICATION_CARDS_FILE_PATH));
+        excommunicationCards = gson.fromJson(reader, new TypeToken<List<ExcommunicationCard>>(){}.getType());
     }
 
     /**
