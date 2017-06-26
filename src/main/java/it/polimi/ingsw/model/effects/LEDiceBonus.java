@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.FamilyMemberColor;
+import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 import javafx.beans.property.MapProperty;
@@ -53,7 +54,7 @@ public class LEDiceBonus extends LeaderEffect {
      * @param player
      */
     @Override
-    public void runEffect(Player player, MainBoard mainBoard) {
+    public void runEffect(Player player, InformationCallback informationCallback) {
         Map<FamilyMemberColor, Integer> members = new HashMap<>();
         members.put(FamilyMemberColor.WHITE, whiteDice);
         members.put(FamilyMemberColor.ORANGE, orangeDice);

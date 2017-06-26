@@ -108,11 +108,12 @@ public class TowerCell implements Serializable{
      * @param familyMemberColor
      * @throws GameException
      */
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
-        //check if the value is enough to place the family member inside the cell
-        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.minFamilyMemberValue){
+    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
+        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + servants;
+        if (familyMemberValueTot < this.minFamilyMemberValue){
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
         }
+        player.getPersonalBoard().getValuables().decrease(ResourceType.SERVANT, servants);
     }
 
     /**
@@ -120,7 +121,7 @@ public class TowerCell implements Serializable{
       * @param player
      * @throws GameException
      */
-    public void developmentCardCanBePickedUp(Player player) throws GameException{
+    public void developmentCardCanBeBuyed(Player player) throws GameException{
         //check if the user has less than six cards of this development card color inside the personal board
         if (player.getPersonalBoard().getCards(this.developmentCard.getColor()).size() > 6){
             throw new GameException(GameErrorType.PERSONAL_BOARD_MAX_CARD_LIMIT_REACHED);
@@ -146,7 +147,13 @@ public class TowerCell implements Serializable{
                 throw new GameException(GameErrorType.MILITARY_POINTS_REQUIRED);
             }
         }
+    }
 
-
+    public void developmentCardCanBeBuyed(Player player, PointsAndResources discount) throws GameException{
+        for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
+            if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+            }
+        }
     }
 }

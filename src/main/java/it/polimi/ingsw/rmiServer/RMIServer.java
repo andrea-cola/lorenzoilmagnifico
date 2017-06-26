@@ -1,5 +1,6 @@
 package it.polimi.ingsw.rmiServer;
 
+import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
@@ -190,8 +191,42 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
     }
 
     @Override
+    public void setFamilyMemberInTower(String playerID, FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) throws RemoteException {
+        getServer().setFamilyMemberInTower(getPlayer(playerID), familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInCouncil(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
+        getServer().setFamilyMemberInCouncil(getPlayer(playerID), familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInMarket(String playerID, FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) throws RemoteException {
+        getServer().setFamilyMemberInMarket(getPlayer(playerID), familyMemberColor, servants, marketIndex, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInHarvestSimple(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
+        getServer().setFamilyMemberInHarvestSimple(getPlayer(playerID), familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInHarvestExtended(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
+        getServer().setFamilyMemberInHarvestExtended(getPlayer(playerID), familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInProductionSimple(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
+        getServer().setFamilyMemberInProductionSimple(getPlayer(playerID), familyMemberColor,servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInProductionExtended(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
+        getServer().setFamilyMemberInProductionExtended(getPlayer(playerID), familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
     public void endTurn(String playerID) {
         getPlayer(playerID).getRoom().endTurn(getPlayer(playerID));
     }
-
 }

@@ -1,6 +1,10 @@
 package it.polimi.ingsw.ui.cli;
 
 import it.polimi.ingsw.model.FamilyMemberColor;
+import it.polimi.ingsw.model.PointsAndResources;
+import it.polimi.ingsw.model.Privilege;
+
+import java.util.List;
 
 public class GameScreen extends BasicGameScreen {
 
@@ -19,9 +23,19 @@ public class GameScreen extends BasicGameScreen {
 
         void showPersonalBoards();
 
-        void setFamilyMemberInTower(int towerIndex, int cellIndex, FamilyMemberColor familyMemberColor);
+        void setFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex);
 
-        void setFamilyMember(FamilyMemberColor familyMember);
+        void setFamilyMemberInCouncil(FamilyMemberColor familyMember, int servants);
+
+        void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex);
+
+        void setFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants);
+
+        void setFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants);
+
+        void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants);
+
+        void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants);
 
         void notifyEndTurn();
 

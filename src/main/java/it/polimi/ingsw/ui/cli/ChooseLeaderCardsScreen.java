@@ -48,7 +48,7 @@ public class ChooseLeaderCardsScreen extends BasicScreen{
             } while (key < 1 || key > leaderCards.size());
             key = key - 1;
             this.callback.sendLeaderCardsChoose(leaderCards.get(key));
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | NumberFormatException e) {
             chooseLeaderCard();
         } catch (IOException e){
             Debugger.printDebugMessage("Error while reading from keyboard.");

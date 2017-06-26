@@ -1,13 +1,17 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.effects.Effect;
-
-import java.util.List;
+import java.util.ArrayList;
 
 public interface InformationCallback {
 
-    void chooseCouncilPrivilege(Player player, List<Effect> privilegeList);
+    ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege);
 
-    void chooseDoubleCost();
+    int chooseDoubleCost(PointsAndResources pointsAndResources, int militaryPointsGiven, int militaryPointsNeeded);
+
+    int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned);
+
+    int choosePickUpDiscounts(String reason, PointsAndResources[] discounts);
+
+    DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount);
 
 }

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.MainBoard;
+import it.polimi.ingsw.model.InformationCallback;
+
 import it.polimi.ingsw.model.Player;
-import sun.applet.Main;
 
 public class LELudovicoAriosto extends LeaderEffect {
 
@@ -15,8 +15,8 @@ public class LELudovicoAriosto extends LeaderEffect {
      * @param player
      */
     @Override
-    public void runEffect(Player player, MainBoard mainBoard) {
-        mainBoard.getHarvest().setEmpty(true);
+    public void runEffect(Player player, InformationCallback informationCallback) {
+
     }
 
     /**

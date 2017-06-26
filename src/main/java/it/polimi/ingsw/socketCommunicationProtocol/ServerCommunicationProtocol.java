@@ -2,9 +2,7 @@ package it.polimi.ingsw.socketCommunicationProtocol;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
@@ -14,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class to provide to the server all needed methods to communicate with clients.
@@ -79,7 +78,13 @@ public class ServerCommunicationProtocol {
         requestsTable.put(CommunicationProtocolConstants.CREATE_ROOM_REQUEST, this::createNewRoom);
         requestsTable.put(CommunicationProtocolConstants.PERSONAL_TILES, this::notifyPlayerPersonalBoardTileChoice);
         requestsTable.put(CommunicationProtocolConstants.LEADER_CARDS, this::notifyLeaderCardChoice);
-        requestsTable.put(CommunicationProtocolConstants.LEADER_CARDS, this::notifyLeaderCardChoice);
+        requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_TOWER, this::setFamilyMemberInTower);
+        requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_COUNCIL, this::setFamilyMemberInCouncil);
+        requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_MARKET, this::setFamilyMemberInMarket);
+        requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_HARVEST_SIMPLE, this::setFamilyMemberInHarvestSimple);
+        requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_HARVEST_EXTENDED, this::setFamilyMemberInHarvestExtended);
+        requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_SIMPLE, this::setFamilyMemberInProductionSimple);
+        requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_EXTENDED, this::setFamilyMemberInProductionExtended);
         requestsTable.put(CommunicationProtocolConstants.END_TURN, this::endTurn);
     }
 
@@ -206,6 +211,7 @@ public class ServerCommunicationProtocol {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     public void sendPersonalBoardTile(List<PersonalBoardTile> personalBoardTileList) throws NetworkException{
         synchronized (object){
             try{
@@ -218,7 +224,7 @@ public class ServerCommunicationProtocol {
         }
     }
 
-    public void notifyPlayerPersonalBoardTileChoice(){
+    private void notifyPlayerPersonalBoardTileChoice(){
         try {
             PersonalBoardTile personalBoardTile = (PersonalBoardTile)input.readObject();
             serverCommunicationProtocolInterface.notifyPlayerPersonalBoardTileChoice(personalBoardTile);
@@ -227,6 +233,7 @@ public class ServerCommunicationProtocol {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     public void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException{
         synchronized (object){
             try {
@@ -234,6 +241,18 @@ public class ServerCommunicationProtocol {
                 output.writeObject(leaderCards);
                 output.flush();
             } catch (IOException e) {
+                throw new NetworkException();
+            }
+        }
+    }
+
+    public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException{
+        synchronized (object){
+            try{
+                output.writeObject(CommunicationProtocolConstants.MODEL_UPDATE);
+                output.writeObject(clientUpdatePacket);
+                output.flush();
+            } catch (IOException e){
                 throw new NetworkException();
             }
         }
@@ -258,6 +277,93 @@ public class ServerCommunicationProtocol {
             } catch (IOException e){
                 throw new NetworkException();
             }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setFamilyMemberInTower(){
+        try{
+            FamilyMemberColor familyMemberColor = (FamilyMemberColor) input.readObject();
+            int servants = (int)input.readObject();
+            int towerIndex = (int)input.readObject();
+            int cellIndex = (int)input.readObject();
+            Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            serverCommunicationProtocolInterface.setFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex, choices);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting tower as client.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setFamilyMemberInCouncil(){
+        try{
+            FamilyMemberColor familyMemberColor = (FamilyMemberColor) input.readObject();
+            int servants = (int)input.readObject();
+            Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            serverCommunicationProtocolInterface.setFamilyMemberInCouncil(familyMemberColor, servants, choices);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting council palace as client.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setFamilyMemberInMarket(){
+        try{
+            FamilyMemberColor familyMemberColor = (FamilyMemberColor) input.readObject();
+            int servants = (int)input.readObject();
+            int marketIndex = (int)input.readObject();
+            Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            serverCommunicationProtocolInterface.setFamilyMemberInMarket(familyMemberColor, servants, marketIndex, choices);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting market palace as client.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setFamilyMemberInHarvestSimple(){
+        try{
+            FamilyMemberColor familyMemberColor = (FamilyMemberColor) input.readObject();
+            int servants = (int)input.readObject();
+            Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            serverCommunicationProtocolInterface.setFamilyMemberInHarvestSimple(familyMemberColor, servants, choices);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting harvest simple area as client.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setFamilyMemberInHarvestExtended(){
+        try{
+            FamilyMemberColor familyMemberColor = (FamilyMemberColor) input.readObject();
+            int servants = (int)input.readObject();
+            Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            serverCommunicationProtocolInterface.setFamilyMemberInHarvestExtended(familyMemberColor, servants, choices);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting harvest extended area as client.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setFamilyMemberInProductionSimple(){
+        try{
+            FamilyMemberColor familyMemberColor = (FamilyMemberColor) input.readObject();
+            int servants = (int)input.readObject();
+            Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            serverCommunicationProtocolInterface.setFamilyMemberInProductionSimple(familyMemberColor, servants, choices);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting production simple area as client.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setFamilyMemberInProductionExtended(){
+        try{
+            FamilyMemberColor familyMemberColor = (FamilyMemberColor) input.readObject();
+            int servants = (int)input.readObject();
+            Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            serverCommunicationProtocolInterface.setFamilyMemberInProductionExtended(familyMemberColor, servants, choices);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting production extended as client.");
         }
     }
 

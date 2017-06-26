@@ -35,7 +35,7 @@ public class CreateRoomScreen extends BasicScreen{
             print("Creating new room. Please wait...");
             Thread.sleep(2000);
             this.callback.createRoom(key);
-        } catch (InterruptedException | ClassCastException e){
+        } catch (InterruptedException | ClassCastException | NumberFormatException e){
             createRoom();
         } catch (IOException e){
             Debugger.printDebugMessage("Error while reading from keyboard.");

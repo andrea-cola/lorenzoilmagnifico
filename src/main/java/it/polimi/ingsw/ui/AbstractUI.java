@@ -36,4 +36,6 @@ public abstract class AbstractUI {
     public abstract void notifyGameStarted();
 
     public abstract void turnScreen(String username, long seconds);
+
+    public abstract void notifyUpdate(String message);
 }

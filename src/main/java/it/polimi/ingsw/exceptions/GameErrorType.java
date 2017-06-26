@@ -10,7 +10,11 @@ public enum GameErrorType {
     FAMILY_MEMBER_ALREADY_USED("This family member has been already used"),
     MILITARY_POINTS_REQUIRED("The player has not military points enough to get this card"),
     PERSONAL_BOARD_MAX_CARD_LIMIT_REACHED("The player has reached the maximum amount for this type of development card"),
-    PLAYER_RESOURCES_ERROR("Player resources are not enough");
+    PLAYER_POINTS_ERROR("Player points are not enough"),
+    PLAYER_RESOURCES_ERROR("Player resources are not enough"),
+    PLAYER_CARDS_ERROR("Player cards are not enough"),
+    LEADER_CARD_ALREADY_USED("This card has been already used"),
+    EXCOMMUNICATION_EFFECT_MARKET("You can't place a family member inside the market because of the excommunication effect");
 
     /**
      * Enumeration message.

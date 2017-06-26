@@ -1,21 +1,52 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.effects.Effect;
-
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 public class InformationChoicesHandler implements InformationCallback {
 
-    HashMap<String, Effect> decisions;
+    private Map<String, Object> decisions;
 
+    public InformationChoicesHandler(){
+        decisions = new HashMap<>();
+    }
+
+    public void setDecisions(Map<String, Object> playerChoices){
+        this.decisions = playerChoices;
+    }
+
+    @SuppressWarnings("unchecked")
     @Override
-    public void chooseCouncilPrivilege(Player player, List<Effect> privilegeList) {
-
+    public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+        ArrayList<Privilege> privileges = (ArrayList<Privilege>)decisions.get(reason);
+        ArrayList<Privilege> privilegesNeeded = new ArrayList<>(privileges.subList(0, councilPrivilege.getNumberOfCouncilPrivileges()));
+        privileges.remove(privilegesNeeded);
+        if(privileges.size() == 0)
+            decisions.remove(reason);
+        else
+            decisions.put(reason, privileges);
+        return privilegesNeeded;
     }
 
     @Override
-    public void chooseDoubleCost() {
-
+    public int chooseDoubleCost(PointsAndResources pointsAndResources, int militaryPointsGiven, int militaryPointsNeeded) {
+        return (int)decisions.get("double-cost");
     }
+
+    @Override
+    public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned) {
+        return (int)decisions.get(card + ":double");
+    }
+
+    @Override
+    public int choosePickUpDiscounts(String reason, PointsAndResources[] discounts){
+        return (int)decisions.get(reason);
+    }
+
+    @Override
+    public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
+        return (DevelopmentCard)decisions.get(reason);
+    }
+
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.rmiClient;
 
+import it.polimi.ingsw.model.ClientUpdatePacket;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
@@ -23,5 +24,7 @@ public interface RMIClientInterface extends Remote{
     void sendLeaderCards(List<LeaderCard> leaderCards) throws RemoteException;
 
     void notifyTurnStarted(String username, long seconds) throws RemoteException;
+
+    void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws RemoteException;
 
 }

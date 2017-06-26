@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.ActionType;
-import it.polimi.ingsw.model.MainBoard;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointsAndResources;
+import it.polimi.ingsw.model.*;
 
 public class LEHarvestProductionSimple extends LeaderEffect{
 
@@ -63,8 +60,14 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      * @param player
      */
     @Override
-    public void runEffect(Player player, MainBoard mainBoard){
+    public void runEffect(Player player, InformationCallback informationCallback){
+        //TODO add here the possibility to add value to dices with callback functions
 
+        if (this.actionType.equals(ActionType.HARVEST)){
+            for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN)){
+
+            }
+        }
     }
 
     /**

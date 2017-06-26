@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.GameException;
+import it.polimi.ingsw.model.effects.*;
 import it.polimi.ingsw.server.ServerPlayer;
 
 import java.io.Serializable;
@@ -33,6 +34,7 @@ public class Game implements Serializable{
         this.players = new LinkedHashMap<>();
     }
 
+    //TODO questo dovrebbe andare in Game manager
     /**
      * This method build a new main board object.
      * @param mainBoardConfiguration configuration.
@@ -41,6 +43,7 @@ public class Game implements Serializable{
         this.mainBoard = new MainBoard(mainBoardConfiguration);
     }
 
+    //TODO questo dovrebbe andare in Game manager
     /**
      * Close areas following game rules.
      * @param numberOfPlayers in the room.
@@ -53,11 +56,10 @@ public class Game implements Serializable{
         if(numberOfPlayers < 4){
             for(int i = 0; i < this.mainBoard.getMarket().getMarketCells().length; i++){
                 if(i > 1)
-                    this.mainBoard.getMarket().getMarketCell(i).setNotAccessible();
+                    this.mainBoard.getMarket().getMarketCell(i).setNotEmpty();
             }
         }
     }
-
 
     /**
      * Get the mainBoard
@@ -84,6 +86,7 @@ public class Game implements Serializable{
         return this.players.get(username);
     }
 
+
     public String[] getPlayersUsername(){
         String[] usernames = new String[players.size()];
         Iterator it = players.entrySet().iterator();
@@ -104,7 +107,6 @@ public class Game implements Serializable{
         return this.players;
     }
 
-
     /**
      * This method gets a DevelopmentCard from TowerCell and adds it to the player's PersonalBoard
      * @param player
@@ -112,60 +114,78 @@ public class Game implements Serializable{
      * @param indexCell
      * @return
      */
-    public void pickupDevelopmentCardFromTower(Player player, FamilyMemberColor familyMemberColor, int indexTower, int indexCell, InformationCallback informationCallback){
+    public void pickupDevelopmentCardFromTower(Player player, FamilyMemberColor familyMemberColor, int servants, int indexTower, int indexCell, InformationCallback informationCallback) throws GameException{
         Tower tower = this.mainBoard.getTower(indexTower);
         TowerCell cell = tower.getTowerCell(indexCell);
 
+        int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
+
+        LeaderCard leaderCardBrunelleschi = player.getPersonalBoard().getLeaderCardWithName("Filippo Brunelleschi");
+
         //check if the cell is empty
         if (cell.getPlayerNicknameInTheCell() == null){
+            //check if the family member has not been already used and if the player has not already placed a family member inside the tower
+            tower.familyMemberCanBePlaced(player, familyMemberColor);
+
+            //check if familyMember's value is enough to be placed inside the towerCell
+            cell.familyMemberCanBePlaced(player, familyMemberColor, servantsValue);
             try {
-                //check if the family member has not been already used and if the player has not already placed a family member inside the tower
-                tower.familyMemberCanBePlaced(player, familyMemberColor);
-
-                try {
-                    //check if familyMember's value is enough to be placed inside the towerCell
-                    cell.familyMemberCanBePlaced(player, familyMemberColor);
-
-                    try {
-                        //if the tower is already occupied by someone, the player has to pay the coins more
-                        if (!tower.isFree()){
-                            player.getPersonalBoard().getValuables().decrease(ResourceType.COIN, 3);
-                        }
-
-                        //check if the user has resources enough to buy the card
-                        cell.developmentCardCanBeBuyedBy(player);
-
-                        //add the card to the player's personal board
-                        DevelopmentCard card = cell.getDevelopmentCard();
-                        this.players.get(player.getUsername()).getPersonalBoard().addCard(card);
-
-                        //get the tower cell immediate effect
-                        cell.getTowerCellImmediateEffect().runEffect(player, informationCallback);
-
-                        //set the family member as used
-                        player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
-
-                        //set the cell as used by a particular player
-                        cell.setPlayerNicknameInTheCell(player.getUsername());
-                    }catch (GameException e){
-                        //if the player has no more resources to buy the card, it gets back his money in case of tower already occupied
-                        if (!tower.isFree()){
-                            player.getPersonalBoard().getValuables().increase(ResourceType.COIN, 3);
-                        }
-
-                        System.out.print(e.getError());
-                    }
-                }catch (GameException e){
-                    System.out.print(e.getError());
+                //if the tower is already occupied by someone, the player has to pay the coins more
+                if (!tower.isFree() && (leaderCardBrunelleschi == null || !leaderCardBrunelleschi.getLeaderEffectActive())){
+                    player.getPersonalBoard().getValuables().decrease(ResourceType.COIN, 3);
                 }
 
-            }catch (GameException e){
-                System.out.print(e.getError());
+                //check if the user has resources enough to buy the card
+                cell.developmentCardCanBeBuyed(player);
+
+                //add the card to the player's personal board
+                DevelopmentCard card = cell.getDevelopmentCard();
+                this.payValuablesToGetDevelopmentCard(player, card, informationCallback);
+
+                player.getPersonalBoard().addCard(card);
+                if(card.getImmediateEffect() != null)
+                    card.getImmediateEffect().runEffect(player,informationCallback);
+
+                //get the tower cell immediate effect
+                if(cell.getTowerCellImmediateEffect() != null)
+                    cell.getTowerCellImmediateEffect().runEffect(player, informationCallback);
+
+                //set the family member as used
+                player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
+
+                //set the cell as used by a particular player
+                cell.setPlayerNicknameInTheCell(player.getUsername());
+            } catch (GameException e){
+                //if the player has no more resources to buy the card, it gets back his money in case of tower already occupied
+                if (!tower.isFree() && (leaderCardBrunelleschi == null || !leaderCardBrunelleschi.getLeaderEffectActive())){
+                    player.getPersonalBoard().getValuables().increase(ResourceType.COIN, 3);
+                }
+                //if the player has no more resource
+                player.getPersonalBoard().getValuables().increase(ResourceType.SERVANT, servantsValue);
             }
-        }else {
-            System.out.print("Cell has been already used");
+        } else {
+            throw new GameException();
         }
     }
+
+
+    private void payValuablesToGetDevelopmentCard(Player player, DevelopmentCard developmentCard, InformationCallback informationCallback){
+        //leader effect gives you a discount
+        LeaderCard leaderCard = player.getPersonalBoard().getLeaderCardWithName("Pico della Mirandola");
+        int devCardCoinsCost = developmentCard.getCost().getResources().get(ResourceType.COIN);
+        if (leaderCard != null && leaderCard.getLeaderEffectActive()) {
+            //decrease card price
+            if (devCardCoinsCost >= 3) {
+                developmentCard.getCost().decrease(ResourceType.COIN, 3);
+            } else {
+                developmentCard.getCost().decrease(ResourceType.COIN, devCardCoinsCost);
+            }
+        }
+
+        // pay card normally
+        developmentCard.payCost(player, informationCallback);
+    }
+
 
 
     /**
@@ -173,17 +193,19 @@ public class Game implements Serializable{
      * @param player
      * @param familyMemberColor
      */
-    public void placeFamilyMemberInsideHarvestSimpleSpace(Player player, FamilyMemberColor familyMemberColor, InformationCallback informationCallback){
+    public void placeFamilyMemberInsideHarvestSimpleSpace(Player player, FamilyMemberColor familyMemberColor, int servants, InformationCallback informationCallback) throws GameException{
         ActionSpace actionSpace = this.mainBoard.getHarvest();
 
+        int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
+
         //check if the action space is empty
-        if (actionSpace.getEmpty()){
+        if (actionSpace.isEmpty()){
             try {
                 ///check if familyMember is eligible to be placed inside the harvest zone
-                actionSpace.familyMemberCanBePlaced(player, familyMemberColor);
+                actionSpace.familyMemberCanBePlaced(player, familyMemberColor, servantsValue);
 
                 //permanent effect
-                for (DevelopmentCard card : this.players.get(player.getUsername()).getPersonalBoard().getTerritoryCards()){
+                for (DevelopmentCard card : this.players.get(player.getUsername()).getPersonalBoard().getCards(DevelopmentCardColor.GREEN)){
                     card.getPermanentEffect().runEffect(player, informationCallback);
                 }
 
@@ -199,15 +221,86 @@ public class Game implements Serializable{
         }
     }
 
+    public void placeFamilyMemberInsideHarvestExtendedSpace(Player player, FamilyMemberColor familyMemberColor, int servants, InformationCallback informationCallback) throws GameException{
+        ActionSpaceExtended actionSpaceExtended = this.mainBoard.getHarvestExtended();
+
+        int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
+
+        //check if the action space is empty
+        if (actionSpaceExtended.isAccessible()){
+            ///check if familyMember is eligible to be placed inside the harvest zone
+            this.mainBoard.getHarvest().checkAccessibility(player, familyMemberColor);
+            actionSpaceExtended.familyMemberCanBePlaced(player, familyMemberColor, servantsValue);
+
+            // run personal board tile effect
+            player.getPersonalBoard().getPersonalBoardTile().getHarvestEffect().runEffect(player, informationCallback);
+
+            //run permanent effect
+            for (DevelopmentCard card : this.players.get(player.getUsername()).getPersonalBoard().getCards(DevelopmentCardColor.GREEN)){
+                if(card.getPermanentEffect() instanceof EffectHarvestProductionExchange)
+                    ((EffectHarvestProductionExchange)card.getPermanentEffect()).runEffect(card, player, informationCallback);
+                card.getPermanentEffect().runEffect(player, informationCallback);
+            }
+        }else
+            throw new GameException();
+    }
+
+    public void placeFamilyMemberInsideProductionSimpleSpace(Player player, FamilyMemberColor familyMemberColor, int servants, InformationCallback informationCallback) throws GameException{
+        ActionSpace actionSpace = this.mainBoard.getProduction();
+
+        int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
+
+        //check if the action space is empty
+        if (actionSpace.isEmpty()){
+            ///check if familyMember is eligible to be placed inside the harvest zone
+            this.mainBoard.getProductionExtended().checkAccessibility(player, familyMemberColor);
+            actionSpace.familyMemberCanBePlaced(player, familyMemberColor, servantsValue);
+
+            player.getPersonalBoard().getPersonalBoardTile().getProductionEffect().runEffect(player, informationCallback);
+
+            //run permanent effect
+            for (DevelopmentCard card : this.players.get(player.getUsername()).getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
+                card.getPermanentEffect().runEffect(player, informationCallback);
+            }
+
+            //action space is no more available
+            actionSpace.setEmpty(false);
+        }else
+            throw new GameException();
+    }
+
+    public void placeFamilyMemberInsideProductionExtendedSpace(Player player, FamilyMemberColor familyMemberColor, int servants, InformationCallback informationCallback) throws GameException{
+        ActionSpaceExtended actionSpaceExtended = this.mainBoard.getProductionExtended();
+
+        int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
+
+        //check if the action space is empty
+        if (actionSpaceExtended.isAccessible()){
+            ///check if familyMember is eligible to be placed inside the harvest zone
+            this.mainBoard.getProduction().checkAccessibility(player, familyMemberColor);
+            actionSpaceExtended.familyMemberCanBePlaced(player, familyMemberColor, servantsValue);
+
+            player.getPersonalBoard().getPersonalBoardTile().getProductionEffect().runEffect(player, informationCallback);
+
+            //run permanent effect
+            for (DevelopmentCard card : this.players.get(player.getUsername()).getPersonalBoard().getCards(DevelopmentCardColor.YELLOW))
+                card.getPermanentEffect().runEffect(player, informationCallback);
+        }else
+            throw new GameException();
+    }
+
+
     /**
      * This method manages the council palace events
      */
-    public void placeFamilyMemberInsideCouncilPalace(Player player, FamilyMemberColor familyMemberColor, InformationCallback informationCallback){
+    public void placeFamilyMemberInsideCouncilPalace(Player player, FamilyMemberColor familyMemberColor, int servants, InformationCallback informationCallback) throws GameException{
         CouncilPalace councilPalace = this.mainBoard.getCouncilPalace();
+
+        int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
 
         try {
             //check if familyMember is eligible to be placed inside the council palace
-            councilPalace.familyMemberCanBePlaced(player, familyMemberColor);
+            councilPalace.familyMemberCanBePlaced(player, familyMemberColor, servantsValue);
 
             councilPalace.fifoAddPlayer(player);
             councilPalace.getImmediateEffect().runEffect(player, informationCallback);
@@ -220,21 +313,48 @@ public class Game implements Serializable{
     /**
      * This method manages the market events
      */
-    public void placeFamilyMemberInsideMarket(Player player, FamilyMemberColor familyMemberColor, int indexMarket, InformationCallback informationCallback){
+    public void placeFamilyMemberInsideMarket(Player player, FamilyMemberColor familyMemberColor, int servants, int indexMarket, InformationCallback informationCallback) throws GameException{
         Market market = this.mainBoard.getMarket();
         MarketCell cell = market.getMarketCell(indexMarket);
 
-        if(cell.getEmpty()){
+        int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
+
+        if(cell.isEmpty()){
             try {
                 //check if familyMember is eligible to be placed inside the market
-                cell.familyMemberCanBePlaced(player, familyMemberColor);
+                cell.familyMemberCanBePlaced(player, familyMemberColor, servantsValue);
 
-                cell.getImmediateEffect().runEffect(player, informationCallback);
+                cell.getMarketCellImmediateEffect().runEffect(player, informationCallback);
             }catch (GameException e){
                 System.out.print(e.getError());
             }
         }else{
             System.out.print("This market cell is occupied");
+        }
+    }
+
+
+    /**
+     * This method changes in active the state of a Leader card if the player has the right requisites and runs the immediate effects
+     */
+    public void activateLeaderCard(Player player, int leaderCardAtIndex, InformationCallback informationCallback){
+        //get the leader card
+        LeaderCard leaderCard = player.getPersonalBoard().getLeaderCards().get(leaderCardAtIndex);
+
+        //check if the player has the requisites to activate the leader card
+        try {
+            leaderCard.checkRequisites(player);
+            //if the leader card has an immediate effect, run it immediately when you activate the card
+            if (leaderCard.getEffect().getClass().equals(LESimple.class) ||
+                    leaderCard.getEffect().getClass().equals(LEDiceBonus.class) ||
+                    leaderCard.getEffect().getClass().equals(LEDiceValueSet.class) ||
+                    leaderCard.getEffect().getClass().equals(LENeutralBonus.class) ||
+                    leaderCard.getEffect().getClass().equals(LECesareBorgia.class) ||
+                    leaderCard.getEffect().getClass().equals(LEHarvestProductionSimple.class)){
+                leaderCard.getEffect().runEffect(player, informationCallback);
+            }
+        }catch (GameException e){
+            System.out.print(e.getError());
         }
     }
 

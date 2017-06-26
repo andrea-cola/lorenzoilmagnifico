@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 
@@ -15,11 +16,13 @@ public class LECesareBorgia extends LeaderEffect{
      * @param player
      */
     @Override
-    public void runEffect(Player player, MainBoard mainBoard) {
+    public void runEffect(Player player, InformationCallback informationCallback) {
         int maxCard = player.getPersonalBoard().getMaxNumberOfCardPerType();
+        int[] newMilitaryPointsRequirements = player.getPersonalBoard().getGreenCardsMilitaryPointsRequirements();
         for (int i = 0; i < maxCard; i++){
-            player.getPersonalBoard().setGreenCardsMilitaryPointsRequirements(i, 0);
+            newMilitaryPointsRequirements[i] = 0;
         }
+        player.getPersonalBoard().setGreenCardsMilitaryPointsRequirements(newMilitaryPointsRequirements);
     }
 
     /**

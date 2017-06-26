@@ -25,13 +25,17 @@ public class ActionSpace implements Serializable{
     /**
      * Family member has occupied the space.
      */
-    private FamilyMember familyMember;
+    private FamilyMemberColor familyMemberColor;
+
+    /**
+     * Username of the players has occupied the space.
+     */
+    private String username;
 
     /**
      * Boolean value that checks if the action space is empty
      */
     private Boolean empty;
-
 
     public ActionSpace(ActionType actionSpaceType, EffectHarvestProductionSimple effect){
         this.actionSpaceType = actionSpaceType;
@@ -39,23 +43,15 @@ public class ActionSpace implements Serializable{
         empty = true;
     }
 
-    /**
-     * Get the action type of the action area.
-     * @return the action type
-     */
-    public ActionType getActionSpaceType(){
-        return this.actionSpaceType;
-    }
-
-    /**
-     * Get the effect of the action space.
-     * @return effect of the action space.
-     */
     public EffectHarvestProductionSimple getActionSpaceEffect(){
         return this.actionSpaceEffect;
     }
 
-    public Boolean getEmpty(){
+    public String getPlayerUsername(){
+        return this.username;
+    }
+
+    public Boolean isEmpty(){
         return this.empty;
     }
 
@@ -63,13 +59,17 @@ public class ActionSpace implements Serializable{
         this.empty = updatedValue;
     }
 
-    /**
-     * Checks if the value is enough to place the family member inside the cell
-     * @param player
-     * @param familyMemberColor
-     * @throws GameException
-     */
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+    public FamilyMemberColor getFamilyMemberColor(){
+        return this.familyMemberColor;
+    }
+
+    public void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+        if(player.getUsername().equals(this.username))
+            if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL) && !this.familyMemberColor.equals(FamilyMemberColor.NEUTRAL))
+                throw new GameException();
+    }
+
+    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 
         //check that the family member used has not been already used
         for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed()){
@@ -79,14 +79,23 @@ public class ActionSpace implements Serializable{
         }
 
         //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
-        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.actionSpaceEffect.getDiceActionValue()){
+        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + servants;
+        if (familyMemberValueTot < this.actionSpaceEffect.getDiceActionValue()){
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
         }
 
-
         //if the family member can be placed, add it to the family members used and set this zone as not empty
         player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
+        player.getPersonalBoard().getValuables().decrease(ResourceType.SERVANT, servants);
+        this.username = player.getUsername();
+        this.familyMemberColor = familyMemberColor;
         this.empty = false;
+    }
+
+    public void reset(){
+        this.empty = true;
+        this.username = null;
+        this.familyMemberColor = null;
     }
 
 }

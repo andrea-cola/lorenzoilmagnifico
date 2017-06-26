@@ -22,7 +22,7 @@ public class Market implements Serializable{
         this.marketCells = new MarketCell[numberOfCells];
         int i = 0;
         for(MarketCell marketCell : marketCells) {
-            this.marketCells[i] = new MarketCell(marketCell.getMinFamilyMemberValue(), marketCell.getImmediateEffect());
+            this.marketCells[i] = new MarketCell(marketCell.getMinFamilyMemberValue(), marketCell.getMarketCellImmediateEffect());
             i++;
         }
     }

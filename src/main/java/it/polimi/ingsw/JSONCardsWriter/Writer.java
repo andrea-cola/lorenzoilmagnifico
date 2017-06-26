@@ -12,23 +12,19 @@ public class Writer {
     public static void main(String[] args){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        LeaderCard leaderCard = new LeaderCard();
-        leaderCard.setLeaderCardName("Ludovico III Gonzaga");
-        leaderCard.setLeaderCardDescription("shalala");
-        PointsAndResources pointsAndResources = new PointsAndResources();
-        pointsAndResources.increase(ResourceType.COIN, 0);
-        pointsAndResources.increase(ResourceType.WOOD, 0);
-        pointsAndResources.increase(ResourceType.SERVANT, 15);
-        pointsAndResources.increase(ResourceType.STONE, 0);
-        leaderCard.setPointsAndResourcesRequisites(pointsAndResources);
-        LESimple leSimple = new LESimple();
-        leSimple.setNumberOfCouncilPrivileges(1);
-        leaderCard.setEffect(leSimple);
+        ExcommunicationCard excommunicationCard = new ExcommunicationCard();
 
-        String tmp = gson.toJson(leaderCard);
+        excommunicationCard.setCardID(17);
+        excommunicationCard.setPeriod(3);
+
+        ExcommunicationEffectNoVictoryPoints effect = new ExcommunicationEffectNoVictoryPoints();
+        effect.setDevelopmentCardColor(DevelopmentCardColor.GREEN);
+        excommunicationCard.setEffect(effect);
+
+        String tmp = gson.toJson(excommunicationCard);
 
         try{
-            FileOutputStream os = new FileOutputStream("src/main/resources/configFiles/leaderCards.json",true);
+            FileOutputStream os = new FileOutputStream("src/main/resources/configFiles/excommunicationCards.json",true);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
             bw.append(tmp + ",\n");
             bw.close();

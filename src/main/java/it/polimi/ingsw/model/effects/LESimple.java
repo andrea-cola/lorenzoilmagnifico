@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
 import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * This class represent the immediate simple effect.
@@ -44,7 +45,7 @@ public class LESimple extends LeaderEffect{
      * @param player that takes advantage of the effect.
      */
     @Override
-    public void runEffect(Player player, MainBoard mainBoard){
+    public void runEffect(Player player, InformationCallback informationCallback){
         //updates player's resources
         for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
@@ -56,7 +57,9 @@ public class LESimple extends LeaderEffect{
         }
 
         //logica di gestione del privilegio del consiglio
-        //TODO implementare logica di gestione del privilegio del consiglio
+        CouncilPrivilege councilPrivilege = new CouncilPrivilege(numberOfCouncilPrivileges);
+        councilPrivilege.chooseCouncilPrivilege(player, informationCallback);
+
     }
 
     /**

@@ -7,6 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import java.util.Map;
 
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
@@ -14,9 +15,7 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.rmiServer.RMIServerInterface;
 
 /**
@@ -167,6 +166,69 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     @Override
+    public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) throws NetworkException {
+        try {
+            server.setFamilyMemberInTower(playerID, familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        try {
+            server.setFamilyMemberInCouncil(playerID, familyMemberColor, servants, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) throws NetworkException {
+        try {
+            server.setFamilyMemberInMarket(playerID, familyMemberColor, servants, marketIndex, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        try {
+            server.setFamilyMemberInHarvestSimple(playerID, familyMemberColor, servants, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        try {
+            server.setFamilyMemberInProductionSimple(playerID, familyMemberColor, servants, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        try {
+            server.setFamilyMemberInHarvestExtended(playerID, familyMemberColor, servants, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+        try {
+            server.setFamilyMemberInProductionExtended(playerID, familyMemberColor, servants, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
     public void sendGame(Game game) throws RemoteException {
         getClient().setGameModel(game);
     }
@@ -179,6 +241,11 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void notifyTurnStarted(String username, long seconds) throws RemoteException {
         getClient().notifyTurnStarted(username, seconds);
+    }
+
+    @Override
+    public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws RemoteException {
+        getClient().notifyModelUpdate(clientUpdatePacket);
     }
 
     @Override

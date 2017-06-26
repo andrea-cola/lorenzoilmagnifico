@@ -90,11 +90,13 @@ public class EffectCardBonus extends Effect{
         for (DevelopmentCardColor color : this.colors){
             player.getPersonalBoard().setDevelopmentCardColorDiceValueBonus(color, diceValueBonus);
 
-            for (PointsAndResources discount : this.pickUpDiscounts){
-                player.getPersonalBoard().setCostDiscountForDevelopmentCard(color, discount);
+            if(pickUpDiscounts.length == 1)
+                player.getPersonalBoard().setCostDiscountForDevelopmentCard(color, pickUpDiscounts[0]);
+            else if(pickUpDiscounts.length > 1){
+                int choice = informationCallback.choosePickUpDiscounts("discount", pickUpDiscounts);
+                player.getPersonalBoard().setCostDiscountForDevelopmentCard(color, pickUpDiscounts[choice]);
             }
         }
-
     }
 
     /**

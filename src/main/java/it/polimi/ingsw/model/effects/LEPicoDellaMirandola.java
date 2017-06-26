@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ResourceType;
@@ -26,12 +27,8 @@ public class LEPicoDellaMirandola extends LeaderEffect {
      * @param player
      */
     @Override
-    public void runEffect(Player player, MainBoard mainBoard) {
-        for (int i = 0; i < mainBoard.getNumberOfTowers(); i++){
-            for (int j = 0; j < mainBoard.getNumberOfTowerCells(); j++){
-                mainBoard.getTower(i).getTowerCell(j).getDevelopmentCard().getCost().decrease(ResourceType.COIN, moneyDiscount);
-            }
-        }
+    public void runEffect(Player player, InformationCallback informationCallback) {
+
     }
 
     /**

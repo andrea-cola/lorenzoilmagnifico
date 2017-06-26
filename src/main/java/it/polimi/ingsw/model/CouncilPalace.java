@@ -2,10 +2,11 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
+import it.polimi.ingsw.model.effects.EffectSimple;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import it.polimi.ingsw.model.effects.EffectSimple;
+
 
 /**
  * This class represents the council palace abstraction.
@@ -31,6 +32,7 @@ public class CouncilPalace implements Serializable{
     public CouncilPalace(int minFamilyMemberDiceValue, EffectSimple effectSimple){
         this.minFamilyMemberDiceValue = minFamilyMemberDiceValue;
         this.effectSimple = effectSimple;
+        nextTurnOrder = new LinkedList<>();
     }
 
     /**
@@ -58,6 +60,17 @@ public class CouncilPalace implements Serializable{
             this.nextTurnOrder.add(player);
     }
 
+    public LinkedList<Player> getNewOrder(){
+        return this.nextTurnOrder;
+    }
+
+    /**
+     * Reset fifo.
+     */
+    public void resetFifo(){
+        this.nextTurnOrder = new LinkedList<>();
+    }
+
     /**
      * Remove player from the queue.
      * @return the player on the top of the queue.
@@ -67,31 +80,21 @@ public class CouncilPalace implements Serializable{
     }
 
 
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 
         //check that the family member used has not been already used
-        for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed()){
-            if (familyMemberColor.equals(color)){
+        for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed())
+            if (familyMemberColor.equals(color))
                 throw new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_USED);
-            }
-        }
 
         //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
-        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) < this.minFamilyMemberDiceValue){
+        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + servants;
+        if (familyMemberValueTot < this.minFamilyMemberDiceValue)
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
-        }
-
-        //check that another family member of the player is not inside the council palace
-        for (Player p : this.nextTurnOrder){
-            if (p.getUsername().equals(player.getUsername())){
-                throw  new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_PLACED);
-            }
-        }
 
         //if the family member can be placed, add it to the family members used
         player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
-
+        player.getPersonalBoard().getValuables().decrease(ResourceType.SERVANT, servants);
     }
-
 
 }
