@@ -9,7 +9,6 @@ import java.util.*;
 /*package-local*/ class GameManager{
 
     private static final int INITIAL_COINS = 5;
-
     private static final int CARD_PER_DECK = 8;
 
     /**
@@ -59,18 +58,15 @@ import java.util.*;
 
     private InformationChoicesHandler informationChoicesHandler;
 
-
     /**
      * Victory points for green cards assigned at the end of the game
      */
-    private static ArrayList<Integer> victoryPointsForGreenCards = new ArrayList<>();
-
+    private static int[] victoryPointsForGreenCards;
 
     /**
      * Victory points for blue cards assigned at the end of the game
      */
-    private static ArrayList<Integer> victoryPointsForBlueCards = new ArrayList<>();
-
+    private static int[] victoryPointsForBlueCards;
 
     /**
      * Class constructor.
@@ -83,10 +79,12 @@ import java.util.*;
         this.configuration = configuration;
         this.leaderCards = leaderCards;
         this.excommunicationCards = excommunicationCards;
-        game = new Game(configuration.getMainBoard(), this.players);
+        this.informationChoicesHandler = new InformationChoicesHandler();
+        this.game = new Game(configuration.getMainBoard(), this.players);
+        victoryPointsForGreenCards = configuration.getVictoryPointsForGreenCards();
+        victoryPointsForBlueCards = configuration.getVictoryPointsForBlueCards();
         setupPlayers();
         setupDecks(developmentCards);
-        informationChoicesHandler = new InformationChoicesHandler();
     }
 
     /**
@@ -138,7 +136,6 @@ import java.util.*;
         });
     }
 
-
     /**
      * Setup development card decks by period
      * @param deck
@@ -168,7 +165,6 @@ import java.util.*;
         ArrayList<DevelopmentCard> deckTurn = new ArrayList<>(deck.subList(limitDown, limitTop));
         return deckTurn;
     }
-
 
     /**
      * Method to setup towers' cards
@@ -207,14 +203,12 @@ import java.util.*;
         }
     }
 
-
     /**
      * Method to setup the excommunication cards for the period
      * @return
      */
     private ExcommunicationCard chooseExcommunicationCardForPeriod(int period) {
         Collections.shuffle(this.excommunicationCards);
-
         for (ExcommunicationCard card : this.excommunicationCards){
             if (card.getPeriod() == period)
                 return card;
@@ -335,7 +329,7 @@ import java.util.*;
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.GREEN)){
                 int numberOfGreenCards = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size();
                 if (numberOfGreenCards > 0){
-                    int finalPointsBonus = victoryPointsForGreenCards.get(numberOfGreenCards - 1);
+                    int finalPointsBonus = victoryPointsForGreenCards[numberOfGreenCards - 1];
                     player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
                 }
             }
@@ -344,7 +338,7 @@ import java.util.*;
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.BLUE)){
                 int numberOfBlueCards = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).size();
                 if (numberOfBlueCards > 0){
-                    int finalPointsBonus = victoryPointsForGreenCards.get(numberOfBlueCards - 1);
+                    int finalPointsBonus = victoryPointsForGreenCards[numberOfBlueCards - 1];
                     player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
                 }
             }
@@ -380,8 +374,5 @@ import java.util.*;
 
         }
     }
-
-
-
 
 }

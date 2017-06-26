@@ -154,13 +154,9 @@ public class GraphicUserInterface extends AbstractUI{
     public void turnScreen(String username, long seconds) {
 
     }
-<<<<<<< HEAD
 
     @Override
     public void notifyUpdate(String message) {
 
     }
-
-=======
->>>>>>> 805b963d384a061d6727e16ca7eea5f8bd6bf86d
 }
