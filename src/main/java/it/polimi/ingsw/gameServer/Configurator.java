@@ -34,12 +34,12 @@ public class Configurator {
     private static Configurator configurator;
 
     /**
-     * Development cards deck.
+     * Development leaderCards deck.
      */
     private static ArrayList<DevelopmentCard> developmentCards;
 
     /**
-     * Development cards deck.
+     * Development leaderCards deck.
      */
     private static ArrayList<LeaderCard> leaderCards;
 
@@ -128,8 +128,8 @@ public class Configurator {
     }
 
     /**
-     * Parse development cards from appropriate json file.
-     * @return array of cards.
+     * Parse development leaderCards from appropriate json file.
+     * @return array of leaderCards.
      * @throws FileNotFoundException if file is not found.
      */
     private void parseDevelopmentCard() throws FileNotFoundException{
@@ -155,8 +155,8 @@ public class Configurator {
     }
 
     /**
-     * Return all leader cards.
-     * @return array list of leader cards.
+     * Return all leader leaderCards.
+     * @return array list of leader leaderCards.
      */
     public static ArrayList<LeaderCard> getLeaderCards(){
         return leaderCards;

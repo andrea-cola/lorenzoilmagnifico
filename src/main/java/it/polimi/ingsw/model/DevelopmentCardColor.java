@@ -5,22 +5,22 @@ package it.polimi.ingsw.model;
  */
 public enum DevelopmentCardColor {
     /**
-     * Territories cards
+     * Territories leaderCards
      */
     GREEN,
 
     /**
-     * Buildings cards
+     * Buildings leaderCards
      */
     YELLOW,
 
     /**
-     * Characters cards
+     * Characters leaderCards
      */
     BLUE,
 
     /**
-     * Ventures cards
+     * Ventures leaderCards
      */
     PURPLE
 

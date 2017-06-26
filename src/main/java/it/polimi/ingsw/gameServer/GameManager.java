@@ -16,27 +16,27 @@ import java.util.*;
     private Game game;
 
     /**
-     * Development cards yellow deck.
+     * Development leaderCards yellow deck.
      */
     private ArrayList<DevelopmentCard> yellowDeck;
 
     /**
-     * Development cards green deck.
+     * Development leaderCards green deck.
      */
     private ArrayList<DevelopmentCard> greenDeck;
 
     /**
-     * Development cards blue deck.
+     * Development leaderCards blue deck.
      */
     private ArrayList<DevelopmentCard> blueDeck;
 
     /**
-     * Development cards purple deck.
+     * Development leaderCards purple deck.
      */
     private ArrayList<DevelopmentCard> purpleDeck;
 
     /**
-     * Leader cards deck.
+     * Leader leaderCards deck.
      */
     private ArrayList<LeaderCard> leaderCards;
 
@@ -123,7 +123,7 @@ import java.util.*;
     }
 
     /**
-     * Method to setup towers' cards
+     * Method to setup towers' leaderCards
      * @param period
      * @param turn
      */

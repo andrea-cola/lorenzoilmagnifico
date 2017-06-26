@@ -52,7 +52,7 @@ public class ChoosePersonalBoardTileStage extends JFXPanel {
             grid.add(tile, i, 1);
             choiceBox.getItems().add(personalBoardTileList.get(i).getPersonalBoardID());
             StringBuilder path = new StringBuilder();
-            path.append("images/personalbonustile_");
+            path.append("images/personalTile/personalbonustile_");
             path.append(personalBoardTileList.get(i).getPersonalBoardID());
             path.append(".png");
             Image im = new Image(path.toString());

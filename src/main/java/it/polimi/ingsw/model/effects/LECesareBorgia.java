@@ -23,6 +23,6 @@ public class LECesareBorgia extends LeaderEffect{
      */
     @Override
     public String getDescription() {
-        return "You do not have to meet the requirement of military points when you pick up land cards.";
+        return "You do not have to meet the requirement of military points when you pick up land leaderCards.";
     }
 }

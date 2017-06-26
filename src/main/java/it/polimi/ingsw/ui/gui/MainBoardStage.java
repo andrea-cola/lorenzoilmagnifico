@@ -1,10 +1,16 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.exceptions.GameException;
+import it.polimi.ingsw.model.*;
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
+import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -16,22 +22,26 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
+
 
 /**
  * This is the Graphic User Interface main board class
  */
-public class MainBoardStage extends Application{
+public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     /**
      * Family member related values
      */
     private int redValue;
     private int whiteValue;
     private int blackValue;
-    private final int neutralValue= 0;
+    private int neutralValue;
 
+    private CallbackInterface callback;
+    private Game game;
+    private Player player;
     /**
      * Data related to the player
      */
@@ -47,18 +57,21 @@ public class MainBoardStage extends Application{
     private static final int STAGE_HEIGHT = 1000;
     private static final int BACK_WIDTH = 150;
     private static final int BACK_HEIGHT = 200;
-    private static final int GRID_TOWER_X = 60;
-    private static final int GRID_TOWER_Y = 40;
+    private static final int GRID_TOWER_X = 20;
+    private static final int GRID_TOWER_Y = 20;
     private static final int GRID_TOWER_HGAP = 20;
     private static final int GRID_TOWER_VGAP = 30;
-    private static final int GRID_ACTION_X = 70;
-    private static final int GRID_ACTION_Y = 650;
+    private static final int GRID_ACTION_X = 20;
+    private static final int GRID_ACTION_Y = 500;
     private static final int GRID_MARKET_HGAP = 20;
     private static final int GRID_MARKET_VGAP = 30;
     private static final int HBOX_SPACING = 80;
     private static final int VBOX_SPACING = 10;
     private static final int CIRCLE_RADIUS = 10;
     private static final int FAMILY_RADIUS = 20;
+    private static final int IMAGE_HEIGHT = 70;
+    private static final int IMAGE_WIDTH = 50;
+
 
     /**
      * Main gui MainBoardStage objects
@@ -67,39 +80,39 @@ public class MainBoardStage extends Application{
     private BackgroundImage background;
     private Button personalBoardButton;
     private Button personalTileButton;
+    private Button leaderCardsButton;
     private AnchorPane leftPane;
     private GridPane gridTower;
+    private GridPane gridAction;
+    private GridPane gridMarket;
     private Scene scene;
+
 
     /**
      * Constructor for Main Board class
      */
-    public MainBoardStage(){
+    MainBoardStage(CallbackInterface callback, Player player, Game game){
+        this.game = game;
+        this.player = player;
+        this.callback = callback;
 
-    }
+        this.redValue = game.getDices().getValues().get(FamilyMemberColor.ORANGE);
+        this.blackValue = game.getDices().getValues().get(FamilyMemberColor.BLACK);
+        this.whiteValue = game.getDices().getValues().get(FamilyMemberColor.WHITE);
+        this.neutralValue = game.getDices().getValues().get(FamilyMemberColor.NEUTRAL);
 
-    /**
-     * Setting parameters
-     * @param username
-     * @param militaryPoints
-     * @param victoryPoints
-     * @param faithPoints
-     */
-    public void setPlayerData(String username, int militaryPoints, int victoryPoints, int faithPoints){
-        this.username = username;
-        this.militaryPoints = militaryPoints;
-        this.victoryPoints = victoryPoints;
-        this.faithPoints = faithPoints;
-    }
+        this.username = player.getUsername();
+        this.militaryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY);
+        this.victoryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY);
+        this.faithPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH);
 
+        gridTower = new GridPane();
+        gridAction = new GridPane();
+        gridMarket = new GridPane();
 
-    /**
-     * The main entry point for all JavaFX applications
-     * @param primaryStage the primary stage for this application
-     */
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("MainBoardStage");
+        showExtraHarvest();
+        showExtraProduction();
+        showExtraMarket();
 
         SplitPane splitPane = new SplitPane();
         leftPane = createLeftPane();
@@ -109,12 +122,7 @@ public class MainBoardStage extends Application{
         splitPane.getItems().addAll(group, rightPane);
 
         scene = new Scene(splitPane);
-
-        primaryStage.setScene(scene);
-        primaryStage.setHeight(STAGE_HEIGHT);
-        primaryStage.setWidth(STAGE_WIDTH);
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        this.setScene(scene);
     }
 
     /**
@@ -125,87 +133,114 @@ public class MainBoardStage extends Application{
         leftPane = new AnchorPane();
 
         BackgroundSize size = new BackgroundSize(BACK_WIDTH, BACK_HEIGHT, false, false, true, false);
-        Image image2 = new Image("/images/MainBoardCover.jpg");
+        Image image2 = new Image("/images/MainBoardStageCover.jpg");
         background = new BackgroundImage(image2, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
         leftPane.setBackground(new Background(background));
 
-        gridTower = new GridPane();
         gridTower.relocate(GRID_TOWER_X, GRID_TOWER_Y);
         gridTower.setVgap(GRID_TOWER_VGAP);
         gridTower.setHgap(GRID_TOWER_HGAP);
         for (int i = 0; i <= 7 ; i++) {
-            for (int j = 0; j <= 3; j++) {
+            for (int j = 0; j < 4; j++) {
                 if(i%2==0){
-                    ImageView imageView = new ImageView();
-                    gridTower.add(imageView, i, j);
+                    setDevelopmentCardInTowerCell(i/2, j);
                 }else{
+                    ImageView card = (ImageView) getNodeInGrid(i-1, j);
                     Circle circle = new Circle(10, Color.AQUA);
-                    manageTargetEvent(circle);
                     gridTower.add(circle, i, j);
+                    int column = i;
+                    int row = j;
+                    FamilyMemberColor memberColor = manageTargetEvent(circle);
+                    System.out.println(memberColor);
+                    circle.setOnMouseDragReleased(event -> {
+                        card.setVisible(false);
+                        try {
+                            game.pickupDevelopmentCardFromTower(player, manageTargetEvent(circle), column, row, null);
+                            circle.setVisible(false);
+                            circle.setDisable(true);
+                        } catch (GameException e) {
+                            callback.showGameException();
+                        }
+                        event.consume();
+                    });
+
                 }
             }
         }
 
+        /**
         ImageView firsExcommunicationCard = new ImageView();
         ImageView secondExcommunicationCard = new ImageView();
         ImageView thirdExcommunicationCard = new ImageView();
         gridTower.add(firsExcommunicationCard, 1, 5);
         gridTower.add(secondExcommunicationCard, 2, 5);
         gridTower.add(thirdExcommunicationCard, 3, 5);
+        */
 
         Circle council = new Circle(CIRCLE_RADIUS);
-        manageTargetEvent(council);
         gridTower.add(council, 5, 4);
+        FamilyMemberColor councilColor = manageTargetEvent(council);
+        council.setOnDragDropped(event -> {
+            try {
+                game.placeFamilyMemberInsideCouncilPalace(player, councilColor , null);
+            } catch (GameException e) {
+                callback.showGameException();
+            }
+        });
 
-        GridPane gridAction = new GridPane();
         gridAction.setHgap(GRID_TOWER_HGAP);
         gridAction.setVgap(GRID_TOWER_VGAP);
+
         Circle circleProduction = new Circle(CIRCLE_RADIUS);
-        manageTargetEvent(circleProduction);
+        FamilyMemberColor productionColor = manageTargetEvent(circleProduction);
         gridAction.add(circleProduction, 0, 0);
-        //if()
-        //	Circle circleProductionExtended = new Circle(CIRCLE_RADIUS);
-        //  manageTargetEvent(circleProductionExtended);
-        //	gridAction.add(circleProductionExtended, 1, 0);
-        //else
-        Rectangle coverProduction = new Rectangle(30, 20);
-        gridAction.add(coverProduction, 1, 0);
+        circleProduction.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                game.placeFamilyMemberInsideHarvestSimpleSpace(player, productionColor, null);
+            }
+        });
 
         Circle circleHarvest = new Circle(10);
-        manageTargetEvent(circleHarvest);
+        FamilyMemberColor harvestColor = manageTargetEvent(circleHarvest);
         gridAction.add(circleHarvest, 0, 1);
-        //if()
-        //	Circle circleHarvestExtended = new Circle(CIRCLE_RADIUS);
-        //  manageTargetEvent(circleHarvestExtended);
-        //	gridAction.add(circleHarvestExtended, 1, 1);
-        //else
-        Rectangle coverHarvest = new Rectangle(30, 20);
-        gridAction.add(coverHarvest, 1, 1);
-
-        GridPane gridMarket = new GridPane();
-        Circle circleMarket1 = new Circle(CIRCLE_RADIUS);
-        manageTargetEvent(circleMarket1);
-        Circle circleMarket2 = new Circle(CIRCLE_RADIUS);
-        manageTargetEvent(circleMarket2);
-        gridMarket.add(circleMarket1, 3, 0);
-        gridMarket.add(circleMarket2, 4, 0);
-
-        //if()
-        //Circle circleMarketExtended1 = new Circle(CIRCLE_RADIUS);
-        //Circle circleMarketExtended2 = new Circle(CIRCLE_RADIUS);
-        //manageTargetEvent(circleMarketExtended1);
-        //manageTargetEvent(circleMarketExtended2);
-        //gridMarket.add(circleMarketExtended1, 5, 0);
-        //gridMarket.add(circleMarketExtended2, 6, 1);
-        //else
-        Rectangle coverMarket1 = new Rectangle();
-        Rectangle coverMarket2 = new Rectangle();
-        gridMarket.add(coverMarket1, 5, 0);
-        gridMarket.add(coverMarket2, 6, 1);
+        circleHarvest.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                game.placeFamilyMemberInsideHarvestSimpleSpace(player, harvestColor,null);
+            }
+        });
 
         gridMarket.setHgap(GRID_MARKET_HGAP);
         gridMarket.setVgap(GRID_MARKET_VGAP);
 
+        Circle circleMarket1 = new Circle(CIRCLE_RADIUS);
+        FamilyMemberColor marketColor1 = manageTargetEvent(circleMarket1);
+        gridMarket.add(circleMarket1, 3, 0);
+        circleMarket1.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                try {
+                    game.placeFamilyMemberInsideMarket(player, marketColor1, 1, null);
+                } catch (GameException e) {
+                    callback.showGameException();
+                }
+            }
+        });
+
+        Circle circleMarket2 = new Circle(CIRCLE_RADIUS);
+        FamilyMemberColor marketColor2 = manageTargetEvent(circleMarket2);
+        gridMarket.add(circleMarket2, 4, 0);
+        circleMarket2.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                try {
+                    game.placeFamilyMemberInsideMarket(player, marketColor2, 2, null);
+                } catch (GameException e) {
+                    callback.showGameException();
+                }
+            }
+        });
 
         HBox hBox = new HBox(HBOX_SPACING);
         hBox.getChildren().addAll(gridAction, gridMarket);
@@ -220,32 +255,19 @@ public class MainBoardStage extends Application{
      */
     public VBox createRightPane(){
         rightPane= new VBox(VBOX_SPACING);
-        personalBoardButton = new Button("View Personal Board");
+        rightPane.setAlignment(Pos.CENTER);
+
+        personalBoardButton = new Button("PERSONAL BOARD");
         personalBoardButton.setAlignment(Pos.CENTER);
-        personalBoardButton.setOnAction(event -> {
-            Application personalBoardScreen = new PersonalBoardStage(username);
-            Thread thread = new Thread(()->Application.launch(personalBoardScreen.getClass()));
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+        personalBoardButton.setOnAction(event -> this.callback.showPersonalBoardStage(player));
 
-
-        personalTileButton = new Button("View Personal Tile");
+        personalTileButton = new Button("PERSONAL TILE");
         personalTileButton.setAlignment(Pos.CENTER);
-        personalTileButton.setOnAction(event -> {
-            Application personalBoardTileScreen = new PersonalTileBoardStage(username);
-            Thread thread = new Thread(()->Application.launch(personalBoardTileScreen.getClass()));
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-        });
+        personalTileButton.setOnAction(event -> this.callback.showPersonalTileBoardStage(player));
+
+        leaderCardsButton = new Button("LEADER CARDS");
+        leaderCardsButton.setAlignment(Pos.CENTER);
+        leaderCardsButton.setOnAction(event -> callback.showLeaderCards(player));
 
         Circle redMember= new Circle(FAMILY_RADIUS);
         redMember.setFill(Color.RED);
@@ -300,7 +322,7 @@ public class MainBoardStage extends Application{
         Separator separator1 = new Separator(Orientation.HORIZONTAL);
         Separator separator2 = new Separator(Orientation.HORIZONTAL);
 
-        rightPane.getChildren().addAll(personalBoardButton, personalTileButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable);
+        rightPane.getChildren().addAll(personalBoardButton, personalTileButton, leaderCardsButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable);
         return rightPane;
     }
 
@@ -341,8 +363,8 @@ public class MainBoardStage extends Application{
      * Method to manage the "Drag Over", "Drag Entered", "Drag Exited", "Drag Dropped" event
      * @param target node which is triggered by the event and does actions
      */
-    private void manageTargetEvent(Circle target){
-
+    private FamilyMemberColor manageTargetEvent(Circle target){
+        final Color[] color = new Color[1];
         target.setOnDragOver(event -> {
             /* data is dragged over the target */
             System.out.println("onDragOver");
@@ -355,7 +377,6 @@ public class MainBoardStage extends Application{
             }
             event.consume();
         });
-
         target.setOnDragEntered(event -> {
             /* the drag-and-drop gesture entered the target */
             System.out.println("onDragEntered");
@@ -363,39 +384,42 @@ public class MainBoardStage extends Application{
             if (event.getGestureSource() != target && event.getDragboard().hasString()){
                 target.setScaleX(target.getScaleX()*1.3);
                 target.setScaleY(target.getScaleY()*1.3);
-
             }
             event.consume();
         });
-
         target.setOnDragExited(event -> {
             /* mouse moved away, remove the graphical cues */
             target.setScaleX(target.getScaleX()/1.3);
             target.setScaleY(target.getScaleY()/1.3);
             event.consume();
         });
-
         target.setOnDragDropped(event -> {
             String[] name;
             System.out.println("onDragDropped");
             Dragboard db = event.getDragboard();
-            boolean success = false;
+            Node node = event.getPickResult().getIntersectedNode();
+            int x = GridPane.getColumnIndex(node);
             if(db.hasString()){
+                boolean success = false;
                 target.setDisable(true);
                 name = db.getString().split("fill=0");
-                Color color = stringToColor(name[1]);
-                target.setFill(color);
-
-                int column = GridPane.getColumnIndex(target);
-                int row = GridPane.getRowIndex(target);
-                ImageView card = (ImageView) getNodeInGrid(row, column-1);
-                card.setVisible(false);
+                color[0] = stringToColor(name[1]);
+                target.setFill(color[0]);
                 success = true;
-
+                event.setDropCompleted(success);
+                event.consume();
             }
-            event.setDropCompleted(success);
-            event.consume();
         });
+
+        if(Color.RED.equals(color))
+            return FamilyMemberColor.ORANGE;
+        else if(Color.BLACK.equals(color))
+            return FamilyMemberColor.BLACK;
+        else if(Color.GRAY.equals(color))
+            return FamilyMemberColor.NEUTRAL;
+        else if (Color.WHITE.equals(color))
+            return FamilyMemberColor.WHITE;
+        return null;
     }
 
     /**
@@ -404,8 +428,7 @@ public class MainBoardStage extends Application{
      * @param column index
      * @return Node
      */
-
-    private Node getNodeInGrid(int row, int column){
+    private Node getNodeInGrid(int column, int row){
         Node result = null;
         ObservableList<Node> childrens = gridTower.getChildren();
         for (Node node : childrens) {
@@ -416,4 +439,87 @@ public class MainBoardStage extends Application{
         return result;
     }
 
+    @Override
+    public void showExtraProduction() {
+        System.out.println("setting production...");
+        if(game.getPlayersMap().size()>2) {
+            Circle circleProductionExtended = new Circle(CIRCLE_RADIUS);
+            manageTargetEvent(circleProductionExtended);
+            gridAction.add(circleProductionExtended, 1, 0);
+        }else {
+            Rectangle coverProduction = new Rectangle(30, 20);
+            coverProduction.setFill(new ImagePattern(new Image("images/actionCover/productionCover.png")));
+            gridAction.add(coverProduction, 1, 0);
+        }
+    }
+
+    @Override
+    public void showExtraHarvest() {
+        System.out.println("setting harvest...");
+        if(game.getPlayersMap().size()>2) {
+            Circle circleHarvestExtended = new Circle(CIRCLE_RADIUS);
+            manageTargetEvent(circleHarvestExtended);
+            gridAction.add(circleHarvestExtended, 1, 1);
+        }else {
+            Rectangle coverHarvest = new Rectangle(30, 20);
+            coverHarvest.setFill(new ImagePattern(new Image("images/actionCover/productionCover.png")));
+            gridAction.add(coverHarvest, 1, 1);
+        }
+    }
+
+    @Override
+    public void showExtraMarket() {
+        System.out.println("setting market...");
+        if(game.getPlayersMap().size()>3) {
+            Circle circleMarketExtended1 = new Circle(CIRCLE_RADIUS);
+            Circle circleMarketExtended2 = new Circle(CIRCLE_RADIUS);
+            manageTargetEvent(circleMarketExtended1);
+            manageTargetEvent(circleMarketExtended2);
+            gridMarket.add(circleMarketExtended1, 5, 0);
+            gridMarket.add(circleMarketExtended2, 6, 1);
+        }else {
+            Rectangle coverMarket1 = new Rectangle(30, 20);
+            Rectangle coverMarket2 = new Rectangle(30, 20);
+            coverMarket1.setFill(new ImagePattern(new Image("images/actionCover/marketCover.png")));
+            coverMarket1.setFill(new ImagePattern(new Image("images/actionCover/marketCover.png")));
+            gridMarket.add(coverMarket1, 5, 0);
+            gridMarket.add(coverMarket2, 6, 1);
+        }
+    }
+
+    @Override
+    public void setDevelopmentCardInTowerCell(int tower, int towerCell) {
+        System.out.println("setting tower cell...");
+        DevelopmentCard devCard = game.getMainBoard().getTower(tower).getTowerCell(towerCell).getDevelopmentCard();
+        StringBuilder path = new StringBuilder();
+        path.append("images/developmentCard/devcards_f_en_c_");
+        path.append(devCard.getId());
+        path.append(".png");
+        ImageView image = new ImageView(new Image(path.toString()));
+        image.setFitHeight(IMAGE_HEIGHT);
+        image.setFitWidth(IMAGE_WIDTH);
+        image.autosize();
+        gridTower.add(image, tower*2, towerCell);
+    }
+
+    @Override
+    public void setExcommunicationCard() {
+        ExcommunicationCard[] exCard = game.getMainBoard().getVatican().getExcommunicationCards();
+        StringBuilder path = new StringBuilder();
+    }
+
+
+
+    interface CallbackInterface{
+
+        void showPersonalBoardStage(Player player);
+
+        void showPersonalTileBoardStage(Player player);
+
+        void showLeaderCards(Player player);
+
+        void showGameException();
+
+        void notifyEndTurnStage();
+    }
 }

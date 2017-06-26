@@ -2,10 +2,7 @@ package it.polimi.ingsw.ui.gui;
 
 
 import it.polimi.ingsw.model.LeaderCard;
-import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -56,7 +52,7 @@ public class ChooseLeaderCardStage extends JFXPanel{
             String[] parts = name.split(" ");
             StringBuilder str = new StringBuilder();
             if(parts.length > 0) {
-                str.append("images/cards/");
+                str.append("images/leaderCards/");
                 str.append(parts[0]);
                 for (int j = 1; j < parts.length; j++)
                     str.append("+" + parts[j].toLowerCase());

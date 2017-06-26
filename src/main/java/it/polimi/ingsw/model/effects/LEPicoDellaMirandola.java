@@ -33,6 +33,6 @@ public class LEPicoDellaMirandola extends LeaderEffect {
      */
     @Override
     public String getDescription() {
-        return "When you buy development cards, you get a 3-coin discount on their cost (if they cost coins).";
+        return "When you buy development leaderCards, you get a 3-coin discount on their cost (if they cost coins).";
     }
 }

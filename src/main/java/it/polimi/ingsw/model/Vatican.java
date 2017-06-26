@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Vatican implements Serializable{
 
     /**
-     * Array of excommunication cards. Each card is used in only one age.
+     * Array of excommunication leaderCards. Each card is used in only one age.
      * The length of this array is equal the number of ages.
      */
     private ExcommunicationCard[] excommunicationCards;

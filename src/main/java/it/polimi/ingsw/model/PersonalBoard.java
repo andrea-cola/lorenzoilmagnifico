@@ -23,12 +23,12 @@ public class PersonalBoard implements Serializable{
     private Map<ActionType, Integer> harvestProductionDiceValueBonus = new HashMap<>();
 
     /**
-     * bonus: save the bonus dice values for cards
+     * bonus: save the bonus dice values for leaderCards
      */
     private Map<DevelopmentCardColor, Integer> developmentCardColorDiceValueBonus = new HashMap<>();
 
     /**
-     * discounts: save the discount cost for development cards
+     * discounts: save the discount cost for development leaderCards
      */
     private Map<DevelopmentCardColor, PointsAndResources> costDiscountForDevelopmentCard = new HashMap<>();
 
@@ -48,7 +48,7 @@ public class PersonalBoard implements Serializable{
     private static int[] greenCardsMilitaryPointsRequirements = new int[MAX_NUMER_OF_CARD_PER_TYPE];
 
     /**
-     * Array of cards, divided per types.
+     * Array of leaderCards, divided per types.
      */
     private ArrayList<DevelopmentCard> territoryCards = new ArrayList<>();
     private ArrayList<DevelopmentCard> buildingCards = new ArrayList<>();
@@ -290,7 +290,7 @@ public class PersonalBoard implements Serializable{
     }
 
     /**
-     * Set the cost discount value for a particular type of development cards
+     * Set the cost discount value for a particular type of development leaderCards
      * @param cardColor
      * @param valuables
      */
@@ -299,7 +299,7 @@ public class PersonalBoard implements Serializable{
     }
 
     /**
-     * Get the cost discount value for a particular type of development cards
+     * Get the cost discount value for a particular type of development leaderCards
      * @return
      */
     public Map<DevelopmentCardColor, PointsAndResources> getCostDiscountForDevelopmentCard(){

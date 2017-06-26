@@ -1,17 +1,12 @@
 package it.polimi.ingsw.ui.gui;
 
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
-import it.polimi.ingsw.utility.Debugger;
-import javafx.application.Application;
 import javafx.application.Platform;
 
-import javafx.embed.swing.JFXPanel;
-import javafx.stage.Stage;
-
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.List;
 
@@ -22,15 +17,16 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * This class manage the graphic user interface of the game
  */
-public class GraphicUserInterface extends AbstractUI{
+public class GraphicUserInterface extends AbstractUI implements MainBoardStage.CallbackInterface, InformationCallback{
 
     private final static String START = "startinStage";
     private final static String CONNECTION = "connnectionStage";
     private final static String LOGIN = "loginStage";
     private final static String JOIN_ROOM = "joinRoomStage";
     private final static String CREATE_ROOM = "createRoomStage";
-    private final static String PERSONAL_TILE = "personalTileStage";
+    private final static String PERS_TILE_CHOICE = "personalTileStage";
     private final static String LEADER_CARD = "leaderCardStage";
+    private final static String MAIN_BOARD = "mainBoardStage";
 
     private final static int FRAME_HEIGHT = 700;
     private final static int FRAME_WIDTH = 700;
@@ -47,6 +43,10 @@ public class GraphicUserInterface extends AbstractUI{
     private CreateRoomStage createRoomStage;
     private ChoosePersonalBoardTileStage choosePersonalBoardTileStage;
     private ChooseLeaderCardStage chooseLeaderCardStage;
+    private MainBoardStage mainBoardStage;
+    private PersonalBoardStage personalBoardStage;
+    private PersonalTileBoardStage personalTileBoardStage;
+    private LeaderCardsStage leaderCardsStage;
 
     /**
      * Constructor
@@ -65,20 +65,6 @@ public class GraphicUserInterface extends AbstractUI{
         mainPanel.setLocation(150, 150);
         mainFrame.add(mainPanel);
         showStartingStage();
-    }
-
-    private void buildGUI() {
-        /*
-        chooseConnectionStage = new ChooseConnectionStage(getController()::setNetworkSettings);
-        System.out.println("building...");
-        mainPanel.add(chooseConnectionStage, CONNECTION);
-
-        mainPanel.add(loginStage, LOGIN);
-        mainPanel.add(joinRoomStage, CREATE_ROOM);
-        mainPanel.add(createRoomStage, JOIN_ROOM );
-        mainPanel.add(choosePersonalBoardTileStage, PERSONAL_TILE);
-        mainPanel.add(chooseLeaderCardStage, LEADER_CARD );
-        */
     }
 
     private void showStartingStage(){
@@ -133,8 +119,8 @@ public class GraphicUserInterface extends AbstractUI{
     public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
         System.out.println("choosing tile...");
         choosePersonalBoardTileStage = new ChoosePersonalBoardTileStage(getClient()::sendPersonalBoardTileChoice, personalBoardTileList);
-        mainPanel.add(choosePersonalBoardTileStage, PERSONAL_TILE);
-        cardLayout.show(mainPanel, PERSONAL_TILE);
+        mainPanel.add(choosePersonalBoardTileStage, PERS_TILE_CHOICE);
+        cardLayout.show(mainPanel, PERS_TILE_CHOICE);
     }
 
     @Override
@@ -147,11 +133,70 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void notifyGameStarted() {
-        
+        System.out.println("starting game...");
     }
 
     @Override
     public void turnScreen(String username, long seconds) {
+        System.out.println("staring " + username + " turn");
+        mainBoardStage = new MainBoardStage( this, getClient().getPlayer(), getClient().getGameModel());
+        mainPanel.add(mainBoardStage, MAIN_BOARD);
+        cardLayout.show(mainPanel, MAIN_BOARD);
+    }
+
+    @Override
+    public void showPersonalBoardStage(Player player) {
+        System.out.println("showing " + player.getUsername() + " personal board...");
+        SwingUtilities.invokeLater(() -> {
+            JFrame jframe = new JFrame();
+            jframe.add(new PersonalBoardStage(player), BorderLayout.CENTER);
+            jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            jframe.pack();
+            jframe.setVisible(true);
+        });
+    }
+
+    @Override
+    public void showPersonalTileBoardStage(Player player) {
+        System.out.println("showing " + player.getUsername() + " personal tile board...");
+        SwingUtilities.invokeLater(()-> {
+            JFrame jframe = new JFrame();
+            jframe.add(new PersonalTileBoardStage(player), BorderLayout.CENTER);
+            jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            jframe.pack();
+            jframe.setVisible(true);
+        });
+    }
+
+    @Override
+    public void showLeaderCards(Player player) {
+        System.out.println("showing " + player.getUsername() + " leader cards...");
+        SwingUtilities.invokeLater(() -> {
+            JFrame jframe = new JFrame();
+            jframe.add(new LeaderCardsStage(player), BorderLayout.CENTER);
+            jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            jframe.pack();
+            jframe.setVisible(true);
+        });
+    }
+
+    @Override
+    public void showGameException() {
+
+    }
+
+    @Override
+    public void notifyEndTurnStage() {
+
+    }
+
+    @Override
+    public void chooseCouncilPrivilege(CouncilPrivilege councilPrivilege) {
+
+    }
+
+    @Override
+    public void chooseDoubleCost() {
 
     }
 }
