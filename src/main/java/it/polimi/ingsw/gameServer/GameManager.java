@@ -320,17 +320,16 @@ import java.util.*;
         for (ServerPlayer player : this.players){
 
             //check if the player has to lose victory points
-            int finalPointsIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalPointsIndexMalus().get(PointType.VICTORY);
-            if (finalPointsIndexMalus > 0){
-                //the victory points are those reached during the game
+            int finalVictoryIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalPointsIndexMalus().get(PointType.VICTORY);
+            if (finalVictoryIndexMalus > 0){
+                //the victory points reached during the game
                 int gameVictoryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY);
                 //the victory points to lose
-                int loseVictoryPoints = gameVictoryPoints/finalPointsIndexMalus;
+                int victoryPointsToLose = gameVictoryPoints/finalVictoryIndexMalus;
                 //decrease victory points
-                player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, loseVictoryPoints);
+                player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
             }
 
-            //calcolo della classifica militare per assegnazione bonus punti vittoria
 
             //green cards final points
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.GREEN)){
@@ -364,11 +363,20 @@ import java.util.*;
             }
 
             //lose victory points from resources
-            for (Map.Entry<ResourceType, Integer> entry: player.getPersonalBoard().getExcommunicationValues().getFinalResourcesIndexMalus().entrySet()) {
-
-                player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, entry.getValue());
+            for (Map.Entry<ResourceType, Integer> entry: player.getPersonalBoard().getValuables().getResources().entrySet()) {
+                int finalResourcesIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalResourcesIndexMalus().get(entry.getKey());
+                if (finalResourcesIndexMalus > 0){
+                    int victoryPointsToLose = entry.getValue()/finalResourcesIndexMalus;
+                    player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
+                }
             }
 
+            //lose victory points from military points
+            int finalMilitaryPointsIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalPointsIndexMalus().get(PointType.MILITARY);
+            if (finalMilitaryPointsIndexMalus > 0){
+                int victoryPointsToLose = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY)/finalMilitaryPointsIndexMalus;
+                player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
+            }
 
         }
     }
