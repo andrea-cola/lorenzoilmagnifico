@@ -184,7 +184,7 @@
     }
   },
   {
-    "leaderCardName": "Cosimo de\u0027 Medici",
+    "leaderCardName": "Cosimo de Medici",
     "leaderCardDescription": "shalala",
     "permanentAbility": false,
     "leaderEffectActive": false,
@@ -382,7 +382,7 @@
     }
   },
   {
-    "leaderCardName": "Federico da Montefeltro",
+    "leaderCardName": "Federico de Montefeltro",
     "leaderCardDescription": "shalala",
     "permanentAbility": false,
     "leaderEffectActive": false,
@@ -480,7 +480,7 @@
     }
   },
   {
-    "leaderCardName": "Lorenzo de\u0027 Medici",
+    "leaderCardName": "Lorenzo de Medici",
     "leaderCardDescription": "shalala",
     "permanentAbility": true,
     "leaderEffectActive": false,

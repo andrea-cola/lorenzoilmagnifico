@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui.cli;
 
+import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.utility.Debugger;
 
 import java.io.BufferedReader;
@@ -69,6 +70,6 @@ public class LoginSignInScreen extends BasicScreen {
 
     @FunctionalInterface
     interface ICallback {
-        void loginPlayer(String username, String password, boolean flag);
+        void loginPlayer(String username, String password, boolean flag) throws LoginException;
     }
 }

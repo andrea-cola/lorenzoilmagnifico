@@ -5,41 +5,41 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.ui.ConnectionType;
 import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
+import javafx.embed.swing.JFXPanel;
+import javafx.event.*;
+import javafx.geometry.*;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.WindowEvent;
-
-import java.util.concurrent.CountDownLatch;
 
 /**
  * This is the Graphic User Interface board for network settings
  */
-public class NetworkBoardScreen extends Application {
+public class ChooseConnectionStage extends JFXPanel{
     /**
      * Constants
      */
     private final static int VBOX_SPACING = 10;
-    private final static int STAGE_WIDTH = 800;
-    private final static int STAGE_HEIGHT = 800;
     private final static int GRID_H_GAP = 10;
     private final static int GRID_V_GAP = 10;
     private final static int HBOX_SPACING = 10;
+    private final static int IMAGE_WIDTH = 450;
+    private final static int IMAGE_HEIGHT = 500;
+    private final static int INSETS = 20;
+    private final static String FONT = "Arial : arial";
+    private static boolean finished = false;
 
-    private NetworkBoardCallback callback;
+
+
+    private CallbackInterface callback;
 
     /**
      * Connection data
@@ -49,25 +49,15 @@ public class NetworkBoardScreen extends Application {
     private String address;
 
     /**
-     * Constructor for the NetworkBoardScreen
+     * Constructor for the ChooseConnectionStage
+     *
      * @param callback
      */
-    public NetworkBoardScreen(NetworkBoardCallback callback) {
+    ChooseConnectionStage(CallbackInterface callback) {
         this.callback = callback;
-    }
 
-    /**
-     * The start function inherited by Application represents the structure of the Network board
-     * @param primaryStage is the main container of the application
-     * @throws Exception if the main method is not allocated
-     */
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("NetworkBoardScreen");
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
-        Label title = new Label("NETWORK PREFERENCES");
-        title.setAlignment(Pos.CENTER);
 
         HBox hBox1 = new HBox(HBOX_SPACING);
         hBox1.setAlignment(Pos.CENTER);
@@ -83,28 +73,45 @@ public class NetworkBoardScreen extends Application {
         choiceBox.getItems().add("RMI");
         choiceBox.getItems().add("SOCKET");
 
+        Label messagge = new Label("Your data are not valid");
+        messagge.setVisible(false);
 
         Label labelAddr = new Label("Address");
         labelAddr.setAlignment(Pos.CENTER);
+        labelAddr.setStyle(FONT);
 
+        Button connect = new Button("CONNECT");
         TextField text = new TextField();
         text.setAlignment(Pos.CENTER);
 
-        ImageView imageView = new ImageView(new Image("images/NetworkBoardCover.png"));
-
-        Button connect = new Button("CONNECT");
         connect.setOnAction(event -> {
-            if(text.getText()!= null && choiceBox.getValue()!=null){
+            if (!text.getText().equals("") && choiceBox.getValue()!= null) {
                 type = (String) choiceBox.getValue();
                 address = text.getText();
                 System.out.print("ADDRESS: " + address + " & TYPE: " + type + "\n");
                 doConnect();
-                primaryStage.close();
+                setFinished(true);
+                setVisible(false);
+            }else{
+                messagge.setVisible(true);
             }
         });
 
+
+        ImageView imageView = new ImageView("images/ChooseConnectionStageCover.png");
+        imageView.setFitHeight(IMAGE_HEIGHT);
+        imageView.setFitWidth(IMAGE_WIDTH);
+        imageView.autosize();
+
+        Button clear = new Button("CLEAR");
+        clear.setOnAction(e -> {
+            text.clear();
+            choiceBox.setValue(null);
+            messagge.setVisible(false);
+        });
+
         Button exit = new Button("EXIT");
-        exit.setOnAction(event -> primaryStage.close());
+        exit.setOnAction(event -> this.hide());
 
         grid.add(labelNetwork, 0, 0);
         grid.add(choiceBox, 1, 0);
@@ -112,22 +119,23 @@ public class NetworkBoardScreen extends Application {
         grid.add(text, 1, 1);
         grid.setAlignment(Pos.CENTER_LEFT);
 
-        hBox1.getChildren().addAll(imageView, grid);
-        hBox2.getChildren().addAll(connect, exit);
+        BorderPane pane = new BorderPane();
+        pane.setCenter(grid);
+        pane.setMargin(grid, new Insets(INSETS));
+        pane.autosize();
+        hBox1.getChildren().addAll(imageView, pane);
+        hBox2.getChildren().addAll(connect, exit, clear);
 
-        vBox.getChildren().addAll(title, hBox1, hBox2);
-        vBox.autosize();
+        vBox.getChildren().addAll(hBox1, hBox2, messagge);
         Group root = new Group();
         root.getChildren().addAll(vBox);
+        root.autosize();
         Scene scene = new Scene(root);
-        primaryStage.setResizable(false);
-        primaryStage.setMinWidth(STAGE_WIDTH);
-        primaryStage.setMinHeight(STAGE_HEIGHT);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.setScene(scene);
     }
 
-    public void doConnect() {
+
+    private void doConnect() {
         ConnectionType connectionType;
         switch (type) {
             case "RMI":
@@ -150,11 +158,19 @@ public class NetworkBoardScreen extends Application {
         }
     }
 
+    public static boolean getFinished(){
+        return finished;
+    }
+
+    public static void setFinished(boolean flag){
+        finished=flag;
+    }
+
     /**
      * This callback interface represents the main network context function
      */
     @FunctionalInterface
-    interface NetworkBoardCallback {
+    interface CallbackInterface {
         /**
          * It set the network settings previously decided by the user
          *

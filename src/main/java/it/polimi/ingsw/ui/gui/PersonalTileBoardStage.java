@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 /**
  * This is the Graphic User Interface personal tile board
  */
-public class PersonalTileBoardScreen extends Application{
+public class PersonalTileBoardStage extends Application{
 
     private String username;
 
@@ -18,7 +18,7 @@ public class PersonalTileBoardScreen extends Application{
      * Constructor
      * @param username player
      */
-    public PersonalTileBoardScreen(String username){
+    public PersonalTileBoardStage(String username){
         this.username = username;
     }
 
@@ -30,7 +30,7 @@ public class PersonalTileBoardScreen extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("PersonalTileBoardScreen");
+        primaryStage.setTitle("PersonalTileBoardStage");
 
         Group root = new Group();
 

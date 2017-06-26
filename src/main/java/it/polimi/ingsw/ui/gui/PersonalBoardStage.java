@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 /**
  * This is the Graphic User Interface Personal Board class
  */
-public class PersonalBoardScreen extends Application{
+public class PersonalBoardStage extends Application{
     /**
      * Constants
      */
@@ -30,7 +30,7 @@ public class PersonalBoardScreen extends Application{
     private int servantsValue;
 
     /**
-     * Main gui PersonalBoardScreen objects
+     * Main gui PersonalBoardStage objects
      */
     private BackgroundImage background;
 
@@ -38,7 +38,7 @@ public class PersonalBoardScreen extends Application{
      * Constructor
      * @param username
      */
-    public PersonalBoardScreen(String username){
+    public PersonalBoardStage(String username){
         this.username = username;
     }
 
@@ -55,7 +55,7 @@ public class PersonalBoardScreen extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("PersonalBoardScreen");
+        primaryStage.setTitle("PersonalBoardStage");
         Group root = new Group();
         GridPane gridPane = new GridPane();
         BackgroundSize size = new BackgroundSize(BACK_WIDTH, BACK_WIDTH, false, false, true, false);
