@@ -61,12 +61,12 @@ import java.util.*;
     /**
      * Victory points for green cards assigned at the end of the game
      */
-    private static ArrayList<Integer> victoryPointsForGreenCards = new ArrayList<>();
+    private static int[] victoryPointsForGreenCards;
 
     /**
      * Victory points for blue cards assigned at the end of the game
      */
-    private static ArrayList<Integer> victoryPointsForBlueCards = new ArrayList<>();
+    private static int[] victoryPointsForBlueCards;
 
     /**
      * Class constructor.
@@ -81,6 +81,8 @@ import java.util.*;
         this.excommunicationCards = excommunicationCards;
         this.informationChoicesHandler = new InformationChoicesHandler();
         this.game = new Game(configuration.getMainBoard(), this.players);
+        victoryPointsForGreenCards = configuration.getVictoryPointsForGreenCards();
+        victoryPointsForBlueCards = configuration.getVictoryPointsForBlueCards();
         setupPlayers();
         setupDecks(developmentCards);
     }
@@ -328,7 +330,7 @@ import java.util.*;
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.GREEN)){
                 int numberOfGreenCards = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size();
                 if (numberOfGreenCards > 0){
-                    int finalPointsBonus = victoryPointsForGreenCards.get(numberOfGreenCards - 1);
+                    int finalPointsBonus = victoryPointsForGreenCards[numberOfGreenCards - 1];
                     player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
                 }
             }
@@ -337,7 +339,7 @@ import java.util.*;
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.BLUE)){
                 int numberOfBlueCards = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).size();
                 if (numberOfBlueCards > 0){
-                    int finalPointsBonus = victoryPointsForGreenCards.get(numberOfBlueCards - 1);
+                    int finalPointsBonus = victoryPointsForGreenCards[numberOfBlueCards - 1];
                     player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
                 }
             }
