@@ -1896,14 +1896,13 @@
       null,
       null,
       null
-    ]
+    ],
+    "greenCardsMilitaryPointsRequirements": [0, 0, 1, 4, 10, 20]
   },
   "personalBoardTiles": [
     {
       "personalBoardID": 1,
       "productionEffect": {
-        "diceActionValue": 1,
-        "actionType": "PRODUCTION",
         "valuable": {
           "resources": {
             "SERVANT": 1,
@@ -1918,11 +1917,9 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       },
       "harvestEffect": {
-        "diceActionValue": 1,
-        "actionType": "HARVEST",
         "valuable": {
           "resources": {
             "SERVANT": 0,
@@ -1937,14 +1934,12 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       }
     },
     {
       "personalBoardID": 2,
       "productionEffect": {
-        "diceActionValue": 1,
-        "actionType": "PRODUCTION",
         "valuable": {
           "resources": {
             "SERVANT": 1,
@@ -1959,11 +1954,9 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       },
       "harvestEffect": {
-        "diceActionValue": 1,
-        "actionType": "HARVEST",
         "valuable": {
           "resources": {
             "SERVANT": 0,
@@ -1978,14 +1971,12 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       }
     },
     {
       "personalBoardID": 3,
       "productionEffect": {
-        "diceActionValue": 1,
-        "actionType": "PRODUCTION",
         "valuable": {
           "resources": {
             "SERVANT": 2,
@@ -2000,11 +1991,9 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       },
       "harvestEffect": {
-        "diceActionValue": 1,
-        "actionType": "HARVEST",
         "valuable": {
           "resources": {
             "SERVANT": 0,
@@ -2019,14 +2008,12 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       }
     },
     {
       "personalBoardID": 4,
       "productionEffect": {
-        "diceActionValue": 1,
-        "actionType": "PRODUCTION",
         "valuable": {
           "resources": {
             "SERVANT": 0,
@@ -2041,11 +2028,9 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       },
       "harvestEffect": {
-        "diceActionValue": 1,
-        "actionType": "HARVEST",
         "valuable": {
           "resources": {
             "SERVANT": 1,
@@ -2060,7 +2045,7 @@
           }
         },
         "numberOfCouncilPrivileges": 0,
-        "effectType": "EffectHarvestProductionSimple"
+        "effectType": "EffectSimple"
       }
     }
   ]

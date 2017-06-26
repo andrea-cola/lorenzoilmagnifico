@@ -228,21 +228,21 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     }
 
     @Override
-    public int choosePickUpDiscounts(String reason, PointsAndResources[] discounts) {
+    public int choosePickUpDiscounts(String reason, List<PointsAndResources> discounts) {
         consoleListener.stopRunning();
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         gameScreen = null;
         int key = 1;
         System.out.println("[ CHOOSE DISCOUNTS ]\nChoose a discounts among those proposal.");
-        for(int i = 0; i < discounts.length; i++)
-            System.out.println((i+1) + " -> " + discounts[i].toString() + " ==> " + discounts[i].toString());
+        for(int i = 0; i < discounts.size(); i++)
+            System.out.println((i+1) + " -> " + discounts.get(i).toString() + " ==> " + discounts.get(i).toString());
         do {
             try {
                 key = Integer.parseInt(r.readLine());
             } catch (ClassCastException | IOException e) {
                 key = 0;
             }
-        } while (key < 1 || key > discounts.length);
+        } while (key < 1 || key > discounts.size());
         key = key - 1;
         getClient().setPlayerTurnChoices(reason, key);
         consoleListener = new ConsoleListener();
@@ -412,6 +412,34 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             getClient().notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants);
         } catch (GameException e){
             Debugger.printDebugMessage("Error while placing your family member in harvest extended space. Please retry.");
+        }
+    }
+
+    @Override
+    public void activateLeader(String leaderName) {
+        Player player = getClient().getPlayer();
+        try{
+            int i = 0;
+            List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
+            for(LeaderCard leaderCard : leaderCards){
+                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                    getClient().getGameModel().activateLeaderCard(player, i, this);
+                i++;
+            }
+        } catch (GameException e){
+            Debugger.printDebugMessage("Error while activate you leader card. Please retry.");
+        }
+    }
+
+    @Override
+    public void discardLeader(String leaderName) {
+        Player player = getClient().getPlayer();
+        int i = 0;
+        List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
+        for(LeaderCard leaderCard : leaderCards){
+            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                getClient().getGameModel().discardLeaderCard(player, i, this);
+            i++;
         }
     }
 

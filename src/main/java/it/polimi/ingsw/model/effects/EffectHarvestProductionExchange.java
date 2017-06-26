@@ -122,6 +122,21 @@ public class EffectHarvestProductionExchange extends Effect{
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
+        int choice = 0;
+        handleExchange(player, choice);
+    }
+
+
+    public void runEffect(DevelopmentCard card, Player player, InformationCallback informationCallback) {
+        if(valuableToPay.length == 1){
+            runEffect(player, informationCallback);
+        } else {
+            int choice = informationCallback.chooseExchangeEffect(card.getName(), valuableToPay, valuableEarned);
+            handleExchange(player, choice);
+        }
+    }
+
+    private void handleExchange(Player player, int choice){
         //get the family member used to run this effect
         ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
@@ -133,8 +148,6 @@ public class EffectHarvestProductionExchange extends Effect{
         int actionValue = familyMemberValue + bonus - malus;
 
         if (actionValue >= this.diceActionValue) {
-            //TODO Chiamare callback per scelte
-            int choice = 0;
 
             //PAY
             //updates player's resources
@@ -163,28 +176,6 @@ public class EffectHarvestProductionExchange extends Effect{
                 //normal effect
                 player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
             }
-        }
-    }
-
-
-    public void runEffect(DevelopmentCard card, Player player, InformationCallback informationCallback) {
-        if(valuableToPay.length == 1){
-            runEffect(player, informationCallback);
-        } else {
-            int choice = informationCallback.chooseExchangeEffect(card.getName(), valuableToPay, valuableEarned);
-            //PAY
-            for (Map.Entry<ResourceType, Integer> entry: this.valuableToPay[choice].getResources().entrySet())
-                player.getPersonalBoard().getValuables().decrease(entry.getKey(), entry.getValue());
-
-            for (Map.Entry<PointType, Integer> entry: this.valuableToPay[choice].getPoints().entrySet())
-                player.getPersonalBoard().getValuables().decrease(entry.getKey(), entry.getValue());
-
-            //EARN
-            for (Map.Entry<ResourceType, Integer> entry: this.valuableEarned[choice].getResources().entrySet())
-                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
-
-            for (Map.Entry<PointType, Integer> entry: this.valuableEarned[choice].getPoints().entrySet())
-                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
     }
 

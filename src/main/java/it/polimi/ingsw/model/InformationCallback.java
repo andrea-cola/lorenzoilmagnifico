@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface InformationCallback {
 
@@ -10,7 +11,7 @@ public interface InformationCallback {
 
     int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned);
 
-    int choosePickUpDiscounts(String reason, PointsAndResources[] discounts);
+    int choosePickUpDiscounts(String reason, List<PointsAndResources> discounts);
 
     DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount);
 

@@ -12,6 +12,10 @@ import java.util.Map;
  */
 public class EffectSimple extends Effect{
 
+    private int diceActionValue;
+
+    private ActionType actionType;
+
     /**
      * Points and resources that user obtain.
      */
@@ -66,6 +70,40 @@ public class EffectSimple extends Effect{
         if (this.numberOfCouncilPrivileges > 0){
             CouncilPrivilege councilPrivilege = new CouncilPrivilege(numberOfCouncilPrivileges);
             councilPrivilege.chooseCouncilPrivilege(player, informationCallback);
+        }
+
+        if(this.actionType != null){
+            if(actionType.equals(ActionType.HARVEST)){
+                updateFamilyMemberValue(player);
+                //personal board tile effect
+                player.getPersonalBoard().getPersonalBoardTile().getHarvestEffect().runEffect(player, informationCallback);
+
+                //permanent effect
+                for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN)) {
+                    card.getPermanentEffect().runEffect(player, informationCallback);
+                }
+            }
+            else{
+                updateFamilyMemberValue(player);
+                //personal board tile effect
+                player.getPersonalBoard().getPersonalBoardTile().getProductionEffect().runEffect(player, informationCallback);
+
+                //run permanent effect
+                for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)) {
+                    card.getPermanentEffect().runEffect(player, informationCallback);
+                }
+            }
+        }
+    }
+
+    private void updateFamilyMemberValue(Player player){
+        ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
+        FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
+        while(player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) != diceActionValue){
+            if(player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) > diceActionValue)
+                player.getPersonalBoard().getFamilyMember().decreaseFamilyMemberValue(familyMemberColor, 1);
+            else
+                player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(familyMemberColor, 1);
         }
     }
 

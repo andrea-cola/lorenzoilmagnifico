@@ -32,7 +32,7 @@ public class PersonalBoard implements Serializable{
     /**
      * discounts: save the discount cost for development cards
      */
-    private Map<DevelopmentCardColor, PointsAndResources> costDiscountForDevelopmentCard = new HashMap<>();
+    private Map<DevelopmentCardColor, List<PointsAndResources>> costDiscountForDevelopmentCard = new HashMap<>();
 
     /**
      * Family members;
@@ -75,7 +75,9 @@ public class PersonalBoard implements Serializable{
             this.harvestProductionDiceValueBonus.put(type, 0);
 
         for(DevelopmentCardColor color : DevelopmentCardColor.values()) {
-            this.costDiscountForDevelopmentCard.put(color, new PointsAndResources());
+            List<PointsAndResources> discounts = new ArrayList<>();
+            discounts.add(new PointsAndResources());
+            this.costDiscountForDevelopmentCard.put(color, discounts);
             this.developmentCardColorDiceValueBonus.put(color, 0);
         }
         this.familyMembersUsed = new ArrayList<>();
@@ -269,16 +271,28 @@ public class PersonalBoard implements Serializable{
      * @param cardColor
      * @param valuables
      */
-    public void setCostDiscountForDevelopmentCard(DevelopmentCardColor cardColor, PointsAndResources valuables){
-        this.costDiscountForDevelopmentCard.put(cardColor, valuables);
+    public void setCostDiscountForDevelopmentCard(DevelopmentCardColor cardColor, List<PointsAndResources> valuables){
+        List<PointsAndResources> discounts = this.costDiscountForDevelopmentCard.get(cardColor);
+        List<PointsAndResources> newDiscounts = new ArrayList<>();
+        for(PointsAndResources oldDiscounts : discounts){
+            for(PointsAndResources discountToAdd: valuables){
+                PointsAndResources newDiscount = oldDiscounts;
+                for(ResourceType resourceType : ResourceType.values())
+                    newDiscount.increase(resourceType, discountToAdd.getResources().get(resourceType));
+                for(PointType pointType : PointType.values())
+                    newDiscount.increase(pointType, discountToAdd.getPoints().get(pointType));
+                newDiscounts.add(newDiscount);
+            }
+        }
+        this.costDiscountForDevelopmentCard.put(cardColor, newDiscounts);
     }
 
     /**
      * Get the cost discount value for a particular type of development cards
      * @return
      */
-    public Map<DevelopmentCardColor, PointsAndResources> getCostDiscountForDevelopmentCard(){
-        return this.costDiscountForDevelopmentCard;
+    public List<PointsAndResources> getCostDiscountForDevelopmentCard(DevelopmentCardColor color){
+        return this.costDiscountForDevelopmentCard.get(color);
     }
 
     /**

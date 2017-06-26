@@ -37,6 +37,10 @@ public class GameScreen extends BasicGameScreen {
 
         void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants);
 
+        void activateLeader(String leaderName);
+
+        void discardLeader(String leaderName);
+
         void notifyEndTurn();
 
     }

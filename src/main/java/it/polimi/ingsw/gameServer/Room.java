@@ -419,7 +419,7 @@ public class Room {
 
             for(int i = 0; i < LEADER_CARD_PER_PLAYER; i++) {
                 try {
-                    sendArrays(cards, playersOrder);
+                    sendLeaderCards(cards, playersOrder);
                     countDownLatch.await();
                     removeChosenLeaderCards(cards);
                 } catch (NetworkException | InterruptedException e) {
@@ -440,7 +440,7 @@ public class Room {
             }
         }
 
-        private void sendArrays(List<LeaderCard> leaderCards, List<ServerPlayer> serverPlayers) throws NetworkException{
+        private void sendLeaderCards(List<LeaderCard> leaderCards, List<ServerPlayer> serverPlayers) throws NetworkException{
             int cardNumberPerPlayer = leaderCards.size() / serverPlayers.size();
             int index = 0;
 

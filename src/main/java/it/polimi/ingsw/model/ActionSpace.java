@@ -69,7 +69,7 @@ public class ActionSpace implements Serializable{
                 throw new GameException();
     }
 
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
+    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
 
         //check that the family member used has not been already used
         for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed()){
@@ -79,14 +79,13 @@ public class ActionSpace implements Serializable{
         }
 
         //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
-        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + servants;
+        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor);
         if (familyMemberValueTot < this.actionSpaceEffect.getDiceActionValue()){
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
         }
 
         //if the family member can be placed, add it to the family members used and set this zone as not empty
         player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
-        player.getPersonalBoard().getValuables().decrease(ResourceType.SERVANT, servants);
         this.username = player.getUsername();
         this.familyMemberColor = familyMemberColor;
         this.empty = false;

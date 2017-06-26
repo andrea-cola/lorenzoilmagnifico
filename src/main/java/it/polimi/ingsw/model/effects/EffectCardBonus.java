@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PointsAndResources;
 import it.polimi.ingsw.model.InformationCallback;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * This class represent the effect that allow the user to pick up another card with a defined max dice value.
  */
@@ -90,12 +93,10 @@ public class EffectCardBonus extends Effect{
         for (DevelopmentCardColor color : this.colors){
             player.getPersonalBoard().setDevelopmentCardColorDiceValueBonus(color, diceValueBonus);
 
-            if(pickUpDiscounts.length == 1)
-                player.getPersonalBoard().setCostDiscountForDevelopmentCard(color, pickUpDiscounts[0]);
-            else if(pickUpDiscounts.length > 1){
-                int choice = informationCallback.choosePickUpDiscounts("discount", pickUpDiscounts);
-                player.getPersonalBoard().setCostDiscountForDevelopmentCard(color, pickUpDiscounts[choice]);
-            }
+            ArrayList<PointsAndResources> discounts = new ArrayList<>();
+            Collections.addAll(discounts, pickUpDiscounts);
+
+            player.getPersonalBoard().setCostDiscountForDevelopmentCard(color, discounts);
         }
     }
 

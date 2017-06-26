@@ -3,7 +3,7 @@ package it.polimi.ingsw.ui;
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.ui.cli.ConnectionType;
+import it.polimi.ingsw.ui.ConnectionType;
 
 import java.util.List;
 import java.util.Map;

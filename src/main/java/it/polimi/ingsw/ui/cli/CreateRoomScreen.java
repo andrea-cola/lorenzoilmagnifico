@@ -31,6 +31,7 @@ public class CreateRoomScreen extends BasicScreen{
             int key;
             do{
                 key = Integer.parseInt(keyboardReader.readLine());
+                print("Number of player not valid");
             } while (key < 2 || key > 4);
             print("Creating new room. Please wait...");
             Thread.sleep(2000);

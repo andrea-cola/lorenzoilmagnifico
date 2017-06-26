@@ -16,6 +16,8 @@ public class TurnScreen extends GameScreen {
         this.callback = callback;
         this.familiarPlaced = moveDone;
 
+        addOption("run-leader", "'run-leader [name]' to activate a leader card.", this::activateLeader);
+        addOption("discard-leader", "'discard-leader [name]' to discard a leader card.", this::discardLeader);
         if(!moveDone) {
             addOption("set-fam-tower", "'set-fam-tower [familiar color] [servants] [tower index] [cell index]' to place family member on the tower.", this::setFamilyMemberInTower);
             addOption("set-fam-council", "'set-fam-council [familiar color] [servants]' to place family member in the council.", this::setFamilyMemberInCouncil);
@@ -111,6 +113,22 @@ public class TurnScreen extends GameScreen {
                     callback.setFamilyMemberInHarvestExtended(color, Integer.parseInt(parameters[1]));
                     return;
                 }
+        }
+        throw new WrongCommandException();
+    }
+
+    private void activateLeader(String[] parameters) throws WrongCommandException{
+        if(parameters.length == 1){
+            callback.activateLeader(parameters[0]);
+            return;
+        }
+        throw new WrongCommandException();
+    }
+
+    private void discardLeader(String[] parameters) throws WrongCommandException{
+        if(parameters.length == 1){
+            callback.discardLeader(parameters[0]);
+            return;
         }
         throw new WrongCommandException();
     }

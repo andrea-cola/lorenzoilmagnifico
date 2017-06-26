@@ -2,6 +2,7 @@ package it.polimi.ingsw.ui.cli;
 
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.WrongCommandException;
+import it.polimi.ingsw.ui.ConnectionType;
 import it.polimi.ingsw.utility.Debugger;
 
 import java.io.BufferedReader;

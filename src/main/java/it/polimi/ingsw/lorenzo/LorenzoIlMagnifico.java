@@ -10,7 +10,7 @@ import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.rmiClient.RMIClient;
 import it.polimi.ingsw.socketClient.SocketClient;
 import it.polimi.ingsw.ui.cli.CommandLineInterface;
-import it.polimi.ingsw.ui.cli.ConnectionType;
+import it.polimi.ingsw.ui.ConnectionType;
 import it.polimi.ingsw.ui.gui.GraphicUserInterface;
 
 import java.util.HashMap;
@@ -238,7 +238,6 @@ import java.util.Map;
     @Override
     public void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket) {
         this.game = clientUpdatePacket.getGame();
-
     }
 
     @Override

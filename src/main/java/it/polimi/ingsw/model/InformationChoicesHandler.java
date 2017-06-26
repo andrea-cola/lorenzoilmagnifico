@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InformationChoicesHandler implements InformationCallback {
@@ -40,7 +41,7 @@ public class InformationChoicesHandler implements InformationCallback {
     }
 
     @Override
-    public int choosePickUpDiscounts(String reason, PointsAndResources[] discounts){
+    public int choosePickUpDiscounts(String reason, List<PointsAndResources> discounts){
         return (int)decisions.get(reason);
     }
 
