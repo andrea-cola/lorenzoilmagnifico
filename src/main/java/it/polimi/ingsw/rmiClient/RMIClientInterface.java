@@ -27,4 +27,6 @@ public interface RMIClientInterface extends Remote{
 
     void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws RemoteException;
 
+    void supportForTheChurch(boolean flag) throws RemoteException;
+
 }

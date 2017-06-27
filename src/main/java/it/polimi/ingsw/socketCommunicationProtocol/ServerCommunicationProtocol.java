@@ -85,8 +85,9 @@ public class ServerCommunicationProtocol {
         requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_HARVEST_EXTENDED, this::setFamilyMemberInHarvestExtended);
         requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_SIMPLE, this::setFamilyMemberInProductionSimple);
         requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_EXTENDED, this::setFamilyMemberInProductionExtended);
-        requestsTable.put(CommunicationProtocolConstants.ACTIVATAE_LEADER_CARD, this::activateLeader);
-        requestsTable.put(CommunicationProtocolConstants.ACTIVATAE_LEADER_CARD, this::discardLeader);
+        requestsTable.put(CommunicationProtocolConstants.ACTIVATE_LEADER_CARD, this::activateLeader);
+        requestsTable.put(CommunicationProtocolConstants.ACTIVATE_LEADER_CARD, this::discardLeader);
+        requestsTable.put(CommunicationProtocolConstants.SUPPORT_FOR_THE_CHURCH_CHOICE, this::notifySupportForTheChurch);
         requestsTable.put(CommunicationProtocolConstants.END_TURN, this::endTurn);
     }
 
@@ -282,6 +283,18 @@ public class ServerCommunicationProtocol {
         }
     }
 
+    public void supportForTheChurch(boolean flag) throws NetworkException{
+        synchronized (object){
+            try{
+                output.writeObject(CommunicationProtocolConstants.SUPPORT_FOR_THE_CHURCH);
+                output.writeObject(flag);
+                output.flush();
+            } catch (IOException e){
+                throw new NetworkException();
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private void setFamilyMemberInTower(){
         try{
@@ -373,8 +386,9 @@ public class ServerCommunicationProtocol {
     private void activateLeader(){
         try{
             int leaderCardIndex = (int)input.readObject();
+            int servants = (int)input.readObject();
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
-            serverCommunicationProtocolInterface.activateLeaderCard(leaderCardIndex, choices);
+            serverCommunicationProtocolInterface.activateLeaderCard(leaderCardIndex, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while activating the leader.");
         }
@@ -388,6 +402,15 @@ public class ServerCommunicationProtocol {
             serverCommunicationProtocolInterface.discardLeader(leaderCardIndex, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while discarding the leader.");
+        }
+    }
+
+    private void notifySupportForTheChurch(){
+        try{
+            boolean choice = (boolean)input.readObject();
+            serverCommunicationProtocolInterface.notifySupportForTheChurch(choice);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while notifying your support for the church choice.");
         }
     }
 

@@ -165,13 +165,18 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     }
 
     @Override
-    public void activateLeaderCard(int leaderCardIndex, Map<String, Object> playerChoices) {
-        serverInterface.activateLeaderCard(this, leaderCardIndex, playerChoices);
+    public void activateLeaderCard(int leaderCardIndex, int servants, Map<String, Object> playerChoices) {
+        serverInterface.activateLeaderCard(this, leaderCardIndex, servants, playerChoices);
     }
 
     @Override
     public void discardLeader(int leaderCardIndex, Map<String, Object> playerChoices) {
         serverInterface.discardLeader(this, leaderCardIndex, playerChoices);
+    }
+
+    @Override
+    public void notifySupportForTheChurch(boolean flag) {
+        this.getRoom().onSupportToTheChurchChoice(this, flag);
     }
 
     @Override
@@ -197,6 +202,11 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     @Override
     public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
         socketCommunicationProtocol.sendGameModelUpdate(clientUpdatePacket);
+    }
+
+    @Override
+    public void supportForTheChurch(boolean flag) throws NetworkException {
+        socketCommunicationProtocol.supportForTheChurch(flag);
     }
 
     @Override

@@ -299,6 +299,32 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         return card;
     }
 
+    @Override
+    public boolean supportForTheChurch() {
+        consoleListener.stopRunning();
+        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+        gameScreen = null;
+        System.out.println("[ SUPPORT FOR THE CHURCH ]\nDo you want to support the church?");
+        System.out.println("-> 1 : NO\n-> 2: YES");
+        boolean choice;
+        int key = 0;
+        do {
+            try {
+                key = Integer.parseInt(r.readLine());
+            } catch (ClassCastException | IOException e) {
+                key = 1;
+            }
+        } while (key < 0 || key > 2);
+        if(key == 1)
+            choice = false;
+        else
+            choice = true;
+        consoleListener = new ConsoleListener();
+        consoleListener.start();
+        gameScreen = new GameScreen(this);
+        return choice;
+    }
+
     private boolean isSelectable(TowerCell cell, PointsAndResources discount){
         try{
             cell.developmentCardCanBeBuyed(getClient().getPlayer(), discount);
@@ -399,15 +425,15 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     }
 
     @Override
-    public void activateLeader(String leaderName) {
+    public void activateLeader(String leaderName, int servants) {
         Player player = getClient().getPlayer();
         try{
             int i = 0;
             List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
             for(LeaderCard leaderCard : leaderCards){
                 if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase())) {
-                    getClient().getGameModel().activateLeaderCard(player, i, this);
-                    getClient().notifyActivateLeader(i);
+                    getClient().getGameModel().activateLeaderCard(player, i, servants, this);
+                    getClient().notifyActivateLeader(i, servants);
                 }
                 i++;
             }

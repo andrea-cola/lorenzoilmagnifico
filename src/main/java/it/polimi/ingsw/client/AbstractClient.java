@@ -6,7 +6,6 @@ import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import sun.nio.ch.Net;
 
 import java.util.Map;
 
@@ -122,9 +121,11 @@ public abstract class AbstractClient {
     public abstract void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants,
                                                                    Map<String, Object> playerChoices) throws NetworkException;
 
-    public abstract void notifyActivateLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException;
+    public abstract void notifyActivateLeader(int leaderCardIndex, int servants, Map<String, Object> playerChoices) throws NetworkException;
 
     public abstract void notifyDiscardLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException;
+
+    public abstract void notifySupportForTheChurch(boolean choice) throws NetworkException;
 
     public abstract void endTurn() throws NetworkException;
 }

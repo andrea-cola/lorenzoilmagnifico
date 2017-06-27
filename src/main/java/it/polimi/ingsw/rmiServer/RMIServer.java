@@ -226,13 +226,18 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
     }
 
     @Override
-    public void activateLeaderCard(String playerID, int leaderCardIndex, Map<String, Object> playerChoices) throws RemoteException {
-        getServer().activateLeaderCard(getPlayer(playerID), leaderCardIndex, playerChoices);
+    public void activateLeaderCard(String playerID, int leaderCardIndex, int servants, Map<String, Object> playerChoices) throws RemoteException {
+        getServer().activateLeaderCard(getPlayer(playerID), leaderCardIndex, servants, playerChoices);
     }
 
     @Override
     public void discardLeader(String playerID, int leaderCardIndex, Map<String, Object> playerChoices) {
         getServer().discardLeader(getPlayer(playerID), leaderCardIndex, playerChoices);
+    }
+
+    @Override
+    public void notifySupportForTheChurch(String playerID, boolean choice) throws RemoteException {
+        getPlayer(playerID).getRoom().onSupportToTheChurchChoice(getPlayer(playerID), choice);
     }
 
     @Override

@@ -68,6 +68,8 @@ import java.util.*;
      */
     private static int[] victoryPointsForBlueCards;
 
+    private static int[] victoryPointsBonusForFaith;
+
     /**
      * Class constructor.
      * @param players of the room.
@@ -83,6 +85,7 @@ import java.util.*;
         this.game = new Game(configuration.getMainBoard(), this.players);
         victoryPointsForGreenCards = configuration.getVictoryPointsForGreenCards();
         victoryPointsForBlueCards = configuration.getVictoryPointsForBlueCards();
+        victoryPointsBonusForFaith = configuration.getVictoryPointsBonusForFaith();
         setupPlayers();
         setupDecks(developmentCards);
     }
@@ -303,20 +306,24 @@ import java.util.*;
         this.informationChoicesHandler.setDecisions(playerChoices);
     }
 
+    public boolean finalControlsForPeriod(int period, ServerPlayer player){
+        int faithPointsRequired = game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
+        //check if the player gets the excommunication effect
+        if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) < faithPointsRequired)
+            excommunicationForPlayer(player, period);
+        else
+            return false;
+        return true;
+    }
 
-    /**
-     * This method makes some controls at the end of each game period
-     */
-    public void finalControlsForPeriod(int period, int faithPointsRequired, InformationCallback informationCallback){
-        for (ServerPlayer player : this.players){
-            //check if the player gets the excommunication effect
-            if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) < faithPointsRequired){
-                excommunicationForPlayer(player, period);
-            }else{
-                //TODO callback per far scegliere all'utente se mostrare sostegno alla chiesa o meno
-                //se sostiene la chiesa: azzerare punti fede della personalboard + assegnare punti vittoria + BONUS SISTO IV
-                //se non sostiene la chiesa: invocare excommunicationForPlayer(player, period) la Madonna e Germano
-            }
+    public void applySupportChoice(ServerPlayer player, boolean flag){
+        if(flag){
+            player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
+            if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
+                player.getPersonalBoard().getValuables().increase(PointType.VICTORY, 5);
+            player.getPersonalBoard().getValuables().decrease(PointType.FAITH, player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH));
+        } else {
+            excommunicationForPlayer(player, game.getAge());
         }
     }
 

@@ -37,4 +37,6 @@ public abstract class AbstractUI {
     public abstract void turnScreen(String username, long seconds);
 
     public abstract void notifyUpdate(String message);
+
+    public abstract boolean supportForTheChurch();
 }

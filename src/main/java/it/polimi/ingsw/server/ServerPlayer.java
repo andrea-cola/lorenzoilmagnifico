@@ -54,5 +54,7 @@ public abstract class ServerPlayer extends Player{
 
     public abstract void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException;
 
+    public abstract void supportForTheChurch(boolean flag) throws NetworkException;
+
 }
 

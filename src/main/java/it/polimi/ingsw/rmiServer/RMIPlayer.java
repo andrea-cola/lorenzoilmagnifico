@@ -78,4 +78,13 @@ import java.util.List;
             throw new NetworkException();
         }
     }
+
+    @Override
+    public void supportForTheChurch(boolean flag) throws NetworkException {
+        try{
+            rmiClientInterface.supportForTheChurch(false);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
 }

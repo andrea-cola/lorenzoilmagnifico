@@ -215,9 +215,9 @@ import java.util.Map;
     }
 
     @Override
-    public void notifyActivateLeader(int leaderCardIndex) {
+    public void notifyActivateLeader(int leaderCardIndex, int servants) {
         try {
-            client.notifyActivateLeader(leaderCardIndex, playerTurnChoices);
+            client.notifyActivateLeader(leaderCardIndex, servants, playerTurnChoices);
         } catch (NetworkException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify activation of your leader.");
         }
@@ -256,6 +256,18 @@ import java.util.Map;
     @Override
     public void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket) {
         this.game = clientUpdatePacket.getGame();
+    }
+
+    @Override
+    public void supportForTheChurch(boolean flag) {
+        try {
+            if (flag)
+                client.notifySupportForTheChurch(userInterface.supportForTheChurch());
+            else
+                Debugger.printStandardMessage("Your were excommunicated.");
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your excommunication choice.");
+        }
     }
 
     @Override

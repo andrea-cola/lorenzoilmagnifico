@@ -64,9 +64,11 @@ public interface ServerCommunicationProtocolInterface {
 
     void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices);
 
-    void activateLeaderCard(int leaderCardIndex, Map<String, Object> playerChoices);
+    void activateLeaderCard(int leaderCardIndex, int servants, Map<String, Object> playerChoices);
 
     void discardLeader(int leaderCardIndex, Map<String, Object> playerChoices);
+
+    void notifySupportForTheChurch(boolean flag);
 
     void endTurn();
 }

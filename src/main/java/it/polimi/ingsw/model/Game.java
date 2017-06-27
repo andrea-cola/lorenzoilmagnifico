@@ -26,6 +26,10 @@ public class Game implements Serializable{
      */
     private Map<String, Player> players;
 
+    private int age;
+
+    private int turn;
+
     /**
      * Class constructor
      */
@@ -34,6 +38,24 @@ public class Game implements Serializable{
         closeAreas(players.size());
         this.dices = new Dice();
         this.players = new LinkedHashMap<>();
+        this.age = 1;
+        this.turn = 1;
+    }
+
+    public int getAge(){
+        return age;
+    }
+
+    public int getTurn(){
+        return turn;
+    }
+
+    public void setTurn(int turn){
+        this.turn = turn;
+    }
+
+    public void setAge(int age){
+        this.age = age;
     }
 
     //TODO questo dovrebbe andare in Game manager
@@ -405,11 +427,11 @@ public class Game implements Serializable{
     /**
      * This method changes in active the state of a Leader card if the player has the right requisites and runs the immediate effects
      */
-    public void activateLeaderCard(Player player, int leaderCardAtIndex, int servants, InformationCallback informationCallback) throws GameException{
+    public void activateLeaderCard(Player player, int leaderCardAtIndex, int servants, InformationCallback informationCallback) throws GameException {
         //get the leader card
         LeaderCard leaderCard = player.getPersonalBoard().getLeaderCards().get(leaderCardAtIndex);
 
-        int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
+        int servantsValue = servants / player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
 
         //check if the player has the requisites to activate the leader card
         leaderCard.checkRequisites(player);
@@ -420,10 +442,10 @@ public class Game implements Serializable{
                 leaderCard.getEffect().getClass().equals(LEDiceValueSet.class) ||
                 leaderCard.getEffect().getClass().equals(LENeutralBonus.class) ||
                 leaderCard.getEffect().getClass().equals(LECesareBorgia.class) ||
-                leaderCard.getEffect().getClass().equals(LEFamilyMemberBonus.class)){
+                leaderCard.getEffect().getClass().equals(LEFamilyMemberBonus.class)) {
             //run effect
             leaderCard.getEffect().runEffect(player, informationCallback);
-        }else if (leaderCard.getEffect().getClass().equals(LEHarvestProductionSimple.class)){
+        } else if (leaderCard.getEffect().getClass().equals(LEHarvestProductionSimple.class)) {
             //get the last family member used and change its value
             ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
             FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);

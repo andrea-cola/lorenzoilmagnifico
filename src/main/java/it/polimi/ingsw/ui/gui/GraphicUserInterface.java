@@ -159,4 +159,9 @@ public class GraphicUserInterface extends AbstractUI{
     public void notifyUpdate(String message) {
 
     }
+
+    @Override
+    public boolean supportForTheChurch() {
+        return false;
+    }
 }
