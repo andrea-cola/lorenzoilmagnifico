@@ -422,8 +422,10 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             int i = 0;
             List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
             for(LeaderCard leaderCard : leaderCards){
-                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase())) {
                     getClient().getGameModel().activateLeaderCard(player, i, this);
+                    getClient().notifyActivateLeader(i);
+                }
                 i++;
             }
         } catch (GameException e){
@@ -437,8 +439,10 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         int i = 0;
         List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
         for(LeaderCard leaderCard : leaderCards){
-            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase())) {
                 getClient().getGameModel().discardLeaderCard(player, i, this);
+                getClient().notifyDiscardLeader(i);
+            }
             i++;
         }
     }

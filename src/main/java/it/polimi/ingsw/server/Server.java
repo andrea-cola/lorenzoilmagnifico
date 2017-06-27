@@ -219,6 +219,16 @@ public class Server implements ServerInterface{
         serverPlayer.getRoom().setFamilyMemberInProductionExtended(serverPlayer, familyMemberColor, servants, playerChoices);
     }
 
+    @Override
+    public void activateLeaderCard(ServerPlayer serverPlayer, int leaderCardIndex, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().activateLeader(serverPlayer, leaderCardIndex, playerChoices);
+    }
+
+    @Override
+    public void discardLeader(ServerPlayer serverPlayer, int leaderCardIndex, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().discardLeader(serverPlayer, leaderCardIndex, playerChoices);
+    }
+
     /**
      * Method to get remote player reference from the user cache.
      * @param username of the remote player.

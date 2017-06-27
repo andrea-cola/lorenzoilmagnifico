@@ -19,6 +19,8 @@ package it.polimi.ingsw.socketCommunicationProtocol;
     /*package-local*/ static final String FAMILIAR_IN_PRODUCTION_EXTENDED = "FamilyMemberInPE";
     /*package-local*/ static final String FAMILIAR_IN_HARVEST_SIMPLE = "FamilyMemberInHS";
     /*package-local*/ static final String FAMILIAR_IN_HARVEST_EXTENDED = "FamilyMemberInHE";
+    /*package-local*/ static final String ACTIVATAE_LEADER_CARD = "activateLeaderCard";
+    /*package-local*/ static final String DISCARD_LEADER_CARD = "discardLeaderCard";
     /*package-local*/ static final String END_TURN = "endTurn";
 
     /**

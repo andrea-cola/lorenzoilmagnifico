@@ -165,6 +165,16 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     }
 
     @Override
+    public void activateLeaderCard(int leaderCardIndex, Map<String, Object> playerChoices) {
+        serverInterface.activateLeaderCard(this, leaderCardIndex, playerChoices);
+    }
+
+    @Override
+    public void discardLeader(int leaderCardIndex, Map<String, Object> playerChoices) {
+        serverInterface.discardLeader(this, leaderCardIndex, playerChoices);
+    }
+
+    @Override
     public void sendGameInfo(Game game) throws NetworkException {
         socketCommunicationProtocol.sendGameInfo(game);
     }
