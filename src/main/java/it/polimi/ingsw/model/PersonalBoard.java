@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.Effect;
@@ -48,6 +49,11 @@ public class PersonalBoard implements Serializable{
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
      */
     private int[] greenCardsMilitaryPointsRequirements;
+
+    /**
+     * Flag to check if the player can always place family members even in occupied spaces
+     */
+    private Boolean alwaysPlaceFamilyMemberInsideActionSpace = false;
 
     /**
      * Array of cards, divided per types.
@@ -348,6 +354,20 @@ public class PersonalBoard implements Serializable{
         return this.excommunicationValues;
     }
 
+
+    /**
+     * Set if the user can always place a family member inside action spaces
+     */
+    public void setAlwaysPlaceFamilyMemberInsideActionSpace(Boolean updatedValue){
+        this.alwaysPlaceFamilyMemberInsideActionSpace = updatedValue;
+    }
+
+    /**
+     * Get if the user can always place a family member inside action spaces
+     */
+    public Boolean getAlwaysPlaceFamilyMemberInsideActionSpace(){
+        return this.alwaysPlaceFamilyMemberInsideActionSpace;
+    }
 
     /**
      * Reset dice values for family members.

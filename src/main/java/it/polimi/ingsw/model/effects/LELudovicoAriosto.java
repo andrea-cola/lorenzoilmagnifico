@@ -16,7 +16,8 @@ public class LELudovicoAriosto extends LeaderEffect {
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-
+        //TODO remember to set to false the flag at the end of each turn
+        player.getPersonalBoard().setAlwaysPlaceFamilyMemberInsideActionSpace(true);
     }
 
     /**

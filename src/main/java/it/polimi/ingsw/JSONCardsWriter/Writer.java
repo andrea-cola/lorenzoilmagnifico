@@ -14,11 +14,14 @@ public class Writer {
 
         ExcommunicationCard excommunicationCard = new ExcommunicationCard();
 
-        excommunicationCard.setCardID(17);
+        excommunicationCard.setCardID(20);
         excommunicationCard.setPeriod(3);
 
-        ExcommunicationEffectNoVictoryPoints effect = new ExcommunicationEffectNoVictoryPoints();
-        effect.setDevelopmentCardColor(DevelopmentCardColor.GREEN);
+        ExcommunicationEffectDevCardLoseVictoryPoints effect = new ExcommunicationEffectDevCardLoseVictoryPoints();
+        PointsAndResources valuables = new PointsAndResources();
+        valuables.increase(ResourceType.WOOD, 1);
+        valuables.increase(ResourceType.STONE, 1);
+        effect.setCardValuables(valuables);
         excommunicationCard.setEffect(effect);
 
         String tmp = gson.toJson(excommunicationCard);

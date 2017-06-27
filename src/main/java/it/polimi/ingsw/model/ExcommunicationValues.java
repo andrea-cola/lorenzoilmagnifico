@@ -26,6 +26,9 @@ public class ExcommunicationValues implements Serializable{
 
     private Map<ResourceType, Integer> finalResourcesIndexMalus = new HashMap<>();
 
+    private Map<ResourceType, Integer> finalResourcesDevCardIndexMalus = new HashMap<>();
+
+
     public ExcommunicationValues(){
         for (PointType pointType : PointType.values()){
             this.normalPointsMalus.put(pointType, 0);
@@ -35,6 +38,7 @@ public class ExcommunicationValues implements Serializable{
         for (ResourceType resourceType : ResourceType.values()){
             this.normalResourcesMalus.put(resourceType, 0);
             this.finalResourcesIndexMalus.put(resourceType, 0);
+            this.finalResourcesDevCardIndexMalus.put(resourceType, 0);
         }
 
         for (ActionType actionType : ActionType.values()){
@@ -74,6 +78,10 @@ public class ExcommunicationValues implements Serializable{
 
     public void setDevelopmentCardGetFinalPoints(DevelopmentCardColor cardColor, Boolean value){
         this.developmentCardGetFinalPoints.replace(cardColor, value);
+    }
+
+    public void setFinalResourcesDevCardIndexMalus(ResourceType resourceType, Integer value){
+        this.finalResourcesDevCardIndexMalus.put(resourceType, this.finalResourcesDevCardIndexMalus.get(resourceType) + value);
     }
 
     public void setMarketIsAvailable(Boolean value){
@@ -128,6 +136,10 @@ public class ExcommunicationValues implements Serializable{
 
     public Map<ResourceType, Integer> getFinalResourcesIndexMalus(){
         return this.finalResourcesIndexMalus;
+    }
+
+    public Map<ResourceType, Integer> getFinalResourcesDevCardIndexMalus(){
+        return this.finalResourcesDevCardIndexMalus;
     }
 
 

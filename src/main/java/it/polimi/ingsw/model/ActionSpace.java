@@ -43,6 +43,10 @@ public class ActionSpace implements Serializable{
         empty = true;
     }
 
+    public ActionType getActionSpaceType(){
+        return this.actionSpaceType;
+    }
+
     public EffectHarvestProductionSimple getActionSpaceEffect(){
         return this.actionSpaceEffect;
     }

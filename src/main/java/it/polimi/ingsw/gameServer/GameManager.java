@@ -178,8 +178,6 @@ import java.util.*;
         this.game.getMainBoard().setTower(2, deckForTurn(deckForPeriod(this.yellowDeck, period), turn));
         this.game.getMainBoard().setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
 
-        //setup excommunication cards
-        this.game.getMainBoard().setVatican(chooseExcommunicationCardForPeriod(period));
     }
 
     public void mainboardTurnReset(){
@@ -207,13 +205,19 @@ import java.util.*;
      * Method to setup the excommunication cards for the period
      * @return
      */
-    private ExcommunicationCard chooseExcommunicationCardForPeriod(int period) {
+    //TODO chiamare questo metodo soltanto una volta all'inizio del gioco per settare l'array di carte scomunica in vaticano (chiamare il metodo dove si ritiene opportuno)
+    private void chooseExcommunicationCards() {
         Collections.shuffle(this.excommunicationCards);
+        ExcommunicationCard[] excommunicationCards = new ExcommunicationCard[3];
+        int period = 1;
         for (ExcommunicationCard card : this.excommunicationCards){
-            if (card.getPeriod() == period)
-                return card;
+            if (card.getPeriod() == period){
+                excommunicationCards[period - 1] = new ExcommunicationCard();
+                excommunicationCards[period - 1] = card;
+                period++;
+            }
         }
-        return null;
+        this.game.getMainBoard().getVatican().setExcommunicationCards(excommunicationCards);
     }
 
     /**
@@ -301,17 +305,37 @@ import java.util.*;
 
 
     /**
+     * This method makes some controls at the end of each game period
+     */
+    public void finalControlsForPeriod(int period, int faithPointsRequired, InformationCallback informationCallback){
+        for (ServerPlayer player : this.players){
+            //check if the player gets the excommunication effect
+            if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) < faithPointsRequired){
+                excommunicationForPlayer(player, period);
+            }else{
+                //TODO callback per far scegliere all'utente se mostrare sostegno alla chiesa o meno
+                //se sostiene la chiesa: azzerare punti fede della personalboard + assegnare punti vittoria + BONUS SISTO IV
+                //se non sostiene la chiesa: invocare excommunicationForPlayer(player, period) la Madonna e Germano
+            }
+        }
+    }
+
+    private void excommunicationForPlayer(Player player, int period){
+        ExcommunicationCard excommunicationCard = this.game.getMainBoard().getVatican().getExcommunicationCard(period - 1);
+        excommunicationCard.getEffect().runEffect(player);
+    }
+
+    /**
      * This method calculates the final points for each player at the end of the game
      */
     public void calculateFinalPoints(InformationCallback informationCallback){
 
-        //ciclo sui punti acquisiti durante la partita
-        //scomunica id 18
-        //calcola chi ha piu punti militari
+        //get the military points of all the players to assign them victory points
+        Map<ServerPlayer, Integer> militaryPointsRanking = new HashMap<>();
 
-
-        //ciclo per assegnare i punti finali
         for (ServerPlayer player : this.players){
+
+            militaryPointsRanking.put(player, player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY));
 
             //check if the player has to lose victory points
             int finalVictoryIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalPointsIndexMalus().get(PointType.VICTORY);
@@ -323,7 +347,6 @@ import java.util.*;
                 //decrease victory points
                 player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
             }
-
 
             //green cards final points
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.GREEN)){
@@ -372,7 +395,33 @@ import java.util.*;
                 player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
             }
 
+
+            //lose victory points from yellow card resources
+            //get all yellow card resources cost
+            Map<ResourceType, Integer> totalCardResourcesCost = new HashMap<>();
+            for (DevelopmentCard card: player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
+                for (Map.Entry<ResourceType, Integer> entry : card.getCost().getResources().entrySet()){
+                    totalCardResourcesCost.put(entry.getKey(), totalCardResourcesCost.get(entry.getKey()) + entry.getValue());
+                }
+            }
+            //decrease victory points
+            for (Map.Entry<ResourceType, Integer> entry : totalCardResourcesCost.entrySet()){
+                int finalResourcesDevCardIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalResourcesDevCardIndexMalus().get(entry.getKey());
+                if (finalResourcesDevCardIndexMalus > 0){
+                    player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, entry.getValue()/finalResourcesDevCardIndexMalus);
+                }
+            }
+
         }
+
+        //create military points ranking
+        Map<ServerPlayer, Integer> result = new LinkedHashMap<>();
+        militaryPointsRanking.entrySet().stream()
+                .sorted(Map.Entry.<ServerPlayer, Integer>comparingByValue().reversed())
+                .forEachOrdered(x -> result.put(x.getKey(), x.getValue()));
+
+        //assign victory points based on military ranking
+
     }
 
 }

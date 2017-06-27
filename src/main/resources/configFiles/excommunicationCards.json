@@ -229,6 +229,26 @@
     "effectType": "ExcommunicationEffectLoseVictoryPoints"
   }
 },
+  {
+    "period": 3,
+    "cardID": 20,
+    "effect": {
+      "cardValuables": {
+        "resources": {
+          "STONE": 1,
+          "WOOD": 1,
+          "COIN": 0,
+          "SERVANT": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "MILITARY": 0,
+          "VICTORY": 0
+        }
+      },
+      "effectType": "ExcommunicationEffectDevCardLoseVictoryPoints"
+    }
+  },
 {
   "period": 3,
   "cardID": 21,
@@ -250,5 +270,4 @@
   }
 }
 ]
-
 
