@@ -3,6 +3,7 @@ package it.polimi.ingsw.gameServer;
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -153,7 +154,8 @@ public class Room {
             game.pickupDevelopmentCardFromTower(player, familyMemberColor, servants, towerIndex, cellIndex, gameManager.getInformationChoicesHandler());
             String message = player.getUsername() + " set a family member in " + game.getMainBoard().getTower(towerIndex).getColor().toString().toLowerCase()
                     + " tower and picked up " + game.getMainBoard().getTower(towerIndex).getTowerCell(cellIndex).getDevelopmentCard().getName() + ".";
-            clientUpdatePacket = new ClientUpdatePacket(game, message);
+            clientUpdatePacket.setGame(gameManager.getGameModel());
+            clientUpdatePacket.setMesssage(message);
         } catch (GameException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set tower in the same way of the client.");
         }
@@ -166,7 +168,8 @@ public class Room {
             Game game = gameManager.getGameModel();
             game.placeFamilyMemberInsideCouncilPalace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
             String message = player.getUsername() + " set a family member in council palace and get one of its privileges.";
-            clientUpdatePacket = new ClientUpdatePacket(game, message);
+            clientUpdatePacket.setGame(gameManager.getGameModel());
+            clientUpdatePacket.setMesssage(message);
         } catch (GameException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set council palace in the same way of the client.");
         }
@@ -178,7 +181,8 @@ public class Room {
         try{
             gameManager.getGameModel().placeFamilyMemberInsideMarket(player, familyMemberColor, servants, marketCell, gameManager.getInformationChoicesHandler());
             String message = player.getUsername() + " set a family member in market cell #" + marketCell + " and get its benefits";
-            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+            clientUpdatePacket.setGame(gameManager.getGameModel());
+            clientUpdatePacket.setMesssage(message);
         } catch (GameException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set market in the same way of the client.");
         }
@@ -190,7 +194,8 @@ public class Room {
         try{
             gameManager.getGameModel().placeFamilyMemberInsideHarvestSimpleSpace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
             String message = player.getUsername() + " set a family member in harvest area simple.";
-            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+            clientUpdatePacket.setGame(gameManager.getGameModel());
+            clientUpdatePacket.setMesssage(message);
         } catch (GameException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set harvest simple area in the same way of the client.");
         }
@@ -202,7 +207,8 @@ public class Room {
         try{
             gameManager.getGameModel().placeFamilyMemberInsideProductionSimpleSpace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
             String message = player.getUsername() + " set a family member in production area simple.";
-            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+            clientUpdatePacket.setGame(gameManager.getGameModel());
+            clientUpdatePacket.setMesssage(message);
         } catch (GameException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set production simple area in the same way of the client.");
         }
@@ -214,7 +220,8 @@ public class Room {
         try{
             gameManager.getGameModel().placeFamilyMemberInsideHarvestExtendedSpace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
             String message = player.getUsername() + " set a family member in harvest area extended.";
-            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+            clientUpdatePacket.setGame(gameManager.getGameModel());
+            clientUpdatePacket.setMesssage(message);
         } catch (GameException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set harvest extended area in the same way of the client.");
         }
@@ -226,10 +233,31 @@ public class Room {
         try{
             gameManager.getGameModel().placeFamilyMemberInsideProductionExtendedSpace(player, familyMemberColor, servants, gameManager.getInformationChoicesHandler());
             String message = player.getUsername() + " set a family member in production area extended.";
-            clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel(), message);
+            clientUpdatePacket.setGame(gameManager.getGameModel());
+            clientUpdatePacket.setMesssage(message);
         } catch (GameException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set production extended area in the same way of the client.");
         }
+    }
+
+    public void activateLeader(ServerPlayer player, int leaderCardIndex, Map<String, Object> playerChoices){
+        gameManager.setInformationChoicesHandler(playerChoices);
+        try {
+            gameManager.getGameModel().activateLeaderCard(player, leaderCardIndex, gameManager.getInformationChoicesHandler());
+            String message = player.getUsername() + " activate a leader card.";
+            clientUpdatePacket.setMesssage(message);
+            clientUpdatePacket.setGame(gameManager.getGameModel());
+        } catch (GameException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot activate a leader card in the same way of the client.");
+        }
+    }
+
+    public void discardLeader(ServerPlayer player, int leaderCardIndex, Map<String, Object> playerChoices) {
+        gameManager.setInformationChoicesHandler(playerChoices);
+        gameManager.getGameModel().discardLeaderCard(player, leaderCardIndex, gameManager.getInformationChoicesHandler());
+        String message = player.getUsername() + " discard a leader card.";
+        clientUpdatePacket.setGame(gameManager.getGameModel());
+        clientUpdatePacket.setMesssage(message);
     }
 
     /**
@@ -289,6 +317,7 @@ public class Room {
                 }
             }
         }
+        clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel());
     }
 
     /**

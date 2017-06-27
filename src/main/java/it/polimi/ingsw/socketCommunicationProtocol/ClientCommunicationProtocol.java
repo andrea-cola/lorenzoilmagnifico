@@ -315,6 +315,28 @@ public class ClientCommunicationProtocol {
         }
     }
 
+    public void activateLeader(int leaderCardIndex, Map<String, Object> playerTurnChoices) throws NetworkException{
+        try {
+            objectOutputStream.writeObject(CommunicationProtocolConstants.ACTIVATAE_LEADER_CARD);
+            objectOutputStream.writeObject(leaderCardIndex);
+            objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
+        }
+    }
+
+    public void discardLeader(int leaderCardIndex, Map<String, Object> playerTurnChoices) throws NetworkException{
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.DISCARD_LEADER_CARD);
+            objectOutputStream.writeObject(leaderCardIndex);
+            objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
+        }
+    }
+
     public void endTurn() {
         try{
             objectOutputStream.writeObject(CommunicationProtocolConstants.END_TURN);

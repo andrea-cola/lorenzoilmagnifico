@@ -157,6 +157,16 @@ public class SocketClient extends AbstractClient{
     }
 
     @Override
+    public void notifyActivateLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException {
+        clientCommunicationProtocol.activateLeader(leaderCardIndex, playerChoices);
+    }
+
+    @Override
+    public void notifyDiscardLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException {
+        clientCommunicationProtocol.discardLeader(leaderCardIndex, playerChoices);
+    }
+
+    @Override
     public void endTurn() {
         clientCommunicationProtocol.endTurn();
     }

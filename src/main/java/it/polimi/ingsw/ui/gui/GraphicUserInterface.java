@@ -254,4 +254,9 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
         return null;
     }
+
+    @Override
+    public void notifyUpdate(String message) {
+
+    }
 }

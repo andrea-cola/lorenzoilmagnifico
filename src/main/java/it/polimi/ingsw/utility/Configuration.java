@@ -25,6 +25,16 @@ public class Configuration implements Serializable{
     private long moveWaitingTime;
 
     /**
+     * Array of victory points given by green cards.
+     */
+    private int[] victoryPointsForGreenCards;
+
+    /**
+     * Array of victory points given by blue cards.
+     */
+    private int[] victoryPointsForBlueCards;
+
+    /**
      * Main board parsed from file.
      */
     private MainBoard mainBoard;
@@ -39,16 +49,13 @@ public class Configuration implements Serializable{
      */
     private ArrayList<PersonalBoardTile> personalBoardTiles;
 
-    /**
-     * Class constructor.
-     * @param waitingTime before start game.
-     * @param moveWaitingTime before change turn.
-     */
-    public Configuration(long waitingTime, long moveWaitingTime,
-                         MainBoard mainBoard, PersonalBoard personalBoard,
+    public Configuration(long waitingTime, long moveWaitingTime, int[] victoryPointsForGreenCards,
+                         int[] victoryPointsForBlueCards, MainBoard mainBoard, PersonalBoard personalBoard,
                          ArrayList<PersonalBoardTile> personalBoardTiles) {
         this.waitingTime = waitingTime;
         this.moveWaitingTime = moveWaitingTime;
+        this.victoryPointsForGreenCards = victoryPointsForGreenCards;
+        this.victoryPointsForBlueCards = victoryPointsForBlueCards;
         this.mainBoard = mainBoard;
         this.personalBoard = personalBoard;
         this.personalBoardTiles = personalBoardTiles;
@@ -68,6 +75,14 @@ public class Configuration implements Serializable{
      */
     public long getMoveWaitingTime(){
         return this.moveWaitingTime;
+    }
+
+    public int[] getVictoryPointsForGreenCards(){
+        return this.victoryPointsForGreenCards;
+    }
+
+    public int[] getVictoryPointsForBlueCards(){
+        return this.victoryPointsForBlueCards;
     }
 
     /**

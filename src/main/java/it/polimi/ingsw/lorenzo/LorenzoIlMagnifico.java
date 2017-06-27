@@ -215,6 +215,24 @@ import java.util.Map;
     }
 
     @Override
+    public void notifyActivateLeader(int leaderCardIndex) {
+        try {
+            client.notifyActivateLeader(leaderCardIndex, playerTurnChoices);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify activation of your leader.");
+        }
+    }
+
+    @Override
+    public void notifyDiscardLeader(int leaderCardIndex) {
+        try {
+            client.notifyDiscardLeader(leaderCardIndex, playerTurnChoices);
+        } catch (NetworkException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify discard of your leader.");
+        }
+    }
+
+    @Override
     public void setGameModel(Game game) {
         this.game = game;
         userInterface.notifyGameStarted();

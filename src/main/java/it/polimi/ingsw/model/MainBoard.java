@@ -76,7 +76,7 @@ public class MainBoard implements Serializable{
         this.councilPalace = new CouncilPalace(configuration.getCouncilPalace().getMinFamilyMemberDiceValue(), configuration.getCouncilPalace().getImmediateEffect());
 
         this.market = new Market(configuration.getMarket().getMarketCells().length, configuration.getMarket().getMarketCells());
-        this.vatican = new Vatican(configuration.getVatican().getExcommunicationCard(), configuration.getVatican().getVictoryPointsBonusArray());
+        this.vatican = new Vatican(configuration.getVatican().getVictoryPointsBonusArray());
     }
 
     /**
@@ -92,8 +92,8 @@ public class MainBoard implements Serializable{
         }
     }
 
-    public void setVatican(ExcommunicationCard card){
-        this.vatican.setExcommunicationCard(card);
+    public void setVatican(ExcommunicationCard[] cards){
+        this.vatican.setExcommunicationCards(cards);
     }
 
     /**

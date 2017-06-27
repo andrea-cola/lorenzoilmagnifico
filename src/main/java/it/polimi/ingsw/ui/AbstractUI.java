@@ -2,7 +2,6 @@ package it.polimi.ingsw.ui;
 
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 

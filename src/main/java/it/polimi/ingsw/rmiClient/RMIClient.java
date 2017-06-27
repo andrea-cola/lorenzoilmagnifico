@@ -229,6 +229,24 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     @Override
+    public void notifyActivateLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException {
+        try {
+            server.activateLeaderCard(playerID, leaderCardIndex, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void notifyDiscardLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException {
+        try {
+            server.discardLeader(playerID, leaderCardIndex, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
     public void sendGame(Game game) throws RemoteException {
         getClient().setGameModel(game);
     }
