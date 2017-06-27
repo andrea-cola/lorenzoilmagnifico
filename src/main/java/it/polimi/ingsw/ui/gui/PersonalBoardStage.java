@@ -1,10 +1,12 @@
 package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.model.DevelopmentCard;
+import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ResourceType;
 import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -13,8 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -29,6 +29,7 @@ public class PersonalBoardStage extends JFXPanel{
     private static final int BACK_HEIGHT = 200;
     private static final int GRID_HGAP = 20;
     private static final int GRID_VGAP = 20;
+    private final static int INSETS = 20;
 
     /**
      * Data related to the player
@@ -64,42 +65,38 @@ public class PersonalBoardStage extends JFXPanel{
             for (int j = 0; j <5; j++) {
                 StringBuilder path = new StringBuilder();
                 path.append("images/developmentCard/devcards_f_en_c_");
-                int id=0;
-                switch (j) {
-                    case (0):
-                        id = player.getPersonalBoard().getVentureCards().get(i).getId();
-                        path.append(id);
-                        path.append(".png");
-                        ImageView card = new ImageView(new Image(path.toString()));
-                        card.autosize();
-                        gridPane.add(card, i, j);
-                        break;
-                    case (1):
-                        id = player.getPersonalBoard().getCharacterCards().get(i).getId();
-                        path.append(id);
-                        path.append(".png");
-                        ImageView card1 = new ImageView(new Image(path.toString()));
-                        card1.autosize();
-                        gridPane.add(card1, i, j);
-                        break;
-                    case (2):
-                        id = player.getPersonalBoard().getBuildingCards().get(i).getId();
-                        path.append(id);
-                        path.append(".png");
-                        ImageView card2 = new ImageView(new Image(path.toString()));
-                        card2.autosize();
-                        gridPane.add(card2, i, j);
-                        break;
-                    case (3):
-                        id = player.getPersonalBoard().getTerritoryCards().get(i).getId();
-                        path.append(id);
-                        path.append(".png");
-                        ImageView card3 = new ImageView(new Image(path.toString()));
-                        card3.autosize();
-                        gridPane.add(card3, i, j);
-                        break;
-                    default:
-                        break;
+                int id;
+                if(j==0 && player.getPersonalBoard().getCards(DevelopmentCardColor.PURPLE).size()!=0) {
+                    id = player.getPersonalBoard().getCards(DevelopmentCardColor.PURPLE).get(i).getId();
+                    path.append(id);
+                    path.append(".png");
+                    ImageView card = new ImageView(new Image(path.toString()));
+                    card.autosize();
+                    gridPane.add(card, i, j);
+                }else if(j== 1 && player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).size()!=0) {
+                    id = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).get(i).getId();
+                    path.append(id);
+                    path.append(".png");
+                    ImageView card1 = new ImageView(new Image(path.toString()));
+                    card1.autosize();
+                    gridPane.add(card1, i, j);
+                }else if (j ==2 && player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW).size()!=0) {
+                    id = player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW).get(i).getId();
+                    path.append(id);
+                    path.append(".png");
+                    ImageView card2 = new ImageView(new Image(path.toString()));
+                    card2.autosize();
+                    gridPane.add(card2, i, j);
+                }else if( j== 3 && player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size()!=0) {
+                    id = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).get(i).getId();
+                    path.append(id);
+                    path.append(".png");
+                    ImageView card3 = new ImageView(new Image(path.toString()));
+                    card3.autosize();
+                    gridPane.add(card3, i, j);
+                }else{
+                    Label nothing = new Label("Nothing to show");
+                    gridPane.add(nothing, i, j);
                 }
             }
         }
@@ -113,8 +110,8 @@ public class PersonalBoardStage extends JFXPanel{
         Label servants = new Label(" Servants = " + servantsValue);
         gridPane.add(servants, 3, 5);
 
-        root.getChildren().addAll(gridPane);
-
+        root.setCenter(gridPane);
+        root.setMargin(gridPane, new Insets(INSETS));
         Scene scene = new Scene(root);
         this.setScene(scene);
     }

@@ -10,8 +10,15 @@ package it.polimi.ingsw.socketCommunicationProtocol;
      */
     /*package-local*/ static final String LOGIN_REQUEST = "LoginRequest";
     /*package-local*/ static final String SIGNIN_REQUEST = "SigninRequest";
-    /*package-local*/ static final String JOIN_ROOM_REQUEST= "JoinRoomRequest";
-    /*package-local*/ static final String CREATE_ROOM_REQUEST= "CreateRoomRequest";
+    /*package-local*/ static final String JOIN_ROOM_REQUEST = "JoinRoomRequest";
+    /*package-local*/ static final String CREATE_ROOM_REQUEST = "CreateRoomRequest";
+    /*package-local*/ static final String FAMILIAR_IN_TOWER = "FamilyMemberInTower";
+    /*package-local*/ static final String FAMILIAR_IN_COUNCIL = "FamilyMemberInCouncil";
+    /*package-local*/ static final String FAMILIAR_IN_MARKET = "FamilyMemberInMarket";
+    /*package-local*/ static final String FAMILIAR_IN_PRODUCTION_SIMPLE = "FamilyMemberInPS";
+    /*package-local*/ static final String FAMILIAR_IN_PRODUCTION_EXTENDED = "FamilyMemberInPE";
+    /*package-local*/ static final String FAMILIAR_IN_HARVEST_SIMPLE = "FamilyMemberInHS";
+    /*package-local*/ static final String FAMILIAR_IN_HARVEST_EXTENDED = "FamilyMemberInHE";
     /*package-local*/ static final String END_TURN = "endTurn";
 
     /**
@@ -34,5 +41,6 @@ package it.polimi.ingsw.socketCommunicationProtocol;
     /*package-local*/ static final String PERSONAL_TILES = "PersonalTiles";
     /*package-local*/ static final String LEADER_CARDS = "LeaderCards";
     /*package-local*/ static final String TURN_STARTED = "TurnStarted";
+    /*package-local*/ static final String MODEL_UPDATE = "ModelUpdate";
 
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.rmiServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
+import it.polimi.ingsw.model.ClientUpdatePacket;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
@@ -64,6 +65,15 @@ import java.util.List;
     public void notifyTurnStarted(String username, long seconds) throws NetworkException{
         try{
             rmiClientInterface.notifyTurnStarted(username, seconds);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
+        try{
+            rmiClientInterface.sendGameModelUpdate(clientUpdatePacket);
         } catch (RemoteException e){
             throw new NetworkException();
         }

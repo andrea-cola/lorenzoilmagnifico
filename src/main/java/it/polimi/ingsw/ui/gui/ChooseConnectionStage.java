@@ -2,7 +2,7 @@ package it.polimi.ingsw.ui.gui;
 
 
 import it.polimi.ingsw.exceptions.ConnectionException;
-import it.polimi.ingsw.ui.cli.ConnectionType;
+import it.polimi.ingsw.ui.ConnectionType;
 import it.polimi.ingsw.utility.Debugger;
 import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;

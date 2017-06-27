@@ -2,10 +2,7 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.gameServer.Room;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.*;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -55,4 +52,7 @@ public abstract class ServerPlayer extends Player{
 
     public abstract void notifyTurnStarted(String username, long seconds) throws NetworkException;
 
+    public abstract void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException;
+
 }
+

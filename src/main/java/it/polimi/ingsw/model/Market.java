@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameErrorType;
+import it.polimi.ingsw.exceptions.GameException;
+
 import java.io.Serializable;
 
 /**

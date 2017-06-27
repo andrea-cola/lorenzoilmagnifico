@@ -34,14 +34,19 @@ public class Configurator {
     private static Configurator configurator;
 
     /**
-     * Development leaderCards deck.
+     * Development cards deck.
      */
     private static ArrayList<DevelopmentCard> developmentCards;
 
     /**
-     * Development leaderCards deck.
+     * Leader cards deck.
      */
     private static ArrayList<LeaderCard> leaderCards;
+
+    /**
+     * Excommunication cards deck
+     */
+    private static ArrayList<ExcommunicationCard> excommunicationCards;
 
     /**
      * Gson object reference.
@@ -114,7 +119,6 @@ public class Configurator {
                 .registerSubtype(LEPicoDellaMirandola.class, "LEPicoDellaMirandola")
                 .registerSubtype(LESimple.class, "LESimple")
                 .registerSubtype(LESistoIV.class, "LESistoIV");
-
     }
 
     /**
@@ -128,8 +132,8 @@ public class Configurator {
     }
 
     /**
-     * Parse development leaderCards from appropriate json file.
-     * @return array of leaderCards.
+     * Parse development cards from appropriate json file.
+     * @return array of cards.
      * @throws FileNotFoundException if file is not found.
      */
     private void parseDevelopmentCard() throws FileNotFoundException{
@@ -155,15 +159,15 @@ public class Configurator {
     }
 
     /**
-     * Return all leader leaderCards.
-     * @return array list of leader leaderCards.
+     * Return all leader cards.
+     * @return array list of leader cards.
      */
     public static ArrayList<LeaderCard> getLeaderCards(){
         return leaderCards;
     }
 
     /*package-local*/ static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
-        return new GameManager(roomPlayers, configuration, developmentCards, leaderCards);
+        return new GameManager(roomPlayers, configuration, developmentCards, leaderCards, excommunicationCards);
     }
 
 }

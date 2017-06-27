@@ -52,4 +52,8 @@ public class PersonalBoardTile implements Serializable{
         return this.personalBoardID;
     }
 
+    public void runEffect(Player player, ActionType actionType){
+
+    }
+
 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.InformationCallback;
+
 import it.polimi.ingsw.model.Player;
 
 public class LELudovicoAriosto extends LeaderEffect {
@@ -13,7 +15,7 @@ public class LELudovicoAriosto extends LeaderEffect {
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
+    public void runEffect(Player player, InformationCallback informationCallback) {
 
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
@@ -8,6 +9,7 @@ import javafx.application.Platform;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.concurrent.locks.Lock;
@@ -145,10 +147,16 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     }
 
     @Override
+    public void notifyUpdate(String message) {
+
+    }
+
+    @Override
     public void showPersonalBoardStage(Player player) {
         System.out.println("showing " + player.getUsername() + " personal board...");
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
+            jframe.setSize(100, 100);
             jframe.add(new PersonalBoardStage(player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
@@ -161,6 +169,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         System.out.println("showing " + player.getUsername() + " personal tile board...");
         SwingUtilities.invokeLater(()-> {
             JFrame jframe = new JFrame();
+            jframe.setSize(100, 100);
             jframe.add(new PersonalTileBoardStage(player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
@@ -173,7 +182,8 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         System.out.println("showing " + player.getUsername() + " leader cards...");
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
-            jframe.add(new LeaderCardsStage(player), BorderLayout.CENTER);
+            jframe.setSize(100, 100);
+            jframe.add(new LeaderCardsStage(this, player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
             jframe.setVisible(true);
@@ -182,21 +192,66 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
 
     @Override
     public void showGameException() {
-
+        JOptionPane.showMessageDialog(null, "Your data are not valid");
     }
 
     @Override
     public void notifyEndTurnStage() {
-
+        System.out.println("showing ending turn");
+        JOptionPane.showMessageDialog(null, "Your turn is ended, it takes the next one.");
     }
 
     @Override
-    public void chooseCouncilPrivilege(CouncilPrivilege councilPrivilege) {
-
+    public void activeLeaderCard(String leaderName) {
+        Player player = getClient().getPlayer();
+        try {
+            int i = 0;
+            List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
+            for (LeaderCard leaderCard : leaderCards) {
+                if (leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                    getClient().getGameModel().activateLeaderCard(player, i, this);
+                i++;
+            }
+        }catch(GameException e){
+            showGameException();
+        }
     }
 
     @Override
-    public void chooseDoubleCost() {
+    public void discardLeader(String leaderName) {
+        Player player = getClient().getPlayer();
+        int i = 0;
+        List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
+        for(LeaderCard leaderCard : leaderCards){
+            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                getClient().getGameModel().discardLeaderCard(player, i, this);
+            i++;
+        }
+    }
 
+    @Override
+    public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+
+        return null;
+    }
+
+    @Override
+    public int chooseDoubleCost(PointsAndResources pointsAndResources, int militaryPointsGiven, int militaryPointsNeeded) {
+        return 0;
+    }
+
+    @Override
+    public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned) {
+        return 0;
+    }
+
+    @Override
+    public int choosePickUpDiscounts(String reason, List<PointsAndResources> discounts) {
+        return 0;
+    }
+
+    @Override
+    public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
+        return null;
     }
 }

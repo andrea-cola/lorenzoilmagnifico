@@ -1,9 +1,7 @@
 package it.polimi.ingsw.socketServer;
 
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.server.ServerPlayer;
@@ -15,6 +13,7 @@ import it.polimi.ingsw.socketCommunicationProtocol.ServerCommunicationProtocolIn
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class extends Server player for socket communication.
@@ -131,6 +130,41 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     }
 
     @Override
+    public void setFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) {
+        serverInterface.setFamilyMemberInTower(this, familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverInterface.setFamilyMemberInCouncil(this, familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) {
+        serverInterface.setFamilyMemberInMarket(this, familyMemberColor, servants, marketIndex, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverInterface.setFamilyMemberInHarvestSimple(this, familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverInterface.setFamilyMemberInHarvestExtended(this, familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverInterface.setFamilyMemberInProductionSimple(this, familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
+    public void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
+        serverInterface.setFamilyMemberInProductionExtended(this, familyMemberColor, servants, playerChoices);
+    }
+
+    @Override
     public void sendGameInfo(Game game) throws NetworkException {
         socketCommunicationProtocol.sendGameInfo(game);
     }
@@ -148,6 +182,11 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     @Override
     public void notifyTurnStarted(String username, long seconds) throws NetworkException {
         socketCommunicationProtocol.notifyTurnStarted(username, seconds);
+    }
+
+    @Override
+    public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
+        socketCommunicationProtocol.sendGameModelUpdate(clientUpdatePacket);
     }
 
     @Override

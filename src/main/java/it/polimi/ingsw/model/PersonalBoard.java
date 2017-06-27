@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameErrorType;
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.Effect;
 
 import java.io.Serializable;
@@ -10,7 +12,7 @@ import java.util.*;
  */
 public class PersonalBoard implements Serializable{
 
-    private static final int MAX_NUMER_OF_CARD_PER_TYPE = 6;
+    private static final int MAX_NUMBER_OF_CARD_PER_TYPE = 6;
 
     /**
      * Contains all values of points and resources.
@@ -30,7 +32,7 @@ public class PersonalBoard implements Serializable{
     /**
      * discounts: save the discount cost for development leaderCards
      */
-    private Map<DevelopmentCardColor, PointsAndResources> costDiscountForDevelopmentCard = new HashMap<>();
+    private Map<DevelopmentCardColor, List<PointsAndResources>> costDiscountForDevelopmentCard = new HashMap<>();
 
     /**
      * Family members;
@@ -45,7 +47,7 @@ public class PersonalBoard implements Serializable{
     /**
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
      */
-    private static int[] greenCardsMilitaryPointsRequirements = new int[MAX_NUMER_OF_CARD_PER_TYPE];
+    private int[] greenCardsMilitaryPointsRequirements = new int[MAX_NUMBER_OF_CARD_PER_TYPE];
 
     /**
      * Array of leaderCards, divided per types.
@@ -55,6 +57,12 @@ public class PersonalBoard implements Serializable{
     private ArrayList<DevelopmentCard> characterCards = new ArrayList<>();
     private ArrayList<DevelopmentCard> ventureCards = new ArrayList<>();
     private ArrayList<LeaderCard> leaderCards;
+    private ArrayList<ExcommunicationCard> excommunicationCards;
+
+    /**
+     * keeps track of all the excommunication malus the player has
+     */
+    private ExcommunicationValues excommunicationValues = new ExcommunicationValues();
 
     /**
      * Personal board tile choosen by the player.
@@ -62,16 +70,27 @@ public class PersonalBoard implements Serializable{
     private PersonalBoardTile personalBoardTile;
 
     public PersonalBoard(){
-        valuables = new PointsAndResources();
+        this.valuables = new PointsAndResources();
         for(ActionType type : ActionType.values())
-            harvestProductionDiceValueBonus.put(type, 0);
+            this.harvestProductionDiceValueBonus.put(type, 0);
 
         for(DevelopmentCardColor color : DevelopmentCardColor.values()) {
-            costDiscountForDevelopmentCard.put(color, new PointsAndResources());
-            developmentCardColorDiceValueBonus.put(color, 0);
+            List<PointsAndResources> discounts = new ArrayList<>();
+            discounts.add(new PointsAndResources());
+            this.costDiscountForDevelopmentCard.put(color, discounts);
+            this.developmentCardColorDiceValueBonus.put(color, 0);
         }
-        familyMembersUsed = new ArrayList<>();
-        leaderCards = new ArrayList<>();
+        this.familyMembersUsed = new ArrayList<>();
+        this.leaderCards = new ArrayList<>();
+        this.excommunicationCards = new ArrayList<>();
+    }
+
+    /**
+     * Get the max number of cards per type you can add to the player board
+     * @return
+     */
+    public int getMaxNumberOfCardPerType(){
+        return MAX_NUMBER_OF_CARD_PER_TYPE;
     }
 
     /**
@@ -139,7 +158,7 @@ public class PersonalBoard implements Serializable{
      * @param array
      */
     public void setGreenCardsMilitaryPointsRequirements(int[] array){
-        greenCardsMilitaryPointsRequirements = array;
+        this.greenCardsMilitaryPointsRequirements = array;
     }
 
     /**
@@ -148,11 +167,11 @@ public class PersonalBoard implements Serializable{
      * @return military points needed.
      */
     public int getGreenCardsMilitaryPointsRequirements(int index){
-        return greenCardsMilitaryPointsRequirements[index];
+        return this.greenCardsMilitaryPointsRequirements[index];
     }
 
     public int[] getGreenCardsMilitaryPointsRequirements(){
-        return greenCardsMilitaryPointsRequirements;
+        return this.greenCardsMilitaryPointsRequirements;
     }
 
     /**
@@ -177,6 +196,28 @@ public class PersonalBoard implements Serializable{
     }
 
     /**
+     * Returns the cards owned by the player by color
+     * @param developmentCardColor
+     * @return
+     */
+    public ArrayList<DevelopmentCard> getCards(DevelopmentCardColor developmentCardColor){
+        switch (developmentCardColor){
+            case GREEN:
+                return this.territoryCards;
+            case YELLOW:
+                return this.buildingCards;
+            case PURPLE:
+                return this.ventureCards;
+            case BLUE:
+                return this.characterCards;
+            default:
+                break;
+        }
+        return null;
+    }
+
+
+    /**
      * Set points and resources
      * @param pointsAndResources
      */
@@ -184,76 +225,12 @@ public class PersonalBoard implements Serializable{
         this.valuables = pointsAndResources;
     }
 
+
     /**
-     * Get points and resources.
-     * @return points and resources.
+     * Get points and resources
      */
     public PointsAndResources getValuables(){
         return this.valuables;
-    }
-
-    /**
-     * Add territory card
-     * @param card
-     */
-    public void addTerritoryCard(DevelopmentCard card){
-        this.territoryCards.add(card);
-    }
-
-    /**
-     * Get a specific territory card from the array.
-     * @return a territory card.
-     */
-    public ArrayList<DevelopmentCard> getTerritoryCards(){
-        return this.territoryCards;
-    }
-
-    /**
-     * Add building card
-     * @param card
-     */
-    public void addBuildingCard(DevelopmentCard card){
-        this.buildingCards.add(card);
-    }
-
-    /**
-     * Get a specific building card from the array.
-     * @return a building card.
-     */
-    public ArrayList<DevelopmentCard> getBuildingCards(){
-        return this.buildingCards;
-    }
-
-    /**
-     * Add character card
-     * @param card
-     */
-    public void addCharacterCard(DevelopmentCard card){
-        this.characterCards.add(card);
-    }
-
-    /**
-     * Get a specific character card from the array.
-     * @return a character card.
-     */
-    public ArrayList<DevelopmentCard> getCharacterCards(){
-        return this.characterCards;
-    }
-
-    /**
-     * Add venture card
-     * @param card
-     */
-    public void addVentureCard(DevelopmentCard card){
-        this.ventureCards.add(card);
-    }
-
-    /**
-     * Get a specific venture card from the array.
-     * @return a venture card.
-     */
-    public ArrayList<DevelopmentCard> getVentureCards(){
-        return this.ventureCards;
     }
 
 
@@ -294,24 +271,91 @@ public class PersonalBoard implements Serializable{
      * @param cardColor
      * @param valuables
      */
-    public void setCostDiscountForDevelopmentCard(DevelopmentCardColor cardColor, PointsAndResources valuables){
-        this.costDiscountForDevelopmentCard.put(cardColor, valuables);
+    public void setCostDiscountForDevelopmentCard(DevelopmentCardColor cardColor, List<PointsAndResources> valuables){
+        List<PointsAndResources> discounts = this.costDiscountForDevelopmentCard.get(cardColor);
+        List<PointsAndResources> newDiscounts = new ArrayList<>();
+        for(PointsAndResources oldDiscounts : discounts){
+            for(PointsAndResources discountToAdd: valuables){
+                PointsAndResources newDiscount = oldDiscounts;
+                for(ResourceType resourceType : ResourceType.values())
+                    newDiscount.increase(resourceType, discountToAdd.getResources().get(resourceType));
+                for(PointType pointType : PointType.values())
+                    newDiscount.increase(pointType, discountToAdd.getPoints().get(pointType));
+                newDiscounts.add(newDiscount);
+            }
+        }
+        this.costDiscountForDevelopmentCard.put(cardColor, newDiscounts);
     }
 
     /**
      * Get the cost discount value for a particular type of development leaderCards
      * @return
      */
-    public Map<DevelopmentCardColor, PointsAndResources> getCostDiscountForDevelopmentCard(){
-        return this.costDiscountForDevelopmentCard;
+    public List<PointsAndResources> getCostDiscountForDevelopmentCard(DevelopmentCardColor color){
+        return this.costDiscountForDevelopmentCard.get(color);
     }
 
+    /**
+     * This method returns the array of leader cards
+     * @return
+     */
     public List<LeaderCard> getLeaderCards(){
         return this.leaderCards;
     }
 
+    /**
+     * This method checks if the player has a particular leader card per name and returns it
+     * @param name
+     * @return
+     */
+    public LeaderCard getLeaderCardWithName(String name){
+        for (LeaderCard card : this.leaderCards){
+            if (card.getLeaderCardName().equals(name)){
+                return card;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * This method sets a particular leadercard
+     * @param leaderCard
+     */
     public void setLeaderCard(LeaderCard leaderCard){
         this.leaderCards.add(leaderCard);
+    }
+
+
+    /**
+     * This method add a new excommunication to the player
+     */
+    public void addExcommunicationCard(ExcommunicationCard card){
+        this.excommunicationCards.add(card);
+    }
+
+    /**
+     * This method returns the excommunication cards of the player
+     */
+    public ArrayList<ExcommunicationCard> getExcommunivationCards(){
+        return this.excommunicationCards;
+    }
+
+
+    /**
+     * Get excommunication values
+     */
+    public ExcommunicationValues getExcommunicationValues(){
+        return this.excommunicationValues;
+    }
+
+
+    /**
+     * Reset dice values for family members.
+     * Reset list of family members used.
+     */
+    public void turnReset(){
+        this.familyMembersUsed = new ArrayList<>();
+        this.familyMember = new FamilyMember();
     }
 
     @Override
@@ -343,5 +387,6 @@ public class PersonalBoard implements Serializable{
 
         return stringBuilder.toString();
     }
+
 
 }

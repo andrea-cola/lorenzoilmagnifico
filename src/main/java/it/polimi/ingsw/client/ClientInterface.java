@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.model.ClientUpdatePacket;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
@@ -19,4 +20,6 @@ public interface ClientInterface {
     void chooseLeaderCards(List<LeaderCard> leaderCards);
 
     void notifyTurnStarted(String username, long seconds);
+
+    void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket);
 }

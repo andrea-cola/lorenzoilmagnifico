@@ -116,16 +116,22 @@ public class EffectHarvestProductionSimple extends Effect{
         ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
 
-        //updates player's resources
-        for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
-            if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) >= this.diceActionValue){
+        //set action value
+        int familyMemberValue = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor);
+        int bonus = player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(this.actionType);
+        int malus = player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(this.actionType);
+        int actionValue = familyMemberValue + bonus - malus;
+
+        if (actionValue >= this.diceActionValue) {
+            //updates player's resources
+            for (Map.Entry<ResourceType, Integer> entry : this.valuable.getResources().entrySet()) {
                 player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
             }
-        }
 
-        //updates player's points
-        for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
-            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            //updates player's points
+            for (Map.Entry<PointType, Integer> entry : this.valuable.getPoints().entrySet()) {
+                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            }
         }
 
     }

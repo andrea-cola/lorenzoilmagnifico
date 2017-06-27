@@ -159,38 +159,34 @@ public class EffectMultiplicator extends Effect{
 
         //check if the multiplicator object is a card or a resource/point
         if (this.cardOrResources){
-            //card
-            switch (this.cardColorRequisite){
-                case GREEN:
-                    multiplicatorValue = player.getPersonalBoard().getTerritoryCards().size();
-                    break;
-                case YELLOW:
-                    multiplicatorValue = player.getPersonalBoard().getBuildingCards().size();
-                    break;
-                case BLUE:
-                    multiplicatorValue = player.getPersonalBoard().getCharacterCards().size();
-                    break;
-                case PURPLE:
-                    multiplicatorValue = player.getPersonalBoard().getVentureCards().size();
-                    break;
-            }
+            multiplicatorValue = player.getPersonalBoard().getCards(this.cardColorRequisite).size();
         }else{
-            //resource
-
+            for(Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet())
+                if(entry.getValue() != 0)
+                    multiplicatorValue = entry.getValue();
+            for(Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet())
+                if(entry.getValue() != 0)
+                    multiplicatorValue = entry.getValue();
         }
 
         //run effect
         //updates player's resources
         for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
+            //normal effect
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
         }
 
         //updates player's points
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()){
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
+            //normal effect
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
         }
-
     }
+
 
     /**
      * Get a description of the current effect.

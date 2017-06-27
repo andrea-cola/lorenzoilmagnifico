@@ -2,13 +2,11 @@ package it.polimi.ingsw.ui;
 
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.RoomException;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.ui.cli.ConnectionType;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.ui.ConnectionType;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interface implemented by the Game class, contains all functions related to the Game that need to
@@ -17,6 +15,12 @@ import java.util.List;
 public interface UiController {
 
     String getUsername();
+
+    Player getPlayer();
+
+    Game getGameModel();
+
+    void setPlayerTurnChoices(String operation, Object choice);
 
     void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException;
 
@@ -30,9 +34,21 @@ public interface UiController {
 
     void notifyLeaderCardChoice(LeaderCard leaderCard);
 
-    Game getGameModel();
+    void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex);
 
-    Player getPlayer();
+    void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants);
+
+    void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int cellIndex);
+
+    void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants);
+
+    void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants);
+
+    void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants);
+
+    void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants);
+
+    Map<String, Object> getPlayerTurnChoices();
 
     void endTurn();
 }

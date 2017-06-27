@@ -1,7 +1,17 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.FamilyMemberColor;
+import it.polimi.ingsw.model.InformationCallback;
+import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
+import javafx.beans.property.MapProperty;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * This class gives a bonus to all dices
+ */
 public class LEDiceBonus extends LeaderEffect {
 
     private int whiteDice;
@@ -44,8 +54,13 @@ public class LEDiceBonus extends LeaderEffect {
      * @param player
      */
     @Override
-    public void runEffect(Player player) {
-
+    public void runEffect(Player player, InformationCallback informationCallback) {
+        Map<FamilyMemberColor, Integer> members = new HashMap<>();
+        members.put(FamilyMemberColor.WHITE, whiteDice);
+        members.put(FamilyMemberColor.ORANGE, orangeDice);
+        members.put(FamilyMemberColor.BLACK, blackDice);
+        members.put(FamilyMemberColor.NEUTRAL, 0);
+        player.getPersonalBoard().getFamilyMember().setMembers(members);
     }
 
     /**

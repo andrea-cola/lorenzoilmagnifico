@@ -9,28 +9,37 @@ import java.util.ArrayList;
 public class Vatican implements Serializable{
 
     /**
+<<<<<<< HEAD
      * Array of excommunication leaderCards. Each card is used in only one age.
      * The length of this array is equal the number of ages.
+=======
+     * The excommunication card you get if you don't sustain Vatican
+>>>>>>> 805b963d384a061d6727e16ca7eea5f8bd6bf86d
      */
-    private ExcommunicationCard[] excommunicationCards;
+    private ExcommunicationCard excommunicationCard;
 
     /**
      * This is the array of bonus reached
      */
     private int[] victoryPointsBonus;
 
-    public Vatican(ExcommunicationCard[] card, int[] victoryPointsBonus){
-        this.excommunicationCards = card;
+    public Vatican(ExcommunicationCard card, int[] victoryPointsBonus){
+        this.excommunicationCard = card;
         this.victoryPointsBonus = victoryPointsBonus;
     }
 
     /**
-     * Get excommunication card from the array.
-     * @param age of the game.
-     * @return excommunication card of the period.
+     * Get excommunication card
      */
-    public ExcommunicationCard getExcommunicationCard(int age){
-        return this.excommunicationCards[age - 1];
+    public ExcommunicationCard getExcommunicationCard(){
+        return this.excommunicationCard;
+    }
+
+    /**
+     * Set excommunication card
+     */
+    public void setExcommunicationCard(ExcommunicationCard card){
+        this.excommunicationCard = card;
     }
 
     /**
@@ -46,7 +55,4 @@ public class Vatican implements Serializable{
         return this.victoryPointsBonus;
     }
 
-    public ExcommunicationCard[] getExcommunicationCards(){
-        return this.excommunicationCards;
-    }
 }

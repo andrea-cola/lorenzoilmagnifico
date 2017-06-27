@@ -11,6 +11,6 @@ public interface MainBoardSettings{
 
     void setDevelopmentCardInTowerCell(int tower, int towerCell);
 
-    void setExcommunicationCard();
+    void setExcommunicationCard(int period, int row);
 
 }

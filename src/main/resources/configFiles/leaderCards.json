@@ -2,6 +2,8 @@
   {
     "leaderCardName": "Giovanni delle Bande Nere",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 0,
@@ -36,6 +38,8 @@
   {
     "leaderCardName": "Bartolomeo Colleoni",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -74,6 +78,8 @@
   {
     "leaderCardName": "Michelangelo Buonarroti",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 0,
@@ -108,6 +114,8 @@
   {
     "leaderCardName": "Girolamo Savonarola",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 0,
@@ -142,6 +150,8 @@
   {
     "leaderCardName": "Sandro Botticelli",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 0,
@@ -176,6 +186,8 @@
   {
     "leaderCardName": "Cosimo de Medici",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -214,6 +226,8 @@
   {
     "leaderCardName": "Leonardo da Vinci",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -240,6 +254,8 @@
   {
     "leaderCardName": "Francesco Sforza",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -265,6 +281,8 @@
   {
     "leaderCardName": "Pico della Mirandola",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -290,6 +308,8 @@
   {
     "leaderCardName": "Filippo Brunelleschi",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -314,6 +334,8 @@
   {
     "leaderCardName": "Ludovico Ariosto",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -337,6 +359,8 @@
   {
     "leaderCardName": "Cesare Borgia",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 0,
@@ -360,6 +384,8 @@
   {
     "leaderCardName": "Federico de Montefeltro",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -384,6 +410,8 @@
   {
     "leaderCardName": "Sigismondo Malatesta",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 0,
@@ -405,6 +433,8 @@
   {
     "leaderCardName": "Ludovico il Moro",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -434,6 +464,8 @@
   {
     "leaderCardName": "Lucrezia Borgia",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "cardColorMapRequisites": {
       "BLUE": 6,
       "PURPLE": 6,
@@ -450,6 +482,8 @@
   {
     "leaderCardName": "Lorenzo de Medici",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 0,
@@ -470,6 +504,8 @@
   {
     "leaderCardName": "Santa Rita",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 0,
@@ -491,6 +527,8 @@
   {
     "leaderCardName": "Sisto IV",
     "leaderCardDescription": "shalala",
+    "permanentAbility": true,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "SERVANT": 6,
@@ -524,6 +562,8 @@
   {
     "leaderCardName": "Ludovico III Gonzaga",
     "leaderCardDescription": "shalala",
+    "permanentAbility": false,
+    "leaderEffectActive": false,
     "pointsAndResourcesRequisites": {
       "resources": {
         "STONE": 0,

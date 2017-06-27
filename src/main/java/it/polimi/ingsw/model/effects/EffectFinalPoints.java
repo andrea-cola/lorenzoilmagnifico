@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PointType;
 import it.polimi.ingsw.model.PointsAndResources;
 import it.polimi.ingsw.model.InformationCallback;
+
+import java.util.Map;
 
 /**
  * This class represent the permanent effect that is activated at the end of the game.
@@ -44,7 +47,9 @@ public class EffectFinalPoints extends Effect {
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-
+        for (Map.Entry<PointType, Integer> entry: this.finalVictoryPoints.getPoints().entrySet()) {
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+        }
     }
 
     /**

@@ -38,6 +38,8 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     private int whiteValue;
     private int blackValue;
     private int neutralValue;
+    private int servants;
+
 
     private CallbackInterface callback;
     private Game game;
@@ -137,7 +139,8 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         background = new BackgroundImage(image2, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
         leftPane.setBackground(new Background(background));
 
-        gridTower.relocate(GRID_TOWER_X, GRID_TOWER_Y);
+        //gridTower.relocate(GRID_TOWER_X, GRID_TOWER_Y);
+        gridTower.setPrefSize(BACK_WIDTH, BACK_HEIGHT);
         gridTower.setVgap(GRID_TOWER_VGAP);
         gridTower.setHgap(GRID_TOWER_HGAP);
         for (int i = 0; i <= 7 ; i++) {
@@ -155,7 +158,7 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
                     circle.setOnMouseDragReleased(event -> {
                         card.setVisible(false);
                         try {
-                            game.pickupDevelopmentCardFromTower(player, manageTargetEvent(circle), column, row, null);
+                            game.pickupDevelopmentCardFromTower(player, manageTargetEvent(circle), 3,column, row, null);
                             circle.setVisible(false);
                             circle.setDisable(true);
                         } catch (GameException e) {
@@ -168,21 +171,16 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
             }
         }
 
-        /**
-        ImageView firsExcommunicationCard = new ImageView();
-        ImageView secondExcommunicationCard = new ImageView();
-        ImageView thirdExcommunicationCard = new ImageView();
-        gridTower.add(firsExcommunicationCard, 1, 5);
-        gridTower.add(secondExcommunicationCard, 2, 5);
-        gridTower.add(thirdExcommunicationCard, 3, 5);
-        */
+        for(int i=1; i<4; i++){
+            setExcommunicationCard(i, 5);
+        }
 
         Circle council = new Circle(CIRCLE_RADIUS);
         gridTower.add(council, 5, 4);
         FamilyMemberColor councilColor = manageTargetEvent(council);
         council.setOnDragDropped(event -> {
             try {
-                game.placeFamilyMemberInsideCouncilPalace(player, councilColor , null);
+                game.placeFamilyMemberInsideCouncilPalace(player, councilColor , servants, null);
             } catch (GameException e) {
                 callback.showGameException();
             }
@@ -197,7 +195,11 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         circleProduction.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
-                game.placeFamilyMemberInsideHarvestSimpleSpace(player, productionColor, null);
+                try {
+                    game.placeFamilyMemberInsideHarvestSimpleSpace(player, productionColor, servants,  null);
+                } catch (GameException e) {
+                    callback.showGameException();
+                }
             }
         });
 
@@ -207,7 +209,11 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         circleHarvest.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
-                game.placeFamilyMemberInsideHarvestSimpleSpace(player, harvestColor,null);
+                try {
+                    game.placeFamilyMemberInsideHarvestSimpleSpace(player, harvestColor, servants, null);
+                } catch (GameException e) {
+                    callback.showGameException();
+                }
             }
         });
 
@@ -221,7 +227,7 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
             @Override
             public void handle(DragEvent event) {
                 try {
-                    game.placeFamilyMemberInsideMarket(player, marketColor1, 1, null);
+                    game.placeFamilyMemberInsideMarket(player, marketColor1, servants, 1, null);
                 } catch (GameException e) {
                     callback.showGameException();
                 }
@@ -235,7 +241,7 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
             @Override
             public void handle(DragEvent event) {
                 try {
-                    game.placeFamilyMemberInsideMarket(player, marketColor2, 2, null);
+                    game.placeFamilyMemberInsideMarket(player, marketColor2, servants, 2, null);
                 } catch (GameException e) {
                     callback.showGameException();
                 }
@@ -503,11 +509,20 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     }
 
     @Override
-    public void setExcommunicationCard() {
-        ExcommunicationCard[] exCard = game.getMainBoard().getVatican().getExcommunicationCards();
+    public void setExcommunicationCard(int period, int row) {
+        System.out.println("setting vatican");
         StringBuilder path = new StringBuilder();
+        path.append("images/excommunicationCard/excomm_");
+        path.append(game.getMainBoard().getVatican().getExcommunicationCard().getPeriod());
+        path.append("_");
+        path.append(game.getMainBoard().getVatican().getExcommunicationCard().getCardID());
+        path.append(".png");
+        ImageView image = new ImageView(( new Image(path.toString())));
+        image.setFitHeight(IMAGE_HEIGHT);
+        image.setFitWidth(IMAGE_WIDTH);
+        image.autosize();
+        gridTower.add(image, period, row);
     }
-
 
 
     interface CallbackInterface{
@@ -521,5 +536,9 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         void showGameException();
 
         void notifyEndTurnStage();
+
+        void activeLeaderCard(String leaderName);
+
+        void discardLeader(String leaderName);
     }
 }

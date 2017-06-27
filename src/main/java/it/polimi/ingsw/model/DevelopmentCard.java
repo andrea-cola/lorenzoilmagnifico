@@ -147,26 +147,35 @@ public class DevelopmentCard implements Serializable{
     }
 
     public void payCost(Player player, InformationCallback informationCallback){
-        if(!multipleRequisiteSelectionEnabled) {
-            PointsAndResources playersValuable = player.getPersonalBoard().getValuables();
-
-            Map<ResourceType, Integer> costResources = cost.getResources();
-            Map<PointType, Integer> costPoints = cost.getPoints();
-
-            Iterator it = costResources.entrySet().iterator();
-            while(it.hasNext()){
-                Map.Entry pair = (Map.Entry)it.next();
-                playersValuable.decrease((ResourceType)pair.getKey(), (int)pair.getValue());
+        if(!multipleRequisiteSelectionEnabled || militaryPointsRequired < player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY)) {
+            payFirstCost(player);
+        } else {
+            int choice = informationCallback.chooseDoubleCost(cost, cost.getPoints().get(PointType.MILITARY), militaryPointsRequired);
+            if(choice == 2)
+                payFirstCost(player);
+            else {
+                payFirstCost(player);
             }
-            it = costPoints.entrySet().iterator();
-            while(it.hasNext()){
-                Map.Entry pair = (Map.Entry)it.next();
-                playersValuable.decrease((PointType) pair.getKey(), (int)pair.getValue());
-            }
-        } else{
-            informationCallback.chooseDoubleCost();
         }
     }
+
+    private void payFirstCost(Player player){
+        PointsAndResources playersValuable = player.getPersonalBoard().getValuables();
+        Map<ResourceType, Integer> costResources = cost.getResources();
+        Map<PointType, Integer> costPoints = cost.getPoints();
+
+        Iterator it = costResources.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            playersValuable.decrease((ResourceType)pair.getKey(), (int)pair.getValue());
+        }
+        it = costPoints.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            playersValuable.decrease((PointType) pair.getKey(), (int)pair.getValue());
+        }
+    }
+
 
     @Override
     public String toString(){
