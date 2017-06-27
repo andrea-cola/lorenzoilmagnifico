@@ -11,30 +11,29 @@ public class Vatican implements Serializable{
     /**
      * The excommunication card you get if you don't sustain Vatican
      */
-    private ExcommunicationCard excommunicationCard;
+    private ExcommunicationCard[] excommunicationCards;
 
     /**
      * This is the array of bonus reached
      */
     private int[] victoryPointsBonus;
 
-    public Vatican(ExcommunicationCard card, int[] victoryPointsBonus){
-        this.excommunicationCard = card;
+    public Vatican(int[] victoryPointsBonus){
         this.victoryPointsBonus = victoryPointsBonus;
     }
 
     /**
      * Get excommunication card
      */
-    public ExcommunicationCard getExcommunicationCard(){
-        return this.excommunicationCard;
+    public ExcommunicationCard getExcommunicationCard(int atIndex){
+        return this.excommunicationCards[atIndex];
     }
 
     /**
-     * Set excommunication card
+     * Set excommunication cards
      */
-    public void setExcommunicationCard(ExcommunicationCard card){
-        this.excommunicationCard = card;
+    public void setExcommunicationCards(ExcommunicationCard[] cards){
+        this.excommunicationCards = cards;
     }
 
     /**

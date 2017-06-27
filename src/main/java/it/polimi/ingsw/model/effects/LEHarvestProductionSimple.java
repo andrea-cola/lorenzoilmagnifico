@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
 
+import java.util.ArrayList;
+
 public class LEHarvestProductionSimple extends LeaderEffect{
 
     /**
@@ -61,11 +63,20 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback){
-        //TODO add here the possibility to add value to dices with callback functions
+        //get the last family member used and change its value
+        ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
+        FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
+        player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(familyMemberColor, this.diceActionValue);
 
         if (this.actionType.equals(ActionType.HARVEST)){
             for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN)){
+                card.getPermanentEffect().runEffect(player, informationCallback);
+            }
+        }
 
+        if (this.actionType.equals(ActionType.PRODUCTION)){
+            for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
+                card.getPermanentEffect().runEffect(player, informationCallback);
             }
         }
     }

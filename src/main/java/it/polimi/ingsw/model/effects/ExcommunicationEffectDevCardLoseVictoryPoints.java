@@ -3,39 +3,21 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PointsAndResources;
+import it.polimi.ingsw.model.ResourceType;
 
 import java.awt.*;
+import java.util.Map;
 
 public class ExcommunicationEffectDevCardLoseVictoryPoints extends ExcommunicationEffect {
 
-    private DevelopmentCardColor developmentCardColor;
+    private PointsAndResources cardValuables;
 
-    private PointsAndResources valuablesToLoseIndex;
-
-    private PointsAndResources valuablesLost;
-
-    public void setDevelopmentCardColor(DevelopmentCardColor cardColor){
-        this.developmentCardColor = cardColor;
+    public void setCardValuables(PointsAndResources valuables){
+        this.cardValuables = valuables;
     }
 
-    public DevelopmentCardColor getDevelopmentCardColor(){
-        return this.developmentCardColor;
-    }
-
-    public void setValuablesToLoseIndex(PointsAndResources valuablesToLoseIndex){
-        this.valuablesToLoseIndex = valuablesToLoseIndex;
-    }
-
-    public PointsAndResources getValuablesToLoseIndex(){
-        return this.valuablesToLoseIndex;
-    }
-
-    public void setValuablesLost(PointsAndResources valuablesLost){
-        this.valuablesLost = valuablesLost;
-    }
-
-    public PointsAndResources getValuablesLost(){
-        return this.valuablesLost;
+    public PointsAndResources getCardValuables(){
+        return this.cardValuables;
     }
 
     public ExcommunicationEffectDevCardLoseVictoryPoints(){
@@ -43,15 +25,14 @@ public class ExcommunicationEffectDevCardLoseVictoryPoints extends Excommunicati
     }
 
     public void runEffect(Player player){
-
+        for (Map.Entry<ResourceType, Integer> entry : this.cardValuables.getResources().entrySet()){
+            player.getPersonalBoard().getExcommunicationValues().setFinalResourcesDevCardIndexMalus(entry.getKey(), entry.getValue());
+        }
     }
 
     public String getDescription(){
         String header = this.effectType + "\n";
-        String devCardColor = "Development card color:\n" + this.developmentCardColor;
-        String valuablesToLooseIndex = "Valuables to loose index:\n" + this.valuablesToLoseIndex;
-        String valuablesLost = "Valuables lost:\n" + this.valuablesLost;
-        return new StringBuilder(header).append(devCardColor).append(valuablesToLooseIndex).append(valuablesLost).toString();
+        String cardValuables = "Valuables to lose index:\n" + this.cardValuables;
+        return new StringBuilder(header).append(cardValuables).toString();
     }
-
 }

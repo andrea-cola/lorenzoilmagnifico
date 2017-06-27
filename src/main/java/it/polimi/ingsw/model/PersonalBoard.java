@@ -46,6 +46,11 @@ public class PersonalBoard implements Serializable {
     private int[] greenCardsMilitaryPointsRequirements;
 
     /**
+     * Flag to check if the player can always place family members even in occupied spaces
+     */
+    private Boolean alwaysPlaceFamilyMemberInsideActionSpace = false;
+
+    /**
      * Array of cards, divided per types.
      */
     private ArrayList<DevelopmentCard> territoryCards = new ArrayList<>();
@@ -365,6 +370,20 @@ public class PersonalBoard implements Serializable {
         return this.excommunicationValues;
     }
 
+
+    /**
+     * Set if the user can always place a family member inside action spaces
+     */
+    public void setAlwaysPlaceFamilyMemberInsideActionSpace(Boolean updatedValue){
+        this.alwaysPlaceFamilyMemberInsideActionSpace = updatedValue;
+    }
+
+    /**
+     * Get if the user can always place a family member inside action spaces
+     */
+    public Boolean getAlwaysPlaceFamilyMemberInsideActionSpace(){
+        return this.alwaysPlaceFamilyMemberInsideActionSpace;
+    }
 
     /**
      * Reset dice values for family members.

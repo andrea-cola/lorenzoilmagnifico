@@ -3,6 +3,7 @@ package it.polimi.ingsw.gameServer;
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
