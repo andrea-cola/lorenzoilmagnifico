@@ -311,31 +311,14 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     @Override
     public void showMainBoard(){
         Game game = getClient().getGameModel();
-        System.out.println("[TOWERS]");
-        int i = 0;
-        for(Tower tower : game.getMainBoard().getTowers()){
-            int j = 0;
-            System.out.println("<" + tower.getColor().toString() + ">");
-            for(TowerCell towerCell : game.getMainBoard().getTower(i).getTowerCells()){
-                System.out.println("Dice value: " + towerCell.getMinFamilyMemberValue());
-                System.out.println("Card: " + towerCell.getDevelopmentCard().toString() + " ");
-                if(towerCell.getPlayerNicknameInTheCell() == null || towerCell.getPlayerNicknameInTheCell().equals(""))
-                    System.out.println("Cell is free");
-                else
-                    System.out.println("Cell is busy. " + towerCell.getPlayerNicknameInTheCell());
-                j++;
-            }
-            i++;
-        }
+        System.out.println(game.toString());
     }
 
     @Override
     public void showPersonalBoards() {
         Game game = getClient().getGameModel();
-        for(String username : game.getPlayersUsername()){
-            System.out.println("[ PERSONAL BOARD : " + username + " ]");
+        for(String username : game.getPlayersUsername())
             System.out.println(game.getPlayer(username).getPersonalBoard().toString());
-        }
     }
 
     @Override

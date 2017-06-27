@@ -5,6 +5,7 @@ import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.LeaderEffect;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -139,5 +140,29 @@ public class LeaderCard implements Serializable{
 
         //no exception thrown -> set the leader effect active to true
         this.leaderEffectActive = true;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(leaderCardName.toUpperCase() + "\n");
+        stringBuilder.append("[Status]: " + leaderEffectActive + "\n");
+        stringBuilder.append("[Requirements]: " + pointsAndResourcesRequisites.toString() + "");
+        if(cardColorMapRequisites.size() > 0){
+            stringBuilder.append(" + ");
+            Iterator it = cardColorMapRequisites.entrySet().iterator();
+            while(it.hasNext()){
+                Map.Entry pair = (Map.Entry) it.next();
+                stringBuilder.append(pair.getKey() + "->" + pair.getValue());
+            }
+        }
+        stringBuilder.append("\n");
+        if(permanentAbility)
+            stringBuilder.append("[Type]: permanent\n");
+        else
+            stringBuilder.append("[Type]: once per turn\n");
+        if(effect != null)
+            stringBuilder.append("[Effect]: " + effect.toString() + "\n");
+        return stringBuilder.toString();
     }
 }

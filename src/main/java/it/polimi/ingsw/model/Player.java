@@ -70,4 +70,17 @@ public class Player implements Serializable{
         return this.personalBoard;
     }
 
+    /**
+     * Print all information about the player.
+     * @return string.
+     */
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("PERSONAL BOARD: " + this.username +"\n");
+        stringBuilder.append("Color: " + this.color + "\n");
+        stringBuilder.append(personalBoard.toString());
+        return stringBuilder.toString();
+    }
+
 }

@@ -1,16 +1,12 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.GameErrorType;
-import it.polimi.ingsw.exceptions.GameException;
-import it.polimi.ingsw.model.effects.Effect;
-
 import java.io.Serializable;
 import java.util.*;
 
 /**
  * This class represents the personal board abstraction.
  */
-public class PersonalBoard implements Serializable{
+public class PersonalBoard implements Serializable {
 
     private static final int MAX_NUMBER_OF_CARD_PER_TYPE = 6;
 
@@ -56,8 +52,8 @@ public class PersonalBoard implements Serializable{
     private ArrayList<DevelopmentCard> buildingCards = new ArrayList<>();
     private ArrayList<DevelopmentCard> characterCards = new ArrayList<>();
     private ArrayList<DevelopmentCard> ventureCards = new ArrayList<>();
-    private ArrayList<LeaderCard> leaderCards;
-    private ArrayList<ExcommunicationCard> excommunicationCards;
+    private ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+    private ArrayList<ExcommunicationCard> excommunicationCards = new ArrayList<>();
 
     /**
      * keeps track of all the excommunication malus the player has
@@ -69,12 +65,12 @@ public class PersonalBoard implements Serializable{
      */
     private PersonalBoardTile personalBoardTile;
 
-    public PersonalBoard(){
+    public PersonalBoard() {
         this.valuables = new PointsAndResources();
-        for(ActionType type : ActionType.values())
+        for (ActionType type : ActionType.values())
             this.harvestProductionDiceValueBonus.put(type, 0);
 
-        for(DevelopmentCardColor color : DevelopmentCardColor.values()) {
+        for (DevelopmentCardColor color : DevelopmentCardColor.values()) {
             List<PointsAndResources> discounts = new ArrayList<>();
             discounts.add(new PointsAndResources());
             this.costDiscountForDevelopmentCard.put(color, discounts);
@@ -87,22 +83,25 @@ public class PersonalBoard implements Serializable{
 
     /**
      * Get the max number of cards per type you can add to the player board
+     *
      * @return
      */
-    public int getMaxNumberOfCardPerType(){
+    public int getMaxNumberOfCardPerType() {
         return MAX_NUMBER_OF_CARD_PER_TYPE;
     }
 
     /**
      * Set personal board tile.
+     *
      * @param personalBoardTile to set.
      */
-    public void setPersonalBoardTile(PersonalBoardTile personalBoardTile){
+    public void setPersonalBoardTile(PersonalBoardTile personalBoardTile) {
         this.personalBoardTile = personalBoardTile;
     }
 
     /**
      * Get personal board tile.
+     *
      * @return personal board tile.
      */
     public PersonalBoardTile getPersonalBoardTile() {
@@ -111,75 +110,83 @@ public class PersonalBoard implements Serializable{
 
     /**
      * Set family member
+     *
      * @param member to be set.
      */
-    public void setFamilyMember(FamilyMember member){
+    public void setFamilyMember(FamilyMember member) {
         this.familyMember = member;
     }
 
     /**
      * Get family member
+     *
      * @return
      */
-    public FamilyMember getFamilyMember(){
+    public FamilyMember getFamilyMember() {
         return this.familyMember;
     }
 
     /**
      * Set the array of family members already used by the player
+     *
      * @param familyMember
      */
-    public void setFamilyMembersUsed(FamilyMemberColor familyMember){
+    public void setFamilyMembersUsed(FamilyMemberColor familyMember) {
         this.familyMembersUsed.add(familyMember);
     }
 
     /**
      * Get the array of family members already used by the player
+     *
      * @return
      */
-    public ArrayList<FamilyMemberColor> getFamilyMembersUsed(){
+    public ArrayList<FamilyMemberColor> getFamilyMembersUsed() {
         return this.familyMembersUsed;
     }
 
     /**
      * Return true if a family member is already used.
+     *
      * @param familyMemberColor to check.
      * @return boolean.
      */
-    public boolean familyMemberIsUsed(FamilyMemberColor familyMemberColor){
-        for(FamilyMemberColor color : familyMembersUsed)
-            if(familyMemberColor.equals(color))
+    public boolean familyMemberIsUsed(FamilyMemberColor familyMemberColor) {
+        for (FamilyMemberColor color : familyMembersUsed)
+            if (familyMemberColor.equals(color))
                 return true;
         return false;
     }
 
     /**
      * Set military points needed to place a card in a specific position.
+     *
      * @param array
      */
-    public void setGreenCardsMilitaryPointsRequirements(int[] array){
+    public void setGreenCardsMilitaryPointsRequirements(int[] array) {
         this.greenCardsMilitaryPointsRequirements = array;
     }
 
     /**
      * Get military points needed to place a card in a specific position.
+     *
      * @param index of position.
      * @return military points needed.
      */
-    public int getGreenCardsMilitaryPointsRequirements(int index){
+    public int getGreenCardsMilitaryPointsRequirements(int index) {
         return this.greenCardsMilitaryPointsRequirements[index];
     }
 
-    public int[] getGreenCardsMilitaryPointsRequirements(){
+    public int[] getGreenCardsMilitaryPointsRequirements() {
         return this.greenCardsMilitaryPointsRequirements;
     }
 
     /**
      * Add a new card to the player's personal board
+     *
      * @param card
      */
-    public void addCard(DevelopmentCard card){
-        switch (card.getColor()){
+    public void addCard(DevelopmentCard card) {
+        switch (card.getColor()) {
             case GREEN:
                 this.territoryCards.add(card);
                 break;
@@ -197,11 +204,12 @@ public class PersonalBoard implements Serializable{
 
     /**
      * Returns the cards owned by the player by color
+     *
      * @param developmentCardColor
      * @return
      */
-    public ArrayList<DevelopmentCard> getCards(DevelopmentCardColor developmentCardColor){
-        switch (developmentCardColor){
+    public ArrayList<DevelopmentCard> getCards(DevelopmentCardColor developmentCardColor) {
+        switch (developmentCardColor) {
             case GREEN:
                 return this.territoryCards;
             case YELLOW:
@@ -219,9 +227,10 @@ public class PersonalBoard implements Serializable{
 
     /**
      * Set points and resources
+     *
      * @param pointsAndResources
      */
-    public void setValuables(PointsAndResources pointsAndResources){
+    public void setValuables(PointsAndResources pointsAndResources) {
         this.valuables = pointsAndResources;
     }
 
@@ -229,7 +238,7 @@ public class PersonalBoard implements Serializable{
     /**
      * Get points and resources
      */
-    public PointsAndResources getValuables(){
+    public PointsAndResources getValuables() {
         return this.valuables;
     }
 
@@ -237,49 +246,53 @@ public class PersonalBoard implements Serializable{
     /**
      * Set the dice bonus value for harvest and production zones
      */
-    public void setHarvestProductionDiceValueBonus(ActionType type, Integer value){
+    public void setHarvestProductionDiceValueBonus(ActionType type, Integer value) {
         this.harvestProductionDiceValueBonus.put(type, this.harvestProductionDiceValueBonus.get(type) + value);
     }
 
     /**
      * Get the dice bonus value for harvest and production zones
+     *
      * @return
      */
-    public Map<ActionType, Integer> getHarvestProductionDiceValueBonus(){
+    public Map<ActionType, Integer> getHarvestProductionDiceValueBonus() {
         return this.harvestProductionDiceValueBonus;
     }
 
     /**
      * Set the dice development card bonus value based on card's color
+     *
      * @param cardColor
      * @param value
      */
-    public void setDevelopmentCardColorDiceValueBonus(DevelopmentCardColor cardColor, Integer value){
+    public void setDevelopmentCardColorDiceValueBonus(DevelopmentCardColor cardColor, Integer value) {
         this.developmentCardColorDiceValueBonus.put(cardColor, this.developmentCardColorDiceValueBonus.get(cardColor) + value);
     }
 
     /**
      * Get the dice development card bonus value based on card's color
+     *
      * @return
      */
-    public Map<DevelopmentCardColor, Integer> getDevelopmentCardColorDiceValueBonus(){
+    public Map<DevelopmentCardColor, Integer> getDevelopmentCardColorDiceValueBonus() {
         return this.developmentCardColorDiceValueBonus;
     }
 
     /**
      * Set the cost discount value for a particular type of development cards
+     *
      * @param cardColor
      * @param valuables
      */
-    public void setCostDiscountForDevelopmentCard(DevelopmentCardColor cardColor, List<PointsAndResources> valuables){
+    public void setCostDiscountForDevelopmentCard(DevelopmentCardColor cardColor, List<PointsAndResources> valuables) {
         List<PointsAndResources> discounts = this.costDiscountForDevelopmentCard.get(cardColor);
         List<PointsAndResources> newDiscounts = new ArrayList<>();
-        for(PointsAndResources oldDiscounts : discounts){
-            for(PointsAndResources discountToAdd: valuables){
+        for (PointsAndResources oldDiscounts : discounts) {
+            for (PointsAndResources discountToAdd : valuables) {
                 PointsAndResources newDiscount = oldDiscounts;
-                for(ResourceType resourceType : ResourceType.values())
+                for (ResourceType resourceType : ResourceType.values())
                     newDiscount.increase(resourceType, discountToAdd.getResources().get(resourceType));
-                for(PointType pointType : PointType.values())
+                for (PointType pointType : PointType.values())
                     newDiscount.increase(pointType, discountToAdd.getPoints().get(pointType));
                 newDiscounts.add(newDiscount);
             }
@@ -289,28 +302,31 @@ public class PersonalBoard implements Serializable{
 
     /**
      * Get the cost discount value for a particular type of development cards
+     *
      * @return
      */
-    public List<PointsAndResources> getCostDiscountForDevelopmentCard(DevelopmentCardColor color){
+    public List<PointsAndResources> getCostDiscountForDevelopmentCard(DevelopmentCardColor color) {
         return this.costDiscountForDevelopmentCard.get(color);
     }
 
     /**
      * This method returns the array of leader cards
+     *
      * @return
      */
-    public List<LeaderCard> getLeaderCards(){
+    public List<LeaderCard> getLeaderCards() {
         return this.leaderCards;
     }
 
     /**
      * This method checks if the player has a particular leader card per name and returns it
+     *
      * @param name
      * @return
      */
-    public LeaderCard getLeaderCardWithName(String name){
-        for (LeaderCard card : this.leaderCards){
-            if (card.getLeaderCardName().equals(name)){
+    public LeaderCard getLeaderCardWithName(String name) {
+        for (LeaderCard card : this.leaderCards) {
+            if (card.getLeaderCardName().equals(name)) {
                 return card;
             }
         }
@@ -319,9 +335,10 @@ public class PersonalBoard implements Serializable{
 
     /**
      * This method sets a particular leadercard
+     *
      * @param leaderCard
      */
-    public void setLeaderCard(LeaderCard leaderCard){
+    public void setLeaderCard(LeaderCard leaderCard) {
         this.leaderCards.add(leaderCard);
     }
 
@@ -329,14 +346,14 @@ public class PersonalBoard implements Serializable{
     /**
      * This method add a new excommunication to the player
      */
-    public void addExcommunicationCard(ExcommunicationCard card){
+    public void addExcommunicationCard(ExcommunicationCard card) {
         this.excommunicationCards.add(card);
     }
 
     /**
      * This method returns the excommunication cards of the player
      */
-    public ArrayList<ExcommunicationCard> getExcommunivationCards(){
+    public ArrayList<ExcommunicationCard> getExcommunivationCards() {
         return this.excommunicationCards;
     }
 
@@ -344,7 +361,7 @@ public class PersonalBoard implements Serializable{
     /**
      * Get excommunication values
      */
-    public ExcommunicationValues getExcommunicationValues(){
+    public ExcommunicationValues getExcommunicationValues() {
         return this.excommunicationValues;
     }
 
@@ -353,40 +370,65 @@ public class PersonalBoard implements Serializable{
      * Reset dice values for family members.
      * Reset list of family members used.
      */
-    public void turnReset(){
+    public void turnReset() {
         this.familyMembersUsed = new ArrayList<>();
         this.familyMember = new FamilyMember();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("RESOURCES\n");
+        stringBuilder.append("-> RESOURCES AVAILABLE\n");
         stringBuilder.append(valuables.toString());
 
-        stringBuilder.append("FAMILY MEMBERS AVAILABLE\n");
+        stringBuilder.append("-> FAMILY MEMBERS AVAILABLE\n");
         Iterator it = familyMember.getMembers().entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            if(!familyMemberIsUsed((FamilyMemberColor)pair.getKey()))
+            Map.Entry pair = (Map.Entry) it.next();
+            if (!familyMemberIsUsed((FamilyMemberColor) pair.getKey()))
+                stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
+        }
+
+        stringBuilder.append("-> BONUS AVAILABLE\n");
+        it = harvestProductionDiceValueBonus.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if ((int) pair.getValue() != 0)
+                stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
+        }
+
+        it = developmentCardColorDiceValueBonus.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if ((int) pair.getValue() != 0)
                 stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
         }
 
         stringBuilder.append("<TERRITORY CARDS>\n");
-        for(DevelopmentCard card : territoryCards)
+        for (DevelopmentCard card : territoryCards)
             stringBuilder.append(card.toString());
         stringBuilder.append("<BUILDING CARDS>\n");
-        for(DevelopmentCard card : buildingCards)
+        for (DevelopmentCard card : buildingCards)
             stringBuilder.append(card.toString());
         stringBuilder.append("<CHARACTERS CARDS>\n");
-        for(DevelopmentCard card : characterCards)
+        for (DevelopmentCard card : characterCards)
             stringBuilder.append(card.toString());
         stringBuilder.append("<VENTURE CARDS>\n");
-        for(DevelopmentCard card : ventureCards)
+        for (DevelopmentCard card : ventureCards)
             stringBuilder.append(card.toString());
+
+        if (excommunicationCards.size() > 0) {
+            stringBuilder.append("<EXCOMMUNICATION CARDS>\n");
+            for (ExcommunicationCard card : excommunicationCards)
+                stringBuilder.append(card.toString());
+        }
+        if (leaderCards.size() > 0) {
+            stringBuilder.append("<LEADER CARDS>\n");
+            for (LeaderCard card : leaderCards)
+                stringBuilder.append(card.toString());
+        }
 
         return stringBuilder.toString();
     }
-
 
 }

@@ -149,4 +149,62 @@ public class MainBoard implements Serializable{
         return NUMBER_OF_MARKET_CELLS;
     }
 
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int j = 0; j < towers.length; j++){
+            stringBuilder.append("[TOWER " + j + " " + towers[j].getColor() + "]\n");
+            for(int i = towers.length - 1; i >= 0; i--){
+                stringBuilder.append("<" + i +"> ");
+                if(towers[j].getTowerCell(i).getPlayerNicknameInTheCell() != null)
+                    stringBuilder.append(towers[j].getTowerCell(i).getPlayerNicknameInTheCell());
+                stringBuilder.append("\n");
+                stringBuilder.append("Dice value: " + towers[j].getTowerCell(i).getMinFamilyMemberValue() + "\n");
+                stringBuilder.append("Cell effect: " + towers[j].getTowerCell(i).getTowerCellImmediateEffect().toString() + "\n");
+                stringBuilder.append("Card: " + towers[j].getTowerCell(i).getDevelopmentCard().toString() + "\n");
+            }
+        }
+        stringBuilder.append("\n\n[COUNCIL PALACE]\n");
+        stringBuilder.append("Dice value: " + councilPalace.getMinFamilyMemberDiceValue() + "\n");
+        stringBuilder.append("Effect: " + councilPalace.getImmediateEffect() + "\n");
+        stringBuilder.append("Player in council yet:" );
+        for(Player player : councilPalace.getNewOrder())
+            stringBuilder.append(" " + player.getUsername());
+
+        // inserire vaticano
+
+        stringBuilder.append("\n\n[MARKET]\n");
+        for(int i = 0; i < market.getMarketCells().length; i++){
+            stringBuilder.append("<" + i +"> ");
+            if(!market.getMarketCell(i).isEmpty())
+                stringBuilder.append(" ALREADY USED");
+            stringBuilder.append("\n");
+            stringBuilder.append("Dice value: " + market.getMarketCell(i).getMinFamilyMemberValue() + "\n");
+            stringBuilder.append("Effect: " + market.getMarketCell(i).getMarketCellImmediateEffect().toString() + "\n");
+        }
+        stringBuilder.append("\n\n[HARVEST SIMPLE]\n");
+        stringBuilder.append("Status: ");
+        if(harvest.getPlayerUsername() != null)
+            stringBuilder.append(harvest.getPlayerUsername() + "\n");
+        else
+            stringBuilder.append(" free\n");
+        stringBuilder.append("Dice value: " + harvest.getActionSpaceEffect().getDiceActionValue());
+
+        stringBuilder.append("\n\n[PRODUCTION SIMPLE]\n");
+        stringBuilder.append("Status: ");
+        if(production.getPlayerUsername() != null)
+            stringBuilder.append(production.getPlayerUsername() + "\n");
+        else
+            stringBuilder.append(" free\n");
+        stringBuilder.append("Dice value: " + production.getActionSpaceEffect().getDiceActionValue());
+
+        stringBuilder.append("\n\n[HARVEST EXTENDED]\n");
+        stringBuilder.append("Dice value: " + harvestExtended.getEffect().getDiceActionValue() + "\n");
+        stringBuilder.append("Malus value: " + harvestExtended.getDiceValueMalus() + "\n");
+
+        stringBuilder.append("\n\n[PRODUCTION EXTENDED]\n");
+        stringBuilder.append("Dice value: " + productionExtended.getEffect().getDiceActionValue() + "\n");
+        stringBuilder.append("Malus value: " + productionExtended.getDiceValueMalus() + "\n");
+        return stringBuilder.toString();
+    }
+
 }

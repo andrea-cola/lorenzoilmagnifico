@@ -1,10 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.Player;
 
 import java.io.Serializable;
-
 
 public abstract  class ExcommunicationEffect implements Serializable {
 

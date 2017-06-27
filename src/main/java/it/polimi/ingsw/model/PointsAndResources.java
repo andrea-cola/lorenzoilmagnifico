@@ -111,22 +111,4 @@ public class PointsAndResources implements Serializable{
         return stringBuilder.toString();
     }
 
-
-    public String doubleCostToString(){
-        StringBuilder stringBuilder = new StringBuilder();
-        Iterator it = resources.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            if((int)pair.getValue() > 0)
-                stringBuilder.append(pair.getKey().toString().toUpperCase() + ": " + pair.getValue().toString() + ", ");
-        }
-        it = points.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            if((int)pair.getValue() > 0 && !((PointType)pair.getKey()).equals(PointType.MILITARY))
-                stringBuilder.append(pair.getKey().toString().toUpperCase() + ": " + pair.getValue().toString() + ", ");
-        }
-        return stringBuilder.toString();
-    }
-
 }

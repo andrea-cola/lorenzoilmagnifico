@@ -417,4 +417,19 @@ public class Game implements Serializable{
             }
         return false;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("/////GAME STATUS/////\n");
+        stringBuilder.append("[Dices]\n");
+        Iterator it = dices.getValues().entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            stringBuilder.append(pair.getKey() + " " + pair.getValue() + " ");
+        }
+        stringBuilder.append("\n");
+        stringBuilder.append(mainBoard.toString());
+        return stringBuilder.toString();
+    }
 }
