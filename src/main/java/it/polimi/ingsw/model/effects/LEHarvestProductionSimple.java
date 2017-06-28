@@ -85,7 +85,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         String header = this.effectType + "\n";
         String actionTypeAndValue = "Action type: " + actionType + "\nValue: " + diceActionValue + "\n";
         return new StringBuilder(header).append(actionTypeAndValue).toString();

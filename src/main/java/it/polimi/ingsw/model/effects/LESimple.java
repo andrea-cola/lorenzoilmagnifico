@@ -66,7 +66,7 @@ public class LESimple extends LeaderEffect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         String header = this.effectType + "\n";
         String resources = "Resources:\n" + valuable.toString();
         String privilege = "Council privileges: " + numberOfCouncilPrivileges;

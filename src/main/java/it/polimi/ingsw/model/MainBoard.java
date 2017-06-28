@@ -152,14 +152,15 @@ public class MainBoard implements Serializable{
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
         for(int j = 0; j < towers.length; j++){
-            stringBuilder.append("[TOWER " + j + " " + towers[j].getColor() + "]\n");
+            stringBuilder.append("[TOWER " + (j+1) + " " + towers[j].getColor() + "]\n");
             for(int i = towers.length - 1; i >= 0; i--){
-                stringBuilder.append("<" + i +"> ");
+                stringBuilder.append("<" + (i+1) +"> ");
                 if(towers[j].getTowerCell(i).getPlayerNicknameInTheCell() != null)
                     stringBuilder.append(towers[j].getTowerCell(i).getPlayerNicknameInTheCell());
                 stringBuilder.append("\n");
                 stringBuilder.append("Dice value: " + towers[j].getTowerCell(i).getMinFamilyMemberValue() + "\n");
-                stringBuilder.append("Cell effect: " + towers[j].getTowerCell(i).getTowerCellImmediateEffect().toString() + "\n");
+                if(towers[j].getTowerCell(i).getTowerCellImmediateEffect() != null)
+                    stringBuilder.append("Cell effect: " + towers[j].getTowerCell(i).getTowerCellImmediateEffect().toString() + "\n");
                 stringBuilder.append("Card: " + towers[j].getTowerCell(i).getDevelopmentCard().toString() + "\n");
             }
         }
@@ -170,16 +171,18 @@ public class MainBoard implements Serializable{
         for(Player player : councilPalace.getNewOrder())
             stringBuilder.append(" " + player.getUsername());
 
-        // inserire vaticano
+        System.out.println("Inserire vaticano");
 
         stringBuilder.append("\n\n[MARKET]\n");
         for(int i = 0; i < market.getMarketCells().length; i++){
-            stringBuilder.append("<" + i +"> ");
-            if(!market.getMarketCell(i).isEmpty())
-                stringBuilder.append(" ALREADY USED");
-            stringBuilder.append("\n");
-            stringBuilder.append("Dice value: " + market.getMarketCell(i).getMinFamilyMemberValue() + "\n");
-            stringBuilder.append("Effect: " + market.getMarketCell(i).getMarketCellImmediateEffect().toString() + "\n");
+            if(market.getMarketCell(i).isAccessible()) {
+                stringBuilder.append("<" + (i+1) +"> ");
+                if (!market.getMarketCell(i).isEmpty())
+                    stringBuilder.append(" ALREADY USED");
+                stringBuilder.append("\n");
+                stringBuilder.append("Dice value: " + market.getMarketCell(i).getMinFamilyMemberValue() + "\n");
+                stringBuilder.append("Effect: " + market.getMarketCell(i).getMarketCellImmediateEffect().toString() + "\n");
+            }
         }
         stringBuilder.append("\n\n[HARVEST SIMPLE]\n");
         stringBuilder.append("Status: ");
@@ -197,13 +200,17 @@ public class MainBoard implements Serializable{
             stringBuilder.append(" free\n");
         stringBuilder.append("Dice value: " + production.getActionSpaceEffect().getDiceActionValue());
 
-        stringBuilder.append("\n\n[HARVEST EXTENDED]\n");
-        stringBuilder.append("Dice value: " + harvestExtended.getEffect().getDiceActionValue() + "\n");
-        stringBuilder.append("Malus value: " + harvestExtended.getDiceValueMalus() + "\n");
+        if(harvestExtended.isAccessible()) {
+            stringBuilder.append("\n\n[HARVEST EXTENDED]\n");
+            stringBuilder.append("Dice value: " + harvestExtended.getEffect().getDiceActionValue() + "\n");
+            stringBuilder.append("Malus value: " + harvestExtended.getDiceValueMalus());
+        }
 
-        stringBuilder.append("\n\n[PRODUCTION EXTENDED]\n");
-        stringBuilder.append("Dice value: " + productionExtended.getEffect().getDiceActionValue() + "\n");
-        stringBuilder.append("Malus value: " + productionExtended.getDiceValueMalus() + "\n");
+        if(productionExtended.isAccessible()) {
+            stringBuilder.append("\n\n[PRODUCTION EXTENDED]\n");
+            stringBuilder.append("Dice value: " + productionExtended.getEffect().getDiceActionValue() + "\n");
+            stringBuilder.append("Malus value: " + productionExtended.getDiceValueMalus() + "\n");
+        }
         return stringBuilder.toString();
     }
 

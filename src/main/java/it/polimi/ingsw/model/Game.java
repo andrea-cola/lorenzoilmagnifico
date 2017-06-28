@@ -80,7 +80,7 @@ public class Game implements Serializable{
         if(numberOfPlayers < 4){
             for(int i = 0; i < this.mainBoard.getMarket().getMarketCells().length; i++){
                 if(i > 1)
-                    this.mainBoard.getMarket().getMarketCell(i).setNotEmpty();
+                    this.mainBoard.getMarket().getMarketCell(i).setNotAccessible();
             }
         }
     }

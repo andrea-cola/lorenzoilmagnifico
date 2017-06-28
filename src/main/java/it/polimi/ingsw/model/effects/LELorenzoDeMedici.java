@@ -35,7 +35,7 @@ public class LELorenzoDeMedici extends LeaderEffect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         String header = this.effectType + "\n";
         String resources = "Copia l'effetto di un'altra carta leader.\n";
         return new StringBuilder(header).append(resources).toString();

@@ -152,7 +152,7 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             do {
                 try {
                     key = Integer.parseInt(r.readLine());
-                } catch (ClassCastException | IOException e) {
+                } catch (ClassCastException | NumberFormatException | IOException e) {
                     key = 1;
                 }
             } while (key < 1 || key > privileges.length || !privileges[key-1].isAvailable());
@@ -186,10 +186,8 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             do {
                 try {
                     key = Integer.parseInt(r.readLine());
-                } catch (ClassCastException e) {
+                } catch (ClassCastException | NumberFormatException | IOException e) {
                     key = 0;
-                } catch (IOException e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while reading from keyboard.");
                 }
             } while (key < 1 || key > 2);
             getClient().setPlayerTurnChoices("double-cost", key);
@@ -213,10 +211,8 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         do {
             try {
                 key = Integer.parseInt(r.readLine());
-            } catch (ClassCastException e) {
+            } catch (ClassCastException | NumberFormatException | IOException e) {
                 key = 0;
-            } catch (IOException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while reading from keyboard.");
             }
         } while (key < 1 || key > valuableToPay.length);
         key = key - 1;
@@ -239,7 +235,7 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         do {
             try {
                 key = Integer.parseInt(r.readLine());
-            } catch (ClassCastException | IOException e) {
+            } catch (ClassCastException | NumberFormatException | IOException e) {
                 key = 0;
             }
         } while (key < 1 || key > discounts.size());
@@ -278,7 +274,7 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         do {
             try {
                 key = Integer.parseInt(r.readLine());
-            } catch (ClassCastException | IOException e) {
+            } catch (ClassCastException | NumberFormatException | IOException e) {
                 key = 0;
             }
         } while (key < 0 || key > i);
@@ -311,7 +307,7 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         do {
             try {
                 key = Integer.parseInt(r.readLine());
-            } catch (ClassCastException | IOException e) {
+            } catch (ClassCastException | NumberFormatException | IOException e) {
                 key = 1;
             }
         } while (key < 0 || key > 2);
@@ -344,7 +340,7 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     public void showPersonalBoards() {
         Game game = getClient().getGameModel();
         for(String username : game.getPlayersUsername())
-            System.out.println(game.getPlayer(username).getPersonalBoard().toString());
+            System.out.println(username + "\n" + game.getPlayer(username).toString());
     }
 
     @Override

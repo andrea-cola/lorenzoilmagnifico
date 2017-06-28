@@ -252,7 +252,11 @@ public class ServerCommunicationProtocol {
     public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException{
         synchronized (object){
             try{
+                output.reset();
                 output.writeObject(CommunicationProtocolConstants.MODEL_UPDATE);
+                System.out.println(clientUpdatePacket.getGame().getPlayer("Dacco").getPersonalBoard().getValuables().toString());
+                System.out.println(clientUpdatePacket.getGame().getPlayer("Cola95").getPersonalBoard().getValuables().toString());
+                System.out.println(clientUpdatePacket.getMesssage());
                 output.writeObject(clientUpdatePacket);
                 output.flush();
             } catch (IOException e){

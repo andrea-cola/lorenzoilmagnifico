@@ -41,7 +41,7 @@ public class LESistoIV extends LeaderEffect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         String header = this.effectType + "\n";
         String resources2 = "Resources earned:\n" + valuableEarned.toString();
         return new StringBuilder(header).append(resources2).append(resources2).toString();

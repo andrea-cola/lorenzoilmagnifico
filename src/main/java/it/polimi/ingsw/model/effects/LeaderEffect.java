@@ -25,6 +25,6 @@ public abstract class LeaderEffect implements Serializable{
     /**
      * Get a description of the current effect.
      */
-    abstract public String getDescription();
+    abstract public String toString();
 
 }

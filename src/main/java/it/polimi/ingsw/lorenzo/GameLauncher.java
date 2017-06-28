@@ -1,5 +1,6 @@
 package it.polimi.ingsw.lorenzo;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -17,15 +18,19 @@ public class GameLauncher {
      * @return user interface index.
      */
     private static int chooseUI(){
-        int choice;
+        int choice = 0;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("To use the Command Line Interface you need to insert the number\ncorrespondent to command and follow the instructions.");
         do{
-            System.out.println("Choose your user interface:");
-            System.out.println("(1) COMMAND LINE INTERFACE");
-            System.out.println("(2) GRAPHICAL INTERFACE");
-            choice = Integer.parseInt(scanner.nextLine());
+            try {
+                System.out.println("Choose your user interface:");
+                System.out.println("(1) COMMAND LINE INTERFACE");
+                System.out.println("(2) GRAPHICAL INTERFACE");
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e){
+                chooseUI();
+            }
         }while(choice != 1 && choice != 2);
         return choice;
     }

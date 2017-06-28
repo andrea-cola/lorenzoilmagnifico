@@ -1,5 +1,5 @@
 {
-  "waitingTime": 3000,
+  "waitingTime": 1000,
   "moveWaitingTime": 60000,
   "victoryPointsForGreenCards": [0, 0, 1, 4, 10, 20],
   "victoryPointsForBlueCards": [1, 3, 6, 10, 15, 21],

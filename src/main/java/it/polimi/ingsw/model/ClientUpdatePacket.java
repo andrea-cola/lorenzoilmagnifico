@@ -5,28 +5,20 @@ import java.util.ArrayList;
 
 public class ClientUpdatePacket implements Serializable{
 
-    private ArrayList<String> messsage;
+    private String messsage;
 
     private Game game;
 
-    public ClientUpdatePacket(Game game){
+    public ClientUpdatePacket(Game game, String message){
         this.game = game;
-        this.messsage = new ArrayList<>();
-    }
-
-    public void setGame(Game game){
-        this.game = game;
+        this.messsage = message;
     }
 
     public Game getGame(){
         return this.game;
     }
 
-    public void setMesssage(String message){
-        this.messsage.add(message);
-    }
-
-    public ArrayList<String> getMesssage(){
+    public String getMesssage(){
         return this.messsage;
     }
 

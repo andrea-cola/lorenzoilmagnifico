@@ -163,8 +163,6 @@ import java.util.*;
         int limitDown = (turn - 1) * 4;
         int limitTop = (turn - 1) * 4 + 4;
         Collections.shuffle(deck);
-        for(DevelopmentCard developmentCard : deck)
-            System.out.println(developmentCard.getId() + " " + developmentCard.getPeriod());
         ArrayList<DevelopmentCard> deckTurn = new ArrayList<>(deck.subList(limitDown, limitTop));
         return deckTurn;
     }
