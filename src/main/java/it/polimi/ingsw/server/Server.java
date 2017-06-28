@@ -220,8 +220,8 @@ public class Server implements ServerInterface{
     }
 
     @Override
-    public void activateLeaderCard(ServerPlayer serverPlayer, int leaderCardIndex, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().activateLeader(serverPlayer, leaderCardIndex, playerChoices);
+    public void activateLeaderCard(ServerPlayer serverPlayer, int leaderCardIndex, int servants, Map<String, Object> playerChoices) {
+        serverPlayer.getRoom().activateLeader(serverPlayer, leaderCardIndex, servants, playerChoices);
     }
 
     @Override

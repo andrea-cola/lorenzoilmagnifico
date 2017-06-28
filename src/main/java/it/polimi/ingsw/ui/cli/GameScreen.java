@@ -1,10 +1,6 @@
 package it.polimi.ingsw.ui.cli;
 
 import it.polimi.ingsw.model.FamilyMemberColor;
-import it.polimi.ingsw.model.PointsAndResources;
-import it.polimi.ingsw.model.Privilege;
-
-import java.util.List;
 
 public class GameScreen extends BasicGameScreen {
 
@@ -37,7 +33,7 @@ public class GameScreen extends BasicGameScreen {
 
         void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants);
 
-        void activateLeader(String leaderName);
+        void activateLeader(String leaderName, int servants);
 
         void discardLeader(String leaderName);
 

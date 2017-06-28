@@ -48,6 +48,11 @@ public class DevelopmentCard implements Serializable{
     private int militaryPointsRequired;
 
     /**
+     * Amount of military points given.
+     */
+    private int militaryPointsToPay;
+
+    /**
      * Immediate effect of the card.
      */
     private Effect immediateEffect;
@@ -146,13 +151,17 @@ public class DevelopmentCard implements Serializable{
         return this.militaryPointsRequired;
     }
 
+    public int getMilitaryPointsToPay(){
+        return this.militaryPointsRequired;
+    }
+
     public void payCost(Player player, InformationCallback informationCallback){
         if(!multipleRequisiteSelectionEnabled || militaryPointsRequired < player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY)) {
             payFirstCost(player);
         } else {
-            int choice = informationCallback.chooseDoubleCost(cost, cost.getPoints().get(PointType.MILITARY), militaryPointsRequired);
+            int choice = informationCallback.chooseDoubleCost(cost, militaryPointsToPay, militaryPointsRequired);
             if(choice == 2)
-                payFirstCost(player);
+                player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, militaryPointsToPay);
             else {
                 payFirstCost(player);
             }
@@ -176,14 +185,13 @@ public class DevelopmentCard implements Serializable{
         }
     }
 
-
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(name.toUpperCase() + " (" + cardColor + ") " + id + "\n");
         stringBuilder.append("[Requirements] -> " + cost.toString() + "\n");
         if(militaryPointsRequired != 0)
-            stringBuilder.append(" [Military points required]: " + militaryPointsRequired + ")\n");
+            stringBuilder.append("[Requirements 2] -> military points required: " + militaryPointsRequired + " military points to pay: " + militaryPointsToPay + "\n");
         if(immediateEffect != null)
             stringBuilder.append("[Immediate effect] " + immediateEffect.toString() + "\n");
         if(permanentEffect != null)

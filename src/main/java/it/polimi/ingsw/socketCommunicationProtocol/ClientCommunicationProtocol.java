@@ -65,6 +65,7 @@ public class ClientCommunicationProtocol {
         responseTable.put(CommunicationProtocolConstants.LEADER_CARDS, this::getLeaderCards);
         responseTable.put(CommunicationProtocolConstants.TURN_STARTED, this::notifyTurnStarted);
         responseTable.put(CommunicationProtocolConstants.MODEL_UPDATE, this::notifyModelUpdate);
+        responseTable.put(CommunicationProtocolConstants.SUPPORT_FOR_THE_CHURCH, this::supportForTheChurch);
     }
 
     /**
@@ -157,6 +158,15 @@ public class ClientCommunicationProtocol {
             clientInterface.setGameModel(game);
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle receive game info request.");
+        }
+    }
+
+    private void supportForTheChurch(){
+        try{
+            boolean flag = (boolean)objectInputStream.readObject();
+            clientInterface.supportForTheChurch(flag);
+        } catch (ClassNotFoundException | ClassCastException | IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle support for the church request.");
         }
     }
 
@@ -315,10 +325,11 @@ public class ClientCommunicationProtocol {
         }
     }
 
-    public void activateLeader(int leaderCardIndex, Map<String, Object> playerTurnChoices) throws NetworkException{
+    public void activateLeader(int leaderCardIndex, int servants, Map<String, Object> playerTurnChoices) throws NetworkException{
         try {
-            objectOutputStream.writeObject(CommunicationProtocolConstants.ACTIVATAE_LEADER_CARD);
+            objectOutputStream.writeObject(CommunicationProtocolConstants.ACTIVATE_LEADER_CARD);
             objectOutputStream.writeObject(leaderCardIndex);
+            objectOutputStream.writeObject(servants);
             objectOutputStream.writeObject(playerTurnChoices);
             objectOutputStream.flush();
         } catch (IOException e){
@@ -331,6 +342,16 @@ public class ClientCommunicationProtocol {
             objectOutputStream.writeObject(CommunicationProtocolConstants.DISCARD_LEADER_CARD);
             objectOutputStream.writeObject(leaderCardIndex);
             objectOutputStream.writeObject(playerTurnChoices);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            throw new NetworkException();
+        }
+    }
+
+    public void notifySupportForTheChurch(boolean flag) throws NetworkException{
+        try{
+            objectOutputStream.writeObject(CommunicationProtocolConstants.SUPPORT_FOR_THE_CHURCH_CHOICE);
+            objectOutputStream.writeObject(flag);
             objectOutputStream.flush();
         } catch (IOException e){
             throw new NetworkException();

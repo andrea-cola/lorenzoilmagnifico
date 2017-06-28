@@ -48,7 +48,7 @@ public interface UiController {
 
     void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants);
 
-    void notifyActivateLeader(int leaderCardIndex);
+    void notifyActivateLeader(int leaderCardIndex, int servants);
 
     void notifyDiscardLeader(int leaderCardIndex);
 

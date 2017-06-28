@@ -19,8 +19,9 @@ package it.polimi.ingsw.socketCommunicationProtocol;
     /*package-local*/ static final String FAMILIAR_IN_PRODUCTION_EXTENDED = "FamilyMemberInPE";
     /*package-local*/ static final String FAMILIAR_IN_HARVEST_SIMPLE = "FamilyMemberInHS";
     /*package-local*/ static final String FAMILIAR_IN_HARVEST_EXTENDED = "FamilyMemberInHE";
-    /*package-local*/ static final String ACTIVATAE_LEADER_CARD = "activateLeaderCard";
+    /*package-local*/ static final String ACTIVATE_LEADER_CARD = "activateLeaderCard";
     /*package-local*/ static final String DISCARD_LEADER_CARD = "discardLeaderCard";
+    /*package-local*/ static final String SUPPORT_FOR_THE_CHURCH_CHOICE = "supportForTheChurchChoice";
     /*package-local*/ static final String END_TURN = "endTurn";
 
     /**
@@ -39,10 +40,11 @@ package it.polimi.ingsw.socketCommunicationProtocol;
     /**
      * Requests from server to client.
      */
-    /*package-local*/ static final String GAME_MODEL = "GameModel";
-    /*package-local*/ static final String PERSONAL_TILES = "PersonalTiles";
-    /*package-local*/ static final String LEADER_CARDS = "LeaderCards";
-    /*package-local*/ static final String TURN_STARTED = "TurnStarted";
-    /*package-local*/ static final String MODEL_UPDATE = "ModelUpdate";
+    /*package-local*/ static final String GAME_MODEL = "gameModel";
+    /*package-local*/ static final String PERSONAL_TILES = "personalTiles";
+    /*package-local*/ static final String LEADER_CARDS = "leaderCards";
+    /*package-local*/ static final String TURN_STARTED = "turnStarted";
+    /*package-local*/ static final String MODEL_UPDATE = "modelUpdate";
+    /*package-local*/ static final String SUPPORT_FOR_THE_CHURCH = "supportForTheChurch";
 
 }

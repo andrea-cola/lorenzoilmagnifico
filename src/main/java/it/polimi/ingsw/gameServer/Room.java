@@ -240,10 +240,10 @@ public class Room {
         }
     }
 
-    public void activateLeader(ServerPlayer player, int leaderCardIndex, Map<String, Object> playerChoices){
+    public void activateLeader(ServerPlayer player, int leaderCardIndex, int servants, Map<String, Object> playerChoices){
         gameManager.setInformationChoicesHandler(playerChoices);
         try {
-            gameManager.getGameModel().activateLeaderCard(player, leaderCardIndex, gameManager.getInformationChoicesHandler());
+            gameManager.getGameModel().activateLeaderCard(player, leaderCardIndex, servants, gameManager.getInformationChoicesHandler());
             String message = player.getUsername() + " activate a leader card.";
             clientUpdatePacket.setMesssage(message);
             clientUpdatePacket.setGame(gameManager.getGameModel());
@@ -297,6 +297,11 @@ public class Room {
     }
 
     public void onLeaderCardChosen() {
+        countDownLatch.countDown();
+    }
+
+    public void onSupportToTheChurchChoice(ServerPlayer player, boolean flag){
+        gameManager.applySupportChoice(player, flag);
         countDownLatch.countDown();
     }
 
@@ -365,12 +370,31 @@ public class Room {
                 gameManager.personalBoardsTurnReset();
                 gameManager.mainboardTurnReset();
                 gameManager.setupMainBoard(age, turn);
+                gameManager.getGameModel().setAge(age);
+                gameManager.getGameModel().setTurn(turn);
             }
         }
 
         private void checkExcommunication(int age, int turn){
-            if(turn % 2 == 0)
-                System.out.println("Dobbiamo controllare la scomunica.");
+            if(turn % 2 == 0) {
+                for(ServerPlayer player : players){
+                    try {
+                        if(gameManager.finalControlsForPeriod(age, player)){
+                            player.supportForTheChurch(true);
+                            countDownLatch = new CountDownLatch(1);
+                            try {
+                                countDownLatch.await();
+                            } catch (InterruptedException e){
+                                e.printStackTrace();
+                            }
+                        }
+                        else
+                            player.supportForTheChurch(false);
+                    } catch (NetworkException e){
+                        Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
+                    }
+                }
+            }
         }
 
         /**

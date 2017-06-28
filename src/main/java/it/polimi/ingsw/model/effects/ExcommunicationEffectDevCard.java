@@ -37,13 +37,11 @@ public class ExcommunicationEffectDevCard extends ExcommunicationEffect {
         player.getPersonalBoard().getExcommunicationValues().setDevelopmentCardDiceMalus(this.developmentCardColor, this.diceMalus);
     }
 
-    public String getDescription(){
+    public String getDescription() {
         String header = this.effectType + "\n";
         String color = "Development card color: \n" + this.developmentCardColor;
         String malus = "Card malus: \n" + this.diceMalus;
         return new StringBuilder(header).append(color).append(malus).toString();
     }
-
-
 
 }

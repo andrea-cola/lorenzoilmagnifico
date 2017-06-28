@@ -229,9 +229,9 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     }
 
     @Override
-    public void notifyActivateLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifyActivateLeader(int leaderCardIndex, int servants, Map<String, Object> playerChoices) throws NetworkException {
         try {
-            server.activateLeaderCard(playerID, leaderCardIndex, playerChoices);
+            server.activateLeaderCard(playerID, leaderCardIndex, servants, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
@@ -241,6 +241,15 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     public void notifyDiscardLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException {
         try {
             server.discardLeader(playerID, leaderCardIndex, playerChoices);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
+
+    @Override
+    public void notifySupportForTheChurch(boolean choice) throws NetworkException {
+        try{
+            server.notifySupportForTheChurch(playerID, choice);
         } catch (RemoteException e){
             throw new NetworkException();
         }
@@ -264,6 +273,11 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws RemoteException {
         getClient().notifyModelUpdate(clientUpdatePacket);
+    }
+
+    @Override
+    public void supportForTheChurch(boolean flag) throws RemoteException {
+        getClient().supportForTheChurch(flag);
     }
 
     @Override

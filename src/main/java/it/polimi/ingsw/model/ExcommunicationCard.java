@@ -4,9 +4,6 @@ import it.polimi.ingsw.model.effects.ExcommunicationEffect;
 
 import java.io.Serializable;
 
-/**
- *
- */
 public class ExcommunicationCard implements Serializable{
 
     private int period;
@@ -37,6 +34,13 @@ public class ExcommunicationCard implements Serializable{
 
     public int getCardID(){
         return this.cardID;
+    }
+
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[Period]: " + period + "\n");
+        stringBuilder.append("[Effect]: " + effect.getDescription() + "\n");
+        return stringBuilder.toString();
     }
 
 }

@@ -34,6 +34,8 @@ public class Configuration implements Serializable{
      */
     private int[] victoryPointsForBlueCards;
 
+    private int[] victoryPointsBonusForFaith;
+
     /**
      * Main board parsed from file.
      */
@@ -50,12 +52,13 @@ public class Configuration implements Serializable{
     private ArrayList<PersonalBoardTile> personalBoardTiles;
 
     public Configuration(long waitingTime, long moveWaitingTime, int[] victoryPointsForGreenCards,
-                         int[] victoryPointsForBlueCards, MainBoard mainBoard, PersonalBoard personalBoard,
+                         int[] victoryPointsForBlueCards, int[] victoryPointsBonusForFaith, MainBoard mainBoard, PersonalBoard personalBoard,
                          ArrayList<PersonalBoardTile> personalBoardTiles) {
         this.waitingTime = waitingTime;
         this.moveWaitingTime = moveWaitingTime;
         this.victoryPointsForGreenCards = victoryPointsForGreenCards;
         this.victoryPointsForBlueCards = victoryPointsForBlueCards;
+        this.victoryPointsBonusForFaith = victoryPointsBonusForFaith;
         this.mainBoard = mainBoard;
         this.personalBoard = personalBoard;
         this.personalBoardTiles = personalBoardTiles;
@@ -83,6 +86,10 @@ public class Configuration implements Serializable{
 
     public int[] getVictoryPointsForBlueCards(){
         return this.victoryPointsForBlueCards;
+    }
+
+    public int[] getVictoryPointsBonusForFaith(){
+        return this.victoryPointsBonusForFaith;
     }
 
     /**

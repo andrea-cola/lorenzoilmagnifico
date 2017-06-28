@@ -22,4 +22,6 @@ public interface ClientInterface {
     void notifyTurnStarted(String username, long seconds);
 
     void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket);
+
+    void supportForTheChurch(boolean flag);
 }

@@ -82,7 +82,7 @@ public interface ServerInterface {
     void setFamilyMemberInProductionExtended(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants,
                                              Map<String, Object> playerChoices);
 
-    void activateLeaderCard(ServerPlayer serverPlayer, int leaderCardIndex, Map<String, Object> playerChoices);
+    void activateLeaderCard(ServerPlayer serverPlayer, int leaderCardIndex, int servants, Map<String, Object> playerChoices);
 
     void discardLeader(ServerPlayer serverPlayer, int leaderCardIndex, Map<String, Object> playerChoices);
 }

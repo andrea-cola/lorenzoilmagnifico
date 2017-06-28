@@ -299,6 +299,32 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         return card;
     }
 
+    @Override
+    public boolean supportForTheChurch() {
+        consoleListener.stopRunning();
+        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+        gameScreen = null;
+        System.out.println("[ SUPPORT FOR THE CHURCH ]\nDo you want to support the church?");
+        System.out.println("-> 1 : NO\n-> 2: YES");
+        boolean choice;
+        int key = 0;
+        do {
+            try {
+                key = Integer.parseInt(r.readLine());
+            } catch (ClassCastException | IOException e) {
+                key = 1;
+            }
+        } while (key < 0 || key > 2);
+        if(key == 1)
+            choice = false;
+        else
+            choice = true;
+        consoleListener = new ConsoleListener();
+        consoleListener.start();
+        gameScreen = new GameScreen(this);
+        return choice;
+    }
+
     private boolean isSelectable(TowerCell cell, PointsAndResources discount){
         try{
             cell.developmentCardCanBeBuyed(getClient().getPlayer(), discount);
@@ -311,31 +337,14 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     @Override
     public void showMainBoard(){
         Game game = getClient().getGameModel();
-        System.out.println("[TOWERS]");
-        int i = 0;
-        for(Tower tower : game.getMainBoard().getTowers()){
-            int j = 0;
-            System.out.println("<" + tower.getColor().toString() + ">");
-            for(TowerCell towerCell : game.getMainBoard().getTower(i).getTowerCells()){
-                System.out.println("Dice value: " + towerCell.getMinFamilyMemberValue());
-                System.out.println("Card: " + towerCell.getDevelopmentCard().toString() + " ");
-                if(towerCell.getPlayerNicknameInTheCell() == null || towerCell.getPlayerNicknameInTheCell().equals(""))
-                    System.out.println("Cell is free");
-                else
-                    System.out.println("Cell is busy. " + towerCell.getPlayerNicknameInTheCell());
-                j++;
-            }
-            i++;
-        }
+        System.out.println(game.toString());
     }
 
     @Override
     public void showPersonalBoards() {
         Game game = getClient().getGameModel();
-        for(String username : game.getPlayersUsername()){
-            System.out.println("[ PERSONAL BOARD : " + username + " ]");
+        for(String username : game.getPlayersUsername())
             System.out.println(game.getPlayer(username).getPersonalBoard().toString());
-        }
     }
 
     @Override
@@ -416,21 +425,21 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     }
 
     @Override
-    public void activateLeader(String leaderName) {
-        /**
+    public void activateLeader(String leaderName, int servants) {
         Player player = getClient().getPlayer();
         try{
             int i = 0;
             List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
             for(LeaderCard leaderCard : leaderCards){
-                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
-                    getClient().getGameModel().activateLeaderCard(player, , i, this);
+                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase())) {
+                    getClient().getGameModel().activateLeaderCard(player, i, servants, this);
+                    getClient().notifyActivateLeader(i, servants);
+                }
                 i++;
             }
         } catch (GameException e){
             Debugger.printDebugMessage("Error while activate you leader card. Please retry.");
-        }*/
-        
+        }
     }
 
     @Override
@@ -439,8 +448,10 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         int i = 0;
         List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
         for(LeaderCard leaderCard : leaderCards){
-            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase())) {
                 getClient().getGameModel().discardLeaderCard(player, i, this);
+                getClient().notifyDiscardLeader(i);
+            }
             i++;
         }
     }

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * This class represent the vatican abstraction.
@@ -18,13 +17,10 @@ public class Vatican implements Serializable{
      */
     private ExcommunicationCard[] excommunicationCards;
 
-    /**
-     * This is the array of bonus reached
-     */
-    private int[] victoryPointsBonus;
+    private int[] excommunicationCheckPoints;
 
-    public Vatican(int[] victoryPointsBonus){
-        this.victoryPointsBonus = victoryPointsBonus;
+    public Vatican(int[] excommunicationCheckPoints){
+        this.excommunicationCheckPoints = excommunicationCheckPoints;
     }
 
     /**
@@ -41,17 +37,12 @@ public class Vatican implements Serializable{
         this.excommunicationCards = cards;
     }
 
-    /**
-     * Get the bonus correspondents to faith points.
-     * @param faithPoints accumulated.
-     * @return amount of victory points.
-     */
-    public int getVictoryPointsBonus(int faithPoints){
-        return victoryPointsBonus[faithPoints];
+    public int getExcommunicationCheckPoint(int period) {
+        return this.excommunicationCheckPoints[period - 1];
     }
 
-    public int[] getVictoryPointsBonusArray(){
-        return this.victoryPointsBonus;
+    public int[] getExcommunicationCheckPoints(){
+        return this.excommunicationCheckPoints;
     }
 
 }
