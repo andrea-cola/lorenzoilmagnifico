@@ -417,20 +417,20 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
 
     @Override
     public void activateLeader(String leaderName) {
+        /**
         Player player = getClient().getPlayer();
         try{
             int i = 0;
             List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
             for(LeaderCard leaderCard : leaderCards){
-                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase())) {
-                    getClient().getGameModel().activateLeaderCard(player, i, this);
-                    getClient().notifyActivateLeader(i);
-                }
+                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                    getClient().getGameModel().activateLeaderCard(player, , i, this);
                 i++;
             }
         } catch (GameException e){
             Debugger.printDebugMessage("Error while activate you leader card. Please retry.");
-        }
+        }*/
+        
     }
 
     @Override
@@ -439,10 +439,8 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         int i = 0;
         List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
         for(LeaderCard leaderCard : leaderCards){
-            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase())) {
+            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
                 getClient().getGameModel().discardLeaderCard(player, i, this);
-                getClient().notifyDiscardLeader(i);
-            }
             i++;
         }
     }

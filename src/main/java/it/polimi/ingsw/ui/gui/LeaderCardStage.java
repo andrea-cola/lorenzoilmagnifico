@@ -20,7 +20,7 @@ import java.awt.*;
 
 
 
-public class LeaderCardsStage extends JFXPanel {
+public class LeaderCardStage extends JFXPanel {
 
     private MainBoardStage.CallbackInterface callback;
 
@@ -30,7 +30,7 @@ public class LeaderCardsStage extends JFXPanel {
     private final static int IMAGE_HEIGHT = 310;
 
 
-    LeaderCardsStage(MainBoardStage.CallbackInterface callback, Player player){
+    LeaderCardStage(MainBoardStage.CallbackInterface callback, Player player){
         this.callback = callback;
         GridPane pane = new GridPane();
         pane.setVgap(GRID_VGAP);

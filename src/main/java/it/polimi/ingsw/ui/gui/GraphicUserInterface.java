@@ -4,10 +4,8 @@ import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
-import javafx.application.Platform;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +46,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     private MainBoardStage mainBoardStage;
     private PersonalBoardStage personalBoardStage;
     private PersonalTileBoardStage personalTileBoardStage;
-    private LeaderCardsStage leaderCardsStage;
+    private LeaderCardStage leaderCardStage;
 
     /**
      * Constructor
@@ -183,7 +181,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
             jframe.setSize(100, 100);
-            jframe.add(new LeaderCardsStage(this, player), BorderLayout.CENTER);
+            jframe.add(new LeaderCardStage(this, player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
             jframe.setVisible(true);
@@ -192,24 +190,37 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
 
     @Override
     public void showGameException() {
-        JOptionPane.showMessageDialog(null, "Your data are not valid");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JOptionPane.showMessageDialog(null, "Your data are not valid","Game Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        });
     }
 
     @Override
     public void notifyEndTurnStage() {
         System.out.println("showing ending turn");
-        JOptionPane.showMessageDialog(null, "Your turn is ended, it takes the next one.");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JOptionPane.showMessageDialog(null, "Your turn is ended, it takes the next one.", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            }
+        });
     }
 
     @Override
     public void activeLeaderCard(String leaderName) {
         Player player = getClient().getPlayer();
+        int servants = 0 ;
         try {
             int i = 0;
             List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
             for (LeaderCard leaderCard : leaderCards) {
                 if (leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
-                    getClient().getGameModel().activateLeaderCard(player, i, this);
+                    getClient().getGameModel().activateLeaderCard(player, i, servants, this);
                 i++;
             }
         }catch(GameException e){
@@ -230,33 +241,51 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     }
 
     @Override
+    public void chooseServantsNumber() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JFrame jframe = new JFrame();
+                jframe.setSize(100, 100);
+                jframe.add(new ChooseServantStage(), BorderLayout.CENTER);
+                jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                jframe.pack();
+                jframe.setVisible(true);
+
+            }
+
+
+        });
+    }
+
+    @Override
     public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+        Privilege[] privileges = councilPrivilege.getPrivileges();
 
         return null;
     }
 
     @Override
     public int chooseDoubleCost(PointsAndResources pointsAndResources, int militaryPointsGiven, int militaryPointsNeeded) {
+
         return 0;
     }
 
     @Override
     public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned) {
+
         return 0;
     }
 
     @Override
     public int choosePickUpDiscounts(String reason, List<PointsAndResources> discounts) {
+
         return 0;
     }
 
     @Override
     public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
+
         return null;
-    }
-
-    @Override
-    public void notifyUpdate(String message) {
-
     }
 }

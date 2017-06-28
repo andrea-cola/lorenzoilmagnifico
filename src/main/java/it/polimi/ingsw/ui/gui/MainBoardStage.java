@@ -38,18 +38,20 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     private int whiteValue;
     private int blackValue;
     private int neutralValue;
-    private int servants;
+    //private int servants;
 
 
     private CallbackInterface callback;
     private Game game;
     private Player player;
+
     /**
      * Data related to the player
      */
     private int militaryPoints;
     private int victoryPoints;
     private int faithPoints;
+    private int servants;
     private String username;
 
     /**
@@ -513,15 +515,20 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         System.out.println("setting vatican");
         StringBuilder path = new StringBuilder();
         path.append("images/excommunicationCard/excomm_");
-        path.append(game.getMainBoard().getVatican().getExcommunicationCard().getPeriod());
+        path.append(period);
         path.append("_");
-        path.append(game.getMainBoard().getVatican().getExcommunicationCard().getCardID());
+        path.append(game.getMainBoard().getVatican().getExcommunicationCard(period).getCardID());
         path.append(".png");
         ImageView image = new ImageView(( new Image(path.toString())));
         image.setFitHeight(IMAGE_HEIGHT);
         image.setFitWidth(IMAGE_WIDTH);
         image.autosize();
         gridTower.add(image, period, row);
+    }
+
+    @Override
+    public void setServants() {
+
     }
 
 
@@ -540,5 +547,7 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         void activeLeaderCard(String leaderName);
 
         void discardLeader(String leaderName);
+
+        void chooseServantsNumber();
     }
 }
