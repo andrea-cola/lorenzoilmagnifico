@@ -37,7 +37,7 @@ public class LEFilippoBrunelleschi extends LeaderEffect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         return "You do not have to spend " + moneyDiscount + " extra coins when you place a family in a tower already occupied.";
     }
 }

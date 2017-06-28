@@ -34,7 +34,7 @@ public class LEFamilyMemberBonus extends LeaderEffect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         return "One family member value is increased by " + bonus;
     }
 }

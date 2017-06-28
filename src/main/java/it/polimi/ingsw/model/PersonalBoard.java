@@ -400,7 +400,7 @@ public class PersonalBoard implements Serializable {
         stringBuilder.append("-> RESOURCES AVAILABLE\n");
         stringBuilder.append(valuables.toString());
 
-        stringBuilder.append("-> FAMILY MEMBERS AVAILABLE\n");
+        stringBuilder.append("\n-> FAMILY MEMBERS AVAILABLE\n");
         Iterator it = familyMember.getMembers().entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();

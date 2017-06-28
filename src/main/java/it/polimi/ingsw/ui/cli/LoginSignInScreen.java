@@ -39,7 +39,7 @@ public class LoginSignInScreen extends BasicScreen {
             } else {
                 signIn();
             }
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | NumberFormatException e) {
             readCommand();
         } catch (IOException e){
             Debugger.printDebugMessage("Error while reading from keyboard.");

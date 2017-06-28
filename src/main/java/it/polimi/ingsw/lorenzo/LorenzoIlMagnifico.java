@@ -256,6 +256,7 @@ import java.util.Map;
     @Override
     public void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket) {
         this.game = clientUpdatePacket.getGame();
+        Debugger.printStandardMessage(clientUpdatePacket.getMesssage());
     }
 
     @Override

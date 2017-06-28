@@ -67,7 +67,7 @@ public class LEDiceBonus extends LeaderEffect {
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         String header = this.effectType + "\n";
         String resources = "White dice bonus:\n" + whiteDice;
         String resources2 = "Black dice bonus:\n" + blackDice;

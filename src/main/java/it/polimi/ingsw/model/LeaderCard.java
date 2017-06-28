@@ -147,8 +147,9 @@ public class LeaderCard implements Serializable{
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(leaderCardName.toUpperCase() + "\n");
         stringBuilder.append("[Status]: " + leaderEffectActive + "\n");
-        stringBuilder.append("[Requirements]: " + pointsAndResourcesRequisites.toString() + "");
-        if(cardColorMapRequisites.size() > 0){
+        if(pointsAndResourcesRequisites != null)
+            stringBuilder.append("[Requirements]: " + pointsAndResourcesRequisites.toString() + "");
+        if(cardColorMapRequisites != null && cardColorMapRequisites.size() > 0){
             stringBuilder.append(" + ");
             Iterator it = cardColorMapRequisites.entrySet().iterator();
             while(it.hasNext()){

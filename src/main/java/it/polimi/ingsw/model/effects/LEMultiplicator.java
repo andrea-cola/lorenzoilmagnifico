@@ -37,7 +37,7 @@ public class LEMultiplicator extends LeaderEffect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         return "Moltiplica tutte le risorse per " + multiplicator + ", DA SISTEMARE";
     }
 }

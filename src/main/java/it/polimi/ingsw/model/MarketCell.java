@@ -27,6 +27,11 @@ public class MarketCell implements Serializable{
     private boolean empty;
 
     /**
+     * Flag that indicate if the users can use this cell.
+     */
+    private boolean accessible;
+
+    /**
      * Class constructor.
      * @param minFamilyMemberValue
      * @param effectSimple
@@ -35,6 +40,7 @@ public class MarketCell implements Serializable{
         this.minFamilyMemberValue = minFamilyMemberValue;
         this.marketCellImmediateEffect = effectSimple;
         empty = true;
+        accessible = true;
     }
 
     /**
@@ -50,6 +56,15 @@ public class MarketCell implements Serializable{
     }
 
     public void setNotEmpty(){
+        this.empty = false;
+    }
+
+    public boolean isAccessible() {
+        return this.accessible;
+    }
+
+    public void setNotAccessible(){
+        this.accessible = false;
         this.empty = false;
     }
 

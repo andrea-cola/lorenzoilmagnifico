@@ -35,7 +35,7 @@ public class LEPicoDellaMirandola extends LeaderEffect {
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         return "When you buy development cards, you get a 3-coin discount on their cost (if they cost coins).";
     }
 }

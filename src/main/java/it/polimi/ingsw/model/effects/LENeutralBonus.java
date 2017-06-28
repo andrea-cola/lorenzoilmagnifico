@@ -38,7 +38,7 @@ public class LENeutralBonus extends LeaderEffect{
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         return "Neutral family member value increased by " + bonus;
     }
 }

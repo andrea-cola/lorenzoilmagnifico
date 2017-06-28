@@ -24,7 +24,7 @@ public class LELudovicoAriosto extends LeaderEffect {
      * Get a description of the current effect.
      */
     @Override
-    public String getDescription() {
+    public String toString() {
         return "You can place your family members in busy action spaces.";
     }
 }
