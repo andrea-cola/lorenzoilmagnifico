@@ -27,8 +27,8 @@ public class PersonalBoardStage extends JFXPanel{
      */
     private static final int BACK_WIDTH = 150;
     private static final int BACK_HEIGHT = 200;
-    private static final int GRID_HGAP = 20;
-    private static final int GRID_VGAP = 20;
+    private static final int GRID_HGAP = 10;
+    private static final int GRID_VGAP = 10;
     private final static int INSETS = 20;
 
     /**
@@ -53,6 +53,7 @@ public class PersonalBoardStage extends JFXPanel{
         this.servantsValue = player.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT);
 
         BorderPane root = new BorderPane();
+        root.setPrefSize(BACK_WIDTH, BACK_HEIGHT);
         GridPane gridPane = new GridPane();
         gridPane.setHgap(GRID_HGAP);
         gridPane.setVgap(GRID_VGAP);

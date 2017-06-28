@@ -215,7 +215,7 @@ import java.util.*;
         int period = 1;
         for (ExcommunicationCard card : this.excommunicationCards){
             if (card.getPeriod() == period){
-                excommunicationCards[period - 1] = new ExcommunicationCard();
+                //excommunicationCards[period - 1] = new ExcommunicationCard();
                 excommunicationCards[period - 1] = card;
                 period++;
             }

@@ -7,14 +7,7 @@ import java.io.Serializable;
  */
 public class Vatican implements Serializable{
 
-    /**
-<<<<<<< HEAD
-     * Array of excommunication leaderCards. Each card is used in only one age.
-     * The length of this array is equal the number of ages.
-=======
-     * The excommunication card you get if you don't sustain Vatican
->>>>>>> 805b963d384a061d6727e16ca7eea5f8bd6bf86d
-     */
+
     private ExcommunicationCard[] excommunicationCards;
 
     private int[] excommunicationCheckPoints;

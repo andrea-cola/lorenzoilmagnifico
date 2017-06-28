@@ -4,7 +4,9 @@ import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
+import javafx.scene.control.ChoiceBox;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -47,6 +49,11 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     private PersonalBoardStage personalBoardStage;
     private PersonalTileBoardStage personalTileBoardStage;
     private LeaderCardStage leaderCardStage;
+
+    private ArrayList<Privilege> privileges;
+    private int key;
+    private DevelopmentCard card;
+    private boolean choice;
 
     /**
      * Constructor
@@ -150,11 +157,41 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     }
 
     @Override
+    public boolean supportForTheChurch() {
+        boolean choice;
+        int key = 0;
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int result = JOptionPane.showConfirmDialog(null, "Do you want to support the church?", "Church support",
+                        JOptionPane.YES_NO_OPTION , JOptionPane.QUESTION_MESSAGE);
+                switch (result){
+                    case JOptionPane.YES_OPTION:
+                        setChoice(true);
+                        break;
+                    case JOptionPane.NO_OPTION:
+                        setChoice(false);
+                        break;
+                }
+            }
+        });
+        return getChoice();
+    }
+
+    private void setChoice(boolean choice){
+        this.choice = choice;
+    }
+
+    private boolean getChoice(){
+        return this.choice;
+    }
+
+    @Override
     public void showPersonalBoardStage(Player player) {
         System.out.println("showing " + player.getUsername() + " personal board...");
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
-            jframe.setSize(100, 100);
+            jframe.setSize(FRAME_WIDTH, FRAME_HEIGHT);
             jframe.add(new PersonalBoardStage(player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
@@ -167,7 +204,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         System.out.println("showing " + player.getUsername() + " personal tile board...");
         SwingUtilities.invokeLater(()-> {
             JFrame jframe = new JFrame();
-            jframe.setSize(100, 100);
+            jframe.setSize(FRAME_WIDTH, FRAME_HEIGHT);
             jframe.add(new PersonalTileBoardStage(player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
@@ -180,7 +217,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         System.out.println("showing " + player.getUsername() + " leader cards...");
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
-            jframe.setSize(100, 100);
+            jframe.setSize(FRAME_WIDTH, FRAME_HEIGHT);
             jframe.add(new LeaderCardStage(this, player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
@@ -194,7 +231,21 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
             @Override
             public void run() {
                 JOptionPane.showMessageDialog(null, "Your data are not valid","Game Error", JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
+            }
+        });
+    }
+
+    @Override
+    public void showChooseServantNumber() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JFrame jframe = new JFrame();
+                jframe.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+                jframe.add(new ChooseServantNumberStage(), BorderLayout.CENTER);
+                jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                jframe.pack();
+                jframe.setVisible(true);
             }
         });
     }
@@ -206,10 +257,10 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
             @Override
             public void run() {
                 JOptionPane.showMessageDialog(null, "Your turn is ended, it takes the next one.", "Notification", JOptionPane.INFORMATION_MESSAGE);
-                System.exit(0);
             }
         });
     }
+
 
     @Override
     public void activeLeaderCard(String leaderName) {
@@ -241,51 +292,238 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     }
 
     @Override
-    public void chooseServantsNumber() {
-        SwingUtilities.invokeLater(new Runnable() {
+    public void showChooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 JFrame jframe = new JFrame();
-                jframe.setSize(100, 100);
-                jframe.add(new ChooseServantStage(), BorderLayout.CENTER);
+                try {
+                    jframe.add(new ChooseCouncilPrivilege(reason, councilPrivilege), BorderLayout.CENTER);
+                } catch (GameException e) {
+                    showGameException();
+                }
                 jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 jframe.pack();
                 jframe.setVisible(true);
-
             }
-
-
         });
     }
 
     @Override
-    public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
-        Privilege[] privileges = councilPrivilege.getPrivileges();
+    public void setCouncilPrivileges(String reason, ArrayList<Privilege> privileges) {
+        if(getClient().getPlayerTurnChoices().containsKey(reason)) {
+            ArrayList<Privilege> arrayList = (ArrayList<Privilege>)getClient().getPlayerTurnChoices().get(reason);
+            arrayList.addAll(privileges);
+        } else
+            getClient().setPlayerTurnChoices(reason, privileges);
+        this.privileges = privileges;
+    }
 
-        return null;
+    @Override
+    public ArrayList<Privilege> getCouncilPrivileges(){
+        return this.privileges;
+    }
+
+    @Override
+    public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+        showChooseCouncilPrivilege(reason, councilPrivilege);
+        return getCouncilPrivileges();
     }
 
     @Override
     public int chooseDoubleCost(PointsAndResources pointsAndResources, int militaryPointsGiven, int militaryPointsNeeded) {
+        int key = 1;
+        if(militaryPointsNeeded < getClient().getPlayer().getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY))
+            getClient().setPlayerTurnChoices("double-cost", key);
+        else {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    }catch (IllegalAccessException | InstantiationException |
+                            UnsupportedLookAndFeelException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
-        return 0;
+                    String[] choices= new String[2];
+                    choices[0] = "With " + pointsAndResources.toString();
+                    choices[1] = "With " + militaryPointsGiven + "but you need " + militaryPointsNeeded;
+                    JComboBox choiceBox = new JComboBox(choices);
+                    Label title = new Label("You can choose the card payment: ");
+                    JPanel panel = new JPanel();
+                    panel.add(title);
+                    panel.add(choiceBox);
+                    int result = JOptionPane.showConfirmDialog(null, panel, "Choose how to pay", JOptionPane.OK_CANCEL_OPTION);
+                    if(result== JOptionPane.OK_OPTION){
+                        if(choiceBox.getSelectedItem()!=null){
+                            String choice = (String) choiceBox.getSelectedItem();
+                            if(choice.equals(choices[0])) {
+                                setKeyValue(1);
+                                getClient().setPlayerTurnChoices("double-cost", getKeyValue());
+                            }else if(choice.equals(choices[1])){
+                                setKeyValue(2);
+                                getClient().setPlayerTurnChoices("double-cost", getKeyValue());
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        return getKeyValue();
     }
 
-    @Override
-    public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned) {
+    private synchronized void setKeyValue(int key){
+        this.key = key;
+    }
 
-        return 0;
+    private synchronized int getKeyValue(){
+        return key;
+    }
+
+
+    @Override
+    public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableToEarn) {
+        int key = 1;
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                }catch (IllegalAccessException | InstantiationException |
+                        UnsupportedLookAndFeelException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                String[] choices = new String[valuableToPay.length];
+                for (int i = 0; i < choices.length ; i++) {
+                    choices[i] = valuableToPay[i].toString() + " with " + valuableToEarn;
+                }
+                JComboBox choiceBox = new JComboBox(choices);
+                Label title = new Label("You can exchange: ");
+                JPanel panel = new JPanel();
+                panel.add(title);
+                panel.add(choiceBox);
+                int result = JOptionPane.showConfirmDialog(null, panel, "Choose exchange", JOptionPane.OK_CANCEL_OPTION);
+                if(result== JOptionPane.OK_OPTION){
+                    if(choiceBox.getSelectedItem()!=null){
+                        int i = choiceBox.getSelectedIndex();
+                        setKeyValue(i);
+                        getClient().setPlayerTurnChoices(card + ":double", getKeyValue());
+                    }
+                }
+            }
+
+        });
+        return getKeyValue();
     }
 
     @Override
     public int choosePickUpDiscounts(String reason, List<PointsAndResources> discounts) {
+        int key =1;
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                }catch (IllegalAccessException | InstantiationException |
+                        UnsupportedLookAndFeelException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
 
-        return 0;
+                String[] choices = new String[discounts.size()];
+                for(int i=0; i < choices.length; i++){
+                    choices[i] = "Discount " + discounts.get(i).toString() + " in " + discounts.get(i);
+                }
+                JComboBox choiceBox = new JComboBox(choices);
+                Label title = new Label("You can choose a discont:");
+                JPanel panel = new JPanel();
+                panel.add(title);
+                panel.add(choiceBox);
+                int result = JOptionPane.showConfirmDialog(null, panel, "Choose discount", JOptionPane.OK_CANCEL_OPTION);
+                if(result == JOptionPane.OK_OPTION){
+                    if (choiceBox.getSelectedItem() != null){
+                        int i = choiceBox.getSelectedIndex();
+                        setKeyValue(i);
+                        getClient().setPlayerTurnChoices(reason, getKeyValue());
+                    }
+                }
+            }
+        });
+        return getKeyValue();
     }
 
     @Override
     public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
+        int i = 1;
+        ArrayList<DevelopmentCard> devCards = new ArrayList<DevelopmentCard>();
+        MainBoard mainBoard = getClient().getGameModel().getMainBoard();
+        for (DevelopmentCardColor developmentCardColor : developmentCardColors)
+            for (Tower tower : mainBoard.getTowers())
+                if (tower.getColor().equals(developmentCardColor))
+                    for (TowerCell towerCell : tower.getTowerCells())
+                        if (towerCell.getPlayerNicknameInTheCell() == null && towerCell.getMinFamilyMemberValue() <= diceValue && isSelectable(towerCell, discount)) {
+                            devCards.add(towerCell.getDevelopmentCard());
+                            i++;
+                        }
+        int key = 0;
+        EventQueue.invokeLater(() -> {
+            try{
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            }catch (IllegalAccessException | InstantiationException |
+                    UnsupportedLookAndFeelException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
 
-        return null;
+            String[] choices = devCards.toArray(new String[devCards.size()]);
+            JComboBox comboBox = new JComboBox(choices);
+            Label title = new Label("You can pick up a new card among those: ");
+            JPanel panel = new JPanel();
+            panel.add(title);
+            panel.add(comboBox);
+            int result = JOptionPane.showConfirmDialog(null, panel, "Choose card", JOptionPane.OK_CANCEL_OPTION);
+            if(result == JOptionPane.OK_OPTION){
+                if(comboBox.getSelectedItem()!= null){
+                    int i1 = comboBox.getSelectedIndex();
+                    setKeyValue(i1);
+                    setDevelopmentCard(devCards.get(getKeyValue()));
+                    for (Tower tower : mainBoard.getTowers())
+                        for (TowerCell towerCell : tower.getTowerCells())
+                            if (towerCell.getDevelopmentCard().getName().equals(getDevelopmentCard().getName())) {
+                                getDevelopmentCard().payCost(getClient().getPlayer(), getCallback());
+                                towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
+                                if(towerCell.getTowerCellImmediateEffect() != null)
+                                    towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), getCallback());
+                            }
+                    getClient().setPlayerTurnChoices(reason, getDevelopmentCard());
+                }
+            }
+        });
+
+        return getDevelopmentCard();
     }
+
+    private void setDevelopmentCard(DevelopmentCard card) {
+        this.card = card;
+    }
+
+    private DevelopmentCard getDevelopmentCard(){
+        return this.card;
+    }
+
+    private InformationCallback getCallback() {
+        return this;
+    }
+
+
+
+    private boolean isSelectable(TowerCell cell, PointsAndResources discount){
+        try{
+            cell.developmentCardCanBeBuyed(getClient().getPlayer(), discount);
+            return true;
+        } catch (GameException e){
+            return false;
+        }
+    }
+
 }

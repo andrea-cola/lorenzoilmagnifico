@@ -259,7 +259,7 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         MainBoard mainBoard = getClient().getGameModel().getMainBoard();
         DevelopmentCard card;
         ArrayList<DevelopmentCard> selectable = new ArrayList<>();
-        System.out.println("[ CHOOSE NEW CARD ]\nYou can pick up a new card. Choose between those proposal.");
+        System.out.println("[ CHOOSE NEW CARD ]\nYou can pick up a new card. Choose among those proposal.");
 
         int i = 1;
         System.out.println("0 -> to choose no card.");

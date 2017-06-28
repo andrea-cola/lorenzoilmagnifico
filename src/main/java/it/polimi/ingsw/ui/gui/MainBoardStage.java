@@ -17,6 +17,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -26,11 +28,18 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 
 /**
  * This is the Graphic User Interface main board class
  */
-public class MainBoardStage extends JFXPanel implements MainBoardSettings{
+public class MainBoardStage extends JFXPanel implements MainBoardSettings {
     /**
      * Family member related values
      */
@@ -38,7 +47,7 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     private int whiteValue;
     private int blackValue;
     private int neutralValue;
-    //private int servants;
+    private int servants;
 
 
     private CallbackInterface callback;
@@ -51,7 +60,6 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     private int militaryPoints;
     private int victoryPoints;
     private int faithPoints;
-    private int servants;
     private String username;
 
     /**
@@ -59,8 +67,8 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
      */
     private static final int STAGE_WIDTH = 800;
     private static final int STAGE_HEIGHT = 1000;
-    private static final int BACK_WIDTH = 150;
-    private static final int BACK_HEIGHT = 200;
+    private static final int BACK_WIDTH = 400;
+    private static final int BACK_HEIGHT = 500;
     private static final int GRID_TOWER_X = 20;
     private static final int GRID_TOWER_Y = 20;
     private static final int GRID_TOWER_HGAP = 20;
@@ -85,17 +93,19 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     private Button personalBoardButton;
     private Button personalTileButton;
     private Button leaderCardsButton;
-    private AnchorPane leftPane;
+    private BorderPane leftPane;
     private GridPane gridTower;
     private GridPane gridAction;
     private GridPane gridMarket;
     private Scene scene;
 
+    private final Lock lock = new ReentrantLock();
+
 
     /**
      * Constructor for Main Board class
      */
-    MainBoardStage(CallbackInterface callback, Player player, Game game){
+    MainBoardStage(CallbackInterface callback, Player player, Game game) {
         this.game = game;
         this.player = player;
         this.callback = callback;
@@ -133,8 +143,8 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
      * Create the left pane of the split pane
      * @return the left pane
      */
-    public AnchorPane createLeftPane(){
-        leftPane = new AnchorPane();
+    public BorderPane createLeftPane() {
+        leftPane = new BorderPane();
 
         BackgroundSize size = new BackgroundSize(BACK_WIDTH, BACK_HEIGHT, false, false, true, false);
         Image image2 = new Image("/images/MainBoardStageCover.jpg");
@@ -145,110 +155,193 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         gridTower.setPrefSize(BACK_WIDTH, BACK_HEIGHT);
         gridTower.setVgap(GRID_TOWER_VGAP);
         gridTower.setHgap(GRID_TOWER_HGAP);
-        for (int i = 0; i <= 7 ; i++) {
+        for (int i = 0; i <= 7; i++) {
             for (int j = 0; j < 4; j++) {
-                if(i%2==0){
-                    setDevelopmentCardInTowerCell(i/2, j);
-                }else{
-                    ImageView card = (ImageView) getNodeInGrid(i-1, j);
+                if (i % 2 == 0) {
+                    setDevelopmentCardInTowerCell(i / 2, j);
+                } else {
+                    ImageView card = (ImageView) getNodeInGrid(i - 1, j);
                     Circle circle = new Circle(10, Color.AQUA);
                     gridTower.add(circle, i, j);
                     int column = i;
                     int row = j;
-                    FamilyMemberColor memberColor = manageTargetEvent(circle);
-                    System.out.println(memberColor);
-                    circle.setOnMouseDragReleased(event -> {
-                        card.setVisible(false);
-                        try {
-                            game.pickupDevelopmentCardFromTower(player, manageTargetEvent(circle), 3,column, row, null);
-                            circle.setVisible(false);
+                    manageTargetEvent(circle);
+                    circle.setOnDragDropped((DragEvent event) -> {
+                        String[] name;
+                        System.out.println("onDragDropped");
+                        Dragboard db = event.getDragboard();
+                        Node node = event.getPickResult().getIntersectedNode();
+                        int x = GridPane.getColumnIndex(node);
+                        if (db.hasString()) {
+                            boolean success = false;
                             circle.setDisable(true);
-                        } catch (GameException e) {
-                            callback.showGameException();
+                            name = db.getString().split("fill=0");
+                            Color color = stringToColor(name[1]);
+                            circle.setFill(color);
+                            this.callback.showChooseServantNumber();
+                            try {
+                                wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                lock.lock();
+                                game.pickupDevelopmentCardFromTower(player, getMemberColor(color), servants , column, row, null);
+                                lock.unlock();
+                            } catch (GameException e) {
+                                callback.showGameException();
+                            }
+                            card.setVisible(false);
+                            circle.setDisable(true);
+                            callback.notifyEndTurnStage();
+                            success = true;
+                            event.setDropCompleted(success);
+                            event.consume();
                         }
-                        event.consume();
                     });
-
                 }
             }
         }
 
-        for(int i=1; i<4; i++){
+        /*
+        for (int i = 0; i < 3; i++) {
             setExcommunicationCard(i, 5);
         }
+        */
 
         Circle council = new Circle(CIRCLE_RADIUS);
+        manageTargetEvent(council);
         gridTower.add(council, 5, 4);
-        FamilyMemberColor councilColor = manageTargetEvent(council);
         council.setOnDragDropped(event -> {
-            try {
-                game.placeFamilyMemberInsideCouncilPalace(player, councilColor , servants, null);
-            } catch (GameException e) {
-                callback.showGameException();
+            String[] name;
+            System.out.println("onDragDropped");
+            Dragboard db = event.getDragboard();
+            Node node = event.getPickResult().getIntersectedNode();
+            int x = GridPane.getColumnIndex(node);
+            if (db.hasString()) {
+                boolean success = false;
+                council.setDisable(true);
+                name = db.getString().split("fill=0");
+                Color color = stringToColor(name[1]);
+                council.setFill(color);
+                lock.lock();
+                callback.showChooseServantNumber();
+                lock.unlock();
+                try {
+                    game.placeFamilyMemberInsideCouncilPalace(player, getMemberColor(color), servants , null);
+                } catch (GameException e) {
+                    callback.showGameException();
+                }
+                callback.notifyEndTurnStage();
+                success = true;
+                event.setDropCompleted(success);
+                event.consume();
             }
         });
+
 
         gridAction.setHgap(GRID_TOWER_HGAP);
         gridAction.setVgap(GRID_TOWER_VGAP);
 
         Circle circleProduction = new Circle(CIRCLE_RADIUS);
-        FamilyMemberColor productionColor = manageTargetEvent(circleProduction);
+        manageTargetEvent(circleProduction);
         gridAction.add(circleProduction, 0, 0);
-        circleProduction.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
+        circleProduction.setOnDragDropped(event -> {
+            String[] name;
+            System.out.println("onDragDropped");
+            Dragboard db = event.getDragboard();
+            Node node = event.getPickResult().getIntersectedNode();
+            int x = GridPane.getColumnIndex(node);
+            if (db.hasString()) {
+                boolean success = false;
+                circleProduction.setDisable(true);
+                name = db.getString().split("fill=0");
+                Color color = stringToColor(name[1]);
+                circleProduction.setFill(color);
+                lock.lock();
+                callback.showChooseServantNumber();
+                lock.unlock();
                 try {
-                    game.placeFamilyMemberInsideHarvestSimpleSpace(player, productionColor, servants,  null);
+                    game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servants , null);
                 } catch (GameException e) {
                     callback.showGameException();
                 }
+                circleProduction.setDisable(true);
+                callback.notifyEndTurnStage();
+                success = true;
+                event.setDropCompleted(success);
+                event.consume();
             }
         });
 
-        Circle circleHarvest = new Circle(10);
-        FamilyMemberColor harvestColor = manageTargetEvent(circleHarvest);
+        Circle circleHarvest = new Circle(CIRCLE_RADIUS);
+        manageTargetEvent(circleHarvest);
         gridAction.add(circleHarvest, 0, 1);
-        circleHarvest.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
+        circleHarvest.setOnDragDropped(event -> {
+            String[] name;
+            System.out.println("onDragDropped");
+            Dragboard db = event.getDragboard();
+            Node node = event.getPickResult().getIntersectedNode();
+            int x = GridPane.getColumnIndex(node);
+            if (db.hasString()) {
+                boolean success = false;
+                circleHarvest.setDisable(true);
+                name = db.getString().split("fill=0");
+                Color color = stringToColor(name[1]);
+                circleHarvest.setFill(color);
+                this.callback.showChooseServantNumber();
+
                 try {
-                    game.placeFamilyMemberInsideHarvestSimpleSpace(player, harvestColor, servants, null);
+                    lock.lock();
+                    game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servants, null);
+                    lock.unlock();
                 } catch (GameException e) {
                     callback.showGameException();
                 }
+                circleHarvest.setDisable(true);
+                callback.notifyEndTurnStage();
+                success = true;
+                event.setDropCompleted(success);
+                event.consume();
             }
         });
 
         gridMarket.setHgap(GRID_MARKET_HGAP);
         gridMarket.setVgap(GRID_MARKET_VGAP);
 
-        Circle circleMarket1 = new Circle(CIRCLE_RADIUS);
-        FamilyMemberColor marketColor1 = manageTargetEvent(circleMarket1);
-        gridMarket.add(circleMarket1, 3, 0);
-        circleMarket1.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                try {
-                    game.placeFamilyMemberInsideMarket(player, marketColor1, servants, 1, null);
-                } catch (GameException e) {
-                    callback.showGameException();
+        for (int i = 0; i <2 ; i++) {
+            int j = i +1;
+            Circle circleMarket = new Circle(CIRCLE_RADIUS);
+            manageTargetEvent(circleMarket);
+            gridMarket.add(circleMarket, 3+i, 0);
+            circleMarket.setOnDragDropped(event -> {
+                String[] name;
+                System.out.println("onDragDropped");
+                Dragboard db = event.getDragboard();
+                Node node = event.getPickResult().getIntersectedNode();
+                int x = GridPane.getColumnIndex(node);
+                if (db.hasString()) {
+                    boolean success = false;
+                    circleMarket.setDisable(true);
+                    name = db.getString().split("fill=0");
+                    Color color = stringToColor(name[1]);
+                    circleMarket.setFill(color);
+                    lock.lock();
+                    this.callback.showChooseServantNumber();
+                    lock.unlock();
+                    try {
+                        game.placeFamilyMemberInsideMarket(player, getMemberColor(color), servants, j, null);
+                    } catch (GameException e) {
+                        callback.showGameException();
+                    }
+                    circleHarvest.setDisable(true);
+                    callback.notifyEndTurnStage();
+                    success = true;
+                    event.setDropCompleted(success);
+                    event.consume();
                 }
-            }
-        });
-
-        Circle circleMarket2 = new Circle(CIRCLE_RADIUS);
-        FamilyMemberColor marketColor2 = manageTargetEvent(circleMarket2);
-        gridMarket.add(circleMarket2, 4, 0);
-        circleMarket2.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                try {
-                    game.placeFamilyMemberInsideMarket(player, marketColor2, servants, 2, null);
-                } catch (GameException e) {
-                    callback.showGameException();
-                }
-            }
-        });
+            });
+        }
 
         HBox hBox = new HBox(HBOX_SPACING);
         hBox.getChildren().addAll(gridAction, gridMarket);
@@ -261,8 +354,8 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
      * Create the right pane of the split pane
      * @return the right pane
      */
-    public VBox createRightPane(){
-        rightPane= new VBox(VBOX_SPACING);
+    public VBox createRightPane() {
+        rightPane = new VBox(VBOX_SPACING);
         rightPane.setAlignment(Pos.CENTER);
 
         personalBoardButton = new Button("PERSONAL BOARD");
@@ -277,14 +370,14 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         leaderCardsButton.setAlignment(Pos.CENTER);
         leaderCardsButton.setOnAction(event -> callback.showLeaderCards(player));
 
-        Circle redMember= new Circle(FAMILY_RADIUS);
+        Circle redMember = new Circle(FAMILY_RADIUS);
         redMember.setFill(Color.RED);
         Label redLabel = new Label();
         StackPane redPane = new StackPane();
         manageSourceEvent(redMember);
         redPane.getChildren().addAll(redMember, redLabel);
 
-        Circle blackMember= new Circle(FAMILY_RADIUS);
+        Circle blackMember = new Circle(FAMILY_RADIUS);
         blackMember.setFill(Color.BLACK);
         Label blackLabel = new Label();
         StackPane blackPane = new StackPane();
@@ -304,8 +397,8 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         StackPane neutralPane = new StackPane();
         neutralPane.getChildren().addAll(neutralMember, neutralLabel);
 
-        redLabel.textProperty().bind( new SimpleIntegerProperty(redValue).asString());
-        blackLabel.textProperty().bind( new SimpleIntegerProperty(blackValue).asString());
+        redLabel.textProperty().bind(new SimpleIntegerProperty(redValue).asString());
+        blackLabel.textProperty().bind(new SimpleIntegerProperty(blackValue).asString());
         whiteLabel.textProperty().bind(new SimpleIntegerProperty(whiteValue).asString());
         neutralLabel.textProperty().bind(new SimpleIntegerProperty(neutralValue).asString());
 
@@ -320,9 +413,9 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         pointsTable.add(militaryLabel, 0, 0);
         pointsTable.add(new Label(Integer.toString(militaryPoints)), 1, 0);
         Label victoryLabel = new Label("Victory points: ");
-        pointsTable.add(new Label(Integer.toString(victoryPoints)),1,1);
+        pointsTable.add(new Label(Integer.toString(victoryPoints)), 1, 1);
         pointsTable.add(victoryLabel, 0, 1);
-        Label faithLabel= new Label("Faith points: ");
+        Label faithLabel = new Label("Faith points: ");
         pointsTable.add(faithLabel, 0, 2);
         pointsTable.add(new Label(Integer.toString(faithPoints)), 1, 2);
 
@@ -340,16 +433,17 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
      * @return related color
      */
     private static Color stringToColor(String hexColor) {
-        return Color.rgb(Integer.valueOf( hexColor.substring( 1, 3 ), 16 ),
-                Integer.valueOf( hexColor.substring( 3, 5 ), 16 ),
-                Integer.valueOf( hexColor.substring( 5, 7 ), 16 ));
+        return Color.rgb(Integer.valueOf(hexColor.substring(1, 3), 16),
+                Integer.valueOf(hexColor.substring(3, 5), 16),
+                Integer.valueOf(hexColor.substring(5, 7), 16));
     }
 
     /**
      * Method to manage the "Drag Detected" and "Drag Done" event
+     *
      * @param source node which triggers the action during the events
      */
-    private void manageSourceEvent(Circle source){
+    private void manageSourceEvent(Circle source) {
         source.setOnDragDetected(event -> {
             Dragboard db = source.startDragAndDrop(TransferMode.ANY);
             ClipboardContent clipboardContent = new ClipboardContent();
@@ -369,10 +463,10 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
 
     /**
      * Method to manage the "Drag Over", "Drag Entered", "Drag Exited", "Drag Dropped" event
+     *
      * @param target node which is triggered by the event and does actions
      */
-    private FamilyMemberColor manageTargetEvent(Circle target){
-        final Color[] color = new Color[1];
+    private void manageTargetEvent(Circle target) {
         target.setOnDragOver(event -> {
             /* data is dragged over the target */
             System.out.println("onDragOver");
@@ -389,41 +483,27 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
             /* the drag-and-drop gesture entered the target */
             System.out.println("onDragEntered");
             /* show to the user that it is an actual gesture target */
-            if (event.getGestureSource() != target && event.getDragboard().hasString()){
-                target.setScaleX(target.getScaleX()*1.3);
-                target.setScaleY(target.getScaleY()*1.3);
+            if (event.getGestureSource() != target && event.getDragboard().hasString()) {
+                target.setScaleX(target.getScaleX() * 1.3);
+                target.setScaleY(target.getScaleY() * 1.3);
             }
             event.consume();
         });
         target.setOnDragExited(event -> {
             /* mouse moved away, remove the graphical cues */
-            target.setScaleX(target.getScaleX()/1.3);
-            target.setScaleY(target.getScaleY()/1.3);
+            target.setScaleX(target.getScaleX() / 1.3);
+            target.setScaleY(target.getScaleY() / 1.3);
             event.consume();
         });
-        target.setOnDragDropped(event -> {
-            String[] name;
-            System.out.println("onDragDropped");
-            Dragboard db = event.getDragboard();
-            Node node = event.getPickResult().getIntersectedNode();
-            int x = GridPane.getColumnIndex(node);
-            if(db.hasString()){
-                boolean success = false;
-                target.setDisable(true);
-                name = db.getString().split("fill=0");
-                color[0] = stringToColor(name[1]);
-                target.setFill(color[0]);
-                success = true;
-                event.setDropCompleted(success);
-                event.consume();
-            }
-        });
 
-        if(Color.RED.equals(color))
+    }
+
+    private FamilyMemberColor getMemberColor(Color color){
+        if (Color.RED.equals(color))
             return FamilyMemberColor.ORANGE;
-        else if(Color.BLACK.equals(color))
+        else if (Color.BLACK.equals(color))
             return FamilyMemberColor.BLACK;
-        else if(Color.GRAY.equals(color))
+        else if (Color.GRAY.equals(color))
             return FamilyMemberColor.NEUTRAL;
         else if (Color.WHITE.equals(color))
             return FamilyMemberColor.WHITE;
@@ -432,16 +512,16 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
 
     /**
      * Get a node in the gridTower object
-     * @param row index
+     * @param row    index
      * @param column index
      * @return Node
      */
-    private Node getNodeInGrid(int column, int row){
+    private Node getNodeInGrid(int column, int row) {
         Node result = null;
         ObservableList<Node> childrens = gridTower.getChildren();
         for (Node node : childrens) {
-            if(gridTower.getRowIndex(node) == row && gridTower.getColumnIndex(node) == column) {
-                result= node;
+            if (gridTower.getRowIndex(node) == row && gridTower.getColumnIndex(node) == column) {
+                result = node;
             }
         }
         return result;
@@ -450,11 +530,39 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     @Override
     public void showExtraProduction() {
         System.out.println("setting production...");
-        if(game.getPlayersMap().size()>2) {
+        if (game.getPlayersMap().size() > 2) {
             Circle circleProductionExtended = new Circle(CIRCLE_RADIUS);
             manageTargetEvent(circleProductionExtended);
             gridAction.add(circleProductionExtended, 1, 0);
-        }else {
+            circleProductionExtended.setOnDragDropped((DragEvent event) -> {
+                String[] name;
+                System.out.println("onDragDropped");
+                Dragboard db = event.getDragboard();
+                Node node = event.getPickResult().getIntersectedNode();
+                int x = GridPane.getColumnIndex(node);
+                if (db.hasString()) {
+                    boolean success = false;
+                    circleProductionExtended.setDisable(true);
+                    name = db.getString().split("fill=0");
+                    Color color = stringToColor(name[1]);
+                    circleProductionExtended.setFill(color);
+                    lock.lock();
+                    this.callback.showChooseServantNumber();
+                    lock.unlock();
+                    try {
+                        game.placeFamilyMemberInsideProductionExtendedSpace(player, getMemberColor(color), servants , null);
+                    } catch (GameException e) {
+                        callback.showGameException();
+                    }
+                    circleProductionExtended.setDisable(true);
+                    callback.notifyEndTurnStage();
+                    success = true;
+                    event.setDropCompleted(success);
+                    event.consume();
+                }
+            });
+
+        } else {
             Rectangle coverProduction = new Rectangle(30, 20);
             coverProduction.setFill(new ImagePattern(new Image("images/actionCover/productionCover.png")));
             gridAction.add(coverProduction, 1, 0);
@@ -464,11 +572,39 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     @Override
     public void showExtraHarvest() {
         System.out.println("setting harvest...");
-        if(game.getPlayersMap().size()>2) {
+        if (game.getPlayersMap().size() > 2) {
             Circle circleHarvestExtended = new Circle(CIRCLE_RADIUS);
             manageTargetEvent(circleHarvestExtended);
             gridAction.add(circleHarvestExtended, 1, 1);
-        }else {
+            circleHarvestExtended.setOnDragDropped((DragEvent event) -> {
+                String[] name;
+                System.out.println("onDragDropped");
+                Dragboard db = event.getDragboard();
+                Node node = event.getPickResult().getIntersectedNode();
+                int x = GridPane.getColumnIndex(node);
+                if (db.hasString()) {
+                    boolean success = false;
+                    circleHarvestExtended.setDisable(true);
+                    name = db.getString().split("fill=0");
+                    Color color = stringToColor(name[1]);
+                    circleHarvestExtended.setFill(color);
+                    lock.lock();
+                    this.callback.showChooseServantNumber();
+                    lock.unlock();
+                    try {
+                        game.placeFamilyMemberInsideHarvestExtendedSpace(player, getMemberColor(color), servants , null);
+                    } catch (GameException e) {
+                        callback.showGameException();
+                    }
+                    circleHarvestExtended.setDisable(true);
+                    callback.notifyEndTurnStage();
+                    success = true;
+                    event.setDropCompleted(success);
+                    event.consume();
+                }
+            });
+
+        } else {
             Rectangle coverHarvest = new Rectangle(30, 20);
             coverHarvest.setFill(new ImagePattern(new Image("images/actionCover/productionCover.png")));
             gridAction.add(coverHarvest, 1, 1);
@@ -478,14 +614,42 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
     @Override
     public void showExtraMarket() {
         System.out.println("setting market...");
-        if(game.getPlayersMap().size()>3) {
-            Circle circleMarketExtended1 = new Circle(CIRCLE_RADIUS);
-            Circle circleMarketExtended2 = new Circle(CIRCLE_RADIUS);
-            manageTargetEvent(circleMarketExtended1);
-            manageTargetEvent(circleMarketExtended2);
-            gridMarket.add(circleMarketExtended1, 5, 0);
-            gridMarket.add(circleMarketExtended2, 6, 1);
-        }else {
+        if (game.getPlayersMap().size() > 3) {
+            for(int i=0; i<2; i++) {
+                int j= i+1;
+                Circle circleMarketExtended = new Circle(CIRCLE_RADIUS);
+                manageTargetEvent(circleMarketExtended);
+                gridMarket.add(circleMarketExtended, 5+i, 0);
+                circleMarketExtended.setOnDragDropped((DragEvent event) -> {
+                    String[] name;
+                    System.out.println("onDragDropped");
+                    Dragboard db = event.getDragboard();
+                    Node node = event.getPickResult().getIntersectedNode();
+                    int x = GridPane.getColumnIndex(node);
+                    if (db.hasString()) {
+                        boolean success = false;
+                        circleMarketExtended.setDisable(true);
+                        name = db.getString().split("fill=0");
+                        Color color = stringToColor(name[1]);
+                        circleMarketExtended.setFill(color);
+                        lock.lock();
+                        this.callback.showChooseServantNumber();
+                        lock.unlock();
+                        try {
+                            game.placeFamilyMemberInsideMarket(player, getMemberColor(color), servants ,j,  null);
+                        } catch (GameException e) {
+                            callback.showGameException();
+                        }
+                        circleMarketExtended.setDisable(true);
+                        callback.notifyEndTurnStage();
+                        success = true;
+                        event.setDropCompleted(success);
+                        event.consume();
+                    }
+                });
+            }
+
+        } else {
             Rectangle coverMarket1 = new Rectangle(30, 20);
             Rectangle coverMarket2 = new Rectangle(30, 20);
             coverMarket1.setFill(new ImagePattern(new Image("images/actionCover/marketCover.png")));
@@ -507,7 +671,7 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         image.setFitHeight(IMAGE_HEIGHT);
         image.setFitWidth(IMAGE_WIDTH);
         image.autosize();
-        gridTower.add(image, tower*2, towerCell);
+        gridTower.add(image, tower * 2, towerCell);
     }
 
     @Override
@@ -515,20 +679,22 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
         System.out.println("setting vatican");
         StringBuilder path = new StringBuilder();
         path.append("images/excommunicationCard/excomm_");
-        path.append(period);
+        path.append(period+1);
         path.append("_");
-        path.append(game.getMainBoard().getVatican().getExcommunicationCard(period).getCardID());
+        path.append(game.getMainBoard().getVatican().getExcommunicationCard(period+1).getCardID());
         path.append(".png");
-        ImageView image = new ImageView(( new Image(path.toString())));
+        ImageView image = new ImageView((new Image(path.toString())));
         image.setFitHeight(IMAGE_HEIGHT);
         image.setFitWidth(IMAGE_WIDTH);
         image.autosize();
-        gridTower.add(image, period, row);
+        gridTower.add(image, period+1, row);
     }
 
-    @Override
-    public void setServants() {
 
+
+    @Override
+    public void setServantsNumber(int servants) {
+        this.servants = servants;
     }
 
 
@@ -542,12 +708,18 @@ public class MainBoardStage extends JFXPanel implements MainBoardSettings{
 
         void showGameException();
 
+        void showChooseServantNumber();
+
+        void showChooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege);
+
         void notifyEndTurnStage();
+
+        void setCouncilPrivileges(String reason, ArrayList<Privilege> privileges);
+
+        ArrayList<Privilege> getCouncilPrivileges();
 
         void activeLeaderCard(String leaderName);
 
         void discardLeader(String leaderName);
-
-        void chooseServantsNumber();
     }
 }

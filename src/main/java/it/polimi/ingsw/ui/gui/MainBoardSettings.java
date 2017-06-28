@@ -13,6 +13,6 @@ public interface MainBoardSettings{
 
     void setExcommunicationCard(int period, int row);
 
-    void setServants();
+    void setServantsNumber(int servants);
 
 }

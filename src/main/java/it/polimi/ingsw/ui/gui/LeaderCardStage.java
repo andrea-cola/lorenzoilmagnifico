@@ -28,11 +28,14 @@ public class LeaderCardStage extends JFXPanel {
     private final static int GRID_HGAP = 20;
     private final static int IMAGE_WIDTH = 200;
     private final static int IMAGE_HEIGHT = 310;
+    private final static int HEIGHT = 100;
+    private final static int WIDTH = 500;
 
 
     LeaderCardStage(MainBoardStage.CallbackInterface callback, Player player){
         this.callback = callback;
         GridPane pane = new GridPane();
+        pane.setPrefSize(WIDTH, HEIGHT);
         pane.setVgap(GRID_VGAP);
         pane.setHgap(GRID_HGAP);
 
@@ -46,6 +49,7 @@ public class LeaderCardStage extends JFXPanel {
                 for (int j = 1; j < parts.length; j++)
                     path.append("+" + parts[j].toLowerCase());
             }
+
             path.append(".jpg");
             ImageView image = new ImageView(new Image(path.toString()));
             image.setFitWidth(IMAGE_WIDTH);

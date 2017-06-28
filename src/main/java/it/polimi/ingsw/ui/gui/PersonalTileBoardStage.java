@@ -26,12 +26,15 @@ public class PersonalTileBoardStage extends JFXPanel{
 
     private final static int INSETS = 20;
     private final static int VBOX_SPACING = 20;
+    private final static int HEIGHT = 300;
+    private final static int WIDTH = 50;
 
     /**
      * Constructor
      */
     PersonalTileBoardStage(Player player){
         BorderPane root = new BorderPane();
+        root.setPrefSize(WIDTH, HEIGHT);
         StringBuilder path = new StringBuilder();
         path.append("images/personalTile/personalbonustile_");
         path.append(player.getPersonalBoard().getPersonalBoardTile().getPersonalBoardID());
