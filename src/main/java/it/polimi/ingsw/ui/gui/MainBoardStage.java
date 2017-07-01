@@ -229,7 +229,7 @@ public class MainBoardStage extends Application{
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         });
 
@@ -243,7 +243,7 @@ public class MainBoardStage extends Application{
             try {
                 thread.join();
             } catch (InterruptedException e){
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         });
 

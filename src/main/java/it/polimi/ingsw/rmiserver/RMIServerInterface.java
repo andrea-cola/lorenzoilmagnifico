@@ -1,10 +1,10 @@
-package it.polimi.ingsw.rmiServer;
+package it.polimi.ingsw.rmiserver;
 
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.rmiClient.RMIClientInterface;
+import it.polimi.ingsw.rmiclient.RMIClientInterface;
 
 import java.io.IOException;
 import java.rmi.Remote;

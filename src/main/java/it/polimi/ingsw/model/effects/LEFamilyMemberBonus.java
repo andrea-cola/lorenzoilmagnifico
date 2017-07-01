@@ -9,7 +9,7 @@ public class LEFamilyMemberBonus extends LeaderEffect{
     private int bonus;
 
     public LEFamilyMemberBonus(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void setBonus(int value){

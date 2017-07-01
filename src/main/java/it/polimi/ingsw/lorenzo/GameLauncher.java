@@ -1,6 +1,5 @@
 package it.polimi.ingsw.lorenzo;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -29,9 +28,9 @@ public class GameLauncher {
                 System.out.println("(2) GRAPHICAL INTERFACE");
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e){
-                chooseUI();
+                return chooseUI();
             }
-        }while(choice != 1 && choice != 2);
+        } while (choice != 1 && choice != 2);
         return choice;
     }
 

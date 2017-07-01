@@ -14,6 +14,7 @@ public enum GameErrorType {
     PLAYER_RESOURCES_ERROR("Player resources are not enough"),
     PLAYER_CARDS_ERROR("Player cards are not enough"),
     LEADER_CARD_ALREADY_USED("This card has been already used"),
+    GENERIC_ERROR("Generic error"),
     EXCOMMUNICATION_EFFECT_MARKET("You can't place a family member inside the market because of the excommunication effect");
 
     /**
@@ -33,6 +34,7 @@ public enum GameErrorType {
      * Give back the error message.
      * @return error message.
      */
+    @Override
     public String toString(){
         return this.error;
     }

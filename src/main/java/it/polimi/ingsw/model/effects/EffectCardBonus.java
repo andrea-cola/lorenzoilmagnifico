@@ -32,7 +32,7 @@ public class EffectCardBonus extends Effect{
      * Constructor
      */
     public EffectCardBonus(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     /**
@@ -106,13 +106,13 @@ public class EffectCardBonus extends Effect{
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.effectType + ": ");
-        stringBuilder.append("dice: " + diceValueBonus + " ");
+        stringBuilder.append("Dice: " + diceValueBonus + " get a permanent bonus on cards ( ");
         for(DevelopmentCardColor developmentCardColor : colors)
-            stringBuilder.append(developmentCardColor + "+");
-        stringBuilder.append("discounts: ");
+            stringBuilder.append(developmentCardColor + " ");
+        stringBuilder.append(")and also DISCOUNTS:( ");
         for(PointsAndResources pointsAndResources : pickUpDiscounts)
             stringBuilder.append(pointsAndResources.toString());
+        stringBuilder.append(" )");
         return stringBuilder.toString();
     }
 }

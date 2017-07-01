@@ -8,7 +8,7 @@ public class EffectNoBonus extends Effect{
     int[] floors;
 
     public EffectNoBonus(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void setFloors(int[] floors){
@@ -35,8 +35,7 @@ public class EffectNoBonus extends Effect{
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.effectType + ": ");
-        stringBuilder.append("you won't receive bonus at these tower floors: ");
+        stringBuilder.append("You won't receive bonus at these tower floors: ");
         for(Integer floor : floors)
             stringBuilder.append(floor + " ");
         return stringBuilder.toString();

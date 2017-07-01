@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.Player;
 public class LELudovicoAriosto extends LeaderEffect {
 
     public LELudovicoAriosto(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
     /**
      * Method to run the effect of the card.

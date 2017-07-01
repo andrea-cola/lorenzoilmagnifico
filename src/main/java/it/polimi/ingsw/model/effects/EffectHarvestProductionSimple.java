@@ -36,7 +36,7 @@ public class EffectHarvestProductionSimple extends Effect{
      * Class constructor.
      */
     public EffectHarvestProductionSimple(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
         this.valuable = new PointsAndResources();
     }
 
@@ -141,12 +141,9 @@ public class EffectHarvestProductionSimple extends Effect{
      */
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.effectType + ": ");
-        stringBuilder.append(actionType.toString() + " dice value: " + diceActionValue + " ");
-        stringBuilder.append("resources earned " + valuable.toString() + " council privileges: " + numberOfCouncilPrivileges);
+        StringBuilder stringBuilder = new StringBuilder().append(actionType.toString() + "( dice: " + diceActionValue + " ) ");
+        stringBuilder.append(" earn these resources ( " + valuable.toString() + " council privileges: " + numberOfCouncilPrivileges + " )");
         return stringBuilder.toString();
     }
-
 
 }

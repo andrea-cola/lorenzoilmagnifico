@@ -7,8 +7,8 @@ import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
-import it.polimi.ingsw.rmiClient.RMIClient;
-import it.polimi.ingsw.socketClient.SocketClient;
+import it.polimi.ingsw.rmiclient.RMIClient;
+import it.polimi.ingsw.socketclient.SocketClient;
 import it.polimi.ingsw.ui.cli.CommandLineInterface;
 import it.polimi.ingsw.ui.ConnectionType;
 import it.polimi.ingsw.ui.gui.GraphicUserInterface;
@@ -59,16 +59,6 @@ import java.util.Map;
     }
 
     @Override
-    public Map<String, Object> getPlayerTurnChoices(){
-        return this.playerTurnChoices;
-    }
-
-    @Override
-    public void setPlayerTurnChoices(String operation, Object choice) {
-        this.playerTurnChoices.put(operation, choice);
-    }
-
-    @Override
     public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException {
         switch (connectionType){
             case SOCKET:
@@ -82,6 +72,16 @@ import java.util.Map;
         }
         client.connectToServer();
         userInterface.loginScreen();
+    }
+
+    @Override
+    public void setPlayerTurnChoices(String operation, Object choice) {
+        this.playerTurnChoices.put(operation, choice);
+    }
+
+    @Override
+    public Map<String, Object> getPlayerTurnChoices(){
+        return this.playerTurnChoices;
     }
 
     @Override
@@ -256,7 +256,8 @@ import java.util.Map;
     @Override
     public void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket) {
         this.game = clientUpdatePacket.getGame();
-        Debugger.printStandardMessage(clientUpdatePacket.getMesssage());
+        for(String message : clientUpdatePacket.getMessage())
+            Debugger.printStandardMessage(message);
     }
 
     @Override

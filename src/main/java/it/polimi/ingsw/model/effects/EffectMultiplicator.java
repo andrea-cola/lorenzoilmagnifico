@@ -45,41 +45,7 @@ public class EffectMultiplicator extends Effect{
      * Class constructor.
      */
     public EffectMultiplicator(){
-        super.effectType = this.getClass().getSimpleName();
-    }
-
-    /**
-     * Set the flag.
-     * @param flag for card or resources.
-     */
-    public void setCardOrResources(boolean flag){
-        this.cardOrResources = flag;
-    }
-
-    /**
-     * Get the flag.
-     * @return boolean flag.
-     */
-    public boolean getCardOrABoolean(){
-        return this.cardOrResources;
-    }
-
-    /**
-     * Set the dice value to activate the action
-     * of the permanent effect.
-     * @param value of the dice.
-     */
-    public void setDiceActionValue(int value){
-        this.diceActionValue = value;
-    }
-
-    /**
-     * Get the dice value to active the action
-     * of the permanent effect.
-     * @return value of the dice.
-     */
-    public int getDiceActionValue(){
-        return this.diceActionValue;
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     /**
@@ -99,55 +65,6 @@ public class EffectMultiplicator extends Effect{
     }
 
     /**
-     * Set resources and points of the permanent effect.
-     * @param valuable resources and points.
-     */
-    public void setValuable(PointsAndResources valuable){
-        this.valuable = valuable;
-    }
-
-    /**
-     * Get resources and points of the permanent effect.
-     * @return resources and points.
-     */
-    public PointsAndResources getValuable(){
-        return this.valuable;
-    }
-
-    /**
-     * Set the color of the card.
-     * @param color requisite.
-     */
-    public void setCardColorRequisite(DevelopmentCardColor color){
-        this.cardColorRequisite = color;
-    }
-
-    /**
-     * Get the color of the card.
-     * @return
-     */
-    public DevelopmentCardColor getCardColorRequisite(){
-        return this.cardColorRequisite;
-    }
-
-    /**
-     * Set resources and points of the permanent effect.
-     * @param valuable resources and points.
-     */
-    public void setValuableRequisite(PointsAndResources valuable){
-        this.valuableRequisite = valuable;
-    }
-
-    /**
-     * Get resources and points of the permanent effect.
-     * @return resources and points.
-     */
-    public PointsAndResources getValuableRequisite(){
-        return this.valuableRequisite;
-    }
-
-
-    /**
      * Method to run the effect of the card.
      * @param player that takes advantage of the effect.
      */
@@ -155,7 +72,7 @@ public class EffectMultiplicator extends Effect{
     public void runEffect(Player player, InformationCallback informationCallback) {
 
         //Set multiplicator value
-        Integer multiplicatorValue = new Integer(0);
+        int multiplicatorValue = 0;
 
         //check if the multiplicator object is a card or a resource/point
         if (this.cardOrResources){
@@ -194,15 +111,12 @@ public class EffectMultiplicator extends Effect{
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.effectType + ": ");
-        if(actionType != null) {
-            stringBuilder.append(actionType.toString() + " ");
-            stringBuilder.append("dice: " + diceActionValue + " ");
-        }
+        if(actionType != null)
+            stringBuilder.append(actionType.toString() + " ( dice: " + diceActionValue + " ) earn this resource: ( " + valuable.toString() + " ) ");
         if(cardOrResources)
-            stringBuilder.append("card color: " + cardColorRequisite + " ");
+            stringBuilder.append("for any card of these color: ( " + cardColorRequisite + " ) ");
         else
-            stringBuilder.append("resources to pay: " + valuableRequisite.toString());
+            stringBuilder.append("for any of this resource: ( " + valuableRequisite.toString() + " ) ");
         return stringBuilder.toString();
     }
 }

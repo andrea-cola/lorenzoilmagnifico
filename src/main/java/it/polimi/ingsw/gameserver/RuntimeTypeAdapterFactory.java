@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gameServer;
+package it.polimi.ingsw.gameserver;
 
 /*
  * Copyright (C) 2011 Google Inc.

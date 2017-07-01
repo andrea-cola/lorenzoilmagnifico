@@ -10,7 +10,7 @@ public class LEPicoDellaMirandola extends LeaderEffect {
     private int moneyDiscount;
 
     public LEPicoDellaMirandola(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void setMoneyDiscount(int value){

@@ -20,7 +20,7 @@ public class BasicGameScreen {
      */
     void sendParameters(String[] parameters) throws WrongCommandException{
         String option = parameters[0].toLowerCase();
-        if(options.containsKey(parameters[0])){
+        if(options.containsKey(option)){
             Function function = options.get(parameters[0]);
             String[] subArray = Arrays.copyOfRange(parameters, 1, parameters.length);
             function.doAction(subArray);

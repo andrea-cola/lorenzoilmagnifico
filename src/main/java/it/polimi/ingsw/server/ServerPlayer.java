@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.gameServer.Room;
+import it.polimi.ingsw.gameserver.Room;
 import it.polimi.ingsw.model.*;
 
 import java.rmi.RemoteException;

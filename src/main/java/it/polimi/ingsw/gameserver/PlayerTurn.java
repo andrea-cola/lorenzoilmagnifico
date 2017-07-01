@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gameServer;
+package it.polimi.ingsw.gameserver;
 
 import it.polimi.ingsw.server.ServerPlayer;
 
@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 
-public class PlayerTurn {
+/*package-local*/ class PlayerTurn {
 
     private ServerPlayer currentPlayer;
 
@@ -16,12 +16,12 @@ public class PlayerTurn {
 
     private static final Object object = new Object();
 
-    PlayerTurn(ServerPlayer currentPlayer){
+    /*package-local*/ PlayerTurn(ServerPlayer currentPlayer){
         this.currentPlayer = currentPlayer;
         timer = new Timer();
     }
 
-    void startTimer(long moveWaitingTime){
+    /*package-local*/ void startTimer(long moveWaitingTime){
         int time = (int)(moveWaitingTime/1000);
         countDownLatch = new CountDownLatch(time);
         timer.scheduleAtFixedRate(new TimeCountDown(), 1000, 1000);
@@ -32,7 +32,7 @@ public class PlayerTurn {
         }
     }
 
-    void stopTimer(){
+    /*package-local*/ void stopTimer(){
         synchronized (object){
             resetTimer();
             while (countDownLatch.getCount() > 0)
@@ -40,20 +40,17 @@ public class PlayerTurn {
         }
     }
 
-    ServerPlayer currentPlayer(){
+    /*package-local*/ ServerPlayer currentPlayer(){
         return this.currentPlayer;
     }
 
-    private void resetTimer(){
+    /*package-local*/ private void resetTimer(){
         timer.cancel();
         timer.purge();
     }
 
     private class TimeCountDown extends TimerTask{
 
-        /**
-         * The action to be performed by this timer task.
-         */
         @Override
         public void run() {
             synchronized (object){

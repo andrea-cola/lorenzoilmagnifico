@@ -8,13 +8,14 @@ public class LoginException extends NetworkException {
     /**
      * Login error type.
      */
-    private LoginErrorType loginErrorType;
+    private final LoginErrorType loginErrorType;
 
     /**
      * Class constructor.
      */
     public LoginException(){
         super();
+        loginErrorType = LoginErrorType.USER_WRONG_PASSWORD;
     }
 
     /**

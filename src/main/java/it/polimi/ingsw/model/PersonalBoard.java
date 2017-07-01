@@ -422,6 +422,16 @@ public class PersonalBoard implements Serializable {
             if ((int) pair.getValue() != 0)
                 stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
         }
+        it = costDiscountForDevelopmentCard.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if (((ArrayList)pair.getValue()).size() > 0) {
+                for(PointsAndResources valuable : (ArrayList<PointsAndResources>)pair.getValue()){
+                    if(!valuable.toString().equals(""))
+                        stringBuilder.append(valuable.toString() + "\n");
+                }
+            }
+        }
 
         stringBuilder.append("<TERRITORY CARDS>\n");
         for (DevelopmentCard card : territoryCards)

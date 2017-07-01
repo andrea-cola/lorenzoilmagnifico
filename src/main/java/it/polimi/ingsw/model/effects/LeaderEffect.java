@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.InformationCallback;
-import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 
 import java.io.Serializable;
@@ -14,7 +13,7 @@ public abstract class LeaderEffect implements Serializable{
     /**
      * Effect type
      */
-    public String effectType;
+    private String effectType;
 
     /**
      * Method to run the effect of the card.
@@ -26,5 +25,13 @@ public abstract class LeaderEffect implements Serializable{
      * Get a description of the current effect.
      */
     abstract public String toString();
+
+    public void setEffectType(String effectType){
+        this.effectType = effectType;
+    }
+
+    public String getEffectType(){
+        return this.effectType;
+    }
 
 }

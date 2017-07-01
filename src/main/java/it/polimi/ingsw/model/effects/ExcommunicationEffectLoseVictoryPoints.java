@@ -5,9 +5,7 @@ import it.polimi.ingsw.model.PointType;
 import it.polimi.ingsw.model.PointsAndResources;
 import it.polimi.ingsw.model.ResourceType;
 
-import java.awt.*;
 import java.util.Map;
-
 
 public class ExcommunicationEffectLoseVictoryPoints extends ExcommunicationEffect{
 
@@ -26,7 +24,7 @@ public class ExcommunicationEffectLoseVictoryPoints extends ExcommunicationEffec
 
 
     public ExcommunicationEffectLoseVictoryPoints(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void runEffect(Player player){
@@ -42,9 +40,7 @@ public class ExcommunicationEffectLoseVictoryPoints extends ExcommunicationEffec
     }
 
     public String getDescription(){
-        String header = this.effectType + "\n";
-        String toLose = "Valuables owned index: \n" + this.valuablesOwnedIndex;
-        return new StringBuilder(header).append(toLose).toString();
+        return "Lose victory points: " + this.valuablesOwnedIndex;
     }
 
 }

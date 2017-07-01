@@ -10,7 +10,7 @@ public class LELorenzoDeMedici extends LeaderEffect{
     private LeaderCard leaderCard;
 
     public LELorenzoDeMedici(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void setLeaderCard(LeaderCard leaderCard){
@@ -36,7 +36,7 @@ public class LELorenzoDeMedici extends LeaderEffect{
      */
     @Override
     public String toString() {
-        String header = this.effectType + "\n";
+        String header = this.getEffectType() + "\n";
         String resources = "Copia l'effetto di un'altra carta leader.\n";
         return new StringBuilder(header).append(resources).toString();
     }

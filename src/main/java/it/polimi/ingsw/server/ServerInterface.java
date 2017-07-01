@@ -5,7 +5,6 @@ import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.socketServer.SocketPlayer;
 
 import java.util.Map;
 
