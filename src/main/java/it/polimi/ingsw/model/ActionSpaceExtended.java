@@ -48,6 +48,7 @@ public class ActionSpaceExtended implements Serializable{
         this.actionSpaceType = actionSpaceType;
         this.diceValueMalus = diceValueMalus;
         this.effect = effect;
+        this.familyMemberMap = new HashMap<>();
         this.accessible = true;
     }
 

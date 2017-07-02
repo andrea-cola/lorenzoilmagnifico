@@ -224,9 +224,7 @@ public class Game implements Serializable{
      * @throws GameException
      */
     public void placeFamilyMemberInsideHarvestSimpleSpace(Player player, FamilyMemberColor familyMemberColor, int servants, InformationCallback informationCallback) throws GameException{
-        ActionSpace actionSpace = this.mainBoard.getHarvest();
-
-        performHarvestProductionSimple(player, actionSpace, familyMemberColor, servants, informationCallback);
+        performHarvestProductionSimple(player, this.mainBoard.getHarvest(), familyMemberColor, servants, informationCallback);
     }
 
     /**
@@ -238,9 +236,7 @@ public class Game implements Serializable{
      * @throws GameException
      */
     public void placeFamilyMemberInsideProductionSimpleSpace(Player player, FamilyMemberColor familyMemberColor, int servants, InformationCallback informationCallback) throws GameException{
-        ActionSpace actionSpace = this.mainBoard.getProduction();
-
-        performHarvestProductionSimple(player, actionSpace, familyMemberColor, servants, informationCallback);
+        performHarvestProductionSimple(player, this.mainBoard.getProduction(), familyMemberColor, servants, informationCallback);
     }
 
 
@@ -264,14 +260,15 @@ public class Game implements Serializable{
                 this.mainBoard.getProductionExtended().checkAccessibility(player, familyMemberColor);
                 actionSpace.familyMemberCanBePlaced(player, familyMemberColor);
 
-                player.getPersonalBoard().getPersonalBoardTile().getProductionEffect().runEffect(player, informationCallback);
 
                 //run permanent effect
                 if (actionSpace.getActionSpaceType().equals(ActionType.HARVEST)){
+                    player.getPersonalBoard().getPersonalBoardTile().getHarvestEffect().runEffect(player, informationCallback);
                     performHarvest(player, informationCallback);
                 }
 
                 if (actionSpace.getActionSpaceType().equals(ActionType.PRODUCTION)){
+                    player.getPersonalBoard().getPersonalBoardTile().getProductionEffect().runEffect(player, informationCallback);
                     performProduction(player, informationCallback);
                 }
 

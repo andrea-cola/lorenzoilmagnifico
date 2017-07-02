@@ -50,10 +50,6 @@ public class ActionSpace implements Serializable{
         return this.actionSpaceEffect;
     }
 
-    /*package-local*/ String getPlayerUsername(){
-        return this.username;
-    }
-
     /*package-local*/ boolean isEmpty(){
         return this.empty;
     }

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model;
 
-import java.io.Serializable;
-
 /**
  * This class represents the action itself
  */
