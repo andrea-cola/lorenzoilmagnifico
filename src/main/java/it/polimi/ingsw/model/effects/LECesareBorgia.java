@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.Player;
 public class LECesareBorgia extends LeaderEffect{
 
     public LECesareBorgia(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     /**
@@ -19,7 +19,7 @@ public class LECesareBorgia extends LeaderEffect{
     public void runEffect(Player player, InformationCallback informationCallback) {
         int maxCard = player.getPersonalBoard().getMaxNumberOfCardPerType();
         int[] newMilitaryPointsRequirements = player.getPersonalBoard().getGreenCardsMilitaryPointsRequirements();
-        for (int i = 0; i < maxCard; i++){
+        for (int i = 0; i <= maxCard; i++){
             newMilitaryPointsRequirements[i] = 0;
         }
         player.getPersonalBoard().setGreenCardsMilitaryPointsRequirements(newMilitaryPointsRequirements);

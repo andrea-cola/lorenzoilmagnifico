@@ -12,7 +12,7 @@ public class LEFilippoBrunelleschi extends LeaderEffect{
     private int moneyDiscount;
 
     public LEFilippoBrunelleschi(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void setMoneyDiscount(int value){

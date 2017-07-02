@@ -1,4 +1,4 @@
-package it.polimi.ingsw.rmiClient;
+package it.polimi.ingsw.rmiclient;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -15,8 +15,12 @@ import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
-import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.rmiServer.RMIServerInterface;
+import it.polimi.ingsw.model.ClientUpdatePacket;
+import it.polimi.ingsw.model.FamilyMemberColor;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.rmiserver.RMIServerInterface;
 
 /**
  * This class extends {@link AbstractClient} class to create a network connection based on RMI.
@@ -85,7 +89,6 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
         } catch(LoginException e) {
             throw e;
         } catch(IOException e){
-            e.printStackTrace();
             throw new NetworkException();
         }
     }

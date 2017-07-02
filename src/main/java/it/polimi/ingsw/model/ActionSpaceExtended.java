@@ -2,11 +2,9 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
-import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.EffectHarvestProductionSimple;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,18 +44,19 @@ public class ActionSpaceExtended implements Serializable{
      * @param diceValueMalus of the action space.
      * @param effect of the action space.
      */
-    public ActionSpaceExtended(ActionType actionSpaceType, int diceValueMalus, EffectHarvestProductionSimple effect){
+    /*package-local*/ ActionSpaceExtended(ActionType actionSpaceType, int diceValueMalus, EffectHarvestProductionSimple effect){
         this.actionSpaceType = actionSpaceType;
         this.diceValueMalus = diceValueMalus;
         this.effect = effect;
+        this.familyMemberMap = new HashMap<>();
         this.accessible = true;
     }
 
-    public void setNotAccessible(){
+    /*package-local*/ void setNotAccessible(){
         this.accessible = false;
     }
 
-    public boolean isAccessible(){
+    /*package-local*/ boolean isAccessible(){
         return this.accessible;
     }
 
@@ -65,7 +64,7 @@ public class ActionSpaceExtended implements Serializable{
      * Get the action type of the action area.
      * @return action type.
      */
-    public ActionType getActionSpaceType(){
+    /*package-local*/ ActionType getActionSpaceType(){
         return this.actionSpaceType;
     }
 
@@ -73,7 +72,7 @@ public class ActionSpaceExtended implements Serializable{
      * Get the malus value on the dice.
      * @return value of malus.
      */
-    public int getDiceValueMalus(){
+    /*package-local*/ int getDiceValueMalus(){
         return this.diceValueMalus;
     }
 
@@ -93,13 +92,13 @@ public class ActionSpaceExtended implements Serializable{
         return this.effect;
     }
 
-    public void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+    /*package-local*/ void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
         if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL))
             if(familyMemberMap.containsKey(player.getUsername()) && !familyMemberMap.get(player.getUsername()).equals(FamilyMemberColor.NEUTRAL))
                 throw new GameException();
     }
 
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
+    /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 
         //check that the family member used has not been already used
         for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed())
@@ -119,6 +118,10 @@ public class ActionSpaceExtended implements Serializable{
 
     public void reset(){
         this.familyMemberMap = new HashMap<>();
+    }
+
+    public String toString(){
+        return new StringBuilder("Dice : " + effect.getDiceActionValue() + "\nMalus on dice: " + diceValueMalus).toString();
     }
 
 }

@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
-import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.EffectHarvestProductionSimple;
 
 import java.io.Serializable;
@@ -37,29 +36,25 @@ public class ActionSpace implements Serializable{
      */
     private Boolean empty;
 
-    public ActionSpace(ActionType actionSpaceType, EffectHarvestProductionSimple effect){
+    /*package-local*/ ActionSpace(ActionType actionSpaceType, EffectHarvestProductionSimple effect){
         this.actionSpaceType = actionSpaceType;
         this.actionSpaceEffect = effect;
         empty = true;
     }
 
-    public ActionType getActionSpaceType(){
+    /*package-local*/ ActionType getActionSpaceType(){
         return this.actionSpaceType;
     }
 
-    public EffectHarvestProductionSimple getActionSpaceEffect(){
+    /*package-local*/ EffectHarvestProductionSimple getActionSpaceEffect(){
         return this.actionSpaceEffect;
     }
 
-    public String getPlayerUsername(){
-        return this.username;
-    }
-
-    public Boolean isEmpty(){
+    /*package-local*/ boolean isEmpty(){
         return this.empty;
     }
 
-    public void setEmpty(Boolean updatedValue){
+    /*package-local*/ void setEmpty(Boolean updatedValue){
         this.empty = updatedValue;
     }
 
@@ -67,13 +62,13 @@ public class ActionSpace implements Serializable{
         return this.familyMemberColor;
     }
 
-    public void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+    /*package-local*/ void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
         if(player.getUsername().equals(this.username))
             if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL) && !this.familyMemberColor.equals(FamilyMemberColor.NEUTRAL))
                 throw new GameException();
     }
 
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+    /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
 
         //check that the family member used has not been already used
         for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed()){
@@ -101,4 +96,13 @@ public class ActionSpace implements Serializable{
         this.familyMemberColor = null;
     }
 
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder("Status: ");
+        if(username != null)
+            stringBuilder.append(username + "\n");
+        else
+            stringBuilder.append("free\n");
+        stringBuilder.append("Dice: " + actionSpaceEffect.getDiceActionValue());
+        return stringBuilder.toString();
+    }
 }

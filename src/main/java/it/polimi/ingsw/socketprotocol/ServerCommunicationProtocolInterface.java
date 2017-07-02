@@ -1,15 +1,11 @@
-package it.polimi.ingsw.socketCommunicationProtocol;
+package it.polimi.ingsw.socketprotocol;
 
 import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.utility.Configuration;
 
-import java.rmi.RemoteException;
-import java.util.List;
 import java.util.Map;
 
 /**

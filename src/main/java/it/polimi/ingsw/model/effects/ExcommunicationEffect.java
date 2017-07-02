@@ -9,7 +9,15 @@ public abstract  class ExcommunicationEffect implements Serializable {
     /**
      * Effect type
      */
-    public String effectType;
+    private String effectType;
+
+    public String getEffectType(){
+        return this.effectType;
+    }
+
+    public void setEffectType(String effectType){
+        this.effectType = effectType;
+    }
 
     /**
      * Method to run the effect of the card.

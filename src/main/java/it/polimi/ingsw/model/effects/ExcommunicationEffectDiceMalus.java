@@ -2,9 +2,6 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointType;
-
-import java.util.Map;
 
 public class ExcommunicationEffectDiceMalus extends ExcommunicationEffect {
 
@@ -13,7 +10,6 @@ public class ExcommunicationEffectDiceMalus extends ExcommunicationEffect {
     private int whiteDiceMalus;
 
     private int orangeDiceMalus;
-
 
     public void setBlackDiceMalus(int malus){
         this.blackDiceMalus = malus;
@@ -40,7 +36,7 @@ public class ExcommunicationEffectDiceMalus extends ExcommunicationEffect {
     }
 
     public ExcommunicationEffectDiceMalus(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void runEffect(Player player){
@@ -50,11 +46,7 @@ public class ExcommunicationEffectDiceMalus extends ExcommunicationEffect {
     }
 
     public String getDescription(){
-        String header = this.effectType + "\n";
-        String malus1 = "White dice malus: \n" + this.whiteDiceMalus;
-        String malus2 = "Black dice malus: \n" + this.blackDiceMalus;
-        String malus3 = "Orange dice malus: \n" + this.orangeDiceMalus;
-        return new StringBuilder(header).append(malus1).append(malus2).append(malus3).toString();
+        return "White dice -" + this.whiteDiceMalus + ", Black dice -" + this.blackDiceMalus + ", Orange dice -" + this.orangeDiceMalus;
     }
 
 

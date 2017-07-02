@@ -1,8 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.GameErrorType;
-import it.polimi.ingsw.exceptions.GameException;
-
 import java.io.Serializable;
 
 /**
@@ -18,7 +15,7 @@ public class Market implements Serializable{
     /**
      * Constructor of the markets
      */
-    public Market(int numberOfCells, MarketCell[] marketCells){
+    /*package-local*/ Market(int numberOfCells, MarketCell[] marketCells){
         this.marketCells = new MarketCell[numberOfCells];
         int i = 0;
         for(MarketCell marketCell : marketCells) {
@@ -32,12 +29,28 @@ public class Market implements Serializable{
      * @param index of the cell.
      * @return a market cell.
      */
-    public MarketCell getMarketCell(int index){
+    /*package-local*/ MarketCell getMarketCell(int index){
         return this.marketCells[index];
     }
 
     public MarketCell[] getMarketCells(){
         return this.marketCells;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0; i < marketCells.length; i++)
+            if(marketCells[i].isAccessible()){
+                stringBuilder.append("<MarketCell #" + (i+1) + "> ");
+                if(!marketCells[i].isEmpty())
+                    stringBuilder.append("already used");
+                else{
+                    stringBuilder.append("Dice: " + marketCells[i].getMinFamilyMemberValue() + "\n");
+                    stringBuilder.append("Effect: " + marketCells[i].getMarketCellImmediateEffect());
+                }
+            }
+        return stringBuilder.toString();
     }
 
 }

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.socketCommunicationProtocol;
+package it.polimi.ingsw.socketprotocol;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -86,7 +86,7 @@ public class ServerCommunicationProtocol {
         requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_SIMPLE, this::setFamilyMemberInProductionSimple);
         requestsTable.put(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_EXTENDED, this::setFamilyMemberInProductionExtended);
         requestsTable.put(CommunicationProtocolConstants.ACTIVATE_LEADER_CARD, this::activateLeader);
-        requestsTable.put(CommunicationProtocolConstants.ACTIVATE_LEADER_CARD, this::discardLeader);
+        requestsTable.put(CommunicationProtocolConstants.DISCARD_LEADER_CARD, this::discardLeader);
         requestsTable.put(CommunicationProtocolConstants.SUPPORT_FOR_THE_CHURCH_CHOICE, this::notifySupportForTheChurch);
         requestsTable.put(CommunicationProtocolConstants.END_TURN, this::endTurn);
     }
@@ -254,9 +254,6 @@ public class ServerCommunicationProtocol {
             try{
                 output.reset();
                 output.writeObject(CommunicationProtocolConstants.MODEL_UPDATE);
-                System.out.println(clientUpdatePacket.getGame().getPlayer("Dacco").getPersonalBoard().getValuables().toString());
-                System.out.println(clientUpdatePacket.getGame().getPlayer("Cola95").getPersonalBoard().getValuables().toString());
-                System.out.println(clientUpdatePacket.getMesssage());
                 output.writeObject(clientUpdatePacket);
                 output.flush();
             } catch (IOException e){

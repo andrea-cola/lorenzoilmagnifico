@@ -1,18 +1,14 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.InformationCallback;
-import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.ResourceType;
-
-import java.util.Map;
 
 public class LEMultiplicator extends LeaderEffect{
 
     private int multiplicator;
 
     public LEMultiplicator(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void setMultiplicator(int value){

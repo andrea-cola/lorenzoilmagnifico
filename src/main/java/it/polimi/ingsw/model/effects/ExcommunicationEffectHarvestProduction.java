@@ -1,12 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.Action;
 import it.polimi.ingsw.model.ActionType;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.ResourceType;
-
-import java.util.Map;
-
 
 public class ExcommunicationEffectHarvestProduction extends ExcommunicationEffect {
 
@@ -31,7 +26,7 @@ public class ExcommunicationEffectHarvestProduction extends ExcommunicationEffec
     }
 
     public ExcommunicationEffectHarvestProduction(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void runEffect(Player player){
@@ -39,10 +34,7 @@ public class ExcommunicationEffectHarvestProduction extends ExcommunicationEffec
     }
 
     public String getDescription(){
-        String header = this.effectType + "\n";
-        String actionType = "Type:\n" + this.actionType.toString();
-        String malus = "Valuables malus:\n" + this.harvestProductionDiceMalus;
-        return new StringBuilder(header).append(actionType).append(malus).toString();
+        return "Malus on " + this.actionType.toString().toLowerCase() + " ( " + this.harvestProductionDiceMalus + " ) ";
     }
 
 }

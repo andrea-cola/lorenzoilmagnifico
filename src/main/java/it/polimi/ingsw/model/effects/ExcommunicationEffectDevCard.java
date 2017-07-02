@@ -3,9 +3,6 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.Player;
 
-import java.util.Map;
-
-
 public class ExcommunicationEffectDevCard extends ExcommunicationEffect {
 
     private DevelopmentCardColor developmentCardColor;
@@ -29,7 +26,7 @@ public class ExcommunicationEffectDevCard extends ExcommunicationEffect {
     }
 
     public ExcommunicationEffectDevCard(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
 
@@ -38,10 +35,7 @@ public class ExcommunicationEffectDevCard extends ExcommunicationEffect {
     }
 
     public String getDescription() {
-        String header = this.effectType + "\n";
-        String color = "Development card color: \n" + this.developmentCardColor;
-        String malus = "Card malus: \n" + this.diceMalus;
-        return new StringBuilder(header).append(color).append(malus).toString();
+        return "Dice malus for all card with following color ( " + this.developmentCardColor + ", " + diceMalus + " )";
     }
 
 }

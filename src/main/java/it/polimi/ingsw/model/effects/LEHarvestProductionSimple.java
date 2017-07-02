@@ -20,7 +20,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      * Class constructor.
      */
     public LEHarvestProductionSimple(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     /**
@@ -86,7 +86,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      */
     @Override
     public String toString() {
-        String header = this.effectType + "\n";
+        String header = this.getEffectType() + "\n";
         String actionTypeAndValue = "Action type: " + actionType + "\nValue: " + diceActionValue + "\n";
         return new StringBuilder(header).append(actionTypeAndValue).toString();
     }

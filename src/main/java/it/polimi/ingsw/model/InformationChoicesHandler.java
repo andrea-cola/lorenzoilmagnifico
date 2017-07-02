@@ -22,7 +22,8 @@ public class InformationChoicesHandler implements InformationCallback {
     public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
         ArrayList<Privilege> privileges = (ArrayList<Privilege>)decisions.get(reason);
         ArrayList<Privilege> privilegesNeeded = new ArrayList<>(privileges.subList(0, councilPrivilege.getNumberOfCouncilPrivileges()));
-        privileges.remove(privilegesNeeded);
+        for(int i = 0; i < councilPrivilege.getNumberOfCouncilPrivileges(); i++)
+            privileges.remove(i);
         if(privileges.size() == 0)
             decisions.remove(reason);
         else

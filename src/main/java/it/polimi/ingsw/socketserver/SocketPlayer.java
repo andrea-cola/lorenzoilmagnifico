@@ -1,4 +1,4 @@
-package it.polimi.ingsw.socketServer;
+package it.polimi.ingsw.socketserver;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.*;
@@ -7,8 +7,8 @@ import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.server.ServerInterface;
-import it.polimi.ingsw.socketCommunicationProtocol.ServerCommunicationProtocol;
-import it.polimi.ingsw.socketCommunicationProtocol.ServerCommunicationProtocolInterface;
+import it.polimi.ingsw.socketprotocol.ServerCommunicationProtocol;
+import it.polimi.ingsw.socketprotocol.ServerCommunicationProtocolInterface;
 
 import java.io.*;
 import java.net.Socket;
@@ -65,8 +65,9 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     @SuppressWarnings("InfiniteLoopStatement")
     @Override
     public void run(){
+        boolean flag = true;
         try{
-            while(true) {
+            while(flag) {
                 Object input = objectInputStream.readObject();
                 socketCommunicationProtocol.clientRequestHandler(input);
             }

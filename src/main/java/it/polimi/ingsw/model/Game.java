@@ -7,8 +7,6 @@ import it.polimi.ingsw.server.ServerPlayer;
 import java.io.Serializable;
 import java.util.*;
 
-import static it.polimi.ingsw.exceptions.GameErrorType.FAMILY_MEMBER_DICE_VALUE;
-
 public class Game implements Serializable{
 
     /**
@@ -144,7 +142,6 @@ public class Game implements Serializable{
 
         //get family member and update his value with servants number provided
         int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
-
         LeaderCard leaderCardBrunelleschi = player.getPersonalBoard().getLeaderCardWithName("Filippo Brunelleschi");
 
         //check if the cell is empty or the player has the leader effect to place family member inside already occupied action spaces
@@ -195,6 +192,7 @@ public class Game implements Serializable{
                 if (!tower.isFree() && (leaderCardBrunelleschi == null || !leaderCardBrunelleschi.getLeaderEffectActive())){
                     player.getPersonalBoard().getValuables().increase(ResourceType.COIN, 3);
                 }
+                throw e;
             }
         } else {
             throw new GameException();
@@ -226,9 +224,7 @@ public class Game implements Serializable{
      * @throws GameException
      */
     public void placeFamilyMemberInsideHarvestSimpleSpace(Player player, FamilyMemberColor familyMemberColor, int servants, InformationCallback informationCallback) throws GameException{
-        ActionSpace actionSpace = this.mainBoard.getHarvest();
-
-        performHarvestProductionSimple(player, actionSpace, familyMemberColor, servants, informationCallback);
+        performHarvestProductionSimple(player, this.mainBoard.getHarvest(), familyMemberColor, servants, informationCallback);
     }
 
     /**
@@ -240,9 +236,7 @@ public class Game implements Serializable{
      * @throws GameException
      */
     public void placeFamilyMemberInsideProductionSimpleSpace(Player player, FamilyMemberColor familyMemberColor, int servants, InformationCallback informationCallback) throws GameException{
-        ActionSpace actionSpace = this.mainBoard.getProduction();
-
-        performHarvestProductionSimple(player, actionSpace, familyMemberColor, servants, informationCallback);
+        performHarvestProductionSimple(player, this.mainBoard.getProduction(), familyMemberColor, servants, informationCallback);
     }
 
 
@@ -266,14 +260,15 @@ public class Game implements Serializable{
                 this.mainBoard.getProductionExtended().checkAccessibility(player, familyMemberColor);
                 actionSpace.familyMemberCanBePlaced(player, familyMemberColor);
 
-                player.getPersonalBoard().getPersonalBoardTile().getProductionEffect().runEffect(player, informationCallback);
 
                 //run permanent effect
                 if (actionSpace.getActionSpaceType().equals(ActionType.HARVEST)){
+                    player.getPersonalBoard().getPersonalBoardTile().getHarvestEffect().runEffect(player, informationCallback);
                     performHarvest(player, informationCallback);
                 }
 
                 if (actionSpace.getActionSpaceType().equals(ActionType.PRODUCTION)){
+                    player.getPersonalBoard().getPersonalBoardTile().getProductionEffect().runEffect(player, informationCallback);
                     performProduction(player, informationCallback);
                 }
 
@@ -393,7 +388,7 @@ public class Game implements Serializable{
             councilPalace.getImmediateEffect().runEffect(player, informationCallback);
         }catch (GameException e){
             restoreFamilyMemberValue(player, familyMemberColor, servantsValue);
-            System.out.print(e.getError());
+            throw e;
         }
     }
 

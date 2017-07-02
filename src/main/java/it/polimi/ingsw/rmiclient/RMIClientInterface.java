@@ -1,4 +1,4 @@
-package it.polimi.ingsw.rmiClient;
+package it.polimi.ingsw.rmiclient;
 
 import it.polimi.ingsw.model.ClientUpdatePacket;
 import it.polimi.ingsw.model.Game;

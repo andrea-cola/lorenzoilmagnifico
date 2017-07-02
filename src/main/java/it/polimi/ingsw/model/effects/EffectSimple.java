@@ -30,8 +30,8 @@ public class EffectSimple extends Effect{
      * Class constructor.
      */
     public EffectSimple(){
+        super.setEffectType(this.getClass().getSimpleName());
         this.valuable = new PointsAndResources();
-        super.effectType = this.getClass().getSimpleName();
     }
 
     /**
@@ -139,9 +139,6 @@ public class EffectSimple extends Effect{
      */
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.effectType + ": ");
-        stringBuilder.append("resources earned: " + valuable.toString() + " council privileges: " + numberOfCouncilPrivileges);
-        return stringBuilder.toString();
+        return new StringBuilder().append("Earn this resources: ( " + valuable.toString() + "council privileges: " + numberOfCouncilPrivileges + " )").toString();
     }
 }

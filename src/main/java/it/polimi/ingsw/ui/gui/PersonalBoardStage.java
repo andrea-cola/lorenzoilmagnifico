@@ -63,12 +63,6 @@ public class PersonalBoardStage extends Application{
         background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
         gridPane.setBackground( new Background(background));
 
-        for (int i = 0; i <= 5 ; i++) {
-            for (int j = 0; j <= 5 ; j++) {
-                ImageView card = new ImageView();
-            }
-        }
-
         Label coins = new Label("Coins = " + coinsValue);
         gridPane.add(coins, 0, 6);
         Label wood = new Label("Wood = " + woodValue);

@@ -33,7 +33,7 @@ public class TowerCell implements Serializable{
     private String playerNicknameInTheCell;
 
 
-    public TowerCell(int minFamilyMemberValue){
+    /*package-local*/ TowerCell(int minFamilyMemberValue){
         this.minFamilyMemberValue = minFamilyMemberValue;
     }
 
@@ -41,7 +41,7 @@ public class TowerCell implements Serializable{
      * Set immediate effect of the cell.
      * @param effect
      */
-    public void setTowerCellImmediateEffect(Effect effect){
+    /*package-local*/ void setTowerCellImmediateEffect(Effect effect){
         this.towerCellImmediateEffect = effect;
     }
 
@@ -57,7 +57,7 @@ public class TowerCell implements Serializable{
      * Set the minimum value to let a family member access on the cell
      * @param value minimum value
      */
-    public void setMinFamilyMemberValue(Integer value){
+    /*package-local*/ void setMinFamilyMemberValue(Integer value){
         this.minFamilyMemberValue = value;
     }
 
@@ -108,7 +108,7 @@ public class TowerCell implements Serializable{
      * @param familyMemberColor
      * @throws GameException
      */
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+    /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
         int colorBonus = player.getPersonalBoard().getDevelopmentCardColorDiceValueBonus().get(developmentCard.getColor());
         if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + colorBonus < this.minFamilyMemberValue)
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
@@ -119,11 +119,10 @@ public class TowerCell implements Serializable{
       * @param player
      * @throws GameException
      */
-    public void developmentCardCanBeBuyed(Player player, InformationCallback informationCallback) throws GameException{
+    /*package-local*/ void developmentCardCanBeBuyed(Player player, InformationCallback informationCallback) throws GameException{
         //check if the user has less than six cards of this development card color inside the personal board
-        if (player.getPersonalBoard().getCards(this.developmentCard.getColor()).size() > 6){
+        if (player.getPersonalBoard().getCards(this.developmentCard.getColor()).size() > 6)
             throw new GameException(GameErrorType.PERSONAL_BOARD_MAX_CARD_LIMIT_REACHED);
-        }
 
         PointsAndResources discount;
         if(player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).size() == 1) {
@@ -146,7 +145,6 @@ public class TowerCell implements Serializable{
             }
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////
         for(Map.Entry<ResourceType, Integer> entry : discount.getResources().entrySet()){
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
@@ -158,8 +156,7 @@ public class TowerCell implements Serializable{
             //amount of military points owned by the player
             int playerMilitaryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY);
             //amount of military points requested to get this card
-
-            int militaryPointsRequired = player.getPersonalBoard().getGreenCardsMilitaryPointsRequirements(amount-1);
+            int militaryPointsRequired = player.getPersonalBoard().getGreenCardsMilitaryPointsRequirements(amount);
 
             if (playerMilitaryPoints < militaryPointsRequired){
                 throw new GameException(GameErrorType.MILITARY_POINTS_REQUIRED);
@@ -173,5 +170,20 @@ public class TowerCell implements Serializable{
                 throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
             }
         }
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if(playerNicknameInTheCell != null)
+            stringBuilder.append("Occupied by: " + playerNicknameInTheCell + "\n");
+        else {
+            stringBuilder.append("\nDice: " + minFamilyMemberValue + "\n");
+            if(towerCellImmediateEffect != null)
+                stringBuilder.append("Cell effect: " + towerCellImmediateEffect.toString() + "\n");
+            stringBuilder.append(developmentCard.toString());
+        }
+        return stringBuilder.toString();
     }
 }

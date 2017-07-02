@@ -1,4 +1,4 @@
-package it.polimi.ingsw.socketCommunicationProtocol;
+package it.polimi.ingsw.socketprotocol;
 
 import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.exceptions.LoginErrorType;
@@ -106,7 +106,6 @@ public class ClientCommunicationProtocol {
             objectOutputStream.flush();
             response = (int)objectInputStream.readObject();
         }catch(IOException | ClassNotFoundException e){
-            e.printStackTrace();
             throw new NetworkException(e);
         }
         if(response == CommunicationProtocolConstants.USER_ALREADY_LOGGEDIN)
@@ -225,9 +224,6 @@ public class ClientCommunicationProtocol {
     public void notifyModelUpdate(){
         try{
             ClientUpdatePacket clientUpdatePacket = (ClientUpdatePacket)objectInputStream.readObject();
-            System.out.println(clientUpdatePacket.getGame().getPlayer("Dacco").getPersonalBoard().getValuables().toString());
-            System.out.println(clientUpdatePacket.getGame().getPlayer("Cola95").getPersonalBoard().getValuables().toString());
-            System.out.println(clientUpdatePacket.getMesssage());
             clientInterface.notifyModelUpdate(clientUpdatePacket);
         } catch (ClassCastException | ClassNotFoundException | IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle new model update request.");

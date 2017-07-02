@@ -1,11 +1,9 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PointsAndResources;
 import it.polimi.ingsw.model.ResourceType;
 
-import java.awt.*;
 import java.util.Map;
 
 public class ExcommunicationEffectDevCardLoseVictoryPoints extends ExcommunicationEffect {
@@ -21,7 +19,7 @@ public class ExcommunicationEffectDevCardLoseVictoryPoints extends Excommunicati
     }
 
     public ExcommunicationEffectDevCardLoseVictoryPoints(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void runEffect(Player player){
@@ -31,8 +29,6 @@ public class ExcommunicationEffectDevCardLoseVictoryPoints extends Excommunicati
     }
 
     public String getDescription(){
-        String header = this.effectType + "\n";
-        String cardValuables = "Valuables to lose index:\n" + this.cardValuables;
-        return new StringBuilder(header).append(cardValuables).toString();
+        return "These resources won't assign final victory points: ( " + this.cardValuables + " ) ";
     }
 }

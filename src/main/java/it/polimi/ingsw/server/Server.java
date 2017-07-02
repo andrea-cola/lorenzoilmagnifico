@@ -1,15 +1,15 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.*;
-import it.polimi.ingsw.gameServer.Configurator;
+import it.polimi.ingsw.gameserver.Configurator;
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
-import it.polimi.ingsw.socketServer.SocketServer;
-import it.polimi.ingsw.gameServer.Room;
-import it.polimi.ingsw.rmiServer.RMIServer;
+import it.polimi.ingsw.socketserver.SocketServer;
+import it.polimi.ingsw.gameserver.Room;
+import it.polimi.ingsw.rmiserver.RMIServer;
 
 import java.io.IOException;
 import java.sql.*;
@@ -145,7 +145,11 @@ public class Server implements ServerInterface{
     public void signInPlayer(String username, String password) throws LoginException{
         synchronized (LOGIN_SIGNIN_MUTEX) {
             if(!players.containsKey(username))
-                dbServer.signInPlayer(username, password);
+                try {
+                    dbServer.signInPlayer(username, password);
+                } catch (SQLException e){
+                    throw new LoginException(LoginErrorType.GENERIC_SQL_ERROR);
+                }
             else
                 throw new LoginException(LoginErrorType.USER_ALREADY_EXISTS);
         }
@@ -162,7 +166,11 @@ public class Server implements ServerInterface{
     public void loginPlayer(ServerPlayer player, String username, String password) throws LoginException{
         synchronized (LOGIN_SIGNIN_MUTEX) {
             if(!players.containsKey(username) || (players.containsKey(username) && !activePlayer.get(username))) {
-                dbServer.loginPlayer(username, password);
+                try{
+                    dbServer.loginPlayer(username, password);
+                } catch (SQLException e){
+                    throw new LoginException(LoginErrorType.GENERIC_SQL_ERROR);
+                }
                 player.setUsername(username);
                 players.put(username, player);
                 activePlayer.put(username, true);
@@ -253,18 +261,21 @@ public class Server implements ServerInterface{
             }
         }
         synchronized (JOIN_ROOM_MUTEX){
-            if(playerRoom != null) {
-                playerRoom.rejoinRoom(serverPlayer);
-                serverPlayer.setRoom(playerRoom);
-                Debugger.printDebugMessage(serverPlayer.getUsername() + " rejoined in room #" + playerRoom.getRoomID());
+            try {
+                if (playerRoom != null) {
+                    playerRoom.rejoinRoom(serverPlayer);
+                    serverPlayer.setRoom(playerRoom);
+                    Debugger.printDebugMessage(serverPlayer.getUsername() + " rejoined in room #" + playerRoom.getRoomID());
+                } else if (!rooms.isEmpty()) {
+                    playerRoom = rooms.get(rooms.size() - 1);
+                    playerRoom.joinRoom(serverPlayer);
+                    serverPlayer.setRoom(playerRoom);
+                    Debugger.printDebugMessage(serverPlayer.getUsername() + " joined in room #" + playerRoom.getRoomID());
+                } else
+                    throw new RoomException("There are no rooms available!");
+            } catch (NetworkException e){
+                throw new RoomException();
             }
-            else if(!rooms.isEmpty()) {
-                playerRoom = rooms.get(rooms.size() - 1);
-                playerRoom.joinRoom(serverPlayer);
-                serverPlayer.setRoom(playerRoom);
-                Debugger.printDebugMessage(serverPlayer.getUsername() + " joined in room #" + playerRoom.getRoomID());
-            } else
-                throw new RoomException("There are no rooms available!");
         }
     }
 

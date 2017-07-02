@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
 import java.util.Map;
-import java.util.ArrayList;
 
 /**
  * This class represent the immediate simple effect.
@@ -24,7 +23,7 @@ public class LESimple extends LeaderEffect{
      * Class constructor.
      */
     public LESimple(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
         this.valuable = new PointsAndResources();
     }
 
@@ -67,7 +66,7 @@ public class LESimple extends LeaderEffect{
      */
     @Override
     public String toString() {
-        String header = this.effectType + "\n";
+        String header = this.getEffectType() + "\n";
         String resources = "Resources:\n" + valuable.toString();
         String privilege = "Council privileges: " + numberOfCouncilPrivileges;
         return new StringBuilder(header).append(resources).append(privilege).toString();

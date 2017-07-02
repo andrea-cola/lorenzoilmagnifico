@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.InformationCallback;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -40,48 +39,7 @@ public class EffectChooseCard extends Effect{
      * Class constructor.
      */
     public EffectChooseCard(){
-        super.effectType = this.getClass().getSimpleName();
-    }
-
-
-    public void setDevelopmentCardColors(DevelopmentCardColor[] colors){
-        this.developmentCardColors = colors;
-    }
-
-    public DevelopmentCardColor[] getDevelopmentCardColors(){
-        return this.developmentCardColors;
-    }
-
-    public void setDiceValue(int value){
-        this.diceValue = value;
-    }
-
-    public int getDiceValue(){
-        return this.diceValue;
-    }
-
-    public void setPointsAndResources(PointsAndResources pointsAndResources){
-        this.pointsAndResources = pointsAndResources;
-    }
-
-    public PointsAndResources getPointsAndResources(){
-        return this.pointsAndResources;
-    }
-
-    public void setPickUpBonus(PointsAndResources pickUpBonus){
-        this.pickUpBonus = pickUpBonus;
-    }
-
-    public PointsAndResources getPickUpBonus(){
-        return this.pickUpBonus;
-    }
-
-    public void setCouncilPrivileges(int councilPrivilege){
-        this.numberOfCouncilPrivileges = councilPrivilege;
-    }
-
-    public int getCouncilPrivileges(){
-        return this.numberOfCouncilPrivileges;
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     /**
@@ -108,8 +66,11 @@ public class EffectChooseCard extends Effect{
         }
 
         DevelopmentCard developmentCard = informationCallback.chooseNewCard("choose-new-card", developmentCardColors, diceValue, pickUpBonus);
-        if(developmentCard.getImmediateEffect() != null)
-            developmentCard.getImmediateEffect().runEffect(player, informationCallback);
+        if(developmentCard != null) {
+            player.getPersonalBoard().addCard(developmentCard);
+            if (developmentCard.getImmediateEffect() != null)
+                developmentCard.getImmediateEffect().runEffect(player, informationCallback);
+        }
     }
 
 
@@ -119,12 +80,12 @@ public class EffectChooseCard extends Effect{
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.effectType + ": ");
-        stringBuilder.append("dice: " + diceValue + " ");
+        stringBuilder.append("Dice: " + diceValue + " choose a new card with one of the following colors ( ");
         for(DevelopmentCardColor developmentCardColor : developmentCardColors)
-            stringBuilder.append(developmentCardColor + "+");
-        stringBuilder.append("discounts: " + pointsAndResources.toString());
-        stringBuilder.append("resources earned: " + pointsAndResources.toString() + "council privileges: " + numberOfCouncilPrivileges);
+            stringBuilder.append(developmentCardColor + " ");
+        stringBuilder.append(" ) ");
+        stringBuilder.append("DISCOUNTS:( " + pointsAndResources.toString() + ") ");
+        stringBuilder.append("RESOURCES EARNED:( " + pointsAndResources.toString() + "COUNCIL PRIVILEGES: " + numberOfCouncilPrivileges + " )");
         return stringBuilder.toString();
     }
 }

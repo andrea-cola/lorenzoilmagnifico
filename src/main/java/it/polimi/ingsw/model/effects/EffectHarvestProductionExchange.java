@@ -39,7 +39,7 @@ public class EffectHarvestProductionExchange extends Effect{
      * Class constructor.
      */
     public EffectHarvestProductionExchange(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void setCouncilPrivilege(int privilege){
@@ -187,25 +187,17 @@ public class EffectHarvestProductionExchange extends Effect{
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.effectType + ": ");
-        stringBuilder.append(actionType.toString() + " dice: " + diceActionValue + " ");
-        stringBuilder.append("resources to pay: ");
-        int i = 0;
-        for(PointsAndResources p : valuableToPay) {
-            if(valuableToPay.length > 1 && i > 0)
-                stringBuilder.append("or ");
+        stringBuilder.append(actionType.toString() + "( dice: " + diceActionValue + " ) ");
+        stringBuilder.append(" you can exchange these resources: ( ");
+
+        for(PointsAndResources p : valuableToPay)
             stringBuilder.append(p.toString() + " ");
-            i++;
-        }
-        stringBuilder.append("resources earned: ");
-        i = 0;
-        for(PointsAndResources p : valuableEarned) {
-            if(valuableToPay.length > 1 && i > 0)
-                stringBuilder.append("or ");
+        stringBuilder.append(") ");
+        stringBuilder.append("for the resources: ( ");
+        for(PointsAndResources p : valuableEarned)
             stringBuilder.append(p.toString() + " ");
-            i++;
-        }
         stringBuilder.append(" council privileges: " + numberOfCouncilPrivileges);
+        stringBuilder.append(" )");
         return stringBuilder.toString();
     }
 

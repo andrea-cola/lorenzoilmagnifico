@@ -2,9 +2,7 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.InformationCallback;
-import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
-import javafx.beans.property.MapProperty;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,31 +19,10 @@ public class LEDiceBonus extends LeaderEffect {
     private int orangeDice;
 
     public LEDiceBonus(){
-        super.effectType = this.getClass().getSimpleName();
-    }
-
-    public void setWhiteDice(int whiteDice){
-        this.whiteDice = whiteDice;
-    }
-
-    public void setBlackDice(int blackDice){
-        this.blackDice = blackDice;
-    }
-
-    public void setOrangeDice(int orangeDice){
-        this.orangeDice = orangeDice;
-    }
-
-    public int getWhiteDice(){
-        return this.whiteDice;
-    }
-
-    public int getBlackDice(){
-        return this.getBlackDice();
-    }
-
-    public int getOrangeDice(){
-        return this.getOrangeDice();
+        super.setEffectType(this.getClass().getSimpleName());
+        this.whiteDice = 0;
+        this.blackDice = 0;
+        this.orangeDice = 0;
     }
 
     /**
@@ -55,12 +32,9 @@ public class LEDiceBonus extends LeaderEffect {
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-        Map<FamilyMemberColor, Integer> members = new HashMap<>();
-        members.put(FamilyMemberColor.WHITE, whiteDice);
-        members.put(FamilyMemberColor.ORANGE, orangeDice);
-        members.put(FamilyMemberColor.BLACK, blackDice);
-        members.put(FamilyMemberColor.NEUTRAL, 0);
-        player.getPersonalBoard().getFamilyMember().setMembers(members);
+        player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(FamilyMemberColor.WHITE, whiteDice);
+        player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(FamilyMemberColor.BLACK, blackDice);
+        player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(FamilyMemberColor.ORANGE, orangeDice);
     }
 
     /**
@@ -68,7 +42,7 @@ public class LEDiceBonus extends LeaderEffect {
      */
     @Override
     public String toString() {
-        String header = this.effectType + "\n";
+        String header = this.getEffectType() + "\n";
         String resources = "White dice bonus:\n" + whiteDice;
         String resources2 = "Black dice bonus:\n" + blackDice;
         String resources3 = "Orange dice bonus:\n" + orangeDice;

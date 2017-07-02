@@ -2,8 +2,6 @@ package it.polimi.ingsw.exceptions;
 
 import org.omg.CORBA.UserException;
 
-import java.io.IOException;
-
 /**
  * This exception is thrown when errors occur in game.
  */
@@ -12,13 +10,14 @@ public class GameException extends UserException {
     /**
      * Game error type.
      */
-    private GameErrorType gameErrorType;
+    private final GameErrorType gameErrorType;
 
     /**
      * Class constructor.
      */
     public GameException(){
         super();
+        this.gameErrorType = GameErrorType.GENERIC_ERROR;
     }
 
     /**

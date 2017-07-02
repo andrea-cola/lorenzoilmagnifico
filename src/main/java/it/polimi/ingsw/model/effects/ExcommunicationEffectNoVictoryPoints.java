@@ -17,7 +17,7 @@ public class ExcommunicationEffectNoVictoryPoints extends ExcommunicationEffect 
     }
 
     public ExcommunicationEffectNoVictoryPoints(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void runEffect(Player player){
@@ -25,8 +25,6 @@ public class ExcommunicationEffectNoVictoryPoints extends ExcommunicationEffect 
     }
 
     public String getDescription(){
-        String header = this.effectType + "\n";
-        String devCard = "Development card: \n" + this.developmentCardColor;
-        return new StringBuilder(header).append(devCard).toString();
+        return "Card of the following colors won't assign victory points: ( " + this.developmentCardColor + " )";
     }
 }
