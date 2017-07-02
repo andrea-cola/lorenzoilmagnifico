@@ -86,9 +86,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      */
     @Override
     public String toString() {
-        String header = this.getEffectType() + "\n";
-        String actionTypeAndValue = "Action type: " + actionType + "\nValue: " + diceActionValue + "\n";
-        return new StringBuilder(header).append(actionTypeAndValue).toString();
+        return "You can run " + actionType.toString().toLowerCase() + " with dice value = " + diceActionValue;
     }
 
 }

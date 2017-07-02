@@ -394,69 +394,82 @@ public class PersonalBoard implements Serializable {
         this.familyMember = new FamilyMember();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("-> RESOURCES AVAILABLE\n");
-        stringBuilder.append(valuables.toString());
 
         stringBuilder.append("\n-> FAMILY MEMBERS AVAILABLE\n");
-        Iterator it = familyMember.getMembers().entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
+        for(Map.Entry pair : familyMember.getMembers().entrySet())
             if (!familyMemberIsUsed((FamilyMemberColor) pair.getKey()))
-                stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
-        }
+                stringBuilder.append(pair.getKey().toString().toLowerCase() + "=" + pair.getValue() + " ");
 
-        stringBuilder.append("-> BONUS AVAILABLE\n");
-        it = harvestProductionDiceValueBonus.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            if ((int) pair.getValue() != 0)
-                stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
-        }
+        stringBuilder.append("\n\n-> RESOURCES AVAILABLE\n" + valuables + "\n");
 
-        it = developmentCardColorDiceValueBonus.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            if ((int) pair.getValue() != 0)
-                stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
-        }
-        it = costDiscountForDevelopmentCard.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            if (((ArrayList)pair.getValue()).size() > 0) {
-                for(PointsAndResources valuable : (ArrayList<PointsAndResources>)pair.getValue()){
+        stringBuilder.append("\n-> BONUS AVAILABLE\n");
+        for(Map.Entry pair : harvestProductionDiceValueBonus.entrySet())
+            if((int) pair.getValue() != 0)
+                stringBuilder.append(pair.getKey().toString() + "=" + pair.getValue() + "\n");
+        for(Map.Entry pair : developmentCardColorDiceValueBonus.entrySet())
+            if((int) pair.getValue() != 0)
+                stringBuilder.append(pair.getKey().toString() + "=" + pair.getValue() + "\n");
+        for(Map.Entry pair : costDiscountForDevelopmentCard.entrySet())
+            if (((ArrayList) pair.getValue()).size() > 0)
+                for(PointsAndResources valuable : (ArrayList<PointsAndResources>)pair.getValue())
                     if(!valuable.toString().equals(""))
                         stringBuilder.append(valuable.toString() + "\n");
-                }
-            }
-        }
 
-        stringBuilder.append("<TERRITORY CARDS>\n");
+        stringBuilder.append("\n-> TERRITORY CARDS\n");
         for (DevelopmentCard card : territoryCards)
             stringBuilder.append(card.toString());
-        stringBuilder.append("<BUILDING CARDS>\n");
+        stringBuilder.append("\n-> BUILDING CARDS\n");
         for (DevelopmentCard card : buildingCards)
             stringBuilder.append(card.toString());
-        stringBuilder.append("<CHARACTERS CARDS>\n");
+        stringBuilder.append("\n-> CHARACTERS CARDS\n");
         for (DevelopmentCard card : characterCards)
             stringBuilder.append(card.toString());
-        stringBuilder.append("<VENTURE CARDS>\n");
+        stringBuilder.append("\n-> VENTURE CARDS\n");
         for (DevelopmentCard card : ventureCards)
             stringBuilder.append(card.toString());
 
-        if (excommunicationCards.size() > 0) {
-            stringBuilder.append("<EXCOMMUNICATION CARDS>\n");
+        stringBuilder.append("\n-> EXCOMMUNICATIONS (active)\n");
+        if (excommunicationCards.size() > 0)
             for (ExcommunicationCard card : excommunicationCards)
                 stringBuilder.append(card.toString());
-        }
-        if (leaderCards.size() > 0) {
-            stringBuilder.append("<LEADER CARDS>\n");
-            for (LeaderCard card : leaderCards)
-                stringBuilder.append(card.toString());
-        }
 
+        stringBuilder.append("\n-> LEADER CARDS\n");
+        if (leaderCards.size() > 0)
+            for (LeaderCard card : leaderCards)
+                stringBuilder.append(card.toString() + "\n");
+        return stringBuilder.toString();
+    }
+
+    public String toStringSmall(){
+        StringBuilder stringBuilder = new StringBuilder("\n-> RESOURCES AVAILABLE\n" + valuables + "\n");
+
+        stringBuilder.append("\n-> TERRITORY CARDS: ");
+        for (DevelopmentCard card : territoryCards)
+            stringBuilder.append(card.getName() + ", ");
+        stringBuilder.append("\n-> BUILDING CARDS: ");
+        for (DevelopmentCard card : buildingCards)
+            stringBuilder.append(card.getName() + ", ");
+        stringBuilder.append("\n-> CHARACTERS CARDS: ");
+        for (DevelopmentCard card : characterCards)
+            stringBuilder.append(card.getName() + ", ");
+        stringBuilder.append("\n-> VENTURE CARDS: ");
+        for (DevelopmentCard card : ventureCards)
+            stringBuilder.append(card.getName() + ", ");
+
+        stringBuilder.append("\n-> EXCOMMUNICATIONS (active)\n");
+        if (excommunicationCards.size() > 0)
+            for (ExcommunicationCard card : excommunicationCards)
+                stringBuilder.append(card.toString());
+
+        stringBuilder.append("\n-> LEADER CARDS (active): ");
+        if (leaderCards.size() > 0)
+            for (LeaderCard card : leaderCards)
+                if(card.getLeaderEffectActive())
+                    stringBuilder.append(card.getLeaderCardName() + ", ");
         return stringBuilder.toString();
     }
 

@@ -46,15 +46,6 @@ public class PointsAndResources implements Serializable{
     }
 
     /**
-     * Method to decrease a specific resource in resources map.
-     * @param type of the resource to decrease.
-     * @param value of the resource to decrease.
-     */
-    public void decrease(ResourceType type, Integer value){
-        this.resources.put(type, this.resources.get(type) - value);
-    }
-
-    /**
      * Method to increase a specific point in points map.
      * @param type of the point to increase.
      * @param value of the point to increase.
@@ -64,14 +55,22 @@ public class PointsAndResources implements Serializable{
     }
 
     /**
+     * Method to decrease a specific resource in resources map.
+     * @param type of the resource to decrease.
+     * @param value of the resource to decrease.
+     */
+    public void decrease(ResourceType type, Integer value) {
+        this.resources.put(type, this.resources.get(type) - value);
+    }
+
+    /**
      * Method to decrease a specific point in points map.
      * @param type of the point to decrease.
      * @param value of the point to decrease.
      */
-    public void decrease(PointType type, Integer value){
+    public void decrease(PointType type, Integer value) {
         this.points.put(type, this.points.get(type) - value);
     }
-
 
     /**
      * Method to get the resources map.
@@ -95,31 +94,13 @@ public class PointsAndResources implements Serializable{
      */
     @Override
     public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
-        Iterator it = resources.entrySet().iterator();
-        boolean first = false;
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            if((int)pair.getValue() > 0) {
-                if(first)
-                    stringBuilder.append(", ");
-                else
-                    first = true;
-                stringBuilder.append(pair.getKey().toString() + ": " + pair.getValue().toString());
-            }
-        }
-        first = false;
-        it = points.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            if((int)pair.getValue() > 0) {
-                if(first)
-                    stringBuilder.append(", ");
-                else
-                    first = true;
-                stringBuilder.append(pair.getKey().toString() + ": " + pair.getValue().toString());
-            }
-        }
+        StringBuilder stringBuilder = new StringBuilder("");
+        for(Map.Entry pair : resources.entrySet())
+            if((int)pair.getValue() != 0)
+                stringBuilder.append(pair.getKey().toString().toLowerCase() + "=" + pair.getValue() + " ");
+        for(Map.Entry pair : points.entrySet())
+            if((int)pair.getValue() != 0)
+                stringBuilder.append(pair.getKey().toString().toLowerCase() + "=" + pair.getValue() + " ");
         return stringBuilder.toString();
     }
 

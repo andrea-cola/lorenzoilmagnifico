@@ -17,14 +17,6 @@ public class EffectHarvestProductionBonus extends Effect{
         super.setEffectType(this.getClass().getSimpleName());
     }
 
-    public void setDiceValueBonus(int value){
-        this.diceValueBonus = value;
-    }
-
-    public int getDiceValueBonus(){
-        return this.diceValueBonus;
-    }
-
     public void setActionType(ActionType actionType){
         this.actionType = actionType;
     }
@@ -39,7 +31,8 @@ public class EffectHarvestProductionBonus extends Effect{
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-        int newValue = player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(this.actionType) + this.diceValueBonus;
+        int newValue = player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(this.actionType) + this.diceValueBonus
+                - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(actionType);
         player.getPersonalBoard().setHarvestProductionDiceValueBonus(this.actionType, newValue);
     }
 
@@ -48,6 +41,6 @@ public class EffectHarvestProductionBonus extends Effect{
      */
     @Override
     public String toString() {
-        return new StringBuilder().append(actionType.toString() + "( bonus: " + diceValueBonus + " )").toString();
+        return new StringBuilder(actionType.toString().toLowerCase() + " has permanent bonus on dice value = " + diceValueBonus).toString();
     }
 }

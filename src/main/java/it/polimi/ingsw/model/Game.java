@@ -142,6 +142,7 @@ public class Game implements Serializable{
 
         //get family member and update his value with servants number provided
         int servantsValue = servants/player.getPersonalBoard().getExcommunicationValues().getNumberOfSlaves();
+
         LeaderCard leaderCardBrunelleschi = player.getPersonalBoard().getLeaderCardWithName("Filippo Brunelleschi");
 
         //check if the cell is empty or the player has the leader effect to place family member inside already occupied action spaces

@@ -155,7 +155,7 @@ public class MainBoard implements Serializable{
         for(int j = 0; j < towers.length; j++)
             stringBuilder.append("[TOWER " + (j+1) + " " + towers[j].getColor() + "]\n" + towers[j]);
 
-        stringBuilder.append("\n\n[COUNCIL PALACE] -> " + councilPalace);
+        stringBuilder.append("[COUNCIL PALACE] -> " + councilPalace);
 
         stringBuilder.append("\n\n[VATICAN]\n");
         for(int i = 0; i < vatican.getExcommunicationCards().length; i++)

@@ -307,8 +307,20 @@ public class Room {
                     try {
                         serverPlayer.sendGameModelUpdate(clientUpdatePacket);
                     } catch (NetworkException e){
-                        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " won't receive updates this turn.");
+                        Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
                     }
+        }
+    }
+
+    private void updateAllClients(){
+        if(clientUpdatePacket != null){
+            clientUpdatePacket.setGame(gameManager.getGameModel());
+            for(ServerPlayer serverPlayer : players)
+                try {
+                    serverPlayer.sendGameModelUpdate(clientUpdatePacket);
+                } catch (NetworkException e){
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
+                }
         }
     }
 
@@ -334,7 +346,6 @@ public class Room {
             for(int age = 1; age <= AGES; age++){
                 for(int turn = 1; turn <= TURNS_PER_AGE; turn++){
                     turnSetup(age, turn);
-                    checkExcommunication(age, turn);
                     for(int move = 1; move <= FamilyMemberColor.values().length; move++) {
                         System.out.println("Ages: " + age + " Turn: " + turn + " move: " + move);
                         for (ServerPlayer player : players) {
@@ -345,18 +356,21 @@ public class Room {
                             updateAllClients(player);
                         }
                     }
+                    checkExcommunication(age, turn);
                 }
             }
         }
 
         private void turnSetup(int age, int turn){
-            if(!(turn == 1) && !(age == 1)) {
+            if(!(turn == 1 && age == 1)) {
+                System.out.println("New turn");
                 getNewOrder();
                 gameManager.personalBoardsTurnReset();
                 gameManager.mainboardTurnReset();
                 gameManager.setupMainBoard(age, turn);
                 gameManager.getGameModel().setAge(age);
                 gameManager.getGameModel().setTurn(turn);
+                updateAllClients();
             }
         }
 
@@ -365,14 +379,9 @@ public class Room {
                 for(ServerPlayer player : players){
                     try {
                         if(gameManager.finalControlsForPeriod(age, player)){
+                            playerTurn = new PlayerTurn(player);
                             player.supportForTheChurch(true);
-                            countDownLatch = new CountDownLatch(1);
-                            try {
-                                countDownLatch.await();
-                            } catch (InterruptedException e){
-                                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Excommunication check interrupted!");
-                                Thread.currentThread().interrupt();
-                            }
+                            playerTurn.startTimer(maxMoveWaitingTime);
                         }
                         else
                             player.supportForTheChurch(false);
@@ -383,9 +392,6 @@ public class Room {
             }
         }
 
-        /**
-         * Get fifo list from council palace and set new order.
-         */
         private void getNewOrder(){
             List<Player> p = new ArrayList<>(gameManager.getGameModel().getMainBoard().getCouncilPalace().getNewOrder());
             ArrayList<ServerPlayer> newOrder = new ArrayList<>();
@@ -410,9 +416,6 @@ public class Room {
                 }
         }
 
-        /**
-         * Close the room and get the game manager from configurator.
-         */
         private void setupBeforeStartGame(){
             synchronized (MUTEX){
                 roomOpen = false;
@@ -429,6 +432,7 @@ public class Room {
             System.out.println("DICES");
             for(Map.Entry pair : gameManager.getGameModel().getDices().getValues().entrySet())
                 System.out.println(pair.getKey() + " = " + pair.getValue());
+            gameManager.setExcommunicationCards();
         }
 
         private void personalTilesChoice(ArrayList<PersonalBoardTile> personalBoardTileList){

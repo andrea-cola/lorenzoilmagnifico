@@ -77,6 +77,7 @@ public class EffectMultiplicator extends Effect{
         //check if the multiplicator object is a card or a resource/point
         if (this.cardOrResources){
             multiplicatorValue = player.getPersonalBoard().getCards(this.cardColorRequisite).size();
+            System.out.println("MOLTIPLICA PER: " + multiplicatorValue);
         }else{
             for(Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet())
                 if(entry.getValue() != 0)
@@ -112,7 +113,7 @@ public class EffectMultiplicator extends Effect{
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         if(actionType != null)
-            stringBuilder.append(actionType.toString() + " ( dice: " + diceActionValue + " ) earn this resource: ( " + valuable.toString() + " ) ");
+            stringBuilder.append(actionType.toString() + " with dice value = " + diceActionValue + ". Earn " + valuable.toString() + " ");
         if(cardOrResources)
             stringBuilder.append("for any card of these color: ( " + cardColorRequisite + " ) ");
         else

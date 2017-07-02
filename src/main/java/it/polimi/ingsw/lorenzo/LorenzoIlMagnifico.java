@@ -37,7 +37,7 @@ import java.util.Map;
      * Class constructor. A new user interface is created.
      * @param ui index of the preferred interface.
      */
-    public LorenzoIlMagnifico(int ui) throws InterruptedException {
+    /*package-local*/ LorenzoIlMagnifico(int ui) throws InterruptedException {
         switch (ui){
             case 1:
                 userInterface = new CommandLineInterface(this);
@@ -233,6 +233,15 @@ import java.util.Map;
     }
 
     @Override
+    public void notifyExcommunicationChoice(boolean choice) {
+        try {
+            client.notifySupportForTheChurch(choice);
+        } catch (NetworkException e) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your excommunication choice.");
+        }
+    }
+
+    @Override
     public void setGameModel(Game game) {
         this.game = game;
         userInterface.notifyGameStarted();
@@ -256,20 +265,11 @@ import java.util.Map;
     @Override
     public void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket) {
         this.game = clientUpdatePacket.getGame();
-        for(String message : clientUpdatePacket.getMessage())
-            Debugger.printStandardMessage(message);
     }
 
     @Override
     public void supportForTheChurch(boolean flag) {
-        try {
-            if (flag)
-                client.notifySupportForTheChurch(userInterface.supportForTheChurch());
-            else
-                Debugger.printStandardMessage("Your were excommunicated.");
-        } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your excommunication choice.");
-        }
+        userInterface.supportForTheChurch(flag);
     }
 
     @Override

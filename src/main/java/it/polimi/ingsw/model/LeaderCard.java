@@ -48,7 +48,6 @@ public class LeaderCard implements Serializable{
      */
     private LeaderEffect effect;
 
-
     public void setLeaderCardName(String leaderCardName){
         this.leaderCardName = leaderCardName;
     }
@@ -144,26 +143,22 @@ public class LeaderCard implements Serializable{
 
     @Override
     public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(leaderCardName.toUpperCase() + "\n");
-        stringBuilder.append("[Status]: " + leaderEffectActive + "\n");
+        StringBuilder stringBuilder = new StringBuilder(leaderCardName.toUpperCase() + "\n");
+        stringBuilder.append("Active: " + leaderEffectActive + "\n");
         if(pointsAndResourcesRequisites != null)
-            stringBuilder.append("[Requirements]: " + pointsAndResourcesRequisites.toString() + "");
+            stringBuilder.append("Requirements: " + pointsAndResourcesRequisites.toString());
         if(cardColorMapRequisites != null && cardColorMapRequisites.size() > 0){
             stringBuilder.append(" + ");
-            Iterator it = cardColorMapRequisites.entrySet().iterator();
-            while(it.hasNext()){
-                Map.Entry pair = (Map.Entry) it.next();
-                stringBuilder.append(pair.getKey() + "->" + pair.getValue());
-            }
+            for(Map.Entry pair : cardColorMapRequisites.entrySet())
+                stringBuilder.append(pair.getKey().toString().toLowerCase() + "=" + pair.getValue());
         }
         stringBuilder.append("\n");
         if(permanentAbility)
-            stringBuilder.append("[Type]: permanent\n");
+            stringBuilder.append("Type: permanent\n");
         else
-            stringBuilder.append("[Type]: once per turn\n");
+            stringBuilder.append("Type: once per turn\n");
         if(effect != null)
-            stringBuilder.append("[Effect]: " + effect.toString() + "\n");
+            stringBuilder.append("Effect: " + effect.toString() + "\n");
         return stringBuilder.toString();
     }
 }

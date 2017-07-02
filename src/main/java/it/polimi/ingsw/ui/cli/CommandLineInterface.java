@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * This class manages the command line interface of the game.
  */
-public class  CommandLineInterface extends AbstractUI implements GameScreen.GameCallback, InformationCallback {
+public class CommandLineInterface extends AbstractUI implements GameScreen.GameCallback, ExcommunicationScreen.ExcommunicationCallback, InformationCallback {
 
     private class ConsoleListener extends Thread{
 
@@ -25,6 +25,7 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         public void run(){
             while(exit){
                 try {
+                    pausePoint();
                     String read = r.readLine();
                     if (gameScreen != null){
                         String[] readParts = read.split(" ");
@@ -34,7 +35,7 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
                             throw new WrongCommandException();
                     }
                 } catch (WrongCommandException e){
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Wrong command, please retry.");
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), this.getId() + "Wrong command, please retry.");
                 } catch (IOException e){
                     Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while reading from keyboard.");
                     break;
@@ -42,10 +43,18 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             }
         }
 
-        /*package-local*/ void stopRunning(){
-            exit = false;
+        synchronized void pausePoint() {
+            while (needToPause) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    //
+                }
+            }
         }
     }
+
+    private boolean needToPause = false;
 
     private BasicScreen screen;
 
@@ -53,10 +62,17 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
 
     private ConsoleListener consoleListener;
 
-    /**
-     * Constructor
-     * @param controller
-     */
+    private boolean moveDone;
+
+    public synchronized void pause() {
+        needToPause = true;
+    }
+
+    public synchronized void unpause() {
+        needToPause = false;
+        this.notifyAll();
+    }
+
     public CommandLineInterface(UiController controller) {
         super(controller);
     }
@@ -106,7 +122,8 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     @Override
     public void turnScreen(String username, long seconds) {
         if(username.equals(getClient().getUsername())){
-            gameScreen = new TurnScreen(this, false);
+            moveDone = false;
+            gameScreen = new TurnScreen(this, moveDone);
         }
         else {
             System.out.println("Turn of " + username + ". Please wait for " + seconds + " seconds.");
@@ -122,7 +139,7 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     @SuppressWarnings("unchecked")
     @Override
     public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
-        consoleListener.stopRunning();
+        pause();
         gameScreen = null;
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         ArrayList<Privilege> privilegeArraysList = new ArrayList<>();
@@ -145,20 +162,20 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             privilegeArraysList.add(privileges[key]);
             privileges[key].setNotAvailablePrivilege();
         }
+        System.out.println(reason);
         if(getClient().getPlayerTurnChoices().containsKey(reason)) {
             ArrayList<Privilege> arrayList = (ArrayList<Privilege>)getClient().getPlayerTurnChoices().get(reason);
             arrayList.addAll(privilegeArraysList);
-        } else
+        } else {
             getClient().setPlayerTurnChoices(reason, privilegeArraysList);
-        consoleListener = new ConsoleListener();
-        consoleListener.start();
-        gameScreen = new TurnScreen(this, true);
+        }
+        unpause();
         return privilegeArraysList;
     }
 
     @Override
     public int chooseDoubleCost(PointsAndResources cost, int militaryPointsToPay, int militaryPointsNeeded){
-        consoleListener.stopRunning();
+        pause();
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         gameScreen = null;
         int key = 1;
@@ -177,15 +194,13 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             } while (key < 1 || key > 2);
             getClient().setPlayerTurnChoices("double-cost", key);
         }
-        consoleListener = new ConsoleListener();
-        consoleListener.start();
-        gameScreen = new TurnScreen(this, true);
+        unpause();
         return key;
     }
 
     @Override
     public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned) {
-        consoleListener.stopRunning();
+        pause();
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         gameScreen = null;
         int key = 1;
@@ -201,16 +216,14 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             }
         } while (key < 1 || key > valuableToPay.length);
         key = key - 1;
-        getClient().setPlayerTurnChoices(card + ":double", key);
-        consoleListener = new ConsoleListener();
-        consoleListener.start();
-        gameScreen = new TurnScreen(this, true);
+        getClient().setPlayerTurnChoices(card, key);
+        unpause();
         return key;
     }
 
     @Override
     public int choosePickUpDiscounts(String reason, List<PointsAndResources> discounts) {
-        consoleListener.stopRunning();
+        pause();
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         gameScreen = null;
         int key = 1;
@@ -226,15 +239,13 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         } while (key < 1 || key > discounts.size());
         key = key - 1;
         getClient().setPlayerTurnChoices(reason, key);
-        consoleListener = new ConsoleListener();
-        consoleListener.start();
-        gameScreen = new TurnScreen(this, true);
+        unpause();
         return key;
     }
 
     @Override
     public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
-        consoleListener.stopRunning();
+        pause();
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         gameScreen = null;
 
@@ -245,16 +256,19 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
 
         int i = 1;
         System.out.println("0 -> to choose no card.");
-        for(DevelopmentCardColor developmentCardColor : developmentCardColors)
-            for(Tower tower : mainBoard.getTowers())
-                if(tower.getColor().equals(developmentCardColor))
-                    for(TowerCell towerCell : tower.getTowerCells())
-                        if(towerCell.getPlayerNicknameInTheCell() == null && towerCell.getMinFamilyMemberValue() <= diceValue
+        for(DevelopmentCardColor developmentCardColor : developmentCardColors) {
+            int newDiceValue = diceValue + getClient().getPlayer().getPersonalBoard().getDevelopmentCardColorDiceValueBonus().get(developmentCardColor)
+                    - getClient().getPlayer().getPersonalBoard().getExcommunicationValues().getDevelopmentCardDiceMalus().get(developmentCardColor);
+            for (Tower tower : mainBoard.getTowers())
+                if (tower.getColor().equals(developmentCardColor))
+                    for (TowerCell towerCell : tower.getTowerCells())
+                        if (towerCell.getPlayerNicknameInTheCell() == null && towerCell.getMinFamilyMemberValue() <= diceValue
                                 && isSelectable(towerCell, discount)) {
                             System.out.println(i + " -> " + towerCell.getDevelopmentCard().toString());
                             selectable.add(towerCell.getDevelopmentCard());
                             i++;
                         }
+        }
         if(!discount.toString().equals(""))
             System.out.println("You have also a discount on cost of the card -> " + discount.toString());
         int key = 0;
@@ -278,44 +292,16 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
                     }
         }
         getClient().setPlayerTurnChoices(reason, card);
-        consoleListener = new ConsoleListener();
-        consoleListener.start();
-        gameScreen = new TurnScreen(this, true);
+        unpause();
         return card;
     }
 
     @Override
-    public boolean supportForTheChurch() {
-        consoleListener.stopRunning();
-        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
-        gameScreen = null;
-        System.out.println("[ SUPPORT FOR THE CHURCH ]\nDo you want to support the church?");
-        System.out.println("-> 1 : NO\n-> 2: YES");
-        boolean choice;
-        int key = 0;
-        do {
-            try {
-                key = Integer.parseInt(r.readLine());
-            } catch (ClassCastException | NumberFormatException | IOException e) {
-                key = 1;
-            }
-        } while (key < 0 || key > 2);
-        if(key == 1)
-            choice = false;
-        else
-            choice = true;
-        consoleListener = new ConsoleListener();
-        consoleListener.start();
-        gameScreen = new GameScreen(this);
-        return choice;
-    }
-
-    private boolean isSelectable(TowerCell cell, PointsAndResources discount){
-        try{
-            cell.developmentCardCanBeBuyed(getClient().getPlayer(), discount);
-            return true;
-        } catch (GameException e){
-            return false;
+    public void supportForTheChurch(boolean flag) {
+        if(flag){
+            gameScreen = new ExcommunicationScreen(this);
+        } else {
+            Debugger.printStandardMessage("You have been excommunicated!!");
         }
     }
 
@@ -329,86 +315,136 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     public void showPersonalBoards() {
         Game game = getClient().getGameModel();
         for(String username : game.getPlayersUsername())
-            System.out.println(username + "\n" + game.getPlayer(username).toString());
+            if(username.equals(getClient().getUsername()))
+                System.out.println(game.getPlayer(username).toString());
+            else
+                System.out.println(game.getPlayer(username).toStringSmall());
     }
 
     @Override
     public void setFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex) {
         Player player = getClient().getPlayer();
         try{
+            moveDone = true;
             getClient().getGameModel().pickupDevelopmentCardFromTower(player, familyMemberColor, servants, towerIndex, cellIndex, this);
             getClient().notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex);
         } catch (GameException e) {
+            moveDone = false;
             Debugger.printDebugMessage("You can't place your familiar in this place. " + e.getError());
         } catch (IndexOutOfBoundsException e){
+            moveDone = false;
             Debugger.printDebugMessage("You can't place your familiar in this place. Wrong coordinates. " + e.getMessage());
         }
+        gameScreen = new TurnScreen(this, moveDone);
     }
 
     @Override
     public void setFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants){
         Player player = getClient().getPlayer();
         try {
+            moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideCouncilPalace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInCouncil(familyMemberColor, servants);
         } catch (GameException e){
+            moveDone = false;
             Debugger.printDebugMessage("Error while placing your family member in council palace. Please retry.");
         }
+        gameScreen = new TurnScreen(this, moveDone);
     }
 
     @Override
     public void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex) {
         Player player = getClient().getPlayer();
         try{
+            moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideMarket(player,familyMemberColor,marketIndex, servants, this);
             getClient().notifySetFamilyMemberInMarket(familyMemberColor, servants, marketIndex);
         } catch (GameException e){
+            moveDone = false;
             Debugger.printDebugMessage("Error while placing your family member in the market. Please retry.");
         }
+        gameScreen = new TurnScreen(this, moveDone);
     }
 
     @Override
     public void setFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
         try {
+            moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideProductionSimpleSpace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInProductionSimple(familyMemberColor, servants);
         } catch (GameException e){
+            moveDone = false;
             Debugger.printDebugMessage("Error while placing your family member in production simple space. Please retry.");
         }
+        gameScreen = new TurnScreen(this, moveDone);
     }
 
     @Override
     public void setFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
         try{
+            moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideHarvestSimpleSpace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInHarvestSimple(familyMemberColor, servants);
         } catch (GameException e){
+            moveDone = false;
             Debugger.printDebugMessage("Error while placing your family member in harvest simple space. Please retry.");
         }
+        gameScreen = new TurnScreen(this, moveDone);
     }
 
     @Override
     public void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
         try{
+            moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideProductionExtendedSpace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInProductionExtended(familyMemberColor, servants);
         } catch (GameException e){
+            moveDone = false;
             Debugger.printDebugMessage("Error while placing your family member in production extended space. Please retry.");
         }
+        gameScreen = new TurnScreen(this, moveDone);
     }
 
     @Override
     public void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
         try{
+            moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideHarvestExtendedSpace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants);
         } catch (GameException e){
+            moveDone = false;
             Debugger.printDebugMessage("Error while placing your family member in harvest extended space. Please retry.");
         }
+        gameScreen = new TurnScreen(this, moveDone);
+    }
+
+    @Override
+    public void discardLeader(String leaderName) {
+        Player player = getClient().getPlayer();
+        int i = 0;
+        List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
+        for(LeaderCard leaderCard : leaderCards){
+            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                break;
+            i++;
+        }
+        getClient().getGameModel().discardLeaderCard(player, i, this);
+        getClient().notifyDiscardLeader(i);
+        gameScreen = new TurnScreen(this, moveDone);
+    }
+
+    @Override
+    public void notifyExcommunicationChoice(boolean choice) {
+        getClient().notifyExcommunicationChoice(choice);
+    }
+
+    @Override
+    public void notifyEndTurn() {
+        getClient().endTurn();
     }
 
     @Override
@@ -427,25 +463,16 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         } catch (GameException e){
             Debugger.printDebugMessage("Error while activate you leader card. Please retry.");
         }
+        gameScreen = new TurnScreen(this, moveDone);
     }
 
-    @Override
-    public void discardLeader(String leaderName) {
-        Player player = getClient().getPlayer();
-        int i = 0;
-        List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
-        for(LeaderCard leaderCard : leaderCards){
-            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
-                break;
-            i++;
+    private boolean isSelectable(TowerCell cell, PointsAndResources discount){
+        try{
+            cell.developmentCardCanBeBuyed(getClient().getPlayer(), discount);
+            return true;
+        } catch (GameException e){
+            return false;
         }
-        getClient().getGameModel().discardLeaderCard(player, i, this);
-        getClient().notifyDiscardLeader(i);
-    }
-
-    @Override
-    public void notifyEndTurn() {
-        getClient().endTurn();
     }
 
 }

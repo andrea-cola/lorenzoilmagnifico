@@ -78,7 +78,9 @@ public class ActionSpace implements Serializable{
         }
 
         //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
-        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor);
+        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor)
+                + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(actionSpaceType)
+                - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(actionSpaceType);
         if (familyMemberValueTot < this.actionSpaceEffect.getDiceActionValue()){
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
         }

@@ -66,9 +66,6 @@ public class LESimple extends LeaderEffect{
      */
     @Override
     public String toString() {
-        String header = this.getEffectType() + "\n";
-        String resources = "Resources:\n" + valuable.toString();
-        String privilege = "Council privileges: " + numberOfCouncilPrivileges;
-        return new StringBuilder(header).append(resources).append(privilege).toString();
+        return "Earn resources: " + valuable.toString() + "council privileges: " + numberOfCouncilPrivileges;
     }
 }

@@ -22,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * This class manage the graphic user interface of the game
  */
-public class GraphicUserInterface extends AbstractUI{
+public class GraphicUserInterface extends AbstractUI {
 
     private final static String START = "startinStage";
     private final static String CONNECTION = "connnectionStage";
@@ -50,6 +50,7 @@ public class GraphicUserInterface extends AbstractUI{
 
     /**
      * Constructor
+     *
      * @param controller
      * @throws InterruptedException
      */
@@ -81,13 +82,13 @@ public class GraphicUserInterface extends AbstractUI{
         */
     }
 
-    private void showStartingStage(){
+    private void showStartingStage() {
         startingStage = new StartingStage();
         mainPanel.add(startingStage, START);
         mainFrame.setVisible(true);
         System.out.println("starting...");
         cardLayout.show(mainPanel, START);
-        while(startingStage.getFinished() != true){
+        while (startingStage.getFinished() != true) {
             lock.lock();
         }
     }
@@ -106,7 +107,7 @@ public class GraphicUserInterface extends AbstractUI{
     }
 
     @Override
-    public void loginScreen(){
+    public void loginScreen() {
         System.out.println("logging...");
         loginStage = new LoginStage(getClient()::loginPlayer);
         mainPanel.add(loginStage, LOGIN);
@@ -147,7 +148,7 @@ public class GraphicUserInterface extends AbstractUI{
 
     @Override
     public void notifyGameStarted() {
-        
+
     }
 
     @Override
@@ -161,7 +162,8 @@ public class GraphicUserInterface extends AbstractUI{
     }
 
     @Override
-    public boolean supportForTheChurch() {
-        return false;
+    public void supportForTheChurch(boolean flag) {
+
     }
+
 }

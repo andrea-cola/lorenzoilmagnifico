@@ -46,7 +46,7 @@ public class ExcommunicationEffectDiceMalus extends ExcommunicationEffect {
     }
 
     public String getDescription(){
-        return "White dice -" + this.whiteDiceMalus + ", Black dice -" + this.blackDiceMalus + ", Orange dice -" + this.orangeDiceMalus;
+        return "white dice -" + this.whiteDiceMalus + ", black dice -" + this.blackDiceMalus + ", orange dice -" + this.orangeDiceMalus;
     }
 
 

@@ -34,6 +34,6 @@ public class LEMultiplicator extends LeaderEffect{
      */
     @Override
     public String toString() {
-        return "Moltiplica tutte le risorse per " + multiplicator + ", DA SISTEMARE";
+        return "Multiply all resources earned per " + multiplicator;
     }
 }

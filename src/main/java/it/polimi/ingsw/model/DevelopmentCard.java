@@ -188,14 +188,13 @@ public class DevelopmentCard implements Serializable{
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(name.toUpperCase() + " (" + cardColor + ") " + id + "\n");
-        stringBuilder.append("[Requirements] -> " + cost.toString() + "\n");
-        if(militaryPointsRequired != 0)
-            stringBuilder.append("[Requirements 2] -> military points required: " + militaryPointsRequired + " military points to pay: " + militaryPointsToPay + "\n");
+        stringBuilder.append(name.toUpperCase() + " (" + cardColor + ")\nRequirements: " + cost.toString() + "\n");
+        if(multipleRequisiteSelectionEnabled)
+            stringBuilder.append("Alternative cost (requirements, cost): " + militaryPointsRequired + ", " + militaryPointsToPay + "\n");
         if(immediateEffect != null)
-            stringBuilder.append("[Immediate effect] " + immediateEffect.toString() + "\n");
+            stringBuilder.append("Immediate effect: " + immediateEffect.toString() + "\n");
         if(permanentEffect != null)
-            stringBuilder.append("[Permanent effect] " + permanentEffect.toString() + "\n");
+            stringBuilder.append("Permanent effect " + permanentEffect.toString() + "\n");
         return stringBuilder.toString();
     }
 }

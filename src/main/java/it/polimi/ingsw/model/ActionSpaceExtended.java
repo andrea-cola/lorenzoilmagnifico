@@ -106,7 +106,10 @@ public class ActionSpaceExtended implements Serializable{
                 throw new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_USED);
 
         //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
-        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + servants;
+        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor)
+                + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(actionSpaceType)
+                - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(actionSpaceType);
+
         if (familyMemberValueTot < (this.effect.getDiceActionValue() + diceValueMalus))
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
 

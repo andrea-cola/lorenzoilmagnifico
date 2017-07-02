@@ -34,7 +34,7 @@ public class ExcommunicationEffectHarvestProduction extends ExcommunicationEffec
     }
 
     public String getDescription(){
-        return "Malus on " + this.actionType.toString().toLowerCase() + " ( " + this.harvestProductionDiceMalus + " ) ";
+        return "Malus on dice value = " + this.harvestProductionDiceMalus + " on " + this.actionType.toString().toLowerCase();
     }
 
 }

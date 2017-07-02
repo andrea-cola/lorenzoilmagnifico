@@ -3,6 +3,7 @@ package it.polimi.ingsw.gameserver;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
+import it.polimi.ingsw.utility.Debugger;
 
 import java.util.*;
 
@@ -141,6 +142,9 @@ import java.util.*;
                 return card1.getId() - card2.getId();
             }
         });
+        Collections.shuffle(list.subList(0, 8));
+        Collections.shuffle(list.subList(8, 16));
+        Collections.shuffle(list.subList(16, 24));
     }
 
     /**
@@ -152,7 +156,6 @@ import java.util.*;
     private ArrayList<DevelopmentCard> deckForPeriod(ArrayList<DevelopmentCard> deck, int period){
         int limitDown = (period - 1) * CARD_PER_DECK;
         int limitTop = (period - 1) * CARD_PER_DECK + CARD_PER_DECK;
-
         ArrayList<DevelopmentCard> deckPeriod = new ArrayList<>(deck.subList(limitDown, limitTop));
         return deckPeriod;
     }
@@ -166,9 +169,12 @@ import java.util.*;
     private ArrayList<DevelopmentCard> deckForTurn(ArrayList<DevelopmentCard> deck, int turn){
         int limitDown = (turn - 1) * 4;
         int limitTop = (turn - 1) * 4 + 4;
-        Collections.shuffle(deck);
         ArrayList<DevelopmentCard> deckTurn = new ArrayList<>(deck.subList(limitDown, limitTop));
         return deckTurn;
+    }
+
+    /*package-local*/ void setExcommunicationCards() {
+        chooseExcommunicationCards();
     }
 
     /**
@@ -176,16 +182,15 @@ import java.util.*;
      * @param period
      * @param turn
      */
-    public void setupMainBoard(int period, int turn){
+    /*package-local*/ void setupMainBoard(int period, int turn){
         //setup towers' cards
         this.game.getMainBoard().setTower(0, deckForTurn(deckForPeriod(this.greenDeck, period), turn));
         this.game.getMainBoard().setTower(1, deckForTurn(deckForPeriod(this.blueDeck, period), turn));
         this.game.getMainBoard().setTower(2, deckForTurn(deckForPeriod(this.yellowDeck, period), turn));
         this.game.getMainBoard().setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
-        chooseExcommunicationCards();
     }
 
-    public void mainboardTurnReset(){
+    /*package-local*/ void mainboardTurnReset(){
         for(Tower tower : game.getMainBoard().getTowers())
             for(TowerCell towerCell : tower.getTowerCells()){
                 towerCell.setPlayerNicknameInTheCell(null);
@@ -198,12 +203,12 @@ import java.util.*;
         game.getMainBoard().getHarvest().reset();
         game.getMainBoard().getProductionExtended().reset();
         game.getMainBoard().getHarvestExtended().reset();
+        throwDices();
     }
 
-    public void personalBoardsTurnReset(){
-        for(Player player : players){
+    /*package-local*/ void personalBoardsTurnReset(){
+        for(Player player : players)
             player.getPersonalBoard().turnReset();
-        }
     }
 
     /**
@@ -239,7 +244,7 @@ import java.util.*;
             Map.Entry pair = (Map.Entry) iterator.next();
             player.setColor((PlayerColor)pair.getValue());
             player.setPersonalBoard(createNewPersonalBoard());
-            player.getPersonalBoard().getValuables().increase(ResourceType.COIN, INITIAL_COINS + i);
+            player.getPersonalBoard().getValuables().increase(ResourceType.COIN, i);
             this.game.getPlayersMap().put(player.getUsername(), player);
             i++;
         }
@@ -280,9 +285,10 @@ import java.util.*;
      */
     private PersonalBoard createNewPersonalBoard(){
         PersonalBoard personalBoard = new PersonalBoard();
-        personalBoard.getValuables().increase(ResourceType.WOOD, 2);
-        personalBoard.getValuables().increase(ResourceType.STONE, 2);
-        personalBoard.getValuables().increase(ResourceType.SERVANT, 3);
+        personalBoard.getValuables().increase(ResourceType.WOOD, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.WOOD));
+        personalBoard.getValuables().increase(ResourceType.STONE, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.STONE));
+        personalBoard.getValuables().increase(ResourceType.SERVANT, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT));
+        personalBoard.getValuables().increase(ResourceType.COIN, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN));
         personalBoard.setGreenCardsMilitaryPointsRequirements(configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
         FamilyMember familyMember = new FamilyMember();
         personalBoard.setFamilyMember(familyMember);
@@ -306,18 +312,18 @@ import java.util.*;
         this.informationChoicesHandler.setDecisions(playerChoices);
     }
 
-    public boolean finalControlsForPeriod(int period, ServerPlayer player){
+    /*package-private*/ boolean finalControlsForPeriod(int period, ServerPlayer player){
         int faithPointsRequired = game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
         //check if the player gets the excommunication effect
-        if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) < faithPointsRequired)
+        if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) <= faithPointsRequired) {
             excommunicationForPlayer(player, period);
-        else
             return false;
+        }
         return true;
     }
 
-    public void applySupportChoice(ServerPlayer player, boolean flag){
-        if(flag){
+    /*package-private*/ void applySupportChoice(ServerPlayer player, boolean flag){
+        if(!flag){
             player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
             if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
                 player.getPersonalBoard().getValuables().increase(PointType.VICTORY, 5);

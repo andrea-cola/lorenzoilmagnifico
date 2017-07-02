@@ -77,9 +77,20 @@ public class Player implements Serializable{
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("PERSONAL BOARD: " + this.username +"\n");
-        stringBuilder.append("Color: " + this.color + "\n");
+        stringBuilder.append(this.username + "  ###############################################\n");
+
         stringBuilder.append(personalBoard.toString());
+
+        for(int i = 0; i < this.username.length(); i++)
+            stringBuilder.append("#");
+        stringBuilder.append("#################################################\n");
+        return stringBuilder.toString();
+    }
+
+    public String toStringSmall(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("PERSONAL BOARD: " + this.username +"\n");
+        stringBuilder.append(personalBoard.toStringSmall());
         return stringBuilder.toString();
     }
 

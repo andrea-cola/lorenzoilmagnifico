@@ -205,6 +205,7 @@ public class ServerCommunicationProtocol {
     public void sendGameInfo(Game game) throws NetworkException{
         synchronized (object){
             try{
+                output.reset();
                 output.writeObject(CommunicationProtocolConstants.GAME_MODEL);
                 output.writeObject(game);
                 output.flush();
@@ -218,6 +219,7 @@ public class ServerCommunicationProtocol {
     public void sendPersonalBoardTile(List<PersonalBoardTile> personalBoardTileList) throws NetworkException{
         synchronized (object){
             try{
+                output.reset();
                 output.writeObject(CommunicationProtocolConstants.PERSONAL_TILES);
                 output.writeObject(personalBoardTileList);
                 output.flush();
@@ -229,6 +231,7 @@ public class ServerCommunicationProtocol {
 
     private void notifyPlayerPersonalBoardTileChoice(){
         try {
+            output.reset();
             PersonalBoardTile personalBoardTile = (PersonalBoardTile)input.readObject();
             serverCommunicationProtocolInterface.notifyPlayerPersonalBoardTileChoice(personalBoardTile);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
@@ -240,6 +243,7 @@ public class ServerCommunicationProtocol {
     public void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException{
         synchronized (object){
             try {
+                output.reset();
                 output.writeObject(CommunicationProtocolConstants.LEADER_CARDS);
                 output.writeObject(leaderCards);
                 output.flush();
@@ -274,6 +278,7 @@ public class ServerCommunicationProtocol {
     public void notifyTurnStarted(String username, long seconds) throws NetworkException{
         synchronized (object){
             try{
+                output.reset();
                 output.writeObject(CommunicationProtocolConstants.TURN_STARTED);
                 output.writeObject(username);
                 output.writeObject(seconds);
@@ -287,6 +292,7 @@ public class ServerCommunicationProtocol {
     public void supportForTheChurch(boolean flag) throws NetworkException{
         synchronized (object){
             try{
+                output.reset();
                 output.writeObject(CommunicationProtocolConstants.SUPPORT_FOR_THE_CHURCH);
                 output.writeObject(flag);
                 output.flush();
@@ -365,6 +371,11 @@ public class ServerCommunicationProtocol {
             FamilyMemberColor familyMemberColor = (FamilyMemberColor) input.readObject();
             int servants = (int)input.readObject();
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
+            System.out.println("ciaone1");
+            for(Map.Entry pair : choices.entrySet()){
+                System.out.println(pair.getKey() + " -> " + pair.getValue());
+            }
+            System.out.println("ciaone1");
             serverCommunicationProtocolInterface.setFamilyMemberInProductionSimple(familyMemberColor, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting production simple area as client.");

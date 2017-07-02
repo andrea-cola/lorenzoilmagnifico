@@ -15,6 +15,8 @@ public enum GameErrorType {
     PLAYER_CARDS_ERROR("Player cards are not enough"),
     LEADER_CARD_ALREADY_USED("This card has been already used"),
     GENERIC_ERROR("Generic error"),
+    NOT_ENOUGH_RESOURCES("You don't have enough amount of resources to do this move. Please retry."),
+    NOT_ENOUGH_POINTS("You don't have enough amount of points to do this move. Please retry."),
     EXCOMMUNICATION_EFFECT_MARKET("You can't place a family member inside the market because of the excommunication effect");
 
     /**

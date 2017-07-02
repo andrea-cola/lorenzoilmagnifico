@@ -36,8 +36,6 @@ public class LELorenzoDeMedici extends LeaderEffect{
      */
     @Override
     public String toString() {
-        String header = this.getEffectType() + "\n";
-        String resources = "Copia l'effetto di un'altra carta leader.\n";
-        return new StringBuilder(header).append(resources).toString();
+        return "You can copy the effect of another card.";
     }
 }

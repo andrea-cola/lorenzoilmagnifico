@@ -97,14 +97,17 @@ public class EffectSimple extends Effect{
     }
 
     private void updateFamilyMemberValue(Player player){
+        int familyMemberRealValue = diceActionValue + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(actionType)
+                - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(actionType);
+
         ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
-        while(player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) != diceActionValue){
+        while(player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) != diceActionValue)
             if(player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) > diceActionValue)
                 player.getPersonalBoard().getFamilyMember().decreaseFamilyMemberValue(familyMemberColor, 1);
             else
                 player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(familyMemberColor, 1);
-        }
+
     }
 
     /**
@@ -114,10 +117,10 @@ public class EffectSimple extends Effect{
      */
     private void updateResources(Player player, int multiplicatorValue){
         for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
-            //excommunication effect
-            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
             //normal effect
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
         }
     }
 
@@ -127,10 +130,10 @@ public class EffectSimple extends Effect{
      */
     private void updatePoints(Player player){
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
-            //excommunication effect
-            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
             //normal effect
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
         }
     }
 
@@ -139,6 +142,6 @@ public class EffectSimple extends Effect{
      */
     @Override
     public String toString() {
-        return new StringBuilder().append("Earn this resources: ( " + valuable.toString() + "council privileges: " + numberOfCouncilPrivileges + " )").toString();
+        return "Earn " + valuable.toString() + "and " + numberOfCouncilPrivileges + " council privileges";
     }
 }

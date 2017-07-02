@@ -45,10 +45,6 @@ public class LEDiceValueSet extends LeaderEffect{
      */
     @Override
     public String toString() {
-        String header = this.getEffectType() + "\n";
-        String resources = "White dice:\n" + whiteDice;
-        String resources2 = "Black dice:\n" + blackDice;
-        String resources3 = "Orange dice:\n" + orangeDice;
-        return new StringBuilder(header).append(resources).append(resources2).append(resources3).toString();
+        return "White dice = " + whiteDice + " black dice = " + blackDice +" orange dice = " + orangeDice;
     }
 }

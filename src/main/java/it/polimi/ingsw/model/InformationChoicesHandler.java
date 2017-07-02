@@ -38,7 +38,7 @@ public class InformationChoicesHandler implements InformationCallback {
 
     @Override
     public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned) {
-        return (int)decisions.get(card + ":double");
+        return (int)decisions.get(card);
     }
 
     @Override

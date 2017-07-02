@@ -41,11 +41,7 @@ public class LEDiceBonus extends LeaderEffect {
      * Get a description of the current effect.
      */
     @Override
-    public String toString() {
-        String header = this.getEffectType() + "\n";
-        String resources = "White dice bonus:\n" + whiteDice;
-        String resources2 = "Black dice bonus:\n" + blackDice;
-        String resources3 = "Orange dice bonus:\n" + orangeDice;
-        return new StringBuilder(header).append(resources).append(resources2).append(resources3).toString();
+    public String toString(){
+        return "white dice bonus =" + whiteDice + " black dice bonus = " + blackDice + " orange dice bonus = " + orangeDice;
     }
 }
