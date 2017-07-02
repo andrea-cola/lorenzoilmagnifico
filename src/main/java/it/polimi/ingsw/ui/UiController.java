@@ -5,6 +5,7 @@ import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.ConnectionType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,4 +56,5 @@ public interface UiController {
     Map<String, Object> getPlayerTurnChoices();
 
     void endTurn();
+
 }

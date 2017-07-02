@@ -1,13 +1,12 @@
-package it.polimi.ingsw.rmiServer;
+package it.polimi.ingsw.rmiserver;
 
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.exceptions.ServerException;
-import it.polimi.ingsw.rmiClient.RMIClientInterface;
+import it.polimi.ingsw.rmiclient.RMIClientInterface;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.server.AbstractServer;
 import it.polimi.ingsw.server.ServerInterface;
@@ -118,7 +117,6 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
             registry.rebind(RMI_SERVER_INTERFACE_NAME, this);
             UnicastRemoteObject.exportObject(this, port);
         }catch(RemoteException e){
-            e.printStackTrace();
             throw new ServerException("[" + this.getClass().getSimpleName() + "] : Fail during server interface loading. RMI Server is not working.");
         }
     }

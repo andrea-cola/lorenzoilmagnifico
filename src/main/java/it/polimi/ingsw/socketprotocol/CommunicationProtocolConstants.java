@@ -1,4 +1,4 @@
-package it.polimi.ingsw.socketCommunicationProtocol;
+package it.polimi.ingsw.socketprotocol;
 
 /**
  * This class is used to define all constants needed for communication protocol.

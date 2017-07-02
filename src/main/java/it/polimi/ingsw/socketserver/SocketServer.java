@@ -1,4 +1,4 @@
-package it.polimi.ingsw.socketServer;
+package it.polimi.ingsw.socketserver;
 
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.ServerException;

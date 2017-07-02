@@ -31,6 +31,7 @@ public enum LoginErrorType {
      * Give back the error message.
      * @return error message.
      */
+    @Override
     public String toString(){
         return this.error;
     }

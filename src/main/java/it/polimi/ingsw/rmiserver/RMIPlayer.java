@@ -1,4 +1,4 @@
-package it.polimi.ingsw.rmiServer;
+package it.polimi.ingsw.rmiserver;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.ClientUpdatePacket;
@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
-import it.polimi.ingsw.rmiClient.RMIClientInterface;
+import it.polimi.ingsw.rmiclient.RMIClientInterface;
 
 import java.rmi.RemoteException;
 import java.util.List;

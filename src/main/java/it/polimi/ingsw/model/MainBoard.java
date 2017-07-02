@@ -149,68 +149,27 @@ public class MainBoard implements Serializable{
         return NUMBER_OF_MARKET_CELLS;
     }
 
+    @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        for(int j = 0; j < towers.length; j++){
-            stringBuilder.append("[TOWER " + (j+1) + " " + towers[j].getColor() + "]\n");
-            for(int i = towers.length - 1; i >= 0; i--){
-                stringBuilder.append("<" + (i+1) +"> ");
-                if(towers[j].getTowerCell(i).getPlayerNicknameInTheCell() != null)
-                    stringBuilder.append(towers[j].getTowerCell(i).getPlayerNicknameInTheCell());
-                stringBuilder.append("\n");
-                stringBuilder.append("Dice value: " + towers[j].getTowerCell(i).getMinFamilyMemberValue() + "\n");
-                if(towers[j].getTowerCell(i).getTowerCellImmediateEffect() != null)
-                    stringBuilder.append("Cell effect: " + towers[j].getTowerCell(i).getTowerCellImmediateEffect().toString() + "\n");
-                stringBuilder.append("Card: " + towers[j].getTowerCell(i).getDevelopmentCard().toString() + "\n");
-            }
-        }
-        stringBuilder.append("\n\n[COUNCIL PALACE]\n");
-        stringBuilder.append("Dice value: " + councilPalace.getMinFamilyMemberDiceValue() + "\n");
-        stringBuilder.append("Effect: " + councilPalace.getImmediateEffect() + "\n");
-        stringBuilder.append("Player in council yet:" );
-        for(Player player : councilPalace.getNewOrder())
-            stringBuilder.append(" " + player.getUsername());
+        for(int j = 0; j < towers.length; j++)
+            stringBuilder.append("[TOWER " + (j+1) + " " + towers[j].getColor() + "]\n" + towers[j]);
 
-        System.out.println("Inserire vaticano");
+        stringBuilder.append("\n\n[COUNCIL PALACE] -> " + councilPalace);
 
-        stringBuilder.append("\n\n[MARKET]\n");
-        for(int i = 0; i < market.getMarketCells().length; i++){
-            if(market.getMarketCell(i).isAccessible()) {
-                stringBuilder.append("<" + (i+1) +"> ");
-                if (!market.getMarketCell(i).isEmpty())
-                    stringBuilder.append(" ALREADY USED");
-                stringBuilder.append("\n");
-                stringBuilder.append("Dice value: " + market.getMarketCell(i).getMinFamilyMemberValue() + "\n");
-                stringBuilder.append("Effect: " + market.getMarketCell(i).getMarketCellImmediateEffect().toString() + "\n");
-            }
-        }
-        stringBuilder.append("\n\n[HARVEST SIMPLE]\n");
-        stringBuilder.append("Status: ");
-        if(harvest.getPlayerUsername() != null)
-            stringBuilder.append(harvest.getPlayerUsername() + "\n");
-        else
-            stringBuilder.append(" free\n");
-        stringBuilder.append("Dice value: " + harvest.getActionSpaceEffect().getDiceActionValue());
+        stringBuilder.append("\n\n[VATICAN]\n");
+        for(int i = 0; i < vatican.getExcommunicationCards().length; i++)
+            stringBuilder.append("Excommunication #" + (i+1) + " [faith points limit = " + (vatican.getExcommunicationCheckPoints())[i] + "] -> " + vatican.getExcommunicationCard(i).getEffect().getDescription() + "\n");
 
-        stringBuilder.append("\n\n[PRODUCTION SIMPLE]\n");
-        stringBuilder.append("Status: ");
-        if(production.getPlayerUsername() != null)
-            stringBuilder.append(production.getPlayerUsername() + "\n");
-        else
-            stringBuilder.append(" free\n");
-        stringBuilder.append("Dice value: " + production.getActionSpaceEffect().getDiceActionValue());
+        stringBuilder.append("\n[MARKET]\n" + market);
+        stringBuilder.append("\n\n[HARVEST SIMPLE]\n" + harvest);
+        stringBuilder.append("\n\n[PRODUCTION SIMPLE]\n" + production);
 
-        if(harvestExtended.isAccessible()) {
-            stringBuilder.append("\n\n[HARVEST EXTENDED]\n");
-            stringBuilder.append("Dice value: " + harvestExtended.getEffect().getDiceActionValue() + "\n");
-            stringBuilder.append("Malus value: " + harvestExtended.getDiceValueMalus());
-        }
+        if(harvestExtended.isAccessible())
+            stringBuilder.append("\n\n[HARVEST EXTENDED]\n" + harvestExtended);
+        if(productionExtended.isAccessible())
+            stringBuilder.append("\n\n[PRODUCTION EXTENDED]\n" + productionExtended);
 
-        if(productionExtended.isAccessible()) {
-            stringBuilder.append("\n\n[PRODUCTION EXTENDED]\n");
-            stringBuilder.append("Dice value: " + productionExtended.getEffect().getDiceActionValue() + "\n");
-            stringBuilder.append("Malus value: " + productionExtended.getDiceValueMalus() + "\n");
-        }
         return stringBuilder.toString();
     }
 

@@ -15,8 +15,7 @@ public class Tower implements Serializable{
      */
     private TowerCell[] towerCells;
 
-
-    public Tower(int numberOfCells){
+    /*package-local*/ Tower(int numberOfCells){
         this.towerCells = new TowerCell[numberOfCells];
         for (int i = 0; i < numberOfCells; i++){
             this.towerCells[i] = new TowerCell((i * 2) + 1);
@@ -27,7 +26,7 @@ public class Tower implements Serializable{
      * This method checks if the tower is free (all its cells are empty)
      * @return
      */
-    public boolean isFree(){
+    /*package-local*/ boolean isFree(){
         for(TowerCell cell : this.towerCells)
             if (cell.getPlayerNicknameInTheCell() != null)
                 return false;
@@ -41,7 +40,7 @@ public class Tower implements Serializable{
     /**
      * This method sets the content of the cell (put a card inside the cell).
      */
-    public void setTowerCell(int index, DevelopmentCard card){
+    /*package-local*/ void setTowerCell(int index, DevelopmentCard card){
         this.towerCells[index].setDevelopmentCard(card);
     }
 
@@ -63,7 +62,7 @@ public class Tower implements Serializable{
      * @param player
      * @throws GameException
      */
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
+    /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
 
         //check that the family member used has not been already used
         for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed())
@@ -75,5 +74,13 @@ public class Tower implements Serializable{
             if (player.getUsername().equals(cell.getPlayerNicknameInTheCell()))
                 throw new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_PLACED);
 
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i  = 0; i < towerCells.length; i++)
+            stringBuilder.append("<Cell #" + (i+1) + "> " + towerCells[i].toString());
+        return stringBuilder.toString();
     }
 }

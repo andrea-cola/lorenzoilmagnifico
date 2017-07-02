@@ -22,7 +22,7 @@ public class ExcommunicationEffectSimple extends ExcommunicationEffect{
 
 
     public ExcommunicationEffectSimple(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void runEffect(Player player){
@@ -38,8 +38,6 @@ public class ExcommunicationEffectSimple extends ExcommunicationEffect{
     }
 
     public String getDescription(){
-        String header = this.effectType + "\n";
-        String resources = "Valuables malus:\n" + this.valuablesMalus.toString();
-        return new StringBuilder(header).append(resources).toString();
+        return "Valuables malus: ( " + this.valuablesMalus.toString() + " ) ";
     }
 }

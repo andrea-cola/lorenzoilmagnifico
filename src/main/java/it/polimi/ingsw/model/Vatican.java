@@ -16,16 +16,14 @@ public class Vatican implements Serializable{
         this.excommunicationCheckPoints = excommunicationCheckPoints;
     }
 
-    /**
-     * Get excommunication card
-     */
     public ExcommunicationCard getExcommunicationCard(int atIndex){
         return this.excommunicationCards[atIndex];
     }
 
-    /**
-     * Set excommunication cards
-     */
+    public ExcommunicationCard[] getExcommunicationCards(){
+        return this.excommunicationCards;
+    }
+
     public void setExcommunicationCards(ExcommunicationCard[] cards){
         this.excommunicationCards = cards;
     }

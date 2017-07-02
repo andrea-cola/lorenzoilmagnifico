@@ -14,7 +14,7 @@ public class EffectHarvestProductionBonus extends Effect{
      * Class constructor.
      */
     public EffectHarvestProductionBonus(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void setDiceValueBonus(int value){
@@ -48,9 +48,6 @@ public class EffectHarvestProductionBonus extends Effect{
      */
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.effectType + ": ");
-        stringBuilder.append(actionType.toString() + " bonus: " + diceValueBonus + " ");
-        return stringBuilder.toString();
+        return new StringBuilder().append(actionType.toString() + "( bonus: " + diceValueBonus + " )").toString();
     }
 }

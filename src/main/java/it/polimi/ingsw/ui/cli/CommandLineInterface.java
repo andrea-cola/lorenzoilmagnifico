@@ -42,24 +42,10 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             }
         }
 
-        public void stopRunning(){
+        /*package-local*/ void stopRunning(){
             exit = false;
         }
     }
-
-    /**
-     * Title printed on the shell
-     */
-    private static final String TITLE = "\n\n\n\n\n\n     __     _____     ______     ________  __      ___ _________  ______\n" +
-            "    /  /   /     \\   /  _   \\   /  ______//  \\    /  //_____  _/ /      \\ \n" +
-            "   /  /   /   _   \\ /  (_)  /  /  /___   /    \\  /  / _____/ /  /   _    \\ \n" +
-            "  /  /   /   (_)  //  __   /  /   ___/  /  /\\  \\/  / /_  ___/  /   (_)   / \n" +
-            " /  /___ \\       //  /  \\ \\  /   /____ /  /  \\    /   / /______\\        / \n" +
-            " \\______/ \\_____//__/    \\_\\/________//__/    \\__/   /________/ \\______/ \n" +
-            "                                                                              \n" +
-            "                         _  _     _   __           __    __  __             \n" +
-            "                 / /    / \\/ \\   /_\\ / __ /\\  / / /_  / /   /  \\              \n"+
-            "                / /__  /      \\ /   \\\\__//  \\/ / /   /  \\__ \\__/              \n\n\n";
 
     private BasicScreen screen;
 
@@ -73,7 +59,6 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
      */
     public CommandLineInterface(UiController controller) {
         super(controller);
-        System.out.println(TITLE);
     }
 
     @Override
@@ -138,8 +123,8 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
     @Override
     public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
         consoleListener.stopRunning();
-        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         gameScreen = null;
+        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         ArrayList<Privilege> privilegeArraysList = new ArrayList<>();
         Privilege[] privileges = councilPrivilege.getPrivileges();
 
@@ -252,8 +237,9 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         consoleListener.stopRunning();
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         gameScreen = null;
+
         MainBoard mainBoard = getClient().getGameModel().getMainBoard();
-        DevelopmentCard card;
+        DevelopmentCard card = null;
         ArrayList<DevelopmentCard> selectable = new ArrayList<>();
         System.out.println("[ CHOOSE NEW CARD ]\nYou can pick up a new card. Choose among those proposal.");
 
@@ -269,7 +255,8 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
                             selectable.add(towerCell.getDevelopmentCard());
                             i++;
                         }
-        System.out.println("You have also a discount on cost of the card -> " + discount.toString());
+        if(!discount.toString().equals(""))
+            System.out.println("You have also a discount on cost of the card -> " + discount.toString());
         int key = 0;
         do {
             try {
@@ -278,16 +265,18 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
                 key = 0;
             }
         } while (key < 0 || key > i);
-        key = key - 1;
-        card = selectable.get(key);
-        for (Tower tower : mainBoard.getTowers())
-            for (TowerCell towerCell : tower.getTowerCells())
-                if (towerCell.getDevelopmentCard().getName().equals(card.getName())) {
-                    card.payCost(getClient().getPlayer(), this);
-                    towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
-                    if(towerCell.getTowerCellImmediateEffect() != null)
-                        towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), this);
-                }
+        if(key > 0) {
+            key = key - 1;
+            card = selectable.get(key);
+            for (Tower tower : mainBoard.getTowers())
+                for (TowerCell towerCell : tower.getTowerCells())
+                    if (towerCell.getDevelopmentCard().getName().equals(card.getName())) {
+                        card.payCost(getClient().getPlayer(), this);
+                        towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
+                        if (towerCell.getTowerCellImmediateEffect() != null)
+                            towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), this);
+                    }
+        }
         getClient().setPlayerTurnChoices(reason, card);
         consoleListener = new ConsoleListener();
         consoleListener.start();
@@ -349,8 +338,10 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         try{
             getClient().getGameModel().pickupDevelopmentCardFromTower(player, familyMemberColor, servants, towerIndex, cellIndex, this);
             getClient().notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex);
-        } catch (IndexOutOfBoundsException | GameException e) {
-            Debugger.printDebugMessage("You can't place your familiar in this place. Please retry.");
+        } catch (GameException e) {
+            Debugger.printDebugMessage("You can't place your familiar in this place. " + e.getError());
+        } catch (IndexOutOfBoundsException e){
+            Debugger.printDebugMessage("You can't place your familiar in this place. Wrong coordinates. " + e.getMessage());
         }
     }
 
@@ -427,12 +418,12 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
             int i = 0;
             List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
             for(LeaderCard leaderCard : leaderCards){
-                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase())) {
-                    getClient().getGameModel().activateLeaderCard(player, i, servants, this);
-                    getClient().notifyActivateLeader(i, servants);
-                }
+                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                    break;
                 i++;
             }
+            getClient().getGameModel().activateLeaderCard(player, i, servants, this);
+            getClient().notifyActivateLeader(i, servants);
         } catch (GameException e){
             Debugger.printDebugMessage("Error while activate you leader card. Please retry.");
         }
@@ -444,12 +435,12 @@ public class  CommandLineInterface extends AbstractUI implements GameScreen.Game
         int i = 0;
         List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
         for(LeaderCard leaderCard : leaderCards){
-            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase())) {
-                getClient().getGameModel().discardLeaderCard(player, i, this);
-                getClient().notifyDiscardLeader(i);
-            }
+            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                break;
             i++;
         }
+        getClient().getGameModel().discardLeaderCard(player, i, this);
+        getClient().notifyDiscardLeader(i);
     }
 
     @Override

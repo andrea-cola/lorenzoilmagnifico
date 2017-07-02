@@ -5,19 +5,16 @@ import it.polimi.ingsw.model.FamilyMemberColor;
 
 import java.util.Arrays;
 
-public class TurnScreen extends GameScreen {
+/*package-local*/ class TurnScreen extends GameScreen {
 
     private GameCallback callback;
-
-    private boolean familiarPlaced;
 
     TurnScreen(GameCallback callback, boolean moveDone){
         super(callback);
         this.callback = callback;
-        this.familiarPlaced = moveDone;
 
-        addOption("run-leader", "'run-leader [name] [servants]' to activate a leader card.", this::activateLeader);
-        addOption("discard-leader", "'discard-leader [name]' to discard a leader card.", this::discardLeader);
+        addOption("run-leader", "'run-leader [servants] [name-with-spaces]' to activate a leader card.", this::activateLeader);
+        addOption("discard-leader", "'discard-leader [name-with-spaces]' to discard a leader card.", this::discardLeader);
         if(!moveDone) {
             addOption("set-fam-tower", "'set-fam-tower [familiar color] [servants] [tower index] [cell index]' to place family member on the tower.", this::setFamilyMemberInTower);
             addOption("set-fam-council", "'set-fam-council [familiar color] [servants]' to place family member in the council.", this::setFamilyMemberInCouncil);
@@ -118,18 +115,25 @@ public class TurnScreen extends GameScreen {
     }
 
     private void activateLeader(String[] parameters) throws WrongCommandException{
-        if(parameters.length == 2){
-            checkParameters(parameters);
-            int servants = Integer.parseInt(parameters[1]);
-            callback.activateLeader(parameters[0], servants);
+        if(parameters.length > 2){
+            int servants = Integer.parseInt(parameters[0]);
+            if(servants < 0)
+                throw new WrongCommandException();
+            StringBuilder stringBuilder = new StringBuilder(parameters[1]);
+            for(int i = 2; i < parameters.length; i++)
+                stringBuilder.append(" " + parameters[i]);
+            callback.activateLeader(stringBuilder.toString(), servants);
             return;
         }
         throw new WrongCommandException();
     }
 
     private void discardLeader(String[] parameters) throws WrongCommandException{
-        if(parameters.length == 1){
-            callback.discardLeader(parameters[0]);
+        if(parameters.length > 1){
+            StringBuilder stringBuilder = new StringBuilder(parameters[0]);
+            for(int i = 1; i < parameters.length; i++)
+                stringBuilder.append(" " + parameters[i]);
+            callback.discardLeader(stringBuilder.toString());
             return;
         }
         throw new WrongCommandException();

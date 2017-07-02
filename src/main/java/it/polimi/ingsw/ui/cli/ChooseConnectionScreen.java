@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class ChooseConnectionScreen extends BasicScreen {
+/*package-local*/ class ChooseConnectionScreen extends BasicScreen {
 
     private static final int STD_PORT_SOCKET = 3031;
     private static final int STD_PORT_RMI = 3032;
@@ -28,10 +28,8 @@ public class ChooseConnectionScreen extends BasicScreen {
 
     ChooseConnectionScreen(ICallback callback){
         this.callback = callback;
-
         cliMessages.add("Connection based on Sockets.");
         cliMessages.add("Connection based on RMI.");
-
         printScreenTitle("NETWORK CONFIGURATION");
         print(cliMessages);
         readCommand();
@@ -52,7 +50,7 @@ public class ChooseConnectionScreen extends BasicScreen {
                 this.port = STD_PORT_RMI;
             }
             readAddress();
-        } catch (ClassCastException e) {
+        } catch (NumberFormatException | ClassCastException e) {
             readCommand();
         } catch (IOException e){
             Debugger.printDebugMessage("Error while reading from keyboard.");

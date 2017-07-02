@@ -22,7 +22,7 @@ public class EffectFinalPoints extends Effect {
      * Class constructor.
      */
     public EffectFinalPoints(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     /**
@@ -58,8 +58,7 @@ public class EffectFinalPoints extends Effect {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.effectType + ": ");
-        stringBuilder.append("Final points earned: " + finalVictoryPoints.toString());
+        stringBuilder.append("Earned final points: ( " + finalVictoryPoints.toString() + " )");
         return stringBuilder.toString();
     }
 

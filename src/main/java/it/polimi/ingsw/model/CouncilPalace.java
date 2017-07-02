@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.effects.EffectSimple;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-
 /**
  * This class represents the council palace abstraction.
  */
@@ -29,7 +28,7 @@ public class CouncilPalace implements Serializable{
     private LinkedList<Player> nextTurnOrder;
 
 
-    public CouncilPalace(int minFamilyMemberDiceValue, EffectSimple effectSimple){
+    /*package-local*/ CouncilPalace(int minFamilyMemberDiceValue, EffectSimple effectSimple){
         this.minFamilyMemberDiceValue = minFamilyMemberDiceValue;
         this.effectSimple = effectSimple;
         nextTurnOrder = new LinkedList<>();
@@ -39,7 +38,7 @@ public class CouncilPalace implements Serializable{
      * Get min dice value.
      * @return min dice value.
      */
-    public int getMinFamilyMemberDiceValue(){
+    /*package-local*/ int getMinFamilyMemberDiceValue(){
         return this.minFamilyMemberDiceValue;
     }
 
@@ -47,7 +46,7 @@ public class CouncilPalace implements Serializable{
      * Get immediate effect.
      * @return immediate effect of the council.
      */
-    public EffectSimple getImmediateEffect(){
+    /*package-local*/ EffectSimple getImmediateEffect(){
         return this.effectSimple;
     }
 
@@ -55,7 +54,7 @@ public class CouncilPalace implements Serializable{
      * Add player in queue.
      * @param player to add in the queue.
      */
-    public void fifoAddPlayer(Player player){
+    /*package-local*/ void fifoAddPlayer(Player player){
         if(!nextTurnOrder.contains(player))
             this.nextTurnOrder.add(player);
     }
@@ -80,7 +79,7 @@ public class CouncilPalace implements Serializable{
     }
 
 
-    public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
+    /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 
         //check that the family member used has not been already used
         for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed())
@@ -95,6 +94,14 @@ public class CouncilPalace implements Serializable{
         //if the family member can be placed, add it to the family members used
         player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
         player.getPersonalBoard().getValuables().decrease(ResourceType.SERVANT, servants);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder("Dice: " + minFamilyMemberDiceValue + "\nEffect: " + effectSimple + "\nPlayers in council:");
+        for(Player player : nextTurnOrder)
+            stringBuilder.append(" " + player.getUsername());
+        return stringBuilder.toString();
     }
 
 }

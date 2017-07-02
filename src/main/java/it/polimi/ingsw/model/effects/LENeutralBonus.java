@@ -13,7 +13,7 @@ public class LENeutralBonus extends LeaderEffect{
     private int bonus;
 
     public LENeutralBonus(){
-        super.effectType = this.getClass().getSimpleName();
+        super.setEffectType(this.getClass().getSimpleName());
     }
 
     public void setBonus(int value){

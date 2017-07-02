@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gameServer;
+package it.polimi.ingsw.gameserver;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ServerPlayer;
@@ -83,11 +83,15 @@ import java.util.*;
         this.excommunicationCards = excommunicationCards;
         this.informationChoicesHandler = new InformationChoicesHandler();
         this.game = new Game(configuration.getMainBoard(), this.players);
+        setupFinalPoints();
+        setupPlayers();
+        setupDecks(developmentCards);
+    }
+
+    private void setupFinalPoints(){
         victoryPointsForGreenCards = configuration.getVictoryPointsForGreenCards();
         victoryPointsForBlueCards = configuration.getVictoryPointsForBlueCards();
         victoryPointsBonusForFaith = configuration.getVictoryPointsBonusForFaith();
-        setupPlayers();
-        setupDecks(developmentCards);
     }
 
     /**
@@ -120,17 +124,17 @@ import java.util.*;
                     break;
             }
         }
-        orderList(yellowDeck);
-        orderList(greenDeck);
-        orderList(blueDeck);
-        orderList(purpleDeck);
+        orderDevelopmentCards(yellowDeck);
+        orderDevelopmentCards(greenDeck);
+        orderDevelopmentCards(blueDeck);
+        orderDevelopmentCards(purpleDeck);
     }
 
     /**
      * This method orders card per id.
      * @param list of all card.
      */
-    private void orderList(ArrayList<DevelopmentCard> list) {
+    private void orderDevelopmentCards(ArrayList<DevelopmentCard> list) {
         Collections.sort(list, new Comparator<DevelopmentCard>() {
             @Override
             public int compare(DevelopmentCard card1, DevelopmentCard card2) {
@@ -178,7 +182,7 @@ import java.util.*;
         this.game.getMainBoard().setTower(1, deckForTurn(deckForPeriod(this.blueDeck, period), turn));
         this.game.getMainBoard().setTower(2, deckForTurn(deckForPeriod(this.yellowDeck, period), turn));
         this.game.getMainBoard().setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
-
+        chooseExcommunicationCards();
     }
 
     public void mainboardTurnReset(){
@@ -204,9 +208,7 @@ import java.util.*;
 
     /**
      * Method to setup the excommunication cards for the period
-     * @return
      */
-    //TODO chiamare questo metodo soltanto una volta all'inizio del gioco per settare l'array di carte scomunica in vaticano (chiamare il metodo dove si ritiene opportuno)
     private void chooseExcommunicationCards() {
         Collections.shuffle(this.excommunicationCards);
         ExcommunicationCard[] excommunicationCards = new ExcommunicationCard[3];

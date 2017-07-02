@@ -1,4 +1,4 @@
-package it.polimi.ingsw.socketClient;
+package it.polimi.ingsw.socketclient;
 
 
 import it.polimi.ingsw.exceptions.RoomException;
@@ -10,7 +10,7 @@ import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.ConnectionException;
-import it.polimi.ingsw.socketCommunicationProtocol.ClientCommunicationProtocol;
+import it.polimi.ingsw.socketprotocol.ClientCommunicationProtocol;
 
 import java.io.*;
 import java.net.Socket;

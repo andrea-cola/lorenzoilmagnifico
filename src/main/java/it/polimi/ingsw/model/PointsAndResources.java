@@ -97,16 +97,28 @@ public class PointsAndResources implements Serializable{
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
         Iterator it = resources.entrySet().iterator();
+        boolean first = false;
         while(it.hasNext()){
             Map.Entry pair = (Map.Entry)it.next();
-            if((int)pair.getValue() > 0)
-                stringBuilder.append(pair.getKey().toString().toUpperCase() + ": " + pair.getValue().toString() + ", ");
+            if((int)pair.getValue() > 0) {
+                if(first)
+                    stringBuilder.append(", ");
+                else
+                    first = true;
+                stringBuilder.append(pair.getKey().toString() + ": " + pair.getValue().toString());
+            }
         }
+        first = false;
         it = points.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry pair = (Map.Entry)it.next();
-            if((int)pair.getValue() > 0)
-                stringBuilder.append(pair.getKey().toString().toUpperCase() + ": " + pair.getValue().toString() + ", ");
+            if((int)pair.getValue() > 0) {
+                if(first)
+                    stringBuilder.append(", ");
+                else
+                    first = true;
+                stringBuilder.append(pair.getKey().toString() + ": " + pair.getValue().toString());
+            }
         }
         return stringBuilder.toString();
     }
