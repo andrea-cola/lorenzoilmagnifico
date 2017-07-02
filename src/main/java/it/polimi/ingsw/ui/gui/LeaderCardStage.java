@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.Player;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.*;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -28,18 +30,21 @@ public class LeaderCardStage extends JFXPanel {
     private final static int GRID_HGAP = 20;
     private final static int IMAGE_WIDTH = 200;
     private final static int IMAGE_HEIGHT = 310;
-    private final static int HEIGHT = 100;
-    private final static int WIDTH = 500;
+    private final static int HEIGHT = 500;
+    private final static int WIDTH = 1000;
+    private final static int INSETS = 20;
+
 
 
     LeaderCardStage(MainBoardStage.CallbackInterface callback, Player player){
         this.callback = callback;
+        BorderPane root = new BorderPane();
         GridPane pane = new GridPane();
         pane.setPrefSize(WIDTH, HEIGHT);
         pane.setVgap(GRID_VGAP);
         pane.setHgap(GRID_HGAP);
 
-        for (int i = 0; i <4 ; i++) {
+        for (int i = 0; i <player.getPersonalBoard().getLeaderCards().size() ; i++) {
             StringBuilder path = new StringBuilder();
             path.append("images/leaderCards/");
             String name = player.getPersonalBoard().getLeaderCards().get(i).getLeaderCardName();
@@ -56,10 +61,12 @@ public class LeaderCardStage extends JFXPanel {
             image.setFitHeight(IMAGE_HEIGHT);
             image.autosize();
             Label label = new Label(name);
+            label.setAlignment(Pos.CENTER);
             pane.add(image, i, 0);
             pane.add(label, i, 1);
 
             Button button = new Button("INTERACT");
+            button.setAlignment(Pos.CENTER);
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -93,7 +100,10 @@ public class LeaderCardStage extends JFXPanel {
             });
             pane.add(button, i, 2);
         }
-        Scene scene = new Scene(pane);
+        root.setCenter(pane);
+        root.setMargin(pane, new Insets(INSETS));
+        Scene scene = new Scene(root);
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setScene(scene);
     }
 

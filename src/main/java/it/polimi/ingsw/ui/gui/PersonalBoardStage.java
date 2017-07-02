@@ -13,8 +13,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -22,14 +26,19 @@ import java.util.ArrayList;
  * This is the Graphic User Interface Personal Board class
  */
 public class PersonalBoardStage extends JFXPanel{
+
     /**
      * Constants
      */
-    private static final int BACK_WIDTH = 150;
-    private static final int BACK_HEIGHT = 200;
+    private static final int BACK_WIDTH = 582;
+    private static final int BACK_HEIGHT = 700;
     private static final int GRID_HGAP = 10;
     private static final int GRID_VGAP = 10;
     private final static int INSETS = 20;
+    private final static int IMAGE_WIDTH = 80;
+    private final static int IMAGE_HEIGHT = 115;
+    private final static int WIDTH = 500;
+    private final static int HEIGHT = 500;
 
     /**
      * Data related to the player
@@ -44,7 +53,6 @@ public class PersonalBoardStage extends JFXPanel{
      */
     private BackgroundImage background;
 
-
     PersonalBoardStage(Player player) {
 
         this.coinsValue = player.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN);
@@ -52,21 +60,23 @@ public class PersonalBoardStage extends JFXPanel{
         this.stonesValue = player.getPersonalBoard().getValuables().getResources().get(ResourceType.STONE);
         this.servantsValue = player.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT);
 
-        BorderPane root = new BorderPane();
-        root.setPrefSize(BACK_WIDTH, BACK_HEIGHT);
+        AnchorPane root = new AnchorPane();
         GridPane gridPane = new GridPane();
+        gridPane.setPrefSize(BACK_WIDTH, BACK_HEIGHT);
         gridPane.setHgap(GRID_HGAP);
         gridPane.setVgap(GRID_VGAP);
         BackgroundSize size = new BackgroundSize(BACK_WIDTH, BACK_WIDTH, false, false, true, false);
         Image image = new Image("images/PersonalBoardStageCover.jpg");
         background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
-        gridPane.setBackground(new Background(background));
+        root.setBackground(new Background(background));
 
         for (int i = 0; i <= 5; i++) {
-            for (int j = 0; j <5; j++) {
+            for (int j = 0; j < 4; j++) {
                 StringBuilder path = new StringBuilder();
                 path.append("images/developmentCard/devcards_f_en_c_");
                 int id;
+                ColumnConstraints columnConstraints = new ColumnConstraints();
+                columnConstraints.setPercentWidth(20);
                 if(j==0 && player.getPersonalBoard().getCards(DevelopmentCardColor.PURPLE).size()!=0) {
                     id = player.getPersonalBoard().getCards(DevelopmentCardColor.PURPLE).get(i).getId();
                     path.append(id);
@@ -96,25 +106,34 @@ public class PersonalBoardStage extends JFXPanel{
                     card3.autosize();
                     gridPane.add(card3, i, j);
                 }else{
-                    Label nothing = new Label("Nothing to show");
-                    gridPane.add(nothing, i, j);
+                    ImageView nullImage = new ImageView(new Image("images/coverCard.jpg"));
+                    nullImage.setFitWidth(IMAGE_WIDTH);
+                    nullImage.setFitHeight(IMAGE_HEIGHT);
+                    gridPane.add(nullImage, i, j);
                 }
             }
         }
 
-        Label coins = new Label("Coins = " + coinsValue);
+        Label coins = new Label(new Integer(coinsValue).toString());
+        coins.setTextFill(Color.RED);
         gridPane.add(coins, 0, 5);
-        Label wood = new Label("Wood = " + woodValue);
+        Label wood = new Label(new Integer(woodValue).toString());
+        wood.setTextFill(Color.RED);
         gridPane.add(wood, 1, 5);
-        Label stones = new Label("Stones = " + stonesValue);
+        Label stones = new Label(new Integer(stonesValue).toString());
+        stones.setTextFill(Color.RED);
         gridPane.add(stones, 2, 5);
-        Label servants = new Label(" Servants = " + servantsValue);
+        Label servants = new Label(new Integer(servantsValue).toString());
+        servants.setTextFill(Color.RED);
         gridPane.add(servants, 3, 5);
 
-        root.setCenter(gridPane);
-        root.setMargin(gridPane, new Insets(INSETS));
+        AnchorPane.setTopAnchor(gridPane, 10.0);
+        AnchorPane.setLeftAnchor(gridPane, 10.0);
+        AnchorPane.setRightAnchor(gridPane, 10.0);
+        AnchorPane.setBottomAnchor(gridPane, 10.0);
+        root.getChildren().addAll(gridPane);
         Scene scene = new Scene(root);
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setScene(scene);
     }
-
 }

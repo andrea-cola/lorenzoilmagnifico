@@ -54,6 +54,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     private int key;
     private DevelopmentCard card;
     private boolean choice;
+    private boolean finished;
 
     /**
      * Constructor
@@ -146,7 +147,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     @Override
     public void turnScreen(String username, long seconds) {
         System.out.println("staring " + username + " turn");
-        mainBoardStage = new MainBoardStage( this, getClient().getPlayer(), getClient().getGameModel());
+        mainBoardStage = new MainBoardStage( this, getClient().getPlayer(), getClient().getGameModel(), this);
         mainPanel.add(mainBoardStage, MAIN_BOARD);
         cardLayout.show(mainPanel, MAIN_BOARD);
     }
@@ -191,7 +192,6 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         System.out.println("showing " + player.getUsername() + " personal board...");
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
-            jframe.setSize(FRAME_WIDTH, FRAME_HEIGHT);
             jframe.add(new PersonalBoardStage(player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
@@ -204,7 +204,6 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         System.out.println("showing " + player.getUsername() + " personal tile board...");
         SwingUtilities.invokeLater(()-> {
             JFrame jframe = new JFrame();
-            jframe.setSize(FRAME_WIDTH, FRAME_HEIGHT);
             jframe.add(new PersonalTileBoardStage(player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
@@ -217,7 +216,6 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         System.out.println("showing " + player.getUsername() + " leader cards...");
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
-            jframe.setSize(FRAME_WIDTH, FRAME_HEIGHT);
             jframe.add(new LeaderCardStage(this, player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
@@ -235,20 +233,6 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         });
     }
 
-    @Override
-    public void showChooseServantNumber() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame jframe = new JFrame();
-                jframe.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-                jframe.add(new ChooseServantNumberStage(), BorderLayout.CENTER);
-                jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                jframe.pack();
-                jframe.setVisible(true);
-            }
-        });
-    }
 
     @Override
     public void notifyEndTurnStage() {
@@ -292,17 +276,17 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     }
 
     @Override
-    public void showChooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+    public void showChooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege, MainBoardStage.CallbackInterface callback){
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 JFrame jframe = new JFrame();
                 try {
-                    jframe.add(new ChooseCouncilPrivilege(reason, councilPrivilege), BorderLayout.CENTER);
+                    jframe.add(new ChooseCouncilPrivilege(reason, councilPrivilege, callback), BorderLayout.CENTER);
                 } catch (GameException e) {
                     showGameException();
                 }
-                jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 jframe.pack();
                 jframe.setVisible(true);
             }
@@ -326,7 +310,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
 
     @Override
     public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
-        showChooseCouncilPrivilege(reason, councilPrivilege);
+        showChooseCouncilPrivilege(reason, councilPrivilege, this);
         return getCouncilPrivileges();
     }
 
@@ -345,7 +329,6 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
                             UnsupportedLookAndFeelException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
-
                     String[] choices= new String[2];
                     choices[0] = "With " + pointsAndResources.toString();
                     choices[1] = "With " + militaryPointsGiven + "but you need " + militaryPointsNeeded;
@@ -515,6 +498,14 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         return this;
     }
 
+    boolean isFinished(){
+        return finished;
+    }
+
+    private void setFinished(boolean finished){
+        this.finished = finished;
+        return;
+    }
 
 
     private boolean isSelectable(TowerCell cell, PointsAndResources discount){

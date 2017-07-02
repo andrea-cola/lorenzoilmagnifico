@@ -17,9 +17,10 @@ public class ChooseCouncilPrivilege extends JPanel{
     private CouncilPrivilege councilPrivilege;
     private String reason;
 
-    ChooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) throws GameException {
+    ChooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege, MainBoardStage.CallbackInterface callback) throws GameException {
         this.councilPrivilege = councilPrivilege;
         this.reason = reason;
+        this.callback = callback;
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -30,13 +31,14 @@ public class ChooseCouncilPrivilege extends JPanel{
 
         JPanel panel = new JPanel();
         String[] privil = {"1 WOOD & 1 SERVANT", "2 SERVANTS", "2 COINS", "2 MILITARY POINTS","1 FAITH POINTS"};
-        JCheckBox[] checkBox = new JCheckBox[councilPrivilege.getNumberOfCouncilPrivileges()];
+        JCheckBox[] checkBox = new JCheckBox[privil.length];
         for (int i = 0; i <checkBox.length; i++) {
             checkBox[i] = new JCheckBox(privil[i]);
             panel.add(checkBox[i]);
         }
+
         ImageIcon image = new ImageIcon("images/councilPrivileges.jpeg");
-        panel.add(new JLabel(image));
+        panel.add(new JLabel("", image, JLabel.CENTER));
 
         int result = JOptionPane.showConfirmDialog(null, panel , "Choose" + councilPrivilege.getNumberOfCouncilPrivileges() +" Privilege", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
@@ -46,7 +48,6 @@ public class ChooseCouncilPrivilege extends JPanel{
                 if (checkBox[i].isSelected())
                     j++;
             }
-
             if (j > councilPrivilege.getNumberOfCouncilPrivileges())
                 throw new GameException();
             else {

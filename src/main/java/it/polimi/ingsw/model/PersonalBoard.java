@@ -257,7 +257,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get the dice bonus value for harvest and production zones
-     *
      * @return
      */
     public Map<ActionType, Integer> getHarvestProductionDiceValueBonus() {
