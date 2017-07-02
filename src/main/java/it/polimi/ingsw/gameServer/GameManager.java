@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.*;
 
 /*package-local*/ class GameManager{
@@ -68,6 +69,9 @@ import java.util.*;
      */
     private static int[] victoryPointsForBlueCards;
 
+    /**
+     * Victory points assigned in case you sustain vatican
+     */
     private static int[] victoryPointsBonusForFaith;
 
     /**
@@ -304,6 +308,12 @@ import java.util.*;
         this.informationChoicesHandler.setDecisions(playerChoices);
     }
 
+    /**
+     * This method makes the control at the end of each period
+     * @param period
+     * @param player
+     * @return
+     */
     public boolean finalControlsForPeriod(int period, ServerPlayer player){
         int faithPointsRequired = game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
         //check if the player gets the excommunication effect
@@ -314,6 +324,11 @@ import java.util.*;
         return true;
     }
 
+    /**
+     * This method manages the support to the church
+     * @param player
+     * @param flag
+     */
     public void applySupportChoice(ServerPlayer player, boolean flag){
         if(flag){
             player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
@@ -325,6 +340,11 @@ import java.util.*;
         }
     }
 
+    /**
+     * This method assigns an excommunication effect to the player
+     * @param player
+     * @param period
+     */
     private void excommunicationForPlayer(Player player, int period){
         ExcommunicationCard excommunicationCard = this.game.getMainBoard().getVatican().getExcommunicationCard(period - 1);
         excommunicationCard.getEffect().runEffect(player);
@@ -366,7 +386,7 @@ import java.util.*;
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.BLUE)){
                 int numberOfBlueCards = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).size();
                 if (numberOfBlueCards > 0){
-                    int finalPointsBonus = victoryPointsForGreenCards[numberOfBlueCards - 1];
+                    int finalPointsBonus = victoryPointsForBlueCards[numberOfBlueCards - 1];
                     player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
                 }
             }
@@ -416,7 +436,6 @@ import java.util.*;
                     player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, entry.getValue()/finalResourcesDevCardIndexMalus);
                 }
             }
-
         }
 
         //create military points ranking
@@ -426,7 +445,34 @@ import java.util.*;
                 .forEachOrdered(x -> result.put(x.getKey(), x.getValue()));
 
         //assign victory points based on military ranking
-
+        int firstMilitaryPointsValue = 0;
+        int secondMilitaryPointsValue = 0;
+        boolean duce = false;
+        for (Map.Entry<ServerPlayer, Integer> entry : result.entrySet()){
+            //previousMilitaryPointsValue is not initialized, this means that we are considering the first player in ranking
+            if (firstMilitaryPointsValue == 0){
+                firstMilitaryPointsValue = entry.getValue();
+                (entry.getKey()).getPersonalBoard().getValuables().increase(PointType.VICTORY, 5);
+            }else{
+                if(firstMilitaryPointsValue == entry.getValue()){
+                    //if the second player has the same points of the first, give him 5 points
+                    (entry.getKey()).getPersonalBoard().getValuables().increase(PointType.VICTORY, 5);
+                    break;
+                }else{
+                    //the second player does not have the same number of military points of the first
+                    if (secondMilitaryPointsValue == 0){
+                        secondMilitaryPointsValue = entry.getValue();
+                        (entry.getKey()).getPersonalBoard().getValuables().increase(PointType.VICTORY, 2);
+                    }else{
+                        //if the third player has the same number of points of the second, give him 2 points
+                        if (secondMilitaryPointsValue == entry.getValue()){
+                            (entry.getKey()).getPersonalBoard().getValuables().increase(PointType.VICTORY, 2);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 }

@@ -158,6 +158,7 @@ public class TowerCell implements Serializable{
             //amount of military points owned by the player
             int playerMilitaryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY);
             //amount of military points requested to get this card
+
             int militaryPointsRequired = player.getPersonalBoard().getGreenCardsMilitaryPointsRequirements(amount-1);
 
             if (playerMilitaryPoints < militaryPointsRequired){
