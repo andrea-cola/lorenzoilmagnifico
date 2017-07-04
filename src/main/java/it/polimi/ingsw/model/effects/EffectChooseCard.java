@@ -50,11 +50,10 @@ public class EffectChooseCard extends Effect{
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
         LeaderCard leaderCard = player.getPersonalBoard().getLeaderCardWithName("Santa Rita");
-        if (leaderCard != null && leaderCard.getLeaderEffectActive()){
+        if (leaderCard != null && leaderCard.getLeaderEffectActive())
             updateResources(player, 2);
-        }else {
+        else
             updateResources(player, 1);
-        }
         updatePoints(player);
 
         //logica di gestione del privilegio del consiglio

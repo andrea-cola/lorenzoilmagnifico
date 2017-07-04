@@ -112,28 +112,32 @@ public class LeaderCard implements Serializable{
      */
     public void checkRequisites(Player player) throws GameException{
         //check if the player tries to reuse a leader card with a non permanent effect
-        if (!this.permanentAbility && this.leaderEffectActive){
+        if (this.leaderEffectActive){
             throw new GameException(GameErrorType.LEADER_CARD_ALREADY_USED);
         }
 
-        //check if the player has resources enough
-        for (Map.Entry<ResourceType, Integer> entry: this.pointsAndResourcesRequisites.getResources().entrySet()) {
-            if (player.getPersonalBoard().getValuables().getResources().get(entry.getKey()) < entry.getValue()){
-                throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+        if(pointsAndResourcesRequisites != null) {
+            //check if the player has resources enough
+            for (Map.Entry<ResourceType, Integer> entry : this.pointsAndResourcesRequisites.getResources().entrySet()) {
+                if (player.getPersonalBoard().getValuables().getResources().get(entry.getKey()) < entry.getValue()) {
+                    throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+                }
+            }
+
+            //check if the player has points enough
+            for (Map.Entry<PointType, Integer> entry : this.pointsAndResourcesRequisites.getPoints().entrySet()) {
+                if (player.getPersonalBoard().getValuables().getPoints().get(entry.getKey()) < entry.getValue()) {
+                    throw new GameException(GameErrorType.PLAYER_POINTS_ERROR);
+                }
             }
         }
 
-        //check if the player has points enough
-        for (Map.Entry<PointType, Integer> entry: this.pointsAndResourcesRequisites.getPoints().entrySet()) {
-            if (player.getPersonalBoard().getValuables().getPoints().get(entry.getKey()) < entry.getValue()){
-                throw new GameException(GameErrorType.PLAYER_POINTS_ERROR);
-            }
-        }
-
-        //check if the player has cards enough
-        for (Map.Entry<DevelopmentCardColor, Integer> entry: this.cardColorMapRequisites.entrySet()) {
-            if (player.getPersonalBoard().getCards(entry.getKey()).size() < entry.getValue()){
-                throw new GameException(GameErrorType.PLAYER_CARDS_ERROR);
+        if(cardColorMapRequisites != null) {
+            //check if the player has cards enough
+            for (Map.Entry<DevelopmentCardColor, Integer> entry : this.cardColorMapRequisites.entrySet()) {
+                if (player.getPersonalBoard().getCards(entry.getKey()).size() < entry.getValue()) {
+                    throw new GameException(GameErrorType.PLAYER_CARDS_ERROR);
+                }
             }
         }
 

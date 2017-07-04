@@ -70,14 +70,12 @@ public class EffectMultiplicator extends Effect{
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-
         //Set multiplicator value
         int multiplicatorValue = 0;
 
         //check if the multiplicator object is a card or a resource/point
         if (this.cardOrResources){
             multiplicatorValue = player.getPersonalBoard().getCards(this.cardColorRequisite).size();
-            System.out.println("MOLTIPLICA PER: " + multiplicatorValue);
         }else{
             for(Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet())
                 if(entry.getValue() != 0)
@@ -87,21 +85,26 @@ public class EffectMultiplicator extends Effect{
                     multiplicatorValue = entry.getValue();
         }
 
+        //check if the player has the leader card for this effect and if it is active
+        LeaderCard leaderCard = player.getPersonalBoard().getLeaderCardWithName("Santa Rita");
+        if (diceActionValue == 0 && leaderCard != null && leaderCard.getLeaderEffectActive())
+            multiplicatorValue = multiplicatorValue * 2;
+
         //run effect
         //updates player's resources
         for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
-            //excommunication effect
-            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
             //normal effect
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
         }
 
         //updates player's points
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()){
-            //excommunication effect
-            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
             //normal effect
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
         }
     }
 

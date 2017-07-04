@@ -12,6 +12,10 @@ public class ExcommunicationCard implements Serializable{
 
     private ExcommunicationEffect effect;
 
+    public int getCardID(){
+        return this.cardID;
+    }
+
     public int getPeriod(){
         return this.period;
     }

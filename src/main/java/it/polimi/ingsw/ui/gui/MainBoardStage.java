@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.model.Player;
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

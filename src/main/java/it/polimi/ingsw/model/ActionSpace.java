@@ -50,7 +50,7 @@ public class ActionSpace implements Serializable{
         return this.actionSpaceEffect;
     }
 
-    /*package-local*/ boolean isEmpty(){
+    public boolean isEmpty(){
         return this.empty;
     }
 

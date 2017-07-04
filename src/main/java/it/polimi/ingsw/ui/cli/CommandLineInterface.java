@@ -3,6 +3,7 @@ package it.polimi.ingsw.ui.cli;
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.WrongCommandException;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.effects.LEPicoDellaMirandola;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
@@ -10,6 +11,7 @@ import it.polimi.ingsw.utility.Debugger;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class manages the command line interface of the game.
@@ -48,7 +50,8 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
                 try {
                     wait();
                 } catch (InterruptedException e) {
-                    //
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while pausing keyboard listener.");
+                    Thread.currentThread().interrupt();
                 }
             }
         }
@@ -64,11 +67,11 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
 
     private boolean moveDone;
 
-    public synchronized void pause() {
+    private synchronized void pause() {
         needToPause = true;
     }
 
-    public synchronized void unpause() {
+    private synchronized void unpause() {
         needToPause = false;
         this.notifyAll();
     }
@@ -123,7 +126,13 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
     public void turnScreen(String username, long seconds) {
         if(username.equals(getClient().getUsername())){
             moveDone = false;
-            gameScreen = new TurnScreen(this, moveDone);
+            if(!getClient().getPlayer().getPersonalBoard().getExcommunicationValues().getSkipFirstTurn()
+                    && getClient().getGameModel().getTurn() == 1)
+                gameScreen = new TurnScreen(this, moveDone);
+            else{
+                Debugger.printStandardMessage("You lost this turn because of the excommunicaiton you got.");
+                this.notifyEndTurn();
+            }
         }
         else {
             System.out.println("Turn of " + username + ". Please wait for " + seconds + " seconds.");
@@ -262,7 +271,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
             for (Tower tower : mainBoard.getTowers())
                 if (tower.getColor().equals(developmentCardColor))
                     for (TowerCell towerCell : tower.getTowerCells())
-                        if (towerCell.getPlayerNicknameInTheCell() == null && towerCell.getMinFamilyMemberValue() <= diceValue
+                        if (towerCell.getPlayerNicknameInTheCell() == null && towerCell.getMinFamilyMemberValue() <= newDiceValue
                                 && isSelectable(towerCell, discount)) {
                             System.out.println(i + " -> " + towerCell.getDevelopmentCard().toString());
                             selectable.add(towerCell.getDevelopmentCard());
@@ -285,6 +294,15 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
             for (Tower tower : mainBoard.getTowers())
                 for (TowerCell towerCell : tower.getTowerCells())
                     if (towerCell.getDevelopmentCard().getName().equals(card.getName())) {
+                        LeaderCard leaderCard = getClient().getPlayer().getPersonalBoard().getLeaderCardWithName("Pico della Mirandola");
+                        int devCardCoinsCost = card.getCost().getResources().get(ResourceType.COIN);
+                        if (leaderCard != null && leaderCard.getLeaderEffectActive()) {
+                            //decrease card price
+                            if (devCardCoinsCost >= 3)
+                                card.getCost().decrease(ResourceType.COIN, ((LEPicoDellaMirandola)leaderCard.getEffect()).getMoneyDiscount());
+                            else
+                                card.getCost().decrease(ResourceType.COIN, devCardCoinsCost);
+                        }
                         card.payCost(getClient().getPlayer(), this);
                         towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
                         if (towerCell.getTowerCellImmediateEffect() != null)
@@ -294,6 +312,55 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         getClient().setPlayerTurnChoices(reason, card);
         unpause();
         return card;
+    }
+
+    @Override
+    public LeaderCard copyAnotherLeaderCard(String reason) {
+        pause();
+        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+        List<LeaderCard> leaderCards = new ArrayList<>();
+        for(Map.Entry pair : getClient().getGameModel().getPlayersMap().entrySet())
+            if(!pair.getKey().equals(getClient().getUsername()))
+                leaderCards.addAll(((Player)pair.getValue()).getPersonalBoard().getLeaderCards());
+        System.out.println("[ CHOOSE NEW CARD ]\nYou can copy the effect of another leader card. Choose between those proposal.");
+        for(int i = 0; i < leaderCards.size(); i++)
+            System.out.println( (i+1) + " -> " + leaderCards.get(i).getLeaderCardName());
+        int key = 0;
+        do {
+            try {
+                key = Integer.parseInt(r.readLine());
+            } catch (ClassCastException | NumberFormatException | IOException e) {
+                key = 1;
+            }
+        } while (key < 1 || key > leaderCards.size());
+        key--;
+        getClient().getPlayerTurnChoices().put(reason, leaderCards.get(key));
+        unpause();
+        return leaderCards.get(key);
+    }
+
+    @Override
+    public FamilyMemberColor choiceLeaderDice(String reason) {
+        pause();
+        int i = 0;
+        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("[ CHOOSE NEW CARD ]\nYou can choose a color between those proposals.");
+        for(FamilyMemberColor familyMemberColor : FamilyMemberColor.values()) {
+            System.out.println( (i+1) + " -> " + (FamilyMemberColor.values())[i]);
+            i++;
+        }
+        int key = 0;
+        do {
+            try {
+                key = Integer.parseInt(r.readLine());
+            } catch (ClassCastException | NumberFormatException | IOException e) {
+                key = 1;
+            }
+        } while (key < 1 || key > FamilyMemberColor.values().length);
+        key--;
+        getClient().getPlayerTurnChoices().put(reason, FamilyMemberColor.values()[key]);
+        unpause();
+        return FamilyMemberColor.values()[key];
     }
 
     @Override

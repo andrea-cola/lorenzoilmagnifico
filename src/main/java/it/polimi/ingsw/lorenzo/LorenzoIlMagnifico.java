@@ -108,7 +108,7 @@ import java.util.Map;
             Debugger.printStandardMessage("No rooms available. Create new one.");
             userInterface.createRoomScreen();
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send join room request.");
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send join room request." + e.getMessage());
         }
     }
 

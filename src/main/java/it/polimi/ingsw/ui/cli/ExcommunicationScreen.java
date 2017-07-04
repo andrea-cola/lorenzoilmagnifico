@@ -9,8 +9,7 @@ import it.polimi.ingsw.exceptions.WrongCommandException;
     /*package-local*/ ExcommunicationScreen(ExcommunicationCallback callback) {
         this.callback = callback;
         printScreenTitle("DO YOU WANT TO BE EXCOMMUNICATED?");
-        addOption("ex yes", "'ex yes' to get the excommunication.", this::getExcommunicationChoice);
-        addOption("ex no", "'ex no' to avoid the excommunication.", this::getExcommunicationChoice);
+        addOption("ex", "'ex [yes/no]' to get the excommunication.", this::getExcommunicationChoice);
     }
 
     private void getExcommunicationChoice(String[] parameters) throws WrongCommandException{

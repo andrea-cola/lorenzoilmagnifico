@@ -4,20 +4,29 @@ import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * This class gives a bonus to all dices
  */
 public class LEDiceBonus extends LeaderEffect {
 
+    /**
+     * White dice bonus value.
+     */
     private int whiteDice;
 
+    /**
+     * Black dice bonus value.
+     */
     private int blackDice;
 
+    /**
+     * Orange dice bonus value.
+     */
     private int orangeDice;
 
+    /**
+     * Class constructor.
+     */
     public LEDiceBonus(){
         super.setEffectType(this.getClass().getSimpleName());
         this.whiteDice = 0;
@@ -27,8 +36,7 @@ public class LEDiceBonus extends LeaderEffect {
 
     /**
      * Method to run the effect of the card.
-     *
-     * @param player
+     * @param player is gaining benefit from the effect.
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {

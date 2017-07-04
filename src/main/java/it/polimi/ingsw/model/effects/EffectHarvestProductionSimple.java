@@ -117,10 +117,9 @@ public class EffectHarvestProductionSimple extends Effect{
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
 
         //set action value
-        int familyMemberValue = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor);
-        int bonus = player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(this.actionType);
-        int malus = player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(this.actionType);
-        int actionValue = familyMemberValue + bonus - malus;
+        int actionValue = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor)
+                + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(this.actionType)
+                - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(this.actionType);
 
         if (actionValue >= this.diceActionValue) {
             //updates player's resources

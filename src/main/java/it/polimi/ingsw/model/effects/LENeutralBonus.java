@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.InformationCallback;
-import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 
 /**
@@ -10,24 +9,22 @@ import it.polimi.ingsw.model.Player;
  */
 public class LENeutralBonus extends LeaderEffect{
 
+    /**
+     * Bonus of neutral family member.
+     */
     private int bonus;
 
+    /**
+     * Class constructor.
+     */
     public LENeutralBonus(){
         super.setEffectType(this.getClass().getSimpleName());
-    }
-
-    public void setBonus(int value){
-        this.bonus = value;
-    }
-
-    public int getBonus(){
-        return this.bonus;
+        bonus = 0;
     }
 
     /**
      * Method to run the effect of the card.
-     *
-     * @param player
+     * @param player is gaining benefit of the effect.
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
