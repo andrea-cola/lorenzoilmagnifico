@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.effects.LELorenzoDeMedici;
+import it.polimi.ingsw.utility.Configuration;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -48,7 +51,7 @@ public class PersonalBoard implements Serializable {
     /**
      * Flag to check if the player can always place family members even in occupied spaces
      */
-    private Boolean alwaysPlaceFamilyMemberInsideActionSpace = false;
+    private boolean alwaysPlaceFamilyMemberInsideActionSpace = false;
 
     /**
      * Array of cards, divided per types.
@@ -168,7 +171,9 @@ public class PersonalBoard implements Serializable {
      * @param array
      */
     public void setGreenCardsMilitaryPointsRequirements(int[] array) {
-        this.greenCardsMilitaryPointsRequirements = array;
+        this.greenCardsMilitaryPointsRequirements = new int[array.length];
+        for(int i = 0; i < greenCardsMilitaryPointsRequirements.length; i++)
+            this.greenCardsMilitaryPointsRequirements[i] = array[i];
     }
 
     /**
@@ -213,7 +218,7 @@ public class PersonalBoard implements Serializable {
      * @param developmentCardColor
      * @return
      */
-    public ArrayList<DevelopmentCard> getCards(DevelopmentCardColor developmentCardColor) {
+    public List<DevelopmentCard> getCards(DevelopmentCardColor developmentCardColor) {
         switch (developmentCardColor) {
             case GREEN:
                 return this.territoryCards;
@@ -358,7 +363,7 @@ public class PersonalBoard implements Serializable {
     /**
      * This method returns the excommunication cards of the player
      */
-    public ArrayList<ExcommunicationCard> getExcommunivationCards() {
+    public List<ExcommunicationCard> getExcommunivationCards() {
         return this.excommunicationCards;
     }
 
@@ -385,78 +390,105 @@ public class PersonalBoard implements Serializable {
         return this.alwaysPlaceFamilyMemberInsideActionSpace;
     }
 
-    /**
-     * Reset dice values for family members.
-     * Reset list of family members used.
-     */
-    public void turnReset() {
+    public void turnReset(Configuration configuration) {
         this.familyMembersUsed = new ArrayList<>();
         this.familyMember = new FamilyMember();
+        for(LeaderCard leaderCard : leaderCards) {
+            if (!leaderCard.getLeaderCardName().toLowerCase().equals("lorenzo il magnifico")
+                    && !leaderCard.getLeaderEffectActive() && leaderCard.getEffect() instanceof LELorenzoDeMedici) {
+                LELorenzoDeMedici effect = (LELorenzoDeMedici)leaderCard.getEffect();
+                LeaderCard leaderCardToDelete = effect.getLeaderCard();
+                for(int j = 0; j < leaderCards.size(); j++)
+                    if(leaderCards.get(j).getLeaderCardName().equals(leaderCardToDelete.getLeaderCardName()))
+                        leaderCards.remove(j);
+            }
+            leaderCard.setLeaderEffectActive(false);
+        }
+        this.getFamilyMember().setFamilyMemberValue(FamilyMemberColor.NEUTRAL, 0);
+        this.setGreenCardsMilitaryPointsRequirements(configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
+        this.alwaysPlaceFamilyMemberInsideActionSpace = false;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("-> RESOURCES AVAILABLE\n");
-        stringBuilder.append(valuables.toString());
 
         stringBuilder.append("\n-> FAMILY MEMBERS AVAILABLE\n");
-        Iterator it = familyMember.getMembers().entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
+        for(Map.Entry pair : familyMember.getMembers().entrySet())
             if (!familyMemberIsUsed((FamilyMemberColor) pair.getKey()))
-                stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
-        }
+                stringBuilder.append(pair.getKey().toString().toLowerCase() + "=" + pair.getValue() + " ");
 
-        stringBuilder.append("-> BONUS AVAILABLE\n");
-        it = harvestProductionDiceValueBonus.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            if ((int) pair.getValue() != 0)
-                stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
-        }
+        stringBuilder.append("\n\n-> RESOURCES AVAILABLE\n" + valuables + "\n");
 
-        it = developmentCardColorDiceValueBonus.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            if ((int) pair.getValue() != 0)
-                stringBuilder.append(pair.getKey().toString() + " = " + pair.getValue() + "\n");
-        }
-        it = costDiscountForDevelopmentCard.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            if (((ArrayList)pair.getValue()).size() > 0) {
-                for(PointsAndResources valuable : (ArrayList<PointsAndResources>)pair.getValue()){
+        stringBuilder.append("\n-> BONUS AVAILABLE\n");
+        for(Map.Entry pair : harvestProductionDiceValueBonus.entrySet())
+            if((int) pair.getValue() != 0)
+                stringBuilder.append(pair.getKey().toString() + "=" + pair.getValue() + "\n");
+        for(Map.Entry pair : developmentCardColorDiceValueBonus.entrySet())
+            if((int) pair.getValue() != 0)
+                stringBuilder.append(pair.getKey().toString() + "=" + pair.getValue() + "\n");
+        for(Map.Entry pair : costDiscountForDevelopmentCard.entrySet())
+            if (!((ArrayList) pair.getValue()).isEmpty())
+                for(PointsAndResources valuable : (ArrayList<PointsAndResources>)pair.getValue())
                     if(!valuable.toString().equals(""))
                         stringBuilder.append(valuable.toString() + "\n");
-                }
-            }
-        }
 
-        stringBuilder.append("<TERRITORY CARDS>\n");
+        stringBuilder.append("\n-> TERRITORY CARDS\n");
         for (DevelopmentCard card : territoryCards)
             stringBuilder.append(card.toString());
-        stringBuilder.append("<BUILDING CARDS>\n");
+        stringBuilder.append("\n-> BUILDING CARDS\n");
         for (DevelopmentCard card : buildingCards)
             stringBuilder.append(card.toString());
-        stringBuilder.append("<CHARACTERS CARDS>\n");
+        stringBuilder.append("\n-> CHARACTERS CARDS\n");
         for (DevelopmentCard card : characterCards)
             stringBuilder.append(card.toString());
-        stringBuilder.append("<VENTURE CARDS>\n");
+        stringBuilder.append("\n-> VENTURE CARDS\n");
         for (DevelopmentCard card : ventureCards)
             stringBuilder.append(card.toString());
 
-        if (excommunicationCards.size() > 0) {
-            stringBuilder.append("<EXCOMMUNICATION CARDS>\n");
+        stringBuilder.append("\n-> EXCOMMUNICATIONS (active)\n");
+        if (!excommunicationCards.isEmpty())
             for (ExcommunicationCard card : excommunicationCards)
                 stringBuilder.append(card.toString());
-        }
-        if (leaderCards.size() > 0) {
-            stringBuilder.append("<LEADER CARDS>\n");
-            for (LeaderCard card : leaderCards)
-                stringBuilder.append(card.toString());
-        }
 
+        stringBuilder.append("\n-> LEADER CARDS\n");
+        if (!leaderCards.isEmpty())
+            for (LeaderCard card : leaderCards)
+                stringBuilder.append(card.toString() + "\n");
+        return stringBuilder.toString();
+    }
+
+    public String toStringSmall(){
+        StringBuilder stringBuilder = new StringBuilder("\n-> RESOURCES AVAILABLE\n" + valuables + "\n");
+
+        stringBuilder.append("\n-> TERRITORY CARDS: ");
+        for (DevelopmentCard card : territoryCards)
+            stringBuilder.append(card.getName() + ", ");
+        stringBuilder.append("\n-> BUILDING CARDS: ");
+        for (DevelopmentCard card : buildingCards)
+            stringBuilder.append(card.getName() + ", ");
+        stringBuilder.append("\n-> CHARACTERS CARDS: ");
+        for (DevelopmentCard card : characterCards)
+            stringBuilder.append(card.getName() + ", ");
+        stringBuilder.append("\n-> VENTURE CARDS: ");
+        for (DevelopmentCard card : ventureCards)
+            stringBuilder.append(card.getName() + ", ");
+
+        stringBuilder.append("\n-> EXCOMMUNICATIONS (active)\n");
+        if (!excommunicationCards.isEmpty())
+            for (ExcommunicationCard card : excommunicationCards)
+                stringBuilder.append(card.toString());
+
+        stringBuilder.append("\n-> LEADER CARDS (active): ");
+        if (!leaderCards.isEmpty()) {
+            stringBuilder.append(leaderCards.get(0).getLeaderCardName());
+            for (int i = 1; i < leaderCards.size(); i++) {
+                if (leaderCards.get(i).getLeaderEffectActive())
+                    stringBuilder.append(", " + leaderCards.get(i).getLeaderCardName());
+            }
+        }
+        stringBuilder.append("\n");
         return stringBuilder.toString();
     }
 

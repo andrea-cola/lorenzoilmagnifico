@@ -1,15 +1,28 @@
 package it.polimi.ingsw.gameserver;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.DevelopmentCard;
+import it.polimi.ingsw.model.DevelopmentCardColor;
+import it.polimi.ingsw.model.ExcommunicationCard;
+import it.polimi.ingsw.model.FamilyMember;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.InformationCallback;
+import it.polimi.ingsw.model.InformationChoicesHandler;
+import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.MarketCell;
+import it.polimi.ingsw.model.PersonalBoard;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerColor;
+import it.polimi.ingsw.model.PointType;
+import it.polimi.ingsw.model.ResourceType;
+import it.polimi.ingsw.model.Tower;
+import it.polimi.ingsw.model.TowerCell;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.*;
 
 /*package-local*/ class GameManager{
 
-    private static final int INITIAL_COINS = 5;
     private static final int CARD_PER_DECK = 8;
 
     /**
@@ -57,22 +70,25 @@ import java.util.*;
      */
     private Configuration configuration;
 
+    /**
+     * Callback object.
+     */
     private InformationChoicesHandler informationChoicesHandler;
 
     /**
      * Victory points for green cards assigned at the end of the game
      */
-    private static int[] victoryPointsForGreenCards;
+    private int[] victoryPointsForGreenCards;
 
     /**
      * Victory points for blue cards assigned at the end of the game
      */
-    private static int[] victoryPointsForBlueCards;
+    private int[] victoryPointsForBlueCards;
 
     /**
-     * Victory points assigned in case you sustain vatican
+     * Victory points for faith points assigned at the end of the game
      */
-    private static int[] victoryPointsBonusForFaith;
+    private int[] victoryPointsBonusForFaith;
 
     /**
      * Class constructor.
@@ -90,6 +106,10 @@ import java.util.*;
         setupFinalPoints();
         setupPlayers();
         setupDecks(developmentCards);
+    }
+
+    /*package-local*/ List<LeaderCard> getLeaderCards(){
+        return this.leaderCards;
     }
 
     private void setupFinalPoints(){
@@ -139,12 +159,10 @@ import java.util.*;
      * @param list of all card.
      */
     private void orderDevelopmentCards(ArrayList<DevelopmentCard> list) {
-        Collections.sort(list, new Comparator<DevelopmentCard>() {
-            @Override
-            public int compare(DevelopmentCard card1, DevelopmentCard card2) {
-                return card1.getId() - card2.getId();
-            }
-        });
+        Collections.sort(list, Comparator.comparingInt(DevelopmentCard::getId));
+        Collections.shuffle(list.subList(0, 8));
+        Collections.shuffle(list.subList(8, 16));
+        Collections.shuffle(list.subList(16, 24));
     }
 
     /**
@@ -156,9 +174,7 @@ import java.util.*;
     private ArrayList<DevelopmentCard> deckForPeriod(ArrayList<DevelopmentCard> deck, int period){
         int limitDown = (period - 1) * CARD_PER_DECK;
         int limitTop = (period - 1) * CARD_PER_DECK + CARD_PER_DECK;
-
-        ArrayList<DevelopmentCard> deckPeriod = new ArrayList<>(deck.subList(limitDown, limitTop));
-        return deckPeriod;
+        return new ArrayList<>(deck.subList(limitDown, limitTop));
     }
 
     /**
@@ -170,9 +186,11 @@ import java.util.*;
     private ArrayList<DevelopmentCard> deckForTurn(ArrayList<DevelopmentCard> deck, int turn){
         int limitDown = (turn - 1) * 4;
         int limitTop = (turn - 1) * 4 + 4;
-        Collections.shuffle(deck);
-        ArrayList<DevelopmentCard> deckTurn = new ArrayList<>(deck.subList(limitDown, limitTop));
-        return deckTurn;
+        return new ArrayList<>(deck.subList(limitDown, limitTop));
+    }
+
+    /*package-local*/ void setExcommunicationCards() {
+        chooseExcommunicationCards();
     }
 
     /**
@@ -180,16 +198,15 @@ import java.util.*;
      * @param period
      * @param turn
      */
-    public void setupMainBoard(int period, int turn){
+    /*package-local*/ void setupMainBoard(int period, int turn){
         //setup towers' cards
         this.game.getMainBoard().setTower(0, deckForTurn(deckForPeriod(this.greenDeck, period), turn));
         this.game.getMainBoard().setTower(1, deckForTurn(deckForPeriod(this.blueDeck, period), turn));
         this.game.getMainBoard().setTower(2, deckForTurn(deckForPeriod(this.yellowDeck, period), turn));
         this.game.getMainBoard().setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
-        chooseExcommunicationCards();
     }
 
-    public void mainboardTurnReset(){
+    /*package-local*/ void mainboardTurnReset(){
         for(Tower tower : game.getMainBoard().getTowers())
             for(TowerCell towerCell : tower.getTowerCells()){
                 towerCell.setPlayerNicknameInTheCell(null);
@@ -202,12 +219,12 @@ import java.util.*;
         game.getMainBoard().getHarvest().reset();
         game.getMainBoard().getProductionExtended().reset();
         game.getMainBoard().getHarvestExtended().reset();
+        throwDices();
     }
 
-    public void personalBoardsTurnReset(){
-        for(Player player : players){
-            player.getPersonalBoard().turnReset();
-        }
+    /*package-local*/ void personalBoardsTurnReset(Configuration configuration){
+        for(Player player : players)
+            player.getPersonalBoard().turnReset(configuration);
     }
 
     /**
@@ -215,16 +232,16 @@ import java.util.*;
      */
     private void chooseExcommunicationCards() {
         Collections.shuffle(this.excommunicationCards);
-        ExcommunicationCard[] excommunicationCards = new ExcommunicationCard[3];
+        ExcommunicationCard[] excommunicationCardsDeck = new ExcommunicationCard[3];
         int period = 1;
         for (ExcommunicationCard card : this.excommunicationCards){
             if (card.getPeriod() == period){
-                excommunicationCards[period - 1] = new ExcommunicationCard();
-                excommunicationCards[period - 1] = card;
+                excommunicationCardsDeck[period - 1] = new ExcommunicationCard();
+                excommunicationCardsDeck[period - 1] = card;
                 period++;
             }
         }
-        this.game.getMainBoard().getVatican().setExcommunicationCards(excommunicationCards);
+        this.game.getMainBoard().getVatican().setExcommunicationCards(excommunicationCardsDeck);
     }
 
     /**
@@ -243,7 +260,7 @@ import java.util.*;
             Map.Entry pair = (Map.Entry) iterator.next();
             player.setColor((PlayerColor)pair.getValue());
             player.setPersonalBoard(createNewPersonalBoard());
-            player.getPersonalBoard().getValuables().increase(ResourceType.COIN, INITIAL_COINS + i);
+            player.getPersonalBoard().getValuables().increase(ResourceType.COIN, i);
             this.game.getPlayersMap().put(player.getUsername(), player);
             i++;
         }
@@ -284,9 +301,10 @@ import java.util.*;
      */
     private PersonalBoard createNewPersonalBoard(){
         PersonalBoard personalBoard = new PersonalBoard();
-        personalBoard.getValuables().increase(ResourceType.WOOD, 2);
-        personalBoard.getValuables().increase(ResourceType.STONE, 2);
-        personalBoard.getValuables().increase(ResourceType.SERVANT, 3);
+        personalBoard.getValuables().increase(ResourceType.WOOD, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.WOOD));
+        personalBoard.getValuables().increase(ResourceType.STONE, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.STONE));
+        personalBoard.getValuables().increase(ResourceType.SERVANT, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT));
+        personalBoard.getValuables().increase(ResourceType.COIN, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN));
         personalBoard.setGreenCardsMilitaryPointsRequirements(configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
         FamilyMember familyMember = new FamilyMember();
         personalBoard.setFamilyMember(familyMember);
@@ -310,43 +328,27 @@ import java.util.*;
         this.informationChoicesHandler.setDecisions(playerChoices);
     }
 
-    /**
-     * This method makes the control at the end of each period
-     * @param period
-     * @param player
-     * @return
-     */
-    public boolean finalControlsForPeriod(int period, ServerPlayer player){
+    /*package-private*/ boolean finalControlsForPeriod(int period, ServerPlayer player){
         int faithPointsRequired = game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
         //check if the player gets the excommunication effect
-        if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) < faithPointsRequired)
+        if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) <= faithPointsRequired) {
             excommunicationForPlayer(player, period);
-        else
             return false;
+        }
         return true;
     }
 
-    /**
-     * This method manages the support to the church
-     * @param player
-     * @param flag
-     */
-    public void applySupportChoice(ServerPlayer player, boolean flag){
-        if(flag){
+    /*package-private*/ void applySupportChoice(ServerPlayer player, boolean flag){
+        if(!flag){
             player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
             if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
-                player.getPersonalBoard().getValuables().increase(PointType.VICTORY, 5);
+                player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getEffect().runEffect(player, informationChoicesHandler);
             player.getPersonalBoard().getValuables().decrease(PointType.FAITH, player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH));
         } else {
             excommunicationForPlayer(player, game.getAge());
         }
     }
 
-    /**
-     * This method assigns an excommunication effect to the player
-     * @param player
-     * @param period
-     */
     private void excommunicationForPlayer(Player player, int period){
         ExcommunicationCard excommunicationCard = this.game.getMainBoard().getVatican().getExcommunicationCard(period - 1);
         excommunicationCard.getEffect().runEffect(player);
@@ -425,7 +427,7 @@ import java.util.*;
 
             //lose victory points from yellow card resources
             //get all yellow card resources cost
-            Map<ResourceType, Integer> totalCardResourcesCost = new HashMap<>();
+            EnumMap<ResourceType, Integer> totalCardResourcesCost = new EnumMap<>(ResourceType.class);
             for (DevelopmentCard card: player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
                 for (Map.Entry<ResourceType, Integer> entry : card.getCost().getResources().entrySet()){
                     totalCardResourcesCost.put(entry.getKey(), totalCardResourcesCost.get(entry.getKey()) + entry.getValue());
@@ -449,7 +451,6 @@ import java.util.*;
         //assign victory points based on military ranking
         int firstMilitaryPointsValue = 0;
         int secondMilitaryPointsValue = 0;
-        boolean duce = false;
         for (Map.Entry<ServerPlayer, Integer> entry : result.entrySet()){
             //previousMilitaryPointsValue is not initialized, this means that we are considering the first player in ranking
             if (firstMilitaryPointsValue == 0){

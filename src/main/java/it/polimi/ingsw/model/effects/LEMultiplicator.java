@@ -5,28 +5,26 @@ import it.polimi.ingsw.model.Player;
 
 public class LEMultiplicator extends LeaderEffect{
 
+    /**
+     * Resource multiplicator factor.
+     */
     private int multiplicator;
 
+    /**
+     * Class constructor.
+     */
     public LEMultiplicator(){
         super.setEffectType(this.getClass().getSimpleName());
-    }
-
-    public void setMultiplicator(int value){
-        this.multiplicator = value;
-    }
-
-    public int getMultiplicator(){
-        return this.multiplicator;
+        multiplicator = 0;
     }
 
     /**
      * Method to run the effect of the card.
-     *
-     * @param player
+     * @param player is gaining benefit of the effect.
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-
+        // do nothing because this effect his handle in Game.java
     }
 
     /**
@@ -34,6 +32,6 @@ public class LEMultiplicator extends LeaderEffect{
      */
     @Override
     public String toString() {
-        return "Moltiplica tutte le risorse per " + multiplicator + ", DA SISTEMARE";
+        return "Multiply all resources earned per " + multiplicator;
     }
 }

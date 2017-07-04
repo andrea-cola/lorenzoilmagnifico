@@ -38,6 +38,6 @@ public class ExcommunicationEffectSimple extends ExcommunicationEffect{
     }
 
     public String getDescription(){
-        return "Valuables malus: ( " + this.valuablesMalus.toString() + " ) ";
+        return "Valuables malus: " + this.valuablesMalus.toString();
     }
 }

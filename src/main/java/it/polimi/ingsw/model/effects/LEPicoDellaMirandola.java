@@ -1,30 +1,34 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.InformationCallback;
-import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.ResourceType;
 
 public class LEPicoDellaMirandola extends LeaderEffect {
 
+    /**
+     * Money discount on the card.
+     */
     private int moneyDiscount;
 
+    /**
+     * Class constructor.
+     */
     public LEPicoDellaMirandola(){
         super.setEffectType(this.getClass().getSimpleName());
+        moneyDiscount = 0;
     }
 
-    public void setMoneyDiscount(int value){
-        this.moneyDiscount = value;
-    }
-
+    /**
+     * Return money discount.
+     * @return money discount.
+     */
     public int getMoneyDiscount(){
         return this.moneyDiscount;
     }
 
     /**
-     * This method sets a cost discount for each development card inside the towers
-     *
-     * @param player
+     * This method sets a cost discount for each development card inside the towers.
+     * @param player is gaining benefit of the effect.
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {

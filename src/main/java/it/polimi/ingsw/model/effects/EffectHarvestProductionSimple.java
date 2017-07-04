@@ -117,20 +117,23 @@ public class EffectHarvestProductionSimple extends Effect{
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
 
         //set action value
-        int familyMemberValue = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor);
-        int bonus = player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(this.actionType);
-        int malus = player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(this.actionType);
-        int actionValue = familyMemberValue + bonus - malus;
+        int actionValue = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor)
+                + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(this.actionType)
+                - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(this.actionType);
 
         if (actionValue >= this.diceActionValue) {
             //updates player's resources
             for (Map.Entry<ResourceType, Integer> entry : this.valuable.getResources().entrySet()) {
                 player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                //excommunication effect
+                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
             }
 
             //updates player's points
             for (Map.Entry<PointType, Integer> entry : this.valuable.getPoints().entrySet()) {
                 player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                //excommunication effect
+                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
             }
         }
 
@@ -141,8 +144,8 @@ public class EffectHarvestProductionSimple extends Effect{
      */
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder().append(actionType.toString() + "( dice: " + diceActionValue + " ) ");
-        stringBuilder.append(" earn these resources ( " + valuable.toString() + " council privileges: " + numberOfCouncilPrivileges + " )");
+        StringBuilder stringBuilder = new StringBuilder(actionType.toString().toLowerCase() + " with dice value = " + diceActionValue);
+        stringBuilder.append(". Earn " + valuable.toString() + "and " + numberOfCouncilPrivileges + " council privileges");
         return stringBuilder.toString();
     }
 

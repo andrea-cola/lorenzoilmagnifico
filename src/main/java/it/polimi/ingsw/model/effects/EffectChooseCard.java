@@ -49,15 +49,12 @@ public class EffectChooseCard extends Effect{
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-        //updates player's resources
-        for (Map.Entry<ResourceType, Integer> entry: this.pointsAndResources.getResources().entrySet()) {
-            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
-        }
-
-        //updates player's points
-        for (Map.Entry<PointType, Integer> entry: this.pointsAndResources.getPoints().entrySet()) {
-            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
-        }
+        LeaderCard leaderCard = player.getPersonalBoard().getLeaderCardWithName("Santa Rita");
+        if (leaderCard != null && leaderCard.getLeaderEffectActive())
+            updateResources(player, 2);
+        else
+            updateResources(player, 1);
+        updatePoints(player);
 
         //logica di gestione del privilegio del consiglio
         if (this.numberOfCouncilPrivileges > 0){
@@ -73,19 +70,43 @@ public class EffectChooseCard extends Effect{
         }
     }
 
+    /**
+     * This method updates player's resources
+     * @param player
+     * @param multiplicatorValue
+     */
+    private void updateResources(Player player, int multiplicatorValue){
+        for (Map.Entry<ResourceType, Integer> entry: this.pointsAndResources.getResources().entrySet()) {
+            //normal effect
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
+        }
+    }
 
     /**
-     * Get a description of the current effect.
+     * This method updates player's points
+     * @param player
      */
+    private void updatePoints(Player player){
+        for (Map.Entry<PointType, Integer> entry: this.pointsAndResources.getPoints().entrySet()) {
+            //normal effect
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Dice: " + diceValue + " choose a new card with one of the following colors ( ");
+        stringBuilder.append("Dice = " + diceValue + " to choose a new card with one of the following colors ");
         for(DevelopmentCardColor developmentCardColor : developmentCardColors)
             stringBuilder.append(developmentCardColor + " ");
-        stringBuilder.append(" ) ");
-        stringBuilder.append("DISCOUNTS:( " + pointsAndResources.toString() + ") ");
-        stringBuilder.append("RESOURCES EARNED:( " + pointsAndResources.toString() + "COUNCIL PRIVILEGES: " + numberOfCouncilPrivileges + " )");
+        stringBuilder.append("discount: " + pointsAndResources.toString() + " ");
+        stringBuilder.append("resourced to earn immediatly: " + pointsAndResources.toString());
+        if(numberOfCouncilPrivileges > 0)
+            stringBuilder.append("and " + numberOfCouncilPrivileges + " council privilege");
         return stringBuilder.toString();
     }
 }

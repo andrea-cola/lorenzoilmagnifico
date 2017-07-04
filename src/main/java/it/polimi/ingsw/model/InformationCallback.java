@@ -15,4 +15,8 @@ public interface InformationCallback {
 
     DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount);
 
+    LeaderCard copyAnotherLeaderCard(String reason);
+
+    FamilyMemberColor choiceLeaderDice(String reason);
+
 }

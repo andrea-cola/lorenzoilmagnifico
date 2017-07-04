@@ -109,8 +109,11 @@ public class TowerCell implements Serializable{
      * @throws GameException
      */
     /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
-        int colorBonus = player.getPersonalBoard().getDevelopmentCardColorDiceValueBonus().get(developmentCard.getColor());
-        if (player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + colorBonus < this.minFamilyMemberValue)
+        int familyMemberRealValue = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor)
+                + player.getPersonalBoard().getDevelopmentCardColorDiceValueBonus().get(developmentCard.getColor())
+                - player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardDiceMalus().get(developmentCard.getColor());
+
+        if (familyMemberRealValue < this.minFamilyMemberValue)
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
     }
 

@@ -105,14 +105,12 @@ public class EffectCardBonus extends Effect{
      */
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Dice: " + diceValueBonus + " get a permanent bonus on cards ( ");
+        StringBuilder stringBuilder = new StringBuilder("Permanent bonus on dice value = " + diceValueBonus + " to get ");
         for(DevelopmentCardColor developmentCardColor : colors)
-            stringBuilder.append(developmentCardColor + " ");
-        stringBuilder.append(")and also DISCOUNTS:( ");
+            stringBuilder.append(developmentCardColor.toString().toLowerCase() + " ");
+        stringBuilder.append("cards with a discount: ");
         for(PointsAndResources pointsAndResources : pickUpDiscounts)
-            stringBuilder.append(pointsAndResources.toString());
-        stringBuilder.append(" )");
+            stringBuilder.append(pointsAndResources.toString() + " ");
         return stringBuilder.toString();
     }
 }

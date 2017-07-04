@@ -34,8 +34,7 @@ public class EffectNoBonus extends Effect{
      */
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("You won't receive bonus at these tower floors: ");
+        StringBuilder stringBuilder = new StringBuilder("You won't receive bonus at these tower floors: ");
         for(Integer floor : floors)
             stringBuilder.append(floor + " ");
         return stringBuilder.toString();

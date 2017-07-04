@@ -29,6 +29,6 @@ public class ExcommunicationEffectDevCardLoseVictoryPoints extends Excommunicati
     }
 
     public String getDescription(){
-        return "These resources won't assign final victory points: ( " + this.cardValuables + " ) ";
+        return "These resources won't assign final victory points: " + this.cardValuables;
     }
 }

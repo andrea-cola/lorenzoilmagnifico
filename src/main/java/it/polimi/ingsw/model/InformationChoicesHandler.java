@@ -5,14 +5,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class is used to make available on server every player choice.
+ */
 public class InformationChoicesHandler implements InformationCallback {
 
+    /**
+     * Map containg all user choice.
+     */
     private Map<String, Object> decisions;
 
+    /**
+     * Class constructor.
+     */
     public InformationChoicesHandler(){
         decisions = new HashMap<>();
     }
 
+    /**
+     * Set map of the choices.
+     * @param playerChoices map.
+     */
     public void setDecisions(Map<String, Object> playerChoices){
         this.decisions = playerChoices;
     }
@@ -23,7 +36,7 @@ public class InformationChoicesHandler implements InformationCallback {
         ArrayList<Privilege> privileges = (ArrayList<Privilege>)decisions.get(reason);
         ArrayList<Privilege> privilegesNeeded = new ArrayList<>(privileges.subList(0, councilPrivilege.getNumberOfCouncilPrivileges()));
         for(int i = 0; i < councilPrivilege.getNumberOfCouncilPrivileges(); i++)
-            privileges.remove(i);
+            privileges.remove(0);
         if(privileges.size() == 0)
             decisions.remove(reason);
         else
@@ -38,7 +51,7 @@ public class InformationChoicesHandler implements InformationCallback {
 
     @Override
     public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned) {
-        return (int)decisions.get(card + ":double");
+        return (int)decisions.get(card);
     }
 
     @Override
@@ -49,6 +62,16 @@ public class InformationChoicesHandler implements InformationCallback {
     @Override
     public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
         return (DevelopmentCard)decisions.get(reason);
+    }
+
+    @Override
+    public LeaderCard copyAnotherLeaderCard(String reason) {
+        return (LeaderCard)decisions.get(reason);
+    }
+
+    @Override
+    public FamilyMemberColor choiceLeaderDice(String reason) {
+        return (FamilyMemberColor)decisions.get(reason);
     }
 
 }

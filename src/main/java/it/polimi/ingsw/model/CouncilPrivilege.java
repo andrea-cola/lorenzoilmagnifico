@@ -56,17 +56,24 @@ public class CouncilPrivilege implements Serializable{
         return "Council privilege number: " + numberOfCouncilPrivileges + "\n";
     }
 
-
     public void chooseCouncilPrivilege(Player player, InformationCallback informationCallback){
         ArrayList<Privilege> choices = informationCallback.chooseCouncilPrivilege("council-privilege", this);
         for(Privilege privilege : choices){
             //updates player's resources
             for (Map.Entry<ResourceType, Integer> entry: privilege.getValuables().getResources().entrySet()) {
-                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                if(entry.getValue() > 0) {
+                    player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                    //excommunication effect
+                    player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
+                }
             }
             //updates player's points
             for (Map.Entry<PointType, Integer> entry: privilege.getValuables().getPoints().entrySet()) {
-                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                if(entry.getValue() > 0) {
+                    player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                    //excommunication effect
+                    player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
+                }
             }
         }
     }

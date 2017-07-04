@@ -23,11 +23,11 @@ public class Configurator {
     /**
      * Path strings constants.
      */
-    private static final String developmentCardFilePath = "src/main/resources/configFiles/developmentCards.json";
-    private static final String leaderCardFilePath = "src/main/resources/configFiles/leaderCards.json";
-    private static final String configurationFilePath = "src/main/resources/configFiles/configuration.json";
-    private static final String excommunicationCardFilePath ="src/main/resources/configFiles/excommunicationCards.json";
-    private static final String effectTypeFieldName = "effectType";
+    private static final String DC_FILEPATH = "src/main/resources/configFiles/developmentCards.json";
+    private static final String LC_FILEPATH = "src/main/resources/configFiles/leaderCards.json";
+    private static final String C_FILEPATH = "src/main/resources/configFiles/configuration.json";
+    private static final String EX_FILEPATH ="src/main/resources/configFiles/excommunicationCards.json";
+    private static final String EFFECT_FIELD = "effectType";
 
     /**
      * Configuration bundle.
@@ -52,29 +52,28 @@ public class Configurator {
     /**
      * Gson object reference.
      */
-    private Gson gson;
+    private static Gson gson = new Gson();
 
     /**
      * Effect factory reference.
      */
-    private RuntimeTypeAdapterFactory<Effect> effectFactory;
+    private static RuntimeTypeAdapterFactory<Effect> effectFactory;
 
     /**
      * Effect factory reference.
      */
-    private RuntimeTypeAdapterFactory<LeaderEffect> leaderEffectFactory;
+    private static RuntimeTypeAdapterFactory<LeaderEffect> leaderEffectFactory;
 
     /**
      * Effect factory reference.
      */
-    private RuntimeTypeAdapterFactory<ExcommunicationEffect> excommunicationEffectFactory;
+    private static RuntimeTypeAdapterFactory<ExcommunicationEffect> excommunicationEffectFactory;
 
     /**
      * Class constructor.
      */
     private Configurator() throws ConfigurationException{
         try {
-            gson = new Gson();
             loadRuntimeTypeAdapterFactory();
             parseConfiguration();
             parseDevelopmentCard();
@@ -95,8 +94,8 @@ public class Configurator {
     /**
      * Load all types of effect.
      */
-    private void loadRuntimeTypeAdapterFactory(){
-        effectFactory = RuntimeTypeAdapterFactory.of(Effect.class, effectTypeFieldName)
+    private static void loadRuntimeTypeAdapterFactory(){
+        effectFactory = RuntimeTypeAdapterFactory.of(Effect.class, EFFECT_FIELD)
                 .registerSubtype(EffectSimple.class, "EffectSimple")
                 .registerSubtype(EffectCardBonus.class, "EffectCardBonus")
                 .registerSubtype(EffectChooseCard.class, "EffectChooseCard")
@@ -107,7 +106,7 @@ public class Configurator {
                 .registerSubtype(EffectMultiplicator.class, "EffectMultiplicator")
                 .registerSubtype(EffectNoBonus.class, "EffectNoBonus");
 
-        leaderEffectFactory = RuntimeTypeAdapterFactory.of(LeaderEffect.class, effectTypeFieldName)
+        leaderEffectFactory = RuntimeTypeAdapterFactory.of(LeaderEffect.class, EFFECT_FIELD)
                 .registerSubtype(LECesareBorgia.class, "LECesareBorgia")
                 .registerSubtype(LEDiceBonus.class, "LEDiceBonus")
                 .registerSubtype(LEDiceValueSet.class, "LEDiceValueSet")
@@ -122,7 +121,7 @@ public class Configurator {
                 .registerSubtype(LESimple.class, "LESimple")
                 .registerSubtype(LESistoIV.class, "LESistoIV");
 
-        excommunicationEffectFactory = RuntimeTypeAdapterFactory.of(ExcommunicationEffect.class, effectTypeFieldName)
+        excommunicationEffectFactory = RuntimeTypeAdapterFactory.of(ExcommunicationEffect.class, EFFECT_FIELD)
                 .registerSubtype(ExcommunicationEffectDevCard.class, "ExcommunicationEffectDevCard")
                 .registerSubtype(ExcommunicationEffectDevCardLoseVictoryPoints.class, "ExcommunicationEffectDevCardLoseVictoryPoints")
                 .registerSubtype(ExcommunicationEffectDiceMalus.class, "ExcommunicationEffectDiceMalus")
@@ -138,10 +137,10 @@ public class Configurator {
     /**
      * Main parsing method. This method calls all needed method to parseConfiguration the file.
      */
-    private void parseConfiguration() throws FileNotFoundException {
+    private static void parseConfiguration() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(effectFactory);
         gson = builder.create();
-        JsonReader reader = new JsonReader(new FileReader(configurationFilePath));
+        JsonReader reader = new JsonReader(new FileReader(C_FILEPATH));
         configuration = gson.fromJson(reader, Configuration.class);
     }
 
@@ -150,24 +149,24 @@ public class Configurator {
      * @return array of cards.
      * @throws FileNotFoundException if file is not found.
      */
-    private void parseDevelopmentCard() throws FileNotFoundException{
-        GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(effectFactory);;
+    private static void parseDevelopmentCard() throws FileNotFoundException{
+        GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(effectFactory);
         gson = builder.create();
-        JsonReader reader = new JsonReader(new FileReader(developmentCardFilePath));
+        JsonReader reader = new JsonReader(new FileReader(DC_FILEPATH));
         developmentCards = gson.fromJson(reader, new TypeToken<List<DevelopmentCard>>(){}.getType());
     }
 
-    private void parseLeaderCard() throws FileNotFoundException{
+    private static void parseLeaderCard() throws FileNotFoundException{
         GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(leaderEffectFactory);
         gson = builder.create();
-        JsonReader reader = new JsonReader(new FileReader(leaderCardFilePath));
+        JsonReader reader = new JsonReader(new FileReader(LC_FILEPATH));
         leaderCards = gson.fromJson(reader, new TypeToken<List<LeaderCard>>(){}.getType());
     }
 
-    private void parseExcommunicationCard() throws FileNotFoundException{
+    private static void parseExcommunicationCard() throws FileNotFoundException{
         GsonBuilder builder = new GsonBuilder().registerTypeAdapterFactory(excommunicationEffectFactory);
         gson = builder.create();
-        JsonReader reader = new JsonReader(new FileReader(excommunicationCardFilePath));
+        JsonReader reader = new JsonReader(new FileReader(EX_FILEPATH));
         excommunicationCards = gson.fromJson(reader, new TypeToken<List<ExcommunicationCard>>(){}.getType());
     }
 
@@ -183,7 +182,7 @@ public class Configurator {
      * Return all leader cards.
      * @return array list of leader cards.
      */
-    public static ArrayList<LeaderCard> getLeaderCards(){
+    public static List<LeaderCard> getLeaderCards(){
         return leaderCards;
     }
 

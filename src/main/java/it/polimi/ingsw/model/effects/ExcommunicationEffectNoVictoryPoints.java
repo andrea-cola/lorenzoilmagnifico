@@ -25,6 +25,6 @@ public class ExcommunicationEffectNoVictoryPoints extends ExcommunicationEffect 
     }
 
     public String getDescription(){
-        return "Card of the following colors won't assign victory points: ( " + this.developmentCardColor + " )";
+        return "Card of the following colors won't assign victory points: " + this.developmentCardColor.toString().toLowerCase();
     }
 }
