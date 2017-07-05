@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.InformationCallback;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -113,7 +113,7 @@ public class EffectHarvestProductionSimple extends Effect{
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
         //get the family member used to run this effect
-        ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
+        List<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
 
         //set action value

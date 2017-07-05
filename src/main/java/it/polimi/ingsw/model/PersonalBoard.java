@@ -21,17 +21,17 @@ public class PersonalBoard implements Serializable {
     /**
      * bonus: save the bonus dice values for harvest/production
      */
-    private Map<ActionType, Integer> harvestProductionDiceValueBonus = new HashMap<>();
+    private Map<ActionType, Integer> harvestProductionDiceValueBonus = new EnumMap<>(ActionType.class);
 
     /**
      * bonus: save the bonus dice values for cards
      */
-    private Map<DevelopmentCardColor, Integer> developmentCardColorDiceValueBonus = new HashMap<>();
+    private Map<DevelopmentCardColor, Integer> developmentCardColorDiceValueBonus = new EnumMap<>(DevelopmentCardColor.class);
 
     /**
      * discounts: save the discount cost for development cards
      */
-    private Map<DevelopmentCardColor, List<PointsAndResources>> costDiscountForDevelopmentCard = new HashMap<>();
+    private Map<DevelopmentCardColor, List<PointsAndResources>> costDiscountForDevelopmentCard = new EnumMap<>(DevelopmentCardColor.class);
 
     /**
      * Family members;
@@ -148,7 +148,7 @@ public class PersonalBoard implements Serializable {
      *
      * @return
      */
-    public ArrayList<FamilyMemberColor> getFamilyMembersUsed() {
+    public List<FamilyMemberColor> getFamilyMembersUsed() {
         return this.familyMembersUsed;
     }
 
@@ -231,7 +231,7 @@ public class PersonalBoard implements Serializable {
             default:
                 break;
         }
-        return null;
+        return Collections.emptyList();
     }
 
 
@@ -394,7 +394,7 @@ public class PersonalBoard implements Serializable {
         this.familyMembersUsed = new ArrayList<>();
         this.familyMember = new FamilyMember();
         for(LeaderCard leaderCard : leaderCards) {
-            if (!leaderCard.getLeaderCardName().toLowerCase().equals("lorenzo il magnifico")
+            if (!leaderCard.getLeaderCardName().equalsIgnoreCase("lorenzo il magnifico")
                     && !leaderCard.getLeaderEffectActive() && leaderCard.getEffect() instanceof LELorenzoDeMedici) {
                 LELorenzoDeMedici effect = (LELorenzoDeMedici)leaderCard.getEffect();
                 LeaderCard leaderCardToDelete = effect.getLeaderCard();

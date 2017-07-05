@@ -42,11 +42,6 @@ public class SocketClient extends AbstractClient{
     private ClientCommunicationProtocol clientCommunicationProtocol;
 
     /**
-     * Server response handler object.
-     */
-    private ResponseManager responseManager;
-
-    /**
      * Class constructor.
      * @param clientInterface controller of the client.
      * @param address of the server.
@@ -73,8 +68,7 @@ public class SocketClient extends AbstractClient{
      * Start server response handler thread.
      */
     private void startServerResponseManager(){
-        responseManager = new ResponseManager();
-        responseManager.start();
+        new ResponseManager().start();
     }
 
     /**

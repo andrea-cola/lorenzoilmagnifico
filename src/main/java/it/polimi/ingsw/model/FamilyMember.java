@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class FamilyMember implements Serializable{
@@ -9,7 +9,7 @@ public class FamilyMember implements Serializable{
     private Map<FamilyMemberColor, Integer> members;
 
     public FamilyMember(){
-        this.members = new HashMap<>();
+        this.members = new EnumMap<>(FamilyMemberColor.class);
         for(FamilyMemberColor familyMemberColor : FamilyMemberColor.values())
             members.put(familyMemberColor, 0);
     }

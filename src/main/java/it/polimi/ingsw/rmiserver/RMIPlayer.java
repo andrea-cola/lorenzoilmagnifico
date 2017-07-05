@@ -30,6 +30,7 @@ import java.util.List;
         this.rmiClientInterface = rmiClientInterface;
     }
 
+    @Override
     public void ping() throws RemoteException{
         rmiClientInterface.ping();
     }

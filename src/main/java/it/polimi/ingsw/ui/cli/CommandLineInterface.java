@@ -291,23 +291,27 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         if(key > 0) {
             key = key - 1;
             card = selectable.get(key);
-            for (Tower tower : mainBoard.getTowers())
-                for (TowerCell towerCell : tower.getTowerCells())
-                    if (towerCell.getDevelopmentCard().getName().equals(card.getName())) {
-                        LeaderCard leaderCard = getClient().getPlayer().getPersonalBoard().getLeaderCardWithName("Pico della Mirandola");
-                        int devCardCoinsCost = card.getCost().getResources().get(ResourceType.COIN);
-                        if (leaderCard != null && leaderCard.getLeaderEffectActive()) {
-                            //decrease card price
-                            if (devCardCoinsCost >= 3)
-                                card.getCost().decrease(ResourceType.COIN, ((LEPicoDellaMirandola)leaderCard.getEffect()).getMoneyDiscount());
-                            else
-                                card.getCost().decrease(ResourceType.COIN, devCardCoinsCost);
+            try {
+                for (Tower tower : mainBoard.getTowers())
+                    for (TowerCell towerCell : tower.getTowerCells())
+                        if (towerCell.getDevelopmentCard().getName().equals(card.getName())) {
+                            LeaderCard leaderCard = getClient().getPlayer().getPersonalBoard().getLeaderCardWithName("Pico della Mirandola");
+                            int devCardCoinsCost = card.getCost().getResources().get(ResourceType.COIN);
+                            if (leaderCard != null && leaderCard.getLeaderEffectActive()) {
+                                //decrease card price
+                                if (devCardCoinsCost >= 3)
+                                    card.getCost().decrease(ResourceType.COIN, ((LEPicoDellaMirandola) leaderCard.getEffect()).getMoneyDiscount());
+                                else
+                                    card.getCost().decrease(ResourceType.COIN, devCardCoinsCost);
+                            }
+                            card.payCost(getClient().getPlayer(), this);
+                            towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
+                            if (towerCell.getTowerCellImmediateEffect() != null)
+                                towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), this);
                         }
-                        card.payCost(getClient().getPlayer(), this);
-                        towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
-                        if (towerCell.getTowerCellImmediateEffect() != null)
-                            towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), this);
-                    }
+            } catch (GameException e){
+                Debugger.printStandardMessage(e.getError().toString());
+            }
         }
         getClient().setPlayerTurnChoices(reason, card);
         unpause();

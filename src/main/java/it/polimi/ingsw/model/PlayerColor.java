@@ -36,11 +36,12 @@ public enum PlayerColor {
         this.color = color;
     }
 
+    @Override
     public String toString(){
         return this.color;
     }
 
-    public static HashMap<String, PlayerColor> getHashMap(){
+    public static Map<String, PlayerColor> getHashMap(){
         HashMap<String, PlayerColor> colorHashMap = new HashMap<>();
         for(PlayerColor playerColor : PlayerColor.values())
             colorHashMap.put(playerColor.toString(), playerColor);

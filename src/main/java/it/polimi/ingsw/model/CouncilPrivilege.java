@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,7 +56,7 @@ public class CouncilPrivilege implements Serializable{
     }
 
     public void chooseCouncilPrivilege(Player player, InformationCallback informationCallback){
-        ArrayList<Privilege> choices = informationCallback.chooseCouncilPrivilege("council-privilege", this);
+        List<Privilege> choices = informationCallback.chooseCouncilPrivilege("council-privilege", this);
         for(Privilege privilege : choices){
             //updates player's resources
             for (Map.Entry<ResourceType, Integer> entry: privilege.getValuables().getResources().entrySet()) {

@@ -32,12 +32,12 @@ public class InformationChoicesHandler implements InformationCallback {
 
     @SuppressWarnings("unchecked")
     @Override
-    public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+    public List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
         ArrayList<Privilege> privileges = (ArrayList<Privilege>)decisions.get(reason);
         ArrayList<Privilege> privilegesNeeded = new ArrayList<>(privileges.subList(0, councilPrivilege.getNumberOfCouncilPrivileges()));
         for(int i = 0; i < councilPrivilege.getNumberOfCouncilPrivileges(); i++)
             privileges.remove(0);
-        if(privileges.size() == 0)
+        if(!privileges.isEmpty())
             decisions.remove(reason);
         else
             decisions.put(reason, privileges);

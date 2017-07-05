@@ -32,7 +32,7 @@ public class LEPicoDellaMirandola extends LeaderEffect {
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-
+        // this method is empty because the effect is checked in Game.java
     }
 
     /**

@@ -1,18 +1,9 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.ActionType;
-import it.polimi.ingsw.model.CouncilPrivilege;
-import it.polimi.ingsw.model.DevelopmentCard;
-import it.polimi.ingsw.model.DevelopmentCardColor;
-import it.polimi.ingsw.model.FamilyMemberColor;
-import it.polimi.ingsw.model.InformationCallback;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointType;
-import it.polimi.ingsw.model.PointsAndResources;
-import it.polimi.ingsw.model.ResourceType;
+import it.polimi.ingsw.exceptions.GameException;
+import it.polimi.ingsw.model.*;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,7 +47,7 @@ public class EffectSimple extends Effect{
      * @param player that takes advantage of the effect.
      */
     @Override
-    public void runEffect(Player player, InformationCallback informationCallback) {
+    public void runEffect(Player player, InformationCallback informationCallback){
         //check if the player has the leader card for this effect and if it is active
         LeaderCard leaderCard = player.getPersonalBoard().getLeaderCardWithName("Santa Rita");
         if (leaderCard != null && leaderCard.getLeaderEffectActive()){
@@ -101,7 +92,7 @@ public class EffectSimple extends Effect{
         int familyMemberRealValue = diceActionValue + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(actionType)
                 - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(actionType);
 
-        ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
+        List<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
         player.getPersonalBoard().getFamilyMember().setFamilyMemberValue(familyMemberColor, familyMemberRealValue);
     }

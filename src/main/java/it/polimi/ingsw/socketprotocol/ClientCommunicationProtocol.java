@@ -141,7 +141,6 @@ public class ClientCommunicationProtocol {
      * @throws NetworkException if errors occur during room creation or network communication.
      */
     public void createNewRoom(int maxPlayersNumber) throws NetworkException{
-        Configuration response;
         try{
             objectOutputStream.writeObject(CommunicationProtocolConstants.CREATE_ROOM_REQUEST);
             objectOutputStream.writeObject(maxPlayersNumber);

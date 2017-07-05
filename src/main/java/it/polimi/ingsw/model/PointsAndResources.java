@@ -1,8 +1,10 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameErrorType;
+import it.polimi.ingsw.exceptions.GameException;
+
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -26,8 +28,8 @@ public class PointsAndResources implements Serializable{
      * Each record is set to zero value.
      */
     public PointsAndResources(){
-        this.resources = new HashMap<>();
-        this.points = new HashMap<>();
+        this.resources = new EnumMap<>(ResourceType.class);
+        this.points = new EnumMap<>(PointType.class);
 
         for (ResourceType type : ResourceType.values())
             this.resources.put(type, 0);
@@ -70,6 +72,23 @@ public class PointsAndResources implements Serializable{
      */
     public void decrease(PointType type, Integer value) {
         this.points.put(type, this.points.get(type) - value);
+    }
+
+    public void checkDecrease(PointsAndResources valuableToDecrease) throws GameException{
+        for(Map.Entry pair : valuableToDecrease.getResources().entrySet())
+            if((int)pair.getValue() > resources.get(pair.getKey()))
+                throw new GameException(GameErrorType.NOT_ENOUGH_RESOURCES);
+        for(Map.Entry pair : valuableToDecrease.getPoints().entrySet())
+            if((int)pair.getValue() > points.get(pair.getKey()))
+                throw new GameException(GameErrorType.NOT_ENOUGH_POINTS);
+        decreaseAll(valuableToDecrease);
+    }
+
+    private void decreaseAll(PointsAndResources valuableToDecrease){
+        for(Map.Entry pair : valuableToDecrease.getResources().entrySet())
+            this.decrease((ResourceType)pair.getKey(), (int)pair.getValue());
+        for(Map.Entry pair : valuableToDecrease.getPoints().entrySet())
+            this.decrease((PointType) pair.getKey(), (int)pair.getValue());
     }
 
     /**

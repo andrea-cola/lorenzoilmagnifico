@@ -93,8 +93,8 @@ public class ActionSpaceExtended implements Serializable{
     }
 
     /*package-local*/ void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
-        if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL))
-            if(familyMemberMap.containsKey(player.getUsername()) && !familyMemberMap.get(player.getUsername()).equals(FamilyMemberColor.NEUTRAL))
+        if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL) && familyMemberMap.containsKey(player.getUsername())
+                && !familyMemberMap.get(player.getUsername()).equals(FamilyMemberColor.NEUTRAL))
                 throw new GameException();
     }
 

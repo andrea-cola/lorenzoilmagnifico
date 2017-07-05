@@ -3,7 +3,12 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Class used to manage database server based on SQL Lite.
@@ -13,12 +18,12 @@ import java.sql.*;
     /**
      * Database address.
      */
-    private static final String url = "jdbc:sqlite:lorenzo.db";
+    private static final String URL = "jdbc:sqlite:lorenzo.db";
 
     /**
-     * Database server timeout.
+     * Database server TIMEOUT.
      */
-    private static final int timeout = 60;
+    private static final int TIMEOUT = 60;
 
     /**
      * Connection object.
@@ -37,11 +42,11 @@ import java.sql.*;
      */
     /*package-local*/ void connectToDatabase() throws SQLException {
         String query = "CREATE TABLE IF NOT EXISTS users (username text PRIMARY KEY, pass text NOT NULL);";
-        this.connection = DriverManager.getConnection(url);
+        this.connection = DriverManager.getConnection(URL);
         Statement statement = null;
         try {
             statement = connection.createStatement();
-            statement.setQueryTimeout(timeout);
+            statement.setQueryTimeout(TIMEOUT);
             statement.executeUpdate(query);
         } finally {
             if(statement != null)

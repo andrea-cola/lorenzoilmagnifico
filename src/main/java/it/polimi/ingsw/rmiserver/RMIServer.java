@@ -40,11 +40,6 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
     private Registry registry;
 
     /**
-     * Client interface.
-     */
-    private RMIClientInterface rmiClientInterface;
-
-    /**
      * Logged users cache.
      */
     private HashMap<String, String> userCache;
