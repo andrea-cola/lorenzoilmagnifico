@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
 import java.util.List;
 
 public class ChooseLeaderCardStage extends JFXPanel{
@@ -26,6 +27,8 @@ public class ChooseLeaderCardStage extends JFXPanel{
     private final static int INSETS = 20;
     private final static int IMAGE_WIDTH = 200;
     private final static int IMAGE_HEIGHT = 310;
+    private final static int WIDTH = 1000;
+    private final static int HEIGHT = 300;
 
     private CallbackInterface callback;
 
@@ -83,6 +86,7 @@ public class ChooseLeaderCardStage extends JFXPanel{
         root.setMargin(vBox, new Insets(INSETS));
         root.autosize();
         Scene scene = new Scene(root);
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setScene(scene);
     }
 
@@ -90,13 +94,13 @@ public class ChooseLeaderCardStage extends JFXPanel{
         for(LeaderCard tmp : leaderCardList){
             if(myName == tmp.getLeaderCardName()){
                 System.out.println("NAME = " + myName);
-                this.callback.sendLeaderCardChoise(tmp);
+                this.callback.sendLeaderCardChoice(tmp);
             }
         }
     }
 
     @FunctionalInterface
     public interface CallbackInterface{
-        void sendLeaderCardChoise(LeaderCard leaderCard);
+        void sendLeaderCardChoice(LeaderCard leaderCard);
     }
 }

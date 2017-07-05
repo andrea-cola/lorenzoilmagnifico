@@ -9,6 +9,7 @@ import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.server.ServerInterface;
 import it.polimi.ingsw.socketprotocol.ServerCommunicationProtocol;
 import it.polimi.ingsw.socketprotocol.ServerCommunicationProtocolInterface;
+import it.polimi.ingsw.gameserver.Room;
 
 import java.io.*;
 import java.net.Socket;

@@ -30,8 +30,8 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     private final static String LEADER_CARD = "leaderCardStage";
     private final static String MAIN_BOARD = "mainBoardStage";
 
-    private final static int FRAME_HEIGHT = 700;
-    private final static int FRAME_WIDTH = 700;
+    private final static int FRAME_HEIGHT = 900;
+    private final static int FRAME_WIDTH = 1000;
 
     private final Lock lock = new ReentrantLock();
     private JFrame mainFrame;
@@ -142,19 +142,42 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     @Override
     public void notifyGameStarted() {
         System.out.println("starting game...");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JOptionPane.showMessageDialog(null, "Now it is your turn", "Notification", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
     }
 
     @Override
     public void turnScreen(String username, long seconds) {
         System.out.println("staring " + username + " turn");
-        mainBoardStage = new MainBoardStage( this, getClient().getPlayer(), getClient().getGameModel(), this);
-        mainPanel.add(mainBoardStage, MAIN_BOARD);
-        cardLayout.show(mainPanel, MAIN_BOARD);
+        if(username.equals(getClient().getUsername())){
+            mainBoardStage = new MainBoardStage(this, getClient(), this, true);
+            mainPanel.add(mainBoardStage, MAIN_BOARD);
+            cardLayout.show(mainPanel, MAIN_BOARD);
+        }else{
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JOptionPane.showMessageDialog(null, "Please wait " +seconds +" for your turn", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+            mainBoardStage = new MainBoardStage(this, getClient(), this, false);
+            mainPanel.add(mainBoardStage, MAIN_BOARD);
+            cardLayout.show(mainPanel, MAIN_BOARD);
+        }
     }
 
     @Override
     public void notifyUpdate(String message) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JOptionPane.showMessageDialog(null, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
     }
 
     @Override
@@ -169,9 +192,11 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
                 switch (result){
                     case JOptionPane.YES_OPTION:
                         setChoice(true);
+                        JOptionPane.getRootFrame().dispose();
                         break;
                     case JOptionPane.NO_OPTION:
                         setChoice(false);
+                        JOptionPane.getRootFrame().dispose();
                         break;
                 }
             }
@@ -192,6 +217,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         System.out.println("showing " + player.getUsername() + " personal board...");
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
+            jframe.setResizable(false);
             jframe.add(new PersonalBoardStage(player), BorderLayout.CENTER);
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
@@ -233,10 +259,10 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         });
     }
 
-
     @Override
     public void notifyEndTurnStage() {
         System.out.println("showing ending turn");
+        getClient().endTurn();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -245,19 +271,18 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         });
     }
 
-
     @Override
-    public void activeLeaderCard(String leaderName) {
+    public void activeLeaderCard(String leaderName, int servants) {
         Player player = getClient().getPlayer();
-        int servants = 0 ;
         try {
             int i = 0;
             List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
             for (LeaderCard leaderCard : leaderCards) {
                 if (leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
-                    getClient().getGameModel().activateLeaderCard(player, i, servants, this);
-                i++;
+                    break;
             }
+            getClient().getGameModel().activateLeaderCard(player, i, servants, this);
+            getClient().notifyActivateLeader(i, servants);
         }catch(GameException e){
             showGameException();
         }
@@ -270,9 +295,11 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
         for(LeaderCard leaderCard : leaderCards){
             if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
-                getClient().getGameModel().discardLeaderCard(player, i, this);
+                break;
             i++;
         }
+        getClient().getGameModel().discardLeaderCard(player, i, this);
+        getClient().notifyDiscardLeader(i);
     }
 
     @Override
@@ -280,15 +307,11 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JFrame jframe = new JFrame();
                 try {
-                    jframe.add(new ChooseCouncilPrivilege(reason, councilPrivilege, callback), BorderLayout.CENTER);
+                    new ChooseCouncilPrivilege(reason, councilPrivilege, callback);
                 } catch (GameException e) {
                     showGameException();
                 }
-                jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                jframe.pack();
-                jframe.setVisible(true);
             }
         });
     }
@@ -348,6 +371,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
                                 setKeyValue(2);
                                 getClient().setPlayerTurnChoices("double-cost", getKeyValue());
                             }
+                            JOptionPane.getRootFrame().dispose();
                         }
                     }
                 }
@@ -394,6 +418,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
                         setKeyValue(i);
                         getClient().setPlayerTurnChoices(card + ":double", getKeyValue());
                     }
+                    JOptionPane.getRootFrame().dispose();
                 }
             }
 
@@ -430,6 +455,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
                         setKeyValue(i);
                         getClient().setPlayerTurnChoices(reason, getKeyValue());
                     }
+                    JOptionPane.getRootFrame().dispose();
                 }
             }
         });
@@ -480,6 +506,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
                             }
                     getClient().setPlayerTurnChoices(reason, getDevelopmentCard());
                 }
+                JOptionPane.getRootFrame().dispose();
             }
         });
 
@@ -507,7 +534,6 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         return;
     }
 
-
     private boolean isSelectable(TowerCell cell, PointsAndResources discount){
         try{
             cell.developmentCardCanBeBuyed(getClient().getPlayer(), discount);
@@ -516,5 +542,4 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
             return false;
         }
     }
-
 }

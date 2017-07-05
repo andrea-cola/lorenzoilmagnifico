@@ -29,7 +29,7 @@ public class Market implements Serializable{
      * @param index of the cell.
      * @return a market cell.
      */
-    /*package-local*/ MarketCell getMarketCell(int index){
+    public MarketCell getMarketCell(int index){
         return this.marketCells[index];
     }
 

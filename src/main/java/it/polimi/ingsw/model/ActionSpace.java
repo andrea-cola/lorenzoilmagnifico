@@ -54,7 +54,7 @@ public class ActionSpace implements Serializable{
         return this.username;
     }
 
-    /*package-local*/ boolean isEmpty(){
+    public boolean isEmpty(){
         return this.empty;
     }
 

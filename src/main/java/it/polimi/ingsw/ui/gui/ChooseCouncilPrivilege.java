@@ -3,11 +3,14 @@ package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.CouncilPrivilege;
-import it.polimi.ingsw.model.InformationCallback;
-import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Privilege;
+import javafx.scene.control.Label;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChooseCouncilPrivilege extends JPanel{
@@ -21,7 +24,6 @@ public class ChooseCouncilPrivilege extends JPanel{
         this.councilPrivilege = councilPrivilege;
         this.reason = reason;
         this.callback = callback;
-
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (IllegalAccessException | InstantiationException |
@@ -29,19 +31,16 @@ public class ChooseCouncilPrivilege extends JPanel{
             e.printStackTrace();
         }
 
-        JPanel panel = new JPanel();
         String[] privil = {"1 WOOD & 1 SERVANT", "2 SERVANTS", "2 COINS", "2 MILITARY POINTS","1 FAITH POINTS"};
         JCheckBox[] checkBox = new JCheckBox[privil.length];
         for (int i = 0; i <checkBox.length; i++) {
             checkBox[i] = new JCheckBox(privil[i]);
-            panel.add(checkBox[i]);
+            this.add(checkBox[i]);
         }
 
-        ImageIcon image = new ImageIcon("images/councilPrivileges.jpeg");
-        panel.add(new JLabel("", image, JLabel.CENTER));
-
-        int result = JOptionPane.showConfirmDialog(null, panel , "Choose" + councilPrivilege.getNumberOfCouncilPrivileges() +" Privilege", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(null, this , "Choose " + councilPrivilege.getNumberOfCouncilPrivileges() +" Privilege", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
+            JOptionPane.getRootFrame().dispose();
             ArrayList<Integer> arrayList = new ArrayList();
             int j = 0;
             for (int i = 0; i < checkBox.length; i++) {
@@ -61,11 +60,13 @@ public class ChooseCouncilPrivilege extends JPanel{
         }
     }
 
-    private void setPrivileges(String reason, ArrayList choice) {
+    private void setPrivileges(String reason, ArrayList<Integer> choice) {
         Privilege[] privileges = councilPrivilege.getPrivileges();
-        for (int i = 0; i < choice.size(); i++) {
-            privilegeArrayList.add(privileges[i]);
-            privileges[i].setNotAvailablePrivilege();
+        privilegeArrayList = new ArrayList<>();
+        for (Integer tmp : choice) {
+            int j = tmp;
+            privilegeArrayList.add(privileges[j]);
+            privileges[j].setNotAvailablePrivilege();
         }
         this.callback.setCouncilPrivileges(reason, privilegeArrayList);
     }

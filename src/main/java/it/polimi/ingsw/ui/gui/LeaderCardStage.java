@@ -3,6 +3,7 @@ package it.polimi.ingsw.ui.gui;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.ResourceType;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,7 +20,7 @@ import javafx.scene.control.Label;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.ActionListener;
 
 
 public class LeaderCardStage extends JFXPanel {
@@ -34,6 +35,8 @@ public class LeaderCardStage extends JFXPanel {
     private final static int WIDTH = 1000;
     private final static int INSETS = 20;
 
+    private Integer servants = new Integer(0);
+    private int servantValue;
 
 
     LeaderCardStage(MainBoardStage.CallbackInterface callback, Player player){
@@ -43,6 +46,7 @@ public class LeaderCardStage extends JFXPanel {
         pane.setPrefSize(WIDTH, HEIGHT);
         pane.setVgap(GRID_VGAP);
         pane.setHgap(GRID_HGAP);
+        servantValue = player.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT);
 
         for (int i = 0; i <player.getPersonalBoard().getLeaderCards().size() ; i++) {
             StringBuilder path = new StringBuilder();
@@ -85,13 +89,43 @@ public class LeaderCardStage extends JFXPanel {
                             model.addElement("DROP LEADER");
                             model.addElement("ACTIVE LEADER");
                             JComboBox<String> comboBox = new JComboBox<String>(model);
+                            JLabel number = new JLabel(new Integer(servants).toString());
+                            JButton minus = new JButton("-");
+                            JButton plus = new JButton("+");
+                            plus.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(java.awt.event.ActionEvent e) {
+                                    if(servants<servantValue) {
+                                        servants++;
+                                        minus.setVisible(true);
+                                        number.setText(new Integer(servants).toString());
+                                    }else
+                                        plus.setVisible(false);
+                                }
+
+                            });
+                            minus.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(java.awt.event.ActionEvent e) {
+                                    if(servants>0){
+                                        servants--;
+                                        plus.setVisible(true);
+                                        number.setText(new Integer(servants).toString());
+                                    }else
+                                        minus.setVisible(false);
+                                }
+                            });
                             panel.add(comboBox);
+                            panel.add(minus);
+                            panel.add(number);
+                            panel.add(plus);
                             int result = JOptionPane.showConfirmDialog(null, panel, "Leader Actions", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                             switch (result){
                                 case JOptionPane.OK_OPTION:
                                     if(comboBox.getSelectedItem()!= null) {
                                         String choice = (String) comboBox.getSelectedItem();
                                         leaderAction(choice, name);
+                                        JOptionPane.getRootFrame().dispose();
                                     }
                             }
                         }
@@ -110,10 +144,10 @@ public class LeaderCardStage extends JFXPanel {
     private void leaderAction(String choice, String leaderCardName){
         switch (choice){
             case "DROP LEADER":
-                this.callback.activeLeaderCard(leaderCardName);
+                this.callback.discardLeader(leaderCardName);
                 break;
             case "ACTIVE LEADER":
-                this.callback.discardLeader(leaderCardName);
+                this.callback.activeLeaderCard(leaderCardName, servants);
                 break;
         }
     }
