@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.InformationCallback;
 
@@ -19,7 +20,7 @@ public abstract class Effect implements Serializable{
      * Method to run the effect of the card.
      * @param player
      */
-    abstract public void runEffect(Player player, InformationCallback informationCallback);
+    public abstract void runEffect(Player player, InformationCallback informationCallback);
 
     public String getEffectType(){
         return effectType;
@@ -33,6 +34,6 @@ public abstract class Effect implements Serializable{
      * Get a description of the current effect.
      */
     @Override
-    abstract public String toString();
+    public abstract String toString();
 
 }

@@ -48,6 +48,7 @@ public class ActionSpaceExtended implements Serializable{
         this.actionSpaceType = actionSpaceType;
         this.diceValueMalus = diceValueMalus;
         this.effect = effect;
+        this.familyMemberMap = new HashMap<>();
         this.accessible = true;
     }
 
@@ -92,8 +93,8 @@ public class ActionSpaceExtended implements Serializable{
     }
 
     /*package-local*/ void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
-        if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL))
-            if(familyMemberMap.containsKey(player.getUsername()) && !familyMemberMap.get(player.getUsername()).equals(FamilyMemberColor.NEUTRAL))
+        if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL) && familyMemberMap.containsKey(player.getUsername())
+                && !familyMemberMap.get(player.getUsername()).equals(FamilyMemberColor.NEUTRAL))
                 throw new GameException();
     }
 
@@ -105,7 +106,10 @@ public class ActionSpaceExtended implements Serializable{
                 throw new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_USED);
 
         //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
-        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + servants;
+        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor)
+                + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(actionSpaceType)
+                - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(actionSpaceType);
+
         if (familyMemberValueTot < (this.effect.getDiceActionValue() + diceValueMalus))
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
 

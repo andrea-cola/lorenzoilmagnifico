@@ -38,5 +38,5 @@ public abstract class AbstractUI {
 
     public abstract void notifyUpdate(String message);
 
-    public abstract boolean supportForTheChurch();
+    public abstract void supportForTheChurch(boolean flag);
 }

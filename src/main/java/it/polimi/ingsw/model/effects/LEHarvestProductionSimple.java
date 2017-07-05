@@ -1,8 +1,13 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.ActionType;
+import it.polimi.ingsw.model.DevelopmentCard;
+import it.polimi.ingsw.model.DevelopmentCardColor;
+import it.polimi.ingsw.model.FamilyMemberColor;
+import it.polimi.ingsw.model.InformationCallback;
+import it.polimi.ingsw.model.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class LEHarvestProductionSimple extends LeaderEffect{
 
@@ -21,24 +26,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      */
     public LEHarvestProductionSimple(){
         super.setEffectType(this.getClass().getSimpleName());
-    }
-
-    /**
-     * Set the dice value to activate the action
-     * of the permanent effect.
-     * @param value of the dice.
-     */
-    public void setDiceActionValue(int value){
-        this.diceActionValue = value;
-    }
-
-    /**
-     * Get the dice value to active the action
-     * of the permanent effect.
-     * @return value of the dice.
-     */
-    public int getDiceActionValue(){
-        return this.diceActionValue;
+        diceActionValue = 0;
     }
 
     /**
@@ -59,12 +47,12 @@ public class LEHarvestProductionSimple extends LeaderEffect{
 
     /**
      * Run the effect.
-     * @param player
+     * @param player is gaining benefit from
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback){
         //get the last family member used and change its value
-        ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
+        List<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
         player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(familyMemberColor, this.diceActionValue);
 
@@ -72,9 +60,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
             for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN)){
                 card.getPermanentEffect().runEffect(player, informationCallback);
             }
-        }
-
-        if (this.actionType.equals(ActionType.PRODUCTION)){
+        }else if (this.actionType.equals(ActionType.PRODUCTION)){
             for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
                 card.getPermanentEffect().runEffect(player, informationCallback);
             }
@@ -86,9 +72,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      */
     @Override
     public String toString() {
-        String header = this.getEffectType() + "\n";
-        String actionTypeAndValue = "Action type: " + actionType + "\nValue: " + diceActionValue + "\n";
-        return new StringBuilder(header).append(actionTypeAndValue).toString();
+        return "You can run " + actionType.toString().toLowerCase() + " with dice value = " + diceActionValue;
     }
 
 }

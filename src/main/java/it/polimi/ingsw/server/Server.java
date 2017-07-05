@@ -2,20 +2,15 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gameserver.Configurator;
-import it.polimi.ingsw.model.FamilyMemberColor;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.socketserver.SocketServer;
 import it.polimi.ingsw.gameserver.Room;
 import it.polimi.ingsw.rmiserver.RMIServer;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Main server class that extends {@link ServerInterface}.
@@ -78,12 +73,12 @@ public class Server implements ServerInterface{
     /**
      * Class constructor.
      */
-    public Server() throws ServerException{
+    private Server() throws ServerException{
         rmiServer = new RMIServer(this);
         socketServer = new SocketServer(this);
-        players = new HashMap<String, ServerPlayer>();
-        activePlayer = new HashMap<String, Boolean>();
-        rooms = new ArrayList<Room>();
+        players = new HashMap<>();
+        activePlayer = new HashMap<>();
+        rooms = new ArrayList<>();
         dbServer = new DBServer();
         configure();
     }
@@ -120,7 +115,7 @@ public class Server implements ServerInterface{
      * Method to initialize and start socket server and RMI server.
      * @param socketPort of socket server.
      * @param rmiPort of RMI server.
-     * @throws IOException if errors occur during initialization.
+     * @throws ServerException if errors occur during initialization.
      */
     private void startSocketRMIServer(int socketPort, int rmiPort) throws ServerException{
         socketServer.startServer(socketPort);
@@ -182,72 +177,6 @@ public class Server implements ServerInterface{
     }
 
     /**
-     * This function disable the user when he goes down.
-     * @param player that goes down.
-     */
-    @Override
-    public void disableUser(ServerPlayer player){
-        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " is disabled.");
-        if(activePlayer.containsKey(player.getUsername()))
-            this.activePlayer.put(player.getUsername(), false);
-    }
-
-    @Override
-    public void setFamilyMemberInTower(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().setFamilyMemberInTower(serverPlayer, familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
-    }
-
-    @Override
-    public void setFamilyMemberInCouncil(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().setFamilyMemberInCouncil(serverPlayer, familyMemberColor, servants, playerChoices);
-    }
-
-    @Override
-    public void setFamilyMemberInMarket(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().setFamilyMemberInMarket(serverPlayer, familyMemberColor, servants, marketIndex, playerChoices);
-    }
-
-    @Override
-    public void setFamilyMemberInHarvestSimple(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().setFamilyMemberInHarvestSimple(serverPlayer, familyMemberColor, servants, playerChoices);
-    }
-
-    @Override
-    public void setFamilyMemberInHarvestExtended(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().setFamilyMemberInHarvestExtended(serverPlayer, familyMemberColor, servants, playerChoices);
-    }
-
-    @Override
-    public void setFamilyMemberInProductionSimple(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().setFamilyMemberInProductionSimple(serverPlayer, familyMemberColor, servants, playerChoices);
-    }
-
-    @Override
-    public void setFamilyMemberInProductionExtended(ServerPlayer serverPlayer, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().setFamilyMemberInProductionExtended(serverPlayer, familyMemberColor, servants, playerChoices);
-    }
-
-    @Override
-    public void activateLeaderCard(ServerPlayer serverPlayer, int leaderCardIndex, int servants, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().activateLeader(serverPlayer, leaderCardIndex, servants, playerChoices);
-    }
-
-    @Override
-    public void discardLeader(ServerPlayer serverPlayer, int leaderCardIndex, Map<String, Object> playerChoices) {
-        serverPlayer.getRoom().discardLeader(serverPlayer, leaderCardIndex, playerChoices);
-    }
-
-    /**
-     * Method to get remote player reference from the user cache.
-     * @param username of the remote player.
-     * @return remote player that corresponds to username provided.
-     */
-    @Override
-    public ServerPlayer getUser(String username){
-        return players.get(username);
-    }
-
-    /**
      * Method used to join a player into a room.
      * @param serverPlayer who would join in a room.
      * @throws RoomException if error occurs.
@@ -255,35 +184,31 @@ public class Server implements ServerInterface{
     @Override
     public void joinRoom(ServerPlayer serverPlayer) throws RoomException {
         Room playerRoom = null;
-        for (Room room : rooms){
-            if (room.userAlreadyJoined(serverPlayer)) {
+        for (Room room : rooms)
+            if (room.userAlreadyJoined(serverPlayer))
                 playerRoom = room;
-            }
-        }
+
         synchronized (JOIN_ROOM_MUTEX){
-            try {
-                if (playerRoom != null) {
-                    playerRoom.rejoinRoom(serverPlayer);
-                    serverPlayer.setRoom(playerRoom);
-                    Debugger.printDebugMessage(serverPlayer.getUsername() + " rejoined in room #" + playerRoom.getRoomID());
-                } else if (!rooms.isEmpty()) {
-                    playerRoom = rooms.get(rooms.size() - 1);
-                    playerRoom.joinRoom(serverPlayer);
-                    serverPlayer.setRoom(playerRoom);
-                    Debugger.printDebugMessage(serverPlayer.getUsername() + " joined in room #" + playerRoom.getRoomID());
-                } else
-                    throw new RoomException("There are no rooms available!");
-            } catch (NetworkException e){
-                throw new RoomException();
-            }
+            if (playerRoom != null) {
+                playerRoom.rejoinRoom(serverPlayer);
+                serverPlayer.setRoom(playerRoom);
+                playerRoom.restorePlayerState(serverPlayer);
+                Debugger.printDebugMessage(serverPlayer.getUsername() + " rejoined in room #" + playerRoom.getRoomID());
+            } else if (!rooms.isEmpty()) {
+                playerRoom = rooms.get(rooms.size() - 1);
+                playerRoom.joinRoom(serverPlayer);
+                serverPlayer.setRoom(playerRoom);
+                Debugger.printDebugMessage(serverPlayer.getUsername() + " joined in room #" + playerRoom.getRoomID());
+            } else
+                throw new RoomException("There are no rooms available!");
         }
     }
 
     /**
-     * Create a new room.
+     * Create new room.
      * @param serverPlayer is creating new room.
-     * @param maxPlayers allowed in the room.
-     * @return configuration object.
+     * @param maxPlayers   allowed in the room.
+     * @throws RoomException if errors occur during creation.
      */
     @Override
     public void createNewRoom(ServerPlayer serverPlayer, int maxPlayers) throws RoomException{
@@ -309,21 +234,25 @@ public class Server implements ServerInterface{
     }
 
     /**
-     * Set personal board tile to the server player who invoke this method. Then notifies
-     * the choice to the room.
-     * @param serverPlayer of the choice.
-     * @param personalBoardTile to be set.
+     * This function disable the user when he goes down.
+     * @param player that goes down.
      */
     @Override
-    public void setPlayerPersonalBoardTile(ServerPlayer serverPlayer, PersonalBoardTile personalBoardTile) {
-        serverPlayer.getPersonalBoard().setPersonalBoardTile(personalBoardTile);
-        serverPlayer.getRoom().onPersonalTilesChosen();
+    public void disableUser(ServerPlayer player){
+        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " is disabled.");
+        if(activePlayer.containsKey(player.getUsername()))
+            this.activePlayer.put(player.getUsername(), false);
     }
 
+    /**
+     * Method to get remote player reference from the user cache.
+     * @param username of the remote player.
+     * @return remote player that corresponds to username provided.
+     */
     @Override
-    public void setPlayerLeaderCard(ServerPlayer serverPlayer, LeaderCard leaderCard) {
-        serverPlayer.getPersonalBoard().setLeaderCard(leaderCard);
-        serverPlayer.getRoom().onLeaderCardChosen();
+    public ServerPlayer getUser(String username){
+        return players.get(username);
     }
+
 }
 

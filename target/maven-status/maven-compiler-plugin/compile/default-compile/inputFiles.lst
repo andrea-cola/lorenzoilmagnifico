@@ -82,6 +82,7 @@
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/exceptions/LoginException.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/rmiclient/RMIClientInterface.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/rmiserver/RMIPlayer.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/ui/cli/ExcommunicationScreen.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/ActionSpace.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/LESimple.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/ui/gui/PersonalBoardStage.java

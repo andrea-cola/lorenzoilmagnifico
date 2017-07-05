@@ -35,7 +35,7 @@ public class ExcommunicationEffectDevCard extends ExcommunicationEffect {
     }
 
     public String getDescription() {
-        return "Dice malus for all card with following color ( " + this.developmentCardColor + ", " + diceMalus + " )";
+        return "Dice malus = " + diceMalus + " for all card with following color " + this.developmentCardColor;
     }
 
 }

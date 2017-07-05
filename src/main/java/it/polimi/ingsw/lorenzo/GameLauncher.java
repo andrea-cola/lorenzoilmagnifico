@@ -1,5 +1,7 @@
 package it.polimi.ingsw.lorenzo;
 
+import it.polimi.ingsw.utility.Debugger;
+
 import java.util.Scanner;
 
 /**
@@ -20,12 +22,12 @@ public class GameLauncher {
         int choice = 0;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("To use the Command Line Interface you need to insert the number\ncorrespondent to command and follow the instructions.");
+        Debugger.printDebugMessage("To use the Command Line Interface you need to insert the number\ncorrespondent to command and follow the instructions.");
         do{
             try {
-                System.out.println("Choose your user interface:");
-                System.out.println("(1) COMMAND LINE INTERFACE");
-                System.out.println("(2) GRAPHICAL INTERFACE");
+                Debugger.printDebugMessage("Choose your user interface:");
+                Debugger.printDebugMessage("(1) COMMAND LINE INTERFACE");
+                Debugger.printDebugMessage("(2) GRAPHICAL INTERFACE");
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e){
                 return chooseUI();

@@ -6,17 +6,19 @@ import it.polimi.ingsw.model.Player;
 
 public class LELudovicoAriosto extends LeaderEffect {
 
+    /**
+     * Class constructor.
+     */
     public LELudovicoAriosto(){
         super.setEffectType(this.getClass().getSimpleName());
     }
+
     /**
      * Method to run the effect of the card.
-     *
-     * @param player
+     * @param player is gaining benefit of the effect.
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-        //TODO remember to set to false the flag at the end of each turn
         player.getPersonalBoard().setAlwaysPlaceFamilyMemberInsideActionSpace(true);
     }
 

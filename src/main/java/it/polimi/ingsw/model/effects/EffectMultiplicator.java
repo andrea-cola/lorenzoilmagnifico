@@ -70,7 +70,6 @@ public class EffectMultiplicator extends Effect{
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-
         //Set multiplicator value
         int multiplicatorValue = 0;
 
@@ -86,21 +85,26 @@ public class EffectMultiplicator extends Effect{
                     multiplicatorValue = entry.getValue();
         }
 
+        //check if the player has the leader card for this effect and if it is active
+        LeaderCard leaderCard = player.getPersonalBoard().getLeaderCardWithName("Santa Rita");
+        if (diceActionValue == 0 && leaderCard != null && leaderCard.getLeaderEffectActive())
+            multiplicatorValue = multiplicatorValue * 2;
+
         //run effect
         //updates player's resources
         for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
-            //excommunication effect
-            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
             //normal effect
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
         }
 
         //updates player's points
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()){
-            //excommunication effect
-            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
             //normal effect
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
+            //excommunication effect
+            player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
         }
     }
 
@@ -112,7 +116,7 @@ public class EffectMultiplicator extends Effect{
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         if(actionType != null)
-            stringBuilder.append(actionType.toString() + " ( dice: " + diceActionValue + " ) earn this resource: ( " + valuable.toString() + " ) ");
+            stringBuilder.append(actionType.toString() + " with dice value = " + diceActionValue + ". Earn " + valuable.toString() + " ");
         if(cardOrResources)
             stringBuilder.append("for any card of these color: ( " + cardColorRequisite + " ) ");
         else

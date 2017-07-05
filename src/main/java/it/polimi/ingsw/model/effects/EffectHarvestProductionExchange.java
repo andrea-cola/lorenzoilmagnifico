@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,32 +43,6 @@ public class EffectHarvestProductionExchange extends Effect{
         super.setEffectType(this.getClass().getSimpleName());
     }
 
-    public void setCouncilPrivilege(int privilege){
-        this.numberOfCouncilPrivileges = privilege;
-    }
-
-    public int getCouncilPrivilege(){
-        return this.numberOfCouncilPrivileges;
-    }
-
-    /**
-     * Set the dice value to activate the action
-     * of the permanent effect.
-     * @param value of the dice.
-     */
-    public void setDiceActionValue(int value){
-        this.diceActionValue = value;
-    }
-
-    /**
-     * Get the dice value to active the action
-     * of the permanent effect.
-     * @return value of the dice.
-     */
-    public int getDiceActionValue(){
-        return this.diceActionValue;
-    }
-
     /**
      * Set the action type of the permanent effect.
      * @param type of action.
@@ -85,45 +60,13 @@ public class EffectHarvestProductionExchange extends Effect{
     }
 
     /**
-     * Set resources and points that have to be payed.
-     * @param valuable of resources and points.
-     */
-    public void setValuableToPay(PointsAndResources[] valuable){
-        this.valuableToPay = valuable;
-    }
-
-    /**
-     * Get resources and points that have to be payed.
-     * @return resources and points.
-     */
-    public PointsAndResources[] getValuableToPay(){
-        return this.valuableToPay;
-    }
-
-    /**
-     * Set resources and points earned.
-     * @param valuable of resources and points.
-     */
-    public void setValuableEarned(PointsAndResources[] valuable){
-        this.valuableEarned = valuable;
-    }
-
-    /**
-     * Get resources and points earned.
-     * @return resources and points.
-     */
-    public PointsAndResources[] getValuableEarned(){
-        return this.valuableEarned;
-    }
-
-    /**
      * Method to run the effect of the card.
      * @param player that takes advatange of the effect.
      */
     @Override
-    public void runEffect(Player player, InformationCallback informationCallback) {
+    public void runEffect(Player player, InformationCallback informationCallback){
         int choice = 0;
-        handleExchange(player, choice);
+        handleExchange(player, choice, informationCallback);
     }
 
 
@@ -132,13 +75,13 @@ public class EffectHarvestProductionExchange extends Effect{
             runEffect(player, informationCallback);
         } else {
             int choice = informationCallback.chooseExchangeEffect(card.getName(), valuableToPay, valuableEarned);
-            handleExchange(player, choice);
+            handleExchange(player, choice, informationCallback);
         }
     }
 
-    private void handleExchange(Player player, int choice){
+    private void handleExchange(Player player, int choice, InformationCallback informationCallback){
         //get the family member used to run this effect
-        ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
+        List<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
 
         //set action value
@@ -151,53 +94,47 @@ public class EffectHarvestProductionExchange extends Effect{
 
             //PAY
             //updates player's resources
-            for (Map.Entry<ResourceType, Integer> entry : this.valuableToPay[choice].getResources().entrySet()) {
-                player.getPersonalBoard().getValuables().decrease(entry.getKey(), entry.getValue());
-            }
-
-            //updates player's points
-            for (Map.Entry<PointType, Integer> entry : this.valuableToPay[choice].getPoints().entrySet()) {
-                player.getPersonalBoard().getValuables().decrease(entry.getKey(), entry.getValue());
+            try {
+                player.getPersonalBoard().getValuables().checkDecrease(this.valuableToPay[choice]);
+            } catch (GameException e){
+                return;
             }
 
             //EARN
             //updates player's resources
             for (Map.Entry<ResourceType, Integer> entry : this.valuableEarned[choice].getResources().entrySet()) {
-                //excommunication effect
-                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
                 //normal effect
                 player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                //excommunication effect
+                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
             }
 
             //updates player's points
             for (Map.Entry<PointType, Integer> entry : this.valuableEarned[choice].getPoints().entrySet()) {
-                //excommunication effect
-                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
                 //normal effect
                 player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                //excommunication effect
+                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
+            }
+            //here the logic to manage the player's council privilege decision
+            if (this.numberOfCouncilPrivileges > 0){
+                CouncilPrivilege councilPrivilege = new CouncilPrivilege(numberOfCouncilPrivileges);
+                councilPrivilege.chooseCouncilPrivilege(player, informationCallback);
             }
         }
+
     }
-
-
 
     /**
      * Get a description of the current effect.
      */
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(actionType.toString() + "( dice: " + diceActionValue + " ) ");
-        stringBuilder.append(" you can exchange these resources: ( ");
-
-        for(PointsAndResources p : valuableToPay)
-            stringBuilder.append(p.toString() + " ");
-        stringBuilder.append(") ");
-        stringBuilder.append("for the resources: ( ");
-        for(PointsAndResources p : valuableEarned)
-            stringBuilder.append(p.toString() + " ");
-        stringBuilder.append(" council privileges: " + numberOfCouncilPrivileges);
-        stringBuilder.append(" )");
+        StringBuilder stringBuilder = new StringBuilder(actionType.toString().toLowerCase() + " with dice value = " + diceActionValue);
+        stringBuilder.append(". You can exchange these resources: ");
+        for(int i = 0; i < valuableToPay.length; i++)
+            stringBuilder.append("[" + valuableToPay[i] + "=> " + valuableEarned[i] + "], ");
+        stringBuilder.append("and " + numberOfCouncilPrivileges + " council privileges");
         return stringBuilder.toString();
     }
 

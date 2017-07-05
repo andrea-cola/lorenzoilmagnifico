@@ -19,12 +19,12 @@ public abstract class LeaderEffect implements Serializable{
      * Method to run the effect of the card.
      * @param player
      */
-    abstract public void runEffect(Player player, InformationCallback informationCallback);
+    public abstract void runEffect(Player player, InformationCallback informationCallback);
 
     /**
      * Get a description of the current effect.
      */
-    abstract public String toString();
+    public abstract String toString();
 
     public void setEffectType(String effectType){
         this.effectType = effectType;

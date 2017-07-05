@@ -70,6 +70,8 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
         try{
             while(flag) {
                 Object input = objectInputStream.readObject();
+                if(input == null)
+                    break;
                 socketCommunicationProtocol.clientRequestHandler(input);
             }
         }catch(IOException | ClassNotFoundException e){
@@ -123,57 +125,59 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
 
     @Override
     public void notifyPlayerPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) {
-        serverInterface.setPlayerPersonalBoardTile(this, personalBoardTile);
+        this.getPersonalBoard().setPersonalBoardTile(personalBoardTile);
+        this.getRoom().onPersonalTilesChosen();
     }
 
     @Override
     public void notifyPlayerLeaderCardChoice(LeaderCard leaderCard) {
-        serverInterface.setPlayerLeaderCard(this, leaderCard);
+        this.getPersonalBoard().setLeaderCard(leaderCard);
+        this.getRoom().onLeaderCardChosen();
     }
 
     @Override
     public void setFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) {
-        serverInterface.setFamilyMemberInTower(this, familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
+        this.getRoom().setFamilyMemberInTower(this, familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverInterface.setFamilyMemberInCouncil(this, familyMemberColor, servants, playerChoices);
+        this.getRoom().setFamilyMemberInCouncil(this, familyMemberColor, servants, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) {
-        serverInterface.setFamilyMemberInMarket(this, familyMemberColor, servants, marketIndex, playerChoices);
+        this.getRoom().setFamilyMemberInMarket(this, familyMemberColor, servants, marketIndex, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverInterface.setFamilyMemberInHarvestSimple(this, familyMemberColor, servants, playerChoices);
+        this.getRoom().setFamilyMemberInHarvestSimple(this, familyMemberColor, servants, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverInterface.setFamilyMemberInHarvestExtended(this, familyMemberColor, servants, playerChoices);
+        this.getRoom().setFamilyMemberInHarvestExtended(this, familyMemberColor, servants, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverInterface.setFamilyMemberInProductionSimple(this, familyMemberColor, servants, playerChoices);
+        this.getRoom().setFamilyMemberInProductionSimple(this, familyMemberColor, servants, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) {
-        serverInterface.setFamilyMemberInProductionExtended(this, familyMemberColor, servants, playerChoices);
+        this.getRoom().setFamilyMemberInProductionExtended(this, familyMemberColor, servants, playerChoices);
     }
 
     @Override
     public void activateLeaderCard(int leaderCardIndex, int servants, Map<String, Object> playerChoices) {
-        serverInterface.activateLeaderCard(this, leaderCardIndex, servants, playerChoices);
+        this.getRoom().activateLeader(this, leaderCardIndex, servants, playerChoices);
     }
 
     @Override
     public void discardLeader(int leaderCardIndex, Map<String, Object> playerChoices) {
-        serverInterface.discardLeader(this, leaderCardIndex, playerChoices);
+        this.getRoom().discardLeader(this, leaderCardIndex, playerChoices);
     }
 
     @Override

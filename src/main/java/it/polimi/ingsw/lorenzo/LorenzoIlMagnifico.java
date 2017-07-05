@@ -37,15 +37,13 @@ import java.util.Map;
      * Class constructor. A new user interface is created.
      * @param ui index of the preferred interface.
      */
-    public LorenzoIlMagnifico(int ui) throws InterruptedException {
-        switch (ui){
-            case 1:
-                userInterface = new CommandLineInterface(this);
-                break;
-            case 2:
-                userInterface = new GraphicUserInterface(this);
-                break;
-        }
+    /*package-local*/ LorenzoIlMagnifico(int ui) throws InterruptedException {
+        if(ui == 1)
+            userInterface = new CommandLineInterface(this);
+        else if(ui == 2)
+            userInterface = new GraphicUserInterface(this);
+        else
+            throw new InterruptedException();
         playerTurnChoices = new HashMap<>();
     }
 
@@ -60,16 +58,12 @@ import java.util.Map;
 
     @Override
     public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException {
-        switch (connectionType){
-            case SOCKET:
-                client = new SocketClient(this, address, port);
-                break;
-            case RMI:
-                client = new RMIClient(this, address, port);
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
+        if(connectionType.equals(ConnectionType.SOCKET))
+            client = new SocketClient(this, address, port);
+        else if(connectionType.equals(ConnectionType.RMI))
+            client = new RMIClient(this, address, port);
+        else
+            throw new ConnectionException();
         client.connectToServer();
         userInterface.loginScreen();
     }
@@ -108,7 +102,7 @@ import java.util.Map;
             Debugger.printStandardMessage("No rooms available. Create new one.");
             userInterface.createRoomScreen();
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send join room request.");
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send join room request." + e.getMessage());
         }
     }
 
@@ -233,6 +227,15 @@ import java.util.Map;
     }
 
     @Override
+    public void notifyExcommunicationChoice(boolean choice) {
+        try {
+            client.notifySupportForTheChurch(choice);
+        } catch (NetworkException e) {
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your excommunication choice.");
+        }
+    }
+
+    @Override
     public void setGameModel(Game game) {
         this.game = game;
         userInterface.notifyGameStarted();
@@ -256,20 +259,11 @@ import java.util.Map;
     @Override
     public void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket) {
         this.game = clientUpdatePacket.getGame();
-        for(String message : clientUpdatePacket.getMessage())
-            Debugger.printStandardMessage(message);
     }
 
     @Override
     public void supportForTheChurch(boolean flag) {
-        try {
-            if (flag)
-                client.notifySupportForTheChurch(userInterface.supportForTheChurch());
-            else
-                Debugger.printStandardMessage("Your were excommunicated.");
-        } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your excommunication choice.");
-        }
+        userInterface.supportForTheChurch(flag);
     }
 
     @Override

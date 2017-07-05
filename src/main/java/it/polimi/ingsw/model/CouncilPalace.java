@@ -93,7 +93,6 @@ public class CouncilPalace implements Serializable{
 
         //if the family member can be placed, add it to the family members used
         player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
-        player.getPersonalBoard().getValuables().decrease(ResourceType.SERVANT, servants);
     }
 
     @Override

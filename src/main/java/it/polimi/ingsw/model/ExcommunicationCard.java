@@ -12,8 +12,8 @@ public class ExcommunicationCard implements Serializable{
 
     private ExcommunicationEffect effect;
 
-    public void setPeriod(int period){
-        this.period = period;
+    public int getCardID(){
+        return this.cardID;
     }
 
     public int getPeriod(){
@@ -28,19 +28,8 @@ public class ExcommunicationCard implements Serializable{
         return this.effect;
     }
 
-    public void setCardID(int id){
-        this.cardID = id;
-    }
-
-    public int getCardID(){
-        return this.cardID;
-    }
-
     public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[Period]: " + period + "\n");
-        stringBuilder.append("[Effect]: " + effect.getDescription() + "\n");
-        return stringBuilder.toString();
+        return new StringBuilder("Period: " + period + " -> " + effect.getDescription() + "\n").toString();
     }
 
 }

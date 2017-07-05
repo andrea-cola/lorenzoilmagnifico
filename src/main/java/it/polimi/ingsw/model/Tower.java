@@ -80,7 +80,7 @@ public class Tower implements Serializable{
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
         for(int i  = 0; i < towerCells.length; i++)
-            stringBuilder.append("<Cell #" + (i+1) + "> " + towerCells[i].toString());
+            stringBuilder.append("<Cell #" + (i+1) + "> " + towerCells[i].toString() + "\n");
         return stringBuilder.toString();
     }
 }

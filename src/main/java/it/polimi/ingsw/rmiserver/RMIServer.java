@@ -40,14 +40,9 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
     private Registry registry;
 
     /**
-     * Client interface.
-     */
-    private RMIClientInterface RMIClientInterface;
-
-    /**
      * Logged users cache.
      */
-    private final HashMap<String, String> userCache;
+    private HashMap<String, String> userCache;
 
     /**
      * Class constructor.
@@ -58,19 +53,20 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
         userCache = new HashMap<>();
     }
 
-    private Runnable checkClientsConnection = new Runnable() {
-        public void run() {
-            Iterator iterator = userCache.entrySet().iterator();
-            while(iterator.hasNext()){
-                Map.Entry pair = (Map.Entry) iterator.next();
-                ServerPlayer serverPlayer = getPlayer(pair.getKey().toString());
-                try {
-                    serverPlayer.ping();
-                } catch(RemoteException e){
-                    Debugger.printDebugMessage("RMIServer.java", "Connection with the client is down.");
-                    getServer().disableUser(serverPlayer);
-                    userCache.remove(pair.getKey());
-                }
+    /**
+     * Runnable used to check periodically if a RMI client is connected.
+     */
+    private Runnable checkClientsConnection = () -> {
+        Iterator iterator = userCache.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry pair = (Map.Entry) iterator.next();
+            ServerPlayer serverPlayer = getPlayer(pair.getKey().toString());
+            try {
+                serverPlayer.ping();
+            } catch(RemoteException e){
+                Debugger.printDebugMessage("RMIServer.java", "Connection with the client is down.");
+                getServer().disableUser(serverPlayer);
+                userCache.remove(pair.getKey());
             }
         }
     };
@@ -180,57 +176,59 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
 
     @Override
     public void notifyPersonalBoardChoice(String playerID, PersonalBoardTile personalBoardTile) {
-        getServer().setPlayerPersonalBoardTile(getPlayer(playerID), personalBoardTile);
+        getPlayer(playerID).getPersonalBoard().setPersonalBoardTile(personalBoardTile);
+        getPlayer(playerID).getRoom().onPersonalTilesChosen();
     }
 
     @Override
     public void notifyLeaderCardChoice(String playerID, LeaderCard leaderCard) {
-        getServer().setPlayerLeaderCard(getPlayer(playerID), leaderCard);
+        getPlayer(playerID).getPersonalBoard().setLeaderCard(leaderCard);
+        getPlayer(playerID).getRoom().onLeaderCardChosen();
     }
 
     @Override
     public void setFamilyMemberInTower(String playerID, FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) throws RemoteException {
-        getServer().setFamilyMemberInTower(getPlayer(playerID), familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
+        getPlayer(playerID).getRoom().setFamilyMemberInTower(getPlayer(playerID), familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInCouncil(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
-        getServer().setFamilyMemberInCouncil(getPlayer(playerID), familyMemberColor, servants, playerChoices);
+        getPlayer(playerID).getRoom().setFamilyMemberInCouncil(getPlayer(playerID), familyMemberColor, servants, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInMarket(String playerID, FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) throws RemoteException {
-        getServer().setFamilyMemberInMarket(getPlayer(playerID), familyMemberColor, servants, marketIndex, playerChoices);
+        getPlayer(playerID).getRoom().setFamilyMemberInMarket(getPlayer(playerID), familyMemberColor, servants, marketIndex, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInHarvestSimple(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
-        getServer().setFamilyMemberInHarvestSimple(getPlayer(playerID), familyMemberColor, servants, playerChoices);
+        getPlayer(playerID).getRoom().setFamilyMemberInHarvestSimple(getPlayer(playerID), familyMemberColor, servants, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInHarvestExtended(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
-        getServer().setFamilyMemberInHarvestExtended(getPlayer(playerID), familyMemberColor, servants, playerChoices);
+        getPlayer(playerID).getRoom().setFamilyMemberInHarvestExtended(getPlayer(playerID), familyMemberColor, servants, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInProductionSimple(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
-        getServer().setFamilyMemberInProductionSimple(getPlayer(playerID), familyMemberColor,servants, playerChoices);
+        getPlayer(playerID).getRoom().setFamilyMemberInProductionSimple(getPlayer(playerID), familyMemberColor,servants, playerChoices);
     }
 
     @Override
     public void setFamilyMemberInProductionExtended(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException {
-        getServer().setFamilyMemberInProductionExtended(getPlayer(playerID), familyMemberColor, servants, playerChoices);
+        getPlayer(playerID).getRoom().setFamilyMemberInProductionExtended(getPlayer(playerID), familyMemberColor, servants, playerChoices);
     }
 
     @Override
     public void activateLeaderCard(String playerID, int leaderCardIndex, int servants, Map<String, Object> playerChoices) throws RemoteException {
-        getServer().activateLeaderCard(getPlayer(playerID), leaderCardIndex, servants, playerChoices);
+        getPlayer(playerID).getRoom().activateLeader(getPlayer(playerID), leaderCardIndex, servants, playerChoices);
     }
 
     @Override
     public void discardLeader(String playerID, int leaderCardIndex, Map<String, Object> playerChoices) {
-        getServer().discardLeader(getPlayer(playerID), leaderCardIndex, playerChoices);
+        getPlayer(playerID).getRoom().discardLeader(getPlayer(playerID), leaderCardIndex, playerChoices);
     }
 
     @Override

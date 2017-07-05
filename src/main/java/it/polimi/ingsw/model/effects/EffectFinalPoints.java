@@ -58,7 +58,7 @@ public class EffectFinalPoints extends Effect {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Earned final points: ( " + finalVictoryPoints.toString() + " )");
+        stringBuilder.append("In the end of the game you will earn " + finalVictoryPoints.toString() + "victory points");
         return stringBuilder.toString();
     }
 

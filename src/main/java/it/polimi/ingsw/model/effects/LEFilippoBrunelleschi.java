@@ -1,32 +1,27 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.InformationCallback;
-import it.polimi.ingsw.model.MainBoard;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ResourceType;
 
-import javax.sound.sampled.Line;
-
 public class LEFilippoBrunelleschi extends LeaderEffect{
 
+    /**
+     * Money discount on the card.
+     */
     private int moneyDiscount;
 
+    /**
+     * Class constructor.
+     */
     public LEFilippoBrunelleschi(){
         super.setEffectType(this.getClass().getSimpleName());
-    }
-
-    public void setMoneyDiscount(int value){
-        this.moneyDiscount = value;
-    }
-
-    public int getMoneyDiscount(){
-        return this.moneyDiscount;
+        moneyDiscount = 0;
     }
 
     /**
      * Method to run the effect of the card.
-     *
-     * @param player
+     * @param player is gaining benefit from the effect.
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {

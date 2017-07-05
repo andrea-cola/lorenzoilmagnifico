@@ -141,7 +141,6 @@ public class ClientCommunicationProtocol {
      * @throws NetworkException if errors occur during room creation or network communication.
      */
     public void createNewRoom(int maxPlayersNumber) throws NetworkException{
-        Configuration response;
         try{
             objectOutputStream.writeObject(CommunicationProtocolConstants.CREATE_ROOM_REQUEST);
             objectOutputStream.writeObject(maxPlayersNumber);
@@ -233,6 +232,7 @@ public class ClientCommunicationProtocol {
     public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex,
                                              int cellindex, Map<String, Object> playerTurnChoices) throws NetworkException{
         try{
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_TOWER);
             objectOutputStream.writeObject(familyMemberColor);
             objectOutputStream.writeObject(servants);
@@ -248,6 +248,7 @@ public class ClientCommunicationProtocol {
     public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants,
                                                Map<String, Object> playerTurnChoices) throws NetworkException{
         try{
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_COUNCIL);
             objectOutputStream.writeObject(familyMemberColor);
             objectOutputStream.writeObject(servants);
@@ -261,6 +262,7 @@ public class ClientCommunicationProtocol {
     public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex,
                                               Map<String, Object> playerTurnChoices) throws NetworkException{
         try{
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_MARKET);
             objectOutputStream.writeObject(familyMemberColor);
             objectOutputStream.writeObject(servants);
@@ -275,6 +277,7 @@ public class ClientCommunicationProtocol {
     public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants,
                                                      Map<String, Object> playerTurnChoices) throws NetworkException{
         try{
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_HARVEST_SIMPLE);
             objectOutputStream.writeObject(familyMemberColor);
             objectOutputStream.writeObject(servants);
@@ -288,6 +291,7 @@ public class ClientCommunicationProtocol {
     public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants,
                                                         Map<String, Object> playerTurnChoices) throws NetworkException{
         try{
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_SIMPLE);
             objectOutputStream.writeObject(familyMemberColor);
             objectOutputStream.writeObject(servants);
@@ -301,6 +305,7 @@ public class ClientCommunicationProtocol {
     public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants,
                                                        Map<String, Object> playerTurnChoices) throws NetworkException{
         try{
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_HARVEST_EXTENDED);
             objectOutputStream.writeObject(familyMemberColor);
             objectOutputStream.writeObject(servants);
@@ -314,6 +319,7 @@ public class ClientCommunicationProtocol {
     public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants,
                                                           Map<String, Object> playerTurnChoices) throws NetworkException{
         try{
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.FAMILIAR_IN_PRODUCTION_EXTENDED);
             objectOutputStream.writeObject(familyMemberColor);
             objectOutputStream.writeObject(servants);
@@ -326,6 +332,7 @@ public class ClientCommunicationProtocol {
 
     public void activateLeader(int leaderCardIndex, int servants, Map<String, Object> playerTurnChoices) throws NetworkException{
         try {
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.ACTIVATE_LEADER_CARD);
             objectOutputStream.writeObject(leaderCardIndex);
             objectOutputStream.writeObject(servants);
@@ -338,6 +345,7 @@ public class ClientCommunicationProtocol {
 
     public void discardLeader(int leaderCardIndex, Map<String, Object> playerTurnChoices) throws NetworkException{
         try{
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.DISCARD_LEADER_CARD);
             objectOutputStream.writeObject(leaderCardIndex);
             objectOutputStream.writeObject(playerTurnChoices);
@@ -349,6 +357,7 @@ public class ClientCommunicationProtocol {
 
     public void notifySupportForTheChurch(boolean flag) throws NetworkException{
         try{
+            objectOutputStream.reset();
             objectOutputStream.writeObject(CommunicationProtocolConstants.SUPPORT_FOR_THE_CHURCH_CHOICE);
             objectOutputStream.writeObject(flag);
             objectOutputStream.flush();

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -12,8 +12,11 @@ public class Dice implements Serializable{
      */
     private Map<FamilyMemberColor, Integer> values;
 
+    /**
+     * Class constructor.
+     */
     public Dice(){
-        this.values = new HashMap<>();
+        this.values = new EnumMap<>(FamilyMemberColor.class);
     }
 
     /**

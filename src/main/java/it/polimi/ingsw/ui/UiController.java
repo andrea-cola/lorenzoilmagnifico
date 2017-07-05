@@ -1,12 +1,8 @@
 package it.polimi.ingsw.ui;
 
 import it.polimi.ingsw.exceptions.ConnectionException;
-import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.ui.ConnectionType;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,6 +48,8 @@ public interface UiController {
     void notifyActivateLeader(int leaderCardIndex, int servants);
 
     void notifyDiscardLeader(int leaderCardIndex);
+
+    void notifyExcommunicationChoice(boolean choice);
 
     Map<String, Object> getPlayerTurnChoices();
 

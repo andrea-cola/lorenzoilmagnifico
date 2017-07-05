@@ -21,12 +21,11 @@ public class EffectNoBonus extends Effect{
 
     /**
      * Method to run the effect of the card.
-     *
      * @param player
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-
+        // this method is empty because the effect is check in Game.java
     }
 
     /**
@@ -34,8 +33,7 @@ public class EffectNoBonus extends Effect{
      */
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("You won't receive bonus at these tower floors: ");
+        StringBuilder stringBuilder = new StringBuilder("You won't receive bonus at these tower floors: ");
         for(Integer floor : floors)
             stringBuilder.append(floor + " ");
         return stringBuilder.toString();

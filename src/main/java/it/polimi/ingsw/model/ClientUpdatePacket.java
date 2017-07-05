@@ -2,10 +2,11 @@ package it.polimi.ingsw.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientUpdatePacket implements Serializable{
 
-    private ArrayList<String> message;
+    private List<String> message;
 
     private Game game;
 
@@ -18,7 +19,7 @@ public class ClientUpdatePacket implements Serializable{
         return this.game;
     }
 
-    public ArrayList<String> getMessage(){
+    public List<String> getMessage(){
         return this.message;
     }
 

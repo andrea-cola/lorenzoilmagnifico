@@ -1,8 +1,10 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameErrorType;
+import it.polimi.ingsw.exceptions.GameException;
+
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -26,8 +28,8 @@ public class PointsAndResources implements Serializable{
      * Each record is set to zero value.
      */
     public PointsAndResources(){
-        this.resources = new HashMap<>();
-        this.points = new HashMap<>();
+        this.resources = new EnumMap<>(ResourceType.class);
+        this.points = new EnumMap<>(PointType.class);
 
         for (ResourceType type : ResourceType.values())
             this.resources.put(type, 0);
@@ -46,15 +48,6 @@ public class PointsAndResources implements Serializable{
     }
 
     /**
-     * Method to decrease a specific resource in resources map.
-     * @param type of the resource to decrease.
-     * @param value of the resource to decrease.
-     */
-    public void decrease(ResourceType type, Integer value){
-        this.resources.put(type, this.resources.get(type) - value);
-    }
-
-    /**
      * Method to increase a specific point in points map.
      * @param type of the point to increase.
      * @param value of the point to increase.
@@ -64,14 +57,39 @@ public class PointsAndResources implements Serializable{
     }
 
     /**
+     * Method to decrease a specific resource in resources map.
+     * @param type of the resource to decrease.
+     * @param value of the resource to decrease.
+     */
+    public void decrease(ResourceType type, Integer value) {
+        this.resources.put(type, this.resources.get(type) - value);
+    }
+
+    /**
      * Method to decrease a specific point in points map.
      * @param type of the point to decrease.
      * @param value of the point to decrease.
      */
-    public void decrease(PointType type, Integer value){
+    public void decrease(PointType type, Integer value) {
         this.points.put(type, this.points.get(type) - value);
     }
 
+    public void checkDecrease(PointsAndResources valuableToDecrease) throws GameException{
+        for(Map.Entry pair : valuableToDecrease.getResources().entrySet())
+            if((int)pair.getValue() > resources.get(pair.getKey()))
+                throw new GameException(GameErrorType.NOT_ENOUGH_RESOURCES);
+        for(Map.Entry pair : valuableToDecrease.getPoints().entrySet())
+            if((int)pair.getValue() > points.get(pair.getKey()))
+                throw new GameException(GameErrorType.NOT_ENOUGH_POINTS);
+        decreaseAll(valuableToDecrease);
+    }
+
+    private void decreaseAll(PointsAndResources valuableToDecrease){
+        for(Map.Entry pair : valuableToDecrease.getResources().entrySet())
+            this.decrease((ResourceType)pair.getKey(), (int)pair.getValue());
+        for(Map.Entry pair : valuableToDecrease.getPoints().entrySet())
+            this.decrease((PointType) pair.getKey(), (int)pair.getValue());
+    }
 
     /**
      * Method to get the resources map.
@@ -95,31 +113,13 @@ public class PointsAndResources implements Serializable{
      */
     @Override
     public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
-        Iterator it = resources.entrySet().iterator();
-        boolean first = false;
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            if((int)pair.getValue() > 0) {
-                if(first)
-                    stringBuilder.append(", ");
-                else
-                    first = true;
-                stringBuilder.append(pair.getKey().toString() + ": " + pair.getValue().toString());
-            }
-        }
-        first = false;
-        it = points.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            if((int)pair.getValue() > 0) {
-                if(first)
-                    stringBuilder.append(", ");
-                else
-                    first = true;
-                stringBuilder.append(pair.getKey().toString() + ": " + pair.getValue().toString());
-            }
-        }
+        StringBuilder stringBuilder = new StringBuilder("");
+        for(Map.Entry pair : resources.entrySet())
+            if((int)pair.getValue() != 0)
+                stringBuilder.append(pair.getKey().toString().toLowerCase() + "=" + pair.getValue() + " ");
+        for(Map.Entry pair : points.entrySet())
+            if((int)pair.getValue() != 0)
+                stringBuilder.append(pair.getKey().toString().toLowerCase() + "=" + pair.getValue() + " ");
         return stringBuilder.toString();
     }
 

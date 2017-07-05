@@ -50,10 +50,6 @@ public class ActionSpace implements Serializable{
         return this.actionSpaceEffect;
     }
 
-    /*package-local*/ String getPlayerUsername(){
-        return this.username;
-    }
-
     public boolean isEmpty(){
         return this.empty;
     }
@@ -67,8 +63,7 @@ public class ActionSpace implements Serializable{
     }
 
     /*package-local*/ void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
-        if(player.getUsername().equals(this.username))
-            if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL) && !this.familyMemberColor.equals(FamilyMemberColor.NEUTRAL))
+        if(player.getUsername().equals(this.username) && !familyMemberColor.equals(FamilyMemberColor.NEUTRAL) && !this.familyMemberColor.equals(FamilyMemberColor.NEUTRAL))
                 throw new GameException();
     }
 
@@ -82,7 +77,9 @@ public class ActionSpace implements Serializable{
         }
 
         //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
-        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor);
+        int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor)
+                + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(actionSpaceType)
+                - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(actionSpaceType);
         if (familyMemberValueTot < this.actionSpaceEffect.getDiceActionValue()){
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
         }

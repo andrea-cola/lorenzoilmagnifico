@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.Effect;
 
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * This class represent the abstraction of the development card.
@@ -155,47 +154,31 @@ public class DevelopmentCard implements Serializable{
         return this.militaryPointsRequired;
     }
 
-    public void payCost(Player player, InformationCallback informationCallback){
+    public void payCost(Player player, InformationCallback informationCallback) throws GameException{
         if(!multipleRequisiteSelectionEnabled || militaryPointsRequired < player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY)) {
-            payFirstCost(player);
+            player.getPersonalBoard().getValuables().checkDecrease(cost);
         } else {
             int choice = informationCallback.chooseDoubleCost(cost, militaryPointsToPay, militaryPointsRequired);
-            if(choice == 2)
-                player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, militaryPointsToPay);
-            else {
-                payFirstCost(player);
+            if(choice == 2) {
+                PointsAndResources pointsAndResources = new PointsAndResources();
+                pointsAndResources.increase(PointType.MILITARY, militaryPointsToPay);
+                player.getPersonalBoard().getValuables().checkDecrease(pointsAndResources);
             }
-        }
-    }
-
-    private void payFirstCost(Player player){
-        PointsAndResources playersValuable = player.getPersonalBoard().getValuables();
-        Map<ResourceType, Integer> costResources = cost.getResources();
-        Map<PointType, Integer> costPoints = cost.getPoints();
-
-        Iterator it = costResources.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            playersValuable.decrease((ResourceType)pair.getKey(), (int)pair.getValue());
-        }
-        it = costPoints.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            playersValuable.decrease((PointType) pair.getKey(), (int)pair.getValue());
+            else
+                player.getPersonalBoard().getValuables().checkDecrease(cost);
         }
     }
 
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(name.toUpperCase() + " (" + cardColor + ") " + id + "\n");
-        stringBuilder.append("[Requirements] -> " + cost.toString() + "\n");
-        if(militaryPointsRequired != 0)
-            stringBuilder.append("[Requirements 2] -> military points required: " + militaryPointsRequired + " military points to pay: " + militaryPointsToPay + "\n");
+        stringBuilder.append(name.toUpperCase() + " (" + cardColor + ")\nRequirements: " + cost.toString() + "\n");
+        if(multipleRequisiteSelectionEnabled)
+            stringBuilder.append("Alternative cost (requirements, cost): " + militaryPointsRequired + ", " + militaryPointsToPay + "\n");
         if(immediateEffect != null)
-            stringBuilder.append("[Immediate effect] " + immediateEffect.toString() + "\n");
+            stringBuilder.append("Immediate effect: " + immediateEffect.toString() + "\n");
         if(permanentEffect != null)
-            stringBuilder.append("[Permanent effect] " + permanentEffect.toString() + "\n");
+            stringBuilder.append("Permanent effect " + permanentEffect.toString() + "\n");
         return stringBuilder.toString();
     }
 }

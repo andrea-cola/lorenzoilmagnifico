@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents the main board abstraction.
@@ -84,7 +84,7 @@ public class MainBoard implements Serializable{
      * @param index of the tower.
      * @param cards to be set.
      */
-    public void setTower(int index, ArrayList<DevelopmentCard> cards){
+    public void setTower(int index, List<DevelopmentCard> cards){
         int cell = 0;
         for (DevelopmentCard card : cards){
             this.towers[index].setTowerCell(cell, card);
@@ -155,7 +155,7 @@ public class MainBoard implements Serializable{
         for(int j = 0; j < towers.length; j++)
             stringBuilder.append("[TOWER " + (j+1) + " " + towers[j].getColor() + "]\n" + towers[j]);
 
-        stringBuilder.append("\n\n[COUNCIL PALACE] -> " + councilPalace);
+        stringBuilder.append("[COUNCIL PALACE] -> " + councilPalace);
 
         stringBuilder.append("\n\n[VATICAN]\n");
         for(int i = 0; i < vatican.getExcommunicationCards().length; i++)
