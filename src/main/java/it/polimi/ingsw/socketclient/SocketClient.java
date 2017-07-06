@@ -5,7 +5,7 @@ import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.exceptions.NetworkException;
@@ -184,7 +184,7 @@ public class SocketClient extends AbstractClient{
                     clientCommunicationProtocol.handleResponse(object);
                 } catch (IOException | ClassNotFoundException e){
                     flag = false;
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Errors occur while reading server response.", e);
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), "Errors occur while reading server response.", e);
                 }
             }
             closeConnections(objectInputStream, objectOutputStream, socket);
@@ -200,7 +200,7 @@ public class SocketClient extends AbstractClient{
             try {
                 connection.close();
             }catch(IOException e){
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while closing connections.", e);
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while closing connections.", e);
             }
         }
     }

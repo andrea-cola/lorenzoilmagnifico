@@ -3,7 +3,7 @@ package it.polimi.ingsw.rmiserver;
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.exceptions.ServerException;
 import it.polimi.ingsw.rmiclient.RMIClientInterface;
@@ -64,7 +64,7 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
             try {
                 serverPlayer.ping();
             } catch(RemoteException e){
-                Debugger.printDebugMessage("RMIServer.java", "Connection with the client is down.");
+                Printer.printDebugMessage("RMIServer.java", "Connection with the client is down.");
                 getServer().disableUser(serverPlayer);
                 userCache.remove(pair.getKey());
             }
@@ -93,12 +93,12 @@ public class RMIServer extends AbstractServer implements RMIServerInterface {
         try{
             return LocateRegistry.createRegistry(port);
         }catch(RemoteException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "RMI registry already exists.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "RMI registry already exists.");
         }
         try{
             return LocateRegistry.getRegistry(port);
         }catch(RemoteException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "RMI registry cannot be loaded.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "RMI registry cannot be loaded.");
         }
         throw new ServerException("[" + this.getClass().getSimpleName() + "] : RMI interface cannot be loaded.");
     }

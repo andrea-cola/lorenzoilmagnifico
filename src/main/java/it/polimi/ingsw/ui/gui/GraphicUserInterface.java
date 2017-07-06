@@ -5,12 +5,6 @@ import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
-import it.polimi.ingsw.utility.Debugger;
-import javafx.application.Application;
-import javafx.application.Platform;
-
-import javafx.embed.swing.JFXPanel;
-import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.awt.*;

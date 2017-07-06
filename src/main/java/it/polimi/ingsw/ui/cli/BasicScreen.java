@@ -1,8 +1,10 @@
 package it.polimi.ingsw.ui.cli;
 
+import it.polimi.ingsw.utility.Printer;
+
 import java.util.List;
 
-public class BasicScreen {
+/*package-local*/ class BasicScreen {
 
     /*package-local*/ void printScreenTitle(String title){
         System.out.println("\n[ " + title + " ]");
@@ -15,7 +17,7 @@ public class BasicScreen {
     /*package-local*/ void print(List<String> messagesList){
         int i = 1;
         for(String message : messagesList){
-            System.out.println("(" + i + ") " + message.toString());
+            Printer.printInformationMessage("(" + i + ") " + message);
             i++;
         }
     }

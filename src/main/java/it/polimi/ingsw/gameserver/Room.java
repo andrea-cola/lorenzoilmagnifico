@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PointType;
 import it.polimi.ingsw.utility.Configuration;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.server.ServerPlayer;
 
@@ -163,7 +163,7 @@ public class Room {
                     players.set(i, serverPlayer);
                 }
             }
-            Debugger.printDebugMessage(serverPlayer.getUsername() + " has rejoined the previous room.");
+            Printer.printDebugMessage(serverPlayer.getUsername() + " has rejoined the previous room.");
         }
     }
 
@@ -178,7 +178,7 @@ public class Room {
                         + " tower and picked up " + game.getMainBoard().getTower(towerIndex).getTowerCell(cellIndex).getDevelopmentCard().getName() + ".";
                 clientUpdatePacket.setMessage(message);
             } catch (GameException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set tower in the same way of the client.");
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot set tower in the same way of the client.");
             }
         }
     }
@@ -193,7 +193,7 @@ public class Room {
                 String message = player.getUsername() + " set a family member in council palace and get one of its privileges.";
                 clientUpdatePacket.setMessage(message);
             } catch (GameException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set council palace in the same way of the client.");
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot set council palace in the same way of the client.");
             }
         }
     }
@@ -207,7 +207,7 @@ public class Room {
                 String message = player.getUsername() + " set a family member in market cell #" + marketCell + " and get its benefits";
                 clientUpdatePacket.setMessage(message);
             } catch (GameException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set market in the same way of the client.");
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot set market in the same way of the client.");
             }
         }
     }
@@ -221,7 +221,7 @@ public class Room {
                 String message = player.getUsername() + " set a family member in harvest area simple.";
                 clientUpdatePacket.setMessage(message);
             } catch (GameException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set harvest simple area in the same way of the client.");
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot set harvest simple area in the same way of the client.");
             }
         }
     }
@@ -235,7 +235,7 @@ public class Room {
                 String message = player.getUsername() + " set a family member in production area simple.";
                 clientUpdatePacket.setMessage(message);
             } catch (GameException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set production simple area in the same way of the client.");
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot set production simple area in the same way of the client.");
             }
         }
     }
@@ -249,7 +249,7 @@ public class Room {
                 String message = player.getUsername() + " set a family member in harvest area extended.";
                 clientUpdatePacket.setMessage(message);
             } catch (GameException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set harvest extended area in the same way of the client.");
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot set harvest extended area in the same way of the client.");
             }
         }
     }
@@ -263,7 +263,7 @@ public class Room {
                 String message = player.getUsername() + " set a family member in production area extended.";
                 clientUpdatePacket.setMessage(message);
             } catch (GameException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot set production extended area in the same way of the client.");
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot set production extended area in the same way of the client.");
             }
         }
     }
@@ -276,7 +276,7 @@ public class Room {
                 String message = player.getUsername() + " activate a leader card.";
                 clientUpdatePacket.setMessage(message);
             } catch (GameException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot activate a leader card in the same way of the client.");
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot activate a leader card in the same way of the client.");
             }
         }
     }
@@ -303,11 +303,11 @@ public class Room {
                     roomOpen = false;
                     resetTimer();
                     startTimer(IMMEDIATE_START_TIME);
-                    Debugger.printDebugMessage("Room #" + this.roomID + " starts in " + IMMEDIATE_START_TIME + " seconds.");
+                    Printer.printDebugMessage("Room #" + this.roomID + " starts in " + IMMEDIATE_START_TIME + " seconds.");
                 }
                 else if(players.size() == MIN_PLAYER_TO_START) {
                     startTimer(maxWaitingTimeBeforeStart);
-                    Debugger.printDebugMessage("Room #" + this.roomID + " starts in " + maxWaitingTimeBeforeStart/1000 + " seconds.");
+                    Printer.printDebugMessage("Room #" + this.roomID + " starts in " + maxWaitingTimeBeforeStart/1000 + " seconds.");
                 }
             }
             else
@@ -346,7 +346,7 @@ public class Room {
                 player.sendGameInfo(gameManager.getGameModel());
                 player.notifyTurnStarted(playerTurn.currentPlayer().getUsername(), maxMoveWaitingTime);
             } catch (NetworkException e){
-                Debugger.printStandardMessage(player.getUsername() + " is offline again.");
+                Printer.printStandardMessage(player.getUsername() + " is offline again.");
             }
         });
         updater.start();
@@ -365,7 +365,7 @@ public class Room {
         public void run(){
             setupBeforeStartGame();
             sendGameModel();
-            Debugger.printDebugMessage("Game starts in room #" + getRoomID());
+            Printer.printDebugMessage("Game starts in room #" + getRoomID());
             startGameSession();
         }
 
@@ -410,9 +410,9 @@ public class Room {
                 try {
                     serverPlayer.notifyEndGame(winners);
                 } catch (NetworkException e){
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive final ranking.");
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive final ranking.");
                 }
-            Debugger.printStandardMessage("Game ended in room #" + roomID);
+            Printer.printStandardMessage("Game ended in room #" + roomID);
         }
 
         /**
@@ -424,7 +424,7 @@ public class Room {
                 try {
                     p.notifyTurnStarted(player.getUsername(), maxMoveWaitingTime);
                 } catch (NetworkException e){
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), p.getUsername() + " won't receive turn started notification.");
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), p.getUsername() + " won't receive turn started notification.");
                 }
         }
 
@@ -462,7 +462,7 @@ public class Room {
                         else
                             player.supportForTheChurch(false);
                     } catch (NetworkException e){
-                        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " won't receive excommunication choice message..");
+                        Printer.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " won't receive excommunication choice message..");
                     }
                 }
             }
@@ -494,7 +494,7 @@ public class Room {
             synchronized (MUTEX){
                 roomOpen = false;
             }
-            Debugger.printDebugMessage("[Room #" + roomID + "] : Room closed.");
+            Printer.printDebugMessage("[Room #" + roomID + "] : Room closed.");
 
             gameManager = Configurator.buildAndGetGame(players, roomConfiguration);
             players = gameManager.getStartOrder();
@@ -523,7 +523,7 @@ public class Room {
                         if (personalBoardtiles.get(j).getPersonalBoardID() == players.get(i).getPersonalBoard().getPersonalBoardTile().getPersonalBoardID())
                             personalBoardtiles.remove(j);
                 } catch (NetworkException | InterruptedException e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), players.get(i).getUsername() + " won't receive personal board tile. Game start interrupted.");
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), players.get(i).getUsername() + " won't receive personal board tile. Game start interrupted.");
                 }
             }
         }
@@ -547,7 +547,7 @@ public class Room {
                     countDownLatch.await();
                     removeChosenLeaderCards(cards);
                 } catch (NetworkException | InterruptedException e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Leader card sending interrupted!");
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), "Leader card sending interrupted!");
                 }
                 playersOrder.add(playersOrder.remove(0));
                 countDownLatch = new CountDownLatch(players.size());
@@ -595,7 +595,7 @@ public class Room {
                         try {
                             serverPlayer.sendGameModelUpdate(clientUpdatePacket);
                         } catch (NetworkException e){
-                            Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
+                            Printer.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
                         }
             }
         }
@@ -610,7 +610,7 @@ public class Room {
                     try {
                         serverPlayer.sendGameModelUpdate(clientUpdatePacket);
                     } catch (NetworkException e){
-                        Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
+                        Printer.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
                     }
             }
         }
@@ -623,7 +623,7 @@ public class Room {
                 try {
                     serverPlayer.sendGameInfo(gameManager.getGameModel());
                 } catch (NetworkException e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send game to " + serverPlayer.getUsername() + ".");
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send game to " + serverPlayer.getUsername() + ".");
                 }
             }
         }

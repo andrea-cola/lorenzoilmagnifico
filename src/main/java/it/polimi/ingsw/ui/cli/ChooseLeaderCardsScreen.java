@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ui.cli;
 
 import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class ChooseLeaderCardsScreen extends BasicScreen{
         } catch (ClassCastException | NumberFormatException e) {
             chooseLeaderCard();
         } catch (IOException e){
-            Debugger.printDebugMessage("Error while reading from keyboard.");
+            Printer.printDebugMessage("Error while reading from keyboard.");
         }
     }
 
