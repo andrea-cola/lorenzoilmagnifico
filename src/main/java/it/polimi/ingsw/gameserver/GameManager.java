@@ -1,12 +1,10 @@
 package it.polimi.ingsw.gameserver;
 
-import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.ExcommunicationCard;
 import it.polimi.ingsw.model.FamilyMember;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.InformationChoicesHandler;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.MarketCell;
@@ -19,7 +17,6 @@ import it.polimi.ingsw.model.Tower;
 import it.polimi.ingsw.model.TowerCell;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
-import it.polimi.ingsw.utility.Debugger;
 
 import java.util.*;
 
@@ -359,7 +356,7 @@ import java.util.*;
     /**
      * This method calculates the final points for each player at the end of the game
      */
-    public void calculateFinalPoints(){
+    /*package-local*/ void calculateFinalPoints(){
 
         //get the military points of all the players to assign them victory points
         Map<ServerPlayer, Integer> militaryPointsRanking = new HashMap<>();

@@ -7,7 +7,6 @@ import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ServerPlayer;
-import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 
 import java.io.IOException;

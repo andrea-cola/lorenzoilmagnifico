@@ -2,8 +2,13 @@ package it.polimi.ingsw.gameserver;
 
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.server.Server;
+import it.polimi.ingsw.model.ClientUpdatePacket;
+import it.polimi.ingsw.model.FamilyMemberColor;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PointType;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -17,6 +22,9 @@ import java.util.concurrent.CountDownLatch;
  */
 public class Room {
 
+    /**
+     * Class constants.
+     */
     private static final int MIN_PLAYER_TO_START = 2;
     private static final long IMMEDIATE_START_TIME = 0L;
     private static final int LEADER_CARD_PER_PLAYER = 4;
@@ -79,8 +87,14 @@ public class Room {
      */
     private CountDownLatch countDownLatch;
 
+    /**
+     * Turn handle object.
+     */
     private PlayerTurn playerTurn;
 
+    /**
+     * Client update packet object.
+     */
     private ClientUpdatePacket clientUpdatePacket;
 
     /**
@@ -136,6 +150,10 @@ public class Room {
         }
     }
 
+    /**
+     * Method used to handle player game rejoin.
+     * @param serverPlayer is rejoining game.
+     */
     public void rejoinRoom(ServerPlayer serverPlayer){
         synchronized (MUTEX) {
             for (int i = 0; i < players.size(); i++) {
@@ -328,7 +346,7 @@ public class Room {
                 player.sendGameInfo(gameManager.getGameModel());
                 player.notifyTurnStarted(playerTurn.currentPlayer().getUsername(), maxMoveWaitingTime);
             } catch (NetworkException e){
-                Debugger.printStandardMessage(player.getUsername() + " offline.");
+                Debugger.printStandardMessage(player.getUsername() + " is offline again.");
             }
         });
         updater.start();
@@ -351,6 +369,10 @@ public class Room {
             startGameSession();
         }
 
+
+        /**
+         * Method to handle game turn logic.
+         */
         private void startGameSession(){
             clientUpdatePacket = new ClientUpdatePacket(gameManager.getGameModel());
             for(int age = 1; age <= AGES; age++){
@@ -368,8 +390,12 @@ public class Room {
                 }
             }
             gameManager.calculateFinalPoints();
+            notifyEndGame();
         }
 
+        /**
+         * Create final ranking and send to all players the result.
+         */
         private void notifyEndGame(){
             ServerPlayer[] winners = players.toArray(new ServerPlayer[players.size()]);
             for(int i = 0; i < winners.length; i++)
@@ -384,20 +410,29 @@ public class Room {
                 try {
                     serverPlayer.notifyEndGame(winners);
                 } catch (NetworkException e){
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Final classification error message.");
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive final ranking.");
                 }
             Debugger.printStandardMessage("Game ended in room #" + roomID);
         }
 
+        /**
+         * Notify to all players that turn is changed.
+         * @param player is playing the turn.
+         */
         private void notifyTurnStarted(ServerPlayer player){
             for(ServerPlayer p : players)
                 try {
                     p.notifyTurnStarted(player.getUsername(), maxMoveWaitingTime);
                 } catch (NetworkException e){
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), p.getUsername() + " offline.");
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), p.getUsername() + " won't receive turn started notification.");
                 }
         }
 
+        /**
+         * Reset personal boards and mainboard following game rules about turn start.
+         * @param age of game.
+         * @param turn of game.
+         */
         private void turnSetup(int age, int turn){
             if(!(turn == 1 && age == 1)) {
                 getNewOrder();
@@ -410,6 +445,11 @@ public class Room {
             }
         }
 
+        /**
+         * Check if the player has excommunication and eventually let him to choice if get it.
+         * @param age of game.
+         * @param turn of game.
+         */
         private void checkExcommunication(int age, int turn){
             if(turn % 2 == 0) {
                 for(ServerPlayer player : players){
@@ -422,12 +462,15 @@ public class Room {
                         else
                             player.supportForTheChurch(false);
                     } catch (NetworkException e){
-                        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " offline.");
+                        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " won't receive excommunication choice message..");
                     }
                 }
             }
         }
 
+        /**
+         * Change players order at the end of the turn.
+         */
         private void getNewOrder(){
             List<Player> p = new ArrayList<>(gameManager.getGameModel().getMainBoard().getCouncilPalace().getNewOrder());
             ArrayList<ServerPlayer> newOrder = new ArrayList<>();
@@ -443,6 +486,10 @@ public class Room {
             players = newOrder;
         }
 
+        /**
+         * Setup main board and players before game start.
+         * In the end create a new game instance.
+         */
         private void setupBeforeStartGame(){
             synchronized (MUTEX){
                 roomOpen = false;
@@ -459,6 +506,10 @@ public class Room {
             gameManager.setExcommunicationCards();
         }
 
+        /**
+         * Send to all player personal tiles to choose.
+         * @param personalBoardTileList to choose.
+         */
         private void personalTilesChoice(ArrayList<PersonalBoardTile> personalBoardTileList){
             ArrayList<PersonalBoardTile> personalBoardtiles = new ArrayList<>();
             personalBoardtiles.addAll(personalBoardTileList);
@@ -472,11 +523,15 @@ public class Room {
                         if (personalBoardtiles.get(j).getPersonalBoardID() == players.get(i).getPersonalBoard().getPersonalBoardTile().getPersonalBoardID())
                             personalBoardtiles.remove(j);
                 } catch (NetworkException | InterruptedException e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), players.get(i).getUsername() + " offline.");
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), players.get(i).getUsername() + " won't receive personal board tile. Game start interrupted.");
                 }
             }
         }
 
+        /**
+         * Handle leader card choice following game rules.
+         * @param leaderCards chosen.
+         */
         private void leaderCardsChoice(List<LeaderCard> leaderCards) {
             countDownLatch = new CountDownLatch(players.size());
             ArrayList<ServerPlayer> playersOrder = new ArrayList<>();
@@ -492,13 +547,32 @@ public class Room {
                     countDownLatch.await();
                     removeChosenLeaderCards(cards);
                 } catch (NetworkException | InterruptedException e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Leader card deployment interrupted!");
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Leader card sending interrupted!");
                 }
                 playersOrder.add(playersOrder.remove(0));
                 countDownLatch = new CountDownLatch(players.size());
             }
         }
 
+        /**
+         * Send to all player a part of the deck following game rules.
+         * @param leaderCards to send.
+         * @param serverPlayers that will receive cards.
+         * @throws NetworkException if errors occur during communication.
+         */
+        private void sendLeaderCards(List<LeaderCard> leaderCards, List<ServerPlayer> serverPlayers) throws NetworkException{
+            int cardNumberPerPlayer = leaderCards.size() / serverPlayers.size();
+            int index = 0;
+            for(ServerPlayer player : serverPlayers){
+                player.sendLeaderCards(new ArrayList<>(leaderCards.subList(index * cardNumberPerPlayer, index * cardNumberPerPlayer + cardNumberPerPlayer)));
+                index++;
+            }
+        }
+
+        /**
+         * Remove chosen card from array of available cards.
+         * @param leaderCards to remove.
+         */
         private void removeChosenLeaderCards(ArrayList<LeaderCard> leaderCards){
             for(ServerPlayer player : players){
                 int i = player.getPersonalBoard().getLeaderCards().size() - 1;
@@ -509,16 +583,10 @@ public class Room {
             }
         }
 
-        private void sendLeaderCards(List<LeaderCard> leaderCards, List<ServerPlayer> serverPlayers) throws NetworkException{
-            int cardNumberPerPlayer = leaderCards.size() / serverPlayers.size();
-            int index = 0;
-
-            for(ServerPlayer player : serverPlayers){
-                player.sendLeaderCards(new ArrayList<>(leaderCards.subList(index * cardNumberPerPlayer, index * cardNumberPerPlayer + cardNumberPerPlayer)));
-                index++;
-            }
-        }
-
+        /**
+         * Send to all player except player passed as parameter.
+         * @param player that won't receive game update.
+         */
         private void updateAllClients(Player player){
             if(player != null && clientUpdatePacket != null){
                 clientUpdatePacket.setGame(gameManager.getGameModel());
@@ -532,6 +600,9 @@ public class Room {
             }
         }
 
+        /**
+         * Send to all player update packet.
+         */
         private void updateAllClients(){
             if(clientUpdatePacket != null){
                 clientUpdatePacket.setGame(gameManager.getGameModel());
@@ -544,12 +615,15 @@ public class Room {
             }
         }
 
+        /**
+         * Send game object to all logged in player when room starts.
+         */
         private void sendGameModel(){
-            for(ServerPlayer player : players) {
+            for(ServerPlayer serverPlayer : players) {
                 try {
-                    player.sendGameInfo(gameManager.getGameModel());
+                    serverPlayer.sendGameInfo(gameManager.getGameModel());
                 } catch (NetworkException e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send game to " + serverPlayer.getUsername() + ".");
                 }
             }
         }
