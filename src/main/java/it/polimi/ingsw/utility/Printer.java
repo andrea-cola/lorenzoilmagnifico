@@ -10,7 +10,7 @@ package it.polimi.ingsw.utility;
 public class Printer {
 
     public static void printInformationMessage(String message){
-        System.out.print(message);
+        System.out.println(message);
     }
 
     /**
