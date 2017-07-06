@@ -79,27 +79,26 @@ public class PointsAndResources implements Serializable{
      * @param valuableToDecrease
      * @throws GameException
      */
-    public void checkDecrease(PointsAndResources valuableToDecrease) throws GameException{
+    public boolean checkDecrease(PointsAndResources valuableToDecrease){
         for (Map.Entry<ResourceType, Integer> entry: valuableToDecrease.getResources().entrySet()) {
             if (entry.getValue() > this.resources.get(entry.getKey())){
-                throw new GameException(GameErrorType.NOT_ENOUGH_RESOURCES);
+                return false;
             }
         }
 
         for (Map.Entry<PointType, Integer> entry: valuableToDecrease.getPoints().entrySet()){
             if (entry.getValue() > this.points.get(entry.getKey())){
-                throw new GameException(GameErrorType.NOT_ENOUGH_POINTS);
+                return false;
             }
         }
-
-        decreaseAll(valuableToDecrease);
+        return true;
     }
 
     /**
      * If the player has valuables enough to pay something, decrease its valuables
      * @param valuableToDecrease
      */
-    private void decreaseAll(PointsAndResources valuableToDecrease){
+    public void decreaseAll(PointsAndResources valuableToDecrease){
         for (Map.Entry<ResourceType, Integer> entry: valuableToDecrease.getResources().entrySet())
             this.decrease(entry.getKey(), entry.getValue());
 
