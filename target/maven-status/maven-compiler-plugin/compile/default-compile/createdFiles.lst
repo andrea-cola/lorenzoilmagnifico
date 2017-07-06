@@ -1,2 +1,8 @@
+it/polimi/ingsw/socketprotocol/ClientCommunicationProtocol.class
 it/polimi/ingsw/model/effects/ExcommunicationEffect.class
+it/polimi/ingsw/socketprotocol/ClientCommunicationProtocol$ResponseHandler.class
+it/polimi/ingsw/socketprotocol/ServerCommunicationProtocol.class
+it/polimi/ingsw/socketprotocol/ServerCommunicationProtocolInterface.class
 it/polimi/ingsw/model/ExcommunicationValues.class
+it/polimi/ingsw/socketprotocol/ServerCommunicationProtocol$Handler.class
+it/polimi/ingsw/socketprotocol/CommunicationProtocolConstants.class

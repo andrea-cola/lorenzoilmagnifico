@@ -55,10 +55,6 @@ public class MarketCell implements Serializable{
         this.empty = true;
     }
 
-    public void setNotEmpty(){
-        this.empty = false;
-    }
-
     public boolean isAccessible() {
         return this.accessible;
     }

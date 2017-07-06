@@ -548,7 +548,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
 
     private boolean isSelectable(TowerCell cell, PointsAndResources discount){
         try{
-            cell.developmentCardCanBeBuyed(getClient().getPlayer(), discount);
+            cell.checkResourcesToBuyTheCard(getClient().getPlayer(), discount);
             return true;
         } catch (GameException e){
             return false;
