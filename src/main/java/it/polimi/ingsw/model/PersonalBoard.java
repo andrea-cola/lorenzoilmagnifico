@@ -41,7 +41,7 @@ public class PersonalBoard implements Serializable {
     /**
      * Array of family members already used by the player
      */
-    private ArrayList<FamilyMemberColor> familyMembersUsed = new ArrayList<>();
+    private ArrayList<FamilyMemberColor> familyMembersUsed;
 
     /**
      * Military points required to pick up a green card and place it in a specific position of the territory card array.
@@ -66,7 +66,7 @@ public class PersonalBoard implements Serializable {
     /**
      * keeps track of all the excommunication malus the player has
      */
-    private ExcommunicationValues excommunicationValues = new ExcommunicationValues();
+    private ExcommunicationValues excommunicationValues;
 
     /**
      * Personal board tile choosen by the player.
@@ -74,6 +74,7 @@ public class PersonalBoard implements Serializable {
     private PersonalBoardTile personalBoardTile;
 
     public PersonalBoard() {
+        this.familyMember = new FamilyMember();
         this.valuables = new PointsAndResources();
         for (ActionType type : ActionType.values())
             this.harvestProductionDiceValueBonus.put(type, 0);
@@ -84,9 +85,11 @@ public class PersonalBoard implements Serializable {
             this.costDiscountForDevelopmentCard.put(color, discounts);
             this.developmentCardColorDiceValueBonus.put(color, 0);
         }
+
         this.familyMembersUsed = new ArrayList<>();
         this.leaderCards = new ArrayList<>();
         this.excommunicationCards = new ArrayList<>();
+        this.excommunicationValues = new ExcommunicationValues();
     }
 
     /**

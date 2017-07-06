@@ -113,9 +113,9 @@ import java.util.*;
     }
 
     private void setupFinalPoints(){
-        victoryPointsForGreenCards = configuration.getVictoryPointsForGreenCards();
-        victoryPointsForBlueCards = configuration.getVictoryPointsForBlueCards();
-        victoryPointsBonusForFaith = configuration.getVictoryPointsBonusForFaith();
+        this.victoryPointsForGreenCards = this.configuration.getVictoryPointsForGreenCards();
+        this.victoryPointsForBlueCards = this.configuration.getVictoryPointsForBlueCards();
+        this.victoryPointsBonusForFaith = this.configuration.getVictoryPointsBonusForFaith();
     }
 
     /**
@@ -207,23 +207,23 @@ import java.util.*;
     }
 
     /*package-local*/ void mainboardTurnReset(){
-        for(Tower tower : game.getMainBoard().getTowers())
+        for(Tower tower : this.game.getMainBoard().getTowers())
             for(TowerCell towerCell : tower.getTowerCells()){
                 towerCell.setPlayerNicknameInTheCell(null);
                 towerCell.setDevelopmentCard(null);
             }
-        game.getMainBoard().getCouncilPalace().resetFifo();
-        for(MarketCell marketCell : game.getMainBoard().getMarket().getMarketCells())
+        this.game.getMainBoard().getCouncilPalace().resetFifo();
+        for(MarketCell marketCell : this.game.getMainBoard().getMarket().getMarketCells())
             marketCell.setEmpty();
-        game.getMainBoard().getProduction().reset();
-        game.getMainBoard().getHarvest().reset();
-        game.getMainBoard().getProductionExtended().reset();
-        game.getMainBoard().getHarvestExtended().reset();
+        this.game.getMainBoard().getProduction().reset();
+        this.game.getMainBoard().getHarvest().reset();
+        this.game.getMainBoard().getProductionExtended().reset();
+        this.game.getMainBoard().getHarvestExtended().reset();
         throwDices();
     }
 
     /*package-local*/ void personalBoardsTurnReset(Configuration configuration){
-        for(Player player : players)
+        for(Player player : this.players)
             player.getPersonalBoard().turnReset(configuration);
     }
 
@@ -271,7 +271,7 @@ import java.util.*;
      * This method sorts players randomly. This is the game order.
      */
     private void randomPlayerSorting(){
-        Collections.shuffle(players);
+        Collections.shuffle(this.players);
     }
 
     /**
@@ -301,11 +301,11 @@ import java.util.*;
      */
     private PersonalBoard createNewPersonalBoard(){
         PersonalBoard personalBoard = new PersonalBoard();
-        personalBoard.getValuables().increase(ResourceType.WOOD, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.WOOD));
-        personalBoard.getValuables().increase(ResourceType.STONE, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.STONE));
-        personalBoard.getValuables().increase(ResourceType.SERVANT, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT));
-        personalBoard.getValuables().increase(ResourceType.COIN, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN));
-        personalBoard.setGreenCardsMilitaryPointsRequirements(configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
+        personalBoard.getValuables().increase(ResourceType.WOOD, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.WOOD));
+        personalBoard.getValuables().increase(ResourceType.STONE, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.STONE));
+        personalBoard.getValuables().increase(ResourceType.SERVANT, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT));
+        personalBoard.getValuables().increase(ResourceType.COIN, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN));
+        personalBoard.setGreenCardsMilitaryPointsRequirements(this.configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
         FamilyMember familyMember = new FamilyMember();
         personalBoard.setFamilyMember(familyMember);
         return personalBoard;
@@ -315,9 +315,9 @@ import java.util.*;
      * Throw dices and set value in each personal board.
      */
     private void throwDices(){
-        game.getDices().setValues();
-        for(Player player : players)
-            player.getPersonalBoard().getFamilyMember().setMembers(game.getDices().getValues());
+        this.game.getDices().setValues();
+        for(Player player : this.players)
+            player.getPersonalBoard().getFamilyMember().setMembers(this.game.getDices().getValues());
     }
 
     /*package-local*/ InformationChoicesHandler getInformationChoicesHandler(){
@@ -329,7 +329,7 @@ import java.util.*;
     }
 
     /*package-private*/ boolean finalControlsForPeriod(int period, ServerPlayer player){
-        int faithPointsRequired = game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
+        int faithPointsRequired = this.game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
         //check if the player gets the excommunication effect
         if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) <= faithPointsRequired) {
             excommunicationForPlayer(player, period);
@@ -340,12 +340,12 @@ import java.util.*;
 
     /*package-private*/ void applySupportChoice(ServerPlayer player, boolean flag){
         if(!flag){
-            player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
+            player.getPersonalBoard().getValuables().increase(PointType.VICTORY, this.victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
             if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
-                player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getEffect().runEffect(player, informationChoicesHandler);
+                player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getEffect().runEffect(player, this.informationChoicesHandler);
             player.getPersonalBoard().getValuables().decrease(PointType.FAITH, player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH));
         } else {
-            excommunicationForPlayer(player, game.getAge());
+            excommunicationForPlayer(player, this.game.getAge());
         }
     }
 
@@ -381,7 +381,7 @@ import java.util.*;
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.GREEN)){
                 int numberOfGreenCards = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size();
                 if (numberOfGreenCards > 0){
-                    int finalPointsBonus = victoryPointsForGreenCards[numberOfGreenCards - 1];
+                    int finalPointsBonus = this.victoryPointsForGreenCards[numberOfGreenCards - 1];
                     player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
                 }
             }
@@ -390,7 +390,7 @@ import java.util.*;
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.BLUE)){
                 int numberOfBlueCards = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).size();
                 if (numberOfBlueCards > 0){
-                    int finalPointsBonus = victoryPointsForBlueCards[numberOfBlueCards - 1];
+                    int finalPointsBonus = this.victoryPointsForBlueCards[numberOfBlueCards - 1];
                     player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
                 }
             }

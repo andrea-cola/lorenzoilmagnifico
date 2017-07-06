@@ -155,6 +155,7 @@ public class DevelopmentCard implements Serializable{
         return this.militaryPointsRequired;
     }
 
+
     public void payCost(Player player, InformationCallback informationCallback){
         if(!multipleRequisiteSelectionEnabled || militaryPointsRequired < player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY)) {
             payFirstCost(player);
@@ -167,6 +168,7 @@ public class DevelopmentCard implements Serializable{
             }
         }
     }
+
 
     private void payFirstCost(Player player){
         PointsAndResources playersValuable = player.getPersonalBoard().getValuables();
@@ -184,6 +186,7 @@ public class DevelopmentCard implements Serializable{
             playersValuable.decrease((PointType) pair.getKey(), (int)pair.getValue());
         }
     }
+
 
     @Override
     public String toString(){

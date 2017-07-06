@@ -90,12 +90,12 @@ public class Room {
      * Set room configuration.
      */
     public Room(int id, ServerPlayer serverPlayer, int number, Configuration configuration){
-        players = new ArrayList<>();
-        roomOpen = true;
-        maxPlayerNumber = number;
-        players.add(serverPlayer);
+        this.players = new ArrayList<>();
+        this.roomOpen = true;
+        this.maxPlayerNumber = number;
+        this.players.add(serverPlayer);
         configureGame(configuration);
-        roomID = id;
+        this.roomID = id;
     }
 
     /**
