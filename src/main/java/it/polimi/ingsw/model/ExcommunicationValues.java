@@ -1,18 +1,18 @@
 package it.polimi.ingsw.model;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class ExcommunicationValues implements Serializable{
 
-    private Map<PointType, Integer> normalPointsMalus = new HashMap<>();
+    private Map<PointType, Integer> normalPointsMalus = new EnumMap<>(PointType.class);
 
-    private Map<ResourceType, Integer> normalResourcesMalus = new HashMap<>();
+    private Map<ResourceType, Integer> normalResourcesMalus = new EnumMap<>(ResourceType.class);
 
-    private Map<ActionType, Integer> harvestProductionDiceMalus = new HashMap<>();
+    private Map<ActionType, Integer> harvestProductionDiceMalus = new EnumMap<>(ActionType.class);
 
-    private Map<DevelopmentCardColor, Integer> developmentCardDiceMalus = new HashMap<>();
+    private Map<DevelopmentCardColor, Integer> developmentCardDiceMalus = new EnumMap<>(DevelopmentCardColor.class);
 
     private Boolean marketIsAvailable = true;
 
@@ -20,13 +20,13 @@ public class ExcommunicationValues implements Serializable{
 
     private Integer numberOfSlaves = 1;
 
-    private Map<DevelopmentCardColor, Boolean> developmentCardGetFinalPoints = new HashMap<>();
+    private Map<DevelopmentCardColor, Boolean> developmentCardGetFinalPoints = new EnumMap<>(DevelopmentCardColor.class);
 
-    private Map<PointType, Integer> finalPointsIndexMalus = new HashMap<>();
+    private Map<PointType, Integer> finalPointsIndexMalus = new EnumMap<>(PointType.class);
 
-    private Map<ResourceType, Integer> finalResourcesIndexMalus = new HashMap<>();
+    private Map<ResourceType, Integer> finalResourcesIndexMalus = new EnumMap<>(ResourceType.class);
 
-    private Map<ResourceType, Integer> finalResourcesDevCardIndexMalus = new HashMap<>();
+    private Map<ResourceType, Integer> finalResourcesDevCardIndexMalus = new EnumMap<>(ResourceType.class);
 
 
     public ExcommunicationValues(){

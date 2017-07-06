@@ -1,11 +1,10 @@
 package it.polimi.ingsw.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface InformationCallback {
 
-    ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege);
+    List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege);
 
     int chooseDoubleCost(PointsAndResources pointsAndResources, int militaryPointsGiven, int militaryPointsNeeded);
 

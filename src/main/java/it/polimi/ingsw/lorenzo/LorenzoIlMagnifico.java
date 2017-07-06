@@ -38,14 +38,12 @@ import java.util.Map;
      * @param ui index of the preferred interface.
      */
     /*package-local*/ LorenzoIlMagnifico(int ui) throws InterruptedException {
-        switch (ui){
-            case 1:
-                userInterface = new CommandLineInterface(this);
-                break;
-            case 2:
-                userInterface = new GraphicUserInterface(this);
-                break;
-        }
+        if(ui == 1)
+            userInterface = new CommandLineInterface(this);
+        else if(ui == 2)
+            userInterface = new GraphicUserInterface(this);
+        else
+            throw new InterruptedException();
         playerTurnChoices = new HashMap<>();
     }
 
@@ -60,16 +58,12 @@ import java.util.Map;
 
     @Override
     public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException {
-        switch (connectionType){
-            case SOCKET:
-                client = new SocketClient(this, address, port);
-                break;
-            case RMI:
-                client = new RMIClient(this, address, port);
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
+        if(connectionType.equals(ConnectionType.SOCKET))
+            client = new SocketClient(this, address, port);
+        else if(connectionType.equals(ConnectionType.RMI))
+            client = new RMIClient(this, address, port);
+        else
+            throw new ConnectionException();
         client.connectToServer();
         userInterface.loginScreen();
     }

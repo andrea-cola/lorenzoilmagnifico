@@ -21,12 +21,11 @@ public class EffectNoBonus extends Effect{
 
     /**
      * Method to run the effect of the card.
-     *
      * @param player
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {
-
+        // this method is empty because the effect is check in Game.java
     }
 
     /**

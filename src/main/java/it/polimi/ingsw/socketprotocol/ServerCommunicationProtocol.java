@@ -114,21 +114,27 @@ public class ServerCommunicationProtocol {
         try{
             String username = (String)input.readObject();
             String password = (String)input.readObject();
-            try{
-                serverCommunicationProtocolInterface.signInPlayer(username, password);
-                response = CommunicationProtocolConstants.USER_LOGIN_SIGNIN_OK;
-            }catch(LoginException e){
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while signing in player request.");
-                if(e.getError().equals(LoginErrorType.USER_ALREADY_EXISTS))
-                    response = CommunicationProtocolConstants.USER_ALREADY_EXISTS;
-                else
-                    response = CommunicationProtocolConstants.USER_FAIL_GENERIC;
-            }
+            response = handleSignIn(username, password);
             output.writeObject(response);
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while handling sign in player request.");
         }
+    }
+
+    private int handleSignIn(String username, String password){
+        int response;
+        try{
+            serverCommunicationProtocolInterface.signInPlayer(username, password);
+            response = CommunicationProtocolConstants.USER_LOGIN_SIGNIN_OK;
+        }catch(LoginException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while signing in player request.");
+            if(e.getError().equals(LoginErrorType.USER_ALREADY_EXISTS))
+                response = CommunicationProtocolConstants.USER_ALREADY_EXISTS;
+            else
+                response = CommunicationProtocolConstants.USER_FAIL_GENERIC;
+        }
+        return response;
     }
 
     /**
@@ -141,21 +147,7 @@ public class ServerCommunicationProtocol {
         try{
             String username = (String)input.readObject();
             String password = (String)input.readObject();
-            try{
-                serverCommunicationProtocolInterface.loginPlayer(username, password);
-                response = CommunicationProtocolConstants.USER_LOGIN_SIGNIN_OK;
-            }catch(LoginException e){
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while loginPlayer in the user: " + e.getError());
-                if(e.getError().equals(LoginErrorType.USER_ALREADY_LOGGEDIN))
-                    response = CommunicationProtocolConstants.USER_ALREADY_LOGGEDIN;
-                else if(e.getError().equals(LoginErrorType.USER_WRONG_PASSWORD))
-                    response = CommunicationProtocolConstants.USER_LOGIN_WRONG_PASSWORD;
-                else if(e.getError().equals(LoginErrorType.USER_NOT_EXISTS))
-                    response = CommunicationProtocolConstants.USER_NOT_EXISTS;
-                else
-                    response = CommunicationProtocolConstants.USER_FAIL_GENERIC;
-
-            }
+            response = handleLogin(username, password);
             output.writeObject(response);
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
@@ -163,24 +155,47 @@ public class ServerCommunicationProtocol {
         }
     }
 
+    private int handleLogin(String username, String password){
+        int response;
+        try{
+            serverCommunicationProtocolInterface.loginPlayer(username, password);
+            response = CommunicationProtocolConstants.USER_LOGIN_SIGNIN_OK;
+        }catch(LoginException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while loginPlayer in the user: " + e.getError());
+            if(e.getError().equals(LoginErrorType.USER_ALREADY_LOGGEDIN))
+                response = CommunicationProtocolConstants.USER_ALREADY_LOGGEDIN;
+            else if(e.getError().equals(LoginErrorType.USER_WRONG_PASSWORD))
+                response = CommunicationProtocolConstants.USER_LOGIN_WRONG_PASSWORD;
+            else if(e.getError().equals(LoginErrorType.USER_NOT_EXISTS))
+                response = CommunicationProtocolConstants.USER_NOT_EXISTS;
+            else
+                response = CommunicationProtocolConstants.USER_FAIL_GENERIC;
+        }
+        return response;
+    }
+
     /**
      * Try to join the last room on the server.
      * If fails send a bad response.
      */
     public void joinRoom(){
-        int response;
         try {
-            try {
-                serverCommunicationProtocolInterface.joinRoom();
-                response = CommunicationProtocolConstants.ROOM_JOINED;
-            } catch (RoomException e) {
-                response = CommunicationProtocolConstants.NO_ROOM_AVAILABLE;
-            }
-            output.writeObject(response);
+            output.writeObject(handleJoinRoom());
             output.flush();
         } catch (IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while joining room.");
         }
+    }
+
+    private int handleJoinRoom(){
+        int response;
+        try {
+            serverCommunicationProtocolInterface.joinRoom();
+            response = CommunicationProtocolConstants.ROOM_JOINED;
+        } catch (RoomException e) {
+            response = CommunicationProtocolConstants.NO_ROOM_AVAILABLE;
+        }
+        return response;
     }
 
     /**
@@ -231,11 +246,10 @@ public class ServerCommunicationProtocol {
 
     private void notifyPlayerPersonalBoardTileChoice(){
         try {
-            output.reset();
             PersonalBoardTile personalBoardTile = (PersonalBoardTile)input.readObject();
             serverCommunicationProtocolInterface.notifyPlayerPersonalBoardTileChoice(personalBoardTile);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error in sending player personal board.");
         }
     }
 
@@ -271,7 +285,7 @@ public class ServerCommunicationProtocol {
             LeaderCard leaderCard = (LeaderCard)input.readObject();
             serverCommunicationProtocolInterface.notifyPlayerLeaderCardChoice(leaderCard);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            // -----------------------------
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while obtaining leader card choice.");
         }
     }
 
@@ -371,11 +385,6 @@ public class ServerCommunicationProtocol {
             FamilyMemberColor familyMemberColor = (FamilyMemberColor) input.readObject();
             int servants = (int)input.readObject();
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
-            System.out.println("ciaone1");
-            for(Map.Entry pair : choices.entrySet()){
-                System.out.println(pair.getKey() + " -> " + pair.getValue());
-            }
-            System.out.println("ciaone1");
             serverCommunicationProtocolInterface.setFamilyMemberInProductionSimple(familyMemberColor, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting production simple area as client.");

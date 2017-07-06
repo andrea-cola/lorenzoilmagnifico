@@ -8,7 +8,6 @@ import it.polimi.ingsw.socketserver.SocketServer;
 import it.polimi.ingsw.gameserver.Room;
 import it.polimi.ingsw.rmiserver.RMIServer;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.ArrayList;

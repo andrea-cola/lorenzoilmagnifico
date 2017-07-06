@@ -5,6 +5,10 @@ package it.polimi.ingsw.socketprotocol;
  */
 /*package-local*/ class CommunicationProtocolConstants {
 
+    private CommunicationProtocolConstants(){
+
+    }
+
     /**
      * Requests from client to server.
      */

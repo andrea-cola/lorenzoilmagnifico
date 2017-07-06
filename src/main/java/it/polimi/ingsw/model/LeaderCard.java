@@ -5,7 +5,6 @@ import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.LeaderEffect;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.Map;
 
 /**

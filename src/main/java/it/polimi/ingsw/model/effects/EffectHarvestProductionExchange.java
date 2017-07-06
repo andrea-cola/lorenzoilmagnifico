@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,7 +64,7 @@ public class EffectHarvestProductionExchange extends Effect{
      * @param player that takes advatange of the effect.
      */
     @Override
-    public void runEffect(Player player, InformationCallback informationCallback) {
+    public void runEffect(Player player, InformationCallback informationCallback){
         int choice = 0;
         handleExchange(player, choice, informationCallback);
     }
@@ -80,9 +79,9 @@ public class EffectHarvestProductionExchange extends Effect{
         }
     }
 
-    private void handleExchange(Player player, int choice, InformationCallback informationCallback) {
+    private void handleExchange(Player player, int choice, InformationCallback informationCallback){
         //get the family member used to run this effect
-        ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
+        List<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
 
         //set action value
@@ -95,21 +94,10 @@ public class EffectHarvestProductionExchange extends Effect{
 
             //PAY
             //updates player's resources
-            for (Map.Entry<ResourceType, Integer> entry : this.valuableToPay[choice].getResources().entrySet()) {
-                int oldValue = player.getPersonalBoard().getValuables().getResources().get(entry.getKey());
-                if(oldValue >= entry.getValue())
-                    player.getPersonalBoard().getValuables().decrease(entry.getKey(), entry.getValue());
-                else
-                    return;
-            }
-
-            //updates player's points
-            for (Map.Entry<PointType, Integer> entry : this.valuableToPay[choice].getPoints().entrySet()) {
-                int oldValue = player.getPersonalBoard().getValuables().getPoints().get(entry.getKey());
-                if(oldValue >= entry.getValue())
-                    player.getPersonalBoard().getValuables().decrease(entry.getKey(), entry.getValue());
-                else
-                    return;
+            try {
+                player.getPersonalBoard().getValuables().checkDecrease(this.valuableToPay[choice]);
+            } catch (GameException e){
+                return;
             }
 
             //EARN

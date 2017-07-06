@@ -69,6 +69,8 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
         try{
             while(flag) {
                 Object input = objectInputStream.readObject();
+                if(input == null)
+                    break;
                 socketCommunicationProtocol.clientRequestHandler(input);
             }
         }catch(IOException | ClassNotFoundException e){

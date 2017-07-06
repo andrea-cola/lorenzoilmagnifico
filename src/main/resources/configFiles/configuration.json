@@ -1756,10 +1756,10 @@
   "personalBoard": {
     "valuables": {
       "resources": {
-        "SERVANT": 100,
-        "STONE": 100,
-        "WOOD": 100,
-        "COIN": 100
+        "SERVANT": 3,
+        "STONE": 2,
+        "WOOD": 2,
+        "COIN": 5
       },
       "points": {
         "FAITH": 50,

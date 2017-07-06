@@ -2,11 +2,6 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.RoomException;
-import it.polimi.ingsw.model.FamilyMemberColor;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
-
-import java.util.Map;
 
 public interface ServerInterface {
 

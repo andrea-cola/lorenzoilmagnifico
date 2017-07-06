@@ -321,51 +321,13 @@ public class Room {
             playerTurn.stopTimer();
     }
 
-    private void updateAllClients(Player player){
-        if(player != null && clientUpdatePacket != null){
-            clientUpdatePacket.setGame(gameManager.getGameModel());
-            for(ServerPlayer serverPlayer : players)
-                if(!serverPlayer.getUsername().equals(player.getUsername()))
-                    try {
-                        serverPlayer.sendGameModelUpdate(clientUpdatePacket);
-                    } catch (NetworkException e){
-                        Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
-                    }
-        }
-    }
-
-    private void updateAllClients(){
-        if(clientUpdatePacket != null){
-            clientUpdatePacket.setGame(gameManager.getGameModel());
-            for(ServerPlayer serverPlayer : players)
-                try {
-                    serverPlayer.sendGameModelUpdate(clientUpdatePacket);
-                } catch (NetworkException e){
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
-                }
-        }
-    }
-
-    private void sendGameModel(){
-        for(ServerPlayer player : players) {
-            try {
-                player.sendGameInfo(gameManager.getGameModel());
-            } catch (NetworkException e) {
-                Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
-            }
-        }
-    }
-
     public void restorePlayerState(ServerPlayer player){
-        Thread updater = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    player.sendGameInfo(gameManager.getGameModel());
-                    player.notifyTurnStarted(playerTurn.currentPlayer().getUsername(), maxMoveWaitingTime);
-                } catch (NetworkException e){
-                    Debugger.printStandardMessage(player.getUsername() + " offline.");
-                }
+        Thread updater = new Thread(() -> {
+            try{
+                player.sendGameInfo(gameManager.getGameModel());
+                player.notifyTurnStarted(playerTurn.currentPlayer().getUsername(), maxMoveWaitingTime);
+            } catch (NetworkException e){
+                Debugger.printStandardMessage(player.getUsername() + " offline.");
             }
         });
         updater.start();
@@ -394,9 +356,7 @@ public class Room {
                 for(int turn = 1; turn <= TURNS_PER_AGE; turn++){
                     turnSetup(age, turn);
                     for(int move = 1; move <= FamilyMemberColor.values().length; move++) {
-                        System.out.println("Ages: " + age + " Turn: " + turn + " move: " + move);
                         for (ServerPlayer player : players) {
-                            Debugger.printStandardMessage("Turn of: " + player.getUsername());
                             playerTurn = new PlayerTurn(player);
                             notifyTurnStarted(player);
                             playerTurn.startTimer(maxMoveWaitingTime);
@@ -419,7 +379,6 @@ public class Room {
 
         private void turnSetup(int age, int turn){
             if(!(turn == 1 && age == 1)) {
-                System.out.println("New turn");
                 getNewOrder();
                 gameManager.personalBoardsTurnReset(roomConfiguration);
                 gameManager.mainboardTurnReset();
@@ -476,9 +435,6 @@ public class Room {
             leaderCardsChoice(gameManager.getLeaderCards());
 
             gameManager.createGameInstance();
-            System.out.println("DICES");
-            for(Map.Entry pair : gameManager.getGameModel().getDices().getValues().entrySet())
-                System.out.println(pair.getKey() + " = " + pair.getValue());
             gameManager.setExcommunicationCards();
         }
 
@@ -539,6 +495,41 @@ public class Room {
             for(ServerPlayer player : serverPlayers){
                 player.sendLeaderCards(new ArrayList<>(leaderCards.subList(index * cardNumberPerPlayer, index * cardNumberPerPlayer + cardNumberPerPlayer)));
                 index++;
+            }
+        }
+
+        private void updateAllClients(Player player){
+            if(player != null && clientUpdatePacket != null){
+                clientUpdatePacket.setGame(gameManager.getGameModel());
+                for(ServerPlayer serverPlayer : players)
+                    if(!serverPlayer.getUsername().equals(player.getUsername()))
+                        try {
+                            serverPlayer.sendGameModelUpdate(clientUpdatePacket);
+                        } catch (NetworkException e){
+                            Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
+                        }
+            }
+        }
+
+        private void updateAllClients(){
+            if(clientUpdatePacket != null){
+                clientUpdatePacket.setGame(gameManager.getGameModel());
+                for(ServerPlayer serverPlayer : players)
+                    try {
+                        serverPlayer.sendGameModelUpdate(clientUpdatePacket);
+                    } catch (NetworkException e){
+                        Debugger.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
+                    }
+            }
+        }
+
+        private void sendGameModel(){
+            for(ServerPlayer player : players) {
+                try {
+                    player.sendGameInfo(gameManager.getGameModel());
+                } catch (NetworkException e) {
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Player offline.");
+                }
             }
         }
 

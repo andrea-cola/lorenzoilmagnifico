@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class LEHarvestProductionSimple extends LeaderEffect{
 
@@ -52,7 +52,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
     @Override
     public void runEffect(Player player, InformationCallback informationCallback){
         //get the last family member used and change its value
-        ArrayList<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
+        List<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
         player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(familyMemberColor, this.diceActionValue);
 
@@ -60,9 +60,7 @@ public class LEHarvestProductionSimple extends LeaderEffect{
             for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN)){
                 card.getPermanentEffect().runEffect(player, informationCallback);
             }
-        }
-
-        if (this.actionType.equals(ActionType.PRODUCTION)){
+        }else if (this.actionType.equals(ActionType.PRODUCTION)){
             for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
                 card.getPermanentEffect().runEffect(player, informationCallback);
             }
