@@ -88,4 +88,13 @@ import java.util.List;
             throw new NetworkException();
         }
     }
+
+    @Override
+    public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
+        try{
+            rmiClientInterface.notifyEndGame(ranking);
+        } catch (RemoteException e){
+            throw new NetworkException();
+        }
+    }
 }

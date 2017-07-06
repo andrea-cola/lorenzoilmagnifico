@@ -4,6 +4,7 @@ import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.WrongCommandException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.effects.LEPicoDellaMirandola;
+import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
@@ -374,6 +375,14 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         } else {
             Debugger.printStandardMessage("You have been excommunicated!!");
         }
+    }
+
+    @Override
+    public void notifyEndGame(ServerPlayer[] ranking) {
+        for(int i  = 0; i < ranking.length; i++){
+            Debugger.printStandardMessage((i+1) + " -> " + ranking[i].getUsername() + " : " + ranking[i].getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY));
+        }
+        Debugger.printStandardMessage("Game ended.");
     }
 
     @Override

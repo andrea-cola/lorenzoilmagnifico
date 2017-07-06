@@ -359,7 +359,7 @@ import java.util.*;
     /**
      * This method calculates the final points for each player at the end of the game
      */
-    public void calculateFinalPoints(InformationCallback informationCallback){
+    public void calculateFinalPoints(){
 
         //get the military points of all the players to assign them victory points
         Map<ServerPlayer, Integer> militaryPointsRanking = new HashMap<>();
@@ -400,7 +400,7 @@ import java.util.*;
             //purple cards final points
             if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.PURPLE)){
                 for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.PURPLE)){
-                    card.getPermanentEffect().runEffect(player, informationCallback);
+                    card.getPermanentEffect().runEffect(player, informationChoicesHandler);
                 }
             }
 

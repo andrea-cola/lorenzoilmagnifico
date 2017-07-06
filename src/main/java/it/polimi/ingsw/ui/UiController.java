@@ -2,6 +2,7 @@ package it.polimi.ingsw.ui;
 
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.ServerPlayer;
 
 import java.util.Map;
 

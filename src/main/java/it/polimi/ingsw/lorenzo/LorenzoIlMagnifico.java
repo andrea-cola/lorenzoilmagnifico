@@ -2,6 +2,7 @@ package it.polimi.ingsw.lorenzo;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
@@ -264,6 +265,11 @@ import java.util.Map;
     @Override
     public void supportForTheChurch(boolean flag) {
         userInterface.supportForTheChurch(flag);
+    }
+
+    @Override
+    public void notifyEndGame(ServerPlayer[] players) {
+        userInterface.notifyEndGame(players);
     }
 
     @Override

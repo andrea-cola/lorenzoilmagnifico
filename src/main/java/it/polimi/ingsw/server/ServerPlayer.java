@@ -56,5 +56,7 @@ public abstract class ServerPlayer extends Player{
 
     public abstract void supportForTheChurch(boolean flag) throws NetworkException;
 
+    public abstract void notifyEndGame(ServerPlayer[] ranking) throws NetworkException;
+
 }
 

@@ -50,5 +50,6 @@ package it.polimi.ingsw.socketprotocol;
     /*package-local*/ static final String TURN_STARTED = "turnStarted";
     /*package-local*/ static final String MODEL_UPDATE = "modelUpdate";
     /*package-local*/ static final String SUPPORT_FOR_THE_CHURCH = "supportForTheChurch";
+    /*package-local*/ static final String GAME_END = "gameEnd";
 
 }

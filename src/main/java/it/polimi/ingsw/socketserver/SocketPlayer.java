@@ -215,6 +215,11 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
     }
 
     @Override
+    public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
+        socketCommunicationProtocol.notifyEndGame(ranking);
+    }
+
+    @Override
     public void endTurn() {
         this.getRoom().endTurn(this);
     }
