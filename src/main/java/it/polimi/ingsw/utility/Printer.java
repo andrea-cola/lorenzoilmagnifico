@@ -2,11 +2,16 @@ package it.polimi.ingsw.utility;
 
 /**
  * Class used to print messages on the standard output in order to debug.
- * Two type of debug message:
+ * Three type of debug message:
  * standard: used to communicate simple information, often successful ones.
  * debug: used to communicate important information, like error or particular exceptions.
+ * information: used to communicate game information.
  */
-public class Debugger {
+public class Printer {
+
+    public static void printInformationMessage(String message){
+        System.out.print(message);
+    }
 
     /**
      * Print a standard message.

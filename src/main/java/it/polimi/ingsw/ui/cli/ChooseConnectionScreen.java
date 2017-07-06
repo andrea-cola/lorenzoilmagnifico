@@ -3,7 +3,7 @@ package it.polimi.ingsw.ui.cli;
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.exceptions.WrongCommandException;
 import it.polimi.ingsw.ui.ConnectionType;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,7 +53,7 @@ import java.util.regex.Pattern;
         } catch (NumberFormatException | ClassCastException e) {
             readCommand();
         } catch (IOException e){
-            Debugger.printDebugMessage("Error while reading from keyboard.");
+            Printer.printDebugMessage("Error while reading from keyboard.");
         }
     }
 
@@ -77,7 +77,7 @@ import java.util.regex.Pattern;
         try {
             this.callback.setNetworkSettings(connectionType, address, port);
         } catch (ConnectionException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error during connection.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error during connection.");
         }
     }
 

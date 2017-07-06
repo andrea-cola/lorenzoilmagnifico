@@ -127,8 +127,7 @@ public class TowerCell implements Serializable{
         checkCardLimit(player);
 
         //set the discount
-        PointsAndResources discount = new PointsAndResources();
-        setCardDiscount(player, informationCallback, discount);
+        PointsAndResources discount = setCardDiscount(player, informationCallback);
 
         //Check if the player has enough resources to buy the development card
         checkResourcesToBuyTheCard(player, discount);
@@ -154,10 +153,11 @@ public class TowerCell implements Serializable{
      * This method sets the discount that the card can provide
      * @param player
      * @param informationCallback
-     * @param discount
+     * @return discount
      */
-    private void setCardDiscount(Player player, InformationCallback informationCallback, PointsAndResources discount){
+    private PointsAndResources setCardDiscount(Player player, InformationCallback informationCallback){
         //if there is just one choice, set discount immediately
+        PointsAndResources discount = new PointsAndResources();
         if(player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).size() == 1) {
             discount = player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).get(0);
         }
@@ -166,6 +166,7 @@ public class TowerCell implements Serializable{
             int choice = informationCallback.choosePickUpDiscounts("discount", player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()));
             discount = player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).get(choice);
         }
+        return discount;
     }
 
     /**

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.InformationCallback;
 

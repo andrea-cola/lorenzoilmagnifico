@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ui.cli;
 
 import it.polimi.ingsw.exceptions.LoginException;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class LoginSignInScreen extends BasicScreen {
         } catch (ClassCastException | NumberFormatException e) {
             readCommand();
         } catch (IOException e){
-            Debugger.printDebugMessage("Error while reading from keyboard.");
+            Printer.printDebugMessage("Error while reading from keyboard.");
         }
     }
 

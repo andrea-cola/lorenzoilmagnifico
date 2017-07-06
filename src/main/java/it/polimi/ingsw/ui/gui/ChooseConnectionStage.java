@@ -3,10 +3,8 @@ package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.exceptions.ConnectionException;
 import it.polimi.ingsw.ui.ConnectionType;
-import it.polimi.ingsw.utility.Debugger;
-import javafx.application.Application;
+import it.polimi.ingsw.utility.Printer;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.*;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -16,8 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -154,7 +150,7 @@ public class ChooseConnectionStage extends JFXPanel{
         try {
             this.callback.setNetworkSettings(connectionType, address, port);
         } catch (ConnectionException e) {
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error during connection.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error during connection.");
         }
     }
 

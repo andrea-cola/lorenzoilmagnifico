@@ -2,7 +2,7 @@ package it.polimi.ingsw.socketserver;
 
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.exceptions.LoginException;
@@ -70,11 +70,11 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
             while(flag) {
                 Object input = objectInputStream.readObject();
                 if(input == null)
-                    break;
+                    flag = false;
                 socketCommunicationProtocol.clientRequestHandler(input);
             }
         }catch(IOException | ClassNotFoundException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Connection with the client is down.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Connection with the client is down.");
             serverInterface.disableUser(this);
         }finally{
             closeConnections(objectInputStream, objectOutputStream, socketClient);
@@ -244,7 +244,7 @@ public class SocketPlayer extends ServerPlayer implements Runnable, ServerCommun
         try {
             connection.close();
         }catch(IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while closing connections.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while closing connections.");
         }
     }
 }
