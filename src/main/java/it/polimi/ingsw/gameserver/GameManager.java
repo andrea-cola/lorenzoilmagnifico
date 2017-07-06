@@ -510,7 +510,7 @@ import java.util.*;
     }
 
     /**
-     * This method calculates the final ranking for victory points and gives some extra victory points to the players 
+     * This method calculates the final ranking for victory points and gives some extra victory points to the players
      * @param militaryPointsRanking
      */
     private void assignVictoryPointsBasedOnMilitaryRanking(Map<ServerPlayer, Integer> militaryPointsRanking){
