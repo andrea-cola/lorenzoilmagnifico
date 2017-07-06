@@ -3,6 +3,7 @@ package it.polimi.ingsw.socketprotocol;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
@@ -432,6 +433,17 @@ public class ServerCommunicationProtocol {
             serverCommunicationProtocolInterface.notifySupportForTheChurch(choice);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
             Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while notifying your support for the church choice.");
+        }
+    }
+
+    public void notifyEndGame(ServerPlayer[] ranking){
+        try{
+            output.reset();
+            output.writeObject(CommunicationProtocolConstants.GAME_END);
+            output.writeObject(ranking);
+            output.flush();
+        } catch (IOException e){
+            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while communicating final ranking.");
         }
     }
 

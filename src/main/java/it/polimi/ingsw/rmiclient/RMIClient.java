@@ -21,6 +21,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.rmiserver.RMIServerInterface;
+import it.polimi.ingsw.server.ServerPlayer;
 
 /**
  * This class extends {@link AbstractClient} class to create a network connection based on RMI.
@@ -281,6 +282,11 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void supportForTheChurch(boolean flag) throws RemoteException {
         getClient().supportForTheChurch(flag);
+    }
+
+    @Override
+    public void notifyEndGame(ServerPlayer[] ranking) throws RemoteException {
+        getClient().notifyEndGame(ranking);
     }
 
     @Override

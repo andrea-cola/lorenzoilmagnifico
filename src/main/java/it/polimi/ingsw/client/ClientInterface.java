@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.ClientUpdatePacket;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.server.ServerPlayer;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface ClientInterface {
     void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket);
 
     void supportForTheChurch(boolean flag);
+
+    void notifyEndGame(ServerPlayer[] players);
 }

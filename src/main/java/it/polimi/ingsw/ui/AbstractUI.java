@@ -2,6 +2,7 @@ package it.polimi.ingsw.ui;
 
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.server.ServerPlayer;
 
 import java.util.List;
 
@@ -39,4 +40,6 @@ public abstract class AbstractUI {
     public abstract void notifyUpdate(String message);
 
     public abstract void supportForTheChurch(boolean flag);
+
+    public abstract void notifyEndGame(ServerPlayer[] ranking);
 }

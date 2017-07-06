@@ -2,6 +2,7 @@ package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
@@ -163,6 +164,11 @@ public class GraphicUserInterface extends AbstractUI {
 
     @Override
     public void supportForTheChurch(boolean flag) {
+
+    }
+
+    @Override
+    public void notifyEndGame(ServerPlayer[] ranking) {
 
     }
 

@@ -3,6 +3,7 @@ package it.polimi.ingsw.gameserver;
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Debugger;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -366,6 +367,26 @@ public class Room {
                     checkExcommunication(age, turn);
                 }
             }
+            gameManager.calculateFinalPoints();
+        }
+
+        private void notifyEndGame(){
+            ServerPlayer[] winners = players.toArray(new ServerPlayer[players.size()]);
+            for(int i = 0; i < winners.length; i++)
+                for(int j = 0; j < winners.length; j++)
+                    if(winners[i].getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY) <
+                            winners[j].getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY)){
+                        ServerPlayer tmp = winners[i];
+                        winners[i] = winners[j];
+                        winners[j] = tmp;
+                    }
+            for(ServerPlayer serverPlayer : players)
+                try {
+                    serverPlayer.notifyEndGame(winners);
+                } catch (NetworkException e){
+                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Final classification error message.");
+                }
+            Debugger.printStandardMessage("Game ended in room #" + roomID);
         }
 
         private void notifyTurnStarted(ServerPlayer player){
