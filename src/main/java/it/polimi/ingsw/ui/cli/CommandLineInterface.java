@@ -185,22 +185,18 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         pause();
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         gameScreen = null;
-        int key = 1;
-        if(militaryPointsNeeded < getClient().getPlayer().getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY)){
-            getClient().setPlayerTurnChoices("double-cost", key);
-        } else {
-            Printer.printInformationMessage("[ DOUBLE COST CHOICE ]\nYour card has a double cost, you need to choose what to pay.");
-            Printer.printInformationMessage("1 -> " + cost.toString());
-            Printer.printInformationMessage("2 -> Military points needed = " + militaryPointsNeeded + " Military points to pay =" + militaryPointsToPay);
-            do {
-                try {
-                    key = Integer.parseInt(r.readLine());
-                } catch (ClassCastException | NumberFormatException | IOException e) {
-                    key = 0;
-                }
-            } while (key < 1 || key > 2);
-            getClient().setPlayerTurnChoices("double-cost", key);
-        }
+        int key;
+        Printer.printInformationMessage("[ DOUBLE COST CHOICE ]\nYour card has a double cost, you need to choose what to pay.");
+        Printer.printInformationMessage("1 -> " + cost.toString());
+        Printer.printInformationMessage("2 -> Military points needed = " + militaryPointsNeeded + " Military points to pay =" + militaryPointsToPay);
+        do {
+            try {
+                key = Integer.parseInt(r.readLine());
+            } catch (ClassCastException | NumberFormatException | IOException e) {
+                key = 1;
+            }
+        } while (key < 1 || key > 2);
+        getClient().setPlayerTurnChoices("double-cost", key);
         unpause();
         return key;
     }

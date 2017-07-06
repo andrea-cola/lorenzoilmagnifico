@@ -176,14 +176,11 @@ public class Game implements Serializable{
                 cell.familyMemberCanBePlaced(player, familyMemberColor);
 
                 //if the tower is already occupied by someone, the player has to pay the coins more
-                try {
-                    if (!tower.isFree() && (leaderCardBrunelleschi == null || !leaderCardBrunelleschi.getLeaderEffectActive())) {
-                        PointsAndResources coinsToPay = new PointsAndResources();
-                        coinsToPay.increase(ResourceType.COIN, 3);
-                        player.getPersonalBoard().getValuables().checkDecrease(coinsToPay);
-                    }
-                } catch (GameException e){
-                    throw new GameException(GameErrorType.TOWER_COST);
+                if (!tower.isFree() && (leaderCardBrunelleschi == null || !leaderCardBrunelleschi.getLeaderEffectActive())) {
+                    if(player.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN) >= 3)
+                        player.getPersonalBoard().getValuables().decrease(ResourceType.COIN, 3);
+                    else
+                        throw new GameException(GameErrorType.TOWER_COST);
                 }
 
                 //check if the user has resources enough to buy the card

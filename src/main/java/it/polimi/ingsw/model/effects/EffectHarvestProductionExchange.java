@@ -94,11 +94,10 @@ public class EffectHarvestProductionExchange extends Effect{
 
             //PAY
             //updates player's resources
-            try {
-                player.getPersonalBoard().getValuables().checkDecrease(this.valuableToPay[choice]);
-            } catch (GameException e){
+            if(player.getPersonalBoard().getValuables().checkDecrease(this.valuableToPay[choice]))
+                player.getPersonalBoard().getValuables().decreaseAll(this.valuableToPay[choice]);
+            else
                 return;
-            }
 
             //EARN
             //updates player's resources
