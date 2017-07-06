@@ -176,10 +176,29 @@ public class TowerCell implements Serializable{
      * @throws GameException
      */
     public void checkResourcesToBuyTheCard(Player player, PointsAndResources discount) throws GameException{
-        for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
-            if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
-                    > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
-                throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+        boolean flag  = false;
+        if (this.developmentCard.getMultipleRequisiteSelectionEnabled()){
+            if (player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) >= this.developmentCard.getMilitaryPointsRequired()){
+                flag = true;
+            }
+            try{
+                for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
+                    if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
+                            > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                        throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+                    }
+                }
+                flag = true;
+            }catch(GameException e){
+                if(!flag)
+                    throw e;
+            }
+        } else {
+            for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
+                if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
+                        > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                    throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+                }
             }
         }
     }
