@@ -7,4 +7,5 @@ it/polimi/ingsw/model/PrivilegeTest.class
 it/polimi/ingsw/model/TowerTest.class
 it/polimi/ingsw/model/GameTest.class
 it/polimi/ingsw/model/CouncilPalaceTest.class
+it/polimi/ingsw/model/LeaderCardTest.class
 it/polimi/ingsw/model/CouncilPrivilegeTest.class

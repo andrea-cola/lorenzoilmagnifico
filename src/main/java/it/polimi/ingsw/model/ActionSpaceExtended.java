@@ -76,13 +76,6 @@ public class ActionSpaceExtended implements Serializable{
         return this.diceValueMalus;
     }
 
-    /**
-     * Add a family member to the space
-     * @param familyMember
-     */
-    public void addFamilyMember(Player player, FamilyMemberColor familyMember){
-        this.familyMemberMap.put(player.getUsername(), familyMember);
-    }
 
     /**
      * Get action space effect.

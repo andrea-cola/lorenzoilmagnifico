@@ -165,11 +165,6 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         }
     }
 
-    @Override
-    public void notifyUpdate(String message) {
-        Printer.printStandardMessage(message);
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {

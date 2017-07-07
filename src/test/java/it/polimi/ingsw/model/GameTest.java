@@ -1,6 +1,12 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.gameserver.Configurator;
+import it.polimi.ingsw.server.Server;
+import it.polimi.ingsw.server.ServerPlayer;
+import it.polimi.ingsw.utility.Configuration;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -46,11 +52,31 @@ public class GameTest {
     }
 
     @Test
-    public void pickupDevelopmentCardFromTower() throws Exception {
+    public void pickupDevelopmentCardFromTowerTest() throws Exception {
+
+/*
+        InformationChoicesHandler info = new InformationChoicesHandler();
+
+        Player player = new Player();
+        player.setUsername("cola");
+        player.setColor(PlayerColor.BLUE);
+
+        Player player2 = new Player();
+        player2.setUsername("cola2");
+        player2.setColor(PlayerColor.GREEN);
+
+        ArrayList<ServerPlayer> list = new ArrayList<>();
+        list.add((ServerPlayer)player);
+        list.add((ServerPlayer)player2);
+
+        Game game = new Game(Configurator.getConfiguration().getMainBoard(), list);
+*/
+
     }
 
     @Test
     public void placeFamilyMemberInsideHarvestSimpleSpace() throws Exception {
+
     }
 
     @Test

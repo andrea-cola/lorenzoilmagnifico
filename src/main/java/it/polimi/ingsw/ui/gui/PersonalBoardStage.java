@@ -1,80 +1,67 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.model.DevelopmentCard;
+import it.polimi.ingsw.model.DevelopmentCardColor;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.ResourceType;
 import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
  * This is the Graphic User Interface Personal Board class
  */
-public class PersonalBoardStage extends Application{
+public class PersonalBoardStage extends JFXPanel{
+
     /**
      * Constants
      */
-    private static final int BACK_WIDTH = 150;
-    private static final int BACK_HEIGHT = 200;
-
-    /**
-     * Data related to the player
-     */
-    private String username;
-    private int coinsValue;
-    private int woodValue;
-    private int stonesValue;
-    private int servantsValue;
+    private static final int BACK_WIDTH = 582;
+    private static final int BACK_HEIGHT = 700;
+    private static final int GRID_HGAP = 5;
+    private static final int GRID_VGAP = 5;
+    private static final int GRID_X = 60;
+    private static final int GRID_Y = 10;
+    private final static int INSETS = 20;
+    private final static int IMAGE_WIDTH = 100;
+    private final static int IMAGE_HEIGHT = 150;
+    private final static int WIDTH = 800;
+    private final static int HEIGHT = 800;
 
     /**
      * Main gui PersonalBoardStage objects
      */
     private BackgroundImage background;
+    private AnchorPane root;
 
-    /**
-     * Constructor
-     * @param username
-     */
-    public PersonalBoardStage(String username){
-        this.username = username;
-    }
+    PersonalBoardStage(Player player) {
 
-    public void setData(int coinsValue, int woodValue, int stonesValue, int servantsValue){
-        this.coinsValue = coinsValue;
-        this.woodValue = woodValue;
-        this.stonesValue = stonesValue;
-        this.servantsValue = servantsValue;
-    }
-
-    /**
-     * The main entry point for all JavaFX applications
-     * @param primaryStage the primary stage for this application
-     */
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("PersonalBoardStage");
-        Group root = new Group();
-        GridPane gridPane = new GridPane();
-        BackgroundSize size = new BackgroundSize(BACK_WIDTH, BACK_WIDTH, false, false, true, false);
-        Image image = new Image("images/PersonalBoardCover.jpg");
-        background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
-        gridPane.setBackground( new Background(background));
-
-        Label coins = new Label("Coins = " + coinsValue);
-        gridPane.add(coins, 0, 6);
-        Label wood = new Label("Wood = " + woodValue);
-        gridPane.add(wood, 1, 6);
-        Label stones = new Label("Stones = " + stonesValue);
-        gridPane.add(stones, 2, 6);
-        Label servants = new Label(" Servants = " + servantsValue);
-        gridPane.add(servants, 3, 6);
-
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("fxml/personalBoard.fxml"));
+            root = (AnchorPane) loader.load();
+            PersonalBoardStageController controller = loader.getController();
+            controller.initData(player);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        this.setScene(scene);
     }
 }

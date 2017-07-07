@@ -1,37 +1,49 @@
 package it.polimi.ingsw.ui.gui;
 
-import it.polimi.ingsw.model.Player;
-import javafx.application.Application;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.ui.UserInterface;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
+import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.*;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
+
+import java.io.IOException;
+
 
 /**
  * This is the Graphic User Interface main board class
  */
-public class MainBoardStage extends Application{
+public class MainBoardStage extends JFXPanel{
+
     /**
      * Family member related values
      */
     private int redValue;
     private int whiteValue;
     private int blackValue;
-    private final int neutralValue= 0;
+    private int neutralValue;
+    private Integer servants = new Integer(0);
+
+    private CallbackInterface callback;
+    private InformationCallback informationCallback;
+    private Game game;
+    private Player player;
+    private UserInterface client;
+    private boolean turn;
 
     /**
      * Data related to the player
@@ -40,233 +52,149 @@ public class MainBoardStage extends Application{
     private int victoryPoints;
     private int faithPoints;
     private String username;
+    private int coinsValue;
+    private int woodValue;
+    private int stonesValue;
+    private int servantValue;
 
     /**
      * Constants
      */
-    private static final int STAGE_WIDTH = 800;
-    private static final int STAGE_HEIGHT = 1000;
-    private static final int BACK_WIDTH = 150;
-    private static final int BACK_HEIGHT = 200;
-    private static final int GRID_TOWER_X = 60;
-    private static final int GRID_TOWER_Y = 40;
-    private static final int GRID_TOWER_HGAP = 20;
-    private static final int GRID_TOWER_VGAP = 30;
-    private static final int GRID_ACTION_X = 70;
-    private static final int GRID_ACTION_Y = 650;
+    private static final int LEFT_WIDTH = 500;
+    private static final int LEFT_HEIGHT = 825;
+    private static final int BACK_WIDTH = 500;
+    private static final int BACK_HEIGHT = 825;
+    private static final int GRID_TOWER_X = 20;
+    private static final int GRID_TOWER_Y = 20;
+    private static final int GRID_TOWER_HGAP = 10;
+    private static final int GRID_TOWER_VGAP = 25;
+    private static final int GRID_ACTION_X = 20;
+    private static final int GRID_ACTION_Y = 700;
     private static final int GRID_MARKET_HGAP = 20;
-    private static final int GRID_MARKET_VGAP = 30;
-    private static final int HBOX_SPACING = 80;
+    private static final int GRID_MARKET_VGAP = 20;
+    private static final int HBOX_SPACING = 200;
     private static final int VBOX_SPACING = 10;
     private static final int CIRCLE_RADIUS = 10;
     private static final int FAMILY_RADIUS = 20;
+    private static final int DEV_HEIGHT = 90;
+    private static final int DEV_WIDTH = 65;
+    private static final int EX_HEIGHT = 60;
+    private static final int EX_WIDTH = 34;
+    private static final int INSETS = 20;
 
     /**
      * Main gui MainBoardStage objects
      */
-    private VBox rightPane;
     private BackgroundImage background;
     private Button personalBoardButton;
     private Button personalTileButton;
-    private AnchorPane leftPane;
-    private GridPane gridTower;
+    private Button leaderCardsButton;
+    private Parent leftPane;
+    //private SplitPane splitPane;
+    //private GridPane gridTower;
+    //private GridPane gridAction;
+    //private GridPane gridMarket;
     private Scene scene;
+    private BorderPane rightPane;
+    private HBox root;
 
     /**
      * Constructor for Main Board class
      */
-    public MainBoardStage(){
+    MainBoardStage(CallbackInterface callback, UserInterface client, InformationCallback informationCallback, boolean turn) {
+        this.game = client.getGameModel();
+        this.player = client.getPlayer();
+        this.client = client;
+        this.turn = turn;
 
-    }
+        this.callback = callback;
+        this.informationCallback = informationCallback;
 
-    /**
-     * Setting parameters
-     * @param username
-     * @param militaryPoints
-     * @param victoryPoints
-     * @param faithPoints
-     */
-    public void setPlayerData(String username, int militaryPoints, int victoryPoints, int faithPoints){
-        this.username = username;
-        this.militaryPoints = militaryPoints;
-        this.victoryPoints = victoryPoints;
-        this.faithPoints = faithPoints;
-    }
+        this.redValue = game.getDices().getValues().get(FamilyMemberColor.ORANGE);
+        this.blackValue = game.getDices().getValues().get(FamilyMemberColor.BLACK);
+        this.whiteValue = game.getDices().getValues().get(FamilyMemberColor.WHITE);
+        this.neutralValue = game.getDices().getValues().get(FamilyMemberColor.NEUTRAL);
+
+        this.username = player.getUsername();
+        this.militaryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY);
+        this.victoryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY);
+        this.faithPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH);
+
+        this.coinsValue = player.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN);
+        this.woodValue = player.getPersonalBoard().getValuables().getResources().get(ResourceType.WOOD);
+        this.stonesValue = player.getPersonalBoard().getValuables().getResources().get(ResourceType.STONE);
+        this.servantValue = player.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT);
 
 
-    /**
-     * The main entry point for all JavaFX applications
-     * @param primaryStage the primary stage for this application
-     */
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("MainBoardStage");
+        root = new HBox();
 
-        SplitPane splitPane = new SplitPane();
-        leftPane = createLeftPane();
-        rightPane = createRightPane();
-        Group group = new Group();
-        group.getChildren().add(leftPane);
-        splitPane.getItems().addAll(group, rightPane);
+        showLeftPane();
 
-        scene = new Scene(splitPane);
+        showRightPane();
 
-        primaryStage.setScene(scene);
-        primaryStage.setHeight(STAGE_HEIGHT);
-        primaryStage.setWidth(STAGE_WIDTH);
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        scene = new Scene(root);
+
+        this.setScene(scene);
     }
 
     /**
      * Create the left pane of the split pane
      * @return the left pane
      */
-    public AnchorPane createLeftPane(){
-        leftPane = new AnchorPane();
+    public void showLeftPane() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("fxml/mainboard.fxml"));
+            leftPane = (AnchorPane) loader.load();
+            root.getChildren().add(0, leftPane);
+            LeftPaneController controller = loader.getController();
+            controller.initData(this);
 
-        BackgroundSize size = new BackgroundSize(BACK_WIDTH, BACK_HEIGHT, false, false, true, false);
-        Image image2 = new Image("/images/MainBoardCover.jpg");
-        background = new BackgroundImage(image2, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
-        leftPane.setBackground(new Background(background));
-
-        gridTower = new GridPane();
-        gridTower.relocate(GRID_TOWER_X, GRID_TOWER_Y);
-        gridTower.setVgap(GRID_TOWER_VGAP);
-        gridTower.setHgap(GRID_TOWER_HGAP);
-        for (int i = 0; i <= 7 ; i++) {
-            for (int j = 0; j <= 3; j++) {
-                if(i%2==0){
-                    ImageView imageView = new ImageView();
-                    gridTower.add(imageView, i, j);
-                }else{
-                    Circle circle = new Circle(10, Color.AQUA);
-                    manageTargetEvent(circle);
-                    gridTower.add(circle, i, j);
-                }
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        ImageView firsExcommunicationCard = new ImageView();
-        ImageView secondExcommunicationCard = new ImageView();
-        ImageView thirdExcommunicationCard = new ImageView();
-        gridTower.add(firsExcommunicationCard, 1, 5);
-        gridTower.add(secondExcommunicationCard, 2, 5);
-        gridTower.add(thirdExcommunicationCard, 3, 5);
-
-        Circle council = new Circle(CIRCLE_RADIUS);
-        manageTargetEvent(council);
-        gridTower.add(council, 5, 4);
-
-        GridPane gridAction = new GridPane();
-        gridAction.setHgap(GRID_TOWER_HGAP);
-        gridAction.setVgap(GRID_TOWER_VGAP);
-        Circle circleProduction = new Circle(CIRCLE_RADIUS);
-        manageTargetEvent(circleProduction);
-        gridAction.add(circleProduction, 0, 0);
-        //if()
-        //	Circle circleProductionExtended = new Circle(CIRCLE_RADIUS);
-        //  manageTargetEvent(circleProductionExtended);
-        //	gridAction.add(circleProductionExtended, 1, 0);
-        //else
-        Rectangle coverProduction = new Rectangle(30, 20);
-        gridAction.add(coverProduction, 1, 0);
-
-        Circle circleHarvest = new Circle(10);
-        manageTargetEvent(circleHarvest);
-        gridAction.add(circleHarvest, 0, 1);
-        //if()
-        //	Circle circleHarvestExtended = new Circle(CIRCLE_RADIUS);
-        //  manageTargetEvent(circleHarvestExtended);
-        //	gridAction.add(circleHarvestExtended, 1, 1);
-        //else
-        Rectangle coverHarvest = new Rectangle(30, 20);
-        gridAction.add(coverHarvest, 1, 1);
-
-        GridPane gridMarket = new GridPane();
-        Circle circleMarket1 = new Circle(CIRCLE_RADIUS);
-        manageTargetEvent(circleMarket1);
-        Circle circleMarket2 = new Circle(CIRCLE_RADIUS);
-        manageTargetEvent(circleMarket2);
-        gridMarket.add(circleMarket1, 3, 0);
-        gridMarket.add(circleMarket2, 4, 0);
-
-        //if()
-        //Circle circleMarketExtended1 = new Circle(CIRCLE_RADIUS);
-        //Circle circleMarketExtended2 = new Circle(CIRCLE_RADIUS);
-        //manageTargetEvent(circleMarketExtended1);
-        //manageTargetEvent(circleMarketExtended2);
-        //gridMarket.add(circleMarketExtended1, 5, 0);
-        //gridMarket.add(circleMarketExtended2, 6, 1);
-        //else
-        Rectangle coverMarket1 = new Rectangle();
-        Rectangle coverMarket2 = new Rectangle();
-        gridMarket.add(coverMarket1, 5, 0);
-        gridMarket.add(coverMarket2, 6, 1);
-
-        gridMarket.setHgap(GRID_MARKET_HGAP);
-        gridMarket.setVgap(GRID_MARKET_VGAP);
-
-
-        HBox hBox = new HBox(HBOX_SPACING);
-        hBox.getChildren().addAll(gridAction, gridMarket);
-        leftPane.getChildren().addAll(gridTower, hBox);
-        hBox.relocate(GRID_ACTION_X, GRID_ACTION_Y);
-        return leftPane;
+        return;
     }
 
     /**
      * Create the right pane of the split pane
      * @return the right pane
      */
-    public VBox createRightPane(){
-        rightPane= new VBox(VBOX_SPACING);
-        personalBoardButton = new Button("View Personal Board");
+    public void showRightPane() {
+        rightPane = new BorderPane();
+
+        VBox vBox = new VBox(VBOX_SPACING);
+        vBox.setAlignment(Pos.CENTER);
+
+        personalBoardButton = new Button("PERSONAL BOARD");
         personalBoardButton.setAlignment(Pos.CENTER);
-        personalBoardButton.setOnAction(event -> {
-            Application personalBoardScreen = new PersonalBoardStage(username);
-            Thread thread = new Thread(()->Application.launch(personalBoardScreen.getClass()));
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        });
+        personalBoardButton.setOnAction(event -> this.callback.showPersonalBoardStage(player));
 
-
-        personalTileButton = new Button("View Personal Tile");
+        personalTileButton = new Button("PERSONAL TILE");
         personalTileButton.setAlignment(Pos.CENTER);
-        personalTileButton.setOnAction(event -> {
-            Application personalBoardTileScreen = new PersonalTileBoardStage(username);
-            Thread thread = new Thread(()->Application.launch(personalBoardTileScreen.getClass()));
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e){
-                Thread.currentThread().interrupt();
-            }
-        });
+        personalTileButton.setOnAction(event -> this.callback.showPersonalTileBoardStage(player));
 
-        Circle redMember= new Circle(FAMILY_RADIUS);
-        redMember.setFill(Color.RED);
+        leaderCardsButton = new Button("LEADER CARDS");
+        leaderCardsButton.setAlignment(Pos.CENTER);
+        if(turn)
+            leaderCardsButton.setOnAction(event -> callback.showLeaderCards(player));
+
+        Circle redMember = new Circle(FAMILY_RADIUS);
+        redMember.setFill(Color.rgb(200, 110, 34));
         Label redLabel = new Label();
         StackPane redPane = new StackPane();
-        manageSourceEvent(redMember);
         redPane.getChildren().addAll(redMember, redLabel);
 
-        Circle blackMember= new Circle(FAMILY_RADIUS);
+        Circle blackMember = new Circle(FAMILY_RADIUS);
         blackMember.setFill(Color.BLACK);
         Label blackLabel = new Label();
         StackPane blackPane = new StackPane();
-        manageSourceEvent(blackMember);
         blackPane.getChildren().addAll(blackMember, blackLabel);
 
         Circle whiteMember = new Circle(FAMILY_RADIUS);
         whiteMember.setFill(Color.WHITE);
         Label whiteLabel = new Label();
         StackPane whitePane = new StackPane();
-        manageSourceEvent(whiteMember);
         whitePane.getChildren().addAll(whiteMember, whiteLabel);
 
         Circle neutralMember = new Circle(FAMILY_RADIUS);
@@ -275,52 +203,127 @@ public class MainBoardStage extends Application{
         StackPane neutralPane = new StackPane();
         neutralPane.getChildren().addAll(neutralMember, neutralLabel);
 
-        redLabel.textProperty().bind( new SimpleIntegerProperty(redValue).asString());
-        blackLabel.textProperty().bind( new SimpleIntegerProperty(blackValue).asString());
+        if(turn){
+           if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.BLACK))
+               manageSourceEvent(blackMember);
+           if (!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.ORANGE))
+               manageSourceEvent(redMember);
+           if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.WHITE))
+               manageSourceEvent(whiteMember);
+           if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.NEUTRAL))
+               manageSourceEvent(neutralMember);
+        }
+
+        redLabel.textProperty().bind(new SimpleIntegerProperty(redValue).asString());
+        blackLabel.textProperty().bind(new SimpleIntegerProperty(blackValue).asString());
         whiteLabel.textProperty().bind(new SimpleIntegerProperty(whiteValue).asString());
         neutralLabel.textProperty().bind(new SimpleIntegerProperty(neutralValue).asString());
 
         HBox turnBox = new HBox();
-        Label turn = new Label("Turn = ");
+        turnBox.setAlignment(Pos.CENTER);
+        Label userTurn = new Label("Player = ");
         Label usernameLabel = new Label();
         usernameLabel.textProperty().bind(new SimpleStringProperty(username));
-        turnBox.getChildren().addAll(turn, usernameLabel);
+        turnBox.getChildren().addAll(userTurn, usernameLabel);
 
         GridPane pointsTable = new GridPane();
-        Label militaryLabel = new Label("Military points: ");
-        pointsTable.add(militaryLabel, 0, 0);
+        pointsTable.setAlignment(Pos.CENTER);
+
+        pointsTable.add(new Label("Military points: "), 0, 0);
         pointsTable.add(new Label(Integer.toString(militaryPoints)), 1, 0);
-        Label victoryLabel = new Label("Victory points: ");
-        pointsTable.add(new Label(Integer.toString(victoryPoints)),1,1);
-        pointsTable.add(victoryLabel, 0, 1);
-        Label faithLabel= new Label("Faith points: ");
-        pointsTable.add(faithLabel, 0, 2);
+
+        pointsTable.add(new Label("Victory points: "), 0, 1);
+        pointsTable.add(new Label(Integer.toString(victoryPoints)), 1, 1);
+
+        pointsTable.add(new Label("Faith points: "), 0, 2);
         pointsTable.add(new Label(Integer.toString(faithPoints)), 1, 2);
+
+        pointsTable.add(new Label("Coins"),0, 3);
+        pointsTable.add(new Label(new Integer(coinsValue).toString()), 1, 3);
+
+        pointsTable.add(new Label("Woods"), 0, 4);
+        pointsTable.add(new Label(new Integer(woodValue).toString()), 1, 4);
+
+        pointsTable.add(new Label("Stones"), 0, 5);
+        pointsTable.add(new Label(new Integer(stonesValue).toString()), 1, 5);
+
+        pointsTable.add(new Label("Servants"), 0, 6);
+        pointsTable.add(new Label(new Integer(servantValue).toString()), 1, 6);
 
         Separator separator = new Separator(Orientation.HORIZONTAL);
         Separator separator1 = new Separator(Orientation.HORIZONTAL);
         Separator separator2 = new Separator(Orientation.HORIZONTAL);
+        Separator separator3 = new Separator(Orientation.HORIZONTAL);
 
-        rightPane.getChildren().addAll(personalBoardButton, personalTileButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable);
-        return rightPane;
-    }
+        Button plus = new Button("+");
+        plus.setAlignment(Pos.CENTER);
+        Label number = new Label("n° servants " +servants);
+        number.setAlignment(Pos.CENTER);
+        Label message = new Label("Not valid");
+        message.setVisible(false);
+        message.setAlignment(Pos.CENTER);
+        Button minus = new Button("-");
+        minus.setAlignment(Pos.CENTER);
 
-    /**
-     * Convert an hexadecimal string into a Color
-     * @param hexColor string
-     * @return related color
-     */
-    private static Color stringToColor(String hexColor) {
-        return Color.rgb(Integer.valueOf( hexColor.substring( 1, 3 ), 16 ),
-                Integer.valueOf( hexColor.substring( 3, 5 ), 16 ),
-                Integer.valueOf( hexColor.substring( 5, 7 ), 16 ));
+        if(turn) {
+            plus.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (servantValue > servants) {
+                        servants++;
+                        message.setVisible(false);
+                        number.setText("n° servants " + new Integer(servants).toString());
+                        minus.setVisible(true);
+                    } else {
+                        plus.setVisible(false);
+                    }
+                }
+            });
+
+            minus.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (servants > 0) {
+                        servants--;
+                        plus.setVisible(true);
+                        number.setText("n° servants " + new Integer(servants).toString());
+                    } else {
+                        minus.setVisible(false);
+                    }
+                }
+            });
+        }
+
+        VBox servantsBox = new VBox();
+        servantsBox.setAlignment(Pos.CENTER);
+        servantsBox.setSpacing(VBOX_SPACING);
+        servantsBox.getChildren().addAll(plus, number, minus, message);
+
+        Button endTurnButton = new Button("END TURN");
+        if(turn) {
+            endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    callback.notifyEndTurnStage();
+                }
+            });
+        }
+
+        vBox.getChildren().addAll(personalBoardButton, personalTileButton, leaderCardsButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable, separator3, servantsBox, endTurnButton);
+        vBox.setAlignment(Pos.CENTER);
+        rightPane.setCenter(vBox);
+        rightPane.setMargin(vBox, new Insets(INSETS));
+
+        root.getChildren().add(1, rightPane);
+
+        return;
     }
 
     /**
      * Method to manage the "Drag Detected" and "Drag Done" event
      * @param source node which triggers the action during the events
      */
-    private void manageSourceEvent(Circle source){
+    private void manageSourceEvent(Circle source) {
         source.setOnDragDetected(event -> {
             Dragboard db = source.startDragAndDrop(TransferMode.ANY);
             ClipboardContent clipboardContent = new ClipboardContent();
@@ -338,83 +341,49 @@ public class MainBoardStage extends Application{
         });
     }
 
-    /**
-     * Method to manage the "Drag Over", "Drag Entered", "Drag Exited", "Drag Dropped" event
-     * @param target node which is triggered by the event and does actions
-     */
-    private void manageTargetEvent(Circle target){
-
-        target.setOnDragOver(event -> {
-            /* data is dragged over the target */
-            System.out.println("onDragOver");
-            /* accept it only if it is  not dragged from the same node
-             * and if it has a string data */
-            if (event.getGestureSource() != target &&
-                    event.getDragboard().hasString()) {
-                /* allow for both copying and moving, whatever user chooses */
-                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-            }
-            event.consume();
-        });
-
-        target.setOnDragEntered(event -> {
-            /* the drag-and-drop gesture entered the target */
-            System.out.println("onDragEntered");
-            /* show to the user that it is an actual gesture target */
-            if (event.getGestureSource() != target && event.getDragboard().hasString()){
-                target.setScaleX(target.getScaleX()*1.3);
-                target.setScaleY(target.getScaleY()*1.3);
-
-            }
-            event.consume();
-        });
-
-        target.setOnDragExited(event -> {
-            /* mouse moved away, remove the graphical cues */
-            target.setScaleX(target.getScaleX()/1.3);
-            target.setScaleY(target.getScaleY()/1.3);
-            event.consume();
-        });
-
-        target.setOnDragDropped(event -> {
-            String[] name;
-            System.out.println("onDragDropped");
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            if(db.hasString()){
-                target.setDisable(true);
-                name = db.getString().split("fill=0");
-                Color color = stringToColor(name[1]);
-                target.setFill(color);
-
-                int column = GridPane.getColumnIndex(target);
-                int row = GridPane.getRowIndex(target);
-                ImageView card = (ImageView) getNodeInGrid(row, column-1);
-                card.setVisible(false);
-                success = true;
-
-            }
-            event.setDropCompleted(success);
-            event.consume();
-        });
+    Integer getServants(){
+        return servants;
     }
 
-    /**
-     * Get a node in the gridTower object
-     * @param row index
-     * @param column index
-     * @return Node
-     */
-
-    private Node getNodeInGrid(int row, int column){
-        Node result = null;
-        ObservableList<Node> childrens = gridTower.getChildren();
-        for (Node node : childrens) {
-            if(gridTower.getRowIndex(node) == row && gridTower.getColumnIndex(node) == column) {
-                result= node;
-            }
-        }
-        return result;
+    Game getGame(){
+        return this.game;
     }
 
+    Player getPlayer(){
+        return this.player;
+    }
+
+    CallbackInterface getCallback(){
+        return this.callback;
+    }
+
+    UserInterface getClient(){
+        return this.client;
+    }
+
+    Boolean getTurn(){
+        return this.turn;
+    }
+
+    InformationCallback getInformationCallback(){
+        return this.informationCallback;
+    }
+
+
+    interface CallbackInterface{
+
+        void showPersonalBoardStage(Player player);
+
+        void showPersonalTileBoardStage(Player player);
+
+        void showLeaderCards(Player player);
+
+        void showGameException();
+
+        void notifyEndTurnStage();
+
+        void activeLeaderCard(String leaderName, int servants);
+
+        void discardLeader(String leaderName);
+    }
 }

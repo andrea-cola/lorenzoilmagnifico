@@ -4787,12 +4787,11 @@
     "points": {
       "FAITH": 0,
       "VICTORY": 0,
-      "MILITARY": 0
+      "MILITARY": 2
     }
   },
   "multipleRequisiteSelectionEnabled": true,
   "militaryPointsRequired": 4,
-  "militaryPointsToPay": 2,
   "immediateEffect": {
     "valuable": {
       "resources": {
@@ -5222,12 +5221,11 @@
     "points": {
       "FAITH": 0,
       "VICTORY": 0,
-      "MILITARY": 0
+      "MILITARY": 4
     }
   },
   "multipleRequisiteSelectionEnabled": true,
   "militaryPointsRequired": 7,
-  "militaryPointsToPay": 4,
   "immediateEffect": {
     "valuable": {
       "resources": {
