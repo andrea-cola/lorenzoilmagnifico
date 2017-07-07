@@ -29,20 +29,8 @@ import java.util.ArrayList;
  */
 public class PersonalBoardStage extends JFXPanel{
 
-    /**
-     * Constants
-     */
-    private static final int BACK_WIDTH = 582;
-    private static final int BACK_HEIGHT = 700;
-    private static final int GRID_HGAP = 5;
-    private static final int GRID_VGAP = 5;
-    private static final int GRID_X = 60;
-    private static final int GRID_Y = 10;
-    private final static int INSETS = 20;
-    private final static int IMAGE_WIDTH = 100;
-    private final static int IMAGE_HEIGHT = 150;
-    private final static int WIDTH = 800;
-    private final static int HEIGHT = 800;
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 500;
 
     /**
      * Main gui PersonalBoardStage objects
@@ -51,7 +39,6 @@ public class PersonalBoardStage extends JFXPanel{
     private AnchorPane root;
 
     PersonalBoardStage(Player player) {
-
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("fxml/personalBoard.fxml"));
@@ -62,6 +49,7 @@ public class PersonalBoardStage extends JFXPanel{
             e.printStackTrace();
         }
         Scene scene = new Scene(root);
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setScene(scene);
     }
 }

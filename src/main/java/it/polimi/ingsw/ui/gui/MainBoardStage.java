@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -145,7 +147,7 @@ public class MainBoardStage extends JFXPanel{
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("fxml/mainboard.fxml"));
-            leftPane = (AnchorPane) loader.load();
+            leftPane = (Parent) loader.load();
             root.getChildren().add(0, leftPane);
             LeftPaneController controller = loader.getController();
             controller.initData(this);

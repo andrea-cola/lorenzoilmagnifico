@@ -45,7 +45,6 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
                 }
             }
         }
-
         synchronized void pausePoint() {
             while (needToPause) {
                 try {
@@ -276,6 +275,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         MainBoard mainBoard = getClient().getGameModel().getMainBoard();
         DevelopmentCard card = null;
         ArrayList<DevelopmentCard> selectable = new ArrayList<>();
+        System.out.println("[ CHOOSE NEW CARD ]\nYou can pick up a new card. Choose among those proposal.");
         Printer.printInformationMessage("[ CHOOSE NEW CARD ]\nYou can pick up a new card. Choose between those proposal.");
 
         int i = 1;

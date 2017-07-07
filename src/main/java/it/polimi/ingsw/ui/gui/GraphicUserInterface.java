@@ -4,10 +4,12 @@ import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.AbstractUserInterface;
 import it.polimi.ingsw.ui.UserInterface;
+import javafx.scene.control.ChoiceBox;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.jar.JarEntry;
 
 /**
  * This class manage the graphic user interface of the game
@@ -34,7 +37,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     private final static String DATA_NOT_VALID = "Your data are not valid";
 
-    private final static int FRAME_HEIGHT = 900;
+    private final static int FRAME_HEIGHT = 700;
     private final static int FRAME_WIDTH = 1000;
 
     private final Lock lock = new ReentrantLock();
@@ -71,7 +74,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     public GraphicUserInterface(UserInterface controller) throws InterruptedException {
         super(controller);
         mainFrame = new JFrame("Lorenzo Il Magnifico");
-
         mainFrame.setUndecorated(false);
         mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -83,6 +85,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     }
 
     private void showStartingStage() {
+        mainFrame.setResizable(false);
         startingStage = new StartingStage();
         mainPanel.add(startingStage, START);
         mainFrame.setVisible(true);
@@ -334,53 +337,69 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (IllegalAccessException | InstantiationException |
-                UnsupportedLookAndFeelException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        ArrayList<Privilege> privilegeArrayList = new ArrayList<>();
-        JPanel panel = new JPanel();
-        String[] privil = {"1 WOOD & 1 SERVANT", "2 SERVANTS", "2 COINS", "2 MILITARY POINTS", "1 FAITH POINTS"};
-        JCheckBox[] checkBox = new JCheckBox[privil.length];
-        for (int i = 0; i < checkBox.length; i++) {
-            checkBox[i] = new JCheckBox(privil[i]);
-            panel.add(checkBox[i]);
-        }
-        System.out.println("CIAONE");
-        int result = JOptionPane.showConfirmDialog(null, panel, "Choose " + councilPrivilege.getNumberOfCouncilPrivileges() + " Privilege", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (result == JOptionPane.OK_OPTION) {
-            ArrayList<Integer> choiceList = new ArrayList();
-            int j = 0;
-            for (int i = 0; i < checkBox.length; i++) {
-                if (checkBox[i].isSelected())
-                    j++;
-            }
-            if (j != councilPrivilege.getNumberOfCouncilPrivileges())
-                this.showGameException();
-            else {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (IllegalAccessException | InstantiationException |
+                        UnsupportedLookAndFeelException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                ArrayList<Privilege> privilegeArrayList = new ArrayList<>();
+                JPanel panel = new JPanel();
+                String[] privil = {"1 WOOD & 1 SERVANT", "2 SERVANTS", "2 COINS", "2 MILITARY POINTS", "1 FAITH POINTS"};
+                JCheckBox[] checkBox = new JCheckBox[privil.length];
                 for (int i = 0; i < checkBox.length; i++) {
-                    if (checkBox[i].isSelected())
-                        choiceList.add(i);
+                    checkBox[i] = new JCheckBox(privil[i]);
+                    panel.add(checkBox[i]);
                 }
-                Privilege[] privileges = councilPrivilege.getPrivileges();
-                for (Integer choice : choiceList) {
-                    privilegeArrayList.add(privileges[choice]);
-                    privileges[choice].setNotAvailablePrivilege();
+                System.out.println("CIAONE");
+                int result = JOptionPane.showConfirmDialog(null, panel, "Choose " + councilPrivilege.getNumberOfCouncilPrivileges() + " Privilege", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (result == JOptionPane.OK_OPTION) {
+                    ArrayList<Integer> choiceList = new ArrayList();
+                    int j = 0;
+                    for (int i = 0; i < checkBox.length; i++) {
+                        if (checkBox[i].isSelected())
+                            j++;
+                    }
+                    if (j != councilPrivilege.getNumberOfCouncilPrivileges())
+                        showGameException();
+                    else {
+                        for (int i = 0; i < checkBox.length; i++) {
+                            if (checkBox[i].isSelected())
+                                choiceList.add(i);
+                        }
+                        Privilege[] privileges = councilPrivilege.getPrivileges();
+                        for (Integer choice : choiceList) {
+                            privilegeArrayList.add(privileges[choice]);
+                            privileges[choice].setNotAvailablePrivilege();
+                        }
+                        setPrivileges(privilegeArrayList);
+                    }
+                    JOptionPane.getRootFrame().dispose();
                 }
+                System.out.println("CIAONE 2");
+                if (getClient().getPlayerTurnChoices().containsKey(reason)) {
+                    ArrayList<Privilege> arrayList = (ArrayList<Privilege>) getClient().getPlayerTurnChoices().get(reason);
+                    arrayList.addAll(privilegeArrayList);
+                } else
+                    getClient().setPlayerTurnChoices(reason, privilegeArrayList);
+                System.out.println("CIAONE 3");
+
             }
-            JOptionPane.getRootFrame().dispose();
-        }
-        System.out.println("CIAONE 2");
-        if (getClient().getPlayerTurnChoices().containsKey(reason)) {
-            ArrayList<Privilege> arrayList = (ArrayList<Privilege>) getClient().getPlayerTurnChoices().get(reason);
-            arrayList.addAll(privilegeArrayList);
-        } else
-            getClient().setPlayerTurnChoices(reason, privilegeArrayList);
-        System.out.println("CIAONE 3");
-        return privilegeArrayList;
+        });
+        return getPrivileges();
     }
+
+    private synchronized void setPrivileges(ArrayList<Privilege> privileges){
+        this.privileges = privileges;
+    }
+
+    private synchronized ArrayList<Privilege> getPrivileges(){
+        return this.privileges;
+    }
+
 
     @Override
     public int chooseDoubleCost(PointsAndResources pointsAndResources, int militaryPointsGiven, int militaryPointsNeeded) {
