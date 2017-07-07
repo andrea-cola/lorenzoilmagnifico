@@ -155,19 +155,26 @@ public class DevelopmentCard implements Serializable{
     }
 
     public void payCost(Player player, InformationCallback informationCallback) throws GameException{
-        if(!multipleRequisiteSelectionEnabled || militaryPointsRequired < player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY)) {
-            player.getPersonalBoard().getValuables().checkDecrease(cost);
-        } else {
-            int choice = informationCallback.chooseDoubleCost(cost, militaryPointsToPay, militaryPointsRequired);
-            if(choice == 2) {
-                PointsAndResources pointsAndResources = new PointsAndResources();
-                pointsAndResources.increase(PointType.MILITARY, militaryPointsToPay);
-                player.getPersonalBoard().getValuables().checkDecrease(pointsAndResources);
+        if (multipleRequisiteSelectionEnabled){
+            if (militaryPointsRequired <= player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
+                    !player.getPersonalBoard().getValuables().checkDecrease(cost)) {
+                player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, militaryPointsToPay);
+            }else if(militaryPointsRequired > player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
+                    player.getPersonalBoard().getValuables().checkDecrease(cost)) {
+                player.getPersonalBoard().getValuables().decreaseAll(cost);
+            }else {
+                int choice = informationCallback.chooseDoubleCost(cost, militaryPointsToPay, militaryPointsRequired);
+                if(choice == 2)
+                    player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, militaryPointsToPay);
+                else
+                    player.getPersonalBoard().getValuables().decreaseAll(cost);
             }
-            else
-                player.getPersonalBoard().getValuables().checkDecrease(cost);
+        } else {
+            player.getPersonalBoard().getValuables().decreaseAll(cost);
         }
     }
+
+
 
     @Override
     public String toString(){

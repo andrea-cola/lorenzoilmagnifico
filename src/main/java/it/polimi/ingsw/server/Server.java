@@ -3,7 +3,7 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gameserver.Configurator;
 import it.polimi.ingsw.utility.Configuration;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.socketserver.SocketServer;
 import it.polimi.ingsw.gameserver.Room;
 import it.polimi.ingsw.rmiserver.RMIServer;
@@ -92,11 +92,11 @@ public class Server implements ServerInterface{
             Server server = new Server();
             server.startSocketRMIServer(SOCKET_PORT, RMI_PORT);
             server.startDatabase();
-            Debugger.printStandardMessage("Socket server ready.");
-            Debugger.printStandardMessage("RMI server ready.");
-            Debugger.printStandardMessage("SQL server ready.");
+            Printer.printStandardMessage("Socket server ready.");
+            Printer.printStandardMessage("RMI server ready.");
+            Printer.printStandardMessage("SQL server ready.");
         } catch(ServerException | SQLException e){
-            Debugger.printDebugMessage("Server.java", "Error while starting the server.", e);
+            Printer.printDebugMessage("Server.java", "Error while starting the server.", e);
         }
     }
 
@@ -193,12 +193,12 @@ public class Server implements ServerInterface{
                 playerRoom.rejoinRoom(serverPlayer);
                 serverPlayer.setRoom(playerRoom);
                 playerRoom.restorePlayerState(serverPlayer);
-                Debugger.printDebugMessage(serverPlayer.getUsername() + " rejoined in room #" + playerRoom.getRoomID());
+                Printer.printDebugMessage(serverPlayer.getUsername() + " rejoined in room #" + playerRoom.getRoomID());
             } else if (!rooms.isEmpty()) {
                 playerRoom = rooms.get(rooms.size() - 1);
                 playerRoom.joinRoom(serverPlayer);
                 serverPlayer.setRoom(playerRoom);
-                Debugger.printDebugMessage(serverPlayer.getUsername() + " joined in room #" + playerRoom.getRoomID());
+                Printer.printDebugMessage(serverPlayer.getUsername() + " joined in room #" + playerRoom.getRoomID());
             } else
                 throw new RoomException("There are no rooms available!");
         }
@@ -219,7 +219,7 @@ public class Server implements ServerInterface{
                 flag = true;
             }
             catch(RoomException e) {
-                Debugger.printStandardMessage(serverPlayer.getUsername() + " is creating a new room.");
+                Printer.printStandardMessage(serverPlayer.getUsername() + " is creating a new room.");
             }
             if(!flag){
                 Configuration configuration = Configurator.getConfiguration();
@@ -239,7 +239,7 @@ public class Server implements ServerInterface{
      */
     @Override
     public void disableUser(ServerPlayer player){
-        Debugger.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " is disabled.");
+        Printer.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " is disabled.");
         if(activePlayer.containsKey(player.getUsername()))
             this.activePlayer.put(player.getUsername(), false);
     }

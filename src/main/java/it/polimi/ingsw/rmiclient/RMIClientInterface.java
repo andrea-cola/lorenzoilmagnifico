@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.ClientUpdatePacket;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.server.ServerPlayer;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -28,5 +29,7 @@ public interface RMIClientInterface extends Remote{
     void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws RemoteException;
 
     void supportForTheChurch(boolean flag) throws RemoteException;
+
+    void notifyEndGame(ServerPlayer[] ranking) throws RemoteException;
 
 }

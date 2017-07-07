@@ -1,6 +1,6 @@
 package it.polimi.ingsw.socketserver;
 
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.exceptions.ServerException;
 import it.polimi.ingsw.server.AbstractServer;
 import it.polimi.ingsw.server.ServerInterface;
@@ -58,7 +58,7 @@ public class SocketServer extends AbstractServer {
                     SocketPlayer socketPlayer = new SocketPlayer(socket, getServer());
                     new Thread(socketPlayer).start();
                 } catch (IOException e) {
-                    Debugger.printDebugMessage(this.getClass().getSimpleName(), "Problem while socket accepting.");
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), "Problem while socket accepting.");
                     break;
                 }
             }

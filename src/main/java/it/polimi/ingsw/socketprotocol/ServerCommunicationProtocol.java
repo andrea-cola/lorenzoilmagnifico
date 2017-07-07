@@ -3,7 +3,8 @@ package it.polimi.ingsw.socketprotocol;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.server.ServerPlayer;
+import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.exceptions.LoginErrorType;
 import it.polimi.ingsw.exceptions.LoginException;
 
@@ -118,7 +119,7 @@ public class ServerCommunicationProtocol {
             output.writeObject(response);
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while handling sign in player request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while handling sign in player request.");
         }
     }
 
@@ -128,7 +129,7 @@ public class ServerCommunicationProtocol {
             serverCommunicationProtocolInterface.signInPlayer(username, password);
             response = CommunicationProtocolConstants.USER_LOGIN_SIGNIN_OK;
         }catch(LoginException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while signing in player request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while signing in player request.");
             if(e.getError().equals(LoginErrorType.USER_ALREADY_EXISTS))
                 response = CommunicationProtocolConstants.USER_ALREADY_EXISTS;
             else
@@ -151,7 +152,7 @@ public class ServerCommunicationProtocol {
             output.writeObject(response);
             output.flush();
         } catch(IOException | ClassCastException | ClassNotFoundException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(),"Error while handling loginPlayer request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(),"Error while handling loginPlayer request.");
         }
     }
 
@@ -161,7 +162,7 @@ public class ServerCommunicationProtocol {
             serverCommunicationProtocolInterface.loginPlayer(username, password);
             response = CommunicationProtocolConstants.USER_LOGIN_SIGNIN_OK;
         }catch(LoginException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while loginPlayer in the user: " + e.getError());
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while loginPlayer in the user: " + e.getError());
             if(e.getError().equals(LoginErrorType.USER_ALREADY_LOGGEDIN))
                 response = CommunicationProtocolConstants.USER_ALREADY_LOGGEDIN;
             else if(e.getError().equals(LoginErrorType.USER_WRONG_PASSWORD))
@@ -183,7 +184,7 @@ public class ServerCommunicationProtocol {
             output.writeObject(handleJoinRoom());
             output.flush();
         } catch (IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while joining room.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while joining room.");
         }
     }
 
@@ -208,7 +209,7 @@ public class ServerCommunicationProtocol {
             maxPlayersNumber = (int)input.readObject();
             serverCommunicationProtocolInterface.createNewRoom(maxPlayersNumber);
         } catch (ClassNotFoundException | ClassCastException | RoomException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error in creation room proceedings.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error in creation room proceedings.");
         }
     }
 
@@ -249,7 +250,7 @@ public class ServerCommunicationProtocol {
             PersonalBoardTile personalBoardTile = (PersonalBoardTile)input.readObject();
             serverCommunicationProtocolInterface.notifyPlayerPersonalBoardTileChoice(personalBoardTile);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error in sending player personal board.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error in sending player personal board.");
         }
     }
 
@@ -285,7 +286,7 @@ public class ServerCommunicationProtocol {
             LeaderCard leaderCard = (LeaderCard)input.readObject();
             serverCommunicationProtocolInterface.notifyPlayerLeaderCardChoice(leaderCard);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while obtaining leader card choice.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while obtaining leader card choice.");
         }
     }
 
@@ -326,7 +327,7 @@ public class ServerCommunicationProtocol {
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
             serverCommunicationProtocolInterface.setFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting tower as client.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while setting tower as client.");
         }
     }
 
@@ -338,7 +339,7 @@ public class ServerCommunicationProtocol {
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
             serverCommunicationProtocolInterface.setFamilyMemberInCouncil(familyMemberColor, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting council palace as client.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while setting council palace as client.");
         }
     }
 
@@ -351,7 +352,7 @@ public class ServerCommunicationProtocol {
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
             serverCommunicationProtocolInterface.setFamilyMemberInMarket(familyMemberColor, servants, marketIndex, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting market palace as client.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while setting market palace as client.");
         }
     }
 
@@ -363,7 +364,7 @@ public class ServerCommunicationProtocol {
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
             serverCommunicationProtocolInterface.setFamilyMemberInHarvestSimple(familyMemberColor, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting harvest simple area as client.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while setting harvest simple area as client.");
         }
     }
 
@@ -375,7 +376,7 @@ public class ServerCommunicationProtocol {
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
             serverCommunicationProtocolInterface.setFamilyMemberInHarvestExtended(familyMemberColor, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting harvest extended area as client.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while setting harvest extended area as client.");
         }
     }
 
@@ -387,7 +388,7 @@ public class ServerCommunicationProtocol {
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
             serverCommunicationProtocolInterface.setFamilyMemberInProductionSimple(familyMemberColor, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting production simple area as client.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while setting production simple area as client.");
         }
     }
 
@@ -399,7 +400,7 @@ public class ServerCommunicationProtocol {
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
             serverCommunicationProtocolInterface.setFamilyMemberInProductionExtended(familyMemberColor, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while setting production extended as client.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while setting production extended as client.");
         }
     }
 
@@ -411,7 +412,7 @@ public class ServerCommunicationProtocol {
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
             serverCommunicationProtocolInterface.activateLeaderCard(leaderCardIndex, servants, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while activating the leader.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while activating the leader.");
         }
     }
 
@@ -422,7 +423,7 @@ public class ServerCommunicationProtocol {
             Map<String, Object> choices = (Map<String, Object>)input.readObject();
             serverCommunicationProtocolInterface.discardLeader(leaderCardIndex, choices);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while discarding the leader.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while discarding the leader.");
         }
     }
 
@@ -431,7 +432,18 @@ public class ServerCommunicationProtocol {
             boolean choice = (boolean)input.readObject();
             serverCommunicationProtocolInterface.notifySupportForTheChurch(choice);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Error while notifying your support for the church choice.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while notifying your support for the church choice.");
+        }
+    }
+
+    public void notifyEndGame(ServerPlayer[] ranking){
+        try{
+            output.reset();
+            output.writeObject(CommunicationProtocolConstants.GAME_END);
+            output.writeObject(ranking);
+            output.flush();
+        } catch (IOException e){
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while communicating final ranking.");
         }
     }
 

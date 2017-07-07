@@ -1,0 +1,5719 @@
+[
+{
+  "name": "Avamposto Commerciale",
+  "id": 1,
+  "period": 1,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 1,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Bosco",
+  "id": 2,
+  "period": 1,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 1,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 2,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 1,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Borgo",
+  "id": 3,
+  "period": 1,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 3,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 1,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},{
+  "name": "Cava di Ghiaia",
+  "id": 4,
+  "period": 1,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 2,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 4,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 2,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Foresta",
+  "id": 5,
+  "period": 1,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 1,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 5,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 3,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Monastero",
+  "id": 6,
+  "period": 1,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 1,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 2
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 6,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 1,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Rocca",
+  "id": 7,
+  "period": 1,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 5,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 1,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 2
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Città",
+  "id": 8,
+  "period": 1,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 3
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 6,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 1,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Miniera d\u0027oro",
+  "id": 9,
+  "period": 2,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 1,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 2
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Villaggio Montano",
+  "id": 10,
+  "period": 2,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 1,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 3,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 2,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 1
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Villaggio Minerario",
+  "id": 11,
+  "period": 2,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 2,
+        "STONE": 1,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 4,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 1,
+        "STONE": 2,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Cava di Pietra",
+  "id": 12,
+  "period": 2,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 1,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 3,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 1,
+        "STONE": 3,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Possedimento",
+  "id": 13,
+  "period": 2,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 2,
+        "STONE": 0,
+        "WOOD": 1,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 4,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 2,
+        "COIN": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Eremo",
+  "id": 14,
+  "period": 2,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 2,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Maniero",
+  "id": 15,
+  "period": 2,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 5,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 2,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 2
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Ducato",
+  "id": 16,
+  "period": 2,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 4
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 6,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 1,
+        "WOOD": 2,
+        "COIN": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Città Mercantile",
+  "id": 17,
+  "period": 3,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 1,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 1,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 3
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Tenuta",
+  "id": 18,
+  "period": 3,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 1,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 1,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 3,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 2,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Colonia",
+  "id": 19,
+  "period": 3,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 2
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 5,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 1,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Cava di Marmo",
+  "id": 20,
+  "period": 3,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 3,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 2,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 2,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 1,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Provincia",
+  "id": 21,
+  "period": 3,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 1,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 6,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 1,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Santuario",
+  "id": 22,
+  "period": 3,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 1,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 1
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Castello",
+  "id": 23,
+  "period": 3,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 2
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 4,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 1,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 3
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Città Fortificata",
+  "id": 24,
+  "period": 3,
+  "cardColor": "GREEN",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 1,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 2
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 2,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 2,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 1
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Zecca",
+  "id": 25,
+  "period": 1,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 3,
+      "WOOD": 1,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0 ,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 5,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorRequisite": "YELLOW",
+    "valuableRequisite": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardOrResources": true,
+    "effectType": "EffectMultiplicator"
+  }
+},
+{
+  "name": "Esattoria",
+  "id": 26,
+  "period": 1,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 1,
+      "WOOD": 3,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 5,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardColorRequisite": "GREEN",
+    "valuableRequisite": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardOrResources": true,
+    "effectType": "EffectMultiplicator"
+  }
+},
+{
+  "name": "Arco di Trionfo",
+  "id": 27,
+  "period": 1,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 2,
+      "WOOD": 0,
+      "COIN": 2
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 6,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 6,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 1,
+        "MILITARY": 0
+      }
+    },
+    "cardColorRequisite": "PURPLE",
+    "valuableRequisite": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardOrResources": true,
+    "effectType": "EffectMultiplicator"
+  }
+},
+{
+  "name": "Teatro",
+  "id": 28,
+  "period": 1,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 2,
+      "COIN": 2
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 6,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 6,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 1,
+        "MILITARY": 0
+      }
+    },
+    "cardColorRequisite": "BLUE",
+    "valuableRequisite": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardOrResources": true,
+    "effectType": "EffectMultiplicator"
+  }
+},
+{
+  "name": "Falegnameria",
+  "id": 29,
+  "period": 1,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 2,
+      "COIN": 1
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 3,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 4,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 1,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 2,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 3
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 5
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Tagliapietre",
+  "id": 30,
+  "period": 1,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 2,
+      "WOOD": 0,
+      "COIN": 1
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 3,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 1,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 2,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 3
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 5
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Cappella",
+  "id": 31,
+  "period": 1,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 2,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 2,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 1
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 1,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Residenza",
+  "id": 32,
+  "period": 1,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 2,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 1,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 1,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 1
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Mercato",
+  "id": 33,
+  "period": 2,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 1,
+      "WOOD": 2,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 3,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 3,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 3
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 2,
+          "WOOD": 2,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Tesoreria",
+  "id": 34,
+  "period": 2,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 3,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 3,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 1
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 2
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 3,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 5,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Gilda dei Pittori",
+  "id": 35,
+  "period": 2,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 4,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 4,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 1,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 3,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 3,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 7,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Gilda degli Scultori",
+  "id": 36,
+  "period": 2,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 4,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 6,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 5,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 1,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 3,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 3,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 7,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Gilda degli Costruttori",
+  "id": 37,
+  "period": 2,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 2,
+      "WOOD": 1,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 4,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 1,
+          "STONE": 1,
+          "WOOD": 1,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 6,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Battistero",
+  "id": 38,
+  "period": 2,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 3,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 2,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 1,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 2
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 2,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Caserma",
+  "id": 39,
+  "period": 2,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 1,
+      "WOOD": 1,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 3,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 1,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 1,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 3
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Fortezza",
+  "id": 40,
+  "period": 2,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 2,
+      "WOOD": 2,
+      "COIN": 2
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 8,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 6,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 2
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Banca",
+  "id": 41,
+  "period": 3,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 3,
+      "WOOD": 1,
+      "COIN": 3
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 7,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 2,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 5
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Fiera",
+  "id": 42,
+  "period": 3,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 3,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 8,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 4,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 4
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 3,
+          "WOOD": 3,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Giardino",
+  "id": 43,
+  "period": 3,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 2,
+      "STONE": 2,
+      "WOOD": 4,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 10,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 1,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 3,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Castelletto",
+  "id": 44,
+  "period": 3,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 4,
+      "WOOD": 2,
+      "COIN": 2
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 9,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 5,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Castelletto",
+  "id": 45,
+  "period": 3,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 1,
+      "WOOD": 3,
+      "COIN": 3
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 9,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 6,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 1
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 2,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 4,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Basilica",
+  "id": 46,
+  "period": 3,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 4,
+      "WOOD": 1,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 1,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 1,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 1,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 2,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 2,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Accademia Militare",
+  "id": 47,
+  "period": 3,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 1,
+      "STONE": 2,
+      "WOOD": 2,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 7,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 3,
+    "actionType": "PRODUCTION",
+    "valuableToPay": [
+      {
+        "resources": {
+          "SERVANT": 1,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "valuableEarned": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 1,
+          "MILITARY": 3
+        }
+      }
+    ],
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionExchange"
+  }
+},
+{
+  "name": "Cattedrale",
+  "id": 48,
+  "period": 3,
+  "cardColor": "YELLOW",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 4,
+      "WOOD": 4,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 3,
+        "VICTORY": 7,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceActionValue": 2,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 1,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectHarvestProductionSimple"
+  }
+},
+{
+  "name": "Condottiero",
+  "id": 49,
+  "period": 1,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 2
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 3
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "colors": [
+      "GREEN"
+    ],
+    "diceValueBonus": 2,
+    "pickUpDiscounts": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "effectType": "EffectCardBonus"
+  }
+},
+{
+  "name": "Costruttore",
+  "id": 50,
+  "period": 1,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "colors": [
+      "YELLOW"
+    ],
+    "diceValueBonus": 2,
+    "pickUpDiscounts": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 1,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      },
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 1,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "effectType": "EffectCardBonus"
+  }
+},
+{
+  "name": "Dama",
+  "id": 51,
+  "period": 1,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "colors": [
+      "BLUE"
+    ],
+    "diceValueBonus": 2,
+    "pickUpDiscounts": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 1
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "effectType": "EffectCardBonus"
+  }
+},
+{
+  "name": "Cavaliere",
+  "id": 52,
+  "period": 1,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 2
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "colors": [
+      "PURPLE"
+    ],
+    "diceValueBonus": 2,
+    "pickUpDiscounts": [
+      {
+        "resources": {
+          "SERVANT": 0,
+          "STONE": 0,
+          "WOOD": 0,
+          "COIN": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "VICTORY": 0,
+          "MILITARY": 0
+        }
+      }
+    ],
+    "effectType": "EffectCardBonus"
+  }
+},
+{
+  "name": "Contadino",
+  "id": 53,
+  "period": 1,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 3
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceValueBonus": 2,
+    "actionType": "HARVEST",
+    "effectType": "EffectHarvestProductionBonus"
+  }
+},
+{
+  "name": "Artigiano",
+  "id": 54,
+  "period": 1,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 3
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "diceValueBonus": 2,
+    "actionType": "PRODUCTION",
+    "effectType": "EffectHarvestProductionBonus"
+  }
+},
+{
+  "name": "Predicatore",
+  "id": 55,
+  "period": 1,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 2
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 4,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "floors": [
+      5,
+      7
+    ],
+    "effectType": "EffectNoBonus"
+  }
+},
+{
+  "name": "Badessa",
+  "id": 56,
+  "period": 1,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 3
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "developmentCardColors": [
+      "PURPLE",
+      "BLUE",
+      "GREEN",
+      "YELLOW"
+    ],
+    "diceValue": 4,
+    "pointsAndResources": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "pickUpBonus": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectChooseCard"
+  }
+},
+{
+  "name": "Capitano",
+  "id": 57,
+  "period": 2,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "developmentCardColors": [
+      "GREEN"
+    ],
+    "diceValue": 6,
+    "pointsAndResources": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 2
+      }
+    },
+    "pickUpBonus": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectChooseCard"
+  }
+},
+{
+  "name": "Architetto",
+  "id": 58,
+  "period": 2,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "developmentCardColors": [
+      "YELLOW"
+    ],
+    "diceValue": 6,
+    "pointsAndResources": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "pickUpBonus": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 1,
+        "WOOD": 1,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectChooseCard"
+  }
+},
+{
+  "name": "Mecenate",
+  "id": 59,
+  "period": 2,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "developmentCardColors": [
+      "BLUE"
+    ],
+    "diceValue": 6,
+    "pointsAndResources": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "pickUpBonus": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 2
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectChooseCard"
+  }
+},
+{
+  "name": "Eroe",
+  "id": 60,
+  "period": 2,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "developmentCardColors": [
+      "PURPLE"
+    ],
+    "diceValue": 6,
+    "pointsAndResources": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "pickUpBonus": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectChooseCard"
+  }
+},
+{
+  "name": "Fattore",
+  "id": 61,
+  "period": 2,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "permanentEffect": {
+    "diceValueBonus": 3,
+    "actionType": "HARVEST",
+    "effectType": "EffectHarvestProductionBonus"
+  }
+},
+{
+  "name": "Studioso",
+  "id": 62,
+  "period": 2,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "permanentEffect": {
+    "diceValueBonus": 3,
+    "actionType": "PRODUCTION",
+    "effectType": "EffectHarvestProductionBonus"
+  }
+},
+{
+  "name": "Messo Papale",
+  "id": 63,
+  "period": 2,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 5
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 3,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  }
+},
+{
+  "name": "Messo Reale",
+  "id": 64,
+  "period": 2,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 5
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 3,
+    "effectType": "EffectSimple"
+  }
+},
+{
+  "name": "Nobile",
+  "id": 65,
+  "period": 3,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 6
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "diceActionValue": 0,
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "cardColorRequisite": "GREEN",
+    "valuableRequisite": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardOrResources": true,
+    "effectType": "EffectMultiplicator"
+  }
+},
+{
+  "name": "Governatore",
+  "id": 66,
+  "period": 3,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 6
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "diceActionValue": 0,
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "cardColorRequisite": "YELLOW",
+    "valuableRequisite": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardOrResources": true,
+    "effectType": "EffectMultiplicator"
+  }
+},
+{
+  "name": "Cortigiana",
+  "id": 67,
+  "period": 3,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 6
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "diceActionValue": 0,
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "cardColorRequisite": "BLUE",
+    "valuableRequisite": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardOrResources": true,
+    "effectType": "EffectMultiplicator"
+  }
+},
+{
+  "name": "Araldo",
+  "id": 68,
+  "period": 3,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 6
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "diceActionValue": 0,
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "cardColorRequisite": "PURPLE",
+    "valuableRequisite": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "cardOrResources": true,
+    "effectType": "EffectMultiplicator"
+  }
+},
+{
+  "name": "Cardinale",
+  "id": 69,
+  "period": 3,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "diceActionValue": 4,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 2,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  }
+},
+{
+  "name": "Vescovo",
+  "id": 70,
+  "period": 3,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 5
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "diceActionValue": 4,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  }
+},
+{
+  "name": "Generale",
+  "id": 71,
+  "period": 3,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 5
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "diceActionValue": 0,
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 1,
+        "MILITARY": 0
+      }
+    },
+    "valuableRequisite": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 2
+      }
+    },
+    "cardOrResources": false,
+    "effectType": "EffectMultiplicator"
+  }
+},
+{
+  "name": "Ambasciatore",
+  "id": 72,
+  "period": 3,
+  "cardColor": "BLUE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 6
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "developmentCardColors": [
+      "PURPLE",
+      "YELLOW",
+      "GREEN",
+      "BLUE"
+    ],
+    "diceValue": 7,
+    "pointsAndResources": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "pickUpBonus": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectChooseCard"
+  }
+},
+{
+  "name": "Ingaggiare Reclute",
+  "id": 73,
+  "period": 1,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 5
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Riparare la Chiesa",
+  "id": 74,
+  "period": 1,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 1,
+      "WOOD": 1,
+      "COIN": 1
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Costruire le Mura",
+  "id": 75,
+  "period": 1,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 3,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 2
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 3,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Innalzare una Statua",
+  "id": 76,
+  "period": 1,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 2,
+      "WOOD": 2,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 2,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Campagna Militare",
+  "id": 77,
+  "period": 1,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 2
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 3,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 3
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Ospitare i Mendicanti",
+  "id": 78,
+  "period": 1,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 3,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 4,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+
+{
+  "name": "Combattere le Eresie",
+  "id": 79,
+  "period": 1,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 3
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 5,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 2,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Sostegno al Vescovo",
+  "id": 80,
+  "period": 1,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 1,
+      "WOOD": 1,
+      "COIN": 2
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": true,
+  "militaryPointsRequired": 4,
+  "militaryPointsToPay": 2,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 3,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 1,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Ingaggiare Soldati",
+  "id": 81,
+  "period": 2,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 6
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 6
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Riparare l\u0027Abbazia",
+  "id": 82,
+  "period": 2,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 2,
+      "WOOD": 2,
+      "COIN": 2
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 2,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 6,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Costruire i Bastioni",
+  "id": 83,
+  "period": 2,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 4,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 3
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 2,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Supporto al Re",
+  "id": 84,
+  "period": 2,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 3
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 6,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 5
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 3,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Scavare Conalizzazioni",
+  "id": 85,
+  "period": 2,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 2,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 3
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "diceValueBonus": 4,
+    "actionType": "HARVEST",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 3
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Accogliere gli Stranieri",
+  "id": 86,
+  "period": 2,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 4,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 5,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Crociata",
+  "id": 87,
+  "period": 2,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 4
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 8,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 5
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Sostegno al Cardinale",
+  "id": 88,
+  "period": 2,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 2,
+      "WOOD": 2,
+      "COIN": 3
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": true,
+  "militaryPointsRequired": 7,
+  "militaryPointsToPay": 4,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 3,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Ingaggiare Mercenari",
+  "id": 89,
+  "period": 3,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 8
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 7
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 6,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Riparare la Cattedrale",
+  "id": 90,
+  "period": 3,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 3,
+      "WOOD": 3,
+      "COIN": 3
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "developmentCardColors": [
+      "PURPLE",
+      "BLUE",
+      "GREEN",
+      "YELLOW"
+    ],
+    "diceValue": 7,
+    "pointsAndResources": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 1,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "pickUpBonus": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectChooseCard"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Costruire le Torri",
+  "id": 91,
+  "period": 3,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 6,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 4
+      }
+    },
+    "numberOfCouncilPrivileges": 1,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 4,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Commissionare Arte Sacra",
+  "id": 92,
+  "period": 3,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 6,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 3,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 3,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Conquista Militare",
+  "id": 93,
+  "period": 3,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 6
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 12,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 3,
+        "WOOD": 3,
+        "COIN": 3
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 7,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Migliorare le Strade",
+  "id": 94,
+  "period": 3,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 3,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 0
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 0,
+  "immediateEffect": {
+    "diceValueBonus": 3,
+    "actionType": "PRODUCTION",
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 3
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 5,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Guerra Santa",
+  "id": 95,
+  "period": 3,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 0,
+      "WOOD": 0,
+      "COIN": 0
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 8
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 15,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 4,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 8,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+},
+{
+  "name": "Sostegno al Papa",
+  "id": 96,
+  "period": 3,
+  "cardColor": "PURPLE",
+  "cost": {
+    "resources": {
+      "SERVANT": 0,
+      "STONE": 3,
+      "WOOD": 3,
+      "COIN": 4
+    },
+    "points": {
+      "FAITH": 0,
+      "VICTORY": 0,
+      "MILITARY": 5
+    }
+  },
+  "multipleRequisiteSelectionEnabled": false,
+  "militaryPointsRequired": 10,
+  "immediateEffect": {
+    "valuable": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 2,
+        "VICTORY": 0,
+        "MILITARY": 0
+      }
+    },
+    "numberOfCouncilPrivileges": 0,
+    "effectType": "EffectSimple"
+  },
+  "permanentEffect": {
+    "finalVictoryPoints": {
+      "resources": {
+        "SERVANT": 0,
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "VICTORY": 10,
+        "MILITARY": 0
+      }
+    },
+    "effectType": "EffectFinalPoints"
+  }
+}
+]

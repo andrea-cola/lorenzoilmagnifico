@@ -1,0 +1,273 @@
+[
+{
+  "period": 1,
+  "cardID": 1,
+  "effect": {
+    "valuablesMalus": {
+      "resources": {
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0,
+        "SERVANT": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "MILITARY": 1,
+        "VICTORY": 0
+      }
+    },
+    "effectType": "ExcommunicationEffectSimple"
+  }
+},
+{
+  "period": 1,
+  "cardID": 2,
+  "effect": {
+    "valuablesMalus": {
+      "resources": {
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 1,
+        "SERVANT": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "MILITARY": 0,
+        "VICTORY": 0
+      }
+    },
+    "effectType": "ExcommunicationEffectSimple"
+  }
+},
+{
+  "period": 1,
+  "cardID": 3,
+  "effect": {
+    "valuablesMalus": {
+      "resources": {
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0,
+        "SERVANT": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "MILITARY": 0,
+        "VICTORY": 0
+      }
+    },
+    "effectType": "ExcommunicationEffectSimple"
+  }
+},
+{
+  "period": 1,
+  "cardID": 4,
+  "effect": {
+    "valuablesMalus": {
+      "resources": {
+        "STONE": 1,
+        "WOOD": 1,
+        "COIN": 0,
+        "SERVANT": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "MILITARY": 0,
+        "VICTORY": 0
+      }
+    },
+    "effectType": "ExcommunicationEffectSimple"
+  }
+},
+{
+  "period": 1,
+  "cardID": 5,
+  "effect": {
+    "harvestProductionDiceMalus": 3,
+    "actionType": "HARVEST",
+    "effectType": "ExcommunicationEffectHarvestProduction"
+  }
+},
+{
+  "period": 1,
+  "cardID": 6,
+  "effect": {
+    "harvestProductionDiceMalus": 3,
+    "actionType": "PRODUCTION",
+    "effectType": "ExcommunicationEffectHarvestProduction"
+  }
+},
+{
+  "period": 1,
+  "cardID": 7,
+  "effect": {
+    "blackDiceMalus": 1,
+    "whiteDiceMalus": 1,
+    "orangeDiceMalus": 1,
+    "effectType": "ExcommunicationEffectDiceMalus"
+  }
+},
+{
+  "period": 2,
+  "cardID": 8,
+  "effect": {
+    "developmentCardColor": "GREEN",
+    "diceMalus": 4,
+    "effectType": "ExcommunicationEffectDevCard"
+  }
+},
+{
+  "period": 2,
+  "cardID": 9,
+  "effect": {
+    "developmentCardColor": "YELLOW",
+    "diceMalus": 4,
+    "effectType": "ExcommunicationEffectDevCard"
+  }
+},
+{
+  "period": 2,
+  "cardID": 10,
+  "effect": {
+    "developmentCardColor": "BLUE",
+    "diceMalus": 4,
+    "effectType": "ExcommunicationEffectDevCard"
+  }
+},
+{
+  "period": 2,
+  "cardID": 11,
+  "effect": {
+    "developmentCardColor": "PURPLE",
+    "diceMalus": 4,
+    "effectType": "ExcommunicationEffectDevCard"
+  }
+},
+  {
+    "period": 2,
+    "cardID": 12,
+    "effect": {
+      "effectType": "ExcommunicationEffectMarket"
+    }
+  },
+  {
+    "period": 2,
+    "cardID": 13,
+    "effect": {
+      "numberOfSlaves": 2,
+      "effectType": "ExcommunicationEffectNumberOfSlaves"
+    }
+  },
+  {
+    "period": 2,
+    "cardID": 14,
+    "effect": {
+      "effectType": "ExcommunicationEffectSkipFirstTurn"
+    }
+  },
+  {
+    "period": 3,
+    "cardID": 15,
+    "effect": {
+      "developmentCardColor": "BLUE",
+      "effectType": "ExcommunicationEffectNoVictoryPoints"
+    }
+  },
+  {
+    "period": 3,
+    "cardID": 16,
+    "effect": {
+      "developmentCardColor": "PURPLE",
+      "effectType": "ExcommunicationEffectNoVictoryPoints"
+    }
+  },
+  {
+    "period": 3,
+    "cardID": 17,
+    "effect": {
+      "developmentCardColor": "GREEN",
+      "effectType": "ExcommunicationEffectNoVictoryPoints"
+    }
+  },
+{
+  "period": 3,
+  "cardID": 18,
+  "effect": {
+    "valuablesOwnedIndex": {
+      "resources": {
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0,
+        "SERVANT": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "MILITARY": 0,
+        "VICTORY": 5
+      }
+    },
+    "effectType": "ExcommunicationEffectLoseVictoryPoints"
+  }
+},
+{
+  "period": 3,
+  "cardID": 19,
+  "effect": {
+    "valuablesOwnedIndex": {
+      "resources": {
+        "STONE": 0,
+        "WOOD": 0,
+        "COIN": 0,
+        "SERVANT": 0
+      },
+      "points": {
+        "FAITH": 0,
+        "MILITARY": 1,
+        "VICTORY": 0
+      }
+    },
+    "effectType": "ExcommunicationEffectLoseVictoryPoints"
+  }
+},
+  {
+    "period": 3,
+    "cardID": 20,
+    "effect": {
+      "cardValuables": {
+        "resources": {
+          "STONE": 1,
+          "WOOD": 1,
+          "COIN": 0,
+          "SERVANT": 0
+        },
+        "points": {
+          "FAITH": 0,
+          "MILITARY": 0,
+          "VICTORY": 0
+        }
+      },
+      "effectType": "ExcommunicationEffectDevCardLoseVictoryPoints"
+    }
+  },
+{
+  "period": 3,
+  "cardID": 21,
+  "effect": {
+    "valuablesOwnedIndex": {
+      "resources": {
+        "STONE": 1,
+        "WOOD": 1,
+        "COIN": 1,
+        "SERVANT": 1
+      },
+      "points": {
+        "FAITH": 0,
+        "MILITARY": 0,
+        "VICTORY": 0
+      }
+    },
+    "effectType": "ExcommunicationEffectLoseVictoryPoints"
+  }
+}
+]
+

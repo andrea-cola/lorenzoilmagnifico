@@ -1,11 +1,19 @@
 package it.polimi.ingsw.ui.gui;
 
+<<<<<<< HEAD
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
 import it.polimi.ingsw.utility.Debugger;
 import javafx.scene.control.ChoiceBox;
+=======
+import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.PersonalBoardTile;
+import it.polimi.ingsw.server.ServerPlayer;
+import it.polimi.ingsw.ui.AbstractUI;
+import it.polimi.ingsw.ui.UiController;
+>>>>>>> 0172d3abdc13f7ca372aca5e35b2e36970d79191
 
 import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
@@ -411,6 +419,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         this.key = key;
     }
 
+<<<<<<< HEAD
     private synchronized int getKeyValue(){
         return key;
     }
@@ -645,3 +654,11 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         }
     }
 }
+=======
+    @Override
+    public void notifyEndGame(ServerPlayer[] ranking) {
+
+    }
+
+}
+>>>>>>> 0172d3abdc13f7ca372aca5e35b2e36970d79191

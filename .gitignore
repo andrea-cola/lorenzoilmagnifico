@@ -11,8 +11,6 @@
 *.class
 /target/*
 target/*
-src/test/
-/src/test/
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/

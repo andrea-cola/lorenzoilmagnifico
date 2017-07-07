@@ -22,6 +22,10 @@ public class Player implements Serializable{
      */
     private PersonalBoard personalBoard;
 
+    public Player(){
+        this.personalBoard = new PersonalBoard();
+    }
+
     /**
      * Method to set player username.
      * @param username of the player

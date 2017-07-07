@@ -6,8 +6,8 @@ import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.utility.Configuration;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.server.ServerPlayer;
+import it.polimi.ingsw.utility.Printer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -66,6 +66,7 @@ public class ClientCommunicationProtocol {
         responseTable.put(CommunicationProtocolConstants.TURN_STARTED, this::notifyTurnStarted);
         responseTable.put(CommunicationProtocolConstants.MODEL_UPDATE, this::notifyModelUpdate);
         responseTable.put(CommunicationProtocolConstants.SUPPORT_FOR_THE_CHURCH, this::supportForTheChurch);
+        responseTable.put(CommunicationProtocolConstants.GAME_END, this::notifyGameEnd);
     }
 
     /**
@@ -155,7 +156,7 @@ public class ClientCommunicationProtocol {
             Game game = (Game)objectInputStream.readObject();
             clientInterface.setGameModel(game);
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle receive game info request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle receive game info request.");
         }
     }
 
@@ -164,7 +165,7 @@ public class ClientCommunicationProtocol {
             boolean flag = (boolean)objectInputStream.readObject();
             clientInterface.supportForTheChurch(flag);
         } catch (ClassNotFoundException | ClassCastException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle support for the church request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle support for the church request.");
         }
     }
 
@@ -174,7 +175,16 @@ public class ClientCommunicationProtocol {
             List<PersonalBoardTile> personalBoardTileList = (List<PersonalBoardTile>)objectInputStream.readObject();
             clientInterface.choosePersonalBoardTile(personalBoardTileList);
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle personal board tile request from server.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle personal board tile request from server.");
+        }
+    }
+
+    private void notifyGameEnd(){
+        try{
+            ServerPlayer[] players = (ServerPlayer[])objectInputStream.readObject();
+            clientInterface.notifyEndGame(players);
+        } catch (ClassCastException | ClassNotFoundException | IOException e) {
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle game end notification");
         }
     }
 
@@ -195,7 +205,7 @@ public class ClientCommunicationProtocol {
             List<LeaderCard> leaderCards = (List<LeaderCard>)objectInputStream.readObject();
             clientInterface.chooseLeaderCards(leaderCards);
         } catch (ClassCastException | ClassNotFoundException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle leader card request from server.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle leader card request from server.");
         }
     }
 
@@ -216,7 +226,7 @@ public class ClientCommunicationProtocol {
             long seconds = (long)objectInputStream.readObject();
             clientInterface.notifyTurnStarted(username, seconds);
         } catch (ClassCastException | ClassNotFoundException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle notify turn started.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle notify turn started.");
         }
     }
 
@@ -225,7 +235,7 @@ public class ClientCommunicationProtocol {
             ClientUpdatePacket clientUpdatePacket = (ClientUpdatePacket)objectInputStream.readObject();
             clientInterface.notifyModelUpdate(clientUpdatePacket);
         } catch (ClassCastException | ClassNotFoundException | IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle new model update request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot handle new model update request.");
         }
     }
 
@@ -371,7 +381,7 @@ public class ClientCommunicationProtocol {
             objectOutputStream.writeObject(CommunicationProtocolConstants.END_TURN);
             objectOutputStream.flush();
         } catch (IOException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify end turn.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify end turn.");
         }
     }
 

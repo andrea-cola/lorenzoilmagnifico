@@ -124,35 +124,91 @@ public class TowerCell implements Serializable{
      */
     /*package-local*/ void developmentCardCanBeBuyed(Player player, InformationCallback informationCallback) throws GameException{
         //check if the user has less than six cards of this development card color inside the personal board
+        checkCardLimit(player);
+
+        //set the discount
+        PointsAndResources discount = setCardDiscount(player, informationCallback);
+
+        //Check if the player has enough resources to buy the development card
+        checkResourcesToBuyTheCard(player, discount);
+
+        //check if the player has military points enough to get the territory card
+        checkMilitaryPointsToGetTheCard(player);
+
+        //give back resources based on discount
+        giveDiscountResources(player, discount);
+    }
+
+    /**
+     * This method check if the player has reached the maximum limit of cards
+     * @param player
+     * @throws GameException
+     */
+    private void checkCardLimit(Player player) throws GameException{
         if (player.getPersonalBoard().getCards(this.developmentCard.getColor()).size() > 6)
             throw new GameException(GameErrorType.PERSONAL_BOARD_MAX_CARD_LIMIT_REACHED);
+    }
 
-        PointsAndResources discount;
+    /**
+     * This method sets the discount that the card can provide
+     * @param player
+     * @param informationCallback
+     * @return discount
+     */
+    private PointsAndResources setCardDiscount(Player player, InformationCallback informationCallback){
+        //if there is just one choice, set discount immediately
+        PointsAndResources discount = new PointsAndResources();
         if(player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).size() == 1) {
             discount = player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).get(0);
         }
+        //if there is more than one choice, let the player to choose and then set the discount
         else if(player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).size() > 1){
             int choice = informationCallback.choosePickUpDiscounts("discount", player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()));
             discount = player.getPersonalBoard().getCostDiscountForDevelopmentCard(developmentCard.getColor()).get(choice);
         }
-        else{
-            discount = new PointsAndResources();
-        }
+        return discount;
+    }
 
-
-        //Check if the player has enough resources to buy the development card
-        for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
-            if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
-                    > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
-                throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+    /**
+     * This method checks if the player has resources enough to buy the card
+     * @param player
+     * @param discount
+     * @throws GameException
+     */
+    public void checkResourcesToBuyTheCard(Player player, PointsAndResources discount) throws GameException{
+        boolean flag  = false;
+        if (this.developmentCard.getMultipleRequisiteSelectionEnabled()){
+            if (player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) >= this.developmentCard.getMilitaryPointsRequired()){
+                flag = true;
+            }
+            try{
+                for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
+                    if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
+                            > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                        throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+                    }
+                }
+                flag = true;
+            }catch(GameException e){
+                if(!flag)
+                    throw e;
+            }
+        } else {
+            for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
+                if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
+                        > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                    throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+                }
             }
         }
+    }
 
-        for(Map.Entry<ResourceType, Integer> entry : discount.getResources().entrySet()){
-            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
-        }
-
-        //check if the player has military points enough to get the territory card
+    /**
+     * This method checks if the player has military points enough to buy the card
+     * @param player
+     * @throws GameException
+     */
+    private void checkMilitaryPointsToGetTheCard(Player player) throws GameException{
         if (this.developmentCard.getColor().equals(DevelopmentCardColor.GREEN)){
             //amount of territory cards already owned by the user
             int amount = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size();
@@ -167,11 +223,14 @@ public class TowerCell implements Serializable{
         }
     }
 
-    public void developmentCardCanBeBuyed(Player player, PointsAndResources discount) throws GameException{
-        for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
-            if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
-                throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
-            }
+    /**
+     * This method give the resources selected as a discount after the full payment of the development card
+     * @param player
+     * @param discount
+     */
+    private void giveDiscountResources(Player player, PointsAndResources discount){
+        for(Map.Entry<ResourceType, Integer> entry : discount.getResources().entrySet()){
+            player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
         }
     }
 

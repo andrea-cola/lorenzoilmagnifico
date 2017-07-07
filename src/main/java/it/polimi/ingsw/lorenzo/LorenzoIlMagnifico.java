@@ -2,9 +2,10 @@ package it.polimi.ingsw.lorenzo;
 
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
-import it.polimi.ingsw.utility.Debugger;
+import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.rmiclient.RMIClient;
@@ -87,10 +88,10 @@ import java.util.Map;
             this.username = username;
             userInterface.joinRoomScreen();
         }catch (LoginException e) {
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), e.getError().toString());
+            Printer.printDebugMessage(this.getClass().getSimpleName(), e.getError().toString());
             userInterface.loginScreen();
         }catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
         }
     }
 
@@ -99,10 +100,10 @@ import java.util.Map;
         try{
             client.joinRoom();
         }catch (RoomException e) {
-            Debugger.printStandardMessage("No rooms available. Create new one.");
+            Printer.printStandardMessage("No rooms available. Create new one.");
             userInterface.createRoomScreen();
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send join room request." + e.getMessage());
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send join room request." + e.getMessage());
         }
     }
 
@@ -111,9 +112,9 @@ import java.util.Map;
         try {
             client.createNewRoom(maxPlayers);
         } catch (RoomException e) {
-            Debugger.printDebugMessage("You're added in another room created by other player meanwhile.");
+            Printer.printDebugMessage("You're added in another room created by other player meanwhile.");
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send create room request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send create room request.");
         }
     }
 
@@ -127,7 +128,7 @@ import java.util.Map;
         try{
             client.notifyPersonalBoardTileChoice(personalBoardTile);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
         }
     }
 
@@ -141,7 +142,7 @@ import java.util.Map;
         try{
             client.notifyLeaderCardChoice(leaderCard);
         } catch(NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot send leader card choice.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send leader card choice.");
         }
     }
 
@@ -150,7 +151,7 @@ import java.util.Map;
         try {
             client.notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex, playerTurnChoices);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move on tower.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move on tower.");
         }
     }
 
@@ -159,7 +160,7 @@ import java.util.Map;
         try {
             client.notifySetFamilyMemberInCouncil(familyMemberColor, servants, playerTurnChoices);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in council palace.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in council palace.");
         }
     }
 
@@ -168,7 +169,7 @@ import java.util.Map;
         try {
             client.notifySetFamilyMemberInMarket(familyMemberColor, servants, cellIndex, playerTurnChoices);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in market.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in market.");
         }
     }
 
@@ -177,7 +178,7 @@ import java.util.Map;
         try {
             client.notifySetFamilyMemberInHarvestSimple(familyMemberColor, servants, playerTurnChoices);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in harvest simple.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in harvest simple.");
         }
     }
 
@@ -186,7 +187,7 @@ import java.util.Map;
         try {
             client.notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants, playerTurnChoices);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in harvest extended.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in harvest extended.");
         }
     }
 
@@ -195,7 +196,7 @@ import java.util.Map;
         try {
             client.notifySetFamilyMemberInProductionSimple(familyMemberColor, servants, playerTurnChoices);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in production simple.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in production simple.");
         }
     }
 
@@ -204,7 +205,7 @@ import java.util.Map;
         try {
             client.notifySetFamilyMemberInProductionExtended(familyMemberColor, servants, playerTurnChoices);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in production extended.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in production extended.");
         }
     }
 
@@ -213,7 +214,7 @@ import java.util.Map;
         try {
             client.notifyActivateLeader(leaderCardIndex, servants, playerTurnChoices);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify activation of your leader.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify activation of your leader.");
         }
     }
 
@@ -222,7 +223,7 @@ import java.util.Map;
         try {
             client.notifyDiscardLeader(leaderCardIndex, playerTurnChoices);
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify discard of your leader.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify discard of your leader.");
         }
     }
 
@@ -231,7 +232,7 @@ import java.util.Map;
         try {
             client.notifySupportForTheChurch(choice);
         } catch (NetworkException e) {
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your excommunication choice.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your excommunication choice.");
         }
     }
 
@@ -267,11 +268,16 @@ import java.util.Map;
     }
 
     @Override
+    public void notifyEndGame(ServerPlayer[] players) {
+        userInterface.notifyEndGame(players);
+    }
+
+    @Override
     public void endTurn() {
         try {
             client.endTurn();
         } catch (NetworkException e){
-            Debugger.printDebugMessage(this.getClass().getSimpleName(), "Cannot end turn send request.");
+            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot end turn send request.");
         }
     }
 

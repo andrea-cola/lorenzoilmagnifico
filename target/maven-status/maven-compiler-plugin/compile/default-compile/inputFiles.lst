@@ -18,6 +18,7 @@
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/server/DBServer.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/TowerCell.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/ExcommunicationEffectNumberOfSlaves.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/utility/Printer.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/LEDiceValueSet.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/ui/gui/ChooseConnectionStage.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/CouncilPrivilege.java
@@ -103,7 +104,6 @@
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/LENeutralBonus.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/EffectChooseCard.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/lorenzo/LorenzoIlMagnifico.java
-/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/utility/Debugger.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/EffectCardBonus.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/exceptions/GameErrorType.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/gameserver/Configurator.java
@@ -116,7 +116,6 @@
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/PointType.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/exceptions/ConfigurationException.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/server/ServerInterface.java
-/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/Status.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/EffectMultiplicator.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/PersonalBoard.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/Game.java

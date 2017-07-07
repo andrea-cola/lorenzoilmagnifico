@@ -1,12 +1,10 @@
 package it.polimi.ingsw.gameserver;
 
-import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.DevelopmentCardColor;
 import it.polimi.ingsw.model.ExcommunicationCard;
 import it.polimi.ingsw.model.FamilyMember;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.InformationChoicesHandler;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.MarketCell;
@@ -19,7 +17,6 @@ import it.polimi.ingsw.model.Tower;
 import it.polimi.ingsw.model.TowerCell;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
-import it.polimi.ingsw.utility.Debugger;
 
 import java.util.*;
 
@@ -115,9 +112,9 @@ import java.util.*;
     }
 
     private void setupFinalPoints(){
-        victoryPointsForGreenCards = configuration.getVictoryPointsForGreenCards();
-        victoryPointsForBlueCards = configuration.getVictoryPointsForBlueCards();
-        victoryPointsBonusForFaith = configuration.getVictoryPointsBonusForFaith();
+        this.victoryPointsForGreenCards = this.configuration.getVictoryPointsForGreenCards();
+        this.victoryPointsForBlueCards = this.configuration.getVictoryPointsForBlueCards();
+        this.victoryPointsBonusForFaith = this.configuration.getVictoryPointsBonusForFaith();
     }
 
     /**
@@ -209,23 +206,23 @@ import java.util.*;
     }
 
     /*package-local*/ void mainboardTurnReset(){
-        for(Tower tower : game.getMainBoard().getTowers())
+        for(Tower tower : this.game.getMainBoard().getTowers())
             for(TowerCell towerCell : tower.getTowerCells()){
                 towerCell.setPlayerNicknameInTheCell(null);
                 towerCell.setDevelopmentCard(null);
             }
-        game.getMainBoard().getCouncilPalace().resetFifo();
-        for(MarketCell marketCell : game.getMainBoard().getMarket().getMarketCells())
+        this.game.getMainBoard().getCouncilPalace().resetFifo();
+        for(MarketCell marketCell : this.game.getMainBoard().getMarket().getMarketCells())
             marketCell.setEmpty();
-        game.getMainBoard().getProduction().reset();
-        game.getMainBoard().getHarvest().reset();
-        game.getMainBoard().getProductionExtended().reset();
-        game.getMainBoard().getHarvestExtended().reset();
+        this.game.getMainBoard().getProduction().reset();
+        this.game.getMainBoard().getHarvest().reset();
+        this.game.getMainBoard().getProductionExtended().reset();
+        this.game.getMainBoard().getHarvestExtended().reset();
         throwDices();
     }
 
     /*package-local*/ void personalBoardsTurnReset(Configuration configuration){
-        for(Player player : players)
+        for(Player player : this.players)
             player.getPersonalBoard().turnReset(configuration);
     }
 
@@ -273,7 +270,7 @@ import java.util.*;
      * This method sorts players randomly. This is the game order.
      */
     private void randomPlayerSorting(){
-        Collections.shuffle(players);
+        Collections.shuffle(this.players);
     }
 
     /**
@@ -303,11 +300,11 @@ import java.util.*;
      */
     private PersonalBoard createNewPersonalBoard(){
         PersonalBoard personalBoard = new PersonalBoard();
-        personalBoard.getValuables().increase(ResourceType.WOOD, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.WOOD));
-        personalBoard.getValuables().increase(ResourceType.STONE, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.STONE));
-        personalBoard.getValuables().increase(ResourceType.SERVANT, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT));
-        personalBoard.getValuables().increase(ResourceType.COIN, configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN));
-        personalBoard.setGreenCardsMilitaryPointsRequirements(configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
+        personalBoard.getValuables().increase(ResourceType.WOOD, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.WOOD));
+        personalBoard.getValuables().increase(ResourceType.STONE, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.STONE));
+        personalBoard.getValuables().increase(ResourceType.SERVANT, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT));
+        personalBoard.getValuables().increase(ResourceType.COIN, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN));
+        personalBoard.setGreenCardsMilitaryPointsRequirements(this.configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
         FamilyMember familyMember = new FamilyMember();
         personalBoard.setFamilyMember(familyMember);
         return personalBoard;
@@ -317,9 +314,9 @@ import java.util.*;
      * Throw dices and set value in each personal board.
      */
     private void throwDices(){
-        game.getDices().setValues();
-        for(Player player : players)
-            player.getPersonalBoard().getFamilyMember().setMembers(game.getDices().getValues());
+        this.game.getDices().setValues();
+        for(Player player : this.players)
+            player.getPersonalBoard().getFamilyMember().setMembers(this.game.getDices().getValues());
     }
 
     /*package-local*/ InformationChoicesHandler getInformationChoicesHandler(){
@@ -331,7 +328,7 @@ import java.util.*;
     }
 
     /*package-private*/ boolean finalControlsForPeriod(int period, ServerPlayer player){
-        int faithPointsRequired = game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
+        int faithPointsRequired = this.game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
         //check if the player gets the excommunication effect
         if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) <= faithPointsRequired) {
             excommunicationForPlayer(player, period);
@@ -342,12 +339,12 @@ import java.util.*;
 
     /*package-private*/ void applySupportChoice(ServerPlayer player, boolean flag){
         if(!flag){
-            player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
+            player.getPersonalBoard().getValuables().increase(PointType.VICTORY, this.victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
             if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
-                player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getEffect().runEffect(player, informationChoicesHandler);
+                player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getEffect().runEffect(player, this.informationChoicesHandler);
             player.getPersonalBoard().getValuables().decrease(PointType.FAITH, player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH));
         } else {
-            excommunicationForPlayer(player, game.getAge());
+            excommunicationForPlayer(player, this.game.getAge());
         }
     }
 
@@ -359,7 +356,7 @@ import java.util.*;
     /**
      * This method calculates the final points for each player at the end of the game
      */
-    public void calculateFinalPoints(InformationCallback informationCallback){
+    /*package-local*/ void calculateFinalPoints(){
 
         //get the military points of all the players to assign them victory points
         Map<ServerPlayer, Integer> militaryPointsRanking = new HashMap<>();
@@ -369,81 +366,151 @@ import java.util.*;
             militaryPointsRanking.put(player, player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY));
 
             //check if the player has to lose victory points
-            int finalVictoryIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalPointsIndexMalus().get(PointType.VICTORY);
-            if (finalVictoryIndexMalus > 0){
-                //the victory points reached during the game
-                int gameVictoryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY);
-                //the victory points to lose
-                int victoryPointsToLose = gameVictoryPoints/finalVictoryIndexMalus;
-                //decrease victory points
-                player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
-            }
+            loseVictoryPoints(player);
 
             //green cards final points
-            if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.GREEN)){
-                int numberOfGreenCards = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size();
-                if (numberOfGreenCards > 0){
-                    int finalPointsBonus = victoryPointsForGreenCards[numberOfGreenCards - 1];
-                    player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
-                }
-            }
+            greenCardsFinalPoints(player);
 
             //blue cards final points
-            if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.BLUE)){
-                int numberOfBlueCards = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).size();
-                if (numberOfBlueCards > 0){
-                    int finalPointsBonus = victoryPointsForBlueCards[numberOfBlueCards - 1];
-                    player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
-                }
-            }
+            blueCardsFinalPoints(player);
 
             //purple cards final points
-            if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.PURPLE)){
-                for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.PURPLE)){
-                    card.getPermanentEffect().runEffect(player, informationCallback);
-                }
-            }
+            purpleCardsFinalPoints(player);
 
             //get victory points from resources
-            for (Map.Entry<ResourceType, Integer> entry: player.getPersonalBoard().getValuables().getResources().entrySet()) {
-                int victoryPoints = entry.getValue()/5;
-                player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPoints);
-            }
+            earnVictoryPointsFromResources(player);
 
             //lose victory points from resources
-            for (Map.Entry<ResourceType, Integer> entry: player.getPersonalBoard().getValuables().getResources().entrySet()) {
-                int finalResourcesIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalResourcesIndexMalus().get(entry.getKey());
-                if (finalResourcesIndexMalus > 0){
-                    int victoryPointsToLose = entry.getValue()/finalResourcesIndexMalus;
-                    player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
-                }
-            }
+            loseVictoryPointsFromResources(player);
 
             //lose victory points from military points
-            int finalMilitaryPointsIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalPointsIndexMalus().get(PointType.MILITARY);
-            if (finalMilitaryPointsIndexMalus > 0){
-                int victoryPointsToLose = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY)/finalMilitaryPointsIndexMalus;
-                player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
-            }
-
+            loseVictoryPointsFromMilitaryPoints(player);
 
             //lose victory points from yellow card resources
-            //get all yellow card resources cost
-            EnumMap<ResourceType, Integer> totalCardResourcesCost = new EnumMap<>(ResourceType.class);
-            for (DevelopmentCard card: player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
-                for (Map.Entry<ResourceType, Integer> entry : card.getCost().getResources().entrySet()){
-                    totalCardResourcesCost.put(entry.getKey(), totalCardResourcesCost.get(entry.getKey()) + entry.getValue());
-                }
-            }
+            loseVictoryPointsFromYellowCardsResources(player);
+        }
+        assignVictoryPointsBasedOnMilitaryRanking(militaryPointsRanking);
+    }
+
+    /**
+     * This method decrease player's victory points
+     * @param player
+     */
+    private void loseVictoryPoints(Player player){
+        int finalVictoryIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalPointsIndexMalus().get(PointType.VICTORY);
+        if (finalVictoryIndexMalus > 0){
+            //the victory points reached during the game
+            int gameVictoryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY);
+            //the victory points to lose
+            int victoryPointsToLose = gameVictoryPoints/finalVictoryIndexMalus;
             //decrease victory points
-            for (Map.Entry<ResourceType, Integer> entry : totalCardResourcesCost.entrySet()){
-                int finalResourcesDevCardIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalResourcesDevCardIndexMalus().get(entry.getKey());
-                if (finalResourcesDevCardIndexMalus > 0){
-                    player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, entry.getValue()/finalResourcesDevCardIndexMalus);
-                }
+            player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
+        }
+    }
+
+    /**
+     * This method gives some victory points to the player based on the number of green cards
+     * @param player
+     */
+    private void greenCardsFinalPoints(Player player){
+        if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.GREEN)){
+            int numberOfGreenCards = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size();
+            if (numberOfGreenCards > 0){
+                int finalPointsBonus = this.victoryPointsForGreenCards[numberOfGreenCards - 1];
+                player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
             }
         }
+    }
 
+    /**
+     * This method gives some victory points to the player based on the number of blue cards
+     * @param player
+     */
+    private void blueCardsFinalPoints(Player player){
+        if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.BLUE)){
+            int numberOfBlueCards = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).size();
+            if (numberOfBlueCards > 0){
+                int finalPointsBonus = this.victoryPointsForBlueCards[numberOfBlueCards - 1];
+                player.getPersonalBoard().getValuables().increase(PointType.VICTORY, finalPointsBonus);
+            }
+        }
+    }
+
+    /**
+     * This method gives some victory points to the player based on the number of purple cards
+     * @param player
+     */
+    private void purpleCardsFinalPoints(Player player){
+        if (player.getPersonalBoard().getExcommunicationValues().getDevelopmentCardGetFinalPoints().get(DevelopmentCardColor.PURPLE)){
+            for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.PURPLE)){
+                card.getPermanentEffect().runEffect(player, informationChoicesHandler);
+            }
+        }
+    }
+
+    /**
+     * This method converts the player's final resources in victory points
+     * @param player
+     */
+    private void earnVictoryPointsFromResources(Player player){
+        for (Map.Entry<ResourceType, Integer> entry: player.getPersonalBoard().getValuables().getResources().entrySet()) {
+            int victoryPoints = entry.getValue()/5;
+            player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPoints);
+        }
+    }
+
+    /**
+     * In case of excommunication, this method decreases the player's victory points from the final resources
+     * @param player
+     */
+    private void loseVictoryPointsFromResources(Player player){
+        for (Map.Entry<ResourceType, Integer> entry: player.getPersonalBoard().getValuables().getResources().entrySet()) {
+            int finalResourcesIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalResourcesIndexMalus().get(entry.getKey());
+            if (finalResourcesIndexMalus > 0){
+                int victoryPointsToLose = entry.getValue()/finalResourcesIndexMalus;
+                player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
+            }
+        }
+    }
+
+    /**
+     * In case of excommunication, this method decreases the player's victory points from the military points
+     * @param player
+     */
+    private void loseVictoryPointsFromMilitaryPoints(Player player){
+        int finalMilitaryPointsIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalPointsIndexMalus().get(PointType.MILITARY);
+        if (finalMilitaryPointsIndexMalus > 0){
+            int victoryPointsToLose = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY)/finalMilitaryPointsIndexMalus;
+            player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, victoryPointsToLose);
+        }
+    }
+
+    /**
+     * In case of excommunication, this method decreases the player's victory points from the yellow cards cost he owns
+     * @param player
+     */
+    private void loseVictoryPointsFromYellowCardsResources(Player player){
+        //get all yellow card resources cost
+        EnumMap<ResourceType, Integer> totalCardResourcesCost = new EnumMap<>(ResourceType.class);
+        for (DevelopmentCard card: player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
+            for (Map.Entry<ResourceType, Integer> entry : card.getCost().getResources().entrySet()){
+                totalCardResourcesCost.put(entry.getKey(), totalCardResourcesCost.get(entry.getKey()) + entry.getValue());
+            }
+        }
+        //decrease victory points
+        for (Map.Entry<ResourceType, Integer> entry : totalCardResourcesCost.entrySet()){
+            int finalResourcesDevCardIndexMalus = player.getPersonalBoard().getExcommunicationValues().getFinalResourcesDevCardIndexMalus().get(entry.getKey());
+            if (finalResourcesDevCardIndexMalus > 0){
+                player.getPersonalBoard().getValuables().decrease(PointType.VICTORY, entry.getValue()/finalResourcesDevCardIndexMalus);
+            }
+        }
+    }
+
+    /**
+     * This method calculates the final ranking for victory points and gives some extra victory points to the players
+     * @param militaryPointsRanking
+     */
+    private void assignVictoryPointsBasedOnMilitaryRanking(Map<ServerPlayer, Integer> militaryPointsRanking){
         //create military points ranking
         Map<ServerPlayer, Integer> result = new LinkedHashMap<>();
         militaryPointsRanking.entrySet().stream()
@@ -479,5 +546,4 @@ import java.util.*;
             }
         }
     }
-
 }

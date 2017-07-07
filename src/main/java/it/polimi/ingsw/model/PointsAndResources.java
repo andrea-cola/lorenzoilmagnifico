@@ -74,21 +74,36 @@ public class PointsAndResources implements Serializable{
         this.points.put(type, this.points.get(type) - value);
     }
 
-    public void checkDecrease(PointsAndResources valuableToDecrease) throws GameException{
-        for(Map.Entry pair : valuableToDecrease.getResources().entrySet())
-            if((int)pair.getValue() > resources.get(pair.getKey()))
-                throw new GameException(GameErrorType.NOT_ENOUGH_RESOURCES);
-        for(Map.Entry pair : valuableToDecrease.getPoints().entrySet())
-            if((int)pair.getValue() > points.get(pair.getKey()))
-                throw new GameException(GameErrorType.NOT_ENOUGH_POINTS);
-        decreaseAll(valuableToDecrease);
+    /**
+     * Method to check if the player as valuables enough to pay something
+     * @param valuableToDecrease
+     * @throws GameException
+     */
+    public boolean checkDecrease(PointsAndResources valuableToDecrease){
+        for (Map.Entry<ResourceType, Integer> entry: valuableToDecrease.getResources().entrySet()) {
+            if (entry.getValue() > this.resources.get(entry.getKey())){
+                return false;
+            }
+        }
+
+        for (Map.Entry<PointType, Integer> entry: valuableToDecrease.getPoints().entrySet()){
+            if (entry.getValue() > this.points.get(entry.getKey())){
+                return false;
+            }
+        }
+        return true;
     }
 
-    private void decreaseAll(PointsAndResources valuableToDecrease){
-        for(Map.Entry pair : valuableToDecrease.getResources().entrySet())
-            this.decrease((ResourceType)pair.getKey(), (int)pair.getValue());
-        for(Map.Entry pair : valuableToDecrease.getPoints().entrySet())
-            this.decrease((PointType) pair.getKey(), (int)pair.getValue());
+    /**
+     * If the player has valuables enough to pay something, decrease its valuables
+     * @param valuableToDecrease
+     */
+    public void decreaseAll(PointsAndResources valuableToDecrease){
+        for (Map.Entry<ResourceType, Integer> entry: valuableToDecrease.getResources().entrySet())
+            this.decrease(entry.getKey(), entry.getValue());
+
+        for (Map.Entry<PointType, Integer> entry: valuableToDecrease.getPoints().entrySet())
+            this.decrease(entry.getKey(), entry.getValue());
     }
 
     /**
