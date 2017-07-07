@@ -2,14 +2,12 @@ package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.ui.AbstractUI;
-import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.ui.AbstractUserInterface;
+import it.polimi.ingsw.ui.UserInterface;
 import javafx.scene.control.ChoiceBox;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
-import it.polimi.ingsw.ui.AbstractUI;
-import it.polimi.ingsw.ui.UiController;
 
 import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
@@ -26,7 +24,7 @@ import java.util.jar.JarEntry;
 /**
  * This class manage the graphic user interface of the game
  */
-public class GraphicUserInterface extends AbstractUI implements MainBoardStage.CallbackInterface, InformationCallback {
+public class GraphicUserInterface extends AbstractUserInterface implements MainBoardStage.CallbackInterface, InformationCallback {
 
     private final static String START = "startinStage";
     private final static String CONNECTION = "connnectionStage";
@@ -73,7 +71,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
      * @param controller
      * @throws InterruptedException
      */
-    public GraphicUserInterface(UiController controller) throws InterruptedException {
+    public GraphicUserInterface(UserInterface controller) throws InterruptedException {
         super(controller);
         mainFrame = new JFrame("Lorenzo Il Magnifico");
         mainFrame.setUndecorated(false);
@@ -558,18 +556,14 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
                     int index = comboBox.getSelectedIndex();
                     setKeyValue(index);
                     setDevelopmentCard(devCards.get(getKeyValue()));
-                    try {
-                        for (Tower tower : mainBoard.getTowers())
-                            for (TowerCell towerCell : tower.getTowerCells())
-                                if (towerCell.getDevelopmentCard().getName().equals(getDevelopmentCard().getName())) {
-                                    getDevelopmentCard().payCost(getClient().getPlayer(), getCallback());
-                                    towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
-                                    if (towerCell.getTowerCellImmediateEffect() != null)
-                                        towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), getCallback());
-                                }
-                    } catch (GameException e) {
-                        this.showGameException();
-                    }
+                    for (Tower tower : mainBoard.getTowers())
+                        for (TowerCell towerCell : tower.getTowerCells())
+                            if (towerCell.getDevelopmentCard().getName().equals(getDevelopmentCard().getName())) {
+                                getDevelopmentCard().payCost(getClient().getPlayer(), getCallback());
+                                towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
+                                if (towerCell.getTowerCellImmediateEffect() != null)
+                                    towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), getCallback());
+                            }
                     getClient().setPlayerTurnChoices(reason, getDevelopmentCard());
                 }
                 JOptionPane.getRootFrame().dispose();
@@ -673,11 +667,24 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     }
 
     private boolean isSelectable(TowerCell cell, PointsAndResources discount) {
-        try {
-            cell.checkResourcesToBuyTheCard(getClient().getPlayer(), discount);
-            return true;
-        } catch (GameException e) {
-            return false;
+        if (cell.getDevelopmentCard().getMultipleRequisiteSelectionEnabled()){
+            if (getClient().getPlayer().getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) >= cell.getDevelopmentCard().getMilitaryPointsRequired()){
+                return true;
+            }
+            for (Map.Entry<ResourceType, Integer> entry : cell.getDevelopmentCard().getCost().getResources().entrySet()) {
+                if (cell.getDevelopmentCard().getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
+                        > getClient().getPlayer().getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                    return false;
+                }
+            }
+        } else {
+            for (Map.Entry<ResourceType, Integer> entry : cell.getDevelopmentCard().getCost().getResources().entrySet()) {
+                if (cell.getDevelopmentCard().getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
+                        > getClient().getPlayer().getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                    return false;
+                }
+            }
         }
+        return true;
     }
 }

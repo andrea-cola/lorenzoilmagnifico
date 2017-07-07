@@ -19,7 +19,9 @@
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/TowerCell.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/ExcommunicationEffectNumberOfSlaves.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/utility/Printer.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/ui/gui/LeftPaneController.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/LEDiceValueSet.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/ui/gui/LeftPaneSettigs.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/ui/gui/ChooseConnectionStage.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/CouncilPrivilege.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/InformationChoicesHandler.java
@@ -63,6 +65,7 @@
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/exceptions/GameException.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/ActionType.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/ui/cli/ChooseConnectionScreen.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/ui/gui/PersonalBoardStageController.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/client/GameLauncher.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/ExcommunicationEffectDiceMalus.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/client/LorenzoIlMagnifico.java
@@ -114,6 +117,7 @@
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/PointType.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/exceptions/ConfigurationException.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/server/ServerInterface.java
+/Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/ui/gui/LeaderCardStage.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/protocol/ServerCommunication.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/socketserver/SocketServerAbstract.java
 /Users/andrea/git/LM5/src/main/java/it/polimi/ingsw/model/effects/EffectMultiplicator.java

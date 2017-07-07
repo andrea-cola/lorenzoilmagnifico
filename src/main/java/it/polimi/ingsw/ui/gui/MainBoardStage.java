@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.ui.UserInterface;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -44,7 +44,7 @@ public class MainBoardStage extends JFXPanel{
     private InformationCallback informationCallback;
     private Game game;
     private Player player;
-    private UiController client;
+    private UserInterface client;
     private boolean turn;
 
     /**
@@ -103,7 +103,7 @@ public class MainBoardStage extends JFXPanel{
     /**
      * Constructor for Main Board class
      */
-    MainBoardStage(CallbackInterface callback, UiController client, InformationCallback informationCallback, boolean turn) {
+    MainBoardStage(CallbackInterface callback, UserInterface client, InformationCallback informationCallback, boolean turn) {
         this.game = client.getGameModel();
         this.player = client.getPlayer();
         this.client = client;
@@ -359,7 +359,7 @@ public class MainBoardStage extends JFXPanel{
         return this.callback;
     }
 
-    UiController getClient(){
+    UserInterface getClient(){
         return this.client;
     }
 

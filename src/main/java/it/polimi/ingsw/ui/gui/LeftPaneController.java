@@ -3,7 +3,7 @@ package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.ui.UserInterface;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -36,7 +36,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
 
     private MainBoardStage.CallbackInterface callback;
     private InformationCallback informationCallback;
-    private UiController client;
+    private UserInterface client;
     private Integer servantValue;
     private boolean turn;
     private Game game;
