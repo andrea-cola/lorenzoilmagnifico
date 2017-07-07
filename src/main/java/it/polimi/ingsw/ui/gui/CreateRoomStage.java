@@ -37,8 +37,11 @@ public class CreateRoomStage extends JFXPanel{
         head.setAlignment(Pos.CENTER);
         VBox vBox = new VBox(VBOX_SPACING);
         GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
         Label players = new Label("Number of Players: ");
+        players.setAlignment(Pos.CENTER);
         TextField numberText = new TextField();
+        numberText.setAlignment(Pos.CENTER);
         Label message = new Label("Your data are invalid");
         message.setAlignment(Pos.CENTER);
         message.setVisible(false);
@@ -75,6 +78,7 @@ public class CreateRoomStage extends JFXPanel{
         buttons.getChildren().addAll(create, exit, clear);
         buttons.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(head, grid, buttons, message);
+        vBox.setAlignment(Pos.CENTER);
         root.setCenter(vBox);
         root.setMargin(vBox, new Insets(INSETS));
         root.autosize();

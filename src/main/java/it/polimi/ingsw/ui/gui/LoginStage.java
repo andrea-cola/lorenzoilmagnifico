@@ -42,7 +42,6 @@ public class LoginStage extends JFXPanel {
     private final static int GROUP_WIDTH = 300;
     private final static int INSETS = 20;
 
-
     /**
      * Constructor
      * @param callback

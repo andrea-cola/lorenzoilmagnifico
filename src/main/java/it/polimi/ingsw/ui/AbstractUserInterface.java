@@ -37,8 +37,6 @@ public abstract class AbstractUserInterface {
 
     public abstract void turnScreen(String username, long seconds);
 
-    public abstract void notifyUpdate(String message);
-
     public abstract void supportForTheChurch(boolean flag);
 
     public abstract void notifyEndGame(ServerPlayer[] ranking);

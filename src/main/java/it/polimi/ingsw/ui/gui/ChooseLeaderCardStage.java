@@ -2,10 +2,7 @@ package it.polimi.ingsw.ui.gui;
 
 
 import it.polimi.ingsw.model.LeaderCard;
-import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,8 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.List;
 
 public class ChooseLeaderCardStage extends JFXPanel{
@@ -30,6 +27,8 @@ public class ChooseLeaderCardStage extends JFXPanel{
     private final static int INSETS = 20;
     private final static int IMAGE_WIDTH = 200;
     private final static int IMAGE_HEIGHT = 310;
+    private final static int WIDTH = 1000;
+    private final static int HEIGHT = 300;
 
     private CallbackInterface callback;
 
@@ -56,7 +55,7 @@ public class ChooseLeaderCardStage extends JFXPanel{
             String[] parts = name.split(" ");
             StringBuilder str = new StringBuilder();
             if(parts.length > 0) {
-                str.append("images/cards/");
+                str.append("images/leaderCards/");
                 str.append(parts[0]);
                 for (int j = 1; j < parts.length; j++)
                     str.append("+" + parts[j].toLowerCase());
@@ -87,6 +86,7 @@ public class ChooseLeaderCardStage extends JFXPanel{
         root.setMargin(vBox, new Insets(INSETS));
         root.autosize();
         Scene scene = new Scene(root);
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setScene(scene);
     }
 
@@ -94,13 +94,13 @@ public class ChooseLeaderCardStage extends JFXPanel{
         for(LeaderCard tmp : leaderCardList){
             if(myName == tmp.getLeaderCardName()){
                 System.out.println("NAME = " + myName);
-                this.callback.sendLeaderCardChoise(tmp);
+                this.callback.sendLeaderCardChoice(tmp);
             }
         }
     }
 
     @FunctionalInterface
     public interface CallbackInterface{
-        void sendLeaderCardChoise(LeaderCard leaderCard);
+        void sendLeaderCardChoice(LeaderCard leaderCard);
     }
 }
