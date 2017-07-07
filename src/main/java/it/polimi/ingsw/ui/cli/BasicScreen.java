@@ -7,11 +7,11 @@ import java.util.List;
 /*package-local*/ class BasicScreen {
 
     /*package-local*/ void printScreenTitle(String title){
-        System.out.println("\n[ " + title + " ]");
+        Printer.printInformationMessage("\n[ " + title + " ]");
     }
 
     /*package-local*/ void print(String message){
-        System.out.println("-> " + message);
+        Printer.printInformationMessage("-> " + message);
     }
 
     /*package-local*/ void print(List<String> messagesList){

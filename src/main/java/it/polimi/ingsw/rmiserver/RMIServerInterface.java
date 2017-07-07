@@ -9,6 +9,7 @@ import it.polimi.ingsw.rmiclient.RMIClientInterface;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,10 +22,9 @@ public interface RMIServerInterface extends Remote{
      * @param username provided by the client to login.
      * @param password provided by the client to login.
      * @param rmiPlayer is trying to login.
-     * @return a unique identifier of the player.
      * @throws IOException if errors occur during login proceedings.
      */
-    String loginPlayer(String username, String password, RMIClientInterface rmiPlayer) throws IOException;
+    void loginPlayer(String username, String password, RMIClientInterface rmiPlayer) throws IOException;
 
     /**
      * Player sign in method.
@@ -43,35 +43,35 @@ public interface RMIServerInterface extends Remote{
 
     /**
      * Create a new room.
-     * @param id to get the player from the cache.
+     * @param username to get the player from the cache.
      * @param maxPlayersNumber allowed in the room.
      * @return the configuration number.
      */
-    void createNewRoom(String id, int maxPlayersNumber) throws RoomException, IOException;
+    void createNewRoom(String username, int maxPlayersNumber) throws RoomException, IOException;
 
-    void notifyPersonalBoardChoice(String playerID, PersonalBoardTile personalBoardTile) throws RemoteException;
+    void notifyPersonalBoardChoice(String username, PersonalBoardTile personalBoardTile) throws RemoteException;
 
-    void notifyLeaderCardChoice(String playerID, LeaderCard leaderCard) throws RemoteException;
+    void notifyLeaderCardChoice(String username, LeaderCard leaderCard) throws RemoteException;
 
-    void setFamilyMemberInTower(String playerID, FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) throws RemoteException;
+    void setFamilyMemberInTower(String username, FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, HashMap<String, Object> playerChoices) throws RemoteException;
 
-    void setFamilyMemberInCouncil(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException;
+    void setFamilyMemberInCouncil(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException;
 
-    void setFamilyMemberInMarket(String playerID, FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) throws RemoteException;
+    void setFamilyMemberInMarket(String username, FamilyMemberColor familyMemberColor, int servants, int marketIndex, HashMap<String, Object> playerChoices) throws RemoteException;
 
-    void setFamilyMemberInHarvestSimple(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException;
+    void setFamilyMemberInHarvestSimple(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException;
 
-    void setFamilyMemberInHarvestExtended(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException;
+    void setFamilyMemberInHarvestExtended(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException;
 
-    void setFamilyMemberInProductionSimple(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException;
+    void setFamilyMemberInProductionSimple(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException;
 
-    void setFamilyMemberInProductionExtended(String playerID, FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws RemoteException;
+    void setFamilyMemberInProductionExtended(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException;
 
-    void activateLeaderCard(String playerID, int leaderCardIndex, int servants, Map<String, Object> playerChoices) throws RemoteException;
+    void activateLeaderCard(String username, int leaderCardIndex, int servants, HashMap<String, Object> playerChoices) throws RemoteException;
 
-    void discardLeader(String playerID, int leaderCardIndex, Map<String, Object> playerChoices) throws RemoteException;
+    void discardLeader(String username, int leaderCardIndex, HashMap<String, Object> playerChoices) throws RemoteException;
 
-    void notifySupportForTheChurch(String playerID, boolean choice) throws RemoteException;
+    void notifySupportForTheChurch(String username, boolean choice) throws RemoteException;
 
-    void endTurn(String playerID) throws RemoteException;
+    void endTurn(String username) throws RemoteException;
 }

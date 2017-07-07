@@ -5,6 +5,7 @@ import it.polimi.ingsw.gameserver.Room;
 import it.polimi.ingsw.model.*;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,9 +47,9 @@ public abstract class ServerPlayer extends Player{
 
     }
 
-    public abstract void sendPersonalTile(List<PersonalBoardTile> personalBoardTiles) throws NetworkException;
+    public abstract void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException;
 
-    public abstract void sendLeaderCards(List<LeaderCard> leaderCards) throws NetworkException;
+    public abstract void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException;
 
     public abstract void notifyTurnStarted(String username, long seconds) throws NetworkException;
 

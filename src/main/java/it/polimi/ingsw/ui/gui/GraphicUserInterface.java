@@ -3,8 +3,8 @@ package it.polimi.ingsw.ui.gui;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
-import it.polimi.ingsw.ui.AbstractUI;
-import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.ui.AbstractUserInterface;
+import it.polimi.ingsw.ui.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * This class manage the graphic user interface of the game
  */
-public class GraphicUserInterface extends AbstractUI {
+public class GraphicUserInterface extends AbstractUserInterface {
 
     private final static String START = "startinStage";
     private final static String CONNECTION = "connnectionStage";
@@ -49,7 +49,7 @@ public class GraphicUserInterface extends AbstractUI {
      * @param controller
      * @throws InterruptedException
      */
-    public GraphicUserInterface(UiController controller) throws InterruptedException {
+    public GraphicUserInterface(UserInterface controller) throws InterruptedException {
         super(controller);
         mainFrame = new JFrame("Lorenzo Il Magnifico");
 

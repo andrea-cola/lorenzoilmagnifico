@@ -4,9 +4,9 @@ import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.gameserver.Configurator;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Printer;
-import it.polimi.ingsw.socketserver.SocketServer;
+import it.polimi.ingsw.socketserver.SocketServerAbstract;
 import it.polimi.ingsw.gameserver.Room;
-import it.polimi.ingsw.rmiserver.RMIServer;
+import it.polimi.ingsw.rmiserver.RMIServerAbstract;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -42,12 +42,12 @@ public class Server implements ServerInterface{
     /**
      * RMI server.
      */
-    private RMIServer rmiServer;
+    private RMIServerAbstract rmiServer;
 
     /**
      * SocketClient server.
      */
-    private SocketServer socketServer;
+    private SocketServerAbstract socketServer;
 
     /**
      * MySQL server.
@@ -74,8 +74,8 @@ public class Server implements ServerInterface{
      * Class constructor.
      */
     private Server() throws ServerException{
-        rmiServer = new RMIServer(this);
-        socketServer = new SocketServer(this);
+        rmiServer = new RMIServerAbstract(this);
+        socketServer = new SocketServerAbstract(this);
         players = new HashMap<>();
         activePlayer = new HashMap<>();
         rooms = new ArrayList<>();
@@ -103,7 +103,7 @@ public class Server implements ServerInterface{
     /**
      * Load and set configurations from file.
      */
-    private void configure() throws ServerException{
+    private void configure() throws ServerException {
         try{
             Configurator.loadConfigurations();
         }catch(ConfigurationException e){

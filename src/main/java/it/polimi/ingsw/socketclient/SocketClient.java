@@ -1,6 +1,5 @@
 package it.polimi.ingsw.socketclient;
 
-
 import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
@@ -10,11 +9,11 @@ import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
 import it.polimi.ingsw.exceptions.NetworkException;
 import it.polimi.ingsw.exceptions.ConnectionException;
-import it.polimi.ingsw.socketprotocol.ClientCommunicationProtocol;
+import it.polimi.ingsw.protocol.ClientCommunication;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Map;
+import java.util.HashMap;
 
 /**
  * This class implements socket client communication. Extends {@link AbstractClient}.
@@ -39,7 +38,7 @@ public class SocketClient extends AbstractClient{
     /**
      * Client protocol to manage the communication with the server.
      */
-    private ClientCommunicationProtocol clientCommunicationProtocol;
+    private ClientCommunication clientCommunication;
 
     /**
      * Class constructor.
@@ -58,7 +57,7 @@ public class SocketClient extends AbstractClient{
             objectInputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
             objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             objectOutputStream.flush();
-            clientCommunicationProtocol = new ClientCommunicationProtocol(objectInputStream, objectOutputStream, getClient());
+            clientCommunication = new ClientCommunication(objectInputStream, objectOutputStream, getClient());
         }catch (IOException e){
             throw new ConnectionException(e);
         }
@@ -79,7 +78,7 @@ public class SocketClient extends AbstractClient{
      */
     @Override
     public void loginPlayer(String username, String password) throws NetworkException {
-        clientCommunicationProtocol.playerLogin(username, password);
+        clientCommunication.playerLogin(username, password);
     }
 
     /**
@@ -90,84 +89,84 @@ public class SocketClient extends AbstractClient{
      */
     @Override
     public void signInPlayer(String username, String password) throws NetworkException {
-        clientCommunicationProtocol.playerSignIn(username, password);
+        clientCommunication.playerSignIn(username, password);
     }
 
     @Override
     public void joinRoom() throws NetworkException, RoomException {
-        clientCommunicationProtocol.playerJoinRoom();
+        clientCommunication.playerJoinRoom();
         startServerResponseManager();
     }
 
     @Override
     public void createNewRoom(int maxPlayersNumber) throws NetworkException{
-        clientCommunicationProtocol.createNewRoom(maxPlayersNumber);
+        clientCommunication.createNewRoom(maxPlayersNumber);
         startServerResponseManager();
     }
 
     @Override
     public void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException {
-        clientCommunicationProtocol.notifyPersonalBoardTileChoice(personalBoardTile);
+        clientCommunication.notifyPersonalBoardTileChoice(personalBoardTile);
     }
 
     @Override
     public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException {
-        clientCommunicationProtocol.notifyLeaderCardChoice(leaderCard);
+        clientCommunication.notifyLeaderCardChoice(leaderCard);
     }
 
     @Override
-    public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) throws NetworkException {
-        clientCommunicationProtocol.notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
+    public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, HashMap<String, Object> playerChoices) throws NetworkException {
+        clientCommunication.notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
     }
 
     @Override
-    public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
-        clientCommunicationProtocol.notifySetFamilyMemberInCouncil(familyMemberColor, servants, playerChoices);
+    public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
+        clientCommunication.notifySetFamilyMemberInCouncil(familyMemberColor, servants, playerChoices);
     }
 
     @Override
-    public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) throws NetworkException {
-        clientCommunicationProtocol.notifySetFamilyMemberInMarket(familyMemberColor, servants, marketIndex, playerChoices);
+    public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, HashMap<String, Object> playerChoices) throws NetworkException {
+        clientCommunication.notifySetFamilyMemberInMarket(familyMemberColor, servants, marketIndex, playerChoices);
     }
 
     @Override
-    public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
-        clientCommunicationProtocol.notifySetFamilyMemberInHarvestSimple(familyMemberColor, servants, playerChoices);
+    public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
+        clientCommunication.notifySetFamilyMemberInHarvestSimple(familyMemberColor, servants, playerChoices);
     }
 
     @Override
-    public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
-        clientCommunicationProtocol.notifySetFamilyMemberInProductionSimple(familyMemberColor, servants, playerChoices);
+    public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
+        clientCommunication.notifySetFamilyMemberInProductionSimple(familyMemberColor, servants, playerChoices);
     }
 
     @Override
-    public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
-        clientCommunicationProtocol.notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants, playerChoices);
+    public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
+        clientCommunication.notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants, playerChoices);
     }
 
     @Override
-    public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
-        clientCommunicationProtocol.notifySetFamilyMemberInProductionExtended(familyMemberColor, servants, playerChoices);
+    public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
+        clientCommunication.notifySetFamilyMemberInProductionExtended(familyMemberColor, servants, playerChoices);
     }
 
     @Override
-    public void notifyActivateLeader(int leaderCardIndex, int servants, Map<String, Object> playerChoices) throws NetworkException {
-        clientCommunicationProtocol.activateLeader(leaderCardIndex, servants, playerChoices);
+    public void notifyActivateLeader(int leaderCardIndex, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
+        clientCommunication.activateLeader(leaderCardIndex, servants, playerChoices);
     }
 
     @Override
-    public void notifyDiscardLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException {
-        clientCommunicationProtocol.discardLeader(leaderCardIndex, playerChoices);
+    public void notifyDiscardLeader(int leaderCardIndex, HashMap<String, Object> playerChoices) throws NetworkException {
+        clientCommunication.discardLeader(leaderCardIndex, playerChoices);
     }
 
     @Override
     public void notifySupportForTheChurch(boolean choice) throws NetworkException {
-        clientCommunicationProtocol.notifySupportForTheChurch(choice);
+        clientCommunication.notifySupportForTheChurch(choice);
     }
 
     @Override
     public void endTurn() {
-        clientCommunicationProtocol.endTurn();
+        clientCommunication.endTurn();
     }
 
     /**
@@ -181,7 +180,7 @@ public class SocketClient extends AbstractClient{
             while(flag){
                 try{
                     Object object = objectInputStream.readObject();
-                    clientCommunicationProtocol.handleResponse(object);
+                    clientCommunication.handleResponse(object);
                 } catch (IOException | ClassNotFoundException e){
                     flag = false;
                     Printer.printDebugMessage(this.getClass().getSimpleName(), "Errors occur while reading server response.", e);

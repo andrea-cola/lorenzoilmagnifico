@@ -484,13 +484,9 @@ public class PersonalBoard implements Serializable {
                 stringBuilder.append(card.toString());
 
         stringBuilder.append("\n-> LEADER CARDS (active): ");
-        if (!leaderCards.isEmpty()) {
-            stringBuilder.append(leaderCards.get(0).getLeaderCardName());
-            for (int i = 1; i < leaderCards.size(); i++) {
-                if (leaderCards.get(i).getLeaderEffectActive())
-                    stringBuilder.append(", " + leaderCards.get(i).getLeaderCardName());
-            }
-        }
+        if (!leaderCards.isEmpty())
+            for (LeaderCard leaderCard : leaderCards)
+                if (leaderCard.getLeaderEffectActive()) stringBuilder.append(leaderCard.getLeaderCardName() + ", ");
         stringBuilder.append("\n");
         return stringBuilder.toString();
     }
