@@ -199,6 +199,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
                         client.notifySetFamilyMemberInProductionSimple(getMemberColor(color), servantsToSpend(color));
                     } catch (GameException e) {
                         callback.showGameException();
+                        circleProductionSimple.setDisable(false);
                     }
                     circleProductionSimple.setDisable(true);
                     success = true;
@@ -229,6 +230,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
                         client.notifySetFamilyMemberInHarvestSimple(getMemberColor(color), servantsToSpend(color));
                     } catch (GameException e) {
                         callback.showGameException();
+                        circleHarvestSimple.setDisable(false);
                     }
                     circleHarvestSimple.setDisable(true);
                     success = true;
@@ -333,6 +335,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
                         client.notifySetFamilyMemberInProductionExtended(getMemberColor(color), servantsToSpend(color));
                     } catch (GameException e) {
                         callback.showGameException();
+                        circleProductionExtended.setDisable(false);
                     }
                     circleProductionExtended.setDisable(true);
                     success = true;
@@ -366,6 +369,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
                         client.notifySetFamilyMemberInHarvestExtended(getMemberColor(color), servantsToSpend(color));
                     } catch (GameException e) {
                         callback.showGameException();
+                        circleHarvestExtended.setDisable(false);
                     }
                     circleHarvestExtended.setDisable(true);
                     success = true;
@@ -696,6 +700,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     client.notifySetFamilyMemberInMarket(getMemberColor(color), servantsToSpend(color), index);
                 } catch (GameException e) {
                     callback.showGameException();
+                    target.setDisable(false);
                 }
                 target.setDisable(true);
                 success = true;
@@ -720,7 +725,6 @@ public class LeftPaneController implements LeftPaneSettigs  {
                 card.setVisible(false);
                 target.setDisable(true);
                 try {
-                    System.out.println(player + " " + servantsToSpend(color) + " " + tower + " " + towerCell);
                     this.game.pickupDevelopmentCardFromTower(player, getMemberColor(color), servantsToSpend(color), tower, towerCell, informationCallback);
                     this.client.notifySetFamilyMemberInTower(getMemberColor(color), servantsToSpend(color), tower, towerCell);
                 } catch (GameException e) {

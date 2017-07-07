@@ -45,7 +45,6 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
                 }
             }
         }
-
         synchronized void pausePoint() {
             while (needToPause) {
                 try {
@@ -137,11 +136,6 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
             Printer.printStandardMessage("Turn of " + username + ". Please wait for " + seconds + " seconds.");
             gameScreen = new GameScreen(this);
         }
-    }
-
-    @Override
-    public void notifyUpdate(String message) {
-        Printer.printStandardMessage(message);
     }
 
     @SuppressWarnings("unchecked")
@@ -255,11 +249,8 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         MainBoard mainBoard = getClient().getGameModel().getMainBoard();
         DevelopmentCard card = null;
         ArrayList<DevelopmentCard> selectable = new ArrayList<>();
-<<<<<<< HEAD
         System.out.println("[ CHOOSE NEW CARD ]\nYou can pick up a new card. Choose among those proposal.");
-=======
         Printer.printInformationMessage("[ CHOOSE NEW CARD ]\nYou can pick up a new card. Choose between those proposal.");
->>>>>>> 0172d3abdc13f7ca372aca5e35b2e36970d79191
 
         int i = 1;
         Printer.printInformationMessage("0 -> to choose no card.");

@@ -147,7 +147,7 @@ public class MainBoardStage extends JFXPanel{
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("fxml/mainboard.fxml"));
-            leftPane = (AnchorPane) loader.load();
+            leftPane = (Parent) loader.load();
             root.getChildren().add(0, leftPane);
             LeftPaneController controller = loader.getController();
             controller.initData(this);
