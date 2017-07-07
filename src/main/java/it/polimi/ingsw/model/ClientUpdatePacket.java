@@ -19,7 +19,7 @@ public class ClientUpdatePacket implements Serializable{
         return this.game;
     }
 
-    public List<String> getMessage(){
+    public List<String> getMessages(){
         return this.message;
     }
 
@@ -29,6 +29,10 @@ public class ClientUpdatePacket implements Serializable{
 
     public void setMessage(String message){
         this.message.add(message);
+    }
+
+    public void messageReset(){
+        this.message = new ArrayList<>();
     }
 
 }

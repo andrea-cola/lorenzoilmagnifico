@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.GameErrorType;
 import it.polimi.ingsw.exceptions.GameException;
 
 import java.io.Serializable;
@@ -76,27 +75,23 @@ public class PointsAndResources implements Serializable{
 
     /**
      * Method to check if the player as valuables enough to pay something
-     * @param valuableToDecrease
-     * @throws GameException
+     * @param valuableToDecrease valuables to decrease.
+     * @throws GameException if palyer has not resources enough.
      */
     public boolean checkDecrease(PointsAndResources valuableToDecrease){
-        for (Map.Entry<ResourceType, Integer> entry: valuableToDecrease.getResources().entrySet()) {
-            if (entry.getValue() > this.resources.get(entry.getKey())){
+        for (Map.Entry<ResourceType, Integer> entry: valuableToDecrease.getResources().entrySet())
+            if (entry.getValue() > this.resources.get(entry.getKey()))
                 return false;
-            }
-        }
 
-        for (Map.Entry<PointType, Integer> entry: valuableToDecrease.getPoints().entrySet()){
-            if (entry.getValue() > this.points.get(entry.getKey())){
+        for (Map.Entry<PointType, Integer> entry: valuableToDecrease.getPoints().entrySet())
+            if (entry.getValue() > this.points.get(entry.getKey()))
                 return false;
-            }
-        }
         return true;
     }
 
     /**
      * If the player has valuables enough to pay something, decrease its valuables
-     * @param valuableToDecrease
+     * @param valuableToDecrease valuables to decrease.
      */
     public void decreaseAll(PointsAndResources valuableToDecrease){
         for (Map.Entry<ResourceType, Integer> entry: valuableToDecrease.getResources().entrySet())
@@ -122,10 +117,6 @@ public class PointsAndResources implements Serializable{
         return this.points;
     }
 
-    /**
-     * Return a string with resources and points status.
-     * @return a string.
-     */
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder("");

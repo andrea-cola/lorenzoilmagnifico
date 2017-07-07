@@ -32,33 +32,12 @@ public class TowerCell implements Serializable{
      */
     private String playerNicknameInTheCell;
 
-
-    /*package-local*/ TowerCell(int minFamilyMemberValue){
-        this.minFamilyMemberValue = minFamilyMemberValue;
-    }
-
-    /**
-     * Set immediate effect of the cell.
-     * @param effect
-     */
-    /*package-local*/ void setTowerCellImmediateEffect(Effect effect){
-        this.towerCellImmediateEffect = effect;
-    }
-
     /**
      * Get immediate effect of the cell.
-     * @return
+     * @return cell immediate effect.
      */
     public Effect getTowerCellImmediateEffect(){
         return this.towerCellImmediateEffect;
-    }
-
-    /**
-     * Set the minimum value to let a family member access on the cell
-     * @param value minimum value
-     */
-    /*package-local*/ void setMinFamilyMemberValue(Integer value){
-        this.minFamilyMemberValue = value;
     }
 
     /**
@@ -85,28 +64,52 @@ public class TowerCell implements Serializable{
         return this.minFamilyMemberValue;
     }
 
-
     /**
      * Assign the cell to the user that occupied it
-     * @param playerNicknameInTheCell
+     * @param playerNicknameInTheCell in the cell.
      */
     public void setPlayerNicknameInTheCell(String playerNicknameInTheCell){
         this.playerNicknameInTheCell = playerNicknameInTheCell;
     }
 
+
     /**
      * Get the username of the player inside a particular cell
-     * @return
+     * @return player nickname in the cell.
      */
     public String getPlayerNicknameInTheCell(){
         return this.playerNicknameInTheCell;
     }
 
     /**
+     * Class constructor.
+     * @param minFamilyMemberValue to join the cell.
+     */
+    /*package-local*/ TowerCell(int minFamilyMemberValue){
+        this.minFamilyMemberValue = minFamilyMemberValue;
+    }
+
+    /**
+     * Set immediate effect of the cell.
+     * @param effect of the cell.
+     */
+    /*package-local*/ void setTowerCellImmediateEffect(Effect effect){
+        this.towerCellImmediateEffect = effect;
+    }
+
+    /**
+     * Set the minimum value to let a family member access on the cell
+     * @param value minimum value
+     */
+    /*package-local*/ void setMinFamilyMemberValue(Integer value){
+        this.minFamilyMemberValue = value;
+    }
+
+    /**
      * Checks if the value is enough to place the family member inside the cell and if the user can pickup a territory card according to the military points required
-     * @param player
-     * @param familyMemberColor
-     * @throws GameException
+     * @param player is performing the placement.
+     * @param familyMemberColor of familiar.
+     * @throws GameException if family member value is wrong to perform the action.
      */
     /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
         int familyMemberRealValue = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor)
@@ -118,31 +121,22 @@ public class TowerCell implements Serializable{
     }
 
     /**
-     * Checks if the player can get the development card
-      * @param player
-     * @throws GameException
+     * Checks if the player can get the development card.
+      * @param player is performing the action.
+     * @throws GameException if the card can't be bought.
      */
-    /*package-local*/ void developmentCardCanBeBuyed(Player player, InformationCallback informationCallback) throws GameException{
-        //check if the user has less than six cards of this development card color inside the personal board
+    /*package-local*/ void developmentCardCanBeBought(Player player, InformationCallback informationCallback) throws GameException{
         checkCardLimit(player);
-
-        //set the discount
         PointsAndResources discount = setCardDiscount(player, informationCallback);
-
-        //Check if the player has enough resources to buy the development card
         checkResourcesToBuyTheCard(player, discount);
-
-        //check if the player has military points enough to get the territory card
         checkMilitaryPointsToGetTheCard(player);
-
-        //give back resources based on discount
         giveDiscountResources(player, discount);
     }
 
     /**
      * This method check if the player has reached the maximum limit of cards
-     * @param player
-     * @throws GameException
+     * @param player is performing the action.
+     * @throws GameException if the player has reached max card limit.
      */
     private void checkCardLimit(Player player) throws GameException{
         if (player.getPersonalBoard().getCards(this.developmentCard.getColor()).size() > 6)
@@ -150,10 +144,10 @@ public class TowerCell implements Serializable{
     }
 
     /**
-     * This method sets the discount that the card can provide
-     * @param player
-     * @param informationCallback
-     * @return discount
+     * This method sets the discount that the card can provide.
+     * @param player is performing the action.
+     * @param informationCallback to callback the user interface.
+     * @return discount chosen.
      */
     private PointsAndResources setCardDiscount(Player player, InformationCallback informationCallback){
         //if there is just one choice, set discount immediately
@@ -170,28 +164,23 @@ public class TowerCell implements Serializable{
     }
 
     /**
-     * This method checks if the player has resources enough to buy the card
-     * @param player
-     * @param discount
-     * @throws GameException
+     * This method checks if the player has resources enough to buy the card.
+     * @param player is performing the action.
+     * @param discount of the card.
+     * @throws GameException if the player has not resources enough.
      */
-    public void checkResourcesToBuyTheCard(Player player, PointsAndResources discount) throws GameException{
+    private void checkResourcesToBuyTheCard(Player player, PointsAndResources discount) throws GameException{
         boolean flag  = false;
         if (this.developmentCard.getMultipleRequisiteSelectionEnabled()){
             if (player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) >= this.developmentCard.getMilitaryPointsRequired()){
                 flag = true;
             }
-            try{
+            if(!flag) {
                 for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
-                    if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
-                            > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                    if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
                         throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
                     }
                 }
-                flag = true;
-            }catch(GameException e){
-                if(!flag)
-                    throw e;
             }
         } else {
             for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
@@ -204,34 +193,28 @@ public class TowerCell implements Serializable{
     }
 
     /**
-     * This method checks if the player has military points enough to buy the card
-     * @param player
-     * @throws GameException
+     * This method checks if the player has military points enough to buy the card.
+     * @param player is performing the action.
+     * @throws GameException if the player has reached the limit.
      */
     private void checkMilitaryPointsToGetTheCard(Player player) throws GameException{
         if (this.developmentCard.getColor().equals(DevelopmentCardColor.GREEN)){
-            //amount of territory cards already owned by the user
             int amount = player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN).size();
-            //amount of military points owned by the player
             int playerMilitaryPoints = player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY);
-            //amount of military points requested to get this card
             int militaryPointsRequired = player.getPersonalBoard().getGreenCardsMilitaryPointsRequirements(amount);
-
-            if (playerMilitaryPoints < militaryPointsRequired){
+            if (playerMilitaryPoints < militaryPointsRequired)
                 throw new GameException(GameErrorType.MILITARY_POINTS_REQUIRED);
-            }
         }
     }
 
     /**
      * This method give the resources selected as a discount after the full payment of the development card
-     * @param player
-     * @param discount
+     * @param player is performing the action.
+     * @param discount to apply.
      */
     private void giveDiscountResources(Player player, PointsAndResources discount){
-        for(Map.Entry<ResourceType, Integer> entry : discount.getResources().entrySet()){
+        for(Map.Entry<ResourceType, Integer> entry : discount.getResources().entrySet())
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
-        }
     }
 
     @Override

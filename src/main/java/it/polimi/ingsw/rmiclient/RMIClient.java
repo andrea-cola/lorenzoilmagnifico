@@ -6,8 +6,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import it.polimi.ingsw.client.AbstractClient;
 import it.polimi.ingsw.client.ClientInterface;
@@ -46,7 +46,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     /**
      * Unique player id.
      */
-    private String playerID;
+    private String username;
 
     /**
      * Class constructor.
@@ -86,7 +86,8 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void loginPlayer(String username, String password) throws NetworkException{
         try {
-            playerID = server.loginPlayer(username, password, this);
+            server.loginPlayer(username, password, this);
+            this.username = username;
         } catch(LoginException e) {
             throw e;
         } catch(IOException e){
@@ -116,7 +117,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void joinRoom() throws RoomException, NetworkException {
         try{
-            server.joinFirstRoom(playerID);
+            server.joinFirstRoom(username);
         }catch(RoomException e) {
             throw new RoomException();
         }catch(IOException e){
@@ -133,7 +134,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void createNewRoom(int maxPlayersNumber) throws RoomException, NetworkException {
         try {
-            server.createNewRoom(playerID, maxPlayersNumber);
+            server.createNewRoom(username, maxPlayersNumber);
         } catch (RoomException e){
             throw e;
         }catch (IOException e){
@@ -149,7 +150,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException{
         try {
-            server.notifyPersonalBoardChoice(playerID, personalBoardTile);
+            server.notifyPersonalBoardChoice(username, personalBoardTile);
         } catch (RemoteException e){
             throw new NetworkException();
         }
@@ -163,88 +164,88 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException {
         try {
-            server.notifyLeaderCardChoice(this.playerID, leaderCard);
+            server.notifyLeaderCardChoice(this.username, leaderCard);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, HashMap<String, Object> playerChoices) throws NetworkException {
         try {
-            server.setFamilyMemberInTower(playerID, familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
+            server.setFamilyMemberInTower(username, familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         try {
-            server.setFamilyMemberInCouncil(playerID, familyMemberColor, servants, playerChoices);
+            server.setFamilyMemberInCouncil(username, familyMemberColor, servants, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, HashMap<String, Object> playerChoices) throws NetworkException {
         try {
-            server.setFamilyMemberInMarket(playerID, familyMemberColor, servants, marketIndex, playerChoices);
+            server.setFamilyMemberInMarket(username, familyMemberColor, servants, marketIndex, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         try {
-            server.setFamilyMemberInHarvestSimple(playerID, familyMemberColor, servants, playerChoices);
+            server.setFamilyMemberInHarvestSimple(username, familyMemberColor, servants, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         try {
-            server.setFamilyMemberInProductionSimple(playerID, familyMemberColor, servants, playerChoices);
+            server.setFamilyMemberInProductionSimple(username, familyMemberColor, servants, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         try {
-            server.setFamilyMemberInHarvestExtended(playerID, familyMemberColor, servants, playerChoices);
+            server.setFamilyMemberInHarvestExtended(username, familyMemberColor, servants, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         try {
-            server.setFamilyMemberInProductionExtended(playerID, familyMemberColor, servants, playerChoices);
+            server.setFamilyMemberInProductionExtended(username, familyMemberColor, servants, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void notifyActivateLeader(int leaderCardIndex, int servants, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifyActivateLeader(int leaderCardIndex, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         try {
-            server.activateLeaderCard(playerID, leaderCardIndex, servants, playerChoices);
+            server.activateLeaderCard(username, leaderCardIndex, servants, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
     }
 
     @Override
-    public void notifyDiscardLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException {
+    public void notifyDiscardLeader(int leaderCardIndex, HashMap<String, Object> playerChoices) throws NetworkException {
         try {
-            server.discardLeader(playerID, leaderCardIndex, playerChoices);
+            server.discardLeader(username, leaderCardIndex, playerChoices);
         } catch (RemoteException e){
             throw new NetworkException();
         }
@@ -253,7 +254,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void notifySupportForTheChurch(boolean choice) throws NetworkException {
         try{
-            server.notifySupportForTheChurch(playerID, choice);
+            server.notifySupportForTheChurch(username, choice);
         } catch (RemoteException e){
             throw new NetworkException();
         }
@@ -266,7 +267,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 
     @Override
     public String ping() throws RemoteException {
-        return playerID;
+        return username;
     }
 
     @Override
@@ -292,7 +293,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
     @Override
     public void endTurn() throws NetworkException{
         try {
-            server.endTurn(this.playerID);
+            server.endTurn(this.username);
         } catch (RemoteException e){
             throw new NetworkException();
         }

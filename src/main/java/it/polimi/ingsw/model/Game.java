@@ -184,7 +184,7 @@ public class Game implements Serializable{
                 }
 
                 //check if the user has resources enough to buy the card
-                cell.developmentCardCanBeBuyed(player, informationCallback);
+                cell.developmentCardCanBeBought(player, informationCallback);
 
                 //add the card to the player's personal board
                 DevelopmentCard card = cell.getDevelopmentCard();
@@ -219,7 +219,7 @@ public class Game implements Serializable{
         }
     }
 
-    private void payValuablesToGetDevelopmentCard(Player player, DevelopmentCard developmentCard, InformationCallback informationCallback) throws GameException{
+    private void payValuablesToGetDevelopmentCard(Player player, DevelopmentCard developmentCard, InformationCallback informationCallback){
         //leader effect gives you a discount
         LeaderCard leaderCard = player.getPersonalBoard().getLeaderCardWithName("Pico della Mirandola");
         int devCardCoinsCost = developmentCard.getCost().getResources().get(ResourceType.COIN);

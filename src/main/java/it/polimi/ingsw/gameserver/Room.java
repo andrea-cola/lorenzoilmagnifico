@@ -597,6 +597,7 @@ public class Room {
                         } catch (NetworkException e){
                             Printer.printDebugMessage(this.getClass().getSimpleName(), serverPlayer.getUsername() + " won't receive updates this turn.");
                         }
+                clientUpdatePacket.messageReset();
             }
         }
 

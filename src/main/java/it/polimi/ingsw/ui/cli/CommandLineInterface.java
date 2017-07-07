@@ -5,8 +5,8 @@ import it.polimi.ingsw.exceptions.WrongCommandException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.effects.LEPicoDellaMirandola;
 import it.polimi.ingsw.server.ServerPlayer;
-import it.polimi.ingsw.ui.AbstractUI;
-import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.ui.AbstractUserInterface;
+import it.polimi.ingsw.ui.UserInterface;
 import it.polimi.ingsw.utility.Printer;
 
 import java.io.*;
@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * This class manages the command line interface of the game.
  */
-public class CommandLineInterface extends AbstractUI implements GameScreen.GameCallback, ExcommunicationScreen.ExcommunicationCallback, InformationCallback {
+public class CommandLineInterface extends AbstractUserInterface implements GameScreen.GameCallback, ExcommunicationScreen.ExcommunicationCallback, InformationCallback {
 
     private class ConsoleListener extends Thread{
 
@@ -57,25 +57,47 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         }
     }
 
+    /**
+     * Object used to handle thread concurrency.
+     */
     private boolean needToPause = false;
 
+    /**
+     * Screen used to handle start up process.
+     */
     private BasicScreen screen;
 
+    /**
+     * Screen used to handle game logic.
+     */
     private BasicGameScreen gameScreen;
 
+    /**
+     * Flag that indicates if the player has already done a move.
+     */
     private boolean moveDone;
 
+    /**
+     * Class constructor.
+     * @param controller ui.
+     */
+    public CommandLineInterface(UserInterface controller) {
+        super(controller);
+    }
+
+    /**
+     * Pause keyboard listener thread.
+     */
     private synchronized void pause() {
         needToPause = true;
     }
 
-    private synchronized void unpause() {
+    /**
+     * Wake up heyboard listener thread.
+     */
+    private synchronized void wakeUp() {
         needToPause = false;
         this.notifyAll();
-    }
-
-    public CommandLineInterface(UiController controller) {
-        super(controller);
     }
 
     @Override
@@ -122,6 +144,10 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
 
     @Override
     public void turnScreen(String username, long seconds) {
+        Printer.printStandardMessage("\n\n[MOVES IN THE LAST TURN]");
+        if(this.getClient().getMoveMessages() != null)
+            this.getClient().getMoveMessages().forEach(Printer::printStandardMessage);
+
         if(username.equals(getClient().getUsername())){
             moveDone = false;
             if(!getClient().getPlayer().getPersonalBoard().getExcommunicationValues().getSkipFirstTurn()
@@ -170,7 +196,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         } else {
             getClient().setPlayerTurnChoices(reason, privilegeArraysList);
         }
-        unpause();
+        wakeUp();
         return privilegeArraysList;
     }
 
@@ -191,7 +217,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
             }
         } while (key < 1 || key > 2);
         getClient().setPlayerTurnChoices("double-cost", key);
-        unpause();
+        wakeUp();
         return key;
     }
 
@@ -214,7 +240,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         } while (key < 1 || key > valuableToPay.length);
         key = key - 1;
         getClient().setPlayerTurnChoices(card, key);
-        unpause();
+        wakeUp();
         return key;
     }
 
@@ -236,7 +262,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         } while (key < 1 || key > discounts.size());
         key = key - 1;
         getClient().setPlayerTurnChoices(reason, key);
-        unpause();
+        wakeUp();
         return key;
     }
 
@@ -280,30 +306,26 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         if(key > 0) {
             key = key - 1;
             card = selectable.get(key);
-            try {
-                for (Tower tower : mainBoard.getTowers())
-                    for (TowerCell towerCell : tower.getTowerCells())
-                        if (towerCell.getDevelopmentCard().getName().equals(card.getName())) {
-                            LeaderCard leaderCard = getClient().getPlayer().getPersonalBoard().getLeaderCardWithName("Pico della Mirandola");
-                            int devCardCoinsCost = card.getCost().getResources().get(ResourceType.COIN);
-                            if (leaderCard != null && leaderCard.getLeaderEffectActive()) {
-                                //decrease card price
-                                if (devCardCoinsCost >= 3)
-                                    card.getCost().decrease(ResourceType.COIN, ((LEPicoDellaMirandola) leaderCard.getEffect()).getMoneyDiscount());
-                                else
-                                    card.getCost().decrease(ResourceType.COIN, devCardCoinsCost);
-                            }
-                            card.payCost(getClient().getPlayer(), this);
-                            towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
-                            if (towerCell.getTowerCellImmediateEffect() != null)
-                                towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), this);
+            for (Tower tower : mainBoard.getTowers())
+                for (TowerCell towerCell : tower.getTowerCells())
+                    if (towerCell.getDevelopmentCard().getName().equals(card.getName())) {
+                        LeaderCard leaderCard = getClient().getPlayer().getPersonalBoard().getLeaderCardWithName("Pico della Mirandola");
+                        int devCardCoinsCost = card.getCost().getResources().get(ResourceType.COIN);
+                        if (leaderCard != null && leaderCard.getLeaderEffectActive()) {
+                            //decrease card price
+                            if (devCardCoinsCost >= 3)
+                                card.getCost().decrease(ResourceType.COIN, ((LEPicoDellaMirandola) leaderCard.getEffect()).getMoneyDiscount());
+                            else
+                                card.getCost().decrease(ResourceType.COIN, devCardCoinsCost);
                         }
-            } catch (GameException e){
-                Printer.printStandardMessage(e.getError().toString());
-            }
+                        card.payCost(getClient().getPlayer(), this);
+                        towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
+                        if (towerCell.getTowerCellImmediateEffect() != null)
+                            towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), this);
+                    }
         }
         getClient().setPlayerTurnChoices(reason, card);
-        unpause();
+        wakeUp();
         return card;
     }
 
@@ -328,7 +350,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         } while (key < 1 || key > leaderCards.size());
         key--;
         getClient().getPlayerTurnChoices().put(reason, leaderCards.get(key));
-        unpause();
+        wakeUp();
         return leaderCards.get(key);
     }
 
@@ -339,7 +361,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         Printer.printInformationMessage("[ CHOOSE NEW CARD ]\nYou can choose a color between those proposals.");
         for(FamilyMemberColor familyMemberColor : FamilyMemberColor.values()) {
-            Printer.printInformationMessage( (i+1) + " -> " + (FamilyMemberColor.values())[i]);
+            Printer.printInformationMessage( (i+1) + " -> " + familyMemberColor);
             i++;
         }
         int key = 0;
@@ -352,7 +374,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         } while (key < 1 || key > FamilyMemberColor.values().length);
         key--;
         getClient().getPlayerTurnChoices().put(reason, FamilyMemberColor.values()[key]);
-        unpause();
+        wakeUp();
         return FamilyMemberColor.values()[key];
     }
 
@@ -496,7 +518,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
         int i = 0;
         List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
         for(LeaderCard leaderCard : leaderCards){
-            if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+            if(leaderCard.getLeaderCardName().equalsIgnoreCase(leaderName))
                 break;
             i++;
         }
@@ -522,7 +544,7 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
             int i = 0;
             List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
             for(LeaderCard leaderCard : leaderCards){
-                if(leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                if(leaderCard.getLeaderCardName().equalsIgnoreCase(leaderName))
                     break;
                 i++;
             }
@@ -535,12 +557,25 @@ public class CommandLineInterface extends AbstractUI implements GameScreen.GameC
     }
 
     private boolean isSelectable(TowerCell cell, PointsAndResources discount){
-        try{
-            cell.checkResourcesToBuyTheCard(getClient().getPlayer(), discount);
-            return true;
-        } catch (GameException e){
-            return false;
+        if (cell.getDevelopmentCard().getMultipleRequisiteSelectionEnabled()){
+            if (getClient().getPlayer().getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) >= cell.getDevelopmentCard().getMilitaryPointsRequired()){
+                return true;
+            }
+            for (Map.Entry<ResourceType, Integer> entry : cell.getDevelopmentCard().getCost().getResources().entrySet()) {
+                if (cell.getDevelopmentCard().getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
+                        > getClient().getPlayer().getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                    return false;
+                }
+            }
+        } else {
+            for (Map.Entry<ResourceType, Integer> entry : cell.getDevelopmentCard().getCost().getResources().entrySet()) {
+                if (cell.getDevelopmentCard().getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey())
+                        > getClient().getPlayer().getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                    return false;
+                }
+            }
         }
+        return true;
     }
 
 }

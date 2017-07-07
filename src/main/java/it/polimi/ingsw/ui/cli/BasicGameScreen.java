@@ -1,11 +1,12 @@
 package it.polimi.ingsw.ui.cli;
 
 import it.polimi.ingsw.exceptions.WrongCommandException;
+import it.polimi.ingsw.utility.Printer;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class BasicGameScreen {
+/*package-local*/ class BasicGameScreen {
 
     private HashMap<String, Function> options;
 
@@ -30,12 +31,12 @@ public class BasicGameScreen {
     }
 
     void addOption(String string, String message, Function function){
-        System.out.println(string + " -> " + message);
+        Printer.printInformationMessage(string + " -> " + message);
         options.put(string, function);
     }
 
     /*package-local*/ void printScreenTitle(String title){
-        System.out.println("\n[ " + title + " ]");
+        Printer.printInformationMessage("\n[ " + title + " ]");
     }
 
 }

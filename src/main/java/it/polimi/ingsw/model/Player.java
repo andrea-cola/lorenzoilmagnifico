@@ -8,12 +8,12 @@ import java.io.Serializable;
 public class Player implements Serializable{
 
     /**
-     * SocketPlayer username.
+     * SocketServerPlayer username.
      */
     private String username;
 
     /**
-     * SocketPlayer color.
+     * SocketServerPlayer color.
      */
     private PlayerColor color;
 

@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 
-import java.util.Map;
+import java.util.HashMap;
 
 /**
  * This class the abstraction of the server.
@@ -101,29 +101,29 @@ public abstract class AbstractClient {
     public abstract void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException;
 
     public abstract void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex,
-                                                      int cellIndex, Map<String, Object> playerChoices) throws NetworkException;
+                                                      int cellIndex, HashMap<String, Object> playerChoices) throws NetworkException;
 
     public abstract void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants,
-                                                        Map<String, Object> playerChoices) throws NetworkException;
+                                                        HashMap<String, Object> playerChoices) throws NetworkException;
 
     public abstract void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex,
-                                                       Map<String, Object> playerChoices) throws NetworkException;
+                                                       HashMap<String, Object> playerChoices) throws NetworkException;
 
     public abstract void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants,
-                                                              Map<String, Object> playerChoices) throws NetworkException;
+                                                              HashMap<String, Object> playerChoices) throws NetworkException;
 
     public abstract void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants,
-                                                                 Map<String, Object> playerChoices) throws NetworkException;
+                                                                 HashMap<String, Object> playerChoices) throws NetworkException;
 
     public abstract void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants,
-                                                                Map<String, Object> playerChoices) throws NetworkException;
+                                                                HashMap<String, Object> playerChoices) throws NetworkException;
 
     public abstract void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants,
-                                                                   Map<String, Object> playerChoices) throws NetworkException;
+                                                                   HashMap<String, Object> playerChoices) throws NetworkException;
 
-    public abstract void notifyActivateLeader(int leaderCardIndex, int servants, Map<String, Object> playerChoices) throws NetworkException;
+    public abstract void notifyActivateLeader(int leaderCardIndex, int servants, HashMap<String, Object> playerChoices) throws NetworkException;
 
-    public abstract void notifyDiscardLeader(int leaderCardIndex, Map<String, Object> playerChoices) throws NetworkException;
+    public abstract void notifyDiscardLeader(int leaderCardIndex, HashMap<String, Object> playerChoices) throws NetworkException;
 
     public abstract void notifySupportForTheChurch(boolean choice) throws NetworkException;
 

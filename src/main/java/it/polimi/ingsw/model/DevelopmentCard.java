@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.effects.Effect;
 
 import java.io.Serializable;
@@ -154,7 +153,7 @@ public class DevelopmentCard implements Serializable{
         return this.militaryPointsRequired;
     }
 
-    public void payCost(Player player, InformationCallback informationCallback) throws GameException{
+    public void payCost(Player player, InformationCallback informationCallback){
         if (multipleRequisiteSelectionEnabled){
             if (militaryPointsRequired <= player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
                     !player.getPersonalBoard().getValuables().checkDecrease(cost)) {

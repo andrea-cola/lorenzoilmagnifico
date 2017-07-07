@@ -31,7 +31,7 @@ import java.util.Arrays;
         if(parameters.length == 4) {
             checkParameters(Arrays.copyOfRange(parameters, 1, parameters.length));
             for (FamilyMemberColor color : FamilyMemberColor.values())
-                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                if (color.toString().equalsIgnoreCase(parameters[0])) {
                     int servants = Integer.parseInt(parameters[1]);
                     int column = Integer.parseInt(parameters[2]) - 1;
                     int row = Integer.parseInt(parameters[3]) - 1;
@@ -46,7 +46,7 @@ import java.util.Arrays;
         if(parameters.length == 2) {
             checkParameters(Arrays.copyOfRange(parameters, 1, parameters.length));
             for (FamilyMemberColor color : FamilyMemberColor.values())
-                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                if (color.toString().equalsIgnoreCase(parameters[0])) {
                     callback.setFamilyMemberInCouncil(color, Integer.parseInt(parameters[1]));
                     return;
                 }
@@ -58,7 +58,7 @@ import java.util.Arrays;
         if(parameters.length == 3) {
             checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
             for (FamilyMemberColor color : FamilyMemberColor.values())
-                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                if (color.toString().equalsIgnoreCase(parameters[0])) {
                     callback.setFamilyMemberInMarket(color, Integer.parseInt(parameters[1]), Integer.parseInt(parameters[2]));
                     return;
                 }
@@ -70,7 +70,7 @@ import java.util.Arrays;
         if(parameters.length == 2) {
             checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
             for (FamilyMemberColor color : FamilyMemberColor.values())
-                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                if (color.toString().equalsIgnoreCase(parameters[0])) {
                     callback.setFamilyMemberInProductionSimple(color, Integer.parseInt(parameters[1]));
                     return;
                 }
@@ -82,7 +82,7 @@ import java.util.Arrays;
         if(parameters.length == 2) {
             checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
             for (FamilyMemberColor color : FamilyMemberColor.values())
-                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                if (color.toString().equalsIgnoreCase(parameters[0])) {
                     callback.setFamilyMemberInHarvestSimple(color, Integer.parseInt(parameters[1]));
                     return;
                 }
@@ -94,7 +94,7 @@ import java.util.Arrays;
         if(parameters.length == 2) {
             checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
             for (FamilyMemberColor color : FamilyMemberColor.values())
-                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                if (color.toString().equalsIgnoreCase(parameters[0])) {
                     callback.setFamilyMemberInProductionExtended(color, Integer.parseInt(parameters[1]));
                     return;
                 }
@@ -106,7 +106,7 @@ import java.util.Arrays;
         if(parameters.length == 1) {
             checkParameters(Arrays.copyOfRange(parameters,1, parameters.length));
             for (FamilyMemberColor color : FamilyMemberColor.values())
-                if (color.toString().toLowerCase().equals(parameters[0].toLowerCase())) {
+                if (color.toString().equalsIgnoreCase(parameters[0])) {
                     callback.setFamilyMemberInHarvestExtended(color, Integer.parseInt(parameters[1]));
                     return;
                 }

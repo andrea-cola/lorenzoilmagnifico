@@ -56,7 +56,7 @@ public class MainBoard implements Serializable{
     /**
      * Constructor for the main board
      */
-    public MainBoard(MainBoard configuration) {
+    /*package-local*/ MainBoard(MainBoard configuration) {
         this.towers = new Tower[configuration.towers.length];
         for(int i = 0; i < configuration.towers.length; i++) {
             int cellPerTower = configuration.towers[i].getTowerCells().length;
