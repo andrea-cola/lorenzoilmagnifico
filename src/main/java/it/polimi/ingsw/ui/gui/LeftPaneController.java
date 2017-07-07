@@ -4,23 +4,32 @@ package it.polimi.ingsw.ui.gui;
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.UiController;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import jdk.nashorn.internal.codegen.CompilerConstants;
+import javafx.stage.Stage;
 
-import javax.swing.plaf.synth.ColorType;
-import java.io.IOException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class LeftPaneController implements LeftPaneSettigs  {
 
@@ -129,6 +138,9 @@ public class LeftPaneController implements LeftPaneSettigs  {
     private ImageView imageTower63;
 
     @FXML
+    private ImageView biggerCard;
+
+    @FXML
     private GridPane gridTower;
     @FXML
     private GridPane gridAction;
@@ -149,13 +161,14 @@ public class LeftPaneController implements LeftPaneSettigs  {
         this.informationCallback = mainBoardStage.getInformationCallback();
         this.turn = mainBoardStage.getTurn();
         this.client = mainBoardStage.getClient();
-
+        this.player = client.getPlayer();
         this.servantValue = client.getPlayer().getPersonalBoard().getValuables().getPoints().get(ResourceType.SERVANT);
 
         setDevelopmentCardInTowerCell();
         setExcommunicationCardInVatican();
         setGridAction();
         setCouncil();
+        setGridMarket();
     }
 
     @FXML
@@ -182,7 +195,8 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     Color color = stringToColor(name[1]);
                     circleProductionSimple.setFill(color);
                     try {
-                        game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(color), null);
+                        game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
+                        client.notifySetFamilyMemberInProductionSimple(getMemberColor(color), servantsToSpend(color));
                     } catch (GameException e) {
                         callback.showGameException();
                     }
@@ -190,7 +204,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     success = true;
                     event.setDropCompleted(success);
                     event.consume();
-                    client.notifySetFamilyMemberInProductionSimple(getMemberColor(color), servantsToSpend(color));
+
                 }
             });
         }
@@ -211,7 +225,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     Color color = stringToColor(name[1]);
                     circleHarvestSimple.setFill(color);
                     try {
-                        game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(color), null);
+                        game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
                         client.notifySetFamilyMemberInHarvestSimple(getMemberColor(color), servantsToSpend(color));
                     } catch (GameException e) {
                         callback.showGameException();
@@ -258,13 +272,13 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     circleCouncil54.setFill(color);
                     circleCouncil54.setDisable(true);
                     try {
-                        game.placeFamilyMemberInsideCouncilPalace(player, getMemberColor(color), servantsToSpend(color), null);
+                        game.placeFamilyMemberInsideCouncilPalace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
+                        client.notifySetFamilyMemberInCouncil(getMemberColor(color), servantsToSpend(color));
                     } catch (GameException e) {
                         callback.showGameException();
                         circleCouncil54.setDisable(false);
                         circleCouncil54.setFill(Color.AQUA);
                     }
-                    client.notifySetFamilyMemberInCouncil(getMemberColor(color), servantsToSpend(color));
                     success = true;
                     event.setDropCompleted(success);
                     event.consume();
@@ -294,7 +308,6 @@ public class LeftPaneController implements LeftPaneSettigs  {
         path2.append(game.getMainBoard().getVatican().getExcommunicationCard(2).getCardID()-14);
         path2.append(".png");
         imageVatican3.setImage(new Image(path2.toString()));
-
     }
 
     @Override
@@ -316,7 +329,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     Color color = stringToColor(name[1]);
                     circleProductionExtended.setFill(color);
                     try {
-                        game.placeFamilyMemberInsideProductionExtendedSpace(player, getMemberColor(color), servantsToSpend(color), null);
+                        game.placeFamilyMemberInsideProductionExtendedSpace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
                         client.notifySetFamilyMemberInProductionExtended(getMemberColor(color), servantsToSpend(color));
                     } catch (GameException e) {
                         callback.showGameException();
@@ -349,11 +362,11 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     Color color = stringToColor(name[1]);
                     circleHarvestExtended.setFill(color);
                     try {
-                        game.placeFamilyMemberInsideHarvestExtendedSpace(player, getMemberColor(color), servantsToSpend(color), null);
+                        game.placeFamilyMemberInsideHarvestExtendedSpace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
+                        client.notifySetFamilyMemberInHarvestExtended(getMemberColor(color), servantsToSpend(color));
                     } catch (GameException e) {
                         callback.showGameException();
                     }
-                    client.notifySetFamilyMemberInHarvestExtended(getMemberColor(color), servantsToSpend(color));
                     circleHarvestExtended.setDisable(true);
                     success = true;
                     event.setDropCompleted(success);
@@ -387,51 +400,55 @@ public class LeftPaneController implements LeftPaneSettigs  {
             System.out.println("setting tower cell...");
             StringBuilder path;
             circleTower10.setVisible(false);
-            if (game.getMainBoard().getTower(0).getTowerCell(0).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(0).getTowerCell(0).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower00.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower10.setVisible(true);
-                    manageTargetEvent(circleTower10);
-                    manageTowerDragDropped(circleTower10, 0, 0, imageTower00);
-                }
-            }
-            circleTower11.setVisible(false);
-            if (game.getMainBoard().getTower(0).getTowerCell(1).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(0).getTowerCell(1).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower01.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower11.setVisible(true);
-                    manageTargetEvent(circleTower11);
-                    manageTowerDragDropped(circleTower11, 0, 1, imageTower01);
-                }
-            }
-            circleTower12.setVisible(false);
-            if (game.getMainBoard().getTower(0).getTowerCell(2).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(0).getTowerCell(2).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower02.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower12.setVisible(true);
-                    manageTargetEvent(circleTower12);
-                    manageTowerDragDropped(circleTower12, 0, 2, imageTower02);
-                }
-            }
-            circleTower13.setVisible(false);
             if (game.getMainBoard().getTower(0).getTowerCell(3).getPlayerNicknameInTheCell() == null) {
                 path = new StringBuilder();
                 path.append("images/developmentCard/devcards_f_en_c_");
                 path.append(game.getMainBoard().getTower(0).getTowerCell(3).getDevelopmentCard().getId());
                 path.append(".png");
+                imageTower00.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower00);
+                if (turn) {
+                    circleTower10.setVisible(true);
+                    manageTargetEvent(circleTower10);
+                    manageTowerDragDropped(circleTower10, 0, 3, imageTower00);
+                }
+            }
+            circleTower11.setVisible(false);
+            if (game.getMainBoard().getTower(0).getTowerCell(2).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(0).getTowerCell(2).getDevelopmentCard().getId());
+                path.append(".png");
+                imageTower01.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower01);
+                if (turn) {
+                    circleTower11.setVisible(true);
+                    manageTargetEvent(circleTower11);
+                    manageTowerDragDropped(circleTower11, 0, 2, imageTower01);
+                }
+            }
+            circleTower12.setVisible(false);
+            if (game.getMainBoard().getTower(0).getTowerCell(1).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(0).getTowerCell(1).getDevelopmentCard().getId());
+                path.append(".png");
+                imageTower02.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower02);
+                if (turn) {
+                    circleTower12.setVisible(true);
+                    manageTargetEvent(circleTower12);
+                    manageTowerDragDropped(circleTower12, 0, 1, imageTower02);
+                }
+            }
+            circleTower13.setVisible(false);
+            if (game.getMainBoard().getTower(0).getTowerCell(0).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(0).getTowerCell(0).getDevelopmentCard().getId());
+                path.append(".png");
                 imageTower03.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower03);
                 if (turn) {
                     circleTower13.setVisible(true);
                     manageTargetEvent(circleTower13);
@@ -439,38 +456,41 @@ public class LeftPaneController implements LeftPaneSettigs  {
                 }
             }
             circleTower30.setVisible(false);
-            if (game.getMainBoard().getTower(1).getTowerCell(0).getPlayerNicknameInTheCell() == null) {
+            if (game.getMainBoard().getTower(1).getTowerCell(3).getPlayerNicknameInTheCell() == null) {
                 path = new StringBuilder();
                 path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(1).getTowerCell(0).getDevelopmentCard().getId());
+                path.append(game.getMainBoard().getTower(1).getTowerCell(3).getDevelopmentCard().getId());
                 path.append(".png");
                 imageTower20.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower20);
                 if (turn) {
                     circleTower30.setVisible(true);
                     manageTargetEvent(circleTower30);
-                    manageTowerDragDropped(circleTower30, 1, 0, imageTower20);
+                    manageTowerDragDropped(circleTower30, 1, 3, imageTower20);
                 }
             }
             circleTower31.setVisible(false);
-            if (game.getMainBoard().getTower(1).getTowerCell(1).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(1).getTowerCell(1).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower21.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower31.setVisible(true);
-                    manageTargetEvent(circleTower31);
-                    manageTowerDragDropped(circleTower31, 1, 1, imageTower21);
-                }
-            }
-            circleTower32.setVisible(false);
             if (game.getMainBoard().getTower(1).getTowerCell(2).getPlayerNicknameInTheCell() == null) {
                 path = new StringBuilder();
                 path.append("images/developmentCard/devcards_f_en_c_");
                 path.append(game.getMainBoard().getTower(1).getTowerCell(2).getDevelopmentCard().getId());
                 path.append(".png");
+                imageTower21.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower21);
+                if (turn) {
+                    circleTower31.setVisible(true);
+                    manageTargetEvent(circleTower31);
+                    manageTowerDragDropped(circleTower31, 1, 2, imageTower21);
+                }
+            }
+            circleTower32.setVisible(false);
+            if (game.getMainBoard().getTower(1).getTowerCell(1).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(1).getTowerCell(1).getDevelopmentCard().getId());
+                path.append(".png");
                 imageTower22.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower22);
                 if (turn) {
                     circleTower32.setVisible(true);
                     manageTargetEvent(circleTower32);
@@ -478,126 +498,135 @@ public class LeftPaneController implements LeftPaneSettigs  {
                 }
             }
             circleTower33.setVisible(false);
-            if (game.getMainBoard().getTower(1).getTowerCell(3).getPlayerNicknameInTheCell() == null) {
+            if (game.getMainBoard().getTower(1).getTowerCell(0).getPlayerNicknameInTheCell() == null) {
                 path = new StringBuilder();
                 path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(1).getTowerCell(3).getDevelopmentCard().getId());
+                path.append(game.getMainBoard().getTower(1).getTowerCell(0).getDevelopmentCard().getId());
                 path.append(".png");
                 imageTower23.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower23);
                 if (turn) {
                     circleTower33.setVisible(true);
                     manageTargetEvent(circleTower33);
-                    manageTowerDragDropped(circleTower33, 1, 3, imageTower23);
+                    manageTowerDragDropped(circleTower33, 1, 0, imageTower23);
                 }
             }
             circleTower50.setVisible(false);
-            if (game.getMainBoard().getTower(2).getTowerCell(0).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(2).getTowerCell(0).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower40.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower50.setVisible(true);
-                    manageTargetEvent(circleTower50);
-                    manageTowerDragDropped(circleTower50, 2, 0, imageTower40);
-                }
-            }
-            circleTower51.setVisible(false);
-            if (game.getMainBoard().getTower(2).getTowerCell(1).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(2).getTowerCell(1).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower41.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower51.setVisible(true);
-                    manageTargetEvent(circleTower51);
-                    manageTowerDragDropped(circleTower51, 2, 1, imageTower41);
-                }
-            }
-            circleTower52.setVisible(false);
-            if (game.getMainBoard().getTower(2).getTowerCell(2).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(2).getTowerCell(2).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower42.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower52.setVisible(true);
-                    manageTargetEvent(circleTower52);
-                    manageTowerDragDropped(circleTower52, 2, 2, imageTower42);
-                }
-            }
-            circleTower53.setVisible(false);
             if (game.getMainBoard().getTower(2).getTowerCell(3).getPlayerNicknameInTheCell() == null) {
                 path = new StringBuilder();
                 path.append("images/developmentCard/devcards_f_en_c_");
                 path.append(game.getMainBoard().getTower(2).getTowerCell(3).getDevelopmentCard().getId());
                 path.append(".png");
+                imageTower40.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower40);
+                if (turn) {
+                    circleTower50.setVisible(true);
+                    manageTargetEvent(circleTower50);
+                    manageTowerDragDropped(circleTower50, 2, 3, imageTower40);
+                }
+            }
+            circleTower51.setVisible(false);
+            if (game.getMainBoard().getTower(2).getTowerCell(2).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(2).getTowerCell(2).getDevelopmentCard().getId());
+                path.append(".png");
+                imageTower41.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower41);
+                if (turn) {
+                    circleTower51.setVisible(true);
+                    manageTargetEvent(circleTower51);
+                    manageTowerDragDropped(circleTower51, 2, 2, imageTower41);
+                }
+            }
+            circleTower52.setVisible(false);
+            if (game.getMainBoard().getTower(2).getTowerCell(1).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(2).getTowerCell(1).getDevelopmentCard().getId());
+                path.append(".png");
+                imageTower42.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower42);
+                if (turn) {
+                    circleTower52.setVisible(true);
+                    manageTargetEvent(circleTower52);
+                    manageTowerDragDropped(circleTower52, 2, 1, imageTower42);
+                }
+            }
+            circleTower53.setVisible(false);
+            if (game.getMainBoard().getTower(2).getTowerCell(0).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(2).getTowerCell(0).getDevelopmentCard().getId());
+                path.append(".png");
                 imageTower43.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower43);
                 if (turn) {
                     circleTower53.setVisible(true);
                     manageTargetEvent(circleTower53);
-                    manageTowerDragDropped(circleTower53, 2, 3, imageTower43);
+                    manageTowerDragDropped(circleTower53, 2, 0, imageTower43);
                 }
             }
             circleTower70.setVisible(false);
-            if (game.getMainBoard().getTower(3).getTowerCell(0).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(3).getTowerCell(0).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower60.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower70.setVisible(true);
-                    manageTargetEvent(circleTower70);
-                    manageTowerDragDropped(circleTower70, 3, 0, imageTower60);
-                }
-            }
-            circleTower71.setVisible(false);
-            if (game.getMainBoard().getTower(3).getTowerCell(1).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(3).getTowerCell(1).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower61.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower71.setVisible(true);
-                    manageTargetEvent(circleTower71);
-                    manageTowerDragDropped(circleTower71, 3, 1, imageTower61);
-                }
-            }
-            circleTower72.setVisible(false);
-            if (game.getMainBoard().getTower(3).getTowerCell(2).getPlayerNicknameInTheCell() == null) {
-                path = new StringBuilder();
-                path.append("images/developmentCard/devcards_f_en_c_");
-                path.append(game.getMainBoard().getTower(3).getTowerCell(2).getDevelopmentCard().getId());
-                path.append(".png");
-                imageTower62.setImage(new Image(path.toString()));
-                if (turn) {
-                    circleTower72.setVisible(true);
-                    manageTargetEvent(circleTower72);
-                    manageTowerDragDropped(circleTower72, 3, 2, imageTower62);
-                }
-            }
-            circleTower73.setVisible(false);
             if (game.getMainBoard().getTower(3).getTowerCell(3).getPlayerNicknameInTheCell() == null) {
                 path = new StringBuilder();
                 path.append("images/developmentCard/devcards_f_en_c_");
                 path.append(game.getMainBoard().getTower(3).getTowerCell(3).getDevelopmentCard().getId());
                 path.append(".png");
+                imageTower60.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower60);
+                if (turn) {
+                    circleTower70.setVisible(true);
+                    manageTargetEvent(circleTower70);
+                    manageTowerDragDropped(circleTower70, 3, 3, imageTower60);
+                }
+            }
+            circleTower71.setVisible(false);
+            if (game.getMainBoard().getTower(3).getTowerCell(2).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(3).getTowerCell(2).getDevelopmentCard().getId());
+                path.append(".png");
+                imageTower61.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower61);
+                if (turn) {
+                    circleTower71.setVisible(true);
+                    manageTargetEvent(circleTower71);
+                    manageTowerDragDropped(circleTower71, 3, 2, imageTower61);
+                }
+            }
+            circleTower72.setVisible(false);
+            if (game.getMainBoard().getTower(3).getTowerCell(1).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(3).getTowerCell(1).getDevelopmentCard().getId());
+                path.append(".png");
+                imageTower62.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower62);
+                if (turn) {
+                    circleTower72.setVisible(true);
+                    manageTargetEvent(circleTower72);
+                    manageTowerDragDropped(circleTower72, 3, 1, imageTower62);
+                }
+            }
+            circleTower73.setVisible(false);
+            if (game.getMainBoard().getTower(3).getTowerCell(0).getPlayerNicknameInTheCell() == null) {
+                path = new StringBuilder();
+                path.append("images/developmentCard/devcards_f_en_c_");
+                path.append(game.getMainBoard().getTower(3).getTowerCell(0).getDevelopmentCard().getId());
+                path.append(".png");
                 imageTower63.setImage(new Image(path.toString()));
+                cardOnMousePressed(imageTower63);
                 if (turn) {
                     circleTower73.setVisible(true);
                     manageTargetEvent(circleTower73);
-                    manageTowerDragDropped(circleTower73, 3, 3, imageTower63);
+                    manageTowerDragDropped(circleTower73, 3, 0, imageTower63);
                 }
             }
     }
 
     private Integer servantsToSpend(Color color){
-        return  game.getDices().getValues().get(getMemberColor(color)) + mainBoardStage.getServants();
+        return mainBoardStage.getServants();
     }
 
     private static FamilyMemberColor getMemberColor(Color color){
@@ -640,6 +669,16 @@ public class LeftPaneController implements LeftPaneSettigs  {
                 Integer.valueOf(hexColor.substring(5, 7), 16));
     }
 
+    private void cardOnMousePressed(ImageView card){
+        card.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("pressed");
+                biggerCard.setImage(card.getImage());
+            }
+        });
+    }
+
     private void manageMarketDragDropped(Circle target, int index){
         target.setOnDragDropped((DragEvent event) -> {
             String[] name;
@@ -653,7 +692,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
                 Color color = stringToColor(name[1]);
                 target.setFill(color);
                 try {
-                    game.placeFamilyMemberInsideMarket(player, getMemberColor(color), servantsToSpend(color), index, null);
+                    game.placeFamilyMemberInsideMarket(player, getMemberColor(color), servantsToSpend(color), index, informationCallback);
                     client.notifySetFamilyMemberInMarket(getMemberColor(color), servantsToSpend(color), index);
                 } catch (GameException e) {
                     callback.showGameException();
@@ -681,14 +720,15 @@ public class LeftPaneController implements LeftPaneSettigs  {
                 card.setVisible(false);
                 target.setDisable(true);
                 try {
+                    System.out.println(player + " " + servantsToSpend(color) + " " + tower + " " + towerCell);
                     this.game.pickupDevelopmentCardFromTower(player, getMemberColor(color), servantsToSpend(color), tower, towerCell, informationCallback);
+                    this.client.notifySetFamilyMemberInTower(getMemberColor(color), servantsToSpend(color), tower, towerCell);
                 } catch (GameException e) {
                     this.callback.showGameException();
                     card.setVisible(true);
                     target.setDisable(false);
                     target.setFill(Color.AQUA);
                 }
-                this.client.notifySetFamilyMemberInTower(getMemberColor(color), servantsToSpend(color), tower, towerCell);
                 success = true;
                 event.setDropCompleted(success);
                 event.consume();

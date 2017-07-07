@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,128 +13,139 @@
 
 <AnchorPane prefHeight="822.0" prefWidth="496.0" styleClass="background" stylesheets="@../styleSheet/background.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.ui.gui.LeftPaneController">
    <children>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="827.0" prefWidth="496.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <GridPane fx:id="gridTower" prefHeight="487.0" prefWidth="496.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="73.0" minWidth="10.0" prefWidth="66.4652328491211" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="55.18187713623047" minWidth="0.0" prefWidth="45.534767150878906" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="71.0" minWidth="3.5449600219726562" prefWidth="61.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="88.28590393066406" minWidth="10.0" prefWidth="42.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="60.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="82.70201110839844" minWidth="10.0" prefWidth="46.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.03892517089844" minWidth="10.0" prefWidth="59.4483642578125" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.03892517089844" minWidth="10.0" prefWidth="55.5516357421875" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="120.26036071777344" minHeight="10.0" prefHeight="120.26036071777344" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="111.26036071777344" minHeight="10.0" prefHeight="111.26036071777344" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="112.595947265625" minHeight="10.0" prefHeight="111.86306762695312" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="107.86306762695312" minHeight="10.0" prefHeight="107.86306762695312" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="74.03892517089844" minHeight="10.0" prefHeight="33.136932373046875" vgrow="SOMETIMES" />
-              </rowConstraints>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <center>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="827.0" prefWidth="493.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="imageTower00" fitHeight="116.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower20" fitHeight="114.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower40" fitHeight="114.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower60" fitHeight="116.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower01" fitHeight="108.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower21" fitHeight="108.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower41" fitHeight="106.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower61" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower02" fitHeight="109.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower22" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower42" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower62" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower03" fitHeight="106.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower23" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower43" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <ImageView fx:id="imageTower63" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower10" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower11" fill="DODGERBLUE" radius="9.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower12" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower30" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower31" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower32" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower13" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower33" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower50" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower51" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower52" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower53" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower70" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower71" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower72" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleTower73" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <Circle fx:id="circleCouncil54" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-               </children>
-            </GridPane>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <GridPane fx:id="gridVatican" prefHeight="98.0" prefWidth="235.0">
+                  <GridPane fx:id="gridTower" prefHeight="487.0" prefWidth="496.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.89083099365234" minWidth="10.0" prefWidth="73.44609069824219" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.16912841796875" minWidth="0.0" prefWidth="48.53423309326172" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="81.29865646362305" minWidth="8.719009399414062" prefWidth="51.33558654785156" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.03892517089844" minWidth="10.0" prefWidth="43.66441345214844" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="73.0" minWidth="10.0" prefWidth="66.4652328491211" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="55.18187713623047" minWidth="0.0" prefWidth="45.534767150878906" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="71.0" minWidth="3.5449600219726562" prefWidth="61.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="88.28590393066406" minWidth="10.0" prefWidth="42.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="60.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="82.70201110839844" minWidth="10.0" prefWidth="46.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.03892517089844" minWidth="10.0" prefWidth="59.4483642578125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.03892517089844" minWidth="10.0" prefWidth="55.5516357421875" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="120.26036071777344" minHeight="10.0" prefHeight="120.26036071777344" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="111.26036071777344" minHeight="10.0" prefHeight="111.26036071777344" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="112.595947265625" minHeight="10.0" prefHeight="111.86306762695312" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="107.86306762695312" minHeight="10.0" prefHeight="107.86306762695312" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="74.03892517089844" minHeight="10.0" prefHeight="33.136932373046875" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fx:id="imageVatican1" fitHeight="99.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                        <ImageView fx:id="imageVatican2" fitHeight="98.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                        <ImageView fx:id="imageVatican3" fitHeight="97.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+                        <ImageView fx:id="imageTower00" fitHeight="116.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower20" fitHeight="114.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower40" fitHeight="114.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower60" fitHeight="116.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower01" fitHeight="108.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower21" fitHeight="108.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower41" fitHeight="106.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower61" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower02" fitHeight="109.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower22" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower42" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower62" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower03" fitHeight="106.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower23" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower43" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="imageTower63" fitHeight="104.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower10" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower11" fill="DODGERBLUE" radius="9.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower12" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower30" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower31" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower32" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower13" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower33" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower50" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower51" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower52" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower53" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower70" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower71" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower72" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleTower73" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <Circle fx:id="circleCouncil54" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
                      </children>
                   </GridPane>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <GridPane fx:id="gridVatican" prefHeight="98.0" prefWidth="235.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.89083099365234" minWidth="10.0" prefWidth="73.44609069824219" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.16912841796875" minWidth="0.0" prefWidth="48.53423309326172" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="81.29865646362305" minWidth="8.719009399414062" prefWidth="51.33558654785156" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.03892517089844" minWidth="10.0" prefWidth="43.66441345214844" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <ImageView fx:id="imageVatican1" fitHeight="99.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                              <ImageView fx:id="imageVatican2" fitHeight="98.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                              <ImageView fx:id="imageVatican3" fitHeight="97.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="232.0" prefWidth="496.0" spacing="20.0">
+                     <children>
+                        <GridPane fx:id="gridAction" prefHeight="232.0" prefWidth="214.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.56891250610352" minWidth="10.0" prefWidth="65.39729690551758" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.71260833740234" minWidth="10.0" prefWidth="131.60270309448242" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints maxHeight="165.45220947265625" minHeight="10.0" prefHeight="101.69146728515625" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="165.45220947265625" minHeight="10.0" prefHeight="60.8013916015625" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="86.92474365234375" minHeight="10.0" prefHeight="75.1986083984375" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Circle fx:id="circleProductionSimple" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Circle fx:id="circleHarvestSimple" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                              <Circle fx:id="circleHarvestExtended" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Circle fx:id="circleProductionExtended" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
+                        <GridPane fx:id="gridMarket" prefHeight="170.0" prefWidth="297.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.56582641601562" minWidth="10.0" prefWidth="70.945068359375" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="79.98725891113281" minWidth="10.0" prefWidth="60.34234619140625" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.65765380859375" minWidth="2.750885009765625" prefWidth="52.671173095703125" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0389404296875" minWidth="10.0" prefWidth="48.328826904296875" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0389404296875" minWidth="10.0" prefWidth="46.7437744140625" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="82.3973388671875" minHeight="10.0" prefHeight="66.86895751953125" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="56.7945556640625" minHeight="10.0" prefHeight="53.13104248046875" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Circle fx:id="circleMarket1" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Circle fx:id="circleMarket2" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Circle fx:id="circleMarket3" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                              <Circle fx:id="circleMarket4" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
                </children>
-            </HBox>
-            <HBox prefHeight="232.0" prefWidth="496.0" spacing="20.0">
+            </VBox>
+         </center>
+         <right>
+            <AnchorPane prefHeight="827.0" prefWidth="291.0" BorderPane.alignment="CENTER">
                <children>
-                  <GridPane fx:id="gridAction" prefHeight="232.0" prefWidth="214.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.56891250610352" minWidth="10.0" prefWidth="65.39729690551758" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.71260833740234" minWidth="10.0" prefWidth="131.60270309448242" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="165.45220947265625" minHeight="10.0" prefHeight="101.69146728515625" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="165.45220947265625" minHeight="10.0" prefHeight="60.8013916015625" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="86.92474365234375" minHeight="10.0" prefHeight="75.1986083984375" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Circle fx:id="circleProductionSimple" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Circle fx:id="circleHarvestSimple" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <Circle fx:id="circleHarvestExtended" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Circle fx:id="circleProductionExtended" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                     </children>
-                  </GridPane>
-                  <GridPane fx:id="gridMarket" prefHeight="170.0" prefWidth="297.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.56582641601562" minWidth="10.0" prefWidth="70.945068359375" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="79.98725891113281" minWidth="10.0" prefWidth="60.34234619140625" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.65765380859375" minWidth="2.750885009765625" prefWidth="52.671173095703125" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0389404296875" minWidth="10.0" prefWidth="48.328826904296875" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0389404296875" minWidth="10.0" prefWidth="46.7437744140625" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="82.3973388671875" minHeight="10.0" prefHeight="66.86895751953125" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="56.7945556640625" minHeight="10.0" prefHeight="53.13104248046875" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Circle fx:id="circleMarket1" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Circle fx:id="circleMarket2" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Circle fx:id="circleMarket3" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="circleMarket4" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                     </children>
-                  </GridPane>
+                  <ImageView fx:id="biggerCard" fitHeight="318.0" fitWidth="225.0" layoutX="52.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true" />
                </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
+            </AnchorPane>
+         </right>
+      </BorderPane>
    </children>
 </AnchorPane>

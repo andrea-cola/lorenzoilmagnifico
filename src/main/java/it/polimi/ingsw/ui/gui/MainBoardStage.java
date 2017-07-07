@@ -146,17 +146,10 @@ public class MainBoardStage extends JFXPanel{
     public void showLeftPane() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            System.out.println("loading...");
             loader.setLocation(getClass().getClassLoader().getResource("fxml/mainboard.fxml"));
-
-            System.out.println("loaded!");
-
             leftPane = (AnchorPane) loader.load();
-
             root.getChildren().add(0, leftPane);
-
             LeftPaneController controller = loader.getController();
-            System.out.println("loaded 2!");
             controller.initData(this);
 
         } catch (IOException e) {
@@ -309,14 +302,16 @@ public class MainBoardStage extends JFXPanel{
         servantsBox.getChildren().addAll(plus, number, minus, message);
 
         Button endTurnButton = new Button("END TURN");
-        endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                callback.notifyEndTurnStage();
-            }
-        });
+        if(turn) {
+            endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    callback.notifyEndTurnStage();
+                }
+            });
+        }
 
-        vBox.getChildren().addAll(personalBoardButton, personalTileButton, leaderCardsButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable, separator3, servantsBox);
+        vBox.getChildren().addAll(personalBoardButton, personalTileButton, leaderCardsButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable, separator3, servantsBox, endTurnButton);
         vBox.setAlignment(Pos.CENTER);
         rightPane.setCenter(vBox);
         rightPane.setMargin(vBox, new Insets(INSETS));
@@ -387,13 +382,7 @@ public class MainBoardStage extends JFXPanel{
 
         void showGameException();
 
-        void showChooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege, CallbackInterface callback);
-
         void notifyEndTurnStage();
-
-        void setCouncilPrivileges(String reason, ArrayList<Privilege> privileges);
-
-        ArrayList<Privilege> getCouncilPrivileges();
 
         void activeLeaderCard(String leaderName, int servants);
 

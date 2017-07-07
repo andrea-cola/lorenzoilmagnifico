@@ -4,6 +4,7 @@ import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.AbstractUI;
 import it.polimi.ingsw.ui.UiController;
+import it.polimi.ingsw.utility.Debugger;
 import javafx.scene.control.ChoiceBox;
 
 import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
@@ -12,9 +13,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
 
 /**
  * This class manage the graphic user interface of the game
@@ -29,6 +31,8 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     private final static String PERS_TILE_CHOICE = "personalTileStage";
     private final static String LEADER_CARD = "leaderCardStage";
     private final static String MAIN_BOARD = "mainBoardStage";
+
+    private final static String DATA_NOT_VALID = "Your data are not valid";
 
     private final static int FRAME_HEIGHT = 900;
     private final static int FRAME_WIDTH = 1000;
@@ -55,6 +59,8 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     private DevelopmentCard card;
     private boolean choice;
     private boolean finished;
+
+    private CountDownLatch countDownLatch;
 
     /**
      * Constructor
@@ -181,40 +187,48 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     }
 
     @Override
-    public boolean supportForTheChurch() {
-        boolean choice;
-        int key = 0;
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                int result = JOptionPane.showConfirmDialog(null, "Do you want to support the church?", "Church support",
-                        JOptionPane.YES_NO_OPTION , JOptionPane.QUESTION_MESSAGE);
-                switch (result){
-                    case JOptionPane.YES_OPTION:
-                        setChoice(true);
-                        JOptionPane.getRootFrame().dispose();
-                        break;
-                    case JOptionPane.NO_OPTION:
-                        setChoice(false);
-                        JOptionPane.getRootFrame().dispose();
-                        break;
+    public void supportForTheChurch(boolean flag) {
+        if(flag){
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    int result = JOptionPane.showConfirmDialog(null, "Do you want to support the church?", "Church support",
+                            JOptionPane.YES_NO_OPTION , JOptionPane.QUESTION_MESSAGE);
+                    switch (result){
+                        case JOptionPane.YES_OPTION:
+                            setChoice(true);
+                            JOptionPane.getRootFrame().dispose();
+                            break;
+                        case JOptionPane.NO_OPTION:
+                            setChoice(false);
+                            JOptionPane.getRootFrame().dispose();
+                            break;
+                    }
                 }
-            }
-        });
-        return getChoice();
+            });
+            getClient().notifyExcommunicationChoice(getChoice());
+        }else{
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JOptionPane.showMessageDialog(null, "You have been excommunicated!!","Excommunication", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+        }
     }
 
-    private void setChoice(boolean choice){
+    private synchronized void setChoice(boolean choice){
         this.choice = choice;
     }
 
-    private boolean getChoice(){
+    private synchronized boolean getChoice(){
         return this.choice;
     }
 
     @Override
     public void showPersonalBoardStage(Player player) {
         System.out.println("showing " + player.getUsername() + " personal board...");
+        System.out.println(player.toString());
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
             jframe.setResizable(false);
@@ -254,7 +268,7 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JOptionPane.showMessageDialog(null, "Your data are not valid","Game Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Your data are not valid","Game Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
@@ -303,38 +317,51 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
     }
 
     @Override
-    public void showChooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege, MainBoardStage.CallbackInterface callback){
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new ChooseCouncilPrivilege(reason, councilPrivilege, callback);
-                } catch (GameException e) {
-                    showGameException();
+    public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (IllegalAccessException | InstantiationException |
+                UnsupportedLookAndFeelException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Privilege> privilegeArrayList = new ArrayList<>();
+        JPanel panel = new JPanel();
+        String[] privil = {"1 WOOD & 1 SERVANT", "2 SERVANTS", "2 COINS", "2 MILITARY POINTS","1 FAITH POINTS"};
+        JCheckBox[] checkBox = new JCheckBox[privil.length];
+        for (int i = 0; i < checkBox.length; i++) {
+            checkBox[i] = new JCheckBox(privil[i]);
+            panel.add(checkBox[i]);
+        }
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Choose " + councilPrivilege.getNumberOfCouncilPrivileges() +" Privilege", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            JOptionPane.getRootFrame().dispose();
+            ArrayList<Integer> choiceList = new ArrayList();
+            int j = 0;
+            for (int i = 0; i < checkBox.length; i++) {
+                if (checkBox[i].isSelected())
+                    j++;
+            }
+            if (j != councilPrivilege.getNumberOfCouncilPrivileges())
+                this.showGameException();
+            else {
+                for (int i = 0; i < checkBox.length; i++) {
+                    if (checkBox[i].isSelected())
+                        choiceList.add(i);
+                }
+                Privilege[] privileges = councilPrivilege.getPrivileges();
+                for (Integer choice : choiceList) {
+                    privilegeArrayList.add(privileges[choice]);
+                    privileges[choice].setNotAvailablePrivilege();
                 }
             }
-        });
-    }
-
-    @Override
-    public void setCouncilPrivileges(String reason, ArrayList<Privilege> privileges) {
+        }
         if(getClient().getPlayerTurnChoices().containsKey(reason)) {
             ArrayList<Privilege> arrayList = (ArrayList<Privilege>)getClient().getPlayerTurnChoices().get(reason);
-            arrayList.addAll(privileges);
+            arrayList.addAll(privilegeArrayList);
         } else
-            getClient().setPlayerTurnChoices(reason, privileges);
-        this.privileges = privileges;
-    }
-
-    @Override
-    public ArrayList<Privilege> getCouncilPrivileges(){
-        return this.privileges;
-    }
-
-    @Override
-    public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
-        showChooseCouncilPrivilege(reason, councilPrivilege, this);
-        return getCouncilPrivileges();
+            getClient().setPlayerTurnChoices(reason, privilegeArrayList);
+        return privilegeArrayList ;
     }
 
     @Override
@@ -438,7 +465,6 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
                         UnsupportedLookAndFeelException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-
                 String[] choices = new String[discounts.size()];
                 for(int i=0; i < choices.length; i++){
                     choices[i] = "Discount " + discounts.get(i).toString() + " in " + discounts.get(i);
@@ -493,17 +519,21 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
             int result = JOptionPane.showConfirmDialog(null, panel, "Choose card", JOptionPane.OK_CANCEL_OPTION);
             if(result == JOptionPane.OK_OPTION){
                 if(comboBox.getSelectedItem()!= null){
-                    int i1 = comboBox.getSelectedIndex();
-                    setKeyValue(i1);
+                    int index = comboBox.getSelectedIndex();
+                    setKeyValue(index);
                     setDevelopmentCard(devCards.get(getKeyValue()));
-                    for (Tower tower : mainBoard.getTowers())
-                        for (TowerCell towerCell : tower.getTowerCells())
-                            if (towerCell.getDevelopmentCard().getName().equals(getDevelopmentCard().getName())) {
-                                getDevelopmentCard().payCost(getClient().getPlayer(), getCallback());
-                                towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
-                                if(towerCell.getTowerCellImmediateEffect() != null)
-                                    towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), getCallback());
-                            }
+                    try {
+                        for (Tower tower : mainBoard.getTowers())
+                            for (TowerCell towerCell : tower.getTowerCells())
+                                if (towerCell.getDevelopmentCard().getName().equals(getDevelopmentCard().getName())) {
+                                    getDevelopmentCard().payCost(getClient().getPlayer(), getCallback());
+                                    towerCell.setPlayerNicknameInTheCell(getClient().getUsername());
+                                    if (towerCell.getTowerCellImmediateEffect() != null)
+                                        towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), getCallback());
+                                }
+                    }catch(GameException e){
+                        this.showGameException();
+                    }
                     getClient().setPlayerTurnChoices(reason, getDevelopmentCard());
                 }
                 JOptionPane.getRootFrame().dispose();
@@ -511,6 +541,78 @@ public class GraphicUserInterface extends AbstractUI implements MainBoardStage.C
         });
 
         return getDevelopmentCard();
+    }
+
+    @Override
+    public LeaderCard copyAnotherLeaderCard(String reason) {
+        List<LeaderCard> leaderCards = new ArrayList<>();
+        for(Map.Entry pair : getClient().getGameModel().getPlayersMap().entrySet())
+            if(!pair.getKey().equals(getClient().getUsername()))
+                leaderCards.addAll(((Player)pair.getValue()).getPersonalBoard().getLeaderCards());
+
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                }catch (IllegalAccessException | InstantiationException |
+                        UnsupportedLookAndFeelException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                String[] names = new String[leaderCards.size()];
+                int i = 0;
+                for(LeaderCard leaderCard : leaderCards){
+                    names[i] = leaderCard.getLeaderCardName().toString();
+                    i++;
+                }
+                JComboBox comboBox = new JComboBox(names);
+                JLabel label = new JLabel("Choose a Leader Card to copy");
+                JPanel panel = new JPanel();
+                panel.add(label);
+                panel.add(comboBox);
+                int result = JOptionPane.showConfirmDialog(null, panel, "Copy Effect",  JOptionPane.OK_OPTION );
+                if(result == JOptionPane.OK_OPTION){
+                    if(comboBox.getSelectedItem()!= null){
+                        int index = comboBox.getSelectedIndex();
+                        setKeyValue(index);
+                        getClient().getPlayerTurnChoices().put(reason, leaderCards.get(getKeyValue()));
+                    }
+                    JOptionPane.getRootFrame().dispose();
+                }
+
+            }
+        });
+        return leaderCards.get(getKeyValue());
+    }
+
+    @Override
+    public FamilyMemberColor choiceLeaderDice(String reason) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                String[] values = new String[FamilyMemberColor.values().length];
+                for(FamilyMemberColor familyMemberColor : FamilyMemberColor.values()) {
+                    values[i] = FamilyMemberColor.values()[i].toString();
+                    i++;
+                }
+                JComboBox comboBox = new JComboBox(values);
+                JLabel label = new JLabel("Choose Leader Dice");
+                JPanel panel = new JPanel();
+                panel.add(label);
+                panel.add(comboBox);
+                int result = JOptionPane.showConfirmDialog(null, panel, "Copy Family Mamber Value", JOptionPane.OK_OPTION);
+                if(result == JOptionPane.OK_OPTION){
+                    if(comboBox.getSelectedItem() != null){
+                        int index = comboBox.getSelectedIndex();
+                        setKeyValue(index);
+                        getClient().getPlayerTurnChoices().put(reason, FamilyMemberColor.values()[getKeyValue()]);
+                    }
+                    JOptionPane.getRootFrame().dispose();
+                }
+            }
+        });
+        return FamilyMemberColor.values()[getKeyValue()];
     }
 
     private void setDevelopmentCard(DevelopmentCard card) {

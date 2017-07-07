@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ResourceType;
 import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -46,80 +48,20 @@ public class PersonalBoardStage extends JFXPanel{
      * Main gui PersonalBoardStage objects
      */
     private BackgroundImage background;
+    private AnchorPane root;
 
     PersonalBoardStage(Player player) {
 
-        AnchorPane root = new AnchorPane();
-        GridPane gridPane = new GridPane();
-        gridPane.setPrefSize(BACK_WIDTH, BACK_HEIGHT);
-        gridPane.setHgap(GRID_HGAP);
-        gridPane.setVgap(GRID_VGAP);
-        BackgroundSize size = new BackgroundSize(BACK_WIDTH, BACK_WIDTH, false, false, true, false);
-        Image image = new Image("images/PersonalBoardStageCover.jpg");
-        background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, size);
-        root.setBackground(new Background(background));
-
-        ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setPercentWidth(20);
-
-        StringBuilder path = new StringBuilder();
-        path.append("images/developmentCard/devcards_f_en_c_");
-        int index = 0;
-        ImageView card;
-        for (int j = 0; j < 4; j++) {
-            switch (j) {
-                case 0:
-                    for (DevelopmentCard tmp : player.getPersonalBoard().getCards(DevelopmentCardColor.PURPLE)) {
-                        path.append(tmp.getId());
-                        index++;
-                        path.append(".png");
-                        card = new ImageView(new Image(path.toString()));
-                        card.setFitWidth(IMAGE_WIDTH);
-                        card.setFitHeight(IMAGE_HEIGHT);
-                        gridPane.add(card, index, j);
-                    }
-                    break;
-                case 1:
-                    for (DevelopmentCard tmp : player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE)) {
-                        path.append(tmp.getId());
-                        index++;
-                        path.append(".png");
-                        card = new ImageView(new Image(path.toString()));
-                        card.setFitWidth(IMAGE_WIDTH);
-                        card.setFitHeight(IMAGE_HEIGHT);
-                        gridPane.add(card, index, j);
-                    }
-                    break;
-                case 2:
-                    for (DevelopmentCard tmp : player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)) {
-                        path.append(tmp.getId());
-                        index++;
-                        path.append(".png");
-                        card = new ImageView(new Image(path.toString()));
-                        card.setFitWidth(IMAGE_WIDTH);
-                        card.setFitHeight(IMAGE_HEIGHT);
-                        gridPane.add(card, index, j);
-                    }
-                    break;
-                case 3:
-                    for (DevelopmentCard tmp : player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN)) {
-                        path.append(tmp.getId());
-                        index++;
-                        path.append(".png");
-                        card = new ImageView(new Image(path.toString()));
-                        card.setFitWidth(IMAGE_WIDTH);
-                        card.setFitHeight(IMAGE_HEIGHT);
-                        gridPane.add(card, index, j);
-                    }
-                    break;
-            }
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("fxml/personalBoard.fxml"));
+            root = (AnchorPane) loader.load();
+            PersonalBoardStageController controller = loader.getController();
+            controller.initData(player);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        gridPane.relocate(GRID_X, GRID_Y);
-        root.getChildren().addAll(gridPane);
         Scene scene = new Scene(root);
-
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setScene(scene);
     }
 }
