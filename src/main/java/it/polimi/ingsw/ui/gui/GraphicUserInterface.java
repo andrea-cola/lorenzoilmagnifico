@@ -135,23 +135,30 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void notifyGameStarted() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JOptionPane.showMessageDialog(null, "The game is started", "Notification", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
+       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+       alert.setTitle("Lorenzo il Magnifico");
+       alert.setHeaderText("Welcome!");
+       alert.setContentText("The game is now started");
+       alert.showAndWait();
     }
 
     @Override
     public void turnScreen(String username, long seconds) {
+        List<String> messages;
+        if (this.getClient().getMoveMessages() != null) {
+            messages = this.getClient().getMoveMessages();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Notification");
+            alert.setHeaderText("Moves of the other player");
+            for (String message : messages)
+                alert.setContentText(message);
+            alert.showAndWait();
+        }
         if (username.equals(getClient().getUsername())) {
-            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Now it is yout turn", "Notification", JOptionPane.INFORMATION_MESSAGE));
             mainBoardStage = new MainBoardStage(this, getClient(), this, true, false);
             mainPanel.add(mainBoardStage, MAIN_BOARD);
             cardLayout.show(mainPanel, MAIN_BOARD);
         } else {
-            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Please wait " + seconds + " for your turn", "Notification", JOptionPane.INFORMATION_MESSAGE));
             mainBoardStage = new MainBoardStage(this, getClient(), this, false, false);
             mainPanel.add(mainBoardStage, MAIN_BOARD);
             cardLayout.show(mainPanel, MAIN_BOARD);
@@ -187,7 +194,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Excommunication");
             alert.setHeaderText("Excommunication Information");
-            alert.setContentText("You heve been excommunicated!");
+            alert.setContentText("You have been excommunicated!");
             alert.showAndWait();
         }
     }

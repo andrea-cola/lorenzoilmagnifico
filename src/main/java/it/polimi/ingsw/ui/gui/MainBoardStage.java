@@ -176,12 +176,29 @@ import java.util.List;
         if(turn && !usedMember){
            if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.BLACK))
                manageSourceEvent(blackMember);
+           else
+               blackMember.setVisible(false);
            if (!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.ORANGE))
                manageSourceEvent(redMember);
+           else
+               redMember.setVisible(false);
            if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.WHITE))
                manageSourceEvent(whiteMember);
+           else
+               whiteMember.setVisible(false);
            if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.NEUTRAL))
                manageSourceEvent(neutralMember);
+           else
+               neutralMember.setVisible(false);
+        }else {
+            if (player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.BLACK))
+                blackMember.setVisible(false);
+            if(player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.ORANGE))
+                redMember.setVisible(false);
+            if(player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.WHITE))
+                whiteMember.setVisible(false);
+            if(player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.NEUTRAL))
+                neutralMember.setVisible(false);
         }
 
         redLabel.textProperty().bind(new SimpleIntegerProperty(redValue).asString());
@@ -223,9 +240,9 @@ import java.util.List;
         pointsTable.add(new Label("Excommunicated Period: "), 0, 7);
         List<ExcommunicationCard> exCards = player.getPersonalBoard().getExcommunivationCards();
         StringBuilder cardsID = new StringBuilder();
-        if (exCards.size()>0) {
+        if (exCards.size()>0)
             for (ExcommunicationCard exCard : exCards) cardsID.append(" " + exCard.getPeriod() + ", ");
-        }
+
         pointsTable.add(new Label(cardsID.toString()), 1 ,7);
 
         Separator separator = new Separator(Orientation.HORIZONTAL);
