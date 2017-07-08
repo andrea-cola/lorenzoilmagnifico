@@ -27,32 +27,23 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class GraphicUserInterface extends AbstractUserInterface implements MainBoardStage.CallbackInterface, InformationCallback {
 
-    private final static String START = "startinStage";
-    private final static String CONNECTION = "connnectionStage";
-    private final static String LOGIN = "loginStage";
-    private final static String JOIN_ROOM = "joinRoomStage";
-    private final static String CREATE_ROOM = "createRoomStage";
-    private final static String PERS_TILE_CHOICE = "personalTileStage";
-    private final static String LEADER_CARD = "leaderCardStage";
-    private final static String MAIN_BOARD = "mainBoardStage";
+    private static final String START = "startinStage";
+    private static final String CONNECTION = "connnectionStage";
+    private static final String LOGIN = "loginStage";
+    private static final String JOIN_ROOM = "joinRoomStage";
+    private static final String CREATE_ROOM = "createRoomStage";
+    private static final String PERS_TILE_CHOICE = "personalTileStage";
+    private static final String LEADER_CARD = "leaderCardStage";
+    private static final String MAIN_BOARD = "mainBoardStage";
 
-    private final static String DATA_NOT_VALID = "Your data are not valid";
-
-    private final static int FRAME_HEIGHT = 750;
-    private final static int FRAME_WIDTH = 1000;
+    private static final int FRAME_HEIGHT = 750;
+    private static final int FRAME_WIDTH = 1000;
 
     private final Lock lock = new ReentrantLock();
     private JFrame mainFrame;
     private JPanel mainPanel;
     private CardLayout cardLayout;
 
-    private StartingStage startingStage;
-    private ChooseConnectionStage chooseConnectionStage;
-    private LoginStage loginStage;
-    private JoinRoomStage joinRoomStage;
-    private CreateRoomStage createRoomStage;
-    private ChoosePersonalBoardTileStage choosePersonalBoardTileStage;
-    private ChooseLeaderCardStage chooseLeaderCardStage;
     private MainBoardStage mainBoardStage;
 
     private boolean usedMember;
@@ -86,12 +77,11 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     private void showStartingStage() {
         mainFrame.setResizable(false);
-        startingStage = new StartingStage();
+        StartingStage startingStage = new StartingStage();
         mainPanel.add(startingStage, START);
         mainFrame.setVisible(true);
-        System.out.println("starting...");
         cardLayout.show(mainPanel, START);
-        while (startingStage.getFinished() != true) {
+        while (startingStage.getFinished()) {
             lock.lock();
         }
     }
@@ -99,11 +89,10 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     @Override
     public void chooseConnectionType() {
         lock.lock();
-        System.out.println("connection...");
-        chooseConnectionStage = new ChooseConnectionStage(getClient()::setNetworkSettings);
+        ChooseConnectionStage chooseConnectionStage = new ChooseConnectionStage(getClient()::setNetworkSettings);
         mainPanel.add(chooseConnectionStage, CONNECTION);
         cardLayout.show(mainPanel, CONNECTION);
-        if (chooseConnectionStage.getFinished() == true) {
+        if (chooseConnectionStage.getFinished()) {
             lock.unlock();
             loginScreen();
         }
@@ -111,47 +100,41 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void loginScreen() {
-        System.out.println("logging...");
-        loginStage = new LoginStage(getClient()::loginPlayer);
+        LoginStage loginStage = new LoginStage(getClient()::loginPlayer);
         mainPanel.add(loginStage, LOGIN);
         cardLayout.show(mainPanel, LOGIN);
     }
 
     @Override
     public void joinRoomScreen() {
-        System.out.println("joining...");
-        joinRoomStage = new JoinRoomStage(getClient()::joinRoom);
+        JoinRoomStage joinRoomStage = new JoinRoomStage(getClient()::joinRoom);
         mainPanel.add(joinRoomStage, JOIN_ROOM);
         cardLayout.show(mainPanel, JOIN_ROOM);
     }
 
     @Override
     public void createRoomScreen() {
-        System.out.println("creating room...");
-        createRoomStage = new CreateRoomStage(getClient()::createRoom);
+        CreateRoomStage createRoomStage = new CreateRoomStage(getClient()::createRoom);
         mainPanel.add(createRoomStage, CREATE_ROOM);
         cardLayout.show(mainPanel, CREATE_ROOM);
     }
 
     @Override
     public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
-        System.out.println("choosing tile...");
-        choosePersonalBoardTileStage = new ChoosePersonalBoardTileStage(getClient()::sendPersonalBoardTileChoice, personalBoardTileList);
+        ChoosePersonalBoardTileStage choosePersonalBoardTileStage = new ChoosePersonalBoardTileStage(getClient()::sendPersonalBoardTileChoice, personalBoardTileList);
         mainPanel.add(choosePersonalBoardTileStage, PERS_TILE_CHOICE);
         cardLayout.show(mainPanel, PERS_TILE_CHOICE);
     }
 
     @Override
     public void chooseLeaderCards(List<LeaderCard> leaderCards) {
-        System.out.println("choosing leader...");
-        chooseLeaderCardStage = new ChooseLeaderCardStage(getClient()::notifyLeaderCardChoice, leaderCards);
+        ChooseLeaderCardStage chooseLeaderCardStage = new ChooseLeaderCardStage(getClient()::notifyLeaderCardChoice, leaderCards);
         mainPanel.add(chooseLeaderCardStage, LEADER_CARD);
         cardLayout.show(mainPanel, LEADER_CARD);
     }
 
     @Override
     public void notifyGameStarted() {
-        System.out.println("starting game...");
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -162,24 +145,13 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void turnScreen(String username, long seconds) {
-        System.out.println("staring " + username + " turn");
         if (username.equals(getClient().getUsername())) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    JOptionPane.showMessageDialog(null, "Now it is yout turn", "Notification", JOptionPane.INFORMATION_MESSAGE);
-                }
-            });
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Now it is yout turn", "Notification", JOptionPane.INFORMATION_MESSAGE));
             mainBoardStage = new MainBoardStage(this, getClient(), this, true, false);
             mainPanel.add(mainBoardStage, MAIN_BOARD);
             cardLayout.show(mainPanel, MAIN_BOARD);
         } else {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    JOptionPane.showMessageDialog(null, "Please wait " + seconds + " for your turn", "Notification", JOptionPane.INFORMATION_MESSAGE);
-                }
-            });
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Please wait " + seconds + " for your turn", "Notification", JOptionPane.INFORMATION_MESSAGE));
             mainBoardStage = new MainBoardStage(this, getClient(), this, false, false);
             mainPanel.add(mainBoardStage, MAIN_BOARD);
             cardLayout.show(mainPanel, MAIN_BOARD);
@@ -204,10 +176,12 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
             ButtonType no = new ButtonType("NO");
             alert.getButtonTypes().addAll(yes, no);
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == yes){
-                getClient().notifyExcommunicationChoice(true);
-            } else {
-                getClient().notifyExcommunicationChoice(false);
+            if(result.isPresent()) {
+                if (result.get() == yes) {
+                    getClient().notifyExcommunicationChoice(true);
+                } else {
+                    getClient().notifyExcommunicationChoice(false);
+                }
             }
         }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -220,27 +194,22 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void notifyEndGame(ServerPlayer[] ranking) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                GridLayout grid = new GridLayout(0, 2);
-                JPanel panel = new JPanel();
-                panel.setLayout(grid);
-                for(int i = 0; i <ranking.length; i++){
-                    JLabel name = new JLabel(ranking[i].getUsername());
-                    panel.add(name);
-                    JLabel points = new JLabel(ranking[i].getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY).toString());
-                    panel.add(points);
-                }
-                JOptionPane.showMessageDialog(null, panel, "End Game", JOptionPane.INFORMATION_MESSAGE);
+        EventQueue.invokeLater(() -> {
+            GridLayout grid = new GridLayout(0, 2);
+            JPanel panel = new JPanel();
+            panel.setLayout(grid);
+            for(int i = 0; i <ranking.length; i++){
+                JLabel name = new JLabel(ranking[i].getUsername());
+                panel.add(name);
+                JLabel points = new JLabel(ranking[i].getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY).toString());
+                panel.add(points);
             }
+            JOptionPane.showMessageDialog(null, panel, "End Game", JOptionPane.INFORMATION_MESSAGE);
         });
     }
 
     @Override
     public void showPersonalBoardStage(Player player) {
-        System.out.println("showing " + player.getUsername() + " personal board...");
-        System.out.println(player.toString());
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
             jframe.setResizable(false);
@@ -253,7 +222,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void showPersonalTileBoardStage(Player player) {
-        System.out.println("showing " + player.getUsername() + " personal tile board...");
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
             jframe.add(new PersonalTileBoardStage(player), BorderLayout.CENTER);
@@ -265,7 +233,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void showLeaderCards(Player player) {
-        System.out.println("showing " + player.getUsername() + " leader cards...");
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
             jframe.add(new LeaderCardStage(this, player), BorderLayout.CENTER);
@@ -286,14 +253,8 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void notifyEndTurnStage() {
-        System.out.println("showing ending turn");
         getClient().endTurn();
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JOptionPane.showMessageDialog(null, "Your turn is ended, it takes the next one.", "Notification", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
+        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Your turn is ended, it takes the next one.", "Notification", JOptionPane.INFORMATION_MESSAGE));
     }
 
     @Override
@@ -303,7 +264,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
             int i = 0;
             List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
             for (LeaderCard leaderCard : leaderCards) {
-                if (leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+                if (leaderCard.getLeaderCardName().equalsIgnoreCase(leaderName))
                     break;
             }
             getClient().getGameModel().activateLeaderCard(player, i, servants, this);
@@ -319,7 +280,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         int i = 0;
         List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
         for (LeaderCard leaderCard : leaderCards) {
-            if (leaderCard.getLeaderCardName().toLowerCase().equals(leaderName.toLowerCase()))
+            if (leaderCard.getLeaderCardName().equalsIgnoreCase(leaderName))
                 break;
             i++;
         }
@@ -329,7 +290,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @SuppressWarnings("unchecked")
     @Override
-    public ArrayList<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+    public List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
         List<String> choices;
         ArrayList<Privilege> privilegesChosen = new ArrayList<>();
 
@@ -523,10 +484,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
             getClient().getPlayerTurnChoices().put(reason, choice);
         }
         return choice;
-    }
-
-    private InformationCallback getCallback() {
-        return this;
     }
 
     private boolean isSelectable(TowerCell cell, PointsAndResources discount) {

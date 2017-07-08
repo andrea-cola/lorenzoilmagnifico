@@ -145,6 +145,7 @@ import java.util.Map;
     public void notifyLeaderCardChoice(LeaderCard leaderCard){
         try{
             client.notifyLeaderCardChoice(leaderCard);
+            playerTurnChoices = new HashMap<>();
         } catch(NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send leader card choice.");
         }
@@ -154,6 +155,7 @@ import java.util.Map;
     public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex) {
         try {
             client.notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex, playerTurnChoices);
+            playerTurnChoices = new HashMap<>();
         } catch (NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move on tower.");
         }
@@ -163,6 +165,7 @@ import java.util.Map;
     public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants) {
         try {
             client.notifySetFamilyMemberInCouncil(familyMemberColor, servants, playerTurnChoices);
+            playerTurnChoices = new HashMap<>();
         } catch (NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in council palace.");
         }
@@ -172,6 +175,7 @@ import java.util.Map;
     public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int cellIndex) {
         try {
             client.notifySetFamilyMemberInMarket(familyMemberColor, servants, cellIndex, playerTurnChoices);
+            playerTurnChoices = new HashMap<>();
         } catch (NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in market.");
         }
@@ -181,6 +185,7 @@ import java.util.Map;
     public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants) {
         try {
             client.notifySetFamilyMemberInHarvestSimple(familyMemberColor, servants, playerTurnChoices);
+            playerTurnChoices = new HashMap<>();
         } catch (NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in harvest simple.");
         }
@@ -190,6 +195,7 @@ import java.util.Map;
     public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants) {
         try {
             client.notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants, playerTurnChoices);
+            playerTurnChoices = new HashMap<>();
         } catch (NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in harvest extended.");
         }
@@ -199,6 +205,7 @@ import java.util.Map;
     public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants) {
         try {
             client.notifySetFamilyMemberInProductionSimple(familyMemberColor, servants, playerTurnChoices);
+            playerTurnChoices = new HashMap<>();
         } catch (NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in production simple.");
         }
@@ -208,6 +215,7 @@ import java.util.Map;
     public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants) {
         try {
             client.notifySetFamilyMemberInProductionExtended(familyMemberColor, servants, playerTurnChoices);
+            playerTurnChoices = new HashMap<>();
         } catch (NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify your move in production extended.");
         }
@@ -217,6 +225,7 @@ import java.util.Map;
     public void notifyActivateLeader(int leaderCardIndex, int servants) {
         try {
             client.notifyActivateLeader(leaderCardIndex, servants, playerTurnChoices);
+            playerTurnChoices = new HashMap<>();
         } catch (NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify activation of your leader.");
         }
@@ -226,6 +235,7 @@ import java.util.Map;
     public void notifyDiscardLeader(int leaderCardIndex) {
         try {
             client.notifyDiscardLeader(leaderCardIndex, playerTurnChoices);
+            playerTurnChoices = new HashMap<>();
         } catch (NetworkException e){
             Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot notify discard of your leader.");
         }

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ui.gui;
 
-
 import it.polimi.ingsw.model.LeaderCard;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
@@ -22,13 +21,13 @@ public class ChooseLeaderCardStage extends JFXPanel{
     /**
      * Constants
      */
-    private final static int VBOX_SPACING = 10;
-    private final static int HBOX_SPACING = 10;
-    private final static int INSETS = 20;
-    private final static int IMAGE_WIDTH = 200;
-    private final static int IMAGE_HEIGHT = 310;
-    private final static int WIDTH = 1000;
-    private final static int HEIGHT = 300;
+    private static final int VBOX_SPACING = 10;
+    private static final int HBOX_SPACING = 10;
+    private static final int INSETS = 20;
+    private static final int IMAGE_WIDTH = 200;
+    private static final int IMAGE_HEIGHT = 310;
+    private static final int WIDTH = 1000;
+    private static final int HEIGHT = 300;
 
     private CallbackInterface callback;
 
