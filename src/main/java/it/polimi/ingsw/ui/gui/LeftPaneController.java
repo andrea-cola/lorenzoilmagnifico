@@ -1,48 +1,30 @@
 package it.polimi.ingsw.ui.gui;
 
-
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.UserInterface;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class LeftPaneController implements LeftPaneSettigs  {
-
 
     private MainBoardStage.CallbackInterface callback;
     private InformationCallback informationCallback;
     private UserInterface client;
-    private Integer servantValue;
     private boolean turn;
     private Game game;
     private Player player;
-    private static final int CIRCLE_RADIUS = 10;
-
 
     @FXML
     private Circle circleTower10;
@@ -162,18 +144,12 @@ public class LeftPaneController implements LeftPaneSettigs  {
         this.turn = mainBoardStage.getTurn();
         this.client = mainBoardStage.getClient();
         this.player = client.getPlayer();
-        this.servantValue = client.getPlayer().getPersonalBoard().getValuables().getPoints().get(ResourceType.SERVANT);
 
         setDevelopmentCardInTowerCell();
         setExcommunicationCardInVatican();
         setGridAction();
         setCouncil();
         setGridMarket();
-    }
-
-    @FXML
-    private void initialize() {
-        System.out.println("started!");
     }
 
     @Override
@@ -185,25 +161,25 @@ public class LeftPaneController implements LeftPaneSettigs  {
             manageTargetEvent(circleProductionSimple);
             circleProductionSimple.setOnDragDropped(event -> {
                 String[] name;
-                System.out.println("onDragDropped");
                 Dragboard db = event.getDragboard();
                 Node node = event.getPickResult().getIntersectedNode();
                 if (db.hasString()) {
-                    boolean success = false;
                     circleProductionSimple.setDisable(true);
                     name = db.getString().split("fill=0");
                     Color color = stringToColor(name[1]);
                     circleProductionSimple.setFill(color);
                     try {
-                        game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
-                        client.notifySetFamilyMemberInProductionSimple(getMemberColor(color), servantsToSpend(color));
+                        game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(), informationCallback);
+                        client.notifySetFamilyMemberInProductionSimple(getMemberColor(color), servantsToSpend());
+                        this.callback.setUsedMember(true);
+                        this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException();
+                        callback.showGameException(e.getMessage());
                         circleProductionSimple.setDisable(false);
+                        circleProductionSimple.setFill(Color.AQUA);
                     }
                     circleProductionSimple.setDisable(true);
-                    success = true;
-                    event.setDropCompleted(success);
+                    event.setDropCompleted(true);
                     event.consume();
 
                 }
@@ -216,25 +192,25 @@ public class LeftPaneController implements LeftPaneSettigs  {
             manageTargetEvent(circleHarvestSimple);
             circleHarvestSimple.setOnDragDropped(event -> {
                 String[] name;
-                System.out.println("onDragDropped");
                 Dragboard db = event.getDragboard();
                 Node node = event.getPickResult().getIntersectedNode();
                 if (db.hasString()) {
-                    boolean success = false;
                     circleHarvestSimple.setDisable(true);
                     name = db.getString().split("fill=0");
                     Color color = stringToColor(name[1]);
                     circleHarvestSimple.setFill(color);
                     try {
-                        game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
-                        client.notifySetFamilyMemberInHarvestSimple(getMemberColor(color), servantsToSpend(color));
+                        game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(), informationCallback);
+                        client.notifySetFamilyMemberInHarvestSimple(getMemberColor(color), servantsToSpend());
+                        this.callback.setUsedMember(true);
+                        this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException();
+                        callback.showGameException(e.getMessage());
                         circleHarvestSimple.setDisable(false);
+                        circleHarvestSimple.setFill(Color.AQUA);
                     }
                     circleHarvestSimple.setDisable(true);
-                    success = true;
-                    event.setDropCompleted(success);
+                    event.setDropCompleted(true);
                     event.consume();
                 }
             });
@@ -264,25 +240,24 @@ public class LeftPaneController implements LeftPaneSettigs  {
             manageTargetEvent(circleCouncil54);
             circleCouncil54.setOnDragDropped(event -> {
                 String[] name;
-                System.out.println("onDragDropped");
                 Dragboard db = event.getDragboard();
                 Node node = event.getPickResult().getIntersectedNode();
                 if (db.hasString()) {
-                    boolean success = false;
                     name = db.getString().split("fill=0");
                     Color color = stringToColor(name[1]);
                     circleCouncil54.setFill(color);
                     circleCouncil54.setDisable(true);
                     try {
-                        game.placeFamilyMemberInsideCouncilPalace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
-                        client.notifySetFamilyMemberInCouncil(getMemberColor(color), servantsToSpend(color));
+                        game.placeFamilyMemberInsideCouncilPalace(player, getMemberColor(color), servantsToSpend(), informationCallback);
+                        client.notifySetFamilyMemberInCouncil(getMemberColor(color), servantsToSpend());
+                        this.callback.setUsedMember(true);
+                        this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException();
+                        callback.showGameException(e.getMessage());
                         circleCouncil54.setDisable(false);
                         circleCouncil54.setFill(Color.AQUA);
                     }
-                    success = true;
-                    event.setDropCompleted(success);
+                    event.setDropCompleted(true);
                     event.consume();
                 }
             });
@@ -291,8 +266,6 @@ public class LeftPaneController implements LeftPaneSettigs  {
 
     @Override
     public void setExcommunicationCardInVatican() {
-        System.out.println("setting vatican...");
-
         StringBuilder path = new StringBuilder();
         path.append("images/excommunicationCard/excomm_1_");
         path.append(game.getMainBoard().getVatican().getExcommunicationCard(0).getCardID());
@@ -315,31 +288,30 @@ public class LeftPaneController implements LeftPaneSettigs  {
     @Override
     public void showExtraProduction() {
         circleProductionExtended.setVisible(false);
-        System.out.println("setting production...");
         if (game.getPlayersMap().size() > 2 && turn) {
             circleHarvestExtended.setVisible(true);
             manageTargetEvent(circleProductionExtended);
             circleProductionExtended.setOnDragDropped((DragEvent event) -> {
                 String[] name;
-                System.out.println("onDragDropped");
                 Dragboard db = event.getDragboard();
                 Node node = event.getPickResult().getIntersectedNode();
                 if (db.hasString()) {
-                    boolean success = false;
                     circleProductionExtended.setDisable(true);
                     name = db.getString().split("fill=0");
                     Color color = stringToColor(name[1]);
                     circleProductionExtended.setFill(color);
                     try {
-                        game.placeFamilyMemberInsideProductionExtendedSpace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
-                        client.notifySetFamilyMemberInProductionExtended(getMemberColor(color), servantsToSpend(color));
+                        game.placeFamilyMemberInsideProductionExtendedSpace(player, getMemberColor(color), servantsToSpend(), informationCallback);
+                        client.notifySetFamilyMemberInProductionExtended(getMemberColor(color), servantsToSpend());
+                        this.callback.setUsedMember(true);
+                        this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException();
+                        callback.showGameException(e.getMessage());
                         circleProductionExtended.setDisable(false);
+                        circleProductionExtended.setFill(Color.AQUA);
                     }
                     circleProductionExtended.setDisable(true);
-                    success = true;
-                    event.setDropCompleted(success);
+                    event.setDropCompleted(true);
                     event.consume();
                 }
             });
@@ -348,32 +320,31 @@ public class LeftPaneController implements LeftPaneSettigs  {
 
     @Override
     public void showExtraHarvest() {
-        System.out.println("setting harvest...");
         circleHarvestExtended.setVisible(false);
         if (game.getPlayersMap().size() > 2 && turn) {
             circleHarvestExtended.setVisible(true);
             manageTargetEvent(circleHarvestExtended);
             circleHarvestExtended.setOnDragDropped((DragEvent event) -> {
                 String[] name;
-                System.out.println("onDragDropped");
                 Dragboard db = event.getDragboard();
                 Node node = event.getPickResult().getIntersectedNode();
                 if (db.hasString()) {
-                    boolean success = false;
                     circleHarvestExtended.setDisable(true);
                     name = db.getString().split("fill=0");
                     Color color = stringToColor(name[1]);
                     circleHarvestExtended.setFill(color);
                     try {
-                        game.placeFamilyMemberInsideHarvestExtendedSpace(player, getMemberColor(color), servantsToSpend(color), informationCallback);
-                        client.notifySetFamilyMemberInHarvestExtended(getMemberColor(color), servantsToSpend(color));
+                        game.placeFamilyMemberInsideHarvestExtendedSpace(player, getMemberColor(color), servantsToSpend(), informationCallback);
+                        client.notifySetFamilyMemberInHarvestExtended(getMemberColor(color), servantsToSpend());
+                        this.callback.setUsedMember(true);
+                        this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException();
+                        callback.showGameException(e.getMessage());
                         circleHarvestExtended.setDisable(false);
+                        circleHarvestExtended.setFill(Color.AQUA);
                     }
                     circleHarvestExtended.setDisable(true);
-                    success = true;
-                    event.setDropCompleted(success);
+                    event.setDropCompleted(true);
                     event.consume();
                 }
             });
@@ -384,7 +355,6 @@ public class LeftPaneController implements LeftPaneSettigs  {
     public void showExtraMarket() {
         circleMarket3.setVisible(false);
         circleMarket4.setVisible(false);
-        System.out.println("setting market...");
         if (game.getPlayersMap().size() > 3 && turn) {
             if (game.getMainBoard().getMarket().getMarketCell(2).isEmpty()) {
                 circleMarket3.setVisible(true);
@@ -401,7 +371,6 @@ public class LeftPaneController implements LeftPaneSettigs  {
 
     @Override
     public void setDevelopmentCardInTowerCell () {
-            System.out.println("setting tower cell...");
             StringBuilder path;
             circleTower10.setVisible(false);
             if (game.getMainBoard().getTower(0).getTowerCell(3).getPlayerNicknameInTheCell() == null) {
@@ -629,7 +598,7 @@ public class LeftPaneController implements LeftPaneSettigs  {
             }
     }
 
-    private Integer servantsToSpend(Color color){
+    private Integer servantsToSpend(){
         return mainBoardStage.getServants();
     }
 
@@ -677,7 +646,6 @@ public class LeftPaneController implements LeftPaneSettigs  {
         card.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("pressed");
                 biggerCard.setImage(card.getImage());
             }
         });
@@ -686,25 +654,25 @@ public class LeftPaneController implements LeftPaneSettigs  {
     private void manageMarketDragDropped(Circle target, int index){
         target.setOnDragDropped((DragEvent event) -> {
             String[] name;
-            System.out.println("onDragDropped");
             Dragboard db = event.getDragboard();
             Node node = event.getPickResult().getIntersectedNode();
             if (db.hasString()) {
-                boolean success = false;
                 target.setDisable(true);
                 name = db.getString().split("fill=0");
                 Color color = stringToColor(name[1]);
                 target.setFill(color);
                 try {
-                    game.placeFamilyMemberInsideMarket(player, getMemberColor(color), servantsToSpend(color), index, informationCallback);
-                    client.notifySetFamilyMemberInMarket(getMemberColor(color), servantsToSpend(color), index);
+                    game.placeFamilyMemberInsideMarket(player, getMemberColor(color), servantsToSpend(), index, informationCallback);
+                    client.notifySetFamilyMemberInMarket(getMemberColor(color), servantsToSpend(), index);
+                    this.callback.setUsedMember(true);
+                    this.callback.updateMainBoard();
                 } catch (GameException e) {
-                    callback.showGameException();
+                    callback.showGameException(e.getMessage());
                     target.setDisable(false);
+                    target.setFill(Color.AQUA);
                 }
                 target.setDisable(true);
-                success = true;
-                event.setDropCompleted(success);
+                event.setDropCompleted(true);
                 event.consume();
             }
         });
@@ -713,11 +681,9 @@ public class LeftPaneController implements LeftPaneSettigs  {
     private void manageTowerDragDropped(Circle target, int tower, int towerCell, ImageView card){
         target.setOnDragDropped((DragEvent event) -> {
             String[] name;
-            System.out.println("onDragDropped");
             Dragboard db = event.getDragboard();
             Node node = event.getPickResult().getIntersectedNode();
             if (db.hasString()) {
-                boolean success = false;
                 target.setDisable(true);
                 name = db.getString().split("fill=0");
                 Color color = stringToColor(name[1]);
@@ -725,42 +691,34 @@ public class LeftPaneController implements LeftPaneSettigs  {
                 card.setVisible(false);
                 target.setDisable(true);
                 try {
-                    this.game.pickupDevelopmentCardFromTower(player, getMemberColor(color), servantsToSpend(color), tower, towerCell, informationCallback);
-                    this.client.notifySetFamilyMemberInTower(getMemberColor(color), servantsToSpend(color), tower, towerCell);
+                    this.game.pickupDevelopmentCardFromTower(player, getMemberColor(color), servantsToSpend(), tower, towerCell, informationCallback);
+                    this.client.notifySetFamilyMemberInTower(getMemberColor(color), servantsToSpend(), tower, towerCell);
+                    this.callback.setUsedMember(true);
+                    this.callback.updateMainBoard();
                 } catch (GameException e) {
-                    this.callback.showGameException();
+                    this.callback.showGameException(e.getMessage());
                     card.setVisible(true);
                     target.setDisable(false);
                     target.setFill(Color.AQUA);
                 }
-                success = true;
-                event.setDropCompleted(success);
+                event.setDropCompleted(true);
                 event.consume();
             }
         });
     }
-
     /**
      * Method to manage the "Drag Over", "Drag Entered", "Drag Exited", "Drag Dropped" event
      * @param target node which is triggered by the event and does actions
      */
     private static void manageTargetEvent(Circle target) {
         target.setOnDragOver(event -> {
-            /* data is dragged over the target */
-            System.out.println("onDragOver");
-            /* accept it only if it is  not dragged from the same node
-             * and if it has a string data */
             if (event.getGestureSource() != target &&
                     event.getDragboard().hasString()) {
-                /* allow for both copying and moving, whatever user chooses */
                 event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             }
             event.consume();
         });
         target.setOnDragEntered(event -> {
-            /* the drag-and-drop gesture entered the target */
-            System.out.println("onDragEntered");
-            /* show to the user that it is an actual gesture target */
             if (event.getGestureSource() != target && event.getDragboard().hasString()) {
                 target.setScaleX(target.getScaleX() * 1.3);
                 target.setScaleY(target.getScaleY() * 1.3);
@@ -768,7 +726,6 @@ public class LeftPaneController implements LeftPaneSettigs  {
             event.consume();
         });
         target.setOnDragExited(event -> {
-            /* mouse moved away, remove the graphical cues */
             target.setScaleX(target.getScaleX() / 1.3);
             target.setScaleY(target.getScaleY() / 1.3);
             event.consume();

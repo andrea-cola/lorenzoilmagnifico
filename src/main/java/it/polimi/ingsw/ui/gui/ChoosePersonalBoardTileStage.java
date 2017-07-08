@@ -1,13 +1,9 @@
 package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.model.PersonalBoardTile;
-import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -18,12 +14,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 
 import java.util.List;
 
-public class ChoosePersonalBoardTileStage extends JFXPanel {
+/*package-local*/ class ChoosePersonalBoardTileStage extends JFXPanel {
 
     private CallbackInterface callback;
 
@@ -37,7 +31,7 @@ public class ChoosePersonalBoardTileStage extends JFXPanel {
 
     private int choice;
 
-    ChoosePersonalBoardTileStage(CallbackInterface callback, List<PersonalBoardTile> personalBoardTileList){
+    /*package-local*/ ChoosePersonalBoardTileStage(CallbackInterface callback, List<PersonalBoardTile> personalBoardTileList){
         this.callback = callback;
         this.personalBoardTileList = personalBoardTileList;
 

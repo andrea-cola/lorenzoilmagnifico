@@ -1,20 +1,6 @@
 package it.polimi.ingsw.gameserver;
 
-import it.polimi.ingsw.model.DevelopmentCard;
-import it.polimi.ingsw.model.DevelopmentCardColor;
-import it.polimi.ingsw.model.ExcommunicationCard;
-import it.polimi.ingsw.model.FamilyMember;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.InformationChoicesHandler;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.MarketCell;
-import it.polimi.ingsw.model.PersonalBoard;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PlayerColor;
-import it.polimi.ingsw.model.PointType;
-import it.polimi.ingsw.model.ResourceType;
-import it.polimi.ingsw.model.Tower;
-import it.polimi.ingsw.model.TowerCell;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
 
@@ -304,6 +290,9 @@ import java.util.*;
         personalBoard.getValuables().increase(ResourceType.STONE, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.STONE));
         personalBoard.getValuables().increase(ResourceType.SERVANT, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.SERVANT));
         personalBoard.getValuables().increase(ResourceType.COIN, this.configuration.getPersonalBoard().getValuables().getResources().get(ResourceType.COIN));
+        personalBoard.getValuables().increase(PointType.VICTORY, this.configuration.getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY));
+        personalBoard.getValuables().increase(PointType.MILITARY, this.configuration.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY));
+        personalBoard.getValuables().increase(PointType.FAITH, this.configuration.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH));
         personalBoard.setGreenCardsMilitaryPointsRequirements(this.configuration.getPersonalBoard().getGreenCardsMilitaryPointsRequirements());
         FamilyMember familyMember = new FamilyMember();
         personalBoard.setFamilyMember(familyMember);

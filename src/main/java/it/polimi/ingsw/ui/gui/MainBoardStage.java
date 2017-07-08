@@ -2,6 +2,7 @@ package it.polimi.ingsw.ui.gui;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.UserInterface;
+import it.polimi.ingsw.utility.Printer;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -11,7 +12,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,13 +23,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
+import java.util.List;
 
 /**
  * This is the Graphic User Interface main board class
  */
-public class MainBoardStage extends JFXPanel{
+/*package-local*/ class MainBoardStage extends JFXPanel{
 
     /**
      * Family member related values
@@ -38,7 +37,7 @@ public class MainBoardStage extends JFXPanel{
     private int whiteValue;
     private int blackValue;
     private int neutralValue;
-    private Integer servants = new Integer(0);
+    private Integer servants = 0;
 
     private CallbackInterface callback;
     private InformationCallback informationCallback;
@@ -46,6 +45,7 @@ public class MainBoardStage extends JFXPanel{
     private Player player;
     private UserInterface client;
     private boolean turn;
+    private boolean usedMember;
 
     /**
      * Data related to the player
@@ -62,52 +62,22 @@ public class MainBoardStage extends JFXPanel{
     /**
      * Constants
      */
-    private static final int LEFT_WIDTH = 500;
-    private static final int LEFT_HEIGHT = 825;
-    private static final int BACK_WIDTH = 500;
-    private static final int BACK_HEIGHT = 825;
-    private static final int GRID_TOWER_X = 20;
-    private static final int GRID_TOWER_Y = 20;
-    private static final int GRID_TOWER_HGAP = 10;
-    private static final int GRID_TOWER_VGAP = 25;
-    private static final int GRID_ACTION_X = 20;
-    private static final int GRID_ACTION_Y = 700;
-    private static final int GRID_MARKET_HGAP = 20;
-    private static final int GRID_MARKET_VGAP = 20;
-    private static final int HBOX_SPACING = 200;
     private static final int VBOX_SPACING = 10;
-    private static final int CIRCLE_RADIUS = 10;
     private static final int FAMILY_RADIUS = 20;
-    private static final int DEV_HEIGHT = 90;
-    private static final int DEV_WIDTH = 65;
-    private static final int EX_HEIGHT = 60;
-    private static final int EX_WIDTH = 34;
     private static final int INSETS = 20;
 
-    /**
-     * Main gui MainBoardStage objects
-     */
-    private BackgroundImage background;
-    private Button personalBoardButton;
-    private Button personalTileButton;
-    private Button leaderCardsButton;
-    private Parent leftPane;
-    //private SplitPane splitPane;
-    //private GridPane gridTower;
-    //private GridPane gridAction;
-    //private GridPane gridMarket;
-    private Scene scene;
-    private BorderPane rightPane;
     private HBox root;
 
     /**
      * Constructor for Main Board class
      */
-    MainBoardStage(CallbackInterface callback, UserInterface client, InformationCallback informationCallback, boolean turn) {
+    /*package-local*/ MainBoardStage(CallbackInterface callback, UserInterface client, InformationCallback informationCallback, boolean turn, boolean usedMember) {
         this.game = client.getGameModel();
         this.player = client.getPlayer();
         this.client = client;
         this.turn = turn;
+        this.usedMember = usedMember;
+        System.out.println(usedMember);
 
         this.callback = callback;
         this.informationCallback = informationCallback;
@@ -134,7 +104,7 @@ public class MainBoardStage extends JFXPanel{
 
         showRightPane();
 
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
 
         this.setScene(scene);
     }
@@ -143,40 +113,38 @@ public class MainBoardStage extends JFXPanel{
      * Create the left pane of the split pane
      * @return the left pane
      */
-    public void showLeftPane() {
+    private void showLeftPane() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("fxml/mainboard.fxml"));
-            leftPane = (Parent) loader.load();
+            Parent leftPane = (Parent) loader.load();
             root.getChildren().add(0, leftPane);
             LeftPaneController controller = loader.getController();
             controller.initData(this);
-
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
         }
-        return;
     }
 
     /**
      * Create the right pane of the split pane
      * @return the right pane
      */
-    public void showRightPane() {
-        rightPane = new BorderPane();
+    private void showRightPane() {
+        BorderPane rightPane = new BorderPane();
 
         VBox vBox = new VBox(VBOX_SPACING);
         vBox.setAlignment(Pos.CENTER);
 
-        personalBoardButton = new Button("PERSONAL BOARD");
+        Button personalBoardButton = new Button("PERSONAL BOARD");
         personalBoardButton.setAlignment(Pos.CENTER);
         personalBoardButton.setOnAction(event -> this.callback.showPersonalBoardStage(player));
 
-        personalTileButton = new Button("PERSONAL TILE");
+        Button personalTileButton = new Button("PERSONAL TILE");
         personalTileButton.setAlignment(Pos.CENTER);
         personalTileButton.setOnAction(event -> this.callback.showPersonalTileBoardStage(player));
 
-        leaderCardsButton = new Button("LEADER CARDS");
+        Button leaderCardsButton = new Button("LEADER CARDS");
         leaderCardsButton.setAlignment(Pos.CENTER);
         if(turn)
             leaderCardsButton.setOnAction(event -> callback.showLeaderCards(player));
@@ -205,7 +173,7 @@ public class MainBoardStage extends JFXPanel{
         StackPane neutralPane = new StackPane();
         neutralPane.getChildren().addAll(neutralMember, neutralLabel);
 
-        if(turn){
+        if(turn && !usedMember){
            if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.BLACK))
                manageSourceEvent(blackMember);
            if (!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.ORANGE))
@@ -240,17 +208,25 @@ public class MainBoardStage extends JFXPanel{
         pointsTable.add(new Label("Faith points: "), 0, 2);
         pointsTable.add(new Label(Integer.toString(faithPoints)), 1, 2);
 
-        pointsTable.add(new Label("Coins"),0, 3);
-        pointsTable.add(new Label(new Integer(coinsValue).toString()), 1, 3);
+        pointsTable.add(new Label("Coins: "),0, 3);
+        pointsTable.add(new Label(Integer.toString(coinsValue)), 1, 3);
 
-        pointsTable.add(new Label("Woods"), 0, 4);
-        pointsTable.add(new Label(new Integer(woodValue).toString()), 1, 4);
+        pointsTable.add(new Label("Woods: "), 0, 4);
+        pointsTable.add(new Label(Integer.toString(woodValue)), 1, 4);
 
-        pointsTable.add(new Label("Stones"), 0, 5);
-        pointsTable.add(new Label(new Integer(stonesValue).toString()), 1, 5);
+        pointsTable.add(new Label("Stones: "), 0, 5);
+        pointsTable.add(new Label(Integer.toString(stonesValue)), 1, 5);
 
-        pointsTable.add(new Label("Servants"), 0, 6);
-        pointsTable.add(new Label(new Integer(servantValue).toString()), 1, 6);
+        pointsTable.add(new Label("Servants: "), 0, 6);
+        pointsTable.add(new Label(Integer.toString(servantValue)), 1, 6);
+
+        pointsTable.add(new Label("Excommunicated Period: "), 0, 7);
+        List<ExcommunicationCard> exCards = player.getPersonalBoard().getExcommunivationCards();
+        StringBuilder cardsID = new StringBuilder();
+        if (exCards.size()>0) {
+            for (ExcommunicationCard exCard : exCards) cardsID.append(" " + exCard.getPeriod() + ", ");
+        }
+        pointsTable.add(new Label(cardsID.toString()), 1 ,7);
 
         Separator separator = new Separator(Orientation.HORIZONTAL);
         Separator separator1 = new Separator(Orientation.HORIZONTAL);
@@ -268,30 +244,24 @@ public class MainBoardStage extends JFXPanel{
         minus.setAlignment(Pos.CENTER);
 
         if(turn) {
-            plus.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    if (servantValue > servants) {
-                        servants++;
-                        message.setVisible(false);
-                        number.setText("n° servants " + new Integer(servants).toString());
-                        minus.setVisible(true);
-                    } else {
-                        plus.setVisible(false);
-                    }
+            plus.setOnAction(event -> {
+                if (servantValue > servants) {
+                    servants++;
+                    message.setVisible(false);
+                    number.setText("n° servants " + Integer.toString(servants));
+                    minus.setVisible(true);
+                } else {
+                    plus.setVisible(false);
                 }
             });
 
-            minus.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    if (servants > 0) {
-                        servants--;
-                        plus.setVisible(true);
-                        number.setText("n° servants " + new Integer(servants).toString());
-                    } else {
-                        minus.setVisible(false);
-                    }
+            minus.setOnAction(event -> {
+                if (servants > 0) {
+                    servants--;
+                    plus.setVisible(true);
+                    number.setText("n° servants " + Integer.toString(servants));
+                } else {
+                    minus.setVisible(false);
                 }
             });
         }
@@ -303,24 +273,14 @@ public class MainBoardStage extends JFXPanel{
 
         Button endTurnButton = new Button("END TURN");
         if(turn) {
-            endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    callback.notifyEndTurnStage();
-                }
-            });
+            endTurnButton.setOnAction(event -> callback.notifyEndTurnStage());
         }
-
         vBox.getChildren().addAll(personalBoardButton, personalTileButton, leaderCardsButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable, separator3, servantsBox, endTurnButton);
         vBox.setAlignment(Pos.CENTER);
         rightPane.setCenter(vBox);
         rightPane.setMargin(vBox, new Insets(INSETS));
-
         root.getChildren().add(1, rightPane);
-
-        return;
     }
-
     /**
      * Method to manage the "Drag Detected" and "Drag Done" event
      * @param source node which triggers the action during the events
@@ -380,12 +340,19 @@ public class MainBoardStage extends JFXPanel{
 
         void showLeaderCards(Player player);
 
-        void showGameException();
+        void showGameException(String message);
 
         void notifyEndTurnStage();
 
         void activeLeaderCard(String leaderName, int servants);
 
         void discardLeader(String leaderName);
+
+        void updateMainBoard();
+
+        void setUsedMember(boolean flag);
+
+        boolean getUsedMember();
+
     }
 }

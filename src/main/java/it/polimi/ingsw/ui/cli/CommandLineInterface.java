@@ -154,7 +154,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
                     && getClient().getGameModel().getTurn() == 1)
                 gameScreen = new TurnScreen(this, moveDone);
             else{
-                Printer.printStandardMessage("You lost this turn because of the excommunicaiton you got.");
+                Printer.printStandardMessage("You lost this turn because of the excommunication you got.");
                 this.notifyEndTurn();
             }
         }
