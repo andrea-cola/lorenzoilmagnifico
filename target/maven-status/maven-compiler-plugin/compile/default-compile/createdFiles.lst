@@ -1,3 +1,5 @@
+it/polimi/ingsw/model/PersonalBoard$1.class
+it/polimi/ingsw/ui/cli/CommandLineInterface$ConsoleListener.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$12.class
 it/polimi/ingsw/ui/gui/LeaderCardStage$1.class
 it/polimi/ingsw/ui/gui/LeaderCardStage.class
@@ -6,7 +8,9 @@ it/polimi/ingsw/protocol/ClientCommunication.class
 it/polimi/ingsw/ui/gui/MainBoardStage$3.class
 it/polimi/ingsw/model/effects/ExcommunicationEffect.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$11.class
+it/polimi/ingsw/model/Vatican.class
 it/polimi/ingsw/socketserver/SocketServerAbstract$1.class
+it/polimi/ingsw/ui/gui/MainBoardStage.class
 it/polimi/ingsw/ui/gui/PersonalBoardStageController.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$6.class
 it/polimi/ingsw/ui/gui/LeftPaneSettigs.class
@@ -15,9 +19,11 @@ it/polimi/ingsw/ui/gui/GraphicUserInterface$3.class
 it/polimi/ingsw/socketserver/SocketServerAbstract$RequestManager.class
 it/polimi/ingsw/rmiserver/RMIServerPlayer.class
 it/polimi/ingsw/client/GameLauncher.class
+it/polimi/ingsw/ui/gui/GraphicUserInterface.class
 it/polimi/ingsw/ui/gui/LeftPaneController$1.class
 it/polimi/ingsw/ui/AbstractUserInterface.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$4.class
+it/polimi/ingsw/ui/gui/PersonalBoardStage.class
 it/polimi/ingsw/ui/UserInterface.class
 it/polimi/ingsw/ui/gui/LeaderCardStage$1$1.class
 it/polimi/ingsw/ui/gui/LeaderCardStage$1$1$1.class
@@ -32,8 +38,12 @@ it/polimi/ingsw/ui/gui/GraphicUserInterface$1.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$10.class
 it/polimi/ingsw/model/ExcommunicationValues.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$8.class
+it/polimi/ingsw/ui/cli/CommandLineInterface.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$7.class
 it/polimi/ingsw/rmiserver/RMIServerAbstract.class
+it/polimi/ingsw/model/PersonalBoard.class
+it/polimi/ingsw/model/ActionSpaceExtended.class
+it/polimi/ingsw/model/DevelopmentCardColor.class
 it/polimi/ingsw/ui/gui/MainBoardStage$2.class
 it/polimi/ingsw/ui/gui/MainBoardStage$CallbackInterface.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$9.class
@@ -41,6 +51,7 @@ it/polimi/ingsw/utility/Printer.class
 it/polimi/ingsw/protocol/ServerCommunication$Handler.class
 it/polimi/ingsw/client/LorenzoIlMagnifico.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$13.class
+it/polimi/ingsw/ui/cli/CommandLineInterface$1.class
 it/polimi/ingsw/ui/gui/MainBoardStage$1.class
 it/polimi/ingsw/protocol/ServerCommunication.class
 it/polimi/ingsw/ui/gui/LeaderCardStage$1$1$2.class

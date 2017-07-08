@@ -72,10 +72,16 @@ public class PointsAndResourcesTest {
 
     @Test
     public void getResources() throws Exception {
+        PointsAndResources valuables = new PointsAndResources();
+        int result = valuables.getResources().get(ResourceType.COIN);
+        assertEquals(0, result);
     }
 
     @Test
     public void getPoints() throws Exception {
+        PointsAndResources valuables = new PointsAndResources();
+        int result = valuables.getPoints().get(PointType.FAITH);
+        assertEquals(0, result);
     }
 
 }

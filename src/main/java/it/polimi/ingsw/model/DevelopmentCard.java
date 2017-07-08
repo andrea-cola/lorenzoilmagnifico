@@ -72,7 +72,7 @@ public class DevelopmentCard implements Serializable{
         this.cardColor = developmentCardColor;
         this.cost = cost;
         this.multipleRequisiteSelectionEnabled = multipleRequisiteSelectionEnabled;
-        this.militaryPointsRequired =militaryPointsRequired;
+        this.militaryPointsRequired = militaryPointsRequired;
         this.immediateEffect = immediateEffect;
         this.permanentEffect = permanentEffect;
     }
@@ -149,27 +149,24 @@ public class DevelopmentCard implements Serializable{
         return this.militaryPointsRequired;
     }
 
-    public int getMilitaryPointsToPay(){
-        return this.militaryPointsRequired;
-    }
 
     public void payCost(Player player, InformationCallback informationCallback){
-        if (multipleRequisiteSelectionEnabled){
-            if (militaryPointsRequired <= player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
-                    !player.getPersonalBoard().getValuables().checkDecrease(cost)) {
-                player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, militaryPointsToPay);
-            }else if(militaryPointsRequired > player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
-                    player.getPersonalBoard().getValuables().checkDecrease(cost)) {
-                player.getPersonalBoard().getValuables().decreaseAll(cost);
+        if (this.multipleRequisiteSelectionEnabled){
+            if (this.militaryPointsRequired <= player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
+                    !player.getPersonalBoard().getValuables().checkDecrease(this.cost)) {
+                player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, this.militaryPointsToPay);
+            }else if(this.militaryPointsRequired > player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
+                    player.getPersonalBoard().getValuables().checkDecrease(this.cost)) {
+                player.getPersonalBoard().getValuables().decreaseAll(this.cost);
             }else {
-                int choice = informationCallback.chooseDoubleCost(cost, militaryPointsToPay, militaryPointsRequired);
+                int choice = informationCallback.chooseDoubleCost(this.cost, this.militaryPointsToPay, this.militaryPointsRequired);
                 if(choice == 2)
-                    player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, militaryPointsToPay);
+                    player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, this.militaryPointsToPay);
                 else
-                    player.getPersonalBoard().getValuables().decreaseAll(cost);
+                    player.getPersonalBoard().getValuables().decreaseAll(this.cost);
             }
         } else {
-            player.getPersonalBoard().getValuables().decreaseAll(cost);
+            player.getPersonalBoard().getValuables().decreaseAll(this.cost);
         }
     }
 
