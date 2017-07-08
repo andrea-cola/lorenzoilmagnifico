@@ -396,8 +396,8 @@ public class PersonalBoard implements Serializable {
         this.familyMembersUsed = new ArrayList<>();
         this.familyMember = new FamilyMember();
         for(LeaderCard leaderCard : leaderCards) {
-            if (!leaderCard.getLeaderCardName().equalsIgnoreCase("lorenzo il magnifico")
-                    && !leaderCard.getLeaderEffectActive() && leaderCard.getEffect() instanceof LELorenzoDeMedici) {
+            if (leaderCard.getLeaderCardName().equalsIgnoreCase("lorenzo il magnifico")
+                    && leaderCard.getLeaderEffectActive() && leaderCard.getEffect() instanceof LELorenzoDeMedici) {
                 LELorenzoDeMedici effect = (LELorenzoDeMedici)leaderCard.getEffect();
                 LeaderCard leaderCardToDelete = effect.getLeaderCard();
                 for(int j = 0; j < leaderCards.size(); j++)
