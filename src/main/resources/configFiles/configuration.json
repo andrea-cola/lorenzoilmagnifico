@@ -1762,9 +1762,9 @@
         "COIN": 5
       },
       "points": {
-        "FAITH": 50,
-        "VICTORY": 50,
-        "MILITARY": 50
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
       }
     },
     "territoryCards": [

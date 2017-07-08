@@ -176,11 +176,16 @@ public class TowerCell implements Serializable{
                 flag = true;
             }
             if(!flag) {
-                for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
-                    if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
-                        throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+                if(!checkNullResources()) {
+                    for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
+                        if (this.developmentCard.getCost().getResources().get(entry.getKey()) - discount.getResources().get(entry.getKey()) > player.getPersonalBoard().getValuables().getResources().get(entry.getKey())) {
+                            throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
+                        }
                     }
+                } else {
+                    throw new GameException(GameErrorType.PLAYER_RESOURCES_ERROR);
                 }
+
             }
         } else {
             for (Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet()) {
@@ -190,6 +195,16 @@ public class TowerCell implements Serializable{
                 }
             }
         }
+    }
+
+    private boolean checkNullResources(){
+        for(Map.Entry pair : this.developmentCard.getCost().getResources().entrySet())
+            if((int)pair.getValue() > 0)
+                return false;
+        for(Map.Entry pair : this.developmentCard.getCost().getPoints().entrySet())
+            if((int)pair.getValue() > 0)
+                return false;
+        return true;
     }
 
     /**

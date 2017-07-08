@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.effects.Effect;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * This class represent the abstraction of the development card.
@@ -154,14 +155,16 @@ public class DevelopmentCard implements Serializable{
     }
 
     public void payCost(Player player, InformationCallback informationCallback){
-        if (multipleRequisiteSelectionEnabled){
-            if (militaryPointsRequired <= player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
+        if (multipleRequisiteSelectionEnabled) {
+            if (checkNullResources()){
+                player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, militaryPointsToPay);
+            }else if (militaryPointsRequired <= player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
                     !player.getPersonalBoard().getValuables().checkDecrease(cost)) {
                 player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, militaryPointsToPay);
-            }else if(militaryPointsRequired > player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
+            } else if(militaryPointsRequired > player.getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) &&
                     player.getPersonalBoard().getValuables().checkDecrease(cost)) {
                 player.getPersonalBoard().getValuables().decreaseAll(cost);
-            }else {
+            } else {
                 int choice = informationCallback.chooseDoubleCost(cost, militaryPointsToPay, militaryPointsRequired);
                 if(choice == 2)
                     player.getPersonalBoard().getValuables().decrease(PointType.MILITARY, militaryPointsToPay);
@@ -173,7 +176,15 @@ public class DevelopmentCard implements Serializable{
         }
     }
 
-
+    private boolean checkNullResources(){
+        for(Map.Entry pair : cost.getResources().entrySet())
+            if((int)pair.getValue() > 0)
+                return false;
+        for(Map.Entry pair : cost.getPoints().entrySet())
+            if((int)pair.getValue() > 0)
+                return false;
+        return true;
+    }
 
     @Override
     public String toString(){
