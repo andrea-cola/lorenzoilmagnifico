@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class PersonalBoardStage extends JFXPanel{
 
     private static final int WIDTH = 500;
-    private static final int HEIGHT = 500;
+    private static final int HEIGHT = 600;
 
     /**
      * Main gui PersonalBoardStage objects

@@ -11,7 +11,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,7 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -46,6 +45,7 @@ public class MainBoardStage extends JFXPanel{
     private Player player;
     private UserInterface client;
     private boolean turn;
+    private boolean usedMember;
 
     /**
      * Data related to the player
@@ -62,40 +62,17 @@ public class MainBoardStage extends JFXPanel{
     /**
      * Constants
      */
-    private static final int LEFT_WIDTH = 500;
-    private static final int LEFT_HEIGHT = 825;
-    private static final int BACK_WIDTH = 500;
-    private static final int BACK_HEIGHT = 825;
-    private static final int GRID_TOWER_X = 20;
-    private static final int GRID_TOWER_Y = 20;
-    private static final int GRID_TOWER_HGAP = 10;
-    private static final int GRID_TOWER_VGAP = 25;
-    private static final int GRID_ACTION_X = 20;
-    private static final int GRID_ACTION_Y = 700;
-    private static final int GRID_MARKET_HGAP = 20;
-    private static final int GRID_MARKET_VGAP = 20;
-    private static final int HBOX_SPACING = 200;
     private static final int VBOX_SPACING = 10;
-    private static final int CIRCLE_RADIUS = 10;
     private static final int FAMILY_RADIUS = 20;
-    private static final int DEV_HEIGHT = 90;
-    private static final int DEV_WIDTH = 65;
-    private static final int EX_HEIGHT = 60;
-    private static final int EX_WIDTH = 34;
     private static final int INSETS = 20;
 
     /**
      * Main gui MainBoardStage objects
      */
-    private BackgroundImage background;
     private Button personalBoardButton;
     private Button personalTileButton;
     private Button leaderCardsButton;
     private Parent leftPane;
-    //private SplitPane splitPane;
-    //private GridPane gridTower;
-    //private GridPane gridAction;
-    //private GridPane gridMarket;
     private Scene scene;
     private BorderPane rightPane;
     private HBox root;
@@ -103,11 +80,13 @@ public class MainBoardStage extends JFXPanel{
     /**
      * Constructor for Main Board class
      */
-    MainBoardStage(CallbackInterface callback, UserInterface client, InformationCallback informationCallback, boolean turn) {
+    MainBoardStage(CallbackInterface callback, UserInterface client, InformationCallback informationCallback, boolean turn, boolean usedMember) {
         this.game = client.getGameModel();
         this.player = client.getPlayer();
         this.client = client;
         this.turn = turn;
+        this.usedMember = usedMember;
+        System.out.println(usedMember);
 
         this.callback = callback;
         this.informationCallback = informationCallback;
@@ -205,7 +184,7 @@ public class MainBoardStage extends JFXPanel{
         StackPane neutralPane = new StackPane();
         neutralPane.getChildren().addAll(neutralMember, neutralLabel);
 
-        if(turn){
+        if(turn && !usedMember){
            if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.BLACK))
                manageSourceEvent(blackMember);
            if (!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.ORANGE))
@@ -240,17 +219,26 @@ public class MainBoardStage extends JFXPanel{
         pointsTable.add(new Label("Faith points: "), 0, 2);
         pointsTable.add(new Label(Integer.toString(faithPoints)), 1, 2);
 
-        pointsTable.add(new Label("Coins"),0, 3);
+        pointsTable.add(new Label("Coins: "),0, 3);
         pointsTable.add(new Label(new Integer(coinsValue).toString()), 1, 3);
 
-        pointsTable.add(new Label("Woods"), 0, 4);
+        pointsTable.add(new Label("Woods: "), 0, 4);
         pointsTable.add(new Label(new Integer(woodValue).toString()), 1, 4);
 
-        pointsTable.add(new Label("Stones"), 0, 5);
+        pointsTable.add(new Label("Stones: "), 0, 5);
         pointsTable.add(new Label(new Integer(stonesValue).toString()), 1, 5);
 
-        pointsTable.add(new Label("Servants"), 0, 6);
+        pointsTable.add(new Label("Servants: "), 0, 6);
         pointsTable.add(new Label(new Integer(servantValue).toString()), 1, 6);
+
+        pointsTable.add(new Label("Excommunicated Period: "), 0, 7);
+        List<ExcommunicationCard> exCards = player.getPersonalBoard().getExcommunivationCards();
+        StringBuilder cardsID = new StringBuilder();
+        if (exCards.size()>0) {
+            for(int i=0; i< exCards.size(); i++)
+                cardsID.append(" " + exCards.get(i).getPeriod() +  ", ");
+        }
+        pointsTable.add(new Label(cardsID.toString()), 1 ,7);
 
         Separator separator = new Separator(Orientation.HORIZONTAL);
         Separator separator1 = new Separator(Orientation.HORIZONTAL);
@@ -310,17 +298,13 @@ public class MainBoardStage extends JFXPanel{
                 }
             });
         }
-
         vBox.getChildren().addAll(personalBoardButton, personalTileButton, leaderCardsButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable, separator3, servantsBox, endTurnButton);
         vBox.setAlignment(Pos.CENTER);
         rightPane.setCenter(vBox);
         rightPane.setMargin(vBox, new Insets(INSETS));
-
         root.getChildren().add(1, rightPane);
-
         return;
     }
-
     /**
      * Method to manage the "Drag Detected" and "Drag Done" event
      * @param source node which triggers the action during the events
@@ -337,7 +321,6 @@ public class MainBoardStage extends JFXPanel{
         source.setOnDragDone(event -> {
             System.out.println("onDragDone");
             if (event.getTransferMode() == TransferMode.MOVE) {
-
             }
             event.consume();
         });
@@ -380,12 +363,19 @@ public class MainBoardStage extends JFXPanel{
 
         void showLeaderCards(Player player);
 
-        void showGameException();
+        void showGameException(String message);
 
         void notifyEndTurnStage();
 
         void activeLeaderCard(String leaderName, int servants);
 
         void discardLeader(String leaderName);
+
+        void updateMainBoard();
+
+        void setUsedMember(boolean flag);
+
+        boolean getUsedMember();
+
     }
 }
