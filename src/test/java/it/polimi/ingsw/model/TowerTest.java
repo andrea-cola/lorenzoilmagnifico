@@ -35,7 +35,8 @@ public class TowerTest {
         Effect immediateEffect = new EffectSimple();
         Effect permanentEffect = new EffectHarvestProductionSimple();
 
-        DevelopmentCard card = new DevelopmentCard(name, id, period, cardColor, cost, multipleRequisiteSelectionEnabled, militaryPointsRequired, immediateEffect, permanentEffect);
+        DevelopmentCard card = new DevelopmentCard(name, id, period, cardColor, cost, multipleRequisiteSelectionEnabled,
+                militaryPointsRequired, immediateEffect, permanentEffect);
 
         tower.setTowerCell(0, card);
     }

@@ -377,6 +377,7 @@ import java.util.*;
 
             //lose victory points from yellow card resources
             loseVictoryPointsFromYellowCardsResources(player);
+
         }
         assignVictoryPointsBasedOnMilitaryRanking(militaryPointsRanking);
     }
@@ -442,10 +443,12 @@ import java.util.*;
      * @param player
      */
     private void earnVictoryPointsFromResources(Player player){
+        int totalResources = 0;
         for (Map.Entry<ResourceType, Integer> entry: player.getPersonalBoard().getValuables().getResources().entrySet()) {
-            int victoryPoints = entry.getValue()/5;
-            player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPoints);
+            totalResources += entry.getValue();
         }
+        int victoryPoints = totalResources/5;
+        player.getPersonalBoard().getValuables().increase(PointType.VICTORY, victoryPoints);
     }
 
     /**
@@ -509,6 +512,7 @@ import java.util.*;
         //assign victory points based on military ranking
         int firstMilitaryPointsValue = 0;
         int secondMilitaryPointsValue = 0;
+        int i = 1;
         for (Map.Entry<ServerPlayer, Integer> entry : result.entrySet()){
             //previousMilitaryPointsValue is not initialized, this means that we are considering the first player in ranking
             if (firstMilitaryPointsValue == 0){
@@ -523,6 +527,7 @@ import java.util.*;
                     //the second player does not have the same number of military points of the first
                     if (secondMilitaryPointsValue == 0){
                         secondMilitaryPointsValue = entry.getValue();
+                        System.out.println(secondMilitaryPointsValue);
                         (entry.getKey()).getPersonalBoard().getValuables().increase(PointType.VICTORY, 2);
                     }else{
                         //if the third player has the same number of points of the second, give him 2 points

@@ -182,8 +182,24 @@ public class Configurator {
      * Return all leader cards.
      * @return array list of leader cards.
      */
-    public static List<LeaderCard> getLeaderCards(){
+    public static ArrayList<LeaderCard> getLeaderCards(){
         return leaderCards;
+    }
+
+    /**
+     * Return all development cards
+     * @return
+     */
+    public static ArrayList<DevelopmentCard> getDevelopmentCards(){
+        return developmentCards;
+    }
+
+    /**
+     * Return all excommunication cards
+     * @return
+     */
+    public static ArrayList<ExcommunicationCard> getExcommunicationCards(){
+        return excommunicationCards;
     }
 
     /*package-local*/ static GameManager buildAndGetGame(ArrayList<ServerPlayer> roomPlayers, Configuration configuration){
