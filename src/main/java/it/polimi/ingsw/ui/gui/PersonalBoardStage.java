@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 /*package-local*/ class PersonalBoardStage extends JFXPanel{
 
-    private static final int WIDTH = 500;
+    private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
     /**

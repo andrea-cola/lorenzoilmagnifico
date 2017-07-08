@@ -147,7 +147,6 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         Printer.printStandardMessage("\n\n[MOVES IN THE LAST TURN]");
         if(this.getClient().getMoveMessages() != null)
             this.getClient().getMoveMessages().forEach(Printer::printStandardMessage);
-
         if(username.equals(getClient().getUsername())){
             moveDone = false;
             if(!getClient().getPlayer().getPersonalBoard().getExcommunicationValues().getSkipFirstTurn()

@@ -138,16 +138,16 @@ import java.util.List;
 
         Button personalBoardButton = new Button("PERSONAL BOARD");
         personalBoardButton.setAlignment(Pos.CENTER);
-        personalBoardButton.setOnAction(event -> this.callback.showPersonalBoardStage(player));
+        personalBoardButton.setOnMouseClicked(event -> this.callback.showPersonalBoardStage(player));
 
         Button personalTileButton = new Button("PERSONAL TILE");
         personalTileButton.setAlignment(Pos.CENTER);
-        personalTileButton.setOnAction(event -> this.callback.showPersonalTileBoardStage(player));
+        personalTileButton.setOnMousePressed(event -> this.callback.showPersonalTileBoardStage(player));
 
         Button leaderCardsButton = new Button("LEADER CARDS");
         leaderCardsButton.setAlignment(Pos.CENTER);
         if(turn)
-            leaderCardsButton.setOnAction(event -> callback.showLeaderCards(player));
+            leaderCardsButton.setOnMousePressed(event -> callback.showLeaderCards(player));
 
         Circle redMember = new Circle(FAMILY_RADIUS);
         redMember.setFill(Color.rgb(200, 110, 34));
@@ -176,29 +176,45 @@ import java.util.List;
         if(turn && !usedMember){
            if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.BLACK))
                manageSourceEvent(blackMember);
-           else
+           else {
                blackMember.setVisible(false);
+               blackLabel.setVisible(false);
+           }
            if (!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.ORANGE))
                manageSourceEvent(redMember);
-           else
+           else {
                redMember.setVisible(false);
+               redLabel.setVisible(false);
+           }
            if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.WHITE))
                manageSourceEvent(whiteMember);
-           else
+           else {
                whiteMember.setVisible(false);
+               whiteLabel.setVisible(false);
+           }
            if(!player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.NEUTRAL))
                manageSourceEvent(neutralMember);
-           else
+           else {
                neutralMember.setVisible(false);
+               neutralLabel.setVisible(false);
+           }
         }else {
-            if (player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.BLACK))
+            if (player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.BLACK)) {
                 blackMember.setVisible(false);
-            if(player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.ORANGE))
+                blackLabel.setVisible(false);
+            }
+            if (player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.ORANGE)) {
                 redMember.setVisible(false);
-            if(player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.WHITE))
+                redLabel.setVisible(false);
+            }
+            if (player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.WHITE)) {
                 whiteMember.setVisible(false);
-            if(player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.NEUTRAL))
+                whiteLabel.setVisible(false);
+            }
+            if (player.getPersonalBoard().getFamilyMembersUsed().contains(FamilyMemberColor.NEUTRAL)){
                 neutralMember.setVisible(false);
+                neutralLabel.setVisible(false);
+            }
         }
 
         redLabel.textProperty().bind(new SimpleIntegerProperty(redValue).asString());
@@ -237,13 +253,17 @@ import java.util.List;
         pointsTable.add(new Label("Servants: "), 0, 6);
         pointsTable.add(new Label(Integer.toString(servantValue)), 1, 6);
 
-        pointsTable.add(new Label("Excommunicated Period: "), 0, 7);
+        pointsTable.add(new Label("Period"), 0, 7);
+        pointsTable.add(new Label(Integer.toString(game.getAge())), 1, 7);
+
+
+        pointsTable.add(new Label("Excommunications: "), 0, 8);
         List<ExcommunicationCard> exCards = player.getPersonalBoard().getExcommunivationCards();
         StringBuilder cardsID = new StringBuilder();
         if (exCards.size()>0)
-            for (ExcommunicationCard exCard : exCards) cardsID.append(" " + exCard.getPeriod() + ", ");
-
-        pointsTable.add(new Label(cardsID.toString()), 1 ,7);
+            for (ExcommunicationCard exCard : exCards)
+                cardsID.append(exCard.getPeriod());
+        pointsTable.add(new Label(cardsID.toString()), 1 ,8);
 
         Separator separator = new Separator(Orientation.HORIZONTAL);
         Separator separator1 = new Separator(Orientation.HORIZONTAL);

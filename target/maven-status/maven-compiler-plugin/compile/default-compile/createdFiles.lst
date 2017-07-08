@@ -21,7 +21,6 @@ it/polimi/ingsw/socketserver/SocketServerPlayer.class
 it/polimi/ingsw/protocol/ClientCommunication$ResponseHandler.class
 it/polimi/ingsw/server/ServerAbstract.class
 it/polimi/ingsw/socketserver/SocketServerAbstract.class
-it/polimi/ingsw/ui/gui/GraphicUserInterface$2.class
 it/polimi/ingsw/protocol/ServerCommunicationInterface.class
 it/polimi/ingsw/protocol/SharedCostants.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$1.class

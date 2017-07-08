@@ -19,6 +19,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 /**
  * This is the Graphic User Interface login board
  */
@@ -41,7 +43,8 @@ public class LoginStage extends JFXPanel {
     private final static int GROUP_HEIGHT = 300;
     private final static int GROUP_WIDTH = 300;
     private final static int INSETS = 20;
-
+    private static final int FRAME_HEIGHT = 750;
+    private static final int FRAME_WIDTH = 1000;
     /**
      * Constructor
      * @param callback
@@ -121,6 +124,7 @@ public class LoginStage extends JFXPanel {
         root.setMargin(vBox, new Insets(INSETS));
         root.autosize();
         Scene scene = new Scene(root);
+        this.setPreferredSize( new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         this.setScene(scene);
     }
 
