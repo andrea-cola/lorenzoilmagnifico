@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class the abstraction of the server.

@@ -1,21 +1,13 @@
 package it.polimi.ingsw.gameserver;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import it.polimi.ingsw.exceptions.LoginException;
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.exceptions.RoomException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.effects.ExcommunicationEffectLoseVictoryPoints;
-import it.polimi.ingsw.server.Server;
-import it.polimi.ingsw.server.ServerInterface;
+import it.polimi.ingsw.model.effects.*;
 import it.polimi.ingsw.server.ServerPlayer;
-import it.polimi.ingsw.socketclient.SocketClient;
-import it.polimi.ingsw.socketserver.SocketServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
-import it.polimi.ingsw.client.*;
 import org.junit.Test;
 
-import java.net.Socket;
+
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -142,7 +134,7 @@ public class GameManagerTest {
 
         gameManager.setExcommunicationCards();
 
-        assertFalse(gameManager.getGameModel().getMainBoard().getVatican().getExcommunicationCards()[0] == null);
+        assertFalse(gameManager.getGameModel().getMainBoard().getVatican().getExcommunicationCard(0) == null);
     }
 
     @Test
@@ -298,6 +290,7 @@ public class GameManagerTest {
 
     @Test
     public void finalControlsForPeriod() throws Exception {
+
     }
 
     @Test
@@ -306,6 +299,7 @@ public class GameManagerTest {
 
     @Test
     public void calculateFinalPoints() throws Exception {
+
         ServerPlayer player = new ServerPlayer() {
             @Override
             public void sendGameInfo(Game game) throws NetworkException {
@@ -342,9 +336,84 @@ public class GameManagerTest {
 
             }
         };
+        ServerPlayer player1 = new ServerPlayer() {
+            @Override
+            public void sendGameInfo(Game game) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyTurnStarted(String username, long seconds) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
+
+            }
+
+            @Override
+            public void supportForTheChurch(boolean flag) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
+
+            }
+        };
+        ServerPlayer player2 = new ServerPlayer() {
+            @Override
+            public void sendGameInfo(Game game) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyTurnStarted(String username, long seconds) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
+
+            }
+
+            @Override
+            public void supportForTheChurch(boolean flag) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
+
+            }
+        };
+
 
         ArrayList<ServerPlayer> list = new ArrayList<>();
         list.add(player);
+        list.add(player1);
+        list.add(player2);
 
         Configurator.loadConfigurations();
         Configuration configuration = new Configuration(Configurator.getConfiguration().getWaitingTime(),
@@ -361,16 +430,9 @@ public class GameManagerTest {
                 Configurator.getLeaderCards(),
                 Configurator.getExcommunicationCards());
 
-        player.getPersonalBoard().getValuables().increase(PointType.VICTORY, 25);
-
-        ExcommunicationEffectLoseVictoryPoints effect = new ExcommunicationEffectLoseVictoryPoints();
-        PointsAndResources valuables = new PointsAndResources();
-        valuables.increase(PointType.VICTORY, 5);
-        effect.setValuablesOwnedIndex(valuables);
-        effect.runEffect(player);
-
-        assertEquals(20, (int)player.getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY));
         gameManager.calculateFinalPoints();
+
+        assertEquals(7, (int)player.getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY));
     }
 
 }
