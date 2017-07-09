@@ -44,6 +44,8 @@ public class Game implements Serializable{
      */
     private int turn;
 
+    private int move;
+
     /**
      * Class constructor
      */
@@ -70,6 +72,14 @@ public class Game implements Serializable{
 
     public void setAge(int age){
         this.age = age;
+    }
+
+    public void setMove(int move){
+        this.move = move;
+    }
+
+    public int getMove(){
+        return this.move;
     }
 
     /**
@@ -482,6 +492,26 @@ public class Game implements Serializable{
         player.getPersonalBoard().getLeaderCards().remove(leaderCardAtIndex);
         CouncilPrivilege councilPrivilege = new CouncilPrivilege(1);
         councilPrivilege.chooseCouncilPrivilege(player, informationCallback);
+    }
+
+    public void discardLeaderCard(Player player, int leaderCardAtIndex, Privilege privilege){
+        player.getPersonalBoard().getLeaderCards().remove(leaderCardAtIndex);
+        //updates player's resources
+        for (Map.Entry<ResourceType, Integer> entry: privilege.getValuables().getResources().entrySet()) {
+            if(entry.getValue() > 0) {
+                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                //excommunication effect
+                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
+            }
+        }
+        //updates player's points
+        for (Map.Entry<PointType, Integer> entry: privilege.getValuables().getPoints().entrySet()) {
+            if(entry.getValue() > 0) {
+                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                //excommunication effect
+                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
+            }
+        }
     }
 
     /**

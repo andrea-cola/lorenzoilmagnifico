@@ -130,7 +130,7 @@ public class ExcommunicationValues implements Serializable{
         return this.finalPointsIndexMalus;
     }
 
-    public Boolean getSkipFirstTurn(){
+    public Boolean getSkipFirstMove(){
         return this.skipFirstTurn;
     }
 

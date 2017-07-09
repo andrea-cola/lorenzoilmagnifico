@@ -15,7 +15,8 @@ public class FamilyMember implements Serializable{
     }
 
     public void setMembers(Map<FamilyMemberColor, Integer> members){
-        this.members = members;
+        for(Map.Entry pair : members.entrySet())
+            this.members.put((FamilyMemberColor)pair.getKey(), (int)pair.getValue());
     }
 
     public Map<FamilyMemberColor, Integer> getMembers(){
