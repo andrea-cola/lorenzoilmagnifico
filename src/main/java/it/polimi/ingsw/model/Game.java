@@ -494,6 +494,26 @@ public class Game implements Serializable{
         councilPrivilege.chooseCouncilPrivilege(player, informationCallback);
     }
 
+    public void discardLeaderCard(Player player, int leaderCardAtIndex, Privilege privilege){
+        player.getPersonalBoard().getLeaderCards().remove(leaderCardAtIndex);
+        //updates player's resources
+        for (Map.Entry<ResourceType, Integer> entry: privilege.getValuables().getResources().entrySet()) {
+            if(entry.getValue() > 0) {
+                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                //excommunication effect
+                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
+            }
+        }
+        //updates player's points
+        for (Map.Entry<PointType, Integer> entry: privilege.getValuables().getPoints().entrySet()) {
+            if(entry.getValue() > 0) {
+                player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
+                //excommunication effect
+                player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
+            }
+        }
+    }
+
     /**
      * This method updates the family member value with servants and decrease the number of servants in resources
      * @param player
