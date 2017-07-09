@@ -379,6 +379,7 @@ public class Room {
                 for(int turn = 1; turn <= TURNS_PER_AGE; turn++){
                     turnSetup(age, turn);
                     for(int move = 1; move <= FamilyMemberColor.values().length; move++) {
+                        gameManager.getGameModel().setMove(move);
                         for (ServerPlayer player : players) {
                             playerTurn = new PlayerTurn(player);
                             notifyTurnStarted(player);

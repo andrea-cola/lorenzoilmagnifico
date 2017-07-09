@@ -44,6 +44,8 @@ public class Game implements Serializable{
      */
     private int turn;
 
+    private int move;
+
     /**
      * Class constructor
      */
@@ -70,6 +72,14 @@ public class Game implements Serializable{
 
     public void setAge(int age){
         this.age = age;
+    }
+
+    public void setMove(int move){
+        this.move = move;
+    }
+
+    public int getMove(){
+        return this.move;
     }
 
     /**
