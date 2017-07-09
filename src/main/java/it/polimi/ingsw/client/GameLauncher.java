@@ -15,7 +15,7 @@ public class GameLauncher {
     }
 
     /**
-     * get the index of the preferred user interface.
+     * Get the index of the preferred user interface.
      * @return user interface index.
      */
     private static int chooseUI(){

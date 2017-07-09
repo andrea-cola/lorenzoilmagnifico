@@ -122,6 +122,12 @@ public class ServerCommunication {
         }
     }
 
+    /**
+     * Method that manages the sign in process
+     * @param username
+     * @param password
+     * @return
+     */
     private int handleSignIn(String username, String password){
         int response;
         try{
@@ -155,6 +161,12 @@ public class ServerCommunication {
         }
     }
 
+    /**
+     * Method that manages the login process
+     * @param username
+     * @param password
+     * @return
+     */
     private int handleLogin(String username, String password){
         int response;
         try{
@@ -187,6 +199,10 @@ public class ServerCommunication {
         }
     }
 
+    /**
+     * Method that handles the joining room process
+     * @return
+     */
     private int handleJoinRoom(){
         int response;
         try {
@@ -230,6 +246,12 @@ public class ServerCommunication {
         }
     }
 
+
+    /**
+     * Send to client the personal board tile list
+     * @param personalBoardTileList
+     * @throws NetworkException
+     */
     @SuppressWarnings("Duplicates")
     public void sendPersonalBoardTile(ArrayList<PersonalBoardTile> personalBoardTileList) throws NetworkException{
         synchronized (object){
@@ -244,6 +266,7 @@ public class ServerCommunication {
         }
     }
 
+
     private void notifyPlayerPersonalBoardTileChoice(){
         try {
             PersonalBoardTile personalBoardTile = (PersonalBoardTile)input.readObject();
@@ -253,6 +276,11 @@ public class ServerCommunication {
         }
     }
 
+    /**
+     * Send to client the leader cards
+     * @param leaderCards
+     * @throws NetworkException
+     */
     @SuppressWarnings("Duplicates")
     public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException{
         synchronized (object){
@@ -267,6 +295,11 @@ public class ServerCommunication {
         }
     }
 
+    /**
+     * Send to client the game model update
+     * @param clientUpdatePacket
+     * @throws NetworkException
+     */
     public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException{
         synchronized (object){
             try{
@@ -279,6 +312,8 @@ public class ServerCommunication {
             }
         }
     }
+
+
 
     public void notifyLeaderCardChoice(){
         try{

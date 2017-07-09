@@ -189,13 +189,16 @@ public class PersonalBoard implements Serializable {
         return this.greenCardsMilitaryPointsRequirements[index];
     }
 
+    /**
+     * Get all the green card military points requirements
+     * @return
+     */
     public int[] getGreenCardsMilitaryPointsRequirements() {
         return this.greenCardsMilitaryPointsRequirements;
     }
 
     /**
      * Add a new card to the player's personal board
-     *
      * @param card
      */
     public void addCard(DevelopmentCard card) {
@@ -217,7 +220,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Returns the cards owned by the player by color
-     *
      * @param developmentCardColor
      * @return
      */
@@ -240,7 +242,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set points and resources
-     *
      * @param pointsAndResources
      */
     public void setValuables(PointsAndResources pointsAndResources) {
@@ -273,7 +274,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set the dice development card bonus value based on card's color
-     *
      * @param cardColor
      * @param value
      */
@@ -283,7 +283,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get the dice development card bonus value based on card's color
-     *
      * @return
      */
     public Map<DevelopmentCardColor, Integer> getDevelopmentCardColorDiceValueBonus() {
@@ -292,7 +291,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set the cost discount value for a particular type of development cards
-     *
      * @param cardColor
      * @param valuables
      */
@@ -314,7 +312,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get the cost discount value for a particular type of development cards
-     *
      * @return
      */
     public List<PointsAndResources> getCostDiscountForDevelopmentCard(DevelopmentCardColor color) {
@@ -323,7 +320,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * This method returns the array of leader cards
-     *
      * @return
      */
     public List<LeaderCard> getLeaderCards() {
@@ -332,7 +328,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * This method checks if the player has a particular leader card per name and returns it
-     *
      * @param name
      * @return
      */
@@ -347,7 +342,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * This method sets a particular leadercard
-     *
      * @param leaderCard
      */
     public void setLeaderCard(LeaderCard leaderCard) {
@@ -392,6 +386,11 @@ public class PersonalBoard implements Serializable {
         return this.alwaysPlaceFamilyMemberInsideActionSpace;
     }
 
+
+    /**
+     * This method resets the personal board for a new turn
+     * @param configuration
+     */
     public void turnReset(Configuration configuration) {
         this.familyMembersUsed = new ArrayList<>();
         this.familyMember = new FamilyMember();

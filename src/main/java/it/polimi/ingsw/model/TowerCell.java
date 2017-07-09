@@ -197,12 +197,16 @@ public class TowerCell implements Serializable{
         }
     }
 
+    /**
+     * This method is used to check if there are no resources to pay for the card
+     * @return
+     */
     private boolean checkNullResources(){
-        for(Map.Entry pair : this.developmentCard.getCost().getResources().entrySet())
-            if((int)pair.getValue() > 0)
+        for(Map.Entry<ResourceType, Integer> entry : this.developmentCard.getCost().getResources().entrySet())
+            if(entry.getValue() > 0)
                 return false;
-        for(Map.Entry pair : this.developmentCard.getCost().getPoints().entrySet())
-            if((int)pair.getValue() > 0)
+        for(Map.Entry<PointType, Integer> entry : this.developmentCard.getCost().getPoints().entrySet())
+            if(entry.getValue() > 0)
                 return false;
         return true;
     }

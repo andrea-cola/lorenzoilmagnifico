@@ -92,10 +92,6 @@ public class MainBoard implements Serializable{
         }
     }
 
-    public void setVatican(ExcommunicationCard[] cards){
-        this.vatican.setExcommunicationCards(cards);
-    }
-
     /**
      * This method returns a specific tower of the mainBoard
      * @param index of the tower.
@@ -105,46 +101,90 @@ public class MainBoard implements Serializable{
         return this.towers[index];
     }
 
+    /**
+     * Method to get all the tower of the MainBoard
+     * @return
+     */
     public Tower[] getTowers(){
         return this.towers;
     }
 
+    /**
+     * Method to get the Vatican
+     * @return
+     */
     public Vatican getVatican(){
         return this.vatican;
     }
 
+    /**
+     * Method to get the CouncilPalace
+     * @return
+     */
     public CouncilPalace getCouncilPalace(){
         return this.councilPalace;
     }
 
+    /**
+     * Method to get the Harvest
+     * @return
+     */
     public ActionSpace getHarvest(){
         return this.harvest;
     }
 
+    /**
+     * Method to get the Production
+     * @return
+     */
     public ActionSpace getProduction(){
         return this.production;
     }
 
+    /**
+     * Method to get the HarvestExtended
+     * @return
+     */
     public ActionSpaceExtended getHarvestExtended(){
         return this.harvestExtended;
     }
 
+    /**
+     * Method to get the ProductionExtended
+     * @return
+     */
     public ActionSpaceExtended getProductionExtended(){
         return this.productionExtended;
     }
 
+    /**
+     * Method to get the market
+     * @return
+     */
     public Market getMarket(){
         return this.market;
     }
 
+    /**
+     * Method to get the number of towers in the MainBoard
+     * @return
+     */
     public int getNumberOfTowers(){
         return NUMBER_OF_TOWERS;
     }
 
+    /**
+     * Method to get the number of cells for each Tower
+     * @return
+     */
     public int getNumberOfTowerCells(){
         return NUMBER_OF_TOWER_CELLS;
     }
 
+    /**
+     * Method to get the number of market cells in the MainBoard
+     * @return
+     */
     public int getNumberOfMarketCells(){
         return NUMBER_OF_MARKET_CELLS;
     }

@@ -150,6 +150,9 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * This method handles receive game info request
+     */
     private void receiveGameInfo() {
         try {
             Game game = (Game)objectInputStream.readObject();
@@ -159,6 +162,9 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * This method handles support for the church request
+     */
     private void supportForTheChurch(){
         try{
             boolean flag = (boolean)objectInputStream.readObject();
@@ -168,6 +174,10 @@ public class ClientCommunication {
         }
     }
 
+
+    /**
+     * This method handles personal board tile request from server
+     */
     @SuppressWarnings("unchecked")
     private void getPersonalTile() {
         try {
@@ -178,6 +188,9 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * This method handles game end notification
+     */
     private void notifyGameEnd(){
         try{
             ServerPlayer[] players = (ServerPlayer[])objectInputStream.readObject();
@@ -187,6 +200,11 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * This method notifies the personal board tile choice to the server
+     * @param personalBoardTile
+     * @throws NetworkException
+     */
     @SuppressWarnings("Duplicates")
     public void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException{
         try{
@@ -198,6 +216,9 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * This method handles leader card request from server
+     */
     @SuppressWarnings("unchecked")
     private void getLeaderCards(){
         try{
@@ -208,6 +229,11 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * This method notifies the leader card choice to the server
+     * @param leaderCard
+     * @throws NetworkException
+     */
     @SuppressWarnings("Duplicates")
     public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException{
         try{
@@ -219,6 +245,9 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * This method notifies that the turn started
+     */
     public void notifyTurnStarted(){
         try{
             String username = (String)objectInputStream.readObject();
@@ -229,6 +258,9 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * This method updates the model
+     */
     public void notifyModelUpdate(){
         try{
             ClientUpdatePacket clientUpdatePacket = (ClientUpdatePacket)objectInputStream.readObject();
@@ -238,6 +270,15 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for a family member inside the tower
+     * @param familyMemberColor
+     * @param servants
+     * @param towerIndex
+     * @param cellIndex
+     * @param playerTurnChoices
+     * @throws NetworkException
+     */
     public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex,
                                              int cellIndex, HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try{
@@ -254,6 +295,13 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for a family member inside the council
+     * @param familyMemberColor
+     * @param servants
+     * @param playerTurnChoices
+     * @throws NetworkException
+     */
     public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants,
                                                HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try{
@@ -268,6 +316,14 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for a family member inside the market
+     * @param familyMemberColor
+     * @param servants
+     * @param marketIndex
+     * @param playerTurnChoices
+     * @throws NetworkException
+     */
     public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex,
                                               HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try{
@@ -283,6 +339,13 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for a family member inside the harvest simple
+     * @param familyMemberColor
+     * @param servants
+     * @param playerTurnChoices
+     * @throws NetworkException
+     */
     public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants,
                                                      HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try{
@@ -297,6 +360,13 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for a family member inside the production simple space
+     * @param familyMemberColor
+     * @param servants
+     * @param playerTurnChoices
+     * @throws NetworkException
+     */
     public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants,
                                                         HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try{
@@ -311,6 +381,13 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for a family member inside the harvest extended space
+     * @param familyMemberColor
+     * @param servants
+     * @param playerTurnChoices
+     * @throws NetworkException
+     */
     public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants,
                                                        HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try{
@@ -325,6 +402,13 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for a family member inside the production extended space
+     * @param familyMemberColor
+     * @param servants
+     * @param playerTurnChoices
+     * @throws NetworkException
+     */
     public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants,
                                                           HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try{
@@ -339,6 +423,13 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for a leader card when it is activated
+     * @param leaderCardIndex
+     * @param servants
+     * @param playerTurnChoices
+     * @throws NetworkException
+     */
     public void activateLeader(int leaderCardIndex, int servants, HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try {
             objectOutputStream.reset();
@@ -352,6 +443,12 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for a leader card when it is discarded
+     * @param leaderCardIndex
+     * @param playerTurnChoices
+     * @throws NetworkException
+     */
     public void discardLeader(int leaderCardIndex, HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try{
             objectOutputStream.reset();
@@ -364,6 +461,11 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to update the objectOutputStream for the support for the church
+     * @param flag
+     * @throws NetworkException
+     */
     public void notifySupportForTheChurch(boolean flag) throws NetworkException{
         try{
             objectOutputStream.reset();
@@ -375,6 +477,9 @@ public class ClientCommunication {
         }
     }
 
+    /**
+     * Method to notify the end of the turn
+     */
     public void endTurn() {
         try{
             objectOutputStream.writeObject(SharedCostants.END_TURN);

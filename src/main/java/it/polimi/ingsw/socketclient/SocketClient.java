@@ -50,6 +50,7 @@ public class SocketClient extends AbstractClient{
         super(clientInterface, address, port);
     }
 
+
     @Override
     public void connectToServer() throws ConnectionException {
         try{

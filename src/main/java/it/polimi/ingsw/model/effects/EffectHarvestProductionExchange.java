@@ -60,7 +60,7 @@ public class EffectHarvestProductionExchange extends Effect{
 
     /**
      * Method to run the effect of the card.
-     * @param player that takes advatange of the effect.
+     * @param player that takes advantage of the effect.
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback){
@@ -68,7 +68,12 @@ public class EffectHarvestProductionExchange extends Effect{
         handleExchange(player, choice, informationCallback);
     }
 
-
+    /**
+     * Method to run the effect of the card
+     * @param card
+     * @param player
+     * @param informationCallback
+     */
     public void runEffect(DevelopmentCard card, Player player, InformationCallback informationCallback) {
         if(valuableToPay.length == 1){
             runEffect(player, informationCallback);
@@ -78,6 +83,12 @@ public class EffectHarvestProductionExchange extends Effect{
         }
     }
 
+    /**
+     * This method manages the choose of the player to run the effect
+     * @param player
+     * @param choice
+     * @param informationCallback
+     */
     private void handleExchange(Player player, int choice, InformationCallback informationCallback){
         //get the family member used to run this effect
         List<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();

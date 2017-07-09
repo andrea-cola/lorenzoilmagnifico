@@ -8,6 +8,9 @@ import it.polimi.ingsw.model.ResourceType;
 
 import java.util.Map;
 
+/**
+ * This class represents the leader effect that gives you a bonus when you sustain the vatican at the end of each era
+ */
 public class LESistoIV extends LeaderEffect{
 
     /**
@@ -24,7 +27,7 @@ public class LESistoIV extends LeaderEffect{
     }
 
     /**
-     * This method gives you a bonus when you sustain the vatican at the end of each era
+     * Method to run the effect of the card
      * @param player is gaining benefit of the effect.
      */
     @Override

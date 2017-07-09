@@ -17,6 +17,9 @@ import it.polimi.ingsw.server.ServerPlayer;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * This class manages the logic of the game
+ */
 public class Game implements Serializable{
 
     /**
@@ -44,6 +47,9 @@ public class Game implements Serializable{
      */
     private int turn;
 
+    /**
+     * Number of move
+     */
     private int move;
 
     /**
@@ -58,29 +64,54 @@ public class Game implements Serializable{
         this.turn = 1;
     }
 
+    /**
+     * Returns the current age
+     * @return
+     */
     public int getAge(){
         return age;
     }
 
+    /**
+     * Returns the current turn
+     * @return
+     */
     public int getTurn(){
         return turn;
     }
 
+    /**
+     * Returns the corrent number of the move
+     * @return
+     */
+    public int getMove(){
+        return this.move;
+    }
+
+    /**
+     * Sets the number of the turn
+     * @param turn
+     */
     public void setTurn(int turn){
         this.turn = turn;
     }
 
+    /**
+     * Sets the number of the age
+     * @param age
+     */
     public void setAge(int age){
         this.age = age;
     }
 
+    /**
+     * Sets the number of the move
+     * @param move
+     */
     public void setMove(int move){
         this.move = move;
     }
 
-    public int getMove(){
-        return this.move;
-    }
 
     /**
      * This method build a new main board object.
@@ -132,7 +163,10 @@ public class Game implements Serializable{
         return this.players.get(username);
     }
 
-
+    /**
+     * Returns the players' username
+     * @return
+     */
     public String[] getPlayersUsername(){
         String[] usernames = new String[players.size()];
         Iterator it = players.entrySet().iterator();
@@ -229,6 +263,12 @@ public class Game implements Serializable{
         }
     }
 
+    /**
+     * This method is used to pay the cost of development cards
+     * @param player
+     * @param developmentCard
+     * @param informationCallback
+     */
     private void payValuablesToGetDevelopmentCard(Player player, DevelopmentCard developmentCard, InformationCallback informationCallback){
         //leader effect gives you a discount
         LeaderCard leaderCard = player.getPersonalBoard().getLeaderCardWithName("Pico della Mirandola");
@@ -488,12 +528,25 @@ public class Game implements Serializable{
         }
     }
 
+    /**
+     * This method is used to discard a leader card and to provide a council privilege
+     * @param player
+     * @param leaderCardAtIndex
+     * @param informationCallback
+     */
     public void discardLeaderCard(Player player, int leaderCardAtIndex, InformationCallback informationCallback){
         player.getPersonalBoard().getLeaderCards().remove(leaderCardAtIndex);
         CouncilPrivilege councilPrivilege = new CouncilPrivilege(1);
         councilPrivilege.chooseCouncilPrivilege(player, informationCallback);
     }
 
+
+    /**
+     * This method is used to discard a leader card and to update the player valuables
+     * @param player
+     * @param leaderCardAtIndex
+     * @param privilege
+     */
     public void discardLeaderCard(Player player, int leaderCardAtIndex, Privilege privilege){
         player.getPersonalBoard().getLeaderCards().remove(leaderCardAtIndex);
         //updates player's resources
@@ -528,11 +581,23 @@ public class Game implements Serializable{
             throw new GameException(GameErrorType.NOT_ENOUGH_SERVANT_TO_DECREASE);
     }
 
+    /**
+     * Thus method restores the original family member value and gives back the servants to the player
+     * @param player
+     * @param familyMemberColor
+     * @param servantsValue
+     */
     private void restoreFamilyMemberValue(Player player, FamilyMemberColor familyMemberColor, int servantsValue){
         player.getPersonalBoard().getFamilyMember().decreaseFamilyMemberValue(familyMemberColor, servantsValue);
         player.getPersonalBoard().getValuables().increase(ResourceType.SERVANT, servantsValue);
     }
 
+    /**
+     * This method checks if the player can get the tower immediate effect
+     * @param player
+     * @param floor
+     * @return
+     */
     private boolean canRunTowerImmediateEffects(Player player, int floor){
         List<DevelopmentCard> developmentCards = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE);
         for(DevelopmentCard developmentCard : developmentCards)

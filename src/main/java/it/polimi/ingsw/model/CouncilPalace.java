@@ -27,7 +27,11 @@ public class CouncilPalace implements Serializable{
      */
     private LinkedList<Player> nextTurnOrder;
 
-
+    /**
+     * Class constructor
+     * @param minFamilyMemberDiceValue
+     * @param effectSimple
+     */
     /*package-local*/ CouncilPalace(int minFamilyMemberDiceValue, EffectSimple effectSimple){
         this.minFamilyMemberDiceValue = minFamilyMemberDiceValue;
         this.effectSimple = effectSimple;
@@ -59,6 +63,10 @@ public class CouncilPalace implements Serializable{
             this.nextTurnOrder.add(player);
     }
 
+    /**
+     * This method returns the new order of players for the next turn
+     * @return
+     */
     public LinkedList<Player> getNewOrder(){
         return this.nextTurnOrder;
     }
@@ -79,6 +87,13 @@ public class CouncilPalace implements Serializable{
     }
 
 
+    /**
+     * Check if the family member can be placed inside the Council palace
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @throws GameException
+     */
     /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 
         //check that the family member used has not been already used

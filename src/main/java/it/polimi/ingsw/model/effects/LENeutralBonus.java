@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.Player;
 
 /**
- * This class gives a bonus to the neutral familiy member
+ * This class gives a bonus to the neutral family member
  */
 public class LENeutralBonus extends LeaderEffect{
 

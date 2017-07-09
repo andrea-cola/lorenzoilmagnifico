@@ -51,14 +51,24 @@ public class MarketCell implements Serializable{
         return this.empty;
     }
 
+    /**
+     * This method sets the state of the cell to true
+     */
     public void setEmpty(){
         this.empty = true;
     }
 
+    /**
+     * Checks if the cell is accessible
+     * @return
+     */
     public boolean isAccessible() {
         return this.accessible;
     }
 
+    /**
+     * Sets the cell to not accessible and not empty
+     */
     public void setNotAccessible(){
         this.accessible = false;
         this.empty = false;
@@ -80,6 +90,14 @@ public class MarketCell implements Serializable{
         return this.minFamilyMemberValue;
     }
 
+
+    /**
+     * Checks if a family member can be placed inside the cell
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @throws GameException
+     */
     public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 
         //if you have the excommunication effect
