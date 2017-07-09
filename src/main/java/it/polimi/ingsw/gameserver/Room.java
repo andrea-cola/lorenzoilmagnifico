@@ -2,13 +2,7 @@ package it.polimi.ingsw.gameserver;
 
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.model.ClientUpdatePacket;
-import it.polimi.ingsw.model.FamilyMemberColor;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointType;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -174,6 +168,13 @@ public class Room {
             try {
                 Game game = gameManager.getGameModel();
                 game.pickupDevelopmentCardFromTower(player, familyMemberColor, servants, towerIndex, cellIndex, gameManager.getInformationChoicesHandler());
+                if(gameManager.getInformationChoicesHandler().getDecisions("choose-new-card") != null){
+                    DevelopmentCard developmentCard = (DevelopmentCard)gameManager.getInformationChoicesHandler().getDecisions("choose-new-card");
+                    for(Tower tower : game.getMainBoard().getTowers())
+                        for(TowerCell cell : tower.getTowerCells())
+                            if(cell.getDevelopmentCard().getName().equalsIgnoreCase(developmentCard.getName()))
+                                cell.setPlayerNicknameInTheCell(player.getUsername());
+                }
                 String message = player.getUsername() + " set a family member in " + game.getMainBoard().getTower(towerIndex).getColor().toString().toLowerCase()
                         + " tower and picked up " + game.getMainBoard().getTower(towerIndex).getTowerCell(cellIndex).getDevelopmentCard().getName() + ".";
                 clientUpdatePacket.setMessage(message);

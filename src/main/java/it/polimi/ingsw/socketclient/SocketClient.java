@@ -183,7 +183,7 @@ public class SocketClient extends AbstractClient{
                     clientCommunication.handleResponse(object);
                 } catch (IOException | ClassNotFoundException e){
                     flag = false;
-                    Printer.printDebugMessage(this.getClass().getSimpleName(), "Errors occur while reading server response.", e);
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), "Errors occur while reading server response. Connection is close and game is over.");
                 }
             }
             closeConnections(objectInputStream, objectOutputStream, socket);
@@ -199,7 +199,7 @@ public class SocketClient extends AbstractClient{
             try {
                 connection.close();
             }catch(IOException e){
-                Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while closing connections.", e);
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while closing connections.");
             }
         }
     }
