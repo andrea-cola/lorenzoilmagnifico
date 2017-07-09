@@ -93,9 +93,9 @@ public class ExcommunicationValuesTest {
         ExcommunicationValues values = new ExcommunicationValues();
 
         values.setSkipFirstTurn(true);
-        assertTrue(values.getSkipFirstTurn());
+        assertTrue(values.getSkipFirstMove());
         values.setSkipFirstTurn(false);
-        assertFalse(values.getSkipFirstTurn());
+        assertFalse(values.getSkipFirstMove());
 
     }
 

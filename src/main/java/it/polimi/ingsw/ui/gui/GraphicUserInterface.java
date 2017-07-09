@@ -8,6 +8,7 @@ import it.polimi.ingsw.ui.UserInterface;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
@@ -36,20 +37,27 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     private static final String LEADER_CARD = "leaderCardStage";
     private static final String MAIN_BOARD = "mainBoardStage";
 
-    private static final int FRAME_HEIGHT = 750;
+    private static final int FRAME_HEIGHT = 800;
     private static final int FRAME_WIDTH = 1000;
 
     private final Lock lock = new ReentrantLock();
     private JFrame mainFrame;
     private JPanel mainPanel;
     private CardLayout cardLayout;
+    private StartingStage startingStage;
+    private ChooseConnectionStage chooseConnectionStage;
+    private LoginStage loginStage;
+    private JoinRoomStage joinRoomStage;
+    private CreateRoomStage createRoomStage;
+    private ChoosePersonalBoardTileStage choosePersonalBoardTileStage;
+    private ChooseLeaderCardStage chooseLeaderCardStage;
 
     private MainBoardStage mainBoardStage;
 
     private boolean usedMember;
+
     /**
      * Constructor
-     *
      * @param controller
      * @throws InterruptedException
      */
@@ -63,8 +71,27 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         mainPanel = new JPanel(cardLayout);
         mainPanel.setLocation(150, 150);
         mainFrame.add(mainPanel);
+        mainFrame.setResizable(false);
+        mainFrame.setVisible(true);
+        addStagesToPanel();
         showStartingStage();
     }
+
+    private void addStagesToPanel(){
+        startingStage = new StartingStage();
+        mainPanel.add(startingStage, START);
+        chooseConnectionStage = new ChooseConnectionStage(getClient()::setNetworkSettings);
+        mainPanel.add(chooseConnectionStage, CONNECTION);
+        loginStage = new LoginStage(getClient()::loginPlayer);
+        mainPanel.add(loginStage, LOGIN);
+        joinRoomStage = new JoinRoomStage(getClient()::joinRoom);
+        mainPanel.add(joinRoomStage, JOIN_ROOM);
+        createRoomStage = new CreateRoomStage(getClient()::createRoom);
+        mainPanel.add(createRoomStage, CREATE_ROOM);
+    }
+
+
+
     @Override
     public void setUsedMember(boolean flag){
         this.usedMember = flag;
@@ -76,10 +103,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     }
 
     private void showStartingStage() {
-        mainFrame.setResizable(false);
-        StartingStage startingStage = new StartingStage();
-        mainPanel.add(startingStage, START);
-        mainFrame.setVisible(true);
         cardLayout.show(mainPanel, START);
         while (startingStage.getFinished()) {
             lock.lock();
@@ -89,8 +112,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     @Override
     public void chooseConnectionType() {
         lock.lock();
-        ChooseConnectionStage chooseConnectionStage = new ChooseConnectionStage(getClient()::setNetworkSettings);
-        mainPanel.add(chooseConnectionStage, CONNECTION);
         cardLayout.show(mainPanel, CONNECTION);
         if (chooseConnectionStage.getFinished()) {
             lock.unlock();
@@ -100,22 +121,16 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void loginScreen() {
-        LoginStage loginStage = new LoginStage(getClient()::loginPlayer);
-        mainPanel.add(loginStage, LOGIN);
         cardLayout.show(mainPanel, LOGIN);
     }
 
     @Override
     public void joinRoomScreen() {
-        JoinRoomStage joinRoomStage = new JoinRoomStage(getClient()::joinRoom);
-        mainPanel.add(joinRoomStage, JOIN_ROOM);
         cardLayout.show(mainPanel, JOIN_ROOM);
     }
 
     @Override
     public void createRoomScreen() {
-        CreateRoomStage createRoomStage = new CreateRoomStage(getClient()::createRoom);
-        mainPanel.add(createRoomStage, CREATE_ROOM);
         cardLayout.show(mainPanel, CREATE_ROOM);
     }
 
@@ -135,10 +150,14 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void notifyGameStarted() {
-        SwingUtilities.invokeLater(new Runnable() {
+        Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                JOptionPane.showMessageDialog(null, "The game is started", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Lorenzo il Magnifico");
+                alert.setHeaderText("Welcome!");
+                alert.setContentText("The game is now started");
+                alert.showAndWait();
             }
         });
     }
@@ -146,12 +165,25 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     @Override
     public void turnScreen(String username, long seconds) {
         if (username.equals(getClient().getUsername())) {
-            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Now it is yout turn", "Notification", JOptionPane.INFORMATION_MESSAGE));
+            if (this.getClient().getMoveMessages() != null) {
+                Platform.runLater(new Runnable() {
+                    List<String> messages;
+                    @Override
+                    public void run() {
+                        messages = getClient().getMoveMessages();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Notification");
+                        alert.setHeaderText("Moves of the other player");
+                        for (String message : messages)
+                            alert.setContentText(message);
+                        alert.showAndWait();
+                    }
+                });
+            }
             mainBoardStage = new MainBoardStage(this, getClient(), this, true, false);
             mainPanel.add(mainBoardStage, MAIN_BOARD);
             cardLayout.show(mainPanel, MAIN_BOARD);
         } else {
-            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Please wait " + seconds + " for your turn", "Notification", JOptionPane.INFORMATION_MESSAGE));
             mainBoardStage = new MainBoardStage(this, getClient(), this, false, false);
             mainPanel.add(mainBoardStage, MAIN_BOARD);
             cardLayout.show(mainPanel, MAIN_BOARD);
@@ -168,27 +200,37 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     @Override
     public void supportForTheChurch(boolean flag) {
         if(flag){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Excommunication Choice");
-            alert.setHeaderText("Excommunication Choice");
-            alert.setContentText("Do you want to be excommunicated?");
-            ButtonType yes = new ButtonType("YES");
-            ButtonType no = new ButtonType("NO");
-            alert.getButtonTypes().addAll(yes, no);
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.isPresent()) {
-                if (result.get() == yes) {
-                    getClient().notifyExcommunicationChoice(true);
-                } else {
-                    getClient().notifyExcommunicationChoice(false);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Excommunication Choice");
+                    alert.setHeaderText("Excommunication Choice");
+                    alert.setContentText("Do you want to be excommunicated?");
+                    ButtonType yes = new ButtonType("YES");
+                    ButtonType no = new ButtonType("NO");
+                    alert.getButtonTypes().addAll(yes, no);
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if(result.isPresent()) {
+                        if (result.get() == yes) {
+                            getClient().notifyExcommunicationChoice(true);
+                        } else {
+                            getClient().notifyExcommunicationChoice(false);
+                        }
+                    }
                 }
-            }
+            });
         }else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Excommunication");
-            alert.setHeaderText("Excommunication Information");
-            alert.setContentText("You heve been excommunicated!");
-            alert.showAndWait();
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Excommunication");
+                    alert.setHeaderText("Excommunication Information");
+                    alert.setContentText("You have been excommunicated!");
+                    alert.showAndWait();
+                }
+            });
         }
     }
 
@@ -217,6 +259,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
             jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             jframe.pack();
             jframe.setVisible(true);
+
         });
     }
 
@@ -244,11 +287,16 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void showGameException(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Your data are not valid");
-        alert.setContentText(message);
-        alert.showAndWait();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Your data are not valid");
+                alert.setContentText(message);
+                alert.showAndWait();
+                }
+            });
     }
 
     @Override
