@@ -9,9 +9,8 @@ import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,11 +50,12 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     private CreateRoomStage createRoomStage;
     private ChoosePersonalBoardTileStage choosePersonalBoardTileStage;
     private ChooseLeaderCardStage chooseLeaderCardStage;
+    private JFrame leaderFrame;
 
     private MainBoardStage mainBoardStage;
 
     private boolean usedMember;
-
+    private Button leaderCardButton;
     /**
      * Constructor
      * @param controller
@@ -89,8 +89,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         createRoomStage = new CreateRoomStage(getClient()::createRoom);
         mainPanel.add(createRoomStage, CREATE_ROOM);
     }
-
-
 
     @Override
     public void setUsedMember(boolean flag){
@@ -241,9 +239,9 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
             JPanel panel = new JPanel();
             panel.setLayout(grid);
             for(int i = 0; i <ranking.length; i++){
-                JLabel name = new JLabel(ranking[i].getUsername());
+                JLabel name = new JLabel(ranking[i].getUsername() + ": ");
                 panel.add(name);
-                JLabel points = new JLabel(ranking[i].getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY).toString());
+                JLabel points = new JLabel("" + ranking[i].getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY).toString());
                 panel.add(points);
             }
             JOptionPane.showMessageDialog(null, panel, "End Game", JOptionPane.INFORMATION_MESSAGE);
@@ -275,13 +273,14 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     }
 
     @Override
-    public void showLeaderCards(Player player) {
+    public void showLeaderCards(Player player, Button leaderCardButton) {
+        this.leaderCardButton = leaderCardButton;
         SwingUtilities.invokeLater(() -> {
-            JFrame jframe = new JFrame();
-            jframe.add(new LeaderCardStage(this, player), BorderLayout.CENTER);
-            jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-            jframe.pack();
-            jframe.setVisible(true);
+            leaderFrame = new JFrame();
+            leaderFrame.add(new LeaderCardStage(this, player, leaderCardButton), BorderLayout.CENTER);
+            leaderFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            leaderFrame.pack();
+            leaderFrame.setVisible(true);
         });
     }
 
@@ -297,6 +296,12 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
                 alert.showAndWait();
                 }
             });
+        leaderFrame.dispose();
+        leaderCardButton.setDisable(false);
+    }
+
+    @Override
+    public void chooseCouncilPrivilegeForLeader(Player player) {
     }
 
     @Override
@@ -317,6 +322,8 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
             }
             getClient().getGameModel().activateLeaderCard(player, i, servants, this);
             getClient().notifyActivateLeader(i, servants);
+            leaderFrame.dispose();
+            leaderCardButton.setDisable(false);
         } catch (GameException e) {
             showGameException(e.getMessage());
         }
@@ -334,6 +341,8 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         }
         getClient().getGameModel().discardLeaderCard(player, i, this);
         getClient().notifyDiscardLeader(i);
+        leaderFrame.dispose();
+        leaderCardButton.setDisable(false);
     }
 
     @SuppressWarnings("unchecked")

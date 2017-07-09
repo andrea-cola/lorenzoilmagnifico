@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.LoginException;
 import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;

@@ -3,6 +3,7 @@ package it.polimi.ingsw.ui.gui;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.UserInterface;
 import it.polimi.ingsw.utility.Printer;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -142,12 +143,15 @@ import java.util.List;
 
         Button personalTileButton = new Button("PERSONAL TILE");
         personalTileButton.setAlignment(Pos.CENTER);
-        personalTileButton.setOnMousePressed(event -> this.callback.showPersonalTileBoardStage(player));
+        personalTileButton.setOnMouseClicked(event -> this.callback.showPersonalTileBoardStage(player));
 
         Button leaderCardsButton = new Button("LEADER CARDS");
         leaderCardsButton.setAlignment(Pos.CENTER);
         if(turn)
-            leaderCardsButton.setOnMousePressed(event -> callback.showLeaderCards(player));
+            leaderCardsButton.setOnMouseClicked(event -> callback.showLeaderCards(player, leaderCardsButton));
+        Button discardLeader = new Button("DISCARD LEADER");
+        discardLeader.setAlignment(Pos.CENTER);
+        //discardLeader.setOnMouseClicked();
 
         Circle redMember = new Circle(FAMILY_RADIUS);
         redMember.setFill(Color.rgb(200, 110, 34));
@@ -253,7 +257,7 @@ import java.util.List;
         pointsTable.add(new Label("Servants: "), 0, 6);
         pointsTable.add(new Label(Integer.toString(servantValue)), 1, 6);
 
-        pointsTable.add(new Label("Period"), 0, 7);
+        pointsTable.add(new Label("Period: "), 0, 7);
         pointsTable.add(new Label(Integer.toString(game.getAge())), 1, 7);
 
 
@@ -375,9 +379,11 @@ import java.util.List;
 
         void showPersonalTileBoardStage(Player player);
 
-        void showLeaderCards(Player player);
+        void showLeaderCards(Player player, Button leaderCardButton);
 
         void showGameException(String message);
+
+        void chooseCouncilPrivilegeForLeader(Player player);
 
         void notifyEndTurnStage();
 

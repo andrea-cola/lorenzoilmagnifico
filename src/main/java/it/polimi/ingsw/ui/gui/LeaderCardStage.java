@@ -33,7 +33,8 @@ import java.awt.*;
     private int servantValue;
 
 
-    LeaderCardStage(MainBoardStage.CallbackInterface callback, Player player){
+    LeaderCardStage(MainBoardStage.CallbackInterface callback, Player player, Button leaderCardButton){
+        leaderCardButton.setDisable(true);
         this.callback = callback;
         BorderPane root = new BorderPane();
         GridPane pane = new GridPane();
@@ -62,54 +63,58 @@ import java.awt.*;
             label.setAlignment(Pos.CENTER);
             pane.add(image, i, 0);
             pane.add(label, i, 1);
-
             Button button = new Button("INTERACT");
             button.setAlignment(Pos.CENTER);
-            button.setOnAction(event -> EventQueue.invokeLater(() -> {
-                try{
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                }catch (IllegalAccessException | InstantiationException |
-                        UnsupportedLookAndFeelException | ClassNotFoundException e) {
-                    Printer.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
-                }
-                JPanel panel = new JPanel();
-                panel.add(new JLabel("Choose what you want to do: "));
-                DefaultComboBoxModel model = new DefaultComboBoxModel();
-                model.addElement("DROP LEADER");
-                model.addElement("ACTIVE LEADER");
-                JComboBox<String> comboBox = new JComboBox<>(model);
-                JLabel number = new JLabel(servants.toString());
-                JButton minus = new JButton("-");
-                JButton plus = new JButton("+");
-                plus.addActionListener(e -> {
-                    if(servants<servantValue) {
-                        servants++;
-                        minus.setVisible(true);
-                        number.setText(Integer.toString(servants));
-                    }else
-                        plus.setVisible(false);
-                });
-                minus.addActionListener(e -> {
-                    if(servants>0){
-                        servants--;
-                        plus.setVisible(true);
-                        number.setText(Integer.toString(servants));
-                    }else
-                        minus.setVisible(false);
-                });
-                panel.add(comboBox);
-                panel.add(minus);
-                panel.add(number);
-                panel.add(plus);
-                int result = JOptionPane.showConfirmDialog(null, panel, "Leader Actions", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (result == JOptionPane.OK_OPTION) {
-                    if (comboBox.getSelectedItem() != null) {
-                        String choice = (String) comboBox.getSelectedItem();
-                        leaderAction(choice, name);
-                        JOptionPane.getRootFrame().dispose();
-                    }
-                }
-            }));
+            button.setOnAction(event ->{
+                    button.setVisible(false);
+                    EventQueue.invokeLater(() -> {
+                        try{
+                            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                        }catch (IllegalAccessException | InstantiationException |
+                                UnsupportedLookAndFeelException | ClassNotFoundException e) {
+                            Printer.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
+                        }
+                        JPanel panel = new JPanel();
+                        panel.add(new JLabel("Choose what you want to do: "));
+                        DefaultComboBoxModel model = new DefaultComboBoxModel();
+                        model.addElement("DROP LEADER");
+                        model.addElement("ACTIVE LEADER");
+                        JComboBox<String> comboBox = new JComboBox<>(model);
+                        JLabel number = new JLabel(servants.toString());
+                        JButton minus = new JButton("-");
+                        JButton plus = new JButton("+");
+                        plus.addActionListener(e -> {
+                            if(servants<servantValue) {
+                                servants++;
+                                minus.setVisible(true);
+                                number.setText(Integer.toString(servants));
+                            }else
+                                plus.setVisible(false);
+                        });
+                        minus.addActionListener(e -> {
+                            if(servants>0){
+                                servants--;
+                                plus.setVisible(true);
+                                number.setText(Integer.toString(servants));
+                            }else
+                                minus.setVisible(false);
+                        });
+                        panel.add(comboBox);
+                        panel.add(minus);
+                        panel.add(number);
+                        panel.add(plus);
+                        int result = JOptionPane.showConfirmDialog(null, panel, "Leader Actions", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (result == JOptionPane.OK_OPTION) {
+                            if (comboBox.getSelectedItem() != null) {
+                                String choice = (String) comboBox.getSelectedItem();
+                                leaderAction(choice, name);
+                                JOptionPane.getRootFrame().dispose();
+                            }
+                        }
+                    });
+            });
+            if(player.getPersonalBoard().getLeaderCards().get(i).getLeaderEffectActive())
+                button.setVisible(false);
             pane.add(button, i, 2);
         }
         root.setCenter(pane);
