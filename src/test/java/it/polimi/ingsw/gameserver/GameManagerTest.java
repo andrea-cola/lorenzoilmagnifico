@@ -269,15 +269,131 @@ public class GameManagerTest {
 
     @Test
     public void createGameInstance() throws Exception {
+        ServerPlayer player = new ServerPlayer() {
+            @Override
+            public void sendGameInfo(Game game) throws NetworkException {
 
+            }
+
+            @Override
+            public void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyTurnStarted(String username, long seconds) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
+
+            }
+
+            @Override
+            public void supportForTheChurch(boolean flag) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
+
+            }
+        };
+
+        ArrayList<ServerPlayer> list = new ArrayList<>();
+        list.add(player);
+
+        Configurator.loadConfigurations();
+        Configuration configuration = new Configuration(Configurator.getConfiguration().getWaitingTime(),
+                Configurator.getConfiguration().getMoveWaitingTime(),
+                Configurator.getConfiguration().getVictoryPointsForGreenCards(),
+                Configurator.getConfiguration().getVictoryPointsForBlueCards(),
+                Configurator.getConfiguration().getVictoryPointsBonusForFaith(),
+                Configurator.getConfiguration().getMainBoard(),
+                Configurator.getConfiguration().getPersonalBoard(),
+                Configurator.getConfiguration().getPersonalBoardTiles());
+        GameManager gameManager = new GameManager(list,
+                configuration,
+                Configurator.getDevelopmentCards(),
+                Configurator.getLeaderCards(),
+                Configurator.getExcommunicationCards());
+
+        gameManager.createGameInstance();
+
+        assertTrue(gameManager.getGameModel().getMainBoard().getTower(1).getTowerCell(1).getDevelopmentCard() != null);
+        assertTrue(gameManager.getGameModel().getDices().getValues().get(FamilyMemberColor.BLACK) >=1 &&
+                gameManager.getGameModel().getDices().getValues().get(FamilyMemberColor.BLACK) <= 6);
     }
 
     @Test
     public void getGameModel() throws Exception {
+        ServerPlayer player = new ServerPlayer() {
+            @Override
+            public void sendGameInfo(Game game) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyTurnStarted(String username, long seconds) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
+
+            }
+
+            @Override
+            public void supportForTheChurch(boolean flag) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
+
+            }
+        };
+
+        ArrayList<ServerPlayer> list = new ArrayList<>();
+        list.add(player);
+
+        Configurator.loadConfigurations();
+        Configuration configuration = new Configuration(Configurator.getConfiguration().getWaitingTime(),
+                Configurator.getConfiguration().getMoveWaitingTime(),
+                Configurator.getConfiguration().getVictoryPointsForGreenCards(),
+                Configurator.getConfiguration().getVictoryPointsForBlueCards(),
+                Configurator.getConfiguration().getVictoryPointsBonusForFaith(),
+                Configurator.getConfiguration().getMainBoard(),
+                Configurator.getConfiguration().getPersonalBoard(),
+                Configurator.getConfiguration().getPersonalBoardTiles());
+        GameManager gameManager = new GameManager(list,
+                configuration,
+                Configurator.getDevelopmentCards(),
+                Configurator.getLeaderCards(),
+                Configurator.getExcommunicationCards());
+
+        assertTrue(gameManager.getGameModel().getClass().equals(Game.class));
     }
 
     @Test
     public void getStartOrder() throws Exception {
+
     }
 
     @Test
@@ -290,11 +406,75 @@ public class GameManagerTest {
 
     @Test
     public void finalControlsForPeriod() throws Exception {
+        ServerPlayer player = new ServerPlayer() {
+            @Override
+            public void sendGameInfo(Game game) throws NetworkException {
 
+            }
+
+            @Override
+            public void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyTurnStarted(String username, long seconds) throws NetworkException {
+
+            }
+
+            @Override
+            public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
+
+            }
+
+            @Override
+            public void supportForTheChurch(boolean flag) throws NetworkException {
+
+            }
+
+            @Override
+            public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
+
+            }
+        };
+
+        ArrayList<ServerPlayer> list = new ArrayList<>();
+        list.add(player);
+
+        Configurator.loadConfigurations();
+        Configuration configuration = new Configuration(Configurator.getConfiguration().getWaitingTime(),
+                Configurator.getConfiguration().getMoveWaitingTime(),
+                Configurator.getConfiguration().getVictoryPointsForGreenCards(),
+                Configurator.getConfiguration().getVictoryPointsForBlueCards(),
+                Configurator.getConfiguration().getVictoryPointsBonusForFaith(),
+                Configurator.getConfiguration().getMainBoard(),
+                Configurator.getConfiguration().getPersonalBoard(),
+                Configurator.getConfiguration().getPersonalBoardTiles());
+        GameManager gameManager = new GameManager(list,
+                configuration,
+                Configurator.getDevelopmentCards(),
+                Configurator.getLeaderCards(),
+                Configurator.getExcommunicationCards());
+
+        gameManager.setExcommunicationCards();
+
+        player.getPersonalBoard().getValuables().increase(PointType.FAITH, 10);
+
+        assertTrue(gameManager.finalControlsForPeriod(1, player));
+
+        player.getPersonalBoard().getValuables().decrease(PointType.FAITH, 9);
+
+        assertFalse(gameManager.finalControlsForPeriod(1, player));
     }
 
     @Test
     public void applySupportChoice() throws Exception {
+
     }
 
     @Test
@@ -336,84 +516,10 @@ public class GameManagerTest {
 
             }
         };
-        ServerPlayer player1 = new ServerPlayer() {
-            @Override
-            public void sendGameInfo(Game game) throws NetworkException {
-
-            }
-
-            @Override
-            public void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException {
-
-            }
-
-            @Override
-            public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException {
-
-            }
-
-            @Override
-            public void notifyTurnStarted(String username, long seconds) throws NetworkException {
-
-            }
-
-            @Override
-            public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
-
-            }
-
-            @Override
-            public void supportForTheChurch(boolean flag) throws NetworkException {
-
-            }
-
-            @Override
-            public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
-
-            }
-        };
-        ServerPlayer player2 = new ServerPlayer() {
-            @Override
-            public void sendGameInfo(Game game) throws NetworkException {
-
-            }
-
-            @Override
-            public void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException {
-
-            }
-
-            @Override
-            public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException {
-
-            }
-
-            @Override
-            public void notifyTurnStarted(String username, long seconds) throws NetworkException {
-
-            }
-
-            @Override
-            public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
-
-            }
-
-            @Override
-            public void supportForTheChurch(boolean flag) throws NetworkException {
-
-            }
-
-            @Override
-            public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
-
-            }
-        };
 
 
         ArrayList<ServerPlayer> list = new ArrayList<>();
         list.add(player);
-        list.add(player1);
-        list.add(player2);
 
         Configurator.loadConfigurations();
         Configuration configuration = new Configuration(Configurator.getConfiguration().getWaitingTime(),

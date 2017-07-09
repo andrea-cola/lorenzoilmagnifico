@@ -287,7 +287,7 @@ import java.util.List;
      */
     private void manageSourceEvent(Circle source) {
         source.setOnDragDetected(event -> {
-            Dragboard db = source.startDragAndDrop(TransferMode.ANY);
+            Dragboard db = source.startDragAndDrop(TransferMode.COPY_OR_MOVE);
             ClipboardContent clipboardContent = new ClipboardContent();
             clipboardContent.putString(source.toString());
             db.setContent(clipboardContent);
