@@ -1,0 +1,1422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw</OriginalElement>
+  <nodes>
+    <node x="11342.730510707812" y="2840.5">it.polimi.ingsw.model.Market</node>
+    <node x="6860.937176501012" y="7793.0">it.polimi.ingsw.protocol.ServerCommunication</node>
+    <node x="10198.230510707812" y="752.0">it.polimi.ingsw.model.Privilege</node>
+    <node x="2796.978843167678" y="8146.0">it.polimi.ingsw.exceptions.ConfigurationException</node>
+    <node x="4947.020509834345" y="7218.5">it.polimi.ingsw.exceptions.NetworkException</node>
+    <node x="13898.145265151517" y="8179.0">it.polimi.ingsw.gameserver.PlayerTurn.TimeCountDown</node>
+    <node x="5991.172177374479" y="7173.5">it.polimi.ingsw.exceptions.LoginErrorType</node>
+    <node x="6350.2555107078115" y="10664.5">it.polimi.ingsw.server.DBServer</node>
+    <node x="10643.950968429908" y="4013.0">it.polimi.ingsw.model.MainBoard</node>
+    <node x="9911.733461842317" y="9916.0">it.polimi.ingsw.socketserver.SocketServerAbstract.RequestManager</node>
+    <node x="7950.20359848485" y="4753.5">it.polimi.ingsw.utility.Configuration</node>
+    <node x="11222.480510707812" y="3372.0">it.polimi.ingsw.model.Player</node>
+    <node x="455.54166666666606" y="8947.0">it.polimi.ingsw.ui.AbstractUserInterface</node>
+    <node x="7461.630510707812" y="7075.5">it.polimi.ingsw.protocol.ServerCommunicationInterface</node>
+    <node x="862.0" y="11797.0">it.polimi.ingsw.utility.Printer</node>
+    <node x="1629.6354166666679" y="3684.5">it.polimi.ingsw.model.TowerTest</node>
+    <node x="11100.047024985859" y="763.5">it.polimi.ingsw.exceptions.GameException</node>
+    <node x="9693.105510707812" y="11.0">it.polimi.ingsw.model.PointType</node>
+    <node x="1559.5416666666679" y="9069.0">it.polimi.ingsw.ui.ConnectionType</node>
+    <node x="13817.345265151516" y="8991.0">it.polimi.ingsw.gameserver.PlayerTurn</node>
+    <node x="9291.855510707812" y="1324.0">it.polimi.ingsw.model.ExcommunicationValues</node>
+    <node x="1730.5416666666679" y="9080.0">it.polimi.ingsw.exceptions.WrongCommandException</node>
+    <node x="4503.812176501012" y="9662.0">it.polimi.ingsw.socketclient.SocketClient</node>
+    <node x="10833.730510707812" y="3350.0">it.polimi.ingsw.model.Tower</node>
+    <node x="4885.603843167679" y="8179.0">it.polimi.ingsw.protocol.ClientCommunication.ResponseHandler</node>
+    <node x="5894.937176501012" y="8904.0">it.polimi.ingsw.rmiserver.RMIServerInterface</node>
+    <node x="10087.588269534626" y="11258.0">it.polimi.ingsw.server.Server</node>
+    <node x="45.125" y="7936.5">it.polimi.ingsw.ui.UserInterface</node>
+    <node x="9622.270961842318" y="9882.0">it.polimi.ingsw.server.ServerAbstract</node>
+    <node x="10042.980510707812" y="1062.0">it.polimi.ingsw.model.ActionType</node>
+    <node x="6544.240722873612" y="5284.0">it.polimi.ingsw.model.InformationChoicesHandler</node>
+    <node x="10297.480510707812" y="2038.5">it.polimi.ingsw.model.FamilyMember</node>
+    <node x="10657.730510707812" y="2730.5">it.polimi.ingsw.model.TowerCell</node>
+    <node x="4663.937176501012" y="8749.0">it.polimi.ingsw.protocol.ClientCommunication</node>
+    <node x="9361.270961842318" y="9905.0">it.polimi.ingsw.exceptions.ServerException</node>
+    <node x="11306.427780024136" y="4522.0">it.polimi.ingsw.model.Game</node>
+    <node x="9835.92859848485" y="3628.0">it.polimi.ingsw.model.CouncilPalace</node>
+    <node x="5138.824056206944" y="2061.5">it.polimi.ingsw.model.PersonalBoardTile</node>
+    <node x="12301.495961842318" y="8079.0">it.polimi.ingsw.server.ServerPlayer</node>
+    <node x="6613.937176501012" y="9816.0">it.polimi.ingsw.rmiserver.RMIServerPlayer</node>
+    <node x="2292.228843167677" y="8815.0">it.polimi.ingsw.gameserver.Configurator</node>
+    <node x="961.5416666666679" y="4776.0">it.polimi.ingsw.model.InformationCallback</node>
+    <node x="7088.240722873612" y="2050.0">it.polimi.ingsw.model.ExcommunicationCard</node>
+    <node x="9781.983461842317" y="10719.5">it.polimi.ingsw.socketserver.SocketServerAbstract</node>
+    <node x="3108.062176501011" y="8815.0">it.polimi.ingsw.client.AbstractClient</node>
+    <node x="4226.812176501012" y="9058.0">it.polimi.ingsw.exceptions.ConnectionException</node>
+    <node x="8812.295961842317" y="10466.5">it.polimi.ingsw.rmiserver.RMIServerAbstract</node>
+    <node x="13131.345265151516" y="7251.5">it.polimi.ingsw.exceptions.GameAlreadyStarted</node>
+    <node x="3440.312176501012" y="9585.0">it.polimi.ingsw.rmiclient.RMIClient</node>
+    <node x="5374.824056206944" y="1928.0">it.polimi.ingsw.model.DevelopmentCard</node>
+    <node x="5585.937176501012" y="9003.0">it.polimi.ingsw.rmiclient.RMIClientInterface</node>
+    <node x="11699.230510707812" y="1939.0">it.polimi.ingsw.model.ActionSpaceExtended</node>
+    <node x="5969.422177374479" y="8145.5">it.polimi.ingsw.exceptions.LoginException</node>
+    <node x="13689.595265151516" y="6832.0">it.polimi.ingsw.gameserver.Room</node>
+    <node x="13711.130358319193" y="5968.0">it.polimi.ingsw.gameserver.Room.GameHandler</node>
+    <node x="2384.978843167677" y="8079.0">it.polimi.ingsw.gameserver.RuntimeTypeAdapterFactory</node>
+    <node x="13836.630358319193" y="5328.0">it.polimi.ingsw.model.ClientUpdatePacket</node>
+    <node x="13268.547024985859" y="6111.0">it.polimi.ingsw.exceptions.RoomException</node>
+    <node x="9412.855510707812" y="289.0">it.polimi.ingsw.model.PointsAndResources</node>
+    <node x="10886.047024985859" y="168.0">it.polimi.ingsw.exceptions.GameErrorType</node>
+    <node x="9164.320961842317" y="8727.0">it.polimi.ingsw.socketserver.SocketServerPlayer</node>
+    <node x="4760.812176501012" y="10709.0">it.polimi.ingsw.socketclient.SocketClient.ResponseManager</node>
+    <node x="11290.230510707812" y="2005.5">it.polimi.ingsw.model.MarketCell</node>
+    <node x="12661.495961842318" y="8124.0">it.polimi.ingsw.server.ServerInterface</node>
+    <node x="7015.437176501012" y="9080.0">it.polimi.ingsw.protocol.ServerCommunication.Handler</node>
+    <node x="7682.740722873612" y="1556.0">it.polimi.ingsw.model.effects</node>
+    <node x="2902.8805107078115" y="11468.0">it.polimi.ingsw.client.GameLauncher</node>
+    <node x="7483.130510707812" y="5604.0">it.polimi.ingsw.gameserver.GameManager</node>
+    <node x="2540.3805107078115" y="10389.0">it.polimi.ingsw.client.LorenzoIlMagnifico</node>
+    <node x="9385.605510707812" y="0.0">it.polimi.ingsw.model.ResourceType</node>
+    <node x="0.0" y="11797.0">it.polimi.ingsw.protocol.SharedCostants</node>
+    <node x="7630.740722873612" y="764.0">it.polimi.ingsw.model.DevelopmentCardColor</node>
+    <node x="3106.978843167678" y="8112.5">it.polimi.ingsw.client.ClientInterface</node>
+    <node x="4913.824056206944" y="984.0">it.polimi.ingsw.model.LeaderCard</node>
+    <node x="9966.480510707812" y="1534.0">it.polimi.ingsw.model.Action</node>
+    <node x="10359.730510707812" y="1028.0">it.polimi.ingsw.model.CouncilPrivilege</node>
+    <node x="11098.730510707812" y="2796.5">it.polimi.ingsw.model.PlayerColor</node>
+    <node x="628.1638440411443" y="9927.0">it.polimi.ingsw.ui.gui</node>
+    <node x="1207.5416666666679" y="9927.0">it.polimi.ingsw.ui.cli</node>
+    <node x="12228.230510707812" y="1961.0">it.polimi.ingsw.model.ActionSpace</node>
+    <node x="8826.20359848485" y="3683.0">it.polimi.ingsw.model.Vatican</node>
+    <node x="11820.980510707812" y="1512.0">it.polimi.ingsw.model.FamilyMemberColor</node>
+    <node x="9347.569796422096" y="2521.0">it.polimi.ingsw.model.PersonalBoard</node>
+    <node x="12854.230510707812" y="4178.5">it.polimi.ingsw.model.Dice</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.rmiclient.RMIClient" target="it.polimi.ingsw.rmiserver.RMIServerInterface">
+      <point x="376.66666666666515" y="-357.0" />
+      <point x="4268.978843167677" y="9565.0" />
+      <point x="6069.437176501012" y="9565.0" />
+      <point x="-174.5" y="202.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.GameManager" target="it.polimi.ingsw.model.Game">
+      <point x="309.818181818182" y="-544.0" />
+      <point x="8360.948692525995" y="5564.0" />
+      <point x="11833.127780024137" y="5564.0" />
+      <point x="11833.127780024137" y="5264.0" />
+      <point x="11749.927780024136" y="5264.0" />
+      <point x="0.0" y="346.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.ExcommunicationValues">
+      <point x="-102.21428571428578" y="-379.5" />
+      <point x="9722.35551070781" y="2331.0" />
+      <point x="9603.355510707812" y="2331.0" />
+      <point x="9603.355510707812" y="1908.0" />
+      <point x="9450.355510707812" y="1908.0" />
+      <point x="-158.5" y="247.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.PersonalBoardTile">
+      <point x="-442.9285714285711" y="-379.5" />
+      <point x="9381.641224993526" y="2381.0" />
+      <point x="5327.824056206944" y="2381.0" />
+      <point x="81.0" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.MainBoard" target="it.polimi.ingsw.model.CouncilPalace">
+      <point x="-166.25" y="-214.5" />
+      <point x="10762.700968429908" y="3973.0" />
+      <point x="9950.67859848485" y="3973.0" />
+      <point x="-114.75" y="137.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.exceptions.RoomException">
+      <point x="179.07692307692378" y="-247.0" />
+      <point x="10557.665192611548" y="11218.0" />
+      <point x="13679.095265151516" y="11218.0" />
+      <point x="13679.095265151516" y="6802.0" />
+      <point x="13408.547024985859" y="6802.0" />
+      <point x="40.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Player" target="it.polimi.ingsw.model.PlayerColor">
+      <point x="73.66666666666697" y="-82.0" />
+      <point x="11406.647177374478" y="3300.0" />
+      <point x="11210.730510707812" y="3300.0" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PointsAndResources" target="it.polimi.ingsw.model.PointType">
+      <point x="98.0" y="-126.0" />
+      <point x="9706.855510707812" y="143.0" />
+      <point x="9727.105510707812" y="143.0" />
+      <point x="-34.0" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.cli" target="it.polimi.ingsw.ui.cli">
+      <point x="-12.75" y="15.0" />
+      <point x="1245.7916666666679" y="9987.0" />
+      <point x="1177.5416666666679" y="9987.0" />
+      <point x="1177.5416666666679" y="9942.0" />
+      <point x="-51.0" y="-0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room" target="it.polimi.ingsw.exceptions.RoomException">
+      <point x="-250.0" y="-445.5" />
+      <point x="13939.595265151516" y="6762.0" />
+      <point x="13448.547024985859" y="6762.0" />
+      <point x="80.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.ActionType">
+      <point x="170.35714285714266" y="-379.5" />
+      <point x="9994.92693927924" y="2461.0" />
+      <point x="10151.980510707812" y="2461.0" />
+      <point x="10151.980510707812" y="1294.0" />
+      <point x="10112.980510707812" y="1294.0" />
+      <point x="10.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Player" target="it.polimi.ingsw.model.PersonalBoard">
+      <point x="0.0" y="-82.0" />
+      <point x="11332.980510707812" y="3310.0" />
+      <point x="10182.319796422096" y="3310.0" />
+      <point x="357.75" y="379.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.exceptions.GameAlreadyStarted" target="it.polimi.ingsw.exceptions.RoomException">
+      <point x="0.0" y="-26.0" />
+      <point x="13236.345265151516" y="6802.0" />
+      <point x="13368.547024985859" y="6802.0" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.TowerTest" target="it.polimi.ingsw.model.Tower">
+      <point x="92.25" y="-81.0" />
+      <point x="1844.8854166666679" y="3588.0" />
+      <point x="10880.063844041146" y="3588.0" />
+      <point x="-92.66666666666697" y="104.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ServerCommunication" target="it.polimi.ingsw.protocol.ServerCommunication.Handler">
+      <point x="-115.0" y="412.0" />
+      <point x="7205.937176501012" y="8707.0" />
+      <point x="7128.687176501012" y="8707.0" />
+      <point x="37.75" y="-26.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ActionSpaceExtended" target="it.polimi.ingsw.model.effects">
+      <point x="-190.875" y="-170.5" />
+      <point x="11762.855510707812" y="1868.0" />
+      <point x="7794.940722873612" y="1868.0" />
+      <point x="46.19999999999982" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.ui.AbstractUserInterface">
+      <point x="-325.85000000000036" y="-379.5" />
+      <point x="2680.030510707811" y="10359.0" />
+      <point x="307.8305107078113" y="10359.0" />
+      <point x="307.8305107078113" y="9565.0" />
+      <point x="527.208333333333" y="9565.0" />
+      <point x="-143.33333333333303" y="159.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.model.Game">
+      <point x="325.85000000000036" y="-379.5" />
+      <point x="3331.730510707812" y="10359.0" />
+      <point x="4493.312176501012" y="10359.0" />
+      <point x="4493.312176501012" y="5264.0" />
+      <point x="11572.527780024137" y="5264.0" />
+      <point x="-177.39999999999964" y="346.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketserver.SocketServerAbstract" target="it.polimi.ingsw.socketserver.SocketServerAbstract.RequestManager">
+      <point x="34.375" y="-49.0" />
+      <point x="9953.858461842317" y="10369.0" />
+      <point x="9949.983461842317" y="10369.0" />
+      <point x="-38.25" y="26.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.client.ClientInterface">
+      <point x="-46.55000000000018" y="-379.5" />
+      <point x="2959.3305107078113" y="10319.0" />
+      <point x="3095.968426501011" y="10319.0" />
+      <point x="3095.968426501011" y="8707.0" />
+      <point x="3196.145509834345" y="8707.0" />
+      <point x="-178.33333333333303" y="92.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.exceptions.LoginException" target="it.polimi.ingsw.exceptions.NetworkException">
+      <point x="-59.75" y="-59.5" />
+      <point x="6029.172177374479" y="7773.0" />
+      <point x="5096.937176501011" y="7773.0" />
+      <point x="21.41666666666606" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.gui" target="it.polimi.ingsw.model.PersonalBoardTile">
+      <point x="-6.75" y="-15.0" />
+      <point x="675.4138440411443" y="9525.0" />
+      <point x="896.0416666666679" y="9525.0" />
+      <point x="896.0416666666679" y="2441.0" />
+      <point x="5165.824056206944" y="2441.0" />
+      <point x="-81.0" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiclient.RMIClient" target="it.polimi.ingsw.exceptions.NetworkException">
+      <point x="-75.33333333333394" y="-357.0" />
+      <point x="3816.978843167678" y="9565.0" />
+      <point x="3859.562176501011" y="9565.0" />
+      <point x="3859.562176501011" y="7773.0" />
+      <point x="5011.270509834345" y="7773.0" />
+      <point x="-64.25" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.GameManager" target="it.polimi.ingsw.utility.Configuration">
+      <point x="103.27272727272702" y="-544.0" />
+      <point x="8154.403237980539" y="5544.0" />
+      <point x="8377.70359848485" y="5544.0" />
+      <point x="0.0" y="114.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.TowerTest" target="it.polimi.ingsw.model.PointsAndResources">
+      <point x="-92.25" y="-81.0" />
+      <point x="1660.3854166666679" y="3608.0" />
+      <point x="1710.8854166666679" y="3608.0" />
+      <point x="1710.8854166666679" y="682.0" />
+      <point x="9429.188844041146" y="682.0" />
+      <point x="-179.66666666666652" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiserver.RMIServerPlayer" target="it.polimi.ingsw.server.ServerPlayer">
+      <point x="157.66666666666606" y="-126.0" />
+      <point x="7008.103843167678" y="9565.0" />
+      <point x="8973.83596096885" y="9565.0" />
+      <point x="8973.83596096885" y="8667.0" />
+      <point x="12335.495961842318" y="8667.0" />
+      <point x="-136.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.exceptions.GameException" target="it.polimi.ingsw.exceptions.GameErrorType">
+      <point x="0.0" y="-59.5" />
+      <point x="0.0" y="247.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ActionSpaceExtended" target="it.polimi.ingsw.model.ActionType">
+      <point x="63.625" y="-170.5" />
+      <point x="12017.355510707812" y="1908.0" />
+      <point x="12001.480510707812" y="1908.0" />
+      <point x="12001.480510707812" y="1284.0" />
+      <point x="10132.980510707812" y="1284.0" />
+      <point x="30.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.effects" target="it.polimi.ingsw.model.CouncilPrivilege">
+      <point x="58.66666666666697" y="-15.0" />
+      <point x="7807.407389540279" y="1304.0" />
+      <point x="10428.980510707812" y="1304.0" />
+      <point x="-69.25" y="71.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.GameManager" target="it.polimi.ingsw.model.InformationChoicesHandler">
+      <point x="-309.818181818182" y="-544.0" />
+      <point x="7741.31232888963" y="5564.0" />
+      <point x="6853.240722873612" y="5564.0" />
+      <point x="103.0" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketclient.SocketClient" target="it.polimi.ingsw.protocol.ClientCommunication">
+      <point x="77.125" y="-280.0" />
+      <point x="-225.5" y="357.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Game" target="it.polimi.ingsw.model.Dice">
+      <point x="253.42857142857156" y="-346.0" />
+      <point x="12003.356351452709" y="4492.0" />
+      <point x="12966.730510707812" y="4492.0" />
+      <point x="37.5" y="49.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Vatican" target="it.polimi.ingsw.model.ExcommunicationCard">
+      <point x="0.0" y="-82.5" />
+      <point x="9018.70359848485" y="2391.0" />
+      <point x="7249.940722873612" y="2391.0" />
+      <point x="46.200000000000045" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.CouncilPrivilege" target="it.polimi.ingsw.model.PointsAndResources">
+      <point x="92.33333333333303" y="-71.0" />
+      <point x="10590.563844041146" y="924.0" />
+      <point x="10758.980510707812" y="924.0" />
+      <point x="10758.980510707812" y="692.0" />
+      <point x="9755.855510707812" y="692.0" />
+      <point x="147.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.ui.gui">
+      <point x="-232.75" y="-379.5" />
+      <point x="2773.1305107078115" y="10349.0" />
+      <point x="718.1638440411443" y="10349.0" />
+      <point x="36.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.server.ServerPlayer">
+      <point x="89.53846153846098" y="-247.0" />
+      <point x="10468.126731073087" y="11198.0" />
+      <point x="12873.708461842318" y="11198.0" />
+      <point x="12873.708461842318" y="8687.0" />
+      <point x="12539.495961842318" y="8687.0" />
+      <point x="68.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.GameManager" target="it.polimi.ingsw.model.DevelopmentCard">
+      <point x="-206.5454545454545" y="-544.0" />
+      <point x="7844.585056162357" y="5554.0" />
+      <point x="6966.740722873612" y="5554.0" />
+      <point x="6966.740722873612" y="2411.0" />
+      <point x="5620.324056206944" y="2411.0" />
+      <point x="0.0" y="181.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Action" target="it.polimi.ingsw.model.ActionType">
+      <point x="0.0" y="-37.0" />
+      <point x="10053.980510707812" y="1294.0" />
+      <point x="10092.980510707812" y="1294.0" />
+      <point x="-10.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.ExcommunicationCard">
+      <point x="-306.6428571428569" y="-379.5" />
+      <point x="9517.92693927924" y="2361.0" />
+      <point x="7296.140722873612" y="2361.0" />
+      <point x="92.40000000000009" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.socketserver.SocketServerAbstract">
+      <point x="0.0" y="-247.0" />
+      <point x="10378.588269534626" y="11178.0" />
+      <point x="9850.733461842317" y="11178.0" />
+      <point x="-68.75" y="49.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiclient.RMIClient" target="it.polimi.ingsw.exceptions.RoomException">
+      <point x="-226.0000000000009" y="-357.0" />
+      <point x="3666.312176501011" y="9555.0" />
+      <point x="3848.562176501011" y="9555.0" />
+      <point x="3848.562176501011" y="6782.0" />
+      <point x="13288.547024985859" y="6782.0" />
+      <point x="-80.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Configurator" target="it.polimi.ingsw.model.LeaderCard">
+      <point x="-295.3125" y="-291.0" />
+      <point x="2334.416343167677" y="8707.0" />
+      <point x="2142.778843167678" y="8707.0" />
+      <point x="2142.778843167678" y="2421.0" />
+      <point x="2004.4791666666679" y="2421.0" />
+      <point x="2004.4791666666679" y="1304.0" />
+      <point x="5059.181199064087" y="1304.0" />
+      <point x="-58.14285714285734" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.effects" target="it.polimi.ingsw.model.ActionType">
+      <point x="44.0" y="-15.0" />
+      <point x="7792.740722873612" y="1274.0" />
+      <point x="10052.980510707812" y="1274.0" />
+      <point x="-50.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ActionSpace" target="it.polimi.ingsw.exceptions.GameException">
+      <point x="175.875" y="-148.5" />
+      <point x="12638.605510707812" y="1908.0" />
+      <point x="12614.543010707812" y="1908.0" />
+      <point x="12614.543010707812" y="944.0" />
+      <point x="11295.047024985859" y="944.0" />
+      <point x="75.0" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.TowerCell" target="it.polimi.ingsw.exceptions.GameException">
+      <point x="157.5" y="-170.0" />
+      <point x="11025.230510707812" y="2501.0" />
+      <point x="10994.480510707812" y="2501.0" />
+      <point x="10994.480510707812" y="954.0" />
+      <point x="11175.047024985859" y="954.0" />
+      <point x="-45.0" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.DevelopmentCard">
+      <point x="-374.7857142857142" y="-379.5" />
+      <point x="9449.784082136382" y="2371.0" />
+      <point x="5718.524056206945" y="2371.0" />
+      <point x="98.19999999999993" y="181.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Game" target="it.polimi.ingsw.exceptions.GameException">
+      <point x="380.1428571428569" y="-346.0" />
+      <point x="12130.070637166993" y="4502.0" />
+      <point x="13014.730510707812" y="4502.0" />
+      <point x="13014.730510707812" y="934.0" />
+      <point x="11325.047024985859" y="934.0" />
+      <point x="105.0" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.CouncilPalace" target="it.polimi.ingsw.model.effects">
+      <point x="-153.0" y="-137.5" />
+      <point x="9912.42859848485" y="3578.0" />
+      <point x="9175.530510707813" y="3578.0" />
+      <point x="9175.530510707813" y="1908.0" />
+      <point x="7755.340722873612" y="1908.0" />
+      <point x="6.600000000000364" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.gui" target="it.polimi.ingsw.ui.AbstractUserInterface">
+      <point x="-20.25" y="-15.0" />
+      <point x="661.9138440411443" y="9515.0" />
+      <point x="670.5416666666661" y="9515.0" />
+      <point x="0.0" y="159.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ClientCommunication" target="it.polimi.ingsw.exceptions.LoginException">
+      <point x="375.83333333333303" y="-357.0" />
+      <point x="5490.770509834345" y="8697.0" />
+      <point x="6009.255510707813" y="8697.0" />
+      <point x="-79.66666666666606" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.DevelopmentCardColor">
+      <point x="-170.35714285714266" y="-379.5" />
+      <point x="9654.212653564955" y="2341.0" />
+      <point x="9226.980510707812" y="2341.0" />
+      <point x="9226.980510707812" y="924.0" />
+      <point x="7774.740722873612" y="924.0" />
+      <point x="48.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.TowerCell" target="it.polimi.ingsw.model.PointsAndResources">
+      <point x="52.5" y="-170.0" />
+      <point x="10920.230510707812" y="2501.0" />
+      <point x="10873.230510707812" y="2501.0" />
+      <point x="10873.230510707812" y="682.0" />
+      <point x="9788.522177374478" y="682.0" />
+      <point x="179.66666666666606" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketserver.SocketServerAbstract.RequestManager" target="it.polimi.ingsw.socketserver.SocketServerPlayer">
+      <point x="0.0" y="-26.0" />
+      <point x="9988.233461842317" y="9555.0" />
+      <point x="9580.320961842317" y="9555.0" />
+      <point x="0.0" y="379.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketserver.SocketServerPlayer" target="it.polimi.ingsw.server.ServerPlayer">
+      <point x="166.39999999999964" y="-379.0" />
+      <point x="9746.720961842319" y="8687.0" />
+      <point x="12471.495961842318" y="8687.0" />
+      <point x="0.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.LeaderCard" target="it.polimi.ingsw.exceptions.GameException">
+      <point x="135.66666666666652" y="-115.0" />
+      <point x="5252.990722873611" y="934.0" />
+      <point x="11115.047024985859" y="934.0" />
+      <point x="-105.0" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room" target="it.polimi.ingsw.model.ClientUpdatePacket">
+      <point x="416.66666666666606" y="-445.5" />
+      <point x="14606.261931818182" y="6722.0" />
+      <point x="14132.630358319193" y="6722.0" />
+      <point x="14132.630358319193" y="5584.0" />
+      <point x="14076.630358319193" y="5584.0" />
+      <point x="80.0" y="71.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketserver.SocketServerPlayer" target="it.polimi.ingsw.protocol.ServerCommunicationInterface">
+      <point x="0.0" y="-379.0" />
+      <point x="9580.320961842317" y="8637.0" />
+      <point x="7871.380510707812" y="8637.0" />
+      <point x="7871.380510707812" y="7773.0" />
+      <point x="7895.880510707812" y="7773.0" />
+      <point x="144.75" y="202.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.LeaderCard">
+      <point x="-238.49999999999955" y="-379.5" />
+      <point x="9586.069796422096" y="2351.0" />
+      <point x="9215.980510707812" y="2351.0" />
+      <point x="9215.980510707812" y="1234.0" />
+      <point x="5291.752627635517" y="1234.0" />
+      <point x="174.42857142857156" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.PlayerTurn" target="it.polimi.ingsw.gameserver.PlayerTurn.TimeCountDown">
+      <point x="-78.39999999999964" y="-115.0" />
+      <point x="13934.945265151517" y="8707.0" />
+      <point x="13936.145265151517" y="8707.0" />
+      <point x="-38.0" y="26.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.gui" target="it.polimi.ingsw.model.LeaderCard">
+      <point x="-47.25" y="-15.0" />
+      <point x="634.9138440411443" y="9555.0" />
+      <point x="34.625" y="9555.0" />
+      <point x="34.625" y="1284.0" />
+      <point x="4942.895484778373" y="1284.0" />
+      <point x="-174.42857142857156" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ClientCommunication.ResponseHandler" target="it.polimi.ingsw.protocol.ClientCommunication">
+      <point x="39.5" y="26.0" />
+      <point x="5004.103843167679" y="8707.0" />
+      <point x="5039.770509834345" y="8707.0" />
+      <point x="-75.16666666666697" y="-357.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.gui" target="it.polimi.ingsw.model.InformationCallback">
+      <point x="20.25" y="-15.0" />
+      <point x="702.4138440411443" y="9545.0" />
+      <point x="918.0416666666679" y="9545.0" />
+      <point x="918.0416666666679" y="5234.0" />
+      <point x="1033.6666666666679" y="5234.0" />
+      <point x="-216.375" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.LeaderCard" target="it.polimi.ingsw.model.effects">
+      <point x="116.28571428571422" y="115.0" />
+      <point x="5233.609770492659" y="1294.0" />
+      <point x="7704.740722873612" y="1294.0" />
+      <point x="-44.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Configurator" target="it.polimi.ingsw.gameserver.RuntimeTypeAdapterFactory">
+      <point x="-42.1875" y="-291.0" />
+      <point x="2587.541343167677" y="8707.0" />
+      <point x="2569.478843167677" y="8707.0" />
+      <point x="0.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room.GameHandler" target="it.polimi.ingsw.gameserver.Room">
+      <point x="51.375" y="180.0" />
+      <point x="13968.005358319193" y="6732.0" />
+      <point x="14439.595265151516" y="6732.0" />
+      <point x="250.0" y="-445.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.utility.Configuration" target="it.polimi.ingsw.model.PersonalBoardTile">
+      <point x="-285.0" y="-114.5" />
+      <point x="8092.70359848485" y="4502.0" />
+      <point x="8229.70359848485" y="4502.0" />
+      <point x="8229.70359848485" y="2401.0" />
+      <point x="5273.824056206944" y="2401.0" />
+      <point x="27.0" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room" target="it.polimi.ingsw.gameserver.Room.GameHandler">
+      <point x="83.33333333333394" y="-445.5" />
+      <point x="14272.92859848485" y="6742.0" />
+      <point x="13865.255358319193" y="6742.0" />
+      <point x="-51.375" y="180.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.effects" target="it.polimi.ingsw.model.LeaderCard">
+      <point x="-58.666666666666515" y="-15.0" />
+      <point x="7690.074056206946" y="1304.0" />
+      <point x="5175.466913349802" y="1304.0" />
+      <point x="58.14285714285734" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiclient.RMIClient" target="it.polimi.ingsw.rmiclient.RMIClientInterface">
+      <point x="225.9999999999991" y="-357.0" />
+      <point x="4118.312176501011" y="9555.0" />
+      <point x="5657.937176501012" y="9555.0" />
+      <point x="-72.0" y="103.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.ui.cli">
+      <point x="-139.64999999999964" y="-379.5" />
+      <point x="2866.230510707812" y="10339.0" />
+      <point x="1296.7916666666679" y="10339.0" />
+      <point x="38.25" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Tower" target="it.polimi.ingsw.model.TowerCell">
+      <point x="0.0" y="-104.0" />
+      <point x="105.0" y="170.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.CouncilPrivilege" target="it.polimi.ingsw.model.Privilege">
+      <point x="-92.33333333333303" y="-71.0" />
+      <point x="10405.89717737448" y="924.0" />
+      <point x="10298.230510707812" y="924.0" />
+      <point x="-100.0" y="71.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketserver.SocketServerPlayer" target="it.polimi.ingsw.server.ServerInterface">
+      <point x="332.7999999999993" y="-379.0" />
+      <point x="9913.120961842316" y="8697.0" />
+      <point x="12735.329295175652" y="8697.0" />
+      <point x="-147.66666666666606" y="81.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ExcommunicationValues" target="it.polimi.ingsw.model.DevelopmentCardColor">
+      <point x="-237.75" y="-247.0" />
+      <point x="9371.105510707812" y="1254.0" />
+      <point x="9283.730510707812" y="1254.0" />
+      <point x="9283.730510707812" y="914.0" />
+      <point x="7806.740722873612" y="914.0" />
+      <point x="80.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ExcommunicationValues" target="it.polimi.ingsw.model.ResourceType">
+      <point x="-79.25" y="-247.0" />
+      <point x="9529.605510707812" y="1264.0" />
+      <point x="9402.355510707812" y="1264.0" />
+      <point x="9402.355510707812" y="143.0" />
+      <point x="9421.105510707812" y="143.0" />
+      <point x="-35.5" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.utility.Configuration" target="it.polimi.ingsw.model.MainBoard">
+      <point x="285.0" y="-114.5" />
+      <point x="8662.70359848485" y="4502.0" />
+      <point x="10738.950968429908" y="4502.0" />
+      <point x="-190.0" y="214.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.AbstractClient" target="it.polimi.ingsw.client.ClientInterface">
+      <point x="0.0" y="-291.0" />
+      <point x="3473.062176501011" y="8707.0" />
+      <point x="3374.478843167678" y="8707.0" />
+      <point x="0.0" y="92.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Dice" target="it.polimi.ingsw.model.FamilyMemberColor">
+      <point x="0.0" y="-49.0" />
+      <point x="12929.230510707812" y="1838.0" />
+      <point x="11973.980510707812" y="1838.0" />
+      <point x="68.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.FamilyMemberColor">
+      <point x="306.64285714285734" y="-379.5" />
+      <point x="10131.212653564955" y="2481.0" />
+      <point x="10286.980510707812" y="2481.0" />
+      <point x="10286.980510707812" y="1898.0" />
+      <point x="11837.980510707812" y="1898.0" />
+      <point x="-68.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.MainBoard" target="it.polimi.ingsw.model.Vatican">
+      <point x="-213.75" y="-214.5" />
+      <point x="10715.200968429908" y="3983.0" />
+      <point x="9114.95359848485" y="3983.0" />
+      <point x="96.25" y="82.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.ServerAbstract" target="it.polimi.ingsw.server.ServerInterface">
+      <point x="0.0" y="-60.0" />
+      <point x="9754.770961842318" y="9565.0" />
+      <point x="12705.745961842318" y="9565.0" />
+      <point x="12705.745961842318" y="8707.0" />
+      <point x="12882.995961842318" y="8707.0" />
+      <point x="0.0" y="81.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.AbstractUserInterface" target="it.polimi.ingsw.ui.UserInterface">
+      <point x="0.0" y="-159.0" />
+      <point x="670.5416666666661" y="8707.0" />
+      <point x="685.958333333333" y="8707.0" />
+      <point x="256.33333333333303" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ClientCommunication" target="it.polimi.ingsw.exceptions.NetworkException">
+      <point x="75.16666666666697" y="-357.0" />
+      <point x="5190.103843167679" y="8707.0" />
+      <point x="5054.103843167679" y="8707.0" />
+      <point x="-21.41666666666697" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketclient.SocketClient" target="it.polimi.ingsw.client.AbstractClient">
+      <point x="-231.375" y="-280.0" />
+      <point x="4580.937176501012" y="9535.0" />
+      <point x="3716.395509834344" y="9535.0" />
+      <point x="243.33333333333303" y="291.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.cli" target="it.polimi.ingsw.model.PersonalBoardTile">
+      <point x="8.5" y="-15.0" />
+      <point x="1267.0416666666679" y="9545.0" />
+      <point x="1549.0416666666679" y="9545.0" />
+      <point x="1549.0416666666679" y="2451.0" />
+      <point x="5219.824056206944" y="2451.0" />
+      <point x="-27.0" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ActionSpace" target="it.polimi.ingsw.model.ActionType">
+      <point x="58.625" y="-148.5" />
+      <point x="12521.355510707812" y="1274.0" />
+      <point x="10152.980510707812" y="1274.0" />
+      <point x="50.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.cli" target="it.polimi.ingsw.exceptions.WrongCommandException">
+      <point x="42.5" y="-15.0" />
+      <point x="1301.0416666666679" y="9565.0" />
+      <point x="1855.0416666666679" y="9565.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketserver.SocketServerAbstract" target="it.polimi.ingsw.exceptions.ServerException">
+      <point x="-103.125" y="-49.0" />
+      <point x="9816.358461842317" y="10349.0" />
+      <point x="9562.104295175652" y="10349.0" />
+      <point x="80.33333333333394" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiserver.RMIServerAbstract" target="it.polimi.ingsw.rmiserver.RMIServerPlayer">
+      <point x="-161.60000000000036" y="-302.0" />
+      <point x="9054.695961842317" y="10349.0" />
+      <point x="6850.437176501012" y="10349.0" />
+      <point x="0.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.server.DBServer">
+      <point x="-179.07692307692378" y="-247.0" />
+      <point x="10199.5113464577" y="11218.0" />
+      <point x="6557.2555107078115" y="11218.0" />
+      <point x="69.0" y="104.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.server.ServerInterface">
+      <point x="134.30769230769147" y="-247.0" />
+      <point x="10512.895961842318" y="11208.0" />
+      <point x="13124.79179517565" y="11208.0" />
+      <point x="13124.79179517565" y="8707.0" />
+      <point x="13030.662628508984" y="8707.0" />
+      <point x="147.66666666666606" y="81.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.MainBoard" target="it.polimi.ingsw.model.ActionSpaceExtended">
+      <point x="118.75" y="-214.5" />
+      <point x="11047.700968429908" y="3963.0" />
+      <point x="11948.230510707812" y="3963.0" />
+      <point x="11948.230510707812" y="2501.0" />
+      <point x="11826.480510707812" y="2501.0" />
+      <point x="-127.25" y="170.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketclient.SocketClient.ResponseManager" target="it.polimi.ingsw.socketclient.SocketClient">
+      <point x="-51.5" y="-59.5" />
+      <point x="0.0" y="280.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ActionSpaceExtended" target="it.polimi.ingsw.model.FamilyMemberColor">
+      <point x="-63.625" y="-170.5" />
+      <point x="11890.105510707812" y="1908.0" />
+      <point x="11905.980510707812" y="1908.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.PlayerTurn" target="it.polimi.ingsw.server.ServerPlayer">
+      <point x="-156.79999999999927" y="-115.0" />
+      <point x="13856.545265151517" y="8677.0" />
+      <point x="12607.495961842318" y="8677.0" />
+      <point x="136.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.TowerCell" target="it.polimi.ingsw.model.effects">
+      <point x="-52.5" y="-170.0" />
+      <point x="10815.230510707812" y="2501.0" />
+      <point x="10862.230510707812" y="2501.0" />
+      <point x="10862.230510707812" y="1888.0" />
+      <point x="7768.540722873612" y="1888.0" />
+      <point x="19.800000000000182" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.InformationChoicesHandler" target="it.polimi.ingsw.model.InformationCallback">
+      <point x="0.0" y="-115.0" />
+      <point x="6750.240722873612" y="5234.0" />
+      <point x="1466.4166666666679" y="5234.0" />
+      <point x="216.375" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.FamilyMember">
+      <point x="374.7857142857142" y="-379.5" />
+      <point x="10199.35551070781" y="2491.0" />
+      <point x="10339.313844041146" y="2491.0" />
+      <point x="-83.66666666666652" y="71.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.rmiserver.RMIServerAbstract">
+      <point x="-134.30769230769147" y="-247.0" />
+      <point x="10244.280577226935" y="11208.0" />
+      <point x="9014.295961842317" y="11208.0" />
+      <point x="-202.0" y="302.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiclient.RMIClient" target="it.polimi.ingsw.client.AbstractClient">
+      <point x="-376.6666666666679" y="-357.0" />
+      <point x="3515.645509834344" y="9565.0" />
+      <point x="3473.062176501011" y="9565.0" />
+      <point x="0.0" y="291.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Game" target="it.polimi.ingsw.model.CouncilPrivilege">
+      <point x="0.0" y="-346.0" />
+      <point x="11749.927780024136" y="4472.0" />
+      <point x="12707.730510707812" y="4472.0" />
+      <point x="12707.730510707812" y="1264.0" />
+      <point x="10567.480510707812" y="1264.0" />
+      <point x="69.25" y="71.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Configurator" target="it.polimi.ingsw.model.DevelopmentCard">
+      <point x="-210.9375" y="-291.0" />
+      <point x="2418.791343167677" y="8697.0" />
+      <point x="2153.778843167678" y="8697.0" />
+      <point x="2153.778843167678" y="2471.0" />
+      <point x="5522.124056206944" y="2471.0" />
+      <point x="-98.20000000000005" y="181.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.TowerCell" target="it.polimi.ingsw.model.DevelopmentCard">
+      <point x="-157.5" y="-170.0" />
+      <point x="10710.230510707812" y="2321.0" />
+      <point x="5816.724056206945" y="2321.0" />
+      <point x="196.39999999999986" y="181.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.CouncilPalace" target="it.polimi.ingsw.exceptions.GameException">
+      <point x="0.0" y="-137.5" />
+      <point x="10065.42859848485" y="3578.0" />
+      <point x="10647.230510707812" y="3578.0" />
+      <point x="10647.230510707812" y="944.0" />
+      <point x="11145.047024985859" y="944.0" />
+      <point x="-75.0" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Privilege" target="it.polimi.ingsw.model.PointsAndResources">
+      <point x="0.0" y="-71.0" />
+      <point x="10398.230510707812" y="702.0" />
+      <point x="9723.188844041146" y="702.0" />
+      <point x="114.33333333333303" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.DevelopmentCard" target="it.polimi.ingsw.model.effects">
+      <point x="163.66666666666663" y="-181.5" />
+      <point x="5783.990722873611" y="1888.0" />
+      <point x="7715.740722873612" y="1888.0" />
+      <point x="-33.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.exceptions.LoginException" target="it.polimi.ingsw.exceptions.LoginErrorType">
+      <point x="59.75" y="-59.5" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.TowerTest" target="it.polimi.ingsw.model.effects">
+      <point x="-30.75" y="-81.0" />
+      <point x="1721.8854166666679" y="2431.0" />
+      <point x="5128.324056206944" y="2431.0" />
+      <point x="5128.324056206944" y="1868.0" />
+      <point x="7689.340722873612" y="1868.0" />
+      <point x="-59.40000000000009" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Configurator" target="it.polimi.ingsw.model.effects">
+      <point x="-126.5625" y="-291.0" />
+      <point x="2503.166343167677" y="8687.0" />
+      <point x="2374.478843167677" y="8687.0" />
+      <point x="2374.478843167677" y="2481.0" />
+      <point x="5876.324056206944" y="2481.0" />
+      <point x="5876.324056206944" y="1898.0" />
+      <point x="7728.940722873612" y="1898.0" />
+      <point x="-19.800000000000182" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.LeaderCard" target="it.polimi.ingsw.model.DevelopmentCardColor">
+      <point x="0.0" y="-115.0" />
+      <point x="5117.324056206944" y="914.0" />
+      <point x="7646.740722873612" y="914.0" />
+      <point x="-80.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.exceptions.ServerException">
+      <point x="-44.76923076923049" y="-247.0" />
+      <point x="10333.819038765396" y="11188.0" />
+      <point x="9630.795961842317" y="11188.0" />
+      <point x="9630.795961842317" y="10359.0" />
+      <point x="9481.770961842318" y="10359.0" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.PlayerTurn.TimeCountDown" target="it.polimi.ingsw.gameserver.PlayerTurn">
+      <point x="38.0" y="26.0" />
+      <point x="14012.145265151517" y="8707.0" />
+      <point x="14013.345265151516" y="8707.0" />
+      <point x="0.0" y="-115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ExcommunicationCard" target="it.polimi.ingsw.model.effects">
+      <point x="0.0" y="-59.5" />
+      <point x="7203.740722873612" y="1908.0" />
+      <point x="7742.140722873612" y="1908.0" />
+      <point x="-6.600000000000364" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.ServerPlayer" target="it.polimi.ingsw.gameserver.Room">
+      <point x="68.0" y="-126.0" />
+      <point x="12539.495961842318" y="7763.0" />
+      <point x="13789.595265151516" y="7763.0" />
+      <point x="-400.0" y="445.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.MainBoard" target="it.polimi.ingsw.model.Tower">
+      <point x="-23.75" y="-214.5" />
+      <point x="10905.200968429908" y="3933.0" />
+      <point x="11024.563844041146" y="3933.0" />
+      <point x="11024.563844041146" y="3588.0" />
+      <point x="11065.39717737448" y="3588.0" />
+      <point x="92.66666666666697" y="104.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Configurator" target="it.polimi.ingsw.utility.Configuration">
+      <point x="126.5625" y="-291.0" />
+      <point x="2756.291343167677" y="8707.0" />
+      <point x="2775.478843167678" y="8707.0" />
+      <point x="2775.478843167678" y="5244.0" />
+      <point x="8092.70359848485" y="5244.0" />
+      <point x="-285.0" y="114.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketclient.SocketClient" target="it.polimi.ingsw.socketclient.SocketClient.ResponseManager">
+      <point x="205.66666666666697" y="280.0" />
+      <point x="5017.978843167679" y="10369.0" />
+      <point x="4915.312176501012" y="10369.0" />
+      <point x="51.5" y="-59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.DBServer" target="it.polimi.ingsw.exceptions.LoginException">
+      <point x="0.0" y="-104.0" />
+      <point x="6488.2555107078115" y="10369.0" />
+      <point x="6603.437176501012" y="10369.0" />
+      <point x="6603.437176501012" y="8707.0" />
+      <point x="6168.588844041145" y="8707.0" />
+      <point x="79.66666666666606" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Configurator" target="it.polimi.ingsw.exceptions.ConfigurationException">
+      <point x="295.3125" y="-291.0" />
+      <point x="2925.041343167677" y="8707.0" />
+      <point x="2941.978843167678" y="8707.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room" target="it.polimi.ingsw.gameserver.PlayerTurn">
+      <point x="0.0" y="445.5" />
+      <point x="14189.595265151516" y="8697.0" />
+      <point x="14091.745265151516" y="8697.0" />
+      <point x="78.39999999999964" y="-115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.MarketCell" target="it.polimi.ingsw.exceptions.GameException">
+      <point x="97.25" y="-104.0" />
+      <point x="11581.980510707812" y="964.0" />
+      <point x="11235.047024985859" y="964.0" />
+      <point x="15.0" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ServerCommunication" target="it.polimi.ingsw.protocol.ServerCommunicationInterface">
+      <point x="230.0" y="-412.0" />
+      <point x="7550.937176501012" y="7773.0" />
+      <point x="7606.380510707812" y="7773.0" />
+      <point x="-144.75" y="202.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.rmiclient.RMIClient">
+      <point x="139.64999999999964" y="-379.5" />
+      <point x="3145.530510707811" y="10339.0" />
+      <point x="3892.312176501012" y="10339.0" />
+      <point x="0.0" y="357.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ServerCommunication" target="it.polimi.ingsw.exceptions.NetworkException">
+      <point x="-230.0" y="-412.0" />
+      <point x="7090.937176501012" y="7753.0" />
+      <point x="5182.603843167679" y="7753.0" />
+      <point x="107.08333333333394" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.exceptions.ConnectionException">
+      <point x="232.75" y="-379.5" />
+      <point x="3238.6305107078115" y="10349.0" />
+      <point x="4354.812176501012" y="10349.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room" target="it.polimi.ingsw.utility.Configuration">
+      <point x="-83.33333333333394" y="-445.5" />
+      <point x="14106.261931818182" y="6752.0" />
+      <point x="13700.630358319193" y="6752.0" />
+      <point x="13700.630358319193" y="5244.0" />
+      <point x="8662.70359848485" y="5244.0" />
+      <point x="285.0" y="114.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoard" target="it.polimi.ingsw.model.PointsAndResources">
+      <point x="102.21428571428578" y="-379.5" />
+      <point x="9926.784082136382" y="2501.0" />
+      <point x="9955.980510707812" y="2501.0" />
+      <point x="9955.980510707812" y="722.0" />
+      <point x="9657.855510707812" y="722.0" />
+      <point x="49.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.ServerPlayer" target="it.polimi.ingsw.model.Player">
+      <point x="-68.0" y="-126.0" />
+      <point x="12403.495961842318" y="7743.0" />
+      <point x="13120.845265151516" y="7743.0" />
+      <point x="13120.845265151516" y="3598.0" />
+      <point x="11415.855510707812" y="3598.0" />
+      <point x="82.875" y="82.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.GameManager" target="it.polimi.ingsw.model.LeaderCard">
+      <point x="-516.3636363636365" y="-544.0" />
+      <point x="7534.766874344175" y="5584.0" />
+      <point x="6533.740722873612" y="5584.0" />
+      <point x="6533.740722873612" y="2421.0" />
+      <point x="5117.324056206944" y="2421.0" />
+      <point x="0.0" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.TowerTest" target="it.polimi.ingsw.model.DevelopmentCard">
+      <point x="30.75" y="-81.0" />
+      <point x="1783.3854166666679" y="3578.0" />
+      <point x="1922.5600931676781" y="3578.0" />
+      <point x="1922.5600931676781" y="2461.0" />
+      <point x="5423.924056206944" y="2461.0" />
+      <point x="-196.4000000000001" y="181.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.cli" target="it.polimi.ingsw.model.LeaderCard">
+      <point x="-25.5" y="-15.0" />
+      <point x="1233.0416666666679" y="9505.0" />
+      <point x="951.0416666666679" y="9505.0" />
+      <point x="951.0416666666679" y="1294.0" />
+      <point x="5001.03834192123" y="1294.0" />
+      <point x="-116.28571428571422" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ClientCommunication" target="it.polimi.ingsw.protocol.ClientCommunication.ResponseHandler">
+      <point x="-225.5" y="-357.0" />
+      <point x="4889.437176501012" y="8707.0" />
+      <point x="4925.103843167679" y="8707.0" />
+      <point x="-39.5" y="26.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.MainBoard" target="it.polimi.ingsw.model.Market">
+      <point x="23.75" y="-214.5" />
+      <point x="10952.700968429908" y="3943.0" />
+      <point x="11479.230510707812" y="3943.0" />
+      <point x="11479.230510707812" y="3330.0" />
+      <point x="11413.730510707812" y="3330.0" />
+      <point x="-71.0" y="60.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiserver.RMIServerAbstract" target="it.polimi.ingsw.rmiserver.RMIServerInterface">
+      <point x="-323.2000000000007" y="-302.0" />
+      <point x="8893.095961842317" y="10359.0" />
+      <point x="6418.437176501012" y="10359.0" />
+      <point x="174.5" y="202.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ActionSpaceExtended" target="it.polimi.ingsw.exceptions.GameException">
+      <point x="190.875" y="-170.5" />
+      <point x="12144.605510707812" y="1908.0" />
+      <point x="12212.922024985859" y="1908.0" />
+      <point x="12212.922024985859" y="954.0" />
+      <point x="11265.047024985859" y="954.0" />
+      <point x="45.0" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.gui" target="it.polimi.ingsw.ui.UserInterface">
+      <point x="-33.75" y="-15.0" />
+      <point x="648.4138440411443" y="9545.0" />
+      <point x="445.04166666666606" y="9545.0" />
+      <point x="445.04166666666606" y="8707.0" />
+      <point x="429.625" y="8707.0" />
+      <point x="0.0" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Configurator" target="it.polimi.ingsw.gameserver.GameManager">
+      <point x="210.9375" y="-291.0" />
+      <point x="2840.666343167677" y="8707.0" />
+      <point x="2786.478843167678" y="8707.0" />
+      <point x="2786.478843167678" y="6772.0" />
+      <point x="7672.463844041145" y="6772.0" />
+      <point x="-378.66666666666674" y="544.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ClientCommunication" target="it.polimi.ingsw.client.ClientInterface">
+      <point x="-375.83333333333303" y="-357.0" />
+      <point x="4739.103843167679" y="8707.0" />
+      <point x="3552.812176501011" y="8707.0" />
+      <point x="178.33333333333303" y="92.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiserver.RMIServerPlayer" target="it.polimi.ingsw.exceptions.NetworkException">
+      <point x="0.0" y="-126.0" />
+      <point x="6850.437176501012" y="7763.0" />
+      <point x="5139.770509834345" y="7763.0" />
+      <point x="64.25" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Tower" target="it.polimi.ingsw.exceptions.GameException">
+      <point x="92.66666666666697" y="-104.0" />
+      <point x="11065.39717737448" y="3330.0" />
+      <point x="11088.230510707812" y="3330.0" />
+      <point x="11088.230510707812" y="964.0" />
+      <point x="11205.047024985859" y="964.0" />
+      <point x="-15.0" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.CouncilPalace" target="it.polimi.ingsw.model.Player">
+      <point x="153.0" y="-137.5" />
+      <point x="10218.42859848485" y="3608.0" />
+      <point x="11305.355510707812" y="3608.0" />
+      <point x="-27.625" y="82.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketserver.SocketServerAbstract" target="it.polimi.ingsw.server.ServerAbstract">
+      <point x="-34.375" y="-49.0" />
+      <point x="9885.108461842317" y="10339.0" />
+      <point x="9821.020961842318" y="10339.0" />
+      <point x="66.25" y="60.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.gameserver.Room">
+      <point x="223.84615384615427" y="-247.0" />
+      <point x="10602.434423380779" y="11228.0" />
+      <point x="14711.095265151516" y="11228.0" />
+      <point x="14711.095265151516" y="7773.0" />
+      <point x="14389.595265151516" y="7773.0" />
+      <point x="200.0" y="445.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.DevelopmentCard" target="it.polimi.ingsw.model.DevelopmentCardColor">
+      <point x="0.0" y="-181.5" />
+      <point x="5620.324056206944" y="1858.0" />
+      <point x="5543.990722873611" y="1858.0" />
+      <point x="5543.990722873611" y="924.0" />
+      <point x="7678.740722873612" y="924.0" />
+      <point x="-48.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.GameLauncher" target="it.polimi.ingsw.client.LorenzoIlMagnifico">
+      <point x="0.0" y="-37.0" />
+      <point x="0.0" y="379.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Game" target="it.polimi.ingsw.model.MainBoard">
+      <point x="-380.1428571428569" y="-346.0" />
+      <point x="11369.78492288128" y="4502.0" />
+      <point x="10928.950968429908" y="4502.0" />
+      <point x="0.0" y="214.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.cli" target="it.polimi.ingsw.ui.ConnectionType">
+      <point x="25.5" y="-15.0" />
+      <point x="1284.0416666666679" y="9555.0" />
+      <point x="1635.0416666666679" y="9555.0" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.exceptions.LoginException">
+      <point x="-268.61538461538476" y="-247.0" />
+      <point x="10109.97288491924" y="11238.0" />
+      <point x="5884.437176501012" y="11238.0" />
+      <point x="5884.437176501012" y="8707.0" />
+      <point x="6088.922177374479" y="8707.0" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiserver.RMIServerAbstract" target="it.polimi.ingsw.exceptions.ServerException">
+      <point x="161.60000000000036" y="-302.0" />
+      <point x="9377.895961842318" y="10369.0" />
+      <point x="9401.437628508984" y="10369.0" />
+      <point x="-80.33333333333394" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketserver.SocketServerAbstract.RequestManager" target="it.polimi.ingsw.socketserver.SocketServerAbstract">
+      <point x="38.25" y="26.0" />
+      <point x="10026.483461842317" y="10369.0" />
+      <point x="10022.608461842317" y="10369.0" />
+      <point x="103.125" y="-49.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Configurator" target="it.polimi.ingsw.model.ExcommunicationCard">
+      <point x="42.1875" y="-291.0" />
+      <point x="2671.916343167677" y="8697.0" />
+      <point x="2764.478843167678" y="8697.0" />
+      <point x="2764.478843167678" y="2491.0" />
+      <point x="7111.340722873612" y="2491.0" />
+      <point x="-92.40000000000009" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.socketclient.SocketClient">
+      <point x="418.9499999999998" y="-379.5" />
+      <point x="3424.8305107078113" y="10369.0" />
+      <point x="4606.645509834345" y="10369.0" />
+      <point x="-205.66666666666697" y="280.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.client.AbstractClient">
+      <point x="46.55000000000018" y="-379.5" />
+      <point x="3052.4305107078117" y="10329.0" />
+      <point x="3167.551759834345" y="10329.0" />
+      <point x="3167.551759834345" y="9565.0" />
+      <point x="3229.728843167678" y="9565.0" />
+      <point x="-243.33333333333303" y="291.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ClientCommunication" target="it.polimi.ingsw.exceptions.RoomException">
+      <point x="225.5" y="-357.0" />
+      <point x="5340.437176501012" y="8687.0" />
+      <point x="5706.797177374479" y="8687.0" />
+      <point x="5706.797177374479" y="6792.0" />
+      <point x="13328.547024985859" y="6792.0" />
+      <point x="-40.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.GameManager" target="it.polimi.ingsw.model.ExcommunicationCard">
+      <point x="-103.27272727272748" y="-544.0" />
+      <point x="7947.857783435085" y="5544.0" />
+      <point x="6977.740722873612" y="5544.0" />
+      <point x="6977.740722873612" y="2501.0" />
+      <point x="7157.540722873612" y="2501.0" />
+      <point x="-46.200000000000045" y="59.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.exceptions.ConfigurationException" target="it.polimi.ingsw.exceptions.NetworkException">
+      <point x="0.0" y="-59.0" />
+      <point x="2941.978843167678" y="7763.0" />
+      <point x="4968.437176501013" y="7763.0" />
+      <point x="-107.08333333333303" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.GameManager" target="it.polimi.ingsw.model.PersonalBoard">
+      <point x="206.5454545454545" y="-544.0" />
+      <point x="8257.675965253267" y="5554.0" />
+      <point x="8815.70359848485" y="5554.0" />
+      <point x="8815.70359848485" y="3330.0" />
+      <point x="9705.319796422096" y="3330.0" />
+      <point x="-119.25" y="379.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.effects" target="it.polimi.ingsw.model.DevelopmentCardColor">
+      <point x="-29.333333333333485" y="-15.0" />
+      <point x="7719.407389540278" y="1304.0" />
+      <point x="7721.240722873612" y="1304.0" />
+      <point x="7721.240722873612" y="924.0" />
+      <point x="7710.740722873612" y="924.0" />
+      <point x="-16.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.DevelopmentCard" target="it.polimi.ingsw.model.PointsAndResources">
+      <point x="-163.66666666666652" y="-181.5" />
+      <point x="5456.657389540278" y="1858.0" />
+      <point x="5532.990722873611" y="1858.0" />
+      <point x="5532.990722873611" y="702.0" />
+      <point x="9494.522177374478" y="702.0" />
+      <point x="-114.33333333333348" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PersonalBoardTile" target="it.polimi.ingsw.model.effects">
+      <point x="0.0" y="-48.0" />
+      <point x="5246.824056206944" y="1878.0" />
+      <point x="7702.540722873612" y="1878.0" />
+      <point x="-46.19999999999982" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.FamilyMember" target="it.polimi.ingsw.model.FamilyMemberColor">
+      <point x="0.0" y="-71.0" />
+      <point x="10422.980510707812" y="1908.0" />
+      <point x="11871.980510707812" y="1908.0" />
+      <point x="-34.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.GameManager" target="it.polimi.ingsw.model.FamilyMember">
+      <point x="516.3636363636365" y="-544.0" />
+      <point x="8567.49414707145" y="5584.0" />
+      <point x="13109.845265151516" y="5584.0" />
+      <point x="13109.845265151516" y="2311.0" />
+      <point x="10506.647177374478" y="2311.0" />
+      <point x="83.66666666666652" y="71.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.cli" target="it.polimi.ingsw.ui.AbstractUserInterface">
+      <point x="-42.5" y="-15.0" />
+      <point x="1216.0416666666679" y="9515.0" />
+      <point x="813.8749999999991" y="9515.0" />
+      <point x="143.33333333333303" y="159.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room" target="it.polimi.ingsw.server.ServerPlayer">
+      <point x="-200.0" y="445.5" />
+      <point x="13989.595265151516" y="7773.0" />
+      <point x="12607.495961842318" y="7773.0" />
+      <point x="136.0" y="-126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room.GameHandler" target="it.polimi.ingsw.gameserver.PlayerTurn">
+      <point x="154.125" y="180.0" />
+      <point x="14070.755358319193" y="6712.0" />
+      <point x="14700.095265151516" y="6712.0" />
+      <point x="14700.095265151516" y="8707.0" />
+      <point x="14170.145265151516" y="8707.0" />
+      <point x="156.79999999999927" y="-115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.gui" target="it.polimi.ingsw.ui.gui">
+      <point x="0.0" y="15.0" />
+      <point x="682.1638440411443" y="9987.0" />
+      <point x="598.1638440411443" y="9987.0" />
+      <point x="598.1638440411443" y="9934.5" />
+      <point x="-54.0" y="-7.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ClientUpdatePacket" target="it.polimi.ingsw.model.Game">
+      <point x="0.0" y="-71.0" />
+      <point x="13996.630358319193" y="5234.0" />
+      <point x="12104.727780024135" y="5234.0" />
+      <point x="354.8000000000002" y="346.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ExcommunicationValues" target="it.polimi.ingsw.model.PointType">
+      <point x="79.25" y="-247.0" />
+      <point x="9688.105510707812" y="1264.0" />
+      <point x="9815.355510707812" y="1264.0" />
+      <point x="9815.355510707812" y="143.0" />
+      <point x="9795.105510707812" y="143.0" />
+      <point x="34.0" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Market" target="it.polimi.ingsw.model.MarketCell">
+      <point x="71.0" y="-60.0" />
+      <point x="11555.730510707812" y="2501.0" />
+      <point x="11581.980510707812" y="2501.0" />
+      <point x="97.25" y="104.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room" target="it.polimi.ingsw.gameserver.GameManager">
+      <point x="-416.66666666666606" y="-445.5" />
+      <point x="13772.92859848485" y="6772.0" />
+      <point x="8429.79717737448" y="6772.0" />
+      <point x="378.66666666666697" y="544.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.LeaderCard" target="it.polimi.ingsw.model.PointsAndResources">
+      <point x="-135.66666666666652" y="-115.0" />
+      <point x="4981.657389540278" y="692.0" />
+      <point x="9461.855510707812" y="692.0" />
+      <point x="-147.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.utility.Configuration" target="it.polimi.ingsw.model.PersonalBoard">
+      <point x="0.0" y="-114.5" />
+      <point x="8377.70359848485" y="4502.0" />
+      <point x="8240.70359848485" y="4502.0" />
+      <point x="8240.70359848485" y="3320.0" />
+      <point x="9466.819796422096" y="3320.0" />
+      <point x="-357.75" y="379.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiserver.RMIServerAbstract" target="it.polimi.ingsw.server.ServerPlayer">
+      <point x="0.0" y="-302.0" />
+      <point x="9216.295961842317" y="10339.0" />
+      <point x="9024.002627635517" y="10339.0" />
+      <point x="9024.002627635517" y="8677.0" />
+      <point x="12403.495961842318" y="8677.0" />
+      <point x="-68.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.gui" target="it.polimi.ingsw.model.Game">
+      <point x="47.25" y="-15.0" />
+      <point x="729.4138440411443" y="9565.0" />
+      <point x="940.0416666666679" y="9565.0" />
+      <point x="940.0416666666679" y="5254.0" />
+      <point x="11395.127780024137" y="5254.0" />
+      <point x="-354.8000000000002" y="346.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.protocol.ServerCommunication.Handler" target="it.polimi.ingsw.protocol.ServerCommunication">
+      <point x="-37.75" y="-26.0" />
+      <point x="7053.187176501012" y="8707.0" />
+      <point x="6975.937176501012" y="8707.0" />
+      <point x="-345.0" y="412.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ActionSpace" target="it.polimi.ingsw.model.FamilyMemberColor">
+      <point x="-58.625" y="-148.5" />
+      <point x="12404.105510707812" y="1848.0" />
+      <point x="11939.980510707812" y="1848.0" />
+      <point x="34.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketclient.SocketClient" target="it.polimi.ingsw.exceptions.ConnectionException">
+      <point x="-77.125" y="-280.0" />
+      <point x="4735.187176501012" y="9525.0" />
+      <point x="4440.145509834345" y="9525.0" />
+      <point x="85.33333333333303" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.cli" target="it.polimi.ingsw.model.InformationCallback">
+      <point x="-8.5" y="-15.0" />
+      <point x="1250.0416666666679" y="9535.0" />
+      <point x="1322.1666666666679" y="9535.0" />
+      <point x="72.125" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.MainBoard" target="it.polimi.ingsw.model.ActionSpace">
+      <point x="261.25" y="-214.5" />
+      <point x="11190.200968429908" y="3993.0" />
+      <point x="12468.230510707812" y="3993.0" />
+      <point x="12468.230510707812" y="2501.0" />
+      <point x="12579.980510707812" y="2501.0" />
+      <point x="117.25" y="148.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.effects" target="it.polimi.ingsw.model.PointsAndResources">
+      <point x="14.66666666666697" y="-15.0" />
+      <point x="7763.407389540279" y="1254.0" />
+      <point x="9272.730510707812" y="1254.0" />
+      <point x="9272.730510707812" y="722.0" />
+      <point x="9559.855510707812" y="722.0" />
+      <point x="-49.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ExcommunicationValues" target="it.polimi.ingsw.model.ActionType">
+      <point x="237.75" y="-247.0" />
+      <point x="9846.605510707812" y="1284.0" />
+      <point x="10072.980510707812" y="1284.0" />
+      <point x="-30.0" y="37.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room.GameHandler" target="it.polimi.ingsw.server.ServerPlayer">
+      <point x="-154.125" y="180.0" />
+      <point x="13762.505358319193" y="6812.0" />
+      <point x="13351.845265151516" y="6812.0" />
+      <point x="13351.845265151516" y="7753.0" />
+      <point x="12471.495961842318" y="7753.0" />
+      <point x="0.0" y="-126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.MarketCell" target="it.polimi.ingsw.model.effects">
+      <point x="-97.25" y="-104.0" />
+      <point x="11387.480510707812" y="1878.0" />
+      <point x="7781.740722873612" y="1878.0" />
+      <point x="33.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiclient.RMIClient" target="it.polimi.ingsw.exceptions.ConnectionException">
+      <point x="75.33333333333212" y="-357.0" />
+      <point x="3967.645509834344" y="9545.0" />
+      <point x="4269.478843167679" y="9545.0" />
+      <point x="-85.33333333333303" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.Room.GameHandler" target="it.polimi.ingsw.model.ClientUpdatePacket">
+      <point x="0.0" y="-180.0" />
+      <point x="-80.0" y="71.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.LorenzoIlMagnifico" target="it.polimi.ingsw.ui.UserInterface">
+      <point x="-418.9499999999998" y="-379.5" />
+      <point x="2586.9305107078117" y="10369.0" />
+      <point x="0.0" y="10369.0" />
+      <point x="0.0" y="8707.0" />
+      <point x="173.29166666666606" y="8707.0" />
+      <point x="-256.33333333333394" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.ui.gui" target="it.polimi.ingsw.model.Player">
+      <point x="6.75" y="-15.0" />
+      <point x="688.9138440411443" y="9535.0" />
+      <point x="907.0416666666679" y="9535.0" />
+      <point x="907.0416666666679" y="3993.0" />
+      <point x="1886.1354166666679" y="3993.0" />
+      <point x="1886.1354166666679" y="3598.0" />
+      <point x="11250.105510707812" y="3598.0" />
+      <point x="-82.875" y="82.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.Game" target="it.polimi.ingsw.model.Player">
+      <point x="-126.71428571428623" y="-346.0" />
+      <point x="11623.21349430985" y="4462.0" />
+      <point x="12532.105510707812" y="4462.0" />
+      <point x="12532.105510707812" y="3608.0" />
+      <point x="11360.605510707812" y="3608.0" />
+      <point x="27.625" y="82.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.gameserver.GameManager" target="it.polimi.ingsw.server.ServerPlayer">
+      <point x="0.0" y="544.0" />
+      <point x="8051.130510707812" y="7773.0" />
+      <point x="12335.495961842318" y="7773.0" />
+      <point x="-136.0" y="-126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.ActionSpace" target="it.polimi.ingsw.model.effects">
+      <point x="-175.875" y="-148.5" />
+      <point x="12286.855510707812" y="1858.0" />
+      <point x="7808.140722873612" y="1858.0" />
+      <point x="59.399999999999636" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiserver.RMIServerPlayer" target="it.polimi.ingsw.rmiclient.RMIClientInterface">
+      <point x="-157.66666666666606" y="-126.0" />
+      <point x="6692.770509834346" y="9555.0" />
+      <point x="5801.937176501012" y="9555.0" />
+      <point x="72.0" y="103.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.rmiserver.RMIServerAbstract" target="it.polimi.ingsw.server.ServerAbstract">
+      <point x="323.2000000000007" y="-302.0" />
+      <point x="9539.495961842318" y="10369.0" />
+      <point x="9688.520961842318" y="10369.0" />
+      <point x="-66.25" y="60.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.socketserver.SocketServerPlayer" target="it.polimi.ingsw.protocol.ServerCommunication">
+      <point x="-166.39999999999964" y="-379.0" />
+      <point x="9413.92096184232" y="8647.0" />
+      <point x="7665.937176501012" y="8647.0" />
+      <point x="345.0" y="412.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.PointsAndResources" target="it.polimi.ingsw.model.ResourceType">
+      <point x="-98.0" y="-126.0" />
+      <point x="9510.855510707812" y="143.0" />
+      <point x="9492.105510707812" y="143.0" />
+      <point x="35.5" y="59.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3499214811141417" x="6830.413727944824" y="4769.461700167702" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Constructors</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
