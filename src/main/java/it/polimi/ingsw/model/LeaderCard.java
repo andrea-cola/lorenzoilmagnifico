@@ -47,19 +47,29 @@ public class LeaderCard implements Serializable{
      */
     private LeaderEffect effect;
 
+    /**
+     * Method to get the leader card name
+     * @return
+     */
     public String getLeaderCardName(){
         return this.leaderCardName;
     }
 
-
+    /**
+     * Method to set the leader card effect
+     * @param leaderEffect
+     */
     public void setEffect(LeaderEffect leaderEffect){
         this.effect = leaderEffect;
     }
 
+    /**
+     * Method to get the leader card effect
+     * @return
+     */
     public LeaderEffect getEffect(){
         return this.effect;
     }
-
 
     /**
      * Set the state of the leader card to used or not, use this at the end of every turn to reset the value to false

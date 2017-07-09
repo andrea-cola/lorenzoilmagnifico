@@ -22,6 +22,9 @@ public class Player implements Serializable{
      */
     private PersonalBoard personalBoard;
 
+    /**
+     * Class constructor
+     */
     public Player(){
         this.personalBoard = new PersonalBoard();
     }

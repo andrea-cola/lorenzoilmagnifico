@@ -3,8 +3,14 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.Player;
 
+/**
+ * This class represents the leader effect that sets to zero the military points required to get more green development cards
+ */
 public class LECesareBorgia extends LeaderEffect{
 
+    /**
+     * Class constructor
+     */
     public LECesareBorgia(){
         super.setEffectType(this.getClass().getSimpleName());
     }

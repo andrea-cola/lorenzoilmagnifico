@@ -21,10 +21,10 @@ public abstract class Effect implements Serializable{
      */
     public abstract void runEffect(Player player, InformationCallback informationCallback);
 
-    public String getEffectType(){
-        return effectType;
-    }
-
+    /**
+     * Method to set the effect type
+     * @param effectType
+     */
     public void setEffectType(String effectType){
         this.effectType = effectType;
     }

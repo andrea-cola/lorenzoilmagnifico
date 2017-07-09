@@ -3,6 +3,9 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.Player;
 
+/**
+ * This class represents the leader effect that multiplicates resources when earned
+ */
 public class LEMultiplicator extends LeaderEffect{
 
     /**

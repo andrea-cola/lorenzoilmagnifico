@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.Player;
 
 import java.io.Serializable;
 
+/**
+ *  This class is the abstraction of all excommunication effects.
+ */
 public abstract class ExcommunicationEffect implements Serializable {
 
     /**
@@ -29,7 +32,6 @@ public abstract class ExcommunicationEffect implements Serializable {
 
     /**
      * Method to run the effect of the card.
-     * @param player is gaining benefit of the effect.
      */
     public abstract void runEffect(Player player);
 

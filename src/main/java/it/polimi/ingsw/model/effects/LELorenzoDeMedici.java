@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.Player;
 
+/**
+ * This class represents the leader effect that lets the player to choose another leader card effect to run
+ */
 public class LELorenzoDeMedici extends LeaderEffect{
 
     /**

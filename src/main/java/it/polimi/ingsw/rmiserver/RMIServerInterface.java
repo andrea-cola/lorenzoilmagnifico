@@ -49,6 +49,7 @@ public interface RMIServerInterface extends Remote{
      */
     void createNewRoom(String username, int maxPlayersNumber) throws RoomException, IOException;
 
+
     void notifyPersonalBoardChoice(String username, PersonalBoardTile personalBoardTile) throws RemoteException;
 
     void notifyLeaderCardChoice(String username, LeaderCard leaderCard) throws RemoteException;

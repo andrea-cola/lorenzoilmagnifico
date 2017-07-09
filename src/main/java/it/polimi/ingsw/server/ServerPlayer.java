@@ -19,13 +19,6 @@ public abstract class ServerPlayer extends Player{
     private transient Room room;
 
     /**
-     * Class constructor.
-     */
-    protected ServerPlayer(){
-
-    }
-
-    /**
      * Method to get player room.
      * @return player room.
      */
@@ -43,9 +36,7 @@ public abstract class ServerPlayer extends Player{
 
     public abstract void sendGameInfo(Game game) throws NetworkException;
 
-    public void ping() throws RemoteException{
-
-    }
+    public void ping() throws RemoteException{ }
 
     public abstract void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException;
 

@@ -52,10 +52,17 @@ public class ActionSpaceExtended implements Serializable{
         this.accessible = true;
     }
 
+    /**
+     * This method sets the action space to not accessible
+     */
     /*package-local*/ void setNotAccessible(){
         this.accessible = false;
     }
 
+    /**
+     * This method is used to check if the action space is accessible
+     * @return
+     */
     /*package-local*/ boolean isAccessible(){
         return this.accessible;
     }
@@ -85,12 +92,25 @@ public class ActionSpaceExtended implements Serializable{
         return this.effect;
     }
 
+    /**
+     * This method checks if the action space is accessible
+     * @param player
+     * @param familyMemberColor
+     * @throws GameException
+     */
     /*package-local*/ void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
         if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL) && familyMemberMap.containsKey(player.getUsername())
                 && !familyMemberMap.get(player.getUsername()).equals(FamilyMemberColor.NEUTRAL))
                 throw new GameException();
     }
 
+    /**
+     * This method checks if the family member can be placed inside this action space
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @throws GameException
+     */
     /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 
         //check that the family member used has not been already used
@@ -112,6 +132,9 @@ public class ActionSpaceExtended implements Serializable{
         familyMemberMap.put(player.getUsername(), familyMemberColor);
     }
 
+    /**
+     * This method resets the action space state
+     */
     public void reset(){
         this.familyMemberMap = new HashMap<>();
     }

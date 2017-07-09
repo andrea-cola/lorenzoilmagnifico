@@ -44,7 +44,6 @@ public class EffectChooseCard extends Effect{
 
     /**
      * Method to run the effect of the card.
-     *
      * @param player
      */
     @Override

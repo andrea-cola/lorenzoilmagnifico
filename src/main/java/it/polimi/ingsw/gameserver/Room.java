@@ -161,6 +161,15 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to place a family member inside a tower
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @param towerIndex
+     * @param cellIndex
+     * @param playerChoices
+     */
     public void setFamilyMemberInTower(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                        int towerIndex, int cellIndex, Map<String, Object> playerChoices){
         if(player.getUsername().equals(playerTurn.currentPlayer().getUsername())) {
@@ -184,6 +193,13 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to place a family member inside the council palace
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @param playerChoices
+     */
     public void setFamilyMemberInCouncil(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                          Map<String, Object> playerChoices){
         if(player.getUsername().equals(playerTurn.currentPlayer().getUsername())) {
@@ -199,6 +215,14 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to place a family member inside the market
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @param marketCell
+     * @param playerChoices
+     */
     public void setFamilyMemberInMarket(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                         int marketCell, Map<String, Object> playerChoices){
         gameManager.setInformationChoicesHandler(playerChoices);
@@ -213,6 +237,13 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to place a family member inside the harvest simple space
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @param playerChoices
+     */
     public void setFamilyMemberInHarvestSimple(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                                Map<String, Object> playerChoices){
         gameManager.setInformationChoicesHandler(playerChoices);
@@ -227,6 +258,13 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to place a family member inside the production simple space
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @param playerChoices
+     */
     public void setFamilyMemberInProductionSimple(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                                   Map<String, Object> playerChoices){
         if(player.getUsername().equals(playerTurn.currentPlayer().getUsername())) {
@@ -241,6 +279,13 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to place a family member inside the harvest extended space
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @param playerChoices
+     */
     public void setFamilyMemberInHarvestExtended(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                                  Map<String, Object> playerChoices){
         if(player.getUsername().equals(playerTurn.currentPlayer().getUsername())) {
@@ -255,6 +300,13 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to place a family member inside the production extended space
+     * @param player
+     * @param familyMemberColor
+     * @param servants
+     * @param playerChoices
+     */
     public void setFamilyMemberInProductionExtended(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                                     Map<String, Object> playerChoices){
         gameManager.setInformationChoicesHandler(playerChoices);
@@ -269,6 +321,13 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to activate a leader card
+     * @param player
+     * @param leaderCardIndex
+     * @param servants
+     * @param playerChoices
+     */
     public void activateLeader(ServerPlayer player, int leaderCardIndex, int servants, Map<String, Object> playerChoices){
         gameManager.setInformationChoicesHandler(playerChoices);
         if(player.getUsername().equals(playerTurn.currentPlayer().getUsername())) {
@@ -282,6 +341,12 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to discard a leader card
+     * @param player
+     * @param leaderCardIndex
+     * @param playerChoices
+     */
     public void discardLeader(ServerPlayer player, int leaderCardIndex, Map<String, Object> playerChoices) {
         if(player.getUsername().equals(playerTurn.currentPlayer().getUsername())) {
             gameManager.setInformationChoicesHandler(playerChoices);
@@ -316,12 +381,18 @@ public class Room {
         }
     }
 
+    /**
+     * This method is used to check if the player has already joined the room
+     * @param serverPlayer
+     * @return
+     */
     public boolean userAlreadyJoined(ServerPlayer serverPlayer){
         for(ServerPlayer player : players)
             if(player.getUsername().equals(serverPlayer.getUsername()))
                 return true;
         return false;
     }
+
 
     public void onPersonalTilesChosen(){
         countDownLatch.countDown();
@@ -336,11 +407,19 @@ public class Room {
         countDownLatch.countDown();
     }
 
+    /**
+     * This method stops the timer and sets the end of the turn for a player
+     * @param player
+     */
     public void endTurn(ServerPlayer player) {
         if(playerTurn.currentPlayer().getUsername().equals(player.getUsername()))
             playerTurn.stopTimer();
     }
 
+    /**
+     * This method restores the player's state
+     * @param player
+     */
     public void restorePlayerState(ServerPlayer player){
         Thread updater = new Thread(() -> {
             try{

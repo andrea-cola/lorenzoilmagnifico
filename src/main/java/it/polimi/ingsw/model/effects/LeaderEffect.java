@@ -26,12 +26,12 @@ public abstract class LeaderEffect implements Serializable{
      */
     public abstract String toString();
 
+    /**
+     * Method to set the effect type
+     * @param effectType
+     */
     public void setEffectType(String effectType){
         this.effectType = effectType;
-    }
-
-    public String getEffectType(){
-        return this.effectType;
     }
 
 }

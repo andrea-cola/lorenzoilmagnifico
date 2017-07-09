@@ -16,7 +16,7 @@ public class Action{
     private Integer amount;
 
     /**
-     * This method returns an amount of the action
+     * This method returns an amount for the action
      * @return
      */
     public Integer getAmount(){
@@ -24,7 +24,7 @@ public class Action{
     }
 
     /**
-     * This method set an amount of the action
+     * This method set an amount for the action
      * @param amount of the action
      */
     public void setAmount(Integer amount){
