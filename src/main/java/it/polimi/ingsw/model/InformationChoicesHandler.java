@@ -34,15 +34,12 @@ public class InformationChoicesHandler implements InformationCallback {
         return decisions.get(s);
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Method to choose the council privilege to get
      * @param reason
      * @param councilPrivilege
      * @return
      */
->>>>>>> ed50b6b4e23e79a942ebdcbc978c7b24427c8e32
     @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
