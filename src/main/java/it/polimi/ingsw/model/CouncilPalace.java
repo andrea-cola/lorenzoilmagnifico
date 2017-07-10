@@ -96,17 +96,14 @@ public class CouncilPalace implements Serializable{
      */
     /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 
-        //check that the family member used has not been already used
         for (FamilyMemberColor color : player.getPersonalBoard().getFamilyMembersUsed())
             if (familyMemberColor.equals(color))
                 throw new GameException(GameErrorType.FAMILY_MEMBER_ALREADY_USED);
 
-        //check that the family member value is greater or equal than the minFamilyMemberDiceValue requested
         int familyMemberValueTot = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor) + servants;
         if (familyMemberValueTot < this.minFamilyMemberDiceValue)
             throw new GameException(GameErrorType.FAMILY_MEMBER_DICE_VALUE);
 
-        //if the family member can be placed, add it to the family members used
         player.getPersonalBoard().setFamilyMembersUsed(familyMemberColor);
     }
 

@@ -20,7 +20,6 @@ public class ExcommunicationEffectHarvestProduction extends ExcommunicationEffec
 
     /**
      * Set action type
-     * @param type
      */
     public void setActionType(ActionType type){
         this.actionType = type;
@@ -43,7 +42,6 @@ public class ExcommunicationEffectHarvestProduction extends ExcommunicationEffec
 
     /**
      * Method to run the effect of the card
-     * @param player
      */
     public void runEffect(Player player){
         player.getPersonalBoard().getExcommunicationValues().setHarvestProductionDiceMalus(this.actionType, this.harvestProductionDiceMalus);

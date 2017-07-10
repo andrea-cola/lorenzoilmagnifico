@@ -169,63 +169,133 @@ public class RMIServerAbstract extends ServerAbstract implements RMIServerInterf
         getServer().createNewRoom(getPlayer(username), maxPlayersNumber);
     }
 
+
+    /**
+     * Communicates to the room and the personal board the personal board tile chosen
+     * @param personalBoardTile the personal board tile chosen
+     */
     @Override
     public void notifyPersonalBoardChoice(String username, PersonalBoardTile personalBoardTile) {
         getPlayer(username).getPersonalBoard().setPersonalBoardTile(personalBoardTile);
         getPlayer(username).getRoom().onPersonalTilesChosen();
     }
 
+    /**
+     * Communicates to the room and the personal board the leader card chosen
+     * @param username the username of the player that performs the action
+     * @param leaderCard the leader card chosen
+     */
     @Override
     public void notifyLeaderCardChoice(String username, LeaderCard leaderCard) {
         getPlayer(username).getPersonalBoard().setLeaderCard(leaderCard);
         getPlayer(username).getRoom().onLeaderCardChosen();
     }
 
+    /**
+     * Communicates to the room the family member placed inside a tower
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param towerIndex the index of the tower
+     * @param cellIndex the index of the cell
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInTower(String username, FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, HashMap<String, Object> playerChoices) throws RemoteException {
         getPlayer(username).getRoom().setFamilyMemberInTower(getPlayer(username), familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the council
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInCouncil(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException {
         getPlayer(username).getRoom().setFamilyMemberInCouncil(getPlayer(username), familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the council
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param marketIndex the index of the market
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInMarket(String username, FamilyMemberColor familyMemberColor, int servants, int marketIndex, HashMap<String, Object> playerChoices) throws RemoteException {
         getPlayer(username).getRoom().setFamilyMemberInMarket(getPlayer(username), familyMemberColor, servants, marketIndex, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the harvest simple
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInHarvestSimple(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException {
         getPlayer(username).getRoom().setFamilyMemberInHarvestSimple(getPlayer(username), familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the harvest extended
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInHarvestExtended(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException {
         getPlayer(username).getRoom().setFamilyMemberInHarvestExtended(getPlayer(username), familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the production simple
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInProductionSimple(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException {
         getPlayer(username).getRoom().setFamilyMemberInProductionSimple(getPlayer(username), familyMemberColor,servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the production extended
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInProductionExtended(String username, FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws RemoteException {
         getPlayer(username).getRoom().setFamilyMemberInProductionExtended(getPlayer(username), familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the leader card activated by the user
+     * @param leaderCardIndex the index of the leader card chosen inside the player's personal deck
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void activateLeaderCard(String username, int leaderCardIndex, int servants, HashMap<String, Object> playerChoices) throws RemoteException {
         getPlayer(username).getRoom().activateLeader(getPlayer(username), leaderCardIndex, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the leader card discarded by the user
+     * @param leaderCardIndex the index of the leader card chosen inside the player's personal deck
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void discardLeader(String username, int leaderCardIndex, HashMap<String, Object> playerChoices) {
         getPlayer(username).getRoom().discardLeader(getPlayer(username), leaderCardIndex, playerChoices);
     }
 
+    /**
+     * Communicates to the room if the player has supported the church or not
+     * @param choice falg used to check the answer of the player
+     */
     @Override
     public void notifySupportForTheChurch(String username, boolean choice) throws RemoteException {
         getPlayer(username).getRoom().onSupportToTheChurchChoice(getPlayer(username), choice);

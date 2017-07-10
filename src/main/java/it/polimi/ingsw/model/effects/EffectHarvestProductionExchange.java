@@ -90,11 +90,9 @@ public class EffectHarvestProductionExchange extends Effect{
      * @param informationCallback
      */
     private void handleExchange(Player player, int choice, InformationCallback informationCallback){
-        //get the family member used to run this effect
         List<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
 
-        //set action value
         int familyMemberValue = player.getPersonalBoard().getFamilyMember().getMembers().get(familyMemberColor);
         int bonus = player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(this.actionType);
         int malus = player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(this.actionType);
@@ -102,30 +100,21 @@ public class EffectHarvestProductionExchange extends Effect{
 
         if (actionValue >= this.diceActionValue) {
 
-            //PAY
-            //updates player's resources
             if(player.getPersonalBoard().getValuables().checkDecrease(this.valuableToPay[choice]))
                 player.getPersonalBoard().getValuables().decreaseAll(this.valuableToPay[choice]);
             else
                 return;
 
-            //EARN
-            //updates player's resources
             for (Map.Entry<ResourceType, Integer> entry : this.valuableEarned[choice].getResources().entrySet()) {
-                //normal effect
                 player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
-                //excommunication effect
                 player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
             }
 
-            //updates player's points
             for (Map.Entry<PointType, Integer> entry : this.valuableEarned[choice].getPoints().entrySet()) {
-                //normal effect
                 player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
-                //excommunication effect
                 player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
             }
-            //here the logic to manage the player's council privilege decision
+
             if (this.numberOfCouncilPrivileges > 0){
                 CouncilPrivilege councilPrivilege = new CouncilPrivilege(numberOfCouncilPrivileges);
                 councilPrivilege.chooseCouncilPrivilege(player, informationCallback);

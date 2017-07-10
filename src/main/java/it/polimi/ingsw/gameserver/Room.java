@@ -195,7 +195,7 @@ public class Room {
 
     /**
      * This method is used to place a family member inside the council palace
-     * @param player the player that is performing the action the action
+     * @param player the player that is performing the action
      * @param familyMemberColor the color of the family member used to perform the action
      * @param servants the number of servants used to perform the action
      * @param playerChoices to communicate to the server the player choice
@@ -217,7 +217,7 @@ public class Room {
 
     /**
      * This method is used to place a family member inside the market
-     * @param player the player that is performing the action the action
+     * @param player the player that is performing the action
      * @param familyMemberColor the color of the family member used to perform the action
      * @param servants the number of servants used to perform the action
      * @param marketCell the index of the cell of the market
@@ -239,7 +239,7 @@ public class Room {
 
     /**
      * This method is used to place a family member inside the harvest simple space
-     * @param player the player that is performing the action the action
+     * @param player the player that is performing the action
      * @param familyMemberColor the color of the family member used to perform the action
      * @param servants the number of servants used to perform the action
      * @param playerChoices to communicate to the server the player choice
@@ -260,10 +260,10 @@ public class Room {
 
     /**
      * This method is used to place a family member inside the production simple space
-     * @param player
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
+     * @param player the player that is performing the action
+     * @param familyMemberColor the color of the family member used to perform the action
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player choice
      */
     public void setFamilyMemberInProductionSimple(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                                   Map<String, Object> playerChoices){
@@ -281,10 +281,10 @@ public class Room {
 
     /**
      * This method is used to place a family member inside the harvest extended space
-     * @param player
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
+     * @param player the player that is performing the action
+     * @param familyMemberColor the color of the family member used to perform the action
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player choice
      */
     public void setFamilyMemberInHarvestExtended(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                                  Map<String, Object> playerChoices){
@@ -302,10 +302,10 @@ public class Room {
 
     /**
      * This method is used to place a family member inside the production extended space
-     * @param player
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
+     * @param player the player that is performing the action
+     * @param familyMemberColor the color of the family member used to perform the action
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player choice
      */
     public void setFamilyMemberInProductionExtended(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                                     Map<String, Object> playerChoices){
@@ -323,10 +323,10 @@ public class Room {
 
     /**
      * This method is used to activate a leader card
-     * @param player
-     * @param leaderCardIndex
-     * @param servants
-     * @param playerChoices
+     * @param player the player that is performing the action
+     * @param leaderCardIndex the index of the leader card inside the player's leader cards deck
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player choice
      */
     public void activateLeader(ServerPlayer player, int leaderCardIndex, int servants, Map<String, Object> playerChoices){
         gameManager.setInformationChoicesHandler(playerChoices);
@@ -343,9 +343,9 @@ public class Room {
 
     /**
      * This method is used to discard a leader card
-     * @param player
-     * @param leaderCardIndex
-     * @param playerChoices
+     * @param player the player that is performing the action
+     * @param leaderCardIndex the index of the leader card inside the player's leader cards deck
+     * @param playerChoices to communicate to the server the player choice
      */
     public void discardLeader(ServerPlayer player, int leaderCardIndex, Map<String, Object> playerChoices) {
         if(player.getUsername().equals(playerTurn.currentPlayer().getUsername())) {
@@ -358,7 +358,7 @@ public class Room {
 
     /**
      * Join a player in the room. Using MUTEX concurrent access is managed.
-     * @param serverPlayer who would access the room.
+     * @param serverPlayer the player who would access the room.
      * @throws RoomException if the room is full or closed.
      */
     public void joinRoom(ServerPlayer serverPlayer) throws RoomException{
@@ -383,7 +383,7 @@ public class Room {
 
     /**
      * This method is used to check if the player has already joined the room
-     * @param serverPlayer
+     * @param serverPlayer the player who would access the room.
      * @return
      */
     public boolean userAlreadyJoined(ServerPlayer serverPlayer){
@@ -411,7 +411,7 @@ public class Room {
 
     /**
      * This method stops the timer and sets the end of the turn for a player
-     * @param player
+     * @param player the player that is performing the turn
      */
     public void endTurn(ServerPlayer player) {
         if(playerTurn.currentPlayer().getUsername().equals(player.getUsername()))
@@ -420,7 +420,7 @@ public class Room {
 
     /**
      * This method restores the player's state
-     * @param player
+     * @param player the current player
      */
     public void restorePlayerState(ServerPlayer player){
         Thread updater = new Thread(() -> {

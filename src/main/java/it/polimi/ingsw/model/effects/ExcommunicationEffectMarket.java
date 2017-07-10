@@ -16,7 +16,6 @@ public class ExcommunicationEffectMarket extends ExcommunicationEffect {
 
     /**
      * Method to run the effect of the card
-     * @param player
      */
     public void runEffect(Player player){
         player.getPersonalBoard().getExcommunicationValues().setMarketIsAvailable(false);

@@ -17,13 +17,11 @@ public abstract class Effect implements Serializable{
 
     /**
      * Method to run the effect of the card.
-     * @param player
      */
     public abstract void runEffect(Player player, InformationCallback informationCallback);
 
     /**
      * Method to set the effect type
-     * @param effectType
      */
     public void setEffectType(String effectType){
         this.effectType = effectType;

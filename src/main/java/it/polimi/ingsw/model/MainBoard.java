@@ -103,7 +103,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get all the tower of the MainBoard
-     * @return
      */
     public Tower[] getTowers(){
         return this.towers;
@@ -111,7 +110,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the Vatican
-     * @return
      */
     public Vatican getVatican(){
         return this.vatican;
@@ -119,7 +117,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the CouncilPalace
-     * @return
      */
     public CouncilPalace getCouncilPalace(){
         return this.councilPalace;
@@ -127,7 +124,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the Harvest
-     * @return
      */
     public ActionSpace getHarvest(){
         return this.harvest;
@@ -135,7 +131,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the Production
-     * @return
      */
     public ActionSpace getProduction(){
         return this.production;
@@ -143,7 +138,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the HarvestExtended
-     * @return
      */
     public ActionSpaceExtended getHarvestExtended(){
         return this.harvestExtended;
@@ -151,7 +145,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the ProductionExtended
-     * @return
      */
     public ActionSpaceExtended getProductionExtended(){
         return this.productionExtended;
@@ -159,7 +152,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the market
-     * @return
      */
     public Market getMarket(){
         return this.market;
@@ -167,7 +159,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the number of towers in the MainBoard
-     * @return
      */
     public int getNumberOfTowers(){
         return NUMBER_OF_TOWERS;
@@ -175,7 +166,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the number of cells for each Tower
-     * @return
      */
     public int getNumberOfTowerCells(){
         return NUMBER_OF_TOWER_CELLS;
@@ -183,7 +173,6 @@ public class MainBoard implements Serializable{
 
     /**
      * Method to get the number of market cells in the MainBoard
-     * @return
      */
     public int getNumberOfMarketCells(){
         return NUMBER_OF_MARKET_CELLS;

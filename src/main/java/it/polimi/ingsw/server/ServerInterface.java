@@ -8,7 +8,7 @@ public interface ServerInterface {
     /**
      * Login the player to server then put username and remote player reference in the user cache (Hashmap).
      *
-     * @param player   is trying to login.
+     * @param player is trying to login.
      * @param username of the player is trying to login.
      * @param password of the player is trying to login.
      * @throws LoginException if errors occur during login.
@@ -44,7 +44,7 @@ public interface ServerInterface {
      * Create a new room and return the configuration bundle.
      *
      * @param serverPlayer is creating new room.
-     * @param maxPlayers   allowed in the room.
+     * @param maxPlayers allowed in the room.
      * @return configuration bundle.
      */
     void createNewRoom(ServerPlayer serverPlayer, int maxPlayers) throws RoomException;

@@ -94,8 +94,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get the max number of cards per type you can add to the player board
-     *
-     * @return
      */
     public int getMaxNumberOfCardPerType() {
         return MAX_NUMBER_OF_CARD_PER_TYPE;
@@ -103,7 +101,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set personal board tile.
-     *
      * @param personalBoardTile to set.
      */
     public void setPersonalBoardTile(PersonalBoardTile personalBoardTile) {
@@ -112,7 +109,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get personal board tile.
-     *
      * @return personal board tile.
      */
     public PersonalBoardTile getPersonalBoardTile() {
@@ -121,7 +117,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set family member
-     *
      * @param member to be set.
      */
     public void setFamilyMember(FamilyMember member) {
@@ -130,8 +125,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get family member
-     *
-     * @return
      */
     public FamilyMember getFamilyMember() {
         return this.familyMember;
@@ -139,8 +132,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set the array of family members already used by the player
-     *
-     * @param familyMember
      */
     public void setFamilyMembersUsed(FamilyMemberColor familyMember) {
         this.familyMembersUsed.add(familyMember);
@@ -148,8 +139,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get the array of family members already used by the player
-     *
-     * @return
      */
     public List<FamilyMemberColor> getFamilyMembersUsed() {
         return this.familyMembersUsed;
@@ -157,7 +146,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Return true if a family member is already used.
-     *
      * @param familyMemberColor to check.
      * @return boolean.
      */
@@ -170,8 +158,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set military points needed to place a card in a specific position.
-     *
-     * @param array
      */
     public void setGreenCardsMilitaryPointsRequirements(int[] array) {
         this.greenCardsMilitaryPointsRequirements = new int[array.length];
@@ -181,7 +167,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get military points needed to place a card in a specific position.
-     *
      * @param index of position.
      * @return military points needed.
      */
@@ -191,7 +176,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get all the green card military points requirements
-     * @return
      */
     public int[] getGreenCardsMilitaryPointsRequirements() {
         return this.greenCardsMilitaryPointsRequirements;
@@ -220,8 +204,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Returns the cards owned by the player by color
-     * @param developmentCardColor
-     * @return
      */
     public List<DevelopmentCard> getCards(DevelopmentCardColor developmentCardColor) {
         switch (developmentCardColor) {
@@ -242,7 +224,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set points and resources
-     * @param pointsAndResources
      */
     public void setValuables(PointsAndResources pointsAndResources) {
         this.valuables = pointsAndResources;
@@ -274,8 +255,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set the dice development card bonus value based on card's color
-     * @param cardColor
-     * @param value
      */
     public void setDevelopmentCardColorDiceValueBonus(DevelopmentCardColor cardColor, Integer value) {
         this.developmentCardColorDiceValueBonus.put(cardColor, this.developmentCardColorDiceValueBonus.get(cardColor) + value);
@@ -291,8 +270,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Set the cost discount value for a particular type of development cards
-     * @param cardColor
-     * @param valuables
      */
     public void setCostDiscountForDevelopmentCard(DevelopmentCardColor cardColor, List<PointsAndResources> valuables) {
         List<PointsAndResources> discounts = this.costDiscountForDevelopmentCard.get(cardColor);
@@ -312,7 +289,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * Get the cost discount value for a particular type of development cards
-     * @return
      */
     public List<PointsAndResources> getCostDiscountForDevelopmentCard(DevelopmentCardColor color) {
         return this.costDiscountForDevelopmentCard.get(color);
@@ -320,7 +296,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * This method returns the array of leader cards
-     * @return
      */
     public List<LeaderCard> getLeaderCards() {
         return this.leaderCards;
@@ -328,8 +303,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * This method checks if the player has a particular leader card per name and returns it
-     * @param name
-     * @return
      */
     public LeaderCard getLeaderCardWithName(String name) {
         for (LeaderCard card : this.leaderCards) {
@@ -341,8 +314,7 @@ public class PersonalBoard implements Serializable {
     }
 
     /**
-     * This method sets a particular leadercard
-     * @param leaderCard
+     * This method sets a particular leader card
      */
     public void setLeaderCard(LeaderCard leaderCard) {
         this.leaderCards.add(leaderCard);
@@ -389,7 +361,6 @@ public class PersonalBoard implements Serializable {
 
     /**
      * This method resets the personal board for a new turn
-     * @param configuration
      */
     public void turnReset(Configuration configuration) {
         this.familyMembersUsed = new ArrayList<>();

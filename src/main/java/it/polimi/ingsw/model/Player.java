@@ -39,7 +39,6 @@ public class Player implements Serializable{
 
     /**
      * Method to get player username.
-     * @return
      */
     public String getUsername(){
         return username;
@@ -47,7 +46,6 @@ public class Player implements Serializable{
 
     /**
      * Method to set player color.
-     * @param color
      */
     public void setColor(PlayerColor color){
         this.color = color;
@@ -55,7 +53,6 @@ public class Player implements Serializable{
 
     /**
      * Method to get player color.
-     * @return
      */
     public PlayerColor getColor(){
         return color;
@@ -63,7 +60,6 @@ public class Player implements Serializable{
 
     /**
      * Set player personal board.
-     * @param personalBoard
      */
     public void setPersonalBoard(PersonalBoard personalBoard){
         this.personalBoard = personalBoard;
@@ -71,7 +67,6 @@ public class Player implements Serializable{
 
     /**
      * Get player personal board.
-     * @return
      */
     public PersonalBoard getPersonalBoard(){
         return this.personalBoard;

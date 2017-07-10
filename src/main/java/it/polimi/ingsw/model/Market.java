@@ -35,7 +35,6 @@ public class Market implements Serializable{
 
     /**
      * Get all the market cells
-     * @return
      */
     public MarketCell[] getMarketCells(){
         return this.marketCells;

@@ -36,8 +36,7 @@ public abstract class ServerPlayer extends Player{
 
     /**
      * Method to send Game Info
-     * @param game
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void sendGameInfo(Game game) throws NetworkException;
 
@@ -45,15 +44,14 @@ public abstract class ServerPlayer extends Player{
 
     /**
      * Method to send Personal tile
-     * @param personalBoardTiles
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException;
 
     /**
      * Method to send the leader cards
-     * @param leaderCards
-     * @throws NetworkException
+     * @param leaderCards the leader cards deck
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException;
 
@@ -61,28 +59,27 @@ public abstract class ServerPlayer extends Player{
      * Method to notify that a new turn has started
      * @param username the username of the player that is performing the turn
      * @param seconds the time available for the player to perform the turn
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifyTurnStarted(String username, long seconds) throws NetworkException;
 
     /**
      * Method to send game model updates
-     * @param clientUpdatePacket
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException;
 
     /**
      * Method to manage the support for the church process
-     * @param flag
-     * @throws NetworkException
+     * @param flag this flag is used to check if the player supports the church or not
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void supportForTheChurch(boolean flag) throws NetworkException;
 
     /**
      * Method to notify the end of the game
-     * @param ranking
-     * @throws NetworkException
+     * @param ranking the players final ranking
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifyEndGame(ServerPlayer[] ranking) throws NetworkException;
 

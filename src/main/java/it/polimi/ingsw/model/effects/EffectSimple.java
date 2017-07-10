@@ -47,7 +47,7 @@ public class EffectSimple extends Effect{
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback){
-        //check if the player has the leader card for this effect and if it is active
+
         LeaderCard leaderCard = player.getPersonalBoard().getLeaderCardWithName("Santa Rita");
         if (leaderCard != null && leaderCard.getLeaderEffectActive()){
             updateResources(player, 2);
@@ -57,7 +57,6 @@ public class EffectSimple extends Effect{
 
         updatePoints(player);
 
-        //here the logic to manage the player's council privilege decision
         if (this.numberOfCouncilPrivileges > 0){
             CouncilPrivilege councilPrivilege = new CouncilPrivilege(numberOfCouncilPrivileges);
             councilPrivilege.chooseCouncilPrivilege(player, informationCallback);
@@ -66,20 +65,16 @@ public class EffectSimple extends Effect{
         if(this.actionType != null){
             if(actionType.equals(ActionType.HARVEST)){
                 updateFamilyMemberValue(player);
-                //personal board tile effect
                 player.getPersonalBoard().getPersonalBoardTile().getHarvestEffect().runEffect(player, informationCallback);
 
-                //permanent effect
                 for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.GREEN)) {
                     card.getPermanentEffect().runEffect(player, informationCallback);
                 }
             }
             else{
                 updateFamilyMemberValue(player);
-                //personal board tile effect
                 player.getPersonalBoard().getPersonalBoardTile().getProductionEffect().runEffect(player, informationCallback);
 
-                //run permanent effect
                 for (DevelopmentCard card : player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)) {
                     card.getPermanentEffect().runEffect(player, informationCallback);
                 }
@@ -89,7 +84,6 @@ public class EffectSimple extends Effect{
 
     /**
      * Method to update the family member value
-     * @param player
      */
     private void updateFamilyMemberValue(Player player){
         int familyMemberRealValue = diceActionValue + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(actionType)
@@ -102,27 +96,24 @@ public class EffectSimple extends Effect{
 
     /**
      * This method updates player's resources
-     * @param player
-     * @param multiplicatorValue
      */
     private void updateResources(Player player, int multiplicatorValue){
         for (Map.Entry<ResourceType, Integer> entry: this.valuable.getResources().entrySet()) {
-            //normal effect
+
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue() * multiplicatorValue);
-            //excommunication effect
+
             player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalResourcesMalus().get(entry.getKey()));
         }
     }
 
     /**
      * This method updates player's points
-     * @param player
      */
     private void updatePoints(Player player){
         for (Map.Entry<PointType, Integer> entry: this.valuable.getPoints().entrySet()) {
-            //normal effect
+
             player.getPersonalBoard().getValuables().increase(entry.getKey(), entry.getValue());
-            //excommunication effect
+
             player.getPersonalBoard().getValuables().decrease(entry.getKey(), player.getPersonalBoard().getExcommunicationValues().getNormalPointsMalus().get(entry.getKey()));
         }
     }

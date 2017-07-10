@@ -28,7 +28,7 @@ import java.util.concurrent.CountDownLatch;
 
     /**
      * Class constructor
-     * @param currentPlayer
+     * @param currentPlayer the current player
      */
     /*package-local*/ PlayerTurn(ServerPlayer currentPlayer){
         this.currentPlayer = currentPlayer;

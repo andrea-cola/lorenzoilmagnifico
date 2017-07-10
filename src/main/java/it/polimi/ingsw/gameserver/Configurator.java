@@ -187,18 +187,18 @@ public class Configurator {
     }
 
     /**
-     * Return all development cards
-     * @return
+     * Gets all development cards
+     * @return all development cards
      */
-    public static ArrayList<DevelopmentCard> getDevelopmentCards(){
+    /*package-local*/ static ArrayList<DevelopmentCard> getDevelopmentCards(){
         return developmentCards;
     }
 
     /**
-     * Return all excommunication cards
-     * @return
+     * Gets all excommunication cards
+     * @return all excommunication cards
      */
-    public static ArrayList<ExcommunicationCard> getExcommunicationCards(){
+    /*package-local*/ static ArrayList<ExcommunicationCard> getExcommunicationCards(){
         return excommunicationCards;
     }
 

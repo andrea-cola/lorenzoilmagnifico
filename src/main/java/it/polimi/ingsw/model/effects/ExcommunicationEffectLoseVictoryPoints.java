@@ -26,7 +26,6 @@ public class ExcommunicationEffectLoseVictoryPoints extends ExcommunicationEffec
 
     /**
      * Method to run the effect of the card
-     * @param player
      */
     public void runEffect(Player player){
         //update resources malus

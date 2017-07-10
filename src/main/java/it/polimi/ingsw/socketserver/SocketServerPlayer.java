@@ -46,7 +46,7 @@ public class SocketServerPlayer extends ServerPlayer implements Runnable, Server
     private final transient ServerCommunication socketCommunicationProtocol;
 
     /**
-     * Class constructor that initialize input/output streams and communicaiton server side protocol.
+     * Class constructor that initialize input/output streams and communication server side protocol.
      * @param socketClient obtained from the server accept.
      * @param serverInterface to communicate with the server.
      */
@@ -123,98 +123,201 @@ public class SocketServerPlayer extends ServerPlayer implements Runnable, Server
     }
 
 
+    /**
+     * Communicates to the room the personal board tile chosen
+     * @param personalBoardTile the personal board tile chosen
+     */
     @Override
     public void notifyPlayerPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) {
         this.getPersonalBoard().setPersonalBoardTile(personalBoardTile);
         this.getRoom().onPersonalTilesChosen();
     }
 
+    /**
+     * Communicates to the room the leader card chosen
+     * @param leaderCard the leader card selected by the user
+     */
     @Override
     public void notifyPlayerLeaderCardChoice(LeaderCard leaderCard) {
         this.getPersonalBoard().setLeaderCard(leaderCard);
         this.getRoom().onLeaderCardChosen();
     }
 
+    /**
+     * Communicates to the room the family member placed inside a tower
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param towerIndex the index of the tower
+     * @param cellIndex the index of the cell
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, HashMap<String, Object> playerChoices) {
         this.getRoom().setFamilyMemberInTower(this, familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the council
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) {
         this.getRoom().setFamilyMemberInCouncil(this, familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the council
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param marketIndex the index of the market
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, HashMap<String, Object> playerChoices) {
         this.getRoom().setFamilyMemberInMarket(this, familyMemberColor, servants, marketIndex, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the harvest simple
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) {
         this.getRoom().setFamilyMemberInHarvestSimple(this, familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the harvest extended
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) {
         this.getRoom().setFamilyMemberInHarvestExtended(this, familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the production simple
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) {
         this.getRoom().setFamilyMemberInProductionSimple(this, familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the family member placed inside the production extended
+     * @param familyMemberColor the color of the family member placed
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) {
         this.getRoom().setFamilyMemberInProductionExtended(this, familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the leader card activated by the user
+     * @param leaderCardIndex the index of the leader card chosen inside the player's personal deck
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void activateLeaderCard(int leaderCardIndex, int servants, HashMap<String, Object> playerChoices) {
         this.getRoom().activateLeader(this, leaderCardIndex, servants, playerChoices);
     }
 
+    /**
+     * Communicates to the room the leader card discarded by the user
+     * @param leaderCardIndex the index of the leader card chosen inside the player's personal deck
+     * @param playerChoices to communicate to the server the player's choices
+     */
     @Override
     public void discardLeader(int leaderCardIndex, HashMap<String, Object> playerChoices) {
         this.getRoom().discardLeader(this, leaderCardIndex, playerChoices);
     }
 
+    /**
+     * Communicates to the room if the player has supported the church or not
+     * @param flag falg used to check the answer of the player
+     */
     @Override
     public void notifySupportForTheChurch(boolean flag) {
         this.getRoom().onSupportToTheChurchChoice(this, flag);
     }
 
+    /**
+     * Communicates to the server the game info
+     * @param game the game
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void sendGameInfo(Game game) throws NetworkException {
         socketCommunicationProtocol.sendGameInfo(game);
     }
 
+    /**
+     * Communicates to the server the personal board tiles
+     * @param personalBoardTiles the personal board tiles
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException {
         socketCommunicationProtocol.sendPersonalBoardTile(personalBoardTiles);
     }
 
+    /**
+     * Communicate to the server the leader cards
+     * @param leaderCards the leader cards deck
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException {
         socketCommunicationProtocol.sendLeaderCards(leaderCards);
     }
 
+    /**
+     * Communicate to the server that a new turn started
+     * @param username the username of the player that is performing the turn
+     * @param seconds the time available for the player to perform the turn
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifyTurnStarted(String username, long seconds) throws NetworkException {
         socketCommunicationProtocol.notifyTurnStarted(username, seconds);
     }
 
+    /**
+     * Communicate to the server the game model updates
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
         socketCommunicationProtocol.sendGameModelUpdate(clientUpdatePacket);
     }
 
+    /**
+     * Communicate to the server the support for the church
+     * @param flag this flag is used to check if the player supports the church or not
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void supportForTheChurch(boolean flag) throws NetworkException {
         socketCommunicationProtocol.supportForTheChurch(flag);
     }
 
+    /**
+     * Communicates to the server the end of the game
+     * @param ranking the players final ranking
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
         socketCommunicationProtocol.notifyEndGame(ranking);

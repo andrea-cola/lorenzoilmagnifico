@@ -21,7 +21,6 @@ public class ExcommunicationEffectNumberOfSlaves extends ExcommunicationEffect{
 
     /**
      * Method to run the effect of the card
-     * @param player
      */
     public void runEffect(Player player){
         player.getPersonalBoard().getExcommunicationValues().setNumberOfSlaves(this.numberOfSlaves);

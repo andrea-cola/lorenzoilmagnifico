@@ -22,7 +22,6 @@ public class ExcommunicationEffectNoVictoryPoints extends ExcommunicationEffect 
 
     /**
      * Method to run the effect of the card
-     * @param player
      */
     public void runEffect(Player player){
         player.getPersonalBoard().getExcommunicationValues().setDevelopmentCardGetFinalPoints(this.developmentCardColor, false);

@@ -33,8 +33,6 @@ public class MarketCell implements Serializable{
 
     /**
      * Class constructor.
-     * @param minFamilyMemberValue
-     * @param effectSimple
      */
     public MarketCell(int minFamilyMemberValue, EffectSimple effectSimple){
         this.minFamilyMemberValue = minFamilyMemberValue;
@@ -45,7 +43,6 @@ public class MarketCell implements Serializable{
 
     /**
      * This method checks if the cell is empty.
-     * @return
      */
     public boolean isEmpty() {
         return this.empty;
@@ -60,7 +57,6 @@ public class MarketCell implements Serializable{
 
     /**
      * Checks if the cell is accessible
-     * @return
      */
     public boolean isAccessible() {
         return this.accessible;
@@ -84,7 +80,6 @@ public class MarketCell implements Serializable{
 
     /**
      * This method gets the minimum value to access the cell
-     * @return
      */
     public int getMinFamilyMemberValue(){
         return this.minFamilyMemberValue;
@@ -93,10 +88,6 @@ public class MarketCell implements Serializable{
 
     /**
      * Checks if a family member can be placed inside the cell
-     * @param player
-     * @param familyMemberColor
-     * @param servants
-     * @throws GameException
      */
     public void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 

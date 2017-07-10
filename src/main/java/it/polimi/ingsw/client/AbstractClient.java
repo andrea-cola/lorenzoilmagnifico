@@ -97,126 +97,101 @@ public abstract class AbstractClient {
 
     /**
      * Abstract method to create a new room
-     * @param maxPlayersNumber
-     * @throws NetworkException
-     * @throws RoomException
+     * @param maxPlayersNumber the max number of players that can join the room
+     * @throws NetworkException if error occurs during network communication
+     * @throws RoomException if error occurs during the room creation
      */
     public abstract void createNewRoom(int maxPlayersNumber) throws NetworkException, RoomException;
 
     /**
      * Abstract method to notify personal board tile choice
-     * @param personalBoardTile
-     * @throws NetworkException
+     * @param personalBoardTile the personal board tile choosen
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException;
 
     /**
      * Abstract method to notify leader card choice
-     * @param leaderCard
-     * @throws NetworkException
+     * @param leaderCard the leader card
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException;
 
     /**
      * Abstract method to place family member in a tower
-     * @param familyMemberColor
-     * @param servants
-     * @param towerIndex
-     * @param cellIndex
-     * @param playerChoices
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex,
                                                       int cellIndex, HashMap<String, Object> playerChoices) throws NetworkException;
 
     /**
      * Abstract method to place family member in council
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants,
                                                         HashMap<String, Object> playerChoices) throws NetworkException;
 
     /**
      * Abstract method to place family member in a market
-     * @param familyMemberColor
-     * @param servants
-     * @param marketIndex
-     * @param playerChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member to be placed inside the market
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex,
                                                        HashMap<String, Object> playerChoices) throws NetworkException;
 
     /**
      * Abstract method to place family member in harvest simple
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member to be placed inside the harvest simple
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants,
                                                               HashMap<String, Object> playerChoices) throws NetworkException;
 
     /**
      * Abstract method to place family member in production simple
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member to be placed inside the production simple
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants,
                                                                  HashMap<String, Object> playerChoices) throws NetworkException;
 
     /**
      * Abstract method to place family member in harvest extended
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member to be placed inside the hervest extended
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants,
                                                                 HashMap<String, Object> playerChoices) throws NetworkException;
 
     /**
      * Abstract method to place family member in production extended
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member to be placed inside the production extended
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants,
                                                                    HashMap<String, Object> playerChoices) throws NetworkException;
 
     /**
      * Abstract method to notify to activate a leader card
-     * @param leaderCardIndex
-     * @param servants
-     * @param playerChoices
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifyActivateLeader(int leaderCardIndex, int servants, HashMap<String, Object> playerChoices) throws NetworkException;
 
     /**
      * Abstract method to notify to discard a leader card
-     * @param leaderCardIndex
-     * @param playerChoices
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifyDiscardLeader(int leaderCardIndex, HashMap<String, Object> playerChoices) throws NetworkException;
 
     /**
      * Abstract method to notify the support to the church
-     * @param choice
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void notifySupportForTheChurch(boolean choice) throws NetworkException;
 
     /**
      * Abstract method for the end of the turn
-     * @throws NetworkException
+     * @throws NetworkException if error occurs during network communication
      */
     public abstract void endTurn() throws NetworkException;
 }

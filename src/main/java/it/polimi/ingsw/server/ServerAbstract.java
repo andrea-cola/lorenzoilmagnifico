@@ -15,7 +15,6 @@ public abstract class ServerAbstract {
 
     /**
      * Class constructor.
-     * @param server
      */
     public ServerAbstract(ServerInterface server){
         this.server = server;
@@ -23,7 +22,7 @@ public abstract class ServerAbstract {
 
     /**
      * Method to return server interface.
-     * @return
+     * @return the server interface
      */
     protected ServerInterface getServer(){
         return server;
@@ -31,7 +30,7 @@ public abstract class ServerAbstract {
 
     /**
      * Method to start server.
-     * @param port
+     * @param port the number of the port
      * @throws IOException
      */
     public abstract void startServer(int port) throws IOException;

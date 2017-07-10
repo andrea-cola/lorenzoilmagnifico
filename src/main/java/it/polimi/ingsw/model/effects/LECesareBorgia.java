@@ -18,7 +18,6 @@ public class LECesareBorgia extends LeaderEffect{
     /**
      * Method to run the effect of the card.
      * With this effect you don’t need to satisfy the Military Points requirement when you take Territory Cards.
-     * @param player
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback) {

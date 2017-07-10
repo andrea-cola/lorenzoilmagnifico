@@ -207,7 +207,7 @@ public class Server implements ServerInterface{
     /**
      * Create new room.
      * @param serverPlayer is creating new room.
-     * @param maxPlayers   allowed in the room.
+     * @param maxPlayers allowed in the room.
      * @throws RoomException if errors occur during creation.
      */
     @Override

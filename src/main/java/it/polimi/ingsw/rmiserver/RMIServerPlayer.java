@@ -31,11 +31,17 @@ import java.util.List;
         this.rmiClientInterface = rmiClientInterface;
     }
 
+
     @Override
     public void ping() throws RemoteException{
         rmiClientInterface.ping();
     }
 
+    /**
+     * Send to the client the game info
+     * @param game game info
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void sendGameInfo(Game game) throws NetworkException {
         try {
@@ -45,6 +51,11 @@ import java.util.List;
         }
     }
 
+    /**
+     * Send to the client the personal board tiles
+     * @param personalBoardTiles the personal board tiles available
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException{
         try{
@@ -54,6 +65,11 @@ import java.util.List;
         }
     }
 
+    /**
+     * Send to the client the leader cards
+     * @param leaderCards the leader cards deck
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException {
         try{
@@ -63,6 +79,12 @@ import java.util.List;
         }
     }
 
+    /**
+     * Notifies to the client that the turn started
+     * @param username the username of the player that is performing the turn
+     * @param seconds the time available for the player to perform the turn
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifyTurnStarted(String username, long seconds) throws NetworkException{
         try{
@@ -72,6 +94,10 @@ import java.util.List;
         }
     }
 
+    /**
+     * Send to the client the game model updates
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException {
         try{
@@ -81,6 +107,11 @@ import java.util.List;
         }
     }
 
+    /**
+     * Send to the client the support for the church answer
+     * @param flag this flag is used to check if the player supports the church or not
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void supportForTheChurch(boolean flag) throws NetworkException {
         try{
@@ -90,6 +121,11 @@ import java.util.List;
         }
     }
 
+    /**
+     * Notifies to the client the end of the game
+     * @param ranking the players final ranking
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifyEndGame(ServerPlayer[] ranking) throws NetworkException {
         try{

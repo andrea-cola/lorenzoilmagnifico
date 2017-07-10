@@ -54,7 +54,6 @@ public class LEHarvestProductionSimple extends LeaderEffect{
      */
     @Override
     public void runEffect(Player player, InformationCallback informationCallback){
-        //get the last family member used and change its value
         List<FamilyMemberColor> familyMembersUsed = player.getPersonalBoard().getFamilyMembersUsed();
         FamilyMemberColor familyMemberColor = familyMembersUsed.get(familyMembersUsed.size() - 1);
         player.getPersonalBoard().getFamilyMember().increaseFamilyMemberValue(familyMemberColor, this.diceActionValue);
