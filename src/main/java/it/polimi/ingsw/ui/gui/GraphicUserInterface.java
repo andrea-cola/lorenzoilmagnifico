@@ -208,9 +208,9 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
                     alert.setTitle("Excommunication Choice");
                     alert.setHeaderText("Excommunication Choice");
                     alert.setContentText("Do you want to be excommunicated?");
-                    ButtonType yes = new ButtonType("YES");
-                    ButtonType no = new ButtonType("NO");
-                    alert.getButtonTypes().addAll(yes, no);
+                    ButtonType yes = new ButtonType("YES", ButtonBar.ButtonData.OK_DONE);
+                    ButtonType no = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    alert.getButtonTypes().setAll(yes, no);
                     Optional<ButtonType> result = alert.showAndWait();
                     if(result.isPresent()) {
                         if (result.get() == yes) {
@@ -233,6 +233,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
                 }
             });
         }
+        updateMainBoard();
     }
 
     @Override
@@ -240,7 +241,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("End Game");
                 alert.setHeaderText("Player points");
                 GridPane points = new GridPane();
@@ -399,37 +400,36 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
+        System.out.println("CIAONE");
         ArrayList<Privilege> privilegesChosen = new ArrayList<>();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Council Privilege");
-        alert.setHeaderText("Choose " + councilPrivilege.getNumberOfCouncilPrivileges() + " council privilege");
+        alert.setHeaderText("Choose " + councilPrivilege.getNumberOfCouncilPrivileges() + " council privileges");
         HBox content = new HBox(20);
         content.setPadding(new Insets(20, 150, 10, 10));
-
         CheckBox checkBox = new CheckBox("1 wood & 1 servant");
         CheckBox checkBox1 = new CheckBox("2 servants");
         CheckBox checkBox2 = new CheckBox("2 coins");
         CheckBox checkBox3 = new CheckBox("2 military points");
         CheckBox checkBox4 = new CheckBox("2 faiths points");
+        System.out.println("CIAONE 2");
         content.getChildren().addAll(checkBox, checkBox1, checkBox2, checkBox3, checkBox4);
-
         alert.getDialogPane().setContent(content);
-        alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.isPresent())
+        if (result.isPresent())
             if (result.get() == ButtonType.OK) {
-                if(checkBox.isSelected())
+                if (checkBox.isSelected())
                     privilegesChosen.add(councilPrivilege.getPrivileges()[0]);
-                if(checkBox1.isSelected())
+                if (checkBox1.isSelected())
                     privilegesChosen.add(councilPrivilege.getPrivileges()[1]);
-                if(checkBox2.isSelected())
+                if (checkBox2.isSelected())
                     privilegesChosen.add(councilPrivilege.getPrivileges()[2]);
-                if(checkBox3.isSelected())
+                if (checkBox3.isSelected())
                     privilegesChosen.add(councilPrivilege.getPrivileges()[3]);
-                if(checkBox4.isSelected())
+                if (checkBox4.isSelected())
                     privilegesChosen.add(councilPrivilege.getPrivileges()[4]);
             }
+
         privilegesChosen = new ArrayList<>(privilegesChosen.subList(0, councilPrivilege.getNumberOfCouncilPrivileges()));
         if (getClient().getPlayerTurnChoices().containsKey(reason)) {
             ArrayList<Privilege> arrayList = (ArrayList<Privilege>) getClient().getPlayerTurnChoices().get(reason);
