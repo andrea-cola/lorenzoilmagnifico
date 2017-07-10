@@ -30,6 +30,10 @@ public class InformationChoicesHandler implements InformationCallback {
         this.decisions = playerChoices;
     }
 
+    public Object getDecisions(String s){
+        return decisions.get(s);
+    }
+
     /**
      * Method to choose the council privilege to get
      * @param reason

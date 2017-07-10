@@ -381,6 +381,7 @@ import java.util.*;
     private void excommunicationForPlayer(Player player, int period){
         ExcommunicationCard excommunicationCard = this.game.getMainBoard().getVatican().getExcommunicationCard(period - 1);
         excommunicationCard.getEffect().runEffect(player);
+        player.getPersonalBoard().addExcommunicationCard(excommunicationCard);
     }
 
     /**
