@@ -331,7 +331,7 @@ public class PersonalBoard implements Serializable {
     /**
      * This method returns the excommunication cards of the player
      */
-    public List<ExcommunicationCard> getExcommunivationCards() {
+    public List<ExcommunicationCard> getExcommunicationCards() {
         return this.excommunicationCards;
     }
 

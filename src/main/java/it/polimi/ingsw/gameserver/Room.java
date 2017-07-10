@@ -407,6 +407,7 @@ public class Room {
             gameManager.applySupportChoice(player, flag);
             playerTurn.stopTimer();
         }
+
     }
 
     /**

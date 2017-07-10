@@ -87,4 +87,11 @@ public abstract class AbstractUserInterface {
      * @param ranking of the game.
      */
     public abstract void notifyEndGame(ServerPlayer[] ranking);
+
+    /**
+     * Shows exception errors on the user interface.
+     * @param message error to be shown.
+     */
+    public abstract void showGameException(String message);
+
 }

@@ -3,19 +3,25 @@ package it.polimi.ingsw.ui.gui;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ResourceType;
 import it.polimi.ingsw.utility.Printer;
+import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Optional;
 
 /*package-local*/ class LeaderCardStage extends JFXPanel {
 
@@ -31,7 +37,6 @@ import java.awt.*;
 
     private Integer servants = 0;
     private int servantValue;
-
 
     LeaderCardStage(MainBoardStage.CallbackInterface callback, Player player){
         this.callback = callback;
@@ -62,54 +67,50 @@ import java.awt.*;
             label.setAlignment(Pos.CENTER);
             pane.add(image, i, 0);
             pane.add(label, i, 1);
-
-            Button button = new Button("INTERACT");
+            Button button = new Button("ACTIVE");
             button.setAlignment(Pos.CENTER);
-            button.setOnAction(event -> EventQueue.invokeLater(() -> {
-                try{
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                }catch (IllegalAccessException | InstantiationException |
-                        UnsupportedLookAndFeelException | ClassNotFoundException e) {
-                    Printer.printDebugMessage(this.getClass().getSimpleName(), e.getMessage());
-                }
-                JPanel panel = new JPanel();
-                panel.add(new JLabel("Choose what you want to do: "));
-                DefaultComboBoxModel model = new DefaultComboBoxModel();
-                model.addElement("DROP LEADER");
-                model.addElement("ACTIVE LEADER");
-                JComboBox<String> comboBox = new JComboBox<>(model);
-                JLabel number = new JLabel(servants.toString());
-                JButton minus = new JButton("-");
-                JButton plus = new JButton("+");
-                plus.addActionListener(e -> {
-                    if(servants<servantValue) {
-                        servants++;
-                        minus.setVisible(true);
-                        number.setText(Integer.toString(servants));
-                    }else
-                        plus.setVisible(false);
-                });
-                minus.addActionListener(e -> {
-                    if(servants>0){
-                        servants--;
-                        plus.setVisible(true);
-                        number.setText(Integer.toString(servants));
-                    }else
-                        minus.setVisible(false);
-                });
-                panel.add(comboBox);
-                panel.add(minus);
-                panel.add(number);
-                panel.add(plus);
-                int result = JOptionPane.showConfirmDialog(null, panel, "Leader Actions", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (result == JOptionPane.OK_OPTION) {
-                    if (comboBox.getSelectedItem() != null) {
-                        String choice = (String) comboBox.getSelectedItem();
-                        leaderAction(choice, name);
-                        JOptionPane.getRootFrame().dispose();
+            button.setOnAction(event ->{
+                button.setVisible(false);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Active Leader");
+                        alert.setHeaderText("How many servants do you want to use to activate the Leader?");
+                        Button minus = new Button("-");
+                        Label number = new Label(servants.toString());
+                        Button plus = new Button("+");
+                        HBox content = new HBox();
+                        content.setAlignment(Pos.CENTER);
+                        content.setSpacing(20);
+                        content.getChildren().addAll(minus, number, plus);
+                        alert.getDialogPane().setContent(content);
+                        plus.setOnMouseClicked(e -> {
+                            if(servants<servantValue) {
+                                servants++;
+                                minus.setVisible(true);
+                                number.setText(Integer.toString(servants));
+                            }else
+                                plus.setVisible(false);
+                        });
+                        minus.setOnMouseClicked(e -> {
+                            if(servants>0){
+                                servants--;
+                                plus.setVisible(true);
+                                number.setText(Integer.toString(servants));
+                            }else
+                                minus.setVisible(false);
+                        });
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if(result.isPresent()) {
+                            if (result.get() == ButtonType.OK)
+                                callback.activeLeaderCard(name, servants);
+                        }
                     }
-                }
-            }));
+                });
+            });
+            if(player.getPersonalBoard().getLeaderCards().get(i).getLeaderEffectActive())
+                button.setVisible(false);
             pane.add(button, i, 2);
         }
         root.setCenter(pane);
@@ -117,13 +118,5 @@ import java.awt.*;
         Scene scene = new Scene(root);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setScene(scene);
-    }
-
-    private void leaderAction(String choice, String leaderCardName){
-        if (choice.equals("DROP LEADER")) {
-            this.callback.discardLeader(leaderCardName);
-        } else if (choice.equals("ACTIVE LEADER")) {
-            this.callback.activeLeaderCard(leaderCardName, servants);
-        }
     }
 }

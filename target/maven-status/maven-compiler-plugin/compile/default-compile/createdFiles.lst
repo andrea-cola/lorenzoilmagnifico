@@ -1,5 +1,6 @@
 it/polimi/ingsw/model/PersonalBoard$1.class
 it/polimi/ingsw/ui/cli/CommandLineInterface$ConsoleListener.class
+it/polimi/ingsw/ui/gui/LeaderCardStage$1.class
 it/polimi/ingsw/ui/gui/LeaderCardStage.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$5.class
 it/polimi/ingsw/protocol/ClientCommunication.class
@@ -30,7 +31,9 @@ it/polimi/ingsw/protocol/ServerCommunicationInterface.class
 it/polimi/ingsw/protocol/SharedCostants.class
 it/polimi/ingsw/ui/gui/GraphicUserInterface$1.class
 it/polimi/ingsw/model/ExcommunicationValues.class
+it/polimi/ingsw/ui/gui/GraphicUserInterface$8.class
 it/polimi/ingsw/ui/cli/CommandLineInterface.class
+it/polimi/ingsw/ui/gui/GraphicUserInterface$7.class
 it/polimi/ingsw/rmiserver/RMIServerAbstract.class
 it/polimi/ingsw/model/PersonalBoard.class
 it/polimi/ingsw/model/ActionSpaceExtended.class
