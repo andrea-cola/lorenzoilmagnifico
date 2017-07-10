@@ -1756,15 +1756,15 @@
   "personalBoard": {
     "valuables": {
       "resources": {
-        "SERVANT": 10,
-        "STONE": 10,
-        "WOOD": 10,
-        "COIN": 10
+        "SERVANT": 3,
+        "STONE": 2,
+        "WOOD": 2,
+        "COIN": 5
       },
       "points": {
-        "FAITH": 10,
-        "VICTORY": 10,
-        "MILITARY": 10
+        "FAITH": 0,
+        "VICTORY": 0,
+        "MILITARY": 0
       }
     },
     "territoryCards": [

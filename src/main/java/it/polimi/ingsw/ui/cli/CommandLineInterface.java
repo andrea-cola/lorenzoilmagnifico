@@ -486,11 +486,6 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
      * Show main board.
      */
     @Override
-    public void showGameException(String message) {
-        Printer.printDebugMessage(message);
-    }
-
-    @Override
     public void showMainBoard(){
         Game game = getClient().getGameModel();
         Printer.printInformationMessage(game.toString());
