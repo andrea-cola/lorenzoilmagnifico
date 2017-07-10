@@ -110,48 +110,4 @@ public class ExcommunicationValuesTest {
         assertEquals(4, result);
     }
 
-    @Test
-    public void getNormalPointsMalus() throws Exception {
-    }
-
-    @Test
-    public void getNormalResourcesMalus() throws Exception {
-    }
-
-    @Test
-    public void getHarvestProductionDiceMalus() throws Exception {
-    }
-
-    @Test
-    public void getDevelopmentCardDiceMalus() throws Exception {
-    }
-
-    @Test
-    public void getMarketIsAvailable() throws Exception {
-    }
-
-    @Test
-    public void getNumberOfSlaves() throws Exception {
-    }
-
-    @Test
-    public void getDevelopmentCardGetFinalPoints() throws Exception {
-    }
-
-    @Test
-    public void getFinalPointsIndexMalus() throws Exception {
-    }
-
-    @Test
-    public void getSkipFirstTurn() throws Exception {
-    }
-
-    @Test
-    public void getFinalResourcesIndexMalus() throws Exception {
-    }
-
-    @Test
-    public void getFinalResourcesDevCardIndexMalus() throws Exception {
-    }
-
 }

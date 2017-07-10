@@ -94,9 +94,9 @@ public class ActionSpaceExtended implements Serializable{
 
     /**
      * This method checks if the action space is accessible
-     * @param player
-     * @param familyMemberColor
-     * @throws GameException
+     * @param player the player that wants to perform the action
+     * @param familyMemberColor the family member color used to perform the action
+     * @throws GameException if the action cannot be performed
      */
     /*package-local*/ void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
         if(!familyMemberColor.equals(FamilyMemberColor.NEUTRAL) && familyMemberMap.containsKey(player.getUsername())
@@ -106,10 +106,10 @@ public class ActionSpaceExtended implements Serializable{
 
     /**
      * This method checks if the family member can be placed inside this action space
-     * @param player
-     * @param familyMemberColor
-     * @param servants
-     * @throws GameException
+     * @param player the player that wants to perform the action
+     * @param familyMemberColor the family member color used to perform the action
+     * @param servants the number of servants to increase the family member's value to perform the action
+     * @throws GameException if the action cannot be performed
      */
     /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
 

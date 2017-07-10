@@ -38,10 +38,6 @@ public class CouncilPalaceTest {
         assertTrue(councilPalace.getNewOrder().size() > 0);
     }
 
-    @Test
-    public void getNewOrder() throws Exception {
-
-    }
 
     @Test
     public void resetFifo() throws Exception {

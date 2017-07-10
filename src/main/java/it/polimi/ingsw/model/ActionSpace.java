@@ -38,8 +38,8 @@ public class ActionSpace implements Serializable{
 
     /**
      * Class constructor
-     * @param actionSpaceType
-     * @param effect
+     * @param actionSpaceType the type for the action space
+     * @param effect the effect for the action space
      */
     /*package-local*/ ActionSpace(ActionType actionSpaceType, EffectHarvestProductionSimple effect){
         this.actionSpaceType = actionSpaceType;
@@ -49,7 +49,7 @@ public class ActionSpace implements Serializable{
 
     /**
      * This method returns the action space type
-     * @return
+     * @return the action space type
      */
     /*package-local*/ ActionType getActionSpaceType(){
         return this.actionSpaceType;
@@ -57,7 +57,7 @@ public class ActionSpace implements Serializable{
 
     /**
      * This method returns the action space effect
-     * @return
+     * @return the action space effect
      */
     /*package-local*/ EffectHarvestProductionSimple getActionSpaceEffect(){
         return this.actionSpaceEffect;
@@ -65,7 +65,7 @@ public class ActionSpace implements Serializable{
 
     /**
      * This method returns the state of the action space
-     * @return
+     * @return the state of the action space
      */
     public boolean isEmpty(){
         return this.empty;
@@ -73,7 +73,7 @@ public class ActionSpace implements Serializable{
 
     /**
      * This method is used to update te state of the action space
-     * @param updatedValue
+     * @param updatedValue the value to set the availability of the space
      */
     /*package-local*/ void setEmpty(Boolean updatedValue){
         this.empty = updatedValue;
@@ -81,7 +81,7 @@ public class ActionSpace implements Serializable{
 
     /**
      * Method to get the color of the family member that has occupied the action space
-     * @return
+     * @return the family member color
      */
     public FamilyMemberColor getFamilyMemberColor(){
         return this.familyMemberColor;
@@ -89,9 +89,9 @@ public class ActionSpace implements Serializable{
 
     /**
      * This method checks if the action space is accessible
-     * @param player
-     * @param familyMemberColor
-     * @throws GameException
+     * @param player the player that wants to perform the action
+     * @param familyMemberColor the family member color used to perform the action
+     * @throws GameException if the action cannot be performed
      */
     /*package-local*/ void checkAccessibility(Player player, FamilyMemberColor familyMemberColor) throws GameException{
         if(player.getUsername().equals(this.username) && !familyMemberColor.equals(FamilyMemberColor.NEUTRAL) && !this.familyMemberColor.equals(FamilyMemberColor.NEUTRAL))
@@ -100,9 +100,9 @@ public class ActionSpace implements Serializable{
 
     /**
      * This method checks if the family member can be placed inside the action space
-     * @param player
-     * @param familyMemberColor
-     * @throws GameException
+     * @param player the player that wants to perform the action
+     * @param familyMemberColor the family member color used to perform the action
+     * @throws GameException if the action cannot be performed
      */
     /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor) throws GameException{
 

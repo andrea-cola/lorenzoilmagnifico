@@ -15,7 +15,7 @@ import it.polimi.ingsw.model.FamilyMemberColor;
 
     public interface GameCallback {
 
-        void showMainBoard();
+        void  showMainBoard();
 
         void showPersonalBoards();
 

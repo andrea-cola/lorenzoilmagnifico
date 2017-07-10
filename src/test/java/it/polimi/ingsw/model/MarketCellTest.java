@@ -17,10 +17,6 @@ public class MarketCellTest {
     }
 
     @Test
-    public void setEmpty() throws Exception {
-    }
-
-    @Test
     public void isAccessible() throws Exception {
         EffectSimple effectSimple = new EffectSimple();
         MarketCell cell = new MarketCell(1, effectSimple);
@@ -37,10 +33,6 @@ public class MarketCellTest {
 
         assertTrue(!cell.isEmpty());
         assertTrue(!cell.isAccessible());
-    }
-
-    @Test
-    public void getMarketCellImmediateEffect() throws Exception {
     }
 
     @Test

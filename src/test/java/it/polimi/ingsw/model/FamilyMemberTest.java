@@ -30,9 +30,6 @@ public class FamilyMemberTest {
         assertEquals(3, whiteResult);
     }
 
-    @Test
-    public void getMembers() throws Exception {
-    }
 
     @Test
     public void setFamilyMemberValue() throws Exception {

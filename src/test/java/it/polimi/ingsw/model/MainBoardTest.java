@@ -74,16 +74,5 @@ public class MainBoardTest {
         assertTrue(mainBoard.getMarket().getClass().equals(Market.class));
     }
 
-    @Test
-    public void setTower() throws Exception {
-
-    }
-
-    @Test
-    public void setVatican() throws Exception {
-
-    }
-
-
 
 }

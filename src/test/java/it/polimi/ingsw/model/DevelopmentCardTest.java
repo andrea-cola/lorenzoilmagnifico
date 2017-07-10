@@ -8,9 +8,7 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by lorenzo on 07/07/17.
- */
+
 public class DevelopmentCardTest {
     @Test
     public void getId() throws Exception {
@@ -158,9 +156,5 @@ public class DevelopmentCardTest {
         assertEquals(0, card.getMilitaryPointsRequired());
     }
 
-
-    @Test
-    public void payCost() throws Exception {
-    }
 
 }

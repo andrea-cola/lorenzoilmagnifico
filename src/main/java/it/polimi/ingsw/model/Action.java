@@ -17,7 +17,7 @@ public class Action{
 
     /**
      * This method returns an amount for the action
-     * @return
+     * @return amount
      */
     public Integer getAmount(){
         return this.amount;

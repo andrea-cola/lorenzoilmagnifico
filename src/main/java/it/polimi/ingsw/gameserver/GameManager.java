@@ -524,10 +524,11 @@ import java.util.*;
      */
     private void loseVictoryPointsFromYellowCardsResources(Player player){
         //get all yellow card resources cost
+        int total = 0;
         EnumMap<ResourceType, Integer> totalCardResourcesCost = new EnumMap<>(ResourceType.class);
         for (DevelopmentCard card: player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
             for (Map.Entry<ResourceType, Integer> entry : card.getCost().getResources().entrySet()){
-                totalCardResourcesCost.put(entry.getKey(), totalCardResourcesCost.get(entry.getKey()) + entry.getValue());
+                totalCardResourcesCost.put(entry.getKey(), entry.getValue());
             }
         }
         //decrease victory points

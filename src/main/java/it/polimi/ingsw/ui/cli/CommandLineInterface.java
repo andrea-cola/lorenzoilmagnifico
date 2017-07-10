@@ -100,6 +100,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         this.notifyAll();
     }
 
+
     @Override
     public void chooseConnectionType(){
         screen = new ChooseConnectionScreen(getClient()::setNetworkSettings);

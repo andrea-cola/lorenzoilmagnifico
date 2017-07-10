@@ -29,8 +29,8 @@ public class CouncilPalace implements Serializable{
 
     /**
      * Class constructor
-     * @param minFamilyMemberDiceValue
-     * @param effectSimple
+     * @param minFamilyMemberDiceValue the minimum family member dice value to place a family member inside the council palace
+     * @param effectSimple the effect that is performed by the council palace
      */
     /*package-local*/ CouncilPalace(int minFamilyMemberDiceValue, EffectSimple effectSimple){
         this.minFamilyMemberDiceValue = minFamilyMemberDiceValue;
@@ -89,9 +89,9 @@ public class CouncilPalace implements Serializable{
 
     /**
      * Check if the family member can be placed inside the Council palace
-     * @param player
-     * @param familyMemberColor
-     * @param servants
+     * @param player the player that wants to perform the action
+     * @param familyMemberColor the color of the family member to be placed
+     * @param servants the number of servants to add to the family member dice value
      * @throws GameException
      */
     /*package-local*/ void familyMemberCanBePlaced(Player player, FamilyMemberColor familyMemberColor, int servants) throws GameException{
