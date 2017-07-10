@@ -128,7 +128,7 @@ public class DevelopmentCard implements Serializable{
 
     /**
      * Get the permanent effect of the card.
-     * @return
+     * @return the permanent effect
      */
     public Effect getPermanentEffect(){
         return this.permanentEffect;
@@ -150,10 +150,11 @@ public class DevelopmentCard implements Serializable{
         return this.militaryPointsRequired;
     }
 
-    public int getMilitaryPointsToPay(){
-        return this.militaryPointsRequired;
-    }
-
+    /**
+     * This method is used to pay the card
+     * @param player the player that wants to perform the action
+     * @param informationCallback interface to manage actions that requires multiple interactions with the user
+     */
     public void payCost(Player player, InformationCallback informationCallback){
         if (multipleRequisiteSelectionEnabled) {
             if (checkNullResources()){
@@ -176,12 +177,16 @@ public class DevelopmentCard implements Serializable{
         }
     }
 
+    /**
+     * This method is used to check if there are no resources to pay for the card
+     * @return true if resources are null, false if there is something greater than 0
+     */
     private boolean checkNullResources(){
-        for(Map.Entry pair : cost.getResources().entrySet())
-            if((int)pair.getValue() > 0)
+        for(Map.Entry<ResourceType, Integer> entry : cost.getResources().entrySet())
+            if(entry.getValue() > 0)
                 return false;
-        for(Map.Entry pair : cost.getPoints().entrySet())
-            if((int)pair.getValue() > 0)
+        for(Map.Entry<PointType, Integer> entry : cost.getPoints().entrySet())
+            if(entry.getValue() > 0)
                 return false;
         return true;
     }

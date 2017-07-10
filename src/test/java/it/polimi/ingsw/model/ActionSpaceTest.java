@@ -18,10 +18,6 @@ public class ActionSpaceTest {
         assertEquals(ActionType.PRODUCTION, space2.getActionSpaceType());
     }
 
-    @Test
-    public void getActionSpaceEffect() throws Exception {
-
-    }
 
     @Test
     public void isEmpty() throws Exception {

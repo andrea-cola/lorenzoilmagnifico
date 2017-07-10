@@ -4,10 +4,19 @@ import it.polimi.ingsw.model.ActionType;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.InformationCallback;
 
+/**
+ * This class represent the effect that gives a bonus for the harvest production
+ */
 public class EffectHarvestProductionBonus extends Effect{
 
+    /**
+     * Dice value bonus
+     */
     private int diceValueBonus;
 
+    /**
+     * The action type
+     */
     private ActionType actionType;
 
     /**
@@ -17,10 +26,18 @@ public class EffectHarvestProductionBonus extends Effect{
         super.setEffectType(this.getClass().getSimpleName());
     }
 
+    /**
+     * Sets the action type
+     * @param actionType
+     */
     public void setActionType(ActionType actionType){
         this.actionType = actionType;
     }
 
+    /**
+     * Gets the action type
+     * @return
+     */
     public ActionType getActionType(){
         return this.actionType;
     }

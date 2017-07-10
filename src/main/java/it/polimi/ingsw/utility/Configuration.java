@@ -80,14 +80,26 @@ public class Configuration implements Serializable{
         return this.moveWaitingTime;
     }
 
+    /**
+     * Get the victory points array to assign at the end of the game accordingly with the number of green cards the player owns
+     * @return
+     */
     public int[] getVictoryPointsForGreenCards(){
         return this.victoryPointsForGreenCards;
     }
 
+    /**
+     * Get the victory points array to assign at the end of the game accordingly with the number of blue cards the player owns
+     * @return
+     */
     public int[] getVictoryPointsForBlueCards(){
         return this.victoryPointsForBlueCards;
     }
 
+    /**
+     * Get the victory points array to assign at the end of each period accordingly with the number of faith points the player owns
+     * @return
+     */
     public int[] getVictoryPointsBonusForFaith(){
         return this.victoryPointsBonusForFaith;
     }

@@ -6,10 +6,14 @@ import it.polimi.ingsw.utility.Printer;
 import java.util.Arrays;
 import java.util.HashMap;
 
+
 /*package-local*/ class BasicGameScreen {
 
     private HashMap<String, Function> options;
 
+    /**
+     * Class constructor
+     */
     BasicGameScreen(){
         options = new HashMap<>();
     }

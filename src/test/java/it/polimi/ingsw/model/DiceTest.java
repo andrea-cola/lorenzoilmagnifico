@@ -6,9 +6,7 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by lorenzo on 07/07/17.
- */
+
 public class DiceTest {
     @Test
     public void setValues() throws Exception {

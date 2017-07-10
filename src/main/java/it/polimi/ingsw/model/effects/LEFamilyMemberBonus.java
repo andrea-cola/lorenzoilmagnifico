@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.FamilyMemberColor;
 import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.Player;
 
+/**
+ * This class represents the leader effect that provides a bonus to a family member
+ */
 public class LEFamilyMemberBonus extends LeaderEffect{
 
     /**

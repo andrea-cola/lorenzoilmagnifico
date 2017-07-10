@@ -3,7 +3,6 @@ package it.polimi.ingsw.gameserver;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.util.*;
 
@@ -98,6 +97,9 @@ import java.util.*;
         return this.leaderCards;
     }
 
+    /**
+     * Method to setup the arrays with final points amount for green cards, blue cards and faith
+     */
     private void setupFinalPoints(){
         this.victoryPointsForGreenCards = this.configuration.getVictoryPointsForGreenCards();
         this.victoryPointsForBlueCards = this.configuration.getVictoryPointsForBlueCards();
@@ -175,6 +177,9 @@ import java.util.*;
         return new ArrayList<>(deck.subList(limitDown, limitTop));
     }
 
+    /**
+     *  Method to set excommunication cards
+     */
     /*package-local*/ void setExcommunicationCards() {
         chooseExcommunicationCards();
     }
@@ -192,6 +197,9 @@ import java.util.*;
         this.game.getMainBoard().setTower(3, deckForTurn(deckForPeriod(this.purpleDeck, period), turn));
     }
 
+    /**
+     * Method to reset the mainboard state at the end of each turn
+     */
     /*package-local*/ void mainboardTurnReset(){
         for(Tower tower : this.game.getMainBoard().getTowers())
             for(TowerCell towerCell : tower.getTowerCells()){
@@ -208,6 +216,10 @@ import java.util.*;
         throwDices();
     }
 
+    /**
+     * Method to reset the personal board at the end of each turn
+     * @param configuration
+     */
     /*package-local*/ void personalBoardsTurnReset(Configuration configuration){
         for(Player player : this.players)
             player.getPersonalBoard().turnReset(configuration);
@@ -269,6 +281,10 @@ import java.util.*;
         throwDices();
     }
 
+    /**
+     *Method to get the game model
+     * @return
+     */
     /*package-local*/ Game getGameModel(){
         return this.game;
     }
@@ -309,23 +325,43 @@ import java.util.*;
             player.getPersonalBoard().getFamilyMember().setMembers(this.game.getDices().getValues());
     }
 
+    /**
+     * Get the callback object
+     * @return
+     */
     /*package-local*/ InformationChoicesHandler getInformationChoicesHandler(){
         return this.informationChoicesHandler;
     }
 
+    /**
+     * Set the callback object
+     * @param playerChoices
+     */
     /*package-local*/ void setInformationChoicesHandler(Map<String, Object> playerChoices){
         this.informationChoicesHandler.setDecisions(playerChoices);
     }
 
-  /*package-private*/ boolean finalControlsForPeriod(int period, ServerPlayer player){
+    /**
+     * This method does the final controls at the end of every period
+     * @param period
+     * @param player
+     * @return
+     */
+    /*package-private*/ boolean finalControlsForPeriod(int period, ServerPlayer player){
         int faithPointsRequired = this.game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
         //check if the player gets the excommunication effect
         if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) <= faithPointsRequired) {
+            excommunicationForPlayer(player, period);
             return false;
         }
         return true;
     }
 
+    /**
+     * This method manages the support to the church
+     * @param player
+     * @param flag
+     */
     /*package-private*/ void applySupportChoice(ServerPlayer player, boolean flag){
         if(!flag){
             player.getPersonalBoard().getValuables().increase(PointType.VICTORY, this.victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
@@ -337,6 +373,11 @@ import java.util.*;
         }
     }
 
+    /**
+     * This method runs an excommunication for the player based on the current excommunication card on the mainBoard
+     * @param player
+     * @param period
+     */
     private void excommunicationForPlayer(Player player, int period){
         ExcommunicationCard excommunicationCard = this.game.getMainBoard().getVatican().getExcommunicationCard(period - 1);
         excommunicationCard.getEffect().runEffect(player);
@@ -484,6 +525,7 @@ import java.util.*;
      */
     private void loseVictoryPointsFromYellowCardsResources(Player player){
         //get all yellow card resources cost
+        int total = 0;
         EnumMap<ResourceType, Integer> totalCardResourcesCost = new EnumMap<>(ResourceType.class);
         for (DevelopmentCard card: player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
             for (Map.Entry<ResourceType, Integer> entry : card.getCost().getResources().entrySet()){

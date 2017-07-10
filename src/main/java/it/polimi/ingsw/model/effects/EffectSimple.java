@@ -87,6 +87,10 @@ public class EffectSimple extends Effect{
         }
     }
 
+    /**
+     * Method to update the family member value
+     * @param player
+     */
     private void updateFamilyMemberValue(Player player){
         int familyMemberRealValue = diceActionValue + player.getPersonalBoard().getHarvestProductionDiceValueBonus().get(actionType)
                 - player.getPersonalBoard().getExcommunicationValues().getHarvestProductionDiceMalus().get(actionType);

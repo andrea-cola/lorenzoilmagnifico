@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.InformationCallback;
 
 import it.polimi.ingsw.model.Player;
 
+/**
+ * This class represents the leader effect that enables the player to place family members wherever he wants
+ */
 public class LELudovicoAriosto extends LeaderEffect {
 
     /**

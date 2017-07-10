@@ -9,10 +9,20 @@ import java.util.Map;
  */
 public class CouncilPrivilege implements Serializable{
 
+    /**
+     * The number of council privileges the player can choose
+     */
     private int numberOfCouncilPrivileges;
 
+    /**
+     * Privileges array
+     */
     private Privilege[] privileges = new Privilege[5];
 
+    /**
+     * Class constructor
+     * @param numberOfCouncilPrivileges The number of council privileges the player can choose
+     */
     public CouncilPrivilege(int numberOfCouncilPrivileges){
         this.numberOfCouncilPrivileges = numberOfCouncilPrivileges;
 
@@ -38,10 +48,18 @@ public class CouncilPrivilege implements Serializable{
         this.privileges[4] = new Privilege(valuables5, true);
     }
 
+    /**
+     * This method returns the number of council privileges
+     * @return the number of council privileges
+     */
     public int getNumberOfCouncilPrivileges(){
         return this.numberOfCouncilPrivileges;
     }
 
+    /**
+     * This method returns the array of privileges
+     * @return the array of council privileges
+     */
     public Privilege[] getPrivileges(){
         return this.privileges;
     }
@@ -51,6 +69,11 @@ public class CouncilPrivilege implements Serializable{
         return "Council privilege number: " + numberOfCouncilPrivileges + "\n";
     }
 
+    /**
+     * This method is used to choose the council privilege
+     * @param player the player that wants to perform the action
+     * @param informationCallback interface to manage actions that requires multiple interactions with the user
+     */
     public void chooseCouncilPrivilege(Player player, InformationCallback informationCallback){
         List<Privilege> choices = informationCallback.chooseCouncilPrivilege("council-privilege", this);
         for(Privilege privilege : choices){

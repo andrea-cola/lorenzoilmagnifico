@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ResourceType;
 
+/**
+ * This class represents the leader effect that provides a discount on development cards
+ */
 public class LEFilippoBrunelleschi extends LeaderEffect{
 
     /**

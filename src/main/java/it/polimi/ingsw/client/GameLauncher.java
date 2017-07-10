@@ -15,19 +15,19 @@ public class GameLauncher {
     }
 
     /**
-     * get the index of the preferred user interface.
+     * Get the index of the preferred user interface.
      * @return user interface index.
      */
     private static int chooseUI(){
         int choice = 0;
         Scanner scanner = new Scanner(System.in);
 
-        Printer.printDebugMessage("To use the Command Line Interface you need to insert the number\ncorrespondent to command and follow the instructions.");
+        Printer.printInformationMessage("To use the Command Line Interface you need to insert the number\ncorrespondent to command and follow the instructions.");
         do{
             try {
-                Printer.printDebugMessage("Choose your user interface:");
-                Printer.printDebugMessage("(1) COMMAND LINE INTERFACE");
-                Printer.printDebugMessage("(2) GRAPHICAL INTERFACE");
+                Printer.printInformationMessage("Choose your user interface:");
+                Printer.printInformationMessage("(1) COMMAND LINE INTERFACE");
+                Printer.printInformationMessage("(2) GRAPHICAL INTERFACE");
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e){
                 return chooseUI();

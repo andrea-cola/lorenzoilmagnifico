@@ -5,9 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by lorenzo on 07/07/17.
- */
+
 public class ActionSpaceExtendedTest {
     @Test
     public void setNotAccessible() throws Exception {
@@ -40,11 +38,6 @@ public class ActionSpaceExtendedTest {
         assertEquals(3, actionSpace.getDiceValueMalus());
     }
 
-    @Test
-    public void getEffect() throws Exception {
-
-    }
-
     @Test(expected = java.lang.Exception.class)
     public void checkAccessibility() throws Exception {
         Player player = new Player();
@@ -68,9 +61,5 @@ public class ActionSpaceExtendedTest {
         actionSpace.familyMemberCanBePlaced(player, FamilyMemberColor.ORANGE, 0);
     }
 
-    @Test
-    public void reset() throws Exception {
-
-    }
 
 }

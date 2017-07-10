@@ -10,10 +10,15 @@ public class ClientUpdatePacket implements Serializable{
 
     private Game game;
 
+    /**
+     * Class constructor
+     * @param game
+     */
     public ClientUpdatePacket(Game game){
         this.game = game;
         this.message = new ArrayList<>();
     }
+
 
     public Game getGame(){
         return this.game;

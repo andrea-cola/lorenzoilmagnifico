@@ -7,6 +7,9 @@ import it.polimi.ingsw.model.ResourceType;
 
 import java.util.Map;
 
+/**
+ * This class represents the excommunication effect to decrease final victory points based on valuables owned at the end of the match
+ */
 public class ExcommunicationEffectLoseVictoryPoints extends ExcommunicationEffect{
 
     /**
@@ -14,19 +17,17 @@ public class ExcommunicationEffectLoseVictoryPoints extends ExcommunicationEffec
      */
     private PointsAndResources valuablesOwnedIndex;
 
-    public void setValuablesOwnedIndex(PointsAndResources valuablesOwnedIndex){
-        this.valuablesOwnedIndex = valuablesOwnedIndex;
-    }
-
-    public PointsAndResources getValuablesOwnedIndex(){
-        return this.valuablesOwnedIndex;
-    }
-
-
+    /**
+     * Class constructor
+     */
     public ExcommunicationEffectLoseVictoryPoints(){
         super.setEffectType(this.getClass().getSimpleName());
     }
 
+    /**
+     * Method to run the effect of the card
+     * @param player
+     */
     public void runEffect(Player player){
         //update resources malus
         for (Map.Entry<ResourceType, Integer> entry: this.valuablesOwnedIndex.getResources().entrySet()) {

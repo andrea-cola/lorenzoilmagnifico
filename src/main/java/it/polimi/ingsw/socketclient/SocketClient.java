@@ -50,6 +50,11 @@ public class SocketClient extends AbstractClient{
         super(clientInterface, address, port);
     }
 
+
+    /**
+     * Method to initialise a new socket
+     * @throws ConnectionException if errors occur during connection
+     */
     @Override
     public void connectToServer() throws ConnectionException {
         try{
@@ -71,7 +76,7 @@ public class SocketClient extends AbstractClient{
     }
 
     /**
-     * Abstract method to loginPlayer user on a server.
+     * Method to loginPlayer user on a server.
      * @param username for the login.
      * @param password for the login.
      * @throws NetworkException if errors occur during login.
@@ -82,7 +87,7 @@ public class SocketClient extends AbstractClient{
     }
 
     /**
-     * Abstract method to sign in a user on a server.
+     * Method to sign in a user on a server.
      * @param username for the sign in.
      * @param password for the sign in.
      * @throws NetworkException if errors occur during sign in.
@@ -92,78 +97,171 @@ public class SocketClient extends AbstractClient{
         clientCommunication.playerSignIn(username, password);
     }
 
+    /**
+     * Method to join the room
+     * @throws NetworkException if error occurs during network communication
+     * @throws RoomException if errors occur during joining room
+     */
     @Override
     public void joinRoom() throws NetworkException, RoomException {
         clientCommunication.playerJoinRoom();
         startServerResponseManager();
     }
 
+    /**
+     * Method for creating a new room
+     * @param maxPlayersNumber the number of players that can reach the room
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void createNewRoom(int maxPlayersNumber) throws NetworkException{
         clientCommunication.createNewRoom(maxPlayersNumber);
         startServerResponseManager();
     }
 
+    /**
+     * Method for notifying to the server the personal board tile chosen
+     * @param personalBoardTile the personal board tile chosen
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException {
         clientCommunication.notifyPersonalBoardTileChoice(personalBoardTile);
     }
 
+    /**
+     * Method for notifying to the server the leader card chosen
+     * @param leaderCard the leader card choosen
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException {
         clientCommunication.notifyLeaderCardChoice(leaderCard);
     }
 
+    /**
+     * Method for notifying to the server to set a family member inside a tower
+     * @param familyMemberColor the color of the family member to be placed
+     * @param servants the number of servants to perform the action
+     * @param towerIndex the index of the tower where the player wants to place the family member
+     * @param cellIndex the index of the cell where the player wants to place the family member
+     * @param playerChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex, HashMap<String, Object> playerChoices) throws NetworkException {
         clientCommunication.notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex, playerChoices);
     }
 
+    /**
+     * Method for notifying to the server to set a family member inside the council
+     * @param familyMemberColor the color of the family member to be placed
+     * @param servants the number of servants to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         clientCommunication.notifySetFamilyMemberInCouncil(familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Method for notifying to the server to set a family member inside the market
+     * @param familyMemberColor the color of the family member to be placed
+     * @param servants the number of servants to perform the action
+     * @param marketIndex the index of the market cell in which the player wants to place the family member
+     * @param playerChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex, HashMap<String, Object> playerChoices) throws NetworkException {
         clientCommunication.notifySetFamilyMemberInMarket(familyMemberColor, servants, marketIndex, playerChoices);
     }
 
+    /**
+     * Method for notifying to the server to set a family member inside harvest simple action space
+     * @param familyMemberColor the color of the family member to be placed
+     * @param servants the number of servants to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         clientCommunication.notifySetFamilyMemberInHarvestSimple(familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Method for notifying to the server to set a family member inside production simple action space
+     * @param familyMemberColor the color of the family member to be placed
+     * @param servants the number of servants to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         clientCommunication.notifySetFamilyMemberInProductionSimple(familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Method for notifying to the server to set a family member inside harvest extended action space
+     * @param familyMemberColor the color of the family member to be placed
+     * @param servants the number of servants to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         clientCommunication.notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Method for notifying to the server to set a family member inside production extended action space
+     * @param familyMemberColor the color of the family member to be placed
+     * @param servants the number of servants to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         clientCommunication.notifySetFamilyMemberInProductionExtended(familyMemberColor, servants, playerChoices);
     }
 
+    /**
+     * Method for notifying to the server to activate a leader card
+     * @param leaderCardIndex the index of the leader card inside the personal leader card's deck of the player
+     * @param servants the number of servants to perform the action
+     * @param playerChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifyActivateLeader(int leaderCardIndex, int servants, HashMap<String, Object> playerChoices) throws NetworkException {
         clientCommunication.activateLeader(leaderCardIndex, servants, playerChoices);
     }
 
+    /**
+     * Method for notifying to the server to discard a leader card
+     * @param leaderCardIndex the index of the leader card inside the personal leader card's deck of the player
+     * @param playerChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifyDiscardLeader(int leaderCardIndex, HashMap<String, Object> playerChoices) throws NetworkException {
         clientCommunication.discardLeader(leaderCardIndex, playerChoices);
     }
 
+    /**
+     * Method for notifying to the server the choice for the support for the church
+     * @param choice this value is about the choice of the player to support the church or not
+     * @throws NetworkException if error occurs during network communication
+     */
     @Override
     public void notifySupportForTheChurch(boolean choice) throws NetworkException {
         clientCommunication.notifySupportForTheChurch(choice);
     }
 
+    /**
+     * Method for notifying to the server the end of the turn
+     */
     @Override
     public void endTurn() {
         clientCommunication.endTurn();
@@ -183,7 +281,7 @@ public class SocketClient extends AbstractClient{
                     clientCommunication.handleResponse(object);
                 } catch (IOException | ClassNotFoundException e){
                     flag = false;
-                    Printer.printDebugMessage(this.getClass().getSimpleName(), "Errors occur while reading server response.", e);
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), "Errors occur while reading server response. Connection is close and game is over.");
                 }
             }
             closeConnections(objectInputStream, objectOutputStream, socket);
@@ -199,7 +297,7 @@ public class SocketClient extends AbstractClient{
             try {
                 connection.close();
             }catch(IOException e){
-                Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while closing connections.", e);
+                Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while closing connections.");
             }
         }
     }

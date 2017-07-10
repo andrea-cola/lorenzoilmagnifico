@@ -4,9 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by lorenzo on 06/07/17.
- */
 public class CouncilPrivilegeTest {
     @Test
     public void getNumberOfCouncilPrivileges() throws Exception {
@@ -22,12 +19,6 @@ public class CouncilPrivilegeTest {
         CouncilPrivilege councilPrivilege = new CouncilPrivilege(0);
 
         assertTrue(councilPrivilege.getPrivileges().getClass().equals(Privilege[].class));
-    }
-
-
-    @Test
-    public void chooseCouncilPrivilege() throws Exception {
-
     }
 
 }

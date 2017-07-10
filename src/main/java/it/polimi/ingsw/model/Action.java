@@ -16,15 +16,15 @@ public class Action{
     private Integer amount;
 
     /**
-     * This method returns an amount of the action
-     * @return
+     * This method returns an amount for the action
+     * @return amount
      */
     public Integer getAmount(){
         return this.amount;
     }
 
     /**
-     * This method set an amount of the action
+     * This method set an amount for the action
      * @param amount of the action
      */
     public void setAmount(Integer amount){

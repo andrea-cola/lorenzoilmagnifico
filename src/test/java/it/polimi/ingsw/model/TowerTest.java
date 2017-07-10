@@ -17,10 +17,6 @@ public class TowerTest {
     }
 
     @Test
-    public void getColor() throws Exception {
-    }
-
-    @Test
     public void setTowerCell() throws Exception {
         Tower tower = new Tower(4);
 
@@ -39,18 +35,6 @@ public class TowerTest {
                 militaryPointsRequired, immediateEffect, permanentEffect);
 
         tower.setTowerCell(0, card);
-    }
-
-    @Test
-    public void getTowerCell() throws Exception {
-    }
-
-    @Test
-    public void getTowerCells() throws Exception {
-    }
-
-    @Test
-    public void familyMemberCanBePlaced() throws Exception {
     }
 
 }

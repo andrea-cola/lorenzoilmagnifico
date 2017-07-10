@@ -122,6 +122,7 @@ public class SocketServerPlayer extends ServerPlayer implements Runnable, Server
         serverInterface.createNewRoom(this, maxPlayersNumber);
     }
 
+
     @Override
     public void notifyPlayerPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) {
         this.getPersonalBoard().setPersonalBoardTile(personalBoardTile);

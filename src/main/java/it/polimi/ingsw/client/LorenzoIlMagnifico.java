@@ -22,14 +22,29 @@ import java.util.Map;
  */
 /*package-local*/ class LorenzoIlMagnifico implements UserInterface, ClientInterface {
 
+    /**
+     * Player's username
+     */
     private String username;
 
+    /**
+     * User Interface
+     */
     private AbstractUserInterface userInterface;
 
+    /**
+     * Client
+     */
     private AbstractClient client;
 
+    /**
+     * Player turn choices
+     */
     private HashMap<String, Object> playerTurnChoices;
 
+    /**
+     * Game instance to manage the logic of the game
+     */
     private Game game;
 
     private List<String> moveMessages;
@@ -48,19 +63,37 @@ import java.util.Map;
         playerTurnChoices = new HashMap<>();
     }
 
+    /**
+     * Method to start the user interface
+     */
     public void start(){
         userInterface.chooseConnectionType();
     }
 
+    /**
+     * Get the player's username
+     * @return
+     */
     @Override
     public String getUsername(){
         return this.username;
     }
 
+    /**
+     * Get the available moves
+     * @return
+     */
     public List<String> getMoveMessages(){
         return this.moveMessages;
     }
 
+    /**
+     * Method to set the network
+     * @param connectionType
+     * @param address
+     * @param port
+     * @throws ConnectionException
+     */
     @Override
     public void setNetworkSettings(ConnectionType connectionType, String address, int port) throws ConnectionException {
         if(connectionType.equals(ConnectionType.SOCKET))
@@ -73,16 +106,31 @@ import java.util.Map;
         userInterface.loginScreen();
     }
 
+    /**
+     * Method to set the player turn
+     * @param operation
+     * @param choice
+     */
     @Override
     public void setPlayerTurnChoices(String operation, Object choice) {
         this.playerTurnChoices.put(operation, choice);
     }
 
+    /**
+     * Method to get the player turn
+     * @return
+     */
     @Override
     public Map<String, Object> getPlayerTurnChoices(){
         return this.playerTurnChoices;
     }
 
+    /**
+     * Method to manage the login of the player
+     * @param username
+     * @param password
+     * @param flag
+     */
     @Override
     public void loginPlayer(String username, String password, boolean flag) {
         try{
@@ -99,6 +147,9 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to join the room of the match
+     */
     @Override
     public void joinRoom(){
         try{
@@ -111,6 +162,10 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to create a new room for the match
+     * @param maxPlayers
+     */
     @Override
     public void createRoom(int maxPlayers) {
         try {
@@ -122,11 +177,19 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to choose the personal board tile
+     * @param personalBoardTileList
+     */
     @Override
     public void choosePersonalBoardTile(List<PersonalBoardTile> personalBoardTileList) {
         userInterface.choosePersonalTile(personalBoardTileList);
     }
 
+    /**
+     * Method to send the personal board tile choice
+     * @param personalBoardTile
+     */
     @Override
     public void sendPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) {
         try{
@@ -136,11 +199,19 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to choose leader cards
+     * @param leaderCards
+     */
     @Override
     public void chooseLeaderCards(List<LeaderCard> leaderCards) {
         userInterface.chooseLeaderCards(leaderCards);
     }
 
+    /**
+     * Method to notify the leader card choice
+     * @param leaderCard
+     */
     @Override
     public void notifyLeaderCardChoice(LeaderCard leaderCard){
         try{
@@ -151,6 +222,13 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to place a family member in a tower
+     * @param familyMemberColor
+     * @param servants
+     * @param towerIndex
+     * @param cellIndex
+     */
     @Override
     public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex) {
         try {
@@ -161,6 +239,11 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to place a family member in the council palace
+     * @param familyMemberColor
+     * @param servants
+     */
     @Override
     public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants) {
         try {
@@ -171,6 +254,12 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to place a family member in the market
+     * @param familyMemberColor
+     * @param servants
+     * @param cellIndex
+     */
     @Override
     public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int cellIndex) {
         try {
@@ -181,6 +270,11 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to place a family member in the harvest simple space
+     * @param familyMemberColor
+     * @param servants
+     */
     @Override
     public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants) {
         try {
@@ -191,6 +285,11 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to place a family member in the harvest extended space
+     * @param familyMemberColor
+     * @param servants
+     */
     @Override
     public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants) {
         try {
@@ -201,6 +300,11 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to place a family member in the production simple space
+     * @param familyMemberColor
+     * @param servants
+     */
     @Override
     public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants) {
         try {
@@ -211,6 +315,11 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to place a family member in the production extended space
+     * @param familyMemberColor
+     * @param servants
+     */
     @Override
     public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants) {
         try {
@@ -221,6 +330,11 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to activate a leader card
+     * @param leaderCardIndex
+     * @param servants
+     */
     @Override
     public void notifyActivateLeader(int leaderCardIndex, int servants) {
         try {
@@ -231,6 +345,10 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to discard a leader card
+     * @param leaderCardIndex
+     */
     @Override
     public void notifyDiscardLeader(int leaderCardIndex) {
         try {
@@ -241,6 +359,10 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to manage the excommunication chocie
+     * @param choice
+     */
     @Override
     public void notifyExcommunicationChoice(boolean choice) {
         try {
@@ -250,33 +372,58 @@ import java.util.Map;
         }
     }
 
+    /**
+     * Method to set the game model
+     * @param game
+     */
     @Override
     public void setGameModel(Game game) {
         this.game = game;
         userInterface.notifyGameStarted();
     }
 
+    /**
+     * Method to get the game model
+     * @return
+     */
     @Override
     public Game getGameModel(){
         return this.game;
     }
 
+    /**
+     * Method to get the player
+     * @return
+     */
     @Override
     public Player getPlayer() {
         return this.game.getPlayer(username);
     }
 
+    /**
+     * Method to notify that the turn has started
+     * @param username
+     * @param seconds
+     */
     @Override
     public void notifyTurnStarted(String username, long seconds) {
         userInterface.turnScreen(username, seconds);
     }
 
+    /**
+     * Method to notify changes in the game model
+     * @param clientUpdatePacket
+     */
     @Override
     public void notifyModelUpdate(ClientUpdatePacket clientUpdatePacket) {
         this.game = clientUpdatePacket.getGame();
         this.moveMessages = clientUpdatePacket.getMessages();
     }
 
+    /**
+     * Method to manage the support to the church
+     * @param flag
+     */
     @Override
     public void supportForTheChurch(boolean flag) {
         userInterface.supportForTheChurch(flag);
@@ -284,11 +431,18 @@ import java.util.Map;
             this.notifyExcommunicationChoice(true);
     }
 
+    /**
+     * Method to notify the end of the game
+     * @param players
+     */
     @Override
     public void notifyEndGame(ServerPlayer[] players) {
         userInterface.notifyEndGame(players);
     }
 
+    /**
+     * Method that notifies the end of the turn
+     */
     @Override
     public void endTurn() {
         try {

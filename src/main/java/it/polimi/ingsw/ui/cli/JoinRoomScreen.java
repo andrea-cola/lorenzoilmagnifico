@@ -3,6 +3,7 @@ package it.polimi.ingsw.ui.cli;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class JoinRoomScreen extends BasicScreen{
 
     private ICallback callback;

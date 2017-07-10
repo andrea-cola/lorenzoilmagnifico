@@ -5,6 +5,9 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * This class represent the dices thrown at the beginning of each turn
+ */
 public class Dice implements Serializable{
 
     /**

@@ -9,6 +9,9 @@ import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
+/**
+ * This class represents the leader effect that performs an harvest/production effect
+ */
 public class LEHarvestProductionSimple extends LeaderEffect{
 
     /**

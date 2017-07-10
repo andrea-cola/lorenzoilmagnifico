@@ -34,6 +34,15 @@ public class InformationChoicesHandler implements InformationCallback {
         return decisions.get(s);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Method to choose the council privilege to get
+     * @param reason
+     * @param councilPrivilege
+     * @return
+     */
+>>>>>>> ed50b6b4e23e79a942ebdcbc978c7b24427c8e32
     @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
@@ -48,31 +57,69 @@ public class InformationChoicesHandler implements InformationCallback {
         return privilegesNeeded;
     }
 
+    /**
+     * Method to choose how to pay a card
+     * @param pointsAndResources
+     * @param militaryPointsGiven
+     * @param militaryPointsNeeded
+     * @return
+     */
     @Override
     public int chooseDoubleCost(PointsAndResources pointsAndResources, int militaryPointsGiven, int militaryPointsNeeded) {
         return (int)decisions.get("double-cost");
     }
 
+    /**
+     * Method to choose what type of conversion run in ExchangeEffect
+     * @param card
+     * @param valuableToPay
+     * @param valuableEarned
+     * @return
+     */
     @Override
     public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned) {
         return (int)decisions.get(card);
     }
 
+    /**
+     * Method to choose the discount
+     * @param reason
+     * @param discounts
+     * @return
+     */
     @Override
     public int choosePickUpDiscounts(String reason, List<PointsAndResources> discounts){
         return (int)decisions.get(reason);
     }
 
+    /**
+     * Method to choose a new card
+     * @param reason
+     * @param developmentCardColors
+     * @param diceValue
+     * @param discount
+     * @return
+     */
     @Override
     public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
         return (DevelopmentCard)decisions.get(reason);
     }
 
+    /**
+     * Method to copy the effect of another leader card (LELorenzoDeMedici effect)
+     * @param reason
+     * @return
+     */
     @Override
     public LeaderCard copyAnotherLeaderCard(String reason) {
         return (LeaderCard)decisions.get(reason);
     }
 
+    /**
+     * Method to choose which family member value increase
+     * @param reason
+     * @return
+     */
     @Override
     public FamilyMemberColor choiceLeaderDice(String reason) {
         return (FamilyMemberColor)decisions.get(reason);

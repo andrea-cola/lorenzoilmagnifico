@@ -24,14 +24,6 @@ public class PersonalBoardTile implements Serializable{
      */
     private Effect harvestEffect;
 
-    public void setProductionEffect(Effect effect){
-        this.productionEffect = effect;
-    }
-
-    public void setHarvestEffect(Effect effect){
-        this.harvestEffect = effect;
-    }
-
     /**
      * Get production immediate effect.
      * @return immediate effect.

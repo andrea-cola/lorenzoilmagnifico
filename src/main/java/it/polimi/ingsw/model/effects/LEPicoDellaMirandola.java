@@ -3,6 +3,9 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.InformationCallback;
 import it.polimi.ingsw.model.Player;
 
+/**
+ * This class represents the leader effect that sets a cost discount for each development card inside the towers
+ */
 public class LEPicoDellaMirandola extends LeaderEffect {
 
     /**
@@ -27,7 +30,7 @@ public class LEPicoDellaMirandola extends LeaderEffect {
     }
 
     /**
-     * This method sets a cost discount for each development card inside the towers.
+     * Method to run the effect of the card.
      * @param player is gaining benefit of the effect.
      */
     @Override
