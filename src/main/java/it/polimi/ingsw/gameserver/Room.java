@@ -403,8 +403,10 @@ public class Room {
     }
 
     public void onSupportToTheChurchChoice(ServerPlayer player, boolean flag){
-        gameManager.applySupportChoice(player, flag);
-        countDownLatch.countDown();
+        if(playerTurn.currentPlayer().getUsername().equals(player.getUsername())){
+            gameManager.applySupportChoice(player, flag);
+            playerTurn.stopTimer();
+        }
     }
 
     /**
@@ -535,13 +537,9 @@ public class Room {
             if(turn % 2 == 0) {
                 for(ServerPlayer player : players){
                     try {
-                        if(gameManager.finalControlsForPeriod(age, player)){
-                            playerTurn = new PlayerTurn(player);
-                            player.supportForTheChurch(true);
-                            playerTurn.startTimer(maxMoveWaitingTime);
-                        }
-                        else
-                            player.supportForTheChurch(false);
+                        playerTurn = new PlayerTurn(player);
+                        player.supportForTheChurch(gameManager.finalControlsForPeriod(age, player));
+                        playerTurn.startTimer(maxMoveWaitingTime);
                     } catch (NetworkException e){
                         Printer.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " won't receive excommunication choice message..");
                     }

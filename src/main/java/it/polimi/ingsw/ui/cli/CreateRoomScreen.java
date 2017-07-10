@@ -8,23 +8,41 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Create room screen.
+ */
 /*package-local*/ class CreateRoomScreen extends BasicScreen{
 
+    /**
+     * Callback interface.
+     */
     private ICallback callback;
 
+    /**
+     * List of messages to be printed.
+     */
     private List<String> cliMessages = new ArrayList<>();
 
+    /**
+     * Keyboard listener.
+     */
     private BufferedReader keyboardReader = new BufferedReader((new InputStreamReader(System.in)));
 
-    CreateRoomScreen(ICallback callback){
+    /**
+     * Class constructor.
+     * @param callback
+     */
+    /*package-local*/ CreateRoomScreen(ICallback callback){
         this.callback = callback;
-
         cliMessages.add("No room available. You need to create a new room.");
         printScreenTitle("CREATE ROOM");
         print(cliMessages);
         createRoom();
     }
 
+    /**
+     * Create room function.
+     */
     private void createRoom(){
         print("Number of player allowed in the room");
         try{
@@ -42,6 +60,9 @@ import java.util.List;
         }
     }
 
+    /**
+     * Callback interface.
+     */
     @FunctionalInterface
     public interface ICallback{
         void createRoom(int maxPlayer);

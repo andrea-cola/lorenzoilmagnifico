@@ -365,7 +365,7 @@ import java.util.*;
     /*package-private*/ void applySupportChoice(ServerPlayer player, boolean flag){
         if(!flag){
             player.getPersonalBoard().getValuables().increase(PointType.VICTORY, this.victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
-            if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
+            if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV") != null && player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
                 player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getEffect().runEffect(player, this.informationChoicesHandler);
             player.getPersonalBoard().getValuables().decrease(PointType.FAITH, player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH));
         } else {
@@ -528,7 +528,7 @@ import java.util.*;
         EnumMap<ResourceType, Integer> totalCardResourcesCost = new EnumMap<>(ResourceType.class);
         for (DevelopmentCard card: player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
             for (Map.Entry<ResourceType, Integer> entry : card.getCost().getResources().entrySet()){
-                totalCardResourcesCost.put(entry.getKey(), totalCardResourcesCost.get(entry.getKey()) + entry.getValue());
+                totalCardResourcesCost.put(entry.getKey(), entry.getValue());
             }
         }
         //decrease victory points

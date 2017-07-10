@@ -3,13 +3,26 @@ package it.polimi.ingsw.ui.cli;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JoinRoomScreen extends BasicScreen{
+/**
+ * Join room screen.
+ */
+/*package-local*/ class JoinRoomScreen extends BasicScreen{
 
+    /**
+     * Interface callback.
+     */
     private ICallback callback;
 
+    /**
+     * Messages.
+     */
     private List<String> cliMessages = new ArrayList<>();
 
-    JoinRoomScreen(ICallback callback) {
+    /**
+     * Class constructor.
+     * @param callback interface.
+     */
+    /*package-local*/ JoinRoomScreen(ICallback callback) {
         this.callback = callback;
 
         cliMessages.add("Joining first room available. Please wait...");

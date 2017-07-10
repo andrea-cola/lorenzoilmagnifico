@@ -9,18 +9,37 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Choose leader card screen.
+ */
 public class ChooseLeaderCardsScreen extends BasicScreen{
 
+    /**
+     * Callback interface.
+     */
     private ICallback callback;
 
+    /**
+     * Leader card to be chosen list.
+     */
     private List<LeaderCard> leaderCards;
 
+    /**
+     * List of messages to be printed.
+     */
     private List<String> cliMessages;
 
+    /**
+     * Keyboard listener.
+     */
     private BufferedReader keyboardReader = new BufferedReader((new InputStreamReader(System.in)));
 
-
-    ChooseLeaderCardsScreen(ICallback callback, List<LeaderCard> leaderCardList) {
+    /**
+     * Class constructor.
+     * @param callback interface.
+     * @param leaderCardList to be chosen.
+     */
+    /*package-local*/ ChooseLeaderCardsScreen(ICallback callback, List<LeaderCard> leaderCardList) {
         this.callback = callback;
 
         cliMessages = new ArrayList<>();
@@ -31,6 +50,9 @@ public class ChooseLeaderCardsScreen extends BasicScreen{
         chooseLeaderCard();
     }
 
+    /**
+     * Print leader cards.
+     */
     private void printLeaderCards(){
         int i = 1;
         for(LeaderCard leaderCard : leaderCards){
@@ -39,6 +61,9 @@ public class ChooseLeaderCardsScreen extends BasicScreen{
         }
     }
 
+    /**
+     * Handle the choice.
+     */
     private void chooseLeaderCard(){
         try {
             int key;
@@ -55,6 +80,9 @@ public class ChooseLeaderCardsScreen extends BasicScreen{
         }
     }
 
+    /**
+     * Callback interface.
+     */
     @FunctionalInterface
     public interface ICallback{
         void sendLeaderCardsChoose(LeaderCard leaderCard);

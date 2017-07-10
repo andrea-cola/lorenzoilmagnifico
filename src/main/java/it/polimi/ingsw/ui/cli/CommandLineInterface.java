@@ -19,6 +19,9 @@ import java.util.Map;
  */
 public class CommandLineInterface extends AbstractUserInterface implements GameScreen.GameCallback, ExcommunicationScreen.ExcommunicationCallback, InformationCallback {
 
+    /**
+     * Keyboard input handler.
+     */
     private class ConsoleListener extends Thread{
 
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
@@ -38,13 +41,17 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
                             throw new WrongCommandException();
                     }
                 } catch (WrongCommandException e){
-                    Printer.printDebugMessage(this.getClass().getSimpleName(), this.getId() + "Wrong command, please retry.");
+                    Printer.printDebugMessage(this.getClass().getSimpleName(), "Wrong command, please retry.");
                 } catch (IOException e){
                     Printer.printDebugMessage(this.getClass().getSimpleName(), "Error while reading from keyboard.");
                     break;
                 }
             }
         }
+
+        /**
+         * Stop the listener.
+         */
         synchronized void pausePoint() {
             while (needToPause) {
                 try {
@@ -93,23 +100,32 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     }
 
     /**
-     * Wake up heyboard listener thread.
+     * Wake up keyboard listener thread.
      */
     private synchronized void wakeUp() {
         needToPause = false;
         this.notifyAll();
     }
 
+    /**
+     * Choose connection type.
+     */
     @Override
     public void chooseConnectionType(){
         screen = new ChooseConnectionScreen(getClient()::setNetworkSettings);
     }
 
+    /**
+     * Run login screen.
+     */
     @Override
     public void loginScreen() {
         screen = new LoginSignInScreen(getClient()::loginPlayer);
     }
 
+    /**
+     * Run join room screen.
+     */
     @Override
     public void joinRoomScreen() {
         screen = new JoinRoomScreen(getClient()::joinRoom);
@@ -117,6 +133,9 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         screen = null;
     }
 
+    /**
+     * Run room create screen.
+     */
     @Override
     public void createRoomScreen(){
         screen = new CreateRoomScreen(getClient()::createRoom);
@@ -124,16 +143,27 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         screen = null;
     }
 
+    /**
+     * Run choose personal tile method.
+     * @param personalBoardTileList to choose.
+     */
     @Override
     public void choosePersonalTile(List<PersonalBoardTile> personalBoardTileList) {
         screen = new ChoosePersonalBoardTileScreen(getClient()::sendPersonalBoardTileChoice, personalBoardTileList);
     }
 
+    /**
+     * Run choose leader cards method.
+     * @param leaderCards to choose.
+     */
     @Override
     public void chooseLeaderCards(List<LeaderCard> leaderCards) {
         screen = new ChooseLeaderCardsScreen(getClient()::notifyLeaderCardChoice, leaderCards);
     }
 
+    /**
+     * Notify game started.
+     */
     @Override
     public void notifyGameStarted() {
         ConsoleListener consoleListener = new ConsoleListener();
@@ -142,6 +172,11 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         Printer.printStandardMessage("Game started.");
     }
 
+    /**
+     * Run turn screen.
+     * @param username of the player has turn token.
+     * @param seconds of the turn.
+     */
     @Override
     public void turnScreen(String username, long seconds) {
         Printer.printStandardMessage("\n\n[MOVES IN THE LAST TURN]");
@@ -164,6 +199,12 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         }
     }
 
+    /**
+     * Choose council privilege.
+     * @param reason of the choice.
+     * @param councilPrivilege chosen.
+     * @return list of privileges.
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
@@ -200,6 +241,13 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         return privilegeArraysList;
     }
 
+    /**
+     * Choose double cost
+     * @param cost chosen
+     * @param militaryPointsToPay
+     * @param militaryPointsNeeded
+     * @return choice.
+     */
     @Override
     public int chooseDoubleCost(PointsAndResources cost, int militaryPointsToPay, int militaryPointsNeeded){
         pause();
@@ -221,6 +269,13 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         return key;
     }
 
+    /**
+     * Choose exchange effect to apply
+     * @param card selected
+     * @param valuableToPay array
+     * @param valuableEarned array
+     * @return choice.
+     */
     @Override
     public int chooseExchangeEffect(String card, PointsAndResources[] valuableToPay, PointsAndResources[] valuableEarned) {
         pause();
@@ -244,6 +299,12 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         return key;
     }
 
+    /**
+     * Choose discount.
+     * @param reason of the choice.
+     * @param discounts chosen.
+     * @return choice.
+     */
     @Override
     public int choosePickUpDiscounts(String reason, List<PointsAndResources> discounts) {
         pause();
@@ -266,6 +327,14 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         return key;
     }
 
+    /**
+     * Choose new card.
+     * @param reason of the choice.
+     * @param developmentCardColors available.
+     * @param diceValue of the choice.
+     * @param discount on the card color.
+     * @return card choice.
+     */
     @Override
     public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
         pause();
@@ -329,6 +398,11 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         return card;
     }
 
+    /**
+     * Handle Lorenzo De Medici effect.
+     * @param reason of the choice.
+     * @return card choice.
+     */
     @Override
     public LeaderCard copyAnotherLeaderCard(String reason) {
         pause();
@@ -354,6 +428,11 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         return leaderCards.get(key);
     }
 
+    /**
+     * Handle Montefeltro effect.
+     * @param reason of the choice.
+     * @return family member color choice.
+     */
     @Override
     public FamilyMemberColor choiceLeaderDice(String reason) {
         pause();
@@ -378,6 +457,10 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         return FamilyMemberColor.values()[key];
     }
 
+    /**
+     * Handle excommunication logic on the client.
+     * @param flag that indicates the excommunication status.
+     */
     @Override
     public void supportForTheChurch(boolean flag) {
         if(flag){
@@ -387,6 +470,10 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         }
     }
 
+    /**
+     * Notify game ended.
+     * @param ranking of the game.
+     */
     @Override
     public void notifyEndGame(ServerPlayer[] ranking) {
         for(int i  = 0; i < ranking.length; i++){
@@ -395,12 +482,18 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         Printer.printStandardMessage("Game ended.");
     }
 
+    /**
+     * Show main board.
+     */
     @Override
     public void showMainBoard(){
         Game game = getClient().getGameModel();
         Printer.printInformationMessage(game.toString());
     }
 
+    /**
+     * Show personal boards.
+     */
     @Override
     public void showPersonalBoards() {
         Game game = getClient().getGameModel();
@@ -411,6 +504,13 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
                 Printer.printInformationMessage(game.getPlayer(username).toStringSmall());
     }
 
+    /**
+     * Set family member in tower.
+     * @param familyMemberColor placed.
+     * @param servants chosen.
+     * @param towerIndex of tower.
+     * @param cellIndex of cell in the tower.
+     */
     @Override
     public void setFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex) {
         Player player = getClient().getPlayer();
@@ -428,6 +528,11 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         gameScreen = new TurnScreen(this, moveDone);
     }
 
+    /**
+     * Set family member in council.
+     * @param familyMemberColor placed.
+     * @param servants chosen.
+     */
     @Override
     public void setFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants){
         Player player = getClient().getPlayer();
@@ -442,6 +547,12 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         gameScreen = new TurnScreen(this, moveDone);
     }
 
+    /**
+     * Set family member in market.
+     * @param familyMemberColor placed.
+     * @param servants chosen.
+     * @param marketIndex in the market.
+     */
     @Override
     public void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex) {
         Player player = getClient().getPlayer();
@@ -456,6 +567,11 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         gameScreen = new TurnScreen(this, moveDone);
     }
 
+    /**
+     * Set family member in production simple.
+     * @param familyMemberColor placed.
+     * @param servants chosen.
+     */
     @Override
     public void setFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
@@ -470,6 +586,11 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         gameScreen = new TurnScreen(this, moveDone);
     }
 
+    /**
+     * Set family member in harvest simple.
+     * @param familyMemberColor placed.
+     * @param servants chosen.
+     */
     @Override
     public void setFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
@@ -484,6 +605,11 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         gameScreen = new TurnScreen(this, moveDone);
     }
 
+    /**
+     * Set family member in production extended.
+     * @param familyMemberColor placed.
+     * @param servants chosen.
+     */
     @Override
     public void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
@@ -498,6 +624,11 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         gameScreen = new TurnScreen(this, moveDone);
     }
 
+    /**
+     * Set family member in harvest extended.
+     * @param familyMemberColor placed.
+     * @param servants chosen.
+     */
     @Override
     public void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
@@ -512,6 +643,9 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         gameScreen = new TurnScreen(this, moveDone);
     }
 
+    /**
+     * Discard leader card.
+     */
     @Override
     public void discardLeader(String leaderName) {
         Player player = getClient().getPlayer();
@@ -527,16 +661,26 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         gameScreen = new TurnScreen(this, moveDone);
     }
 
+    /**
+     * Notify excommunicaiton choice.
+     * @param choice about excommunication.
+     */
     @Override
     public void notifyExcommunicationChoice(boolean choice) {
         getClient().notifyExcommunicationChoice(choice);
     }
 
+    /**
+     * Notify end turn.
+     */
     @Override
     public void notifyEndTurn() {
         getClient().endTurn();
     }
 
+    /**
+     * Activate leader.
+     */
     @Override
     public void activateLeader(String leaderName, int servants) {
         Player player = getClient().getPlayer();
@@ -556,6 +700,12 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         gameScreen = new TurnScreen(this, moveDone);
     }
 
+    /**
+     * Determinates if a card can be taken or not.
+     * @param cell of the tower.
+     * @param discount applied.
+     * @return flag.
+     */
     private boolean isSelectable(TowerCell cell, PointsAndResources discount){
         if (cell.getDevelopmentCard().getMultipleRequisiteSelectionEnabled()){
             if (getClient().getPlayer().getPersonalBoard().getValuables().getPoints().get(PointType.MILITARY) >= cell.getDevelopmentCard().getMilitaryPointsRequired()){

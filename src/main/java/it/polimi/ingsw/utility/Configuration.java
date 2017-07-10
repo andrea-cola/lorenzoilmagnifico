@@ -34,6 +34,9 @@ public class Configuration implements Serializable{
      */
     private int[] victoryPointsForBlueCards;
 
+    /**
+     * Array of victory points given by faith points.
+     */
     private int[] victoryPointsBonusForFaith;
 
     /**

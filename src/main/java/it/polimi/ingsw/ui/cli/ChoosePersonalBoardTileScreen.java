@@ -9,18 +9,37 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Choose personal board tile screen.
+ */
 public class ChoosePersonalBoardTileScreen extends BasicScreen{
 
+    /**
+     * Callback interface.
+     */
     private ICallback callback;
 
+    /**
+     * Personal tiles list.
+     */
     private List<PersonalBoardTile> personalBoardTileList;
 
+    /**
+     * Messages to be printed.
+     */
     private List<String> cliMessages = new ArrayList<>();
 
+    /**
+     * Keyboard handler.
+     */
     private BufferedReader keyboardReader = new BufferedReader((new InputStreamReader(System.in)));
 
-
-    ChoosePersonalBoardTileScreen(ICallback callback, List<PersonalBoardTile> personalBoardTileList){
+    /**
+     * Class constructor.
+     * @param callback interface.
+     * @param personalBoardTileList to be chosen.
+     */
+    /*package-local*/ ChoosePersonalBoardTileScreen(ICallback callback, List<PersonalBoardTile> personalBoardTileList){
         this.callback = callback;
 
         cliMessages.add("Choose your personal board tile.");
@@ -30,6 +49,9 @@ public class ChoosePersonalBoardTileScreen extends BasicScreen{
         choosePersonalBoardTile();
     }
 
+    /**
+     * Print all tiles.
+     */
     private void printTiles(){
         int i = 1;
         for(PersonalBoardTile personalBoardTile : personalBoardTileList){
@@ -38,6 +60,9 @@ public class ChoosePersonalBoardTileScreen extends BasicScreen{
         }
     }
 
+    /**
+     * Handle personal board tile choice.
+     */
     private void choosePersonalBoardTile(){
         try {
             int key;
@@ -54,6 +79,9 @@ public class ChoosePersonalBoardTileScreen extends BasicScreen{
         }
     }
 
+    /**
+     * Callback interface.
+     */
     @FunctionalInterface
     public interface ICallback{
         void sendPersonalBoardTileChoice(PersonalBoardTile personalBoardTile);
