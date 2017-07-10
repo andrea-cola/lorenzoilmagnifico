@@ -128,7 +128,7 @@ public class DevelopmentCard implements Serializable{
 
     /**
      * Get the permanent effect of the card.
-     * @return
+     * @return the permanent effect
      */
     public Effect getPermanentEffect(){
         return this.permanentEffect;
@@ -152,8 +152,8 @@ public class DevelopmentCard implements Serializable{
 
     /**
      * This method is used to pay the card
-     * @param player
-     * @param informationCallback
+     * @param player the player that wants to perform the action
+     * @param informationCallback interface to manage actions that requires multiple interactions with the user
      */
     public void payCost(Player player, InformationCallback informationCallback){
         if (multipleRequisiteSelectionEnabled) {
@@ -179,7 +179,7 @@ public class DevelopmentCard implements Serializable{
 
     /**
      * This method is used to check if there are no resources to pay for the card
-     * @return
+     * @return true if resources are null, false if there is something greater than 0
      */
     private boolean checkNullResources(){
         for(Map.Entry<ResourceType, Integer> entry : cost.getResources().entrySet())

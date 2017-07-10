@@ -26,7 +26,7 @@ public class ExcommunicationCard implements Serializable{
 
     /**
      * Method to get the ID of the card
-     * @return
+     * @return the ID
      */
     public int getCardID(){
         return this.cardID;
@@ -34,7 +34,7 @@ public class ExcommunicationCard implements Serializable{
 
     /**
      * Method to get the period of the card
-     * @return
+     * @return the period
      */
     public int getPeriod(){
         return this.period;
@@ -42,7 +42,7 @@ public class ExcommunicationCard implements Serializable{
 
     /**
      * Method to set the excommunication effect of the card
-     * @param effect
+     * @param effect the excommunication effect of the card
      */
     public void setEffect(ExcommunicationEffect effect){
         this.effect = effect;
@@ -50,7 +50,7 @@ public class ExcommunicationCard implements Serializable{
 
     /**
      * Method to get the excommunication effect of the card
-     * @return
+     * @return the excommunication effect
      */
     public ExcommunicationEffect getEffect(){
         return this.effect;

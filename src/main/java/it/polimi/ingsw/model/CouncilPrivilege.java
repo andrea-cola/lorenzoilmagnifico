@@ -21,7 +21,7 @@ public class CouncilPrivilege implements Serializable{
 
     /**
      * Class constructor
-     * @param numberOfCouncilPrivileges
+     * @param numberOfCouncilPrivileges The number of council privileges the player can choose
      */
     public CouncilPrivilege(int numberOfCouncilPrivileges){
         this.numberOfCouncilPrivileges = numberOfCouncilPrivileges;
@@ -50,7 +50,7 @@ public class CouncilPrivilege implements Serializable{
 
     /**
      * This method returns the number of council privileges
-     * @return
+     * @return the number of council privileges
      */
     public int getNumberOfCouncilPrivileges(){
         return this.numberOfCouncilPrivileges;
@@ -58,7 +58,7 @@ public class CouncilPrivilege implements Serializable{
 
     /**
      * This method returns the array of privileges
-     * @return
+     * @return the array of council privileges
      */
     public Privilege[] getPrivileges(){
         return this.privileges;
@@ -71,8 +71,8 @@ public class CouncilPrivilege implements Serializable{
 
     /**
      * This method is used to choose the council privilege
-     * @param player
-     * @param informationCallback
+     * @param player the player that wants to perform the action
+     * @param informationCallback interface to manage actions that requires multiple interactions with the user
      */
     public void chooseCouncilPrivilege(Player player, InformationCallback informationCallback){
         List<Privilege> choices = informationCallback.chooseCouncilPrivilege("council-privilege", this);

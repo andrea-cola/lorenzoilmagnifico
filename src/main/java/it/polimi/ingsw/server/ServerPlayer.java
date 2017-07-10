@@ -34,20 +34,56 @@ public abstract class ServerPlayer extends Player{
         this.room = room;
     }
 
+    /**
+     * Method to send Game Info
+     * @param game
+     * @throws NetworkException
+     */
     public abstract void sendGameInfo(Game game) throws NetworkException;
 
     public void ping() throws RemoteException{ }
 
+    /**
+     * Method to send Personal tile
+     * @param personalBoardTiles
+     * @throws NetworkException
+     */
     public abstract void sendPersonalTile(ArrayList<PersonalBoardTile> personalBoardTiles) throws NetworkException;
 
+    /**
+     * Method to send the leader cards
+     * @param leaderCards
+     * @throws NetworkException
+     */
     public abstract void sendLeaderCards(ArrayList<LeaderCard> leaderCards) throws NetworkException;
 
+    /**
+     * Method to notify that a new turn has started
+     * @param username the username of the player that is performing the turn
+     * @param seconds the time available for the player to perform the turn
+     * @throws NetworkException
+     */
     public abstract void notifyTurnStarted(String username, long seconds) throws NetworkException;
 
+    /**
+     * Method to send game model updates
+     * @param clientUpdatePacket
+     * @throws NetworkException
+     */
     public abstract void sendGameModelUpdate(ClientUpdatePacket clientUpdatePacket) throws NetworkException;
 
+    /**
+     * Method to manage the support for the church process
+     * @param flag
+     * @throws NetworkException
+     */
     public abstract void supportForTheChurch(boolean flag) throws NetworkException;
 
+    /**
+     * Method to notify the end of the game
+     * @param ranking
+     * @throws NetworkException
+     */
     public abstract void notifyEndGame(ServerPlayer[] ranking) throws NetworkException;
 
 }

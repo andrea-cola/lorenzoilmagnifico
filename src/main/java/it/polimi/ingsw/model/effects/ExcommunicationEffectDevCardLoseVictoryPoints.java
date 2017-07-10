@@ -16,7 +16,6 @@ public class ExcommunicationEffectDevCardLoseVictoryPoints extends Excommunicati
      */
     private PointsAndResources cardValuables;
 
-
     /**
      * Class constructor
      */
@@ -24,6 +23,9 @@ public class ExcommunicationEffectDevCardLoseVictoryPoints extends Excommunicati
         super.setEffectType(this.getClass().getSimpleName());
     }
 
+    public void setCardValuables(PointsAndResources r){
+        this.cardValuables = r;
+    }
     /**
      * Method to run the effect of the card
      */

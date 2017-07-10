@@ -176,7 +176,7 @@ public class ClientCommunication {
 
 
     /**
-     * This method handles personal board tile request from server
+     * This method handles personal board tile request
      */
     @SuppressWarnings("unchecked")
     private void getPersonalTile() {
@@ -201,9 +201,9 @@ public class ClientCommunication {
     }
 
     /**
-     * This method notifies the personal board tile choice to the server
-     * @param personalBoardTile
-     * @throws NetworkException
+     * This method notifies the personal board tile choice
+     * @param personalBoardTile the personal board tile choosen
+     * @throws NetworkException if error occurs during network communication
      */
     @SuppressWarnings("Duplicates")
     public void notifyPersonalBoardTileChoice(PersonalBoardTile personalBoardTile) throws NetworkException{
@@ -231,8 +231,8 @@ public class ClientCommunication {
 
     /**
      * This method notifies the leader card choice to the server
-     * @param leaderCard
-     * @throws NetworkException
+     * @param leaderCard the leader card choosen
+     * @throws NetworkException if error occurs during network communication
      */
     @SuppressWarnings("Duplicates")
     public void notifyLeaderCardChoice(LeaderCard leaderCard) throws NetworkException{
@@ -246,7 +246,7 @@ public class ClientCommunication {
     }
 
     /**
-     * This method notifies that the turn started
+     * This method notifies that the turn started for a player
      */
     public void notifyTurnStarted(){
         try{
@@ -272,12 +272,12 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for a family member inside the tower
-     * @param familyMemberColor
-     * @param servants
-     * @param towerIndex
-     * @param cellIndex
-     * @param playerTurnChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member used
+     * @param servants the number of servants to perform the action
+     * @param towerIndex the number of the tower
+     * @param cellIndex the number of the cell
+     * @param playerTurnChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
      */
     public void notifySetFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex,
                                              int cellIndex, HashMap<String, Object> playerTurnChoices) throws NetworkException{
@@ -297,10 +297,10 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for a family member inside the council
-     * @param familyMemberColor
-     * @param servants
-     * @param playerTurnChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member used
+     * @param servants the number of servants used to perform the action
+     * @param playerTurnChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
      */
     public void notifySetFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants,
                                                HashMap<String, Object> playerTurnChoices) throws NetworkException{
@@ -318,11 +318,11 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for a family member inside the market
-     * @param familyMemberColor
-     * @param servants
-     * @param marketIndex
-     * @param playerTurnChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member used
+     * @param servants the number of servants used to perform the action
+     * @param marketIndex the index of the market cell
+     * @param playerTurnChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
      */
     public void notifySetFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex,
                                               HashMap<String, Object> playerTurnChoices) throws NetworkException{
@@ -341,10 +341,10 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for a family member inside the harvest simple
-     * @param familyMemberColor
-     * @param servants
-     * @param playerTurnChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member used
+     * @param servants the number of servants used to perform the action
+     * @param playerTurnChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
      */
     public void notifySetFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants,
                                                      HashMap<String, Object> playerTurnChoices) throws NetworkException{
@@ -362,10 +362,10 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for a family member inside the production simple space
-     * @param familyMemberColor
-     * @param servants
-     * @param playerTurnChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member used
+     * @param servants the number of servants used to perform the action
+     * @param playerTurnChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
      */
     public void notifySetFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants,
                                                         HashMap<String, Object> playerTurnChoices) throws NetworkException{
@@ -383,10 +383,10 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for a family member inside the harvest extended space
-     * @param familyMemberColor
-     * @param servants
-     * @param playerTurnChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member used
+     * @param servants the number of servants used to perform the action
+     * @param playerTurnChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
      */
     public void notifySetFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants,
                                                        HashMap<String, Object> playerTurnChoices) throws NetworkException{
@@ -404,10 +404,10 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for a family member inside the production extended space
-     * @param familyMemberColor
-     * @param servants
-     * @param playerTurnChoices
-     * @throws NetworkException
+     * @param familyMemberColor the color of the family member used
+     * @param servants the number of servants used to perform the action
+     * @param playerTurnChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
      */
     public void notifySetFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants,
                                                           HashMap<String, Object> playerTurnChoices) throws NetworkException{
@@ -425,10 +425,10 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for a leader card when it is activated
-     * @param leaderCardIndex
-     * @param servants
-     * @param playerTurnChoices
-     * @throws NetworkException
+     * @param leaderCardIndex the index of the leadercard inside the personal leader card deck of the player
+     * @param servants the number of servants used to perform the action
+     * @param playerTurnChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
      */
     public void activateLeader(int leaderCardIndex, int servants, HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try {
@@ -445,9 +445,9 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for a leader card when it is discarded
-     * @param leaderCardIndex
-     * @param playerTurnChoices
-     * @throws NetworkException
+     * @param leaderCardIndex the index of the leadercard inside the personal leader card deck of the player
+     * @param playerTurnChoices to communicate to the server the player's choices
+     * @throws NetworkException if error occurs during network communication
      */
     public void discardLeader(int leaderCardIndex, HashMap<String, Object> playerTurnChoices) throws NetworkException{
         try{
@@ -463,8 +463,8 @@ public class ClientCommunication {
 
     /**
      * Method to update the objectOutputStream for the support for the church
-     * @param flag
-     * @throws NetworkException
+     * @param flag to decision to support the church or not
+     * @throws NetworkException if error occurs during network communication
      */
     public void notifySupportForTheChurch(boolean flag) throws NetworkException{
         try{
