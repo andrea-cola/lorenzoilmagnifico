@@ -163,12 +163,12 @@ public class Room {
 
     /**
      * This method is used to place a family member inside a tower
-     * @param player
-     * @param familyMemberColor
-     * @param servants
-     * @param towerIndex
-     * @param cellIndex
-     * @param playerChoices
+     * @param player the player that is performing the action
+     * @param familyMemberColor the color of the family member used to perform the action
+     * @param servants the number of servants used to perform the action
+     * @param towerIndex the index of the tower
+     * @param cellIndex the index of the cell
+     * @param playerChoices to communicate to the server the player's choices
      */
     public void setFamilyMemberInTower(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                        int towerIndex, int cellIndex, Map<String, Object> playerChoices){
@@ -195,10 +195,10 @@ public class Room {
 
     /**
      * This method is used to place a family member inside the council palace
-     * @param player
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
+     * @param player the player that is performing the action the action
+     * @param familyMemberColor the color of the family member used to perform the action
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player choice
      */
     public void setFamilyMemberInCouncil(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                          Map<String, Object> playerChoices){
@@ -217,11 +217,11 @@ public class Room {
 
     /**
      * This method is used to place a family member inside the market
-     * @param player
-     * @param familyMemberColor
-     * @param servants
-     * @param marketCell
-     * @param playerChoices
+     * @param player the player that is performing the action the action
+     * @param familyMemberColor the color of the family member used to perform the action
+     * @param servants the number of servants used to perform the action
+     * @param marketCell the index of the cell of the market
+     * @param playerChoices to communicate to the server the player choice
      */
     public void setFamilyMemberInMarket(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                         int marketCell, Map<String, Object> playerChoices){
@@ -239,10 +239,10 @@ public class Room {
 
     /**
      * This method is used to place a family member inside the harvest simple space
-     * @param player
-     * @param familyMemberColor
-     * @param servants
-     * @param playerChoices
+     * @param player the player that is performing the action the action
+     * @param familyMemberColor the color of the family member used to perform the action
+     * @param servants the number of servants used to perform the action
+     * @param playerChoices to communicate to the server the player choice
      */
     public void setFamilyMemberInHarvestSimple(ServerPlayer player, FamilyMemberColor familyMemberColor, int servants,
                                                Map<String, Object> playerChoices){
