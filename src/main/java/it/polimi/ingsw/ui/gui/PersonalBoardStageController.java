@@ -71,11 +71,6 @@ public class PersonalBoardStageController {
         setDevelopmentCard();
     }
 
-    @FXML
-    private void initialize() {
-        System.out.println("started!");
-    }
-
     private void cardOnMousePressed(ImageView card){
         card.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -139,7 +134,7 @@ public class PersonalBoardStageController {
         }
         if(!player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).isEmpty()){
             int size = player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).size();
-            if(size > 0 &&  player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE) != null) {
+            if(size > 0 &&  player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).get(0)!= null) {
                 StringBuilder path = new StringBuilder();
                 path.append("images/developmentCard/devcards_f_en_c_");
                 path.append(player.getPersonalBoard().getCards(DevelopmentCardColor.BLUE).get(0).getId());

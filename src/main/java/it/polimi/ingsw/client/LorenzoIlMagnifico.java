@@ -140,10 +140,10 @@ import java.util.Map;
             this.username = username;
             userInterface.joinRoomScreen();
         }catch (LoginException e) {
-            Printer.printDebugMessage(this.getClass().getSimpleName(), e.getError().toString());
+            userInterface.showGameException(e.getError().toString());
             userInterface.loginScreen();
         }catch (NetworkException e){
-            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send request.");
+            userInterface.showGameException("Cannot send request.");
         }
     }
 
@@ -155,10 +155,10 @@ import java.util.Map;
         try{
             client.joinRoom();
         }catch (RoomException e) {
-            Printer.printStandardMessage("No rooms available. Create new one.");
+            userInterface.showGameException("No rooms available, create new one.");
             userInterface.createRoomScreen();
         } catch (NetworkException e){
-            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send join room request." + e.getMessage());
+            userInterface.showGameException("Cannot send join room request." + e.getMessage());
         }
     }
 
@@ -171,9 +171,9 @@ import java.util.Map;
         try {
             client.createNewRoom(maxPlayers);
         } catch (RoomException e) {
-            Printer.printDebugMessage("You're added in another room created by other player meanwhile.");
+            userInterface.showGameException("You're added in another room created by other player meanwhile.");
         } catch (NetworkException e){
-            Printer.printDebugMessage(this.getClass().getSimpleName(), "Cannot send create room request.");
+            userInterface.showGameException("Cannot send create room request.");
         }
     }
 

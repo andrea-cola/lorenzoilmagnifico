@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ui.gui;
 
+import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.LoginException;
 import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
@@ -33,7 +34,7 @@ public class LoginStage extends JFXPanel {
      */
     private String username;
     private String password;
-    private Label message;
+    private MainBoardStage.CallbackInterface mainboardCallback;
 
     /**
      * Constants
@@ -49,14 +50,12 @@ public class LoginStage extends JFXPanel {
      * Constructor
      * @param callback
      */
-    LoginStage(CallbackInterface callback) {
+    LoginStage(CallbackInterface callback, MainBoardStage.CallbackInterface mainboardCallback) {
         this.callback = callback;
+        this.mainboardCallback = mainboardCallback;
 
         Label login = new Label("LOGIN");
         login.setAlignment(Pos.CENTER);
-        message = new Label("Your data are not valid");
-        message.setVisible(false);
-        message.setAlignment(Pos.CENTER);
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         Label userLabel = new Label("USERNAME");
@@ -78,14 +77,12 @@ public class LoginStage extends JFXPanel {
         loginButton.setAlignment(Pos.CENTER);
 
         loginButton.setOnAction(event -> {
-            message.setVisible(true);
             if(userField.getText() != "" || passwordField.getText() != "" ) {
                 username = userField.getText();
                 password = passwordField.getText();
                 login();
-                this.hide();
             }else{
-                message.setVisible(true);
+                this.mainboardCallback.showGameException("Your data are not valid");
             }
         });
 
@@ -93,13 +90,12 @@ public class LoginStage extends JFXPanel {
         signInButton.setAlignment(Pos.CENTER);
         signInButton.setOnAction((ActionEvent event) -> {
             if(!userField.getText().equals("") && passwordField.getText() != "" ) {
-                message.setVisible(true);
                 username = userField.getText();
                 password = passwordField.getText();
                 signIn();
                 setVisible(false);
             }else {
-                message.setVisible(true);
+                this.mainboardCallback.showGameException("Your data are not valid");
             }
         });
 
@@ -109,7 +105,6 @@ public class LoginStage extends JFXPanel {
             public void handle(ActionEvent e) {
                 userField.clear();
                 passwordField.clear();
-                message.setVisible(true);
             }
         });
 
@@ -118,7 +113,7 @@ public class LoginStage extends JFXPanel {
         hBox.setAlignment(Pos.CENTER);
         VBox vBox = new VBox(VBOX_SPACING);
         vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(login, grid, message, hBox);
+        vBox.getChildren().addAll(login, grid, hBox);
         BorderPane root = new BorderPane();
         root.setCenter(vBox);
         root.setMargin(vBox, new Insets(INSETS));
@@ -130,22 +125,18 @@ public class LoginStage extends JFXPanel {
 
 
     private void login() {
-        System.out.println(username + " " + password );
         try {
             this.callback.loginPlayer(username, password, false);
         } catch (LoginException e) {
-            message.setText("Your username or password are not correct");
-            message.setVisible(true);
+            this.mainboardCallback.showGameException(e.getError().toString());
         }
     }
 
     private void signIn() {
-        System.out.println(username + " " + password );
         try {
             this.callback.loginPlayer(username, password, true);
         } catch (LoginException e) {
-            message.setText("Your username or password are not correct");
-            message.setVisible(true);
+            this.mainboardCallback.showGameException(e.getError().toString());
         }
     }
 

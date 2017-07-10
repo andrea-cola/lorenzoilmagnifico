@@ -49,7 +49,6 @@ public class ChooseLeaderCardStage extends JFXPanel{
         int i=0;
         for (LeaderCard tmp : leaderCardList) {
             String name = tmp.getLeaderCardName();
-            System.out.println(tmp.getLeaderCardName());
 
             String[] parts = name.split(" ");
             StringBuilder str = new StringBuilder();
@@ -92,7 +91,6 @@ public class ChooseLeaderCardStage extends JFXPanel{
     private void sendLeader(){
         for(LeaderCard tmp : leaderCardList){
             if(myName == tmp.getLeaderCardName()){
-                System.out.println("NAME = " + myName);
                 this.callback.sendLeaderCardChoice(tmp);
             }
         }

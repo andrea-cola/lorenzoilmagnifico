@@ -169,12 +169,13 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     Color color = stringToColor(name[1]);
                     circleProductionSimple.setFill(color);
                     try {
-                        game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(), informationCallback);
+                        this.client.getPlayerTurnChoices().clear();
+                        game.placeFamilyMemberInsideProductionSimpleSpace(player, getMemberColor(color), servantsToSpend(), informationCallback);
                         client.notifySetFamilyMemberInProductionSimple(getMemberColor(color), servantsToSpend());
                         this.callback.setUsedMember(true);
                         this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException(e.getMessage());
+                        callback.showGameException(e.getError().toString());
                         circleProductionSimple.setDisable(false);
                         circleProductionSimple.setFill(Color.AQUA);
                     }
@@ -200,12 +201,13 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     Color color = stringToColor(name[1]);
                     circleHarvestSimple.setFill(color);
                     try {
+                        this.client.getPlayerTurnChoices().clear();
                         game.placeFamilyMemberInsideHarvestSimpleSpace(player, getMemberColor(color), servantsToSpend(), informationCallback);
                         client.notifySetFamilyMemberInHarvestSimple(getMemberColor(color), servantsToSpend());
                         this.callback.setUsedMember(true);
                         this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException(e.getMessage());
+                        callback.showGameException(e.getError().toString());
                         circleHarvestSimple.setDisable(false);
                         circleHarvestSimple.setFill(Color.AQUA);
                     }
@@ -248,12 +250,13 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     circleCouncil54.setFill(color);
                     circleCouncil54.setDisable(true);
                     try {
+                        this.client.getPlayerTurnChoices().clear();
                         game.placeFamilyMemberInsideCouncilPalace(player, getMemberColor(color), servantsToSpend(), informationCallback);
                         client.notifySetFamilyMemberInCouncil(getMemberColor(color), servantsToSpend());
                         this.callback.setUsedMember(true);
                         this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException(e.getMessage());
+                        callback.showGameException(e.getError().toString());
                         circleCouncil54.setDisable(false);
                         circleCouncil54.setFill(Color.AQUA);
                     }
@@ -301,12 +304,13 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     Color color = stringToColor(name[1]);
                     circleProductionExtended.setFill(color);
                     try {
+                        this.client.getPlayerTurnChoices().clear();
                         game.placeFamilyMemberInsideProductionExtendedSpace(player, getMemberColor(color), servantsToSpend(), informationCallback);
                         client.notifySetFamilyMemberInProductionExtended(getMemberColor(color), servantsToSpend());
                         this.callback.setUsedMember(true);
                         this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException(e.getMessage());
+                        callback.showGameException(e.getError().toString());
                         circleProductionExtended.setDisable(false);
                         circleProductionExtended.setFill(Color.AQUA);
                     }
@@ -334,12 +338,13 @@ public class LeftPaneController implements LeftPaneSettigs  {
                     Color color = stringToColor(name[1]);
                     circleHarvestExtended.setFill(color);
                     try {
+                        this.client.getPlayerTurnChoices().clear();
                         game.placeFamilyMemberInsideHarvestExtendedSpace(player, getMemberColor(color), servantsToSpend(), informationCallback);
                         client.notifySetFamilyMemberInHarvestExtended(getMemberColor(color), servantsToSpend());
                         this.callback.setUsedMember(true);
                         this.callback.updateMainBoard();
                     } catch (GameException e) {
-                        callback.showGameException(e.getMessage());
+                        callback.showGameException(e.getError().toString());
                         circleHarvestExtended.setDisable(false);
                         circleHarvestExtended.setFill(Color.AQUA);
                     }
@@ -662,12 +667,13 @@ public class LeftPaneController implements LeftPaneSettigs  {
                 Color color = stringToColor(name[1]);
                 target.setFill(color);
                 try {
+                    this.client.getPlayerTurnChoices().clear();
                     game.placeFamilyMemberInsideMarket(player, getMemberColor(color), servantsToSpend(), index, informationCallback);
                     client.notifySetFamilyMemberInMarket(getMemberColor(color), servantsToSpend(), index);
                     this.callback.setUsedMember(true);
                     this.callback.updateMainBoard();
                 } catch (GameException e) {
-                    callback.showGameException(e.getMessage());
+                    callback.showGameException(e.getError().toString());
                     target.setDisable(false);
                     target.setFill(Color.AQUA);
                 }
@@ -691,12 +697,13 @@ public class LeftPaneController implements LeftPaneSettigs  {
                 card.setVisible(false);
                 target.setDisable(true);
                 try {
+                    this.client.getPlayerTurnChoices().clear();
                     this.game.pickupDevelopmentCardFromTower(player, getMemberColor(color), servantsToSpend(), tower, towerCell, informationCallback);
                     this.client.notifySetFamilyMemberInTower(getMemberColor(color), servantsToSpend(), tower, towerCell);
                     this.callback.setUsedMember(true);
                     this.callback.updateMainBoard();
                 } catch (GameException e) {
-                    this.callback.showGameException(e.getMessage());
+                    this.callback.showGameException(e.getError().toString());
                     card.setVisible(true);
                     target.setDisable(false);
                     target.setFill(Color.AQUA);

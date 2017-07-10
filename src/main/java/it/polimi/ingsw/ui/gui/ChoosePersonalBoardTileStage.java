@@ -90,7 +90,6 @@ import java.util.List;
     private void choosePersonalTile() {
         for (PersonalBoardTile tmp : personalBoardTileList) {
             if (choice == tmp.getPersonalBoardID()) {
-                System.out.println("id chosen :" + tmp.getPersonalBoardID());
                 this.callback.sendPersonalBoardTileChoice(tmp);
             }
         }

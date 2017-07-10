@@ -27,11 +27,13 @@ public class CreateRoomStage extends JFXPanel{
     private final static int INSETS = 20;
 
     private int nPlayers;
+    private MainBoardStage.CallbackInterface mainboardCallback;
 
     private  CallbackInterface callback;
 
-    CreateRoomStage(CallbackInterface callback){
+    CreateRoomStage(CallbackInterface callback, MainBoardStage.CallbackInterface mainboardCallback){
         this.callback = callback;
+        this.mainboardCallback = mainboardCallback;
         BorderPane root = new BorderPane();
         Label head = new Label("There are no room available, create a new room");
         head.setAlignment(Pos.CENTER);
@@ -42,9 +44,6 @@ public class CreateRoomStage extends JFXPanel{
         players.setAlignment(Pos.CENTER);
         TextField numberText = new TextField();
         numberText.setAlignment(Pos.CENTER);
-        Label message = new Label("Your data are invalid");
-        message.setAlignment(Pos.CENTER);
-        message.setVisible(false);
 
         Button create = new Button("CREATE ROOM");
         create.setOnAction(event -> {
@@ -55,17 +54,16 @@ public class CreateRoomStage extends JFXPanel{
                     Platform.setImplicitExit(false);
                     setVisible(false);
                 }else {
-                    message.setVisible(true);
+                    this.mainboardCallback.showGameException("Your data are not valid");
                 }
             }else{
-                message.setVisible(true);
+                this.mainboardCallback.showGameException("Your data are not valid");
             }
         });
 
         Button clear = new Button("CLEAR");
         clear.setOnAction(e -> {
             numberText.clear();
-            message.setVisible(false);
         });
 
         Button exit = new Button("EXIT");
@@ -77,7 +75,7 @@ public class CreateRoomStage extends JFXPanel{
         HBox buttons = new HBox(HBOX_SPACING);
         buttons.getChildren().addAll(create, exit, clear);
         buttons.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(head, grid, buttons, message);
+        vBox.getChildren().addAll(head, grid, buttons);
         vBox.setAlignment(Pos.CENTER);
         root.setCenter(vBox);
         root.setMargin(vBox, new Insets(INSETS));
@@ -87,7 +85,6 @@ public class CreateRoomStage extends JFXPanel{
     }
 
     private void createNewRoom(){
-        System.out.println("N PLAYERS = " + nPlayers);
         this.callback.createRoom(nPlayers);
     }
 
