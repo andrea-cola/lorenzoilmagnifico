@@ -310,8 +310,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void chooseCouncilPrivilegeForLeader(Player player) {
-        ArrayList<Privilege> privilegesChosen = new ArrayList<>();
-
         Dialog<Pair<String, String>> dialog = new Dialog();
         dialog.setTitle("Council privilege choice");
         dialog.setHeaderText("Choose a council privilege for Leader Card");
@@ -354,7 +352,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
                 i++;
             }
             CouncilPrivilege councilPrivilege = new CouncilPrivilege(5);
-            Privilege[] privileges = councilPrivilege.getPrivileges();
             int choicePrivilege = 0;
             for(int j = 0; j<choicesPrivilege.getItems().size() ; j++)
                 if(choicesPrivilege.getValue().equals(choicesPrivilege.getItems().get(j)))

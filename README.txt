@@ -21,4 +21,4 @@ Leading cards are imported from files but are not configurable, you can change t
 
 Play times are editable in "configuration.json”.
 
-The setup phase is blocking, if a user does not complete the configuration does not part of the game.
+The setup phase is blocking, if a user does not complete the configuration phase, the game won’t start.

@@ -740,5 +740,13 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
         return true;
     }
 
+    /**
+     * Show game exceptions.
+     * @param message error to be shown.
+     */
+    @Override
+    public void showGameException(String message) {
+        Printer.printDebugMessage(message);
+    }
 }
 

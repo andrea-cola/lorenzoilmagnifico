@@ -143,7 +143,7 @@ import java.util.Map;
             userInterface.showGameException(e.getError().toString());
             userInterface.loginScreen();
         }catch (NetworkException e){
-            userInterface.showGameException("Cannot send request");
+            userInterface.showGameException("Cannot send request.");
         }
     }
 
@@ -155,7 +155,7 @@ import java.util.Map;
         try{
             client.joinRoom();
         }catch (RoomException e) {
-            userInterface.showGameException("No rooms available. Create new one.");
+            userInterface.showGameException("No rooms available, create new one.");
             userInterface.createRoomScreen();
         } catch (NetworkException e){
             userInterface.showGameException("Cannot send join room request." + e.getMessage());
