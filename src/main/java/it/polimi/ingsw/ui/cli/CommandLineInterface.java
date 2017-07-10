@@ -267,7 +267,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     }
 
     @Override
-    public DevelopmentCard chooseNewCard(String reason, DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
+    public DevelopmentCard chooseNewCard(String reason,  DevelopmentCardColor[] developmentCardColors, int diceValue, PointsAndResources discount) {
         pause();
         BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         gameScreen = null;
@@ -396,6 +396,11 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     }
 
     @Override
+    public void showGameException(String message) {
+        Printer.printDebugMessage(message);
+    }
+
+    @Override
     public void showMainBoard(){
         Game game = getClient().getGameModel();
         Printer.printInformationMessage(game.toString());
@@ -415,6 +420,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     public void setFamilyMemberInTower(FamilyMemberColor familyMemberColor, int servants, int towerIndex, int cellIndex) {
         Player player = getClient().getPlayer();
         try{
+            getClient().getPlayerTurnChoices().clear();
             moveDone = true;
             getClient().getGameModel().pickupDevelopmentCardFromTower(player, familyMemberColor, servants, towerIndex, cellIndex, this);
             getClient().notifySetFamilyMemberInTower(familyMemberColor, servants, towerIndex, cellIndex);
@@ -432,6 +438,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     public void setFamilyMemberInCouncil(FamilyMemberColor familyMemberColor, int servants){
         Player player = getClient().getPlayer();
         try {
+            getClient().getPlayerTurnChoices().clear();
             moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideCouncilPalace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInCouncil(familyMemberColor, servants);
@@ -446,6 +453,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     public void setFamilyMemberInMarket(FamilyMemberColor familyMemberColor, int servants, int marketIndex) {
         Player player = getClient().getPlayer();
         try{
+            getClient().getPlayerTurnChoices().clear();
             moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideMarket(player,familyMemberColor,marketIndex, servants, this);
             getClient().notifySetFamilyMemberInMarket(familyMemberColor, servants, marketIndex);
@@ -460,6 +468,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     public void setFamilyMemberInProductionSimple(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
         try {
+            getClient().getPlayerTurnChoices().clear();
             moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideProductionSimpleSpace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInProductionSimple(familyMemberColor, servants);
@@ -474,6 +483,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     public void setFamilyMemberInHarvestSimple(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
         try{
+            getClient().getPlayerTurnChoices().clear();
             moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideHarvestSimpleSpace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInHarvestSimple(familyMemberColor, servants);
@@ -488,6 +498,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     public void setFamilyMemberInProductionExtended(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
         try{
+            getClient().getPlayerTurnChoices().clear();
             moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideProductionExtendedSpace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInProductionExtended(familyMemberColor, servants);
@@ -502,6 +513,7 @@ public class CommandLineInterface extends AbstractUserInterface implements GameS
     public void setFamilyMemberInHarvestExtended(FamilyMemberColor familyMemberColor, int servants) {
         Player player = getClient().getPlayer();
         try{
+            getClient().getPlayerTurnChoices().clear();
             moveDone = true;
             getClient().getGameModel().placeFamilyMemberInsideHarvestExtendedSpace(player, familyMemberColor, servants, this);
             getClient().notifySetFamilyMemberInHarvestExtended(familyMemberColor, servants);

@@ -2,13 +2,7 @@ package it.polimi.ingsw.gameserver;
 
 import it.polimi.ingsw.exceptions.GameException;
 import it.polimi.ingsw.exceptions.NetworkException;
-import it.polimi.ingsw.model.ClientUpdatePacket;
-import it.polimi.ingsw.model.FamilyMemberColor;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.PersonalBoardTile;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PointType;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.utility.Configuration;
 import it.polimi.ingsw.utility.Printer;
 import it.polimi.ingsw.exceptions.RoomException;
@@ -174,6 +168,13 @@ public class Room {
             try {
                 Game game = gameManager.getGameModel();
                 game.pickupDevelopmentCardFromTower(player, familyMemberColor, servants, towerIndex, cellIndex, gameManager.getInformationChoicesHandler());
+                if(gameManager.getInformationChoicesHandler().getDecisions("choose-new-card") != null){
+                    DevelopmentCard developmentCard = (DevelopmentCard)gameManager.getInformationChoicesHandler().getDecisions("choose-new-card");
+                    for(Tower tower : game.getMainBoard().getTowers())
+                        for(TowerCell cell : tower.getTowerCells())
+                            if(cell.getDevelopmentCard().getName().equalsIgnoreCase(developmentCard.getName()))
+                                cell.setPlayerNicknameInTheCell(player.getUsername());
+                }
                 String message = player.getUsername() + " set a family member in " + game.getMainBoard().getTower(towerIndex).getColor().toString().toLowerCase()
                         + " tower and picked up " + game.getMainBoard().getTower(towerIndex).getTowerCell(cellIndex).getDevelopmentCard().getName() + ".";
                 clientUpdatePacket.setMessage(message);
@@ -331,8 +332,11 @@ public class Room {
     }
 
     public void onSupportToTheChurchChoice(ServerPlayer player, boolean flag){
-        gameManager.applySupportChoice(player, flag);
-        countDownLatch.countDown();
+        if(playerTurn.currentPlayer().getUsername().equals(player.getUsername())){
+            gameManager.applySupportChoice(player, flag);
+            playerTurn.stopTimer();
+        }
+
     }
 
     public void endTurn(ServerPlayer player) {
@@ -455,13 +459,9 @@ public class Room {
             if(turn % 2 == 0) {
                 for(ServerPlayer player : players){
                     try {
-                        if(gameManager.finalControlsForPeriod(age, player)){
-                            playerTurn = new PlayerTurn(player);
-                            player.supportForTheChurch(true);
-                            playerTurn.startTimer(maxMoveWaitingTime);
-                        }
-                        else
-                            player.supportForTheChurch(false);
+                        playerTurn = new PlayerTurn(player);
+                        player.supportForTheChurch(gameManager.finalControlsForPeriod(age, player));
+                        playerTurn.startTimer(maxMoveWaitingTime);
                     } catch (NetworkException e){
                         Printer.printDebugMessage(this.getClass().getSimpleName(), player.getUsername() + " won't receive excommunication choice message..");
                     }

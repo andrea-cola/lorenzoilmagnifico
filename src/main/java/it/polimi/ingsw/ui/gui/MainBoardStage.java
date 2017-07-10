@@ -3,13 +3,10 @@ package it.polimi.ingsw.ui.gui;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.ui.UserInterface;
 import it.polimi.ingsw.utility.Printer;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
@@ -78,7 +75,6 @@ import java.util.List;
         this.client = client;
         this.turn = turn;
         this.usedMember = usedMember;
-        System.out.println(usedMember);
 
         this.callback = callback;
         this.informationCallback = informationCallback;
@@ -148,10 +144,10 @@ import java.util.List;
         Button leaderCardsButton = new Button("LEADER CARDS");
         leaderCardsButton.setAlignment(Pos.CENTER);
         if(turn)
-            leaderCardsButton.setOnMouseClicked(event -> callback.showLeaderCards(player, leaderCardsButton));
-        Button discardLeader = new Button("DISCARD LEADER");
-        discardLeader.setAlignment(Pos.CENTER);
-        //discardLeader.setOnMouseClicked();
+            leaderCardsButton.setOnMouseClicked(event -> callback.showLeaderCards(player));
+        Button discardLeaderButton = new Button("DISCARD LEADER");
+        discardLeaderButton.setAlignment(Pos.CENTER);
+        discardLeaderButton.setOnMouseClicked(event-> callback.chooseCouncilPrivilegeForLeader(player));
 
         Circle redMember = new Circle(FAMILY_RADIUS);
         redMember.setFill(Color.rgb(200, 110, 34));
@@ -261,13 +257,14 @@ import java.util.List;
         pointsTable.add(new Label(Integer.toString(game.getAge())), 1, 7);
 
 
-        pointsTable.add(new Label("Excommunications: "), 0, 8);
-        List<ExcommunicationCard> exCards = player.getPersonalBoard().getExcommunivationCards();
-        StringBuilder cardsID = new StringBuilder();
-        if (exCards.size()>0)
-            for (ExcommunicationCard exCard : exCards)
-                cardsID.append(exCard.getPeriod());
-        pointsTable.add(new Label(cardsID.toString()), 1 ,8);
+        pointsTable.add(new Label("Excom: "), 0, 8);
+        List<ExcommunicationCard> exCards = player.getPersonalBoard().getExcommunicationCards();
+        StringBuilder cardsExcom = new StringBuilder();
+        if (!exCards.isEmpty())
+            for (ExcommunicationCard exCard : exCards) {
+                cardsExcom.append(exCard.getPeriod() + ", ");
+            }
+        pointsTable.add(new Label(cardsExcom.toString()), 1 ,8);
 
         Separator separator = new Separator(Orientation.HORIZONTAL);
         Separator separator1 = new Separator(Orientation.HORIZONTAL);
@@ -316,7 +313,7 @@ import java.util.List;
         if(turn) {
             endTurnButton.setOnAction(event -> callback.notifyEndTurnStage());
         }
-        vBox.getChildren().addAll(personalBoardButton, personalTileButton, leaderCardsButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable, separator3, servantsBox, endTurnButton);
+        vBox.getChildren().addAll(personalBoardButton, personalTileButton, leaderCardsButton, discardLeaderButton, separator, redPane, blackPane, whitePane, neutralPane, separator1, turnBox, separator2, pointsTable, separator3, servantsBox, endTurnButton);
         vBox.setAlignment(Pos.CENTER);
         rightPane.setCenter(vBox);
         rightPane.setMargin(vBox, new Insets(INSETS));
@@ -333,12 +330,10 @@ import java.util.List;
             clipboardContent.putString(source.toString());
             db.setContent(clipboardContent);
             event.consume();
-            System.out.println("onDragDetected");
+
         });
         source.setOnDragDone(event -> {
-            System.out.println("onDragDone");
             if (event.getTransferMode() == TransferMode.MOVE) {
-
             }
             event.consume();
         });
@@ -379,7 +374,7 @@ import java.util.List;
 
         void showPersonalTileBoardStage(Player player);
 
-        void showLeaderCards(Player player, Button leaderCardButton);
+        void showLeaderCards(Player player);
 
         void showGameException(String message);
 
@@ -388,8 +383,6 @@ import java.util.List;
         void notifyEndTurnStage();
 
         void activeLeaderCard(String leaderName, int servants);
-
-        void discardLeader(String leaderName);
 
         void updateMainBoard();
 

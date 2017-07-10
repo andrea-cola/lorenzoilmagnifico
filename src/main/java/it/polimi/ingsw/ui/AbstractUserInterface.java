@@ -40,4 +40,6 @@ public abstract class AbstractUserInterface {
     public abstract void supportForTheChurch(boolean flag);
 
     public abstract void notifyEndGame(ServerPlayer[] ranking);
+
+    public abstract void showGameException(String message);
 }

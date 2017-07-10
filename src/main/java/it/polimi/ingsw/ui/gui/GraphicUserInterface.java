@@ -9,16 +9,20 @@ import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.PersonalBoardTile;
 import it.polimi.ingsw.server.ServerPlayer;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.layout.GridPane;
+import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
+import javafx.util.Pair;
+import javafx.scene.control.Label;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -55,7 +59,6 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     private MainBoardStage mainBoardStage;
 
     private boolean usedMember;
-    private Button leaderCardButton;
     /**
      * Constructor
      * @param controller
@@ -80,13 +83,11 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
     private void addStagesToPanel(){
         startingStage = new StartingStage();
         mainPanel.add(startingStage, START);
-        chooseConnectionStage = new ChooseConnectionStage(getClient()::setNetworkSettings);
+        chooseConnectionStage = new ChooseConnectionStage(getClient()::setNetworkSettings, this);
         mainPanel.add(chooseConnectionStage, CONNECTION);
-        loginStage = new LoginStage(getClient()::loginPlayer);
-        mainPanel.add(loginStage, LOGIN);
         joinRoomStage = new JoinRoomStage(getClient()::joinRoom);
         mainPanel.add(joinRoomStage, JOIN_ROOM);
-        createRoomStage = new CreateRoomStage(getClient()::createRoom);
+        createRoomStage = new CreateRoomStage(getClient()::createRoom, this);
         mainPanel.add(createRoomStage, CREATE_ROOM);
     }
 
@@ -119,6 +120,8 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void loginScreen() {
+        loginStage = new LoginStage(getClient()::loginPlayer, this);
+        mainPanel.add(loginStage, LOGIN);
         cardLayout.show(mainPanel, LOGIN);
     }
 
@@ -234,17 +237,24 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
 
     @Override
     public void notifyEndGame(ServerPlayer[] ranking) {
-        EventQueue.invokeLater(() -> {
-            GridLayout grid = new GridLayout(0, 2);
-            JPanel panel = new JPanel();
-            panel.setLayout(grid);
-            for(int i = 0; i <ranking.length; i++){
-                JLabel name = new JLabel(ranking[i].getUsername() + ": ");
-                panel.add(name);
-                JLabel points = new JLabel("" + ranking[i].getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY).toString());
-                panel.add(points);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("End Game");
+                alert.setHeaderText("Player points");
+                GridPane points = new GridPane();
+                points.setAlignment(Pos.CENTER);
+                points.setHgap(10);
+                points.setVgap(10);
+                points.setPadding(new Insets(20, 150, 10, 10));
+                for (int i = 0; i <ranking.length ; i++) {
+                    points.add(new Label(ranking[i].getUsername() + ": "), 0, i);
+                    points.add(new Label("" + ranking[i].getPersonalBoard().getValuables().getPoints().get(PointType.VICTORY).toString()), 1, i);
+                }
+                alert.getDialogPane().setContent(points);
+                alert.showAndWait();
             }
-            JOptionPane.showMessageDialog(null, panel, "End Game", JOptionPane.INFORMATION_MESSAGE);
         });
     }
 
@@ -254,7 +264,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
             JFrame jframe = new JFrame();
             jframe.setResizable(false);
             jframe.add(new PersonalBoardStage(player), BorderLayout.CENTER);
-            jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jframe.pack();
             jframe.setVisible(true);
 
@@ -266,19 +276,18 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         SwingUtilities.invokeLater(() -> {
             JFrame jframe = new JFrame();
             jframe.add(new PersonalTileBoardStage(player), BorderLayout.CENTER);
-            jframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jframe.pack();
             jframe.setVisible(true);
         });
     }
 
     @Override
-    public void showLeaderCards(Player player, Button leaderCardButton) {
-        this.leaderCardButton = leaderCardButton;
+    public void showLeaderCards(Player player) {
         SwingUtilities.invokeLater(() -> {
-            leaderFrame = new JFrame();
-            leaderFrame.add(new LeaderCardStage(this, player, leaderCardButton), BorderLayout.CENTER);
-            leaderFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            JFrame leaderFrame = new JFrame();
+            leaderFrame.add(new LeaderCardStage(this, player), BorderLayout.CENTER);
+            leaderFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             leaderFrame.pack();
             leaderFrame.setVisible(true);
         });
@@ -289,25 +298,84 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Your data are not valid");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Warning Information");
                 alert.setContentText(message);
                 alert.showAndWait();
-                }
-            });
-        leaderFrame.dispose();
-        leaderCardButton.setDisable(false);
+            }
+        });
     }
 
     @Override
     public void chooseCouncilPrivilegeForLeader(Player player) {
+        ArrayList<Privilege> privilegesChosen = new ArrayList<>();
+
+        Dialog<Pair<String, String>> dialog = new Dialog();
+        dialog.setTitle("Council privilege choice");
+        dialog.setHeaderText("Choose a council privilege for Leader Card");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+        List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
+        ChoiceBox<String> choicesLeader = new ChoiceBox<>();
+        int k = 0;
+        for (LeaderCard leaderCard : leaderCards){
+            choicesLeader.getItems().add(k, leaderCard.getLeaderCardName());
+            k++;
+        }
+        choicesLeader.getSelectionModel().selectFirst();
+        ChoiceBox<String> choicesPrivilege = new ChoiceBox<>();
+        choicesPrivilege.getItems().add("1 wood & 1 servant");
+        choicesPrivilege.getItems().add("2 servants");
+        choicesPrivilege.getItems().add("2 coins");
+        choicesPrivilege.getItems().add("2 military points");
+        choicesPrivilege.getItems().add("2 faiths points");
+        choicesPrivilege.getSelectionModel().selectFirst();
+        grid.add(choicesLeader, 0, 1);
+        grid.add(choicesPrivilege, 1, 1);
+        dialog.getDialogPane().setContent(grid);
+        dialog.setResultConverter(dialogButton-> {
+            if (dialogButton == ButtonType.OK)
+                return new Pair<>(choicesLeader.getValue(), choicesPrivilege.getValue());
+            return null;
+        });
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+        if(result.isPresent()) {
+            int choiceLeader = 0;
+            int i = 0;
+            for(LeaderCard leaderCard : leaderCards) {
+                if (leaderCard.getLeaderCardName().equals(result.get().getKey()))
+                    choiceLeader = i;
+                i++;
+            }
+            CouncilPrivilege councilPrivilege = new CouncilPrivilege(5);
+            Privilege[] privileges = councilPrivilege.getPrivileges();
+            int choicePrivilege = 0;
+            for(int j = 0; j<choicesPrivilege.getItems().size() ; j++)
+                if(choicesPrivilege.getValue().equals(choicesPrivilege.getItems().get(j)))
+                    choicePrivilege = j;
+            Privilege privilege = councilPrivilege.getPrivileges()[choicePrivilege];
+            getClient().getGameModel().discardLeaderCard(player, choiceLeader, privilege);
+            updateMainBoard();
+        }
     }
 
     @Override
     public void notifyEndTurnStage() {
         getClient().endTurn();
-        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Your turn is ended, it takes the next one.", "Notification", JOptionPane.INFORMATION_MESSAGE));
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Notification");
+                alert.setHeaderText("Your turn is ended, it takes the next one.");
+                alert.showAndWait();
+            }
+        });
     }
 
     @Override
@@ -323,61 +391,52 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
             getClient().getGameModel().activateLeaderCard(player, i, servants, this);
             getClient().notifyActivateLeader(i, servants);
             leaderFrame.dispose();
-            leaderCardButton.setDisable(false);
         } catch (GameException e) {
-            showGameException(e.getMessage());
+            showGameException(e.getError().toString());
         }
-    }
-
-    @Override
-    public void discardLeader(String leaderName) {
-        Player player = getClient().getPlayer();
-        int i = 0;
-        List<LeaderCard> leaderCards = player.getPersonalBoard().getLeaderCards();
-        for (LeaderCard leaderCard : leaderCards) {
-            if (leaderCard.getLeaderCardName().equalsIgnoreCase(leaderName))
-                break;
-            i++;
-        }
-        getClient().getGameModel().discardLeaderCard(player, i, this);
-        getClient().notifyDiscardLeader(i);
-        leaderFrame.dispose();
-        leaderCardButton.setDisable(false);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {
-        List<String> choices;
         ArrayList<Privilege> privilegesChosen = new ArrayList<>();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Council Privilege");
+        alert.setHeaderText("Choose " + councilPrivilege.getNumberOfCouncilPrivileges() + " council privilege");
+        HBox content = new HBox(20);
+        content.setPadding(new Insets(20, 150, 10, 10));
 
-        for(int i = 0; i < councilPrivilege.getNumberOfCouncilPrivileges(); i++){
-            choices = new ArrayList<>();
-            choices.add("1 wood & 1 servant");
-            choices.add("2 servants");
-            choices.add("2 coins");
-            choices.add("2 military points");
-            choices.add("2 faiths points");
-            ChoiceDialog<String> dialog = new ChoiceDialog<>("1 wood & 1 servant", choices);
-            dialog.setTitle("Council privilege choice");
-            dialog.setHeaderText("You still have to choose " + (councilPrivilege.getNumberOfCouncilPrivileges() - i)
-                    + " council privileges.");
-            dialog.setContentText("Choose your privilege:");
-            Optional<String> result = dialog.showAndWait();
-            int choice = 0;
-            if(result.isPresent()) {
-                for(int j = 0; j < choices.size(); j++)
-                    if(choices.get(j).equals(result.get()))
-                        choice = j;
-                privilegesChosen.add(councilPrivilege.getPrivileges()[choice]);
+        CheckBox checkBox = new CheckBox("1 wood & 1 servant");
+        CheckBox checkBox1 = new CheckBox("2 servants");
+        CheckBox checkBox2 = new CheckBox("2 coins");
+        CheckBox checkBox3 = new CheckBox("2 military points");
+        CheckBox checkBox4 = new CheckBox("2 faiths points");
+        content.getChildren().addAll(checkBox, checkBox1, checkBox2, checkBox3, checkBox4);
+
+        alert.getDialogPane().setContent(content);
+        alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent())
+            if (result.get() == ButtonType.OK) {
+                if(checkBox.isSelected())
+                    privilegesChosen.add(councilPrivilege.getPrivileges()[0]);
+                if(checkBox1.isSelected())
+                    privilegesChosen.add(councilPrivilege.getPrivileges()[1]);
+                if(checkBox2.isSelected())
+                    privilegesChosen.add(councilPrivilege.getPrivileges()[2]);
+                if(checkBox3.isSelected())
+                    privilegesChosen.add(councilPrivilege.getPrivileges()[3]);
+                if(checkBox4.isSelected())
+                    privilegesChosen.add(councilPrivilege.getPrivileges()[4]);
             }
-        }
-        if(getClient().getPlayerTurnChoices().containsKey(reason)) {
-            ArrayList<Privilege> arrayList = (ArrayList<Privilege>)getClient().getPlayerTurnChoices().get(reason);
+        privilegesChosen = new ArrayList<>(privilegesChosen.subList(0, councilPrivilege.getNumberOfCouncilPrivileges()));
+        if (getClient().getPlayerTurnChoices().containsKey(reason)) {
+            ArrayList<Privilege> arrayList = (ArrayList<Privilege>) getClient().getPlayerTurnChoices().get(reason);
             arrayList.addAll(privilegesChosen);
-        } else {
+        }else
             getClient().setPlayerTurnChoices(reason, privilegesChosen);
-        }
+        updateMainBoard();
         return privilegesChosen;
     }
 
@@ -398,6 +457,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
                     choice = j + 1;
         }
         getClient().setPlayerTurnChoices("double-cost", choice);
+        updateMainBoard();
         return choice;
     }
 
@@ -407,9 +467,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         for(int i = 0; i < valuableToPay.length; i++){
             choices.add(valuableToPay[i] + " -> " + valuableToEarn[i]);
         }
-        choices.add("Pay in resources");
-        choices.add("Pay in military points");
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("Pay in resources", choices);
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(valuableToPay[0] +" -> " + valuableToEarn[0] , choices);
         dialog.setTitle("Choose double cost");
         dialog.setHeaderText("Choose between two costs.");
         dialog.setContentText("Choose your letter:");
@@ -418,9 +476,10 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         if(result.isPresent()) {
             for(int j = 0; j < choices.size(); j++)
                 if(choices.get(j).equals(result.get()))
-                    choice = j + 1;
+                    choice = j;
         }
         getClient().setPlayerTurnChoices(card, choice);
+        updateMainBoard();
         return choice;
     }
 
@@ -442,6 +501,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
                     choice = j;
         }
         getClient().setPlayerTurnChoices(reason, choice);
+        updateMainBoard();
         return choice;
     }
 
@@ -455,7 +515,8 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
         for (DevelopmentCardColor developmentCardColor : developmentCardColors) {
             int newDiceValue = diceValue + getClient().getPlayer().getPersonalBoard().getDevelopmentCardColorDiceValueBonus().get(developmentCardColor) - getClient().getPlayer().getPersonalBoard().getExcommunicationValues().getDevelopmentCardDiceMalus().get(developmentCardColor);
             for (Tower tower : mainBoard.getTowers())
-                if (tower.getColor().equals(developmentCardColor)) for (TowerCell towerCell : tower.getTowerCells())
+                if (tower.getColor().equals(developmentCardColor))
+                    for (TowerCell towerCell : tower.getTowerCells())
                     if (towerCell.getPlayerNicknameInTheCell() == null && towerCell.getMinFamilyMemberValue() <= newDiceValue && isSelectable(towerCell, discount)) {
                         selectable.add(towerCell.getDevelopmentCard());
                         choices.add(towerCell.getDevelopmentCard().getName());
@@ -491,6 +552,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
                         towerCell.getTowerCellImmediateEffect().runEffect(getClient().getPlayer(), this);
                 }
         getClient().setPlayerTurnChoices(reason, choice);
+        updateMainBoard();
         return choice;
     }
 
@@ -518,6 +580,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
                     choice = leaderCards.get(i);
         }
         getClient().getPlayerTurnChoices().put(reason, choice);
+        updateMainBoard();
         return choice;
     }
 
@@ -539,6 +602,7 @@ public class GraphicUserInterface extends AbstractUserInterface implements MainB
                 if(choices.get(j).equals(result.get()))
                     choice = FamilyMemberColor.values()[j];
             getClient().getPlayerTurnChoices().put(reason, choice);
+            updateMainBoard();
         }
         return choice;
     }

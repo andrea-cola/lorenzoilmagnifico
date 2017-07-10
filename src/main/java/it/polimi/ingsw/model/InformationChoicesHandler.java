@@ -30,6 +30,10 @@ public class InformationChoicesHandler implements InformationCallback {
         this.decisions = playerChoices;
     }
 
+    public Object getDecisions(String s){
+        return decisions.get(s);
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> chooseCouncilPrivilege(String reason, CouncilPrivilege councilPrivilege) {

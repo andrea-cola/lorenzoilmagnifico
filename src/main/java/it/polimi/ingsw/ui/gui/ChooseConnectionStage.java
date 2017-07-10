@@ -43,14 +43,16 @@ public class ChooseConnectionStage extends JFXPanel{
     private String type;
     private int port;
     private String address;
+    private MainBoardStage.CallbackInterface mainboardCallback;
 
     /**
      * Constructor for the ChooseConnectionStage
      *
      * @param callback
      */
-    ChooseConnectionStage(CallbackInterface callback) {
+    ChooseConnectionStage(CallbackInterface callback, MainBoardStage.CallbackInterface mainboardCallback) {
         this.callback = callback;
+        this.mainboardCallback = mainboardCallback;
 
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
@@ -69,9 +71,6 @@ public class ChooseConnectionStage extends JFXPanel{
         choiceBox.getItems().add("RMI");
         choiceBox.getItems().add("SOCKET");
 
-        Label messagge = new Label("Your data are not valid");
-        messagge.setVisible(false);
-
         Label labelAddr = new Label("Address");
         labelAddr.setAlignment(Pos.CENTER);
         labelAddr.setStyle(FONT);
@@ -84,15 +83,13 @@ public class ChooseConnectionStage extends JFXPanel{
             if (!text.getText().equals("") && choiceBox.getValue()!= null) {
                 type = (String) choiceBox.getValue();
                 address = text.getText();
-                System.out.print("ADDRESS: " + address + " & TYPE: " + type + "\n");
                 doConnect();
                 setFinished(true);
                 setVisible(false);
             }else{
-                messagge.setVisible(true);
+                this.mainboardCallback.showGameException("Your data are not valid");
             }
         });
-
 
         ImageView imageView = new ImageView("images/ChooseConnectionStageCover.png");
         imageView.setFitHeight(IMAGE_HEIGHT);
@@ -103,7 +100,6 @@ public class ChooseConnectionStage extends JFXPanel{
         clear.setOnAction(e -> {
             text.clear();
             choiceBox.setValue(null);
-            messagge.setVisible(false);
         });
 
         Button exit = new Button("EXIT");
@@ -122,10 +118,9 @@ public class ChooseConnectionStage extends JFXPanel{
         hBox1.getChildren().addAll(imageView, pane);
         hBox2.getChildren().addAll(connect, exit, clear);
 
-        vBox.getChildren().addAll(hBox1, hBox2, messagge);
-        Group root = new Group();
-        root.getChildren().addAll(vBox);
-        root.autosize();
+        vBox.getChildren().addAll(hBox1, hBox2);
+        BorderPane root = new BorderPane();
+        root.setCenter(vBox);
         Scene scene = new Scene(root);
         this.setScene(scene);
     }
@@ -150,7 +145,8 @@ public class ChooseConnectionStage extends JFXPanel{
         try {
             this.callback.setNetworkSettings(connectionType, address, port);
         } catch (ConnectionException e) {
-            Printer.printDebugMessage(this.getClass().getSimpleName(), "Error during connection.");
+            this.mainboardCallback.showGameException("Error during connection");
+
         }
     }
 

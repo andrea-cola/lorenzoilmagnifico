@@ -3,6 +3,7 @@ package it.polimi.ingsw.gameserver;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ServerPlayer;
 import it.polimi.ingsw.utility.Configuration;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.util.*;
 
@@ -316,11 +317,10 @@ import java.util.*;
         this.informationChoicesHandler.setDecisions(playerChoices);
     }
 
-    /*package-private*/ boolean finalControlsForPeriod(int period, ServerPlayer player){
+  /*package-private*/ boolean finalControlsForPeriod(int period, ServerPlayer player){
         int faithPointsRequired = this.game.getMainBoard().getVatican().getExcommunicationCheckPoint(period);
         //check if the player gets the excommunication effect
         if (player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH) <= faithPointsRequired) {
-            excommunicationForPlayer(player, period);
             return false;
         }
         return true;
@@ -329,7 +329,7 @@ import java.util.*;
     /*package-private*/ void applySupportChoice(ServerPlayer player, boolean flag){
         if(!flag){
             player.getPersonalBoard().getValuables().increase(PointType.VICTORY, this.victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
-            if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
+            if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV") != null && player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
                 player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getEffect().runEffect(player, this.informationChoicesHandler);
             player.getPersonalBoard().getValuables().decrease(PointType.FAITH, player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH));
         } else {
@@ -340,6 +340,7 @@ import java.util.*;
     private void excommunicationForPlayer(Player player, int period){
         ExcommunicationCard excommunicationCard = this.game.getMainBoard().getVatican().getExcommunicationCard(period - 1);
         excommunicationCard.getEffect().runEffect(player);
+        player.getPersonalBoard().addExcommunicationCard(excommunicationCard);
     }
 
     /**
@@ -486,7 +487,7 @@ import java.util.*;
         EnumMap<ResourceType, Integer> totalCardResourcesCost = new EnumMap<>(ResourceType.class);
         for (DevelopmentCard card: player.getPersonalBoard().getCards(DevelopmentCardColor.YELLOW)){
             for (Map.Entry<ResourceType, Integer> entry : card.getCost().getResources().entrySet()){
-                totalCardResourcesCost.put(entry.getKey(), totalCardResourcesCost.get(entry.getKey()) + entry.getValue());
+                totalCardResourcesCost.put(entry.getKey(), entry.getValue());
             }
         }
         //decrease victory points
