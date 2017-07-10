@@ -2,17 +2,30 @@ package it.polimi.ingsw.ui.cli;
 
 import it.polimi.ingsw.model.FamilyMemberColor;
 
+/**
+ * Main game screen.
+ */
 /*package-local*/ class GameScreen extends BasicGameScreen {
 
+    /**
+     * Callback interface.
+     */
     private GameCallback callback;
 
-    GameScreen(GameCallback callback){
+    /**
+     * Class constructor.
+     * @param callback to ui.
+     */
+    /*package-local*/ GameScreen(GameCallback callback){
         this.callback = callback;
         printScreenTitle("BASE MENU");
         addOption("mainboard", "'mainboard' show game main board", parameters -> callback.showMainBoard());
         addOption("boards", "'boards' show player personal boards", parameters -> callback.showPersonalBoards());
     }
 
+    /**
+     * Callback interface.
+     */
     public interface GameCallback {
 
         void  showMainBoard();

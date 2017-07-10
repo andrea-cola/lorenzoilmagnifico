@@ -427,6 +427,8 @@ import java.util.Map;
     @Override
     public void supportForTheChurch(boolean flag) {
         userInterface.supportForTheChurch(flag);
+        if(!flag)
+            this.notifyExcommunicationChoice(true);
     }
 
     /**

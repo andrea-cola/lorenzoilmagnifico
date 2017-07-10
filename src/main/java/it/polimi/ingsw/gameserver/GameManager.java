@@ -365,7 +365,7 @@ import java.util.*;
     /*package-private*/ void applySupportChoice(ServerPlayer player, boolean flag){
         if(!flag){
             player.getPersonalBoard().getValuables().increase(PointType.VICTORY, this.victoryPointsBonusForFaith[player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH)-1]);
-            if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
+            if(player.getPersonalBoard().getLeaderCardWithName("Sisto IV") != null && player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getLeaderEffectActive())
                 player.getPersonalBoard().getLeaderCardWithName("Sisto IV").getEffect().runEffect(player, this.informationChoicesHandler);
             player.getPersonalBoard().getValuables().decrease(PointType.FAITH, player.getPersonalBoard().getValuables().getPoints().get(PointType.FAITH));
         } else {
